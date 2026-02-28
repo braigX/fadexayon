@@ -6,6 +6,7 @@ const CustomizationModule = (() => {
     // const invirement = 'development';
 
     var svg, shapeGroup;
+    var suppressCutInternalDimensions = false;
     var cube = {
         on: false,
         scoleColor: '#000000',
@@ -2955,6 +2956,8 @@ const CustomizationModule = (() => {
         function cut(type = 12) {
             shaper = cutoutGroup;
             arrows = cutoutDems;
+            let outsideCutShapeDims = null;
+            suppressCutInternalDimensions = [1, 2, 3, 11].includes(type);
             var extra = 0;
             if (shapeSettings.type == 12) {
                 extra = scale(getValue('text_56', 80));
@@ -2975,6 +2978,17 @@ const CustomizationModule = (() => {
                 var cutHeight = getValue('text_39', 500);
                 
                 rect_draw(cutWidth, cutHeight, drawRadius1, drawRadius2, drawRadius3, drawRadius4, 2, cutoutX, cutoutY);
+                const rectHalfW = scale(cutWidth) / 2;
+                const rectHalfH = scale(cutHeight) / 2;
+                outsideCutShapeDims = {
+                    shape: 'rect',
+                    left: cutoutX - rectHalfW,
+                    right: cutoutX + rectHalfW,
+                    top: cutoutY - rectHalfH,
+                    bottom: cutoutY + rectHalfH,
+                    widthMM: cutWidth,
+                    heightMM: cutHeight
+                };
                 
                 // var cutRadius = getValue('text_75', 0);
                 // rect(cutWidth, cutHeight, cutRadius, 2, cutoutX, cutoutY);
@@ -2984,11 +2998,27 @@ const CustomizationModule = (() => {
                 case 2:
                     var cutRadiusCircle = getValue('text_45', 30);
                     circle(cutRadiusCircle, 2, cutoutX, cutoutY);
+                    const circleRadius = scale(cutRadiusCircle / 2);
+                    outsideCutShapeDims = {
+                        shape: 'circle',
+                        centerX: cutoutX,
+                        centerY: cutoutY,
+                        radius: circleRadius,
+                        diameterMM: cutRadiusCircle
+                    };
                     perimeter2 = Math.PI * cutRadiusCircle;
                     break;
                 case 3:
                     var cutRadiusCircle = getValue('text_45', 50);
                     halfCircle(cutRadiusCircle, 2, cutoutX, cutoutY);
+                    const halfRadius = scale(cutRadiusCircle / 2);
+                    outsideCutShapeDims = {
+                        shape: 'halfcircle',
+                        centerX: cutoutX,
+                        centerY: cutoutY,
+                        radius: halfRadius,
+                        diameterMM: cutRadiusCircle
+                    };
                     perimeter2 = (Math.PI * cutRadiusCircle / 2) + cutRadiusCircle;
                     break;
                 case 4:
@@ -3039,6 +3069,20 @@ const CustomizationModule = (() => {
                 case 11:
                     var cutRadiusCircle = getValue('text_45', 30);
                     hexagon(cutRadiusCircle, 2, cutoutX, cutoutY);
+                    const hexSide = scale(cutRadiusCircle);
+                    const hexHeight = hexSide * Math.sqrt(3);
+                    const hexStartX = cutoutX - hexSide;
+                    const hexStartY = cutoutY - hexHeight / 2;
+                    outsideCutShapeDims = {
+                        shape: 'hexagon',
+                        startX: hexStartX,
+                        startY: hexStartY,
+                        side: hexSide,
+                        height: hexHeight,
+                        sideMM: cutRadiusCircle,
+                        widthMM: cutRadiusCircle * 2,
+                        heightMM: (cutRadiusCircle * Math.sqrt(3)).toFixed(2)
+                    };
                     perimeter2 = cutRadiusCircle * 6;
                     break;
                 case 12: // tailWidth, headWidth, tailHeight, headHeight
@@ -3063,9 +3107,11 @@ const CustomizationModule = (() => {
                     break;
                 default:
                     withArrows = false;
+                    outsideCutShapeDims = null;
                     perimeter2 = 0;
                     break;
             }
+            suppressCutInternalDimensions = false;
 
             var rotation = getValue('text_42', 0);
             var cutoutContainer = svg.select("#couOutMain");
@@ -3093,6 +3139,76 @@ const CustomizationModule = (() => {
                 arrowsGroup.line(cutoutX, cutoutY, cutoutX, topGuideY).attr(connectorAttrs);
                 arrowsGroup.line(cutoutX, 0, leftGuideX, 0).attr(connectorAttrs);
                 arrowsGroup.line(cutoutX, cutoutY, leftGuideX, cutoutY).attr(connectorAttrs);
+
+                const cutDimTopY = topGuideY - offset;
+                const cutDimTop2Y = cutDimTopY - offset;
+                const cutDimLeftX = leftGuideX - offset;
+
+                if (outsideCutShapeDims && outsideCutShapeDims.shape === 'rect') {
+                    drawDimensionWithText(
+                        outsideCutShapeDims.left, cutDimTopY,
+                        outsideCutShapeDims.right, cutDimTopY,
+                        `${idxr_tr_width}: `, `${outsideCutShapeDims.widthMM} mm`, '', 2
+                    );
+                    drawDimensionWithText(
+                        cutDimLeftX, outsideCutShapeDims.top,
+                        cutDimLeftX, outsideCutShapeDims.bottom,
+                        `${idxr_tr_height}: `, `${outsideCutShapeDims.heightMM} mm`, 'vertical', 2
+                    );
+
+                    arrowsGroup.line(outsideCutShapeDims.left, outsideCutShapeDims.top, outsideCutShapeDims.left, cutDimTopY).attr(connectorAttrs);
+                    arrowsGroup.line(outsideCutShapeDims.right, outsideCutShapeDims.top, outsideCutShapeDims.right, cutDimTopY).attr(connectorAttrs);
+                    arrowsGroup.line(outsideCutShapeDims.left, outsideCutShapeDims.top, cutDimLeftX, outsideCutShapeDims.top).attr(connectorAttrs);
+                    arrowsGroup.line(outsideCutShapeDims.left, outsideCutShapeDims.bottom, cutDimLeftX, outsideCutShapeDims.bottom).attr(connectorAttrs);
+                } else if (outsideCutShapeDims && outsideCutShapeDims.shape === 'circle') {
+                    const lx = outsideCutShapeDims.centerX - outsideCutShapeDims.radius;
+                    const rx = outsideCutShapeDims.centerX + outsideCutShapeDims.radius;
+                    drawDimensionWithText(
+                        lx, cutDimTopY,
+                        rx, cutDimTopY,
+                        `${idxr_tr_diameter}: `, `${outsideCutShapeDims.diameterMM} mm`, '', 2
+                    );
+                    arrowsGroup.line(lx, outsideCutShapeDims.centerY, lx, cutDimTopY).attr(connectorAttrs);
+                    arrowsGroup.line(rx, outsideCutShapeDims.centerY, rx, cutDimTopY).attr(connectorAttrs);
+                } else if (outsideCutShapeDims && outsideCutShapeDims.shape === 'halfcircle') {
+                    const lx = outsideCutShapeDims.centerX - outsideCutShapeDims.radius;
+                    const rx = outsideCutShapeDims.centerX + outsideCutShapeDims.radius;
+                    drawDimensionWithText(
+                        lx, cutDimTopY,
+                        rx, cutDimTopY,
+                        `${idxr_tr_diameter}: `, `${outsideCutShapeDims.diameterMM} mm`, '', 2
+                    );
+                    arrowsGroup.line(lx, outsideCutShapeDims.centerY, lx, cutDimTopY).attr(connectorAttrs);
+                    arrowsGroup.line(rx, outsideCutShapeDims.centerY, rx, cutDimTopY).attr(connectorAttrs);
+                } else if (outsideCutShapeDims && outsideCutShapeDims.shape === 'hexagon') {
+                    const x0 = outsideCutShapeDims.startX;
+                    const y0 = outsideCutShapeDims.startY;
+                    const s = outsideCutShapeDims.side;
+                    const h = outsideCutShapeDims.height;
+
+                    drawDimensionWithText(
+                        x0, cutDimTopY,
+                        x0 + 2 * s, cutDimTopY,
+                        `${idxr_tr_width}: `, `${outsideCutShapeDims.widthMM} mm`, '', 2
+                    );
+                    drawDimensionWithText(
+                        x0 + s / 2, cutDimTop2Y,
+                        x0 + 1.5 * s, cutDimTop2Y,
+                        `${idxr_tr_side}: `, `${outsideCutShapeDims.sideMM} mm`, '', 2
+                    );
+                    drawDimensionWithText(
+                        cutDimLeftX, y0,
+                        cutDimLeftX, y0 + h,
+                        `${idxr_tr_height}: `, `${outsideCutShapeDims.heightMM} mm`, 'vertical', 2
+                    );
+
+                    arrowsGroup.line(x0, y0, x0, cutDimTopY).attr(connectorAttrs);
+                    arrowsGroup.line(x0 + 2 * s, y0, x0 + 2 * s, cutDimTopY).attr(connectorAttrs);
+                    arrowsGroup.line(x0 + s / 2, y0, x0 + s / 2, cutDimTop2Y).attr(connectorAttrs);
+                    arrowsGroup.line(x0 + 1.5 * s, y0, x0 + 1.5 * s, cutDimTop2Y).attr(connectorAttrs);
+                    arrowsGroup.line(x0, y0, cutDimLeftX, y0).attr(connectorAttrs);
+                    arrowsGroup.line(x0, y0 + h, cutDimLeftX, y0 + h).attr(connectorAttrs);
+                }
             }
         }
 
@@ -4094,6 +4210,9 @@ const CustomizationModule = (() => {
         }
 
         function drawDimensionWithText(x1, y1, x2, y2, text = '', boldText = '', orientation = 'horizontal', type = 1) {
+            if (suppressCutInternalDimensions && type === 2 && arrows === cutoutDems) {
+                return;
+            }
             drawArrow(x1, y1, x2, y2, type);
             const fontt = 8;
             const midX = (x1 + x2) / 2;
