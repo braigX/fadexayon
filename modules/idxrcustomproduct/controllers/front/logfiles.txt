@@ -13096,3 +13096,14 @@ Stack trace:
 #7 /var/www/vhosts/plexi-cindar.novprojet.com/httpdocs/classes/Dispatcher.php(510): ControllerCore->run()
 #8 /var/www/vhosts/plexi-cindar.novprojet.com/httpdocs/index.php(40): DispatcherCore->dispatch()
 #9 {main}
+error : Error: Non-static method ProductCore::setDefaultAttribute() cannot be called statically in /home/braigue/projects/acrosoft/platforms/plexi-cindar/modules/idxrcustomproduct/classes/IdxCustomizedProduct.php:635
+Stack trace:
+#0 /home/braigue/projects/acrosoft/platforms/plexi-cindar/modules/idxrcustomproduct/classes/IdxCustomizedProduct.php(540): IdxCustomizedProduct->cloneSelectedAttribute()
+#1 /home/braigue/projects/acrosoft/platforms/plexi-cindar/modules/idxrcustomproduct/idxrcustomproduct.php(4162): IdxCustomizedProduct->createInPs()
+#2 /home/braigue/projects/acrosoft/platforms/plexi-cindar/modules/idxrcustomproduct/controllers/front/ajax.php(380): IdxrCustomProduct->createProduct()
+#3 /home/braigue/projects/acrosoft/platforms/plexi-cindar/modules/idxrcustomproduct/controllers/front/ajax.php(54): IdxrcustomproductAjaxModuleFrontController->ajaxProcessCreateproduct()
+#4 /home/braigue/projects/acrosoft/platforms/plexi-cindar/modules/idxrcustomproduct/controllers/front/ajax.php(29): IdxrcustomproductAjaxModuleFrontController->ajaxProcessFront()
+#5 /home/braigue/projects/acrosoft/platforms/plexi-cindar/classes/controller/Controller.php(319): IdxrcustomproductAjaxModuleFrontController->initContent()
+#6 /home/braigue/projects/acrosoft/platforms/plexi-cindar/classes/Dispatcher.php(510): ControllerCore->run()
+#7 /home/braigue/projects/acrosoft/platforms/plexi-cindar/index.php(40): DispatcherCore->dispatch()
+#8 {main}

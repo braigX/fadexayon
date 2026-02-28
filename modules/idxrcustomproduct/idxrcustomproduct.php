@@ -4653,7 +4653,10 @@ class IdxrCustomProduct extends Module
                 }
                 $data['customization'] .= str_replace(array('<p>', ':', '</p>'), array('<tr><td>', ':</td><td>', '</td></tr>'), $product['description_short']);
                 $data['extra_info'] = false;
-                file_put_contents(__DIR__ . '/extra_titles.log', "[" . date('Y-m-d H:i:s') . "] customization: " . $data['customization'] . "\n", FILE_APPEND);
+                $extraTitlesLog = __DIR__ . '/extra_titles.log';
+                if ((file_exists($extraTitlesLog) && is_writable($extraTitlesLog)) || (!file_exists($extraTitlesLog) && is_writable(__DIR__))) {
+                    @file_put_contents($extraTitlesLog, "[" . date('Y-m-d H:i:s') . "] customization: " . $data['customization'] . "\n", FILE_APPEND);
+                }
                 // Remove rows with "La couleur" or "L'épaisseur" titles (case-sensitive match)
                 $data['customization'] = preg_replace(
                     '#<tr><td>La couleur:</td><td>.*?</td></tr>#',

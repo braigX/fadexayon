@@ -166,7 +166,15 @@ class IdxCustomizedProduct
             $icp_code .= $icp_sep . (isset($option['qty']) ? $option['qty'] . 'x' : '') . $option['id_component'] . '-' . $option['id_option'];
             $icp_sep = ',';
             $options = $module->getComponentOptions($option['id_component']);
-            if ($options['type'] != 'textarea' && $options['type'] != 'text' && $options['type'] != 'file') {
+            if (
+                is_array($options)
+                && isset($options['type'], $options['lang'][$this->context->language->id])
+                && $options['type'] != 'textarea'
+                && $options['type'] != 'text'
+                && $options['type'] != 'file'
+                && isset($options['lang'][$this->context->language->id]->options)
+                && is_iterable($options['lang'][$this->context->language->id]->options)
+            ) {
                 foreach ($options['lang'][$this->context->language->id]->options as $item) {
                     if ($item->id == $option['id_option']) {
                         if (isset($item->tax_change) && $item->tax_change) {

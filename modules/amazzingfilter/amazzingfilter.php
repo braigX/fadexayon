@@ -5851,6 +5851,10 @@ class AmazzingFilter extends Module
                 }
                 break;
             case 'save':
+                $cache_dir = $this->local_path . 'cache/';
+                if (!is_dir($cache_dir) && !@mkdir($cache_dir, 0777, true) && !is_dir($cache_dir)) {
+                    return false;
+                }
                 $ret = file_put_contents($full_path, json_encode($data)) !== false;
                 break;
             case 'clear':

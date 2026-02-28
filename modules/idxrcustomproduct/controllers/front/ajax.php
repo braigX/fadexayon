@@ -181,6 +181,15 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
     {
         $responses = [];
         $uploadedFiles = [];
+        $id_product = (int) Tools::getValue('product');
+
+        // Upload directory setup (shared for files + SVG)
+        $path0 = DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'idxrcustomproduct' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m');
+        $uploadDir = _PS_ROOT_DIR_ . $path0;
+        if (!is_dir($uploadDir) && !@mkdir($uploadDir, 0777, true) && !is_dir($uploadDir)) {
+            $responses['dir'] = $this->module->l('Upload directory is not writable.', 'ajax');
+            die(json_encode($responses));
+        }
     
         // File types expected
         $requiredFiles = ['file1' => 'png'];
@@ -194,7 +203,6 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
             $fileName = $_FILES[$inputName]['name'];
             $actualFileType = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
             $fileSizeMB = ($_FILES[$inputName]['size'] / 1024) / 1024; // Convert bytes to MB
-            $id_product = Tools::getValue('product');
 
             // Validate file size
             if ($fileSizeMB > 11) { // 11 MB max size
@@ -206,13 +214,6 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
             if ($actualFileType !== $expectedType) {
                 $responses[$inputName] = $this->module->l('Invalid format. Expected ' . $expectedType, 'ajax');
                 continue;
-            }
-    
-            // Upload directory setup
-            $path0 = DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'idxrcustomproduct' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m');
-            $uploadDir = _PS_ROOT_DIR_ . $path0;
-            if (!file_exists($uploadDir)) {
-                mkdir($uploadDir, 0777, true);
             }
     
             // File saving process
@@ -349,8 +350,11 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
         ];
 
         // === Write to log file ===
-        $logFile = __DIR__ . '/backups/backup-products-' . date('Y-m') . '.log';
-        file_put_contents($logFile, json_encode($logData, JSON_PRETTY_PRINT).PHP_EOL, FILE_APPEND);
+        $backupDir = __DIR__ . '/backups';
+        if ((is_dir($backupDir) || @mkdir($backupDir, 0777, true)) && is_writable($backupDir)) {
+            $logFile = $backupDir . '/backup-products-' . date('Y-m') . '.log';
+            @file_put_contents($logFile, json_encode($logData, JSON_PRETTY_PRINT) . PHP_EOL, FILE_APPEND);
+        }
 
         foreach ($customization as &$option) {
             $option = explode('_', $option);
@@ -375,8 +379,10 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
         try {
             $this->module->createProduct($product_id, $snaps, $attribute_id, $customization, $extra, $quantity, $productWeight, $productVolume, $productWidth, $productHeight, $productDeptht, $prix_de_decouper, $price_from_cube);
         } catch (\Throwable $th) {
-
-            file_put_contents(__DIR__ . '/logfiles.txt', "error : ".$th."\n", FILE_APPEND);
+            $moduleLogFile = __DIR__ . '/logfiles.txt';
+            if ((file_exists($moduleLogFile) && is_writable($moduleLogFile)) || (!file_exists($moduleLogFile) && is_writable(__DIR__))) {
+                @file_put_contents($moduleLogFile, "error : " . $th . "\n", FILE_APPEND);
+            }
         }
         /*End */
         die();
