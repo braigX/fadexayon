@@ -295,6 +295,8 @@ foreach ((array)$extra as $opt_extra) {
 
     $data = [
         'id_component' => (int)$compId,
+        'id_option'    => 0,
+        'id_product'   => (int)$exist,
         'extra'        => pSQL((string)$val),
         'id_cart'      => (int)$this->context->cart->id,
     ];

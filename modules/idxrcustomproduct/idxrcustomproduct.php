@@ -1389,9 +1389,108 @@ class IdxrCustomProduct extends Module
 
     public function hookActionValidateOrder($params)
     {
-        $sql_update = 'Update ' . _DB_PREFIX_ . 'idxrcustomproduct_notes set id_order = ' . (int) $params['order']->id . ' where id_cart = ' . (int) $params['cart']->id . ';';
+        if (empty($params['order']) || empty($params['cart'])) {
+            return '';
+        }
+
+        /** @var Order $order */
+        $order = $params['order'];
+        /** @var Cart $cart */
+        $cart = $params['cart'];
+
+        // Rebuild notes at order validation time to avoid stale/missing dimensions in PDFs.
+        $orderNotes = $this->buildOrderNotesFromCart($cart, $order);
+        if (!empty($orderNotes)) {
+            $this->updateNotes($orderNotes);
+        }
+
+        $sql_update = 'Update ' . _DB_PREFIX_ . 'idxrcustomproduct_notes set id_order = ' . (int) $order->id . ' where id_cart = ' . (int) $cart->id . ';';
         Db::getInstance()->execute($sql_update);
         return '';
+    }
+
+    private function buildOrderNotesFromCart(Cart $cart, Order $order)
+    {
+        $notes = array();
+        $front_token = Configuration::get(Tools::strtoupper($this->name . '_TOKEN'));
+        $file_controller = $this->context->link->getModuleLink(
+            $this->name,
+            'file',
+            array('token' => $front_token, 'ajax' => true)
+        ) . '&key=';
+
+        $inputIds = array(
+            '3', '23', '4', '9', '10', '11',
+            '57', '58', '53', '54', '55', '56',
+            '18', '25', '26', '27',
+            '38', '64', '63', '39', '65', '40', '41', '42',
+            '75', '45', '66', '67', '68', '69', '118'
+        );
+
+        foreach ($order->getProducts() as $orderedProduct) {
+            $id_product = (int) $orderedProduct['product_id'];
+            $id_original = (int) $this->getProductoOriginal($id_product);
+            if (!$id_original) {
+                continue;
+            }
+
+            $product = new Product($id_product, false, (int) $cart->id_lang);
+            $publicDesc = is_array($product->description_short)
+                ? (isset($product->description_short[(int) $cart->id_lang]) ? $product->description_short[(int) $cart->id_lang] : reset($product->description_short))
+                : (string) $product->description_short;
+            $privateDesc = is_array($product->description)
+                ? (isset($product->description[(int) $cart->id_lang]) ? $product->description[(int) $cart->id_lang] : reset($product->description))
+                : (string) $product->description;
+
+            $data = array(
+                'id_cart' => (int) $cart->id,
+                'id_product' => $id_product,
+                'public' => (string) $publicDesc,
+                'private' => (string) $privateDesc,
+            );
+
+            $text_customization = $this->getExtraByCart((int) $cart->id, $id_product);
+            foreach ((array) $text_customization as $text) {
+                if (!empty($text['target_name'])) {
+                    $line = '<p>' . $text['title'] . ': <a target="_blank" href="' . $file_controller . $text['target_name'] . '">' . $text['original_name'] . '</a></p>';
+                } else {
+                    $suffix = in_array((string) $text['id_component'], $inputIds) ? ' mm' : '';
+                    $line = '<p>' . $text['title'] . ': ' . $text['extra'] . $suffix . '</p>';
+                }
+                $data['private'] .= $line;
+                $data['public'] .= $line;
+            }
+
+            $svgUrlQuery = 'SELECT svg_file, svg_code, console FROM ' . _DB_PREFIX_ . 'idxrcustomproduct_snaps WHERE id_product = ' . $id_product;
+            $svgUrls = Db::getInstance()->executeS($svgUrlQuery);
+            if (!empty($svgUrls)) {
+                $console = $svgUrls[0]['console'];
+                if ($console === '0') {
+                    $console = 'Non';
+                } elseif ($console === '1') {
+                    $console = 'Oui';
+                }
+                $consoleLine = '<p>Console ouverte ?: ' . $console . '</p>';
+                $data['private'] .= $consoleLine;
+                $data['public'] .= $consoleLine;
+
+                if (!empty($svgUrls[0]['svg_code'])) {
+                    $svgLine = '<p>Aperçu en SVG: <a target="_blank" href="' . $svgUrls[0]['svg_code'] . '">Cliquez ici pour voir le SVG</a></p>';
+                    $data['private'] .= $svgLine;
+                    $data['public'] .= $svgLine;
+                }
+
+                if (!empty($svgUrls[0]['svg_file'])) {
+                    $imgLine = '<p>Aperçu: <img class="perviewImageSketch" src="' . $svgUrls[0]['svg_file'] . '" width="400px" height="400px"></p>';
+                    $data['private'] .= $imgLine;
+                    $data['public'] .= $imgLine;
+                }
+            }
+
+            $notes[] = $data;
+        }
+
+        return $notes;
     }
 
     public function hookActionOrderReturn($params)
@@ -4780,10 +4879,10 @@ class IdxrCustomProduct extends Module
 
     public function getExtraByCart($id_cart, $id_product = false)
     {
-        $query = 'Select ext.*, comp.title, files.original_name, files.target_name from ' . _DB_PREFIX_ . 'idxrcustomproduct_customer_extra ext '
-                . 'inner join ' . _DB_PREFIX_ . 'idxrcustomproduct_components_lang comp on ext.id_component = comp.id_component '
+        $query = 'Select ext.*, COALESCE(comp.title, CONCAT("Component ", ext.id_component)) as title, files.original_name, files.target_name from ' . _DB_PREFIX_ . 'idxrcustomproduct_customer_extra ext '
+                . 'left join ' . _DB_PREFIX_ . 'idxrcustomproduct_components_lang comp on ext.id_component = comp.id_component and comp.id_lang = ' . (int) $this->context->language->id . ' '
                 . 'left join ' . _DB_PREFIX_ . 'idxrcustomproduct_files files on files.id_component = ext.id_component and files.id_cart = ext.id_cart and ext.extra  like concat("%",files.original_name,"%") '
-                . 'where ext.id_cart = ' . (int) $id_cart . ' and comp.id_lang = ' . (int) $this->context->language->id;
+                . 'where ext.id_cart = ' . (int) $id_cart;
         if ($id_product) {
             $query .= ' and ext.id_product = ' . (int) $id_product;
         }

@@ -1,6 +1,6 @@
 P1 - Blocking / Critical
 
-1) Fix orders sent without dimensions
+1) Fix orders sent without dimensions ✅
 - Dimensions are visible in the back office but missing in order/invoice PDFs.
 - Goal: properly store and render dimensions in PDF documents.
 
