@@ -114,3 +114,7 @@ vendor-bin/
 /modules/**/tmp/*
 /modules/**/temp/*
 /modules/**/cache/*
+
+# Theme assets cache (generated)
+/themes/modez/assets/cache/*
+!/themes/modez/assets/cache/index.php

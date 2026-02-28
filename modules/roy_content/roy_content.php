@@ -604,9 +604,11 @@ class Roy_Content extends Module
 				'name' => $this->displayName,
 				'version' => $this->version,
 				'psVersion' => _PS_VERSION_,
-				'context' => (Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 0) ? 1 : ($this->context->shop->getTotalShops() != 1) ? $this->context->shop->getContext() : 1
-			)
-		));
+					'context' => (Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 0)
+						? 1
+						: (($this->context->shop->getTotalShops() != 1) ? $this->context->shop->getContext() : 1)
+				)
+			));
 
 		foreach ($this->languages as $language)
 		{

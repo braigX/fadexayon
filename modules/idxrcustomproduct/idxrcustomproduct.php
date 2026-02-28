@@ -980,10 +980,15 @@ class IdxrCustomProduct extends Module
 
             // Pricing
             if ($steps['add_base']) {
-                file_put_contents(__DIR__ . '/file_log.txt', "[" . date('Y-m-d H:i:s') . "]in add_base \n", FILE_APPEND);
-                file_put_contents(__DIR__ . '/file_log.txt', "[" . date('Y-m-d H:i:s') . "]id_product: " . $id_product . "\n", FILE_APPEND);
-                file_put_contents(__DIR__ . '/file_log.txt', "[" . date('Y-m-d H:i:s') . "]id_product_attribute: " . $id_product_attribute . "\n", FILE_APPEND);
-                if($use_attribute_price) file_put_contents(__DIR__ . '/file_log.txt', "[" . date('Y-m-d H:i:s') . "]use_attribute_price: \n", FILE_APPEND);
+                $idxrLogFile = __DIR__ . '/file_log.txt';
+                if ((file_exists($idxrLogFile) && is_writable($idxrLogFile)) || (!file_exists($idxrLogFile) && is_writable(__DIR__))) {
+                    file_put_contents($idxrLogFile, "[" . date('Y-m-d H:i:s') . "]in add_base \n", FILE_APPEND);
+                    file_put_contents($idxrLogFile, "[" . date('Y-m-d H:i:s') . "]id_product: " . $id_product . "\n", FILE_APPEND);
+                    file_put_contents($idxrLogFile, "[" . date('Y-m-d H:i:s') . "]id_product_attribute: " . $id_product_attribute . "\n", FILE_APPEND);
+                    if ($use_attribute_price) {
+                        file_put_contents($idxrLogFile, "[" . date('Y-m-d H:i:s') . "]use_attribute_price: \n", FILE_APPEND);
+                    }
+                }
 
                 if ($use_attribute_price && $id_product_attribute) {
                     // ✅ Use variant price (without specific price or reduction)

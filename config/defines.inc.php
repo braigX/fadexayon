@@ -26,7 +26,7 @@
 
 /* Debug only */
 if (!defined('_PS_MODE_DEV_')) {
-define('_PS_MODE_DEV_', false);
+define('_PS_MODE_DEV_', true);
 }
 /* Compatibility warning */
 if (!defined('_PS_DISPLAY_COMPATIBILITY_WARNING_')) {
@@ -227,5 +227,4 @@ if (!defined('_PS_JQUERY_VERSION_')) {
 }
 
 define('_PS_CACHE_CA_CERT_FILE_', _PS_CACHE_DIR_.'cacert.pem');
-
 

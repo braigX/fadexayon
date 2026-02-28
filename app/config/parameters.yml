@@ -1,1 +1,18 @@
 parameters:
+    database_host: 127.0.0.1
+    database_port: ~
+    database_name: plexi-cindar
+    database_user: braigue
+    database_password: '1072'
+    database_prefix: ps_
+    database_engine: InnoDB
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: ~
+    mailer_password: ~
+    secret: ThisTokenIsNotSoSecretChangeIt
+    ps_caching: CacheMemcache
+    ps_cache_enable: false
+    ps_creation_date: '2026-02-28'
+    locale: en-US
+    use_debug_toolbar: true
