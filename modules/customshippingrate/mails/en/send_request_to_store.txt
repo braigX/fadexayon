@@ -1,0 +1,6 @@
+
+[/{shop_url}] {customer} has requested a shipping quote, Customer e-mail address: {email} Message: {message} 
+
+{shop_name} [/{shop_url}] powered by PrestaShop(tm)
+[http://www.prestashop.com/] 
+

@@ -1,0 +1,68 @@
+{#**
+ * 2007-2020 PrestaShop SA and Contributors
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/OSL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to https://www.prestashop.com for more information.
+ *
+ * @author    PrestaShop SA <contact@prestashop.com>
+ * @copyright 2007-2020 PrestaShop SA and Contributors
+ * @license   https://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
+ * International Registered Trademark & Property of PrestaShop SA
+ *#}
+{%if action.options.submit_route=='admin_customers_bulk_export'%}
+    {%if ets_omd_is_viewtrash%}
+        {%if ets_odm_can_delete_order%}
+            <button id="order_grid_bulk_action_delete_selected" class="dropdown-item js-bulk-action-submit-btn" type="button" data-form-url="{{ets_odm_link_list_orders}}&delete_all_order=1&viewtrash=1" data-form-method="POST" data-confirm-message="" onclick="return confirm('{{ets_odm_confirm_delete_all_order}}')"> {{Delete_selected_orders_text}} </button>
+        {%endif%}
+        <button id="order_grid_bulk_action_restore_selected" class="dropdown-item js-bulk-action-submit-btn" type="button" data-form-url="{{ets_odm_link_list_orders}}&restore_all_order=1&viewtrash=1" data-form-method="POST" data-confirm-message=""> {{Restore_selected_orders_text}} </button>
+    {%else%}
+        {%if ets_odm_can_delete_order%}
+        <button id="order_grid_bulk_action_delete_selected" {%if ETS_ODE_BEHAVIOR_DELETE_ORDER=='permanently'%} onclick="return confirm('{{ets_odm_confirm_delete_all_order}}')"{%else%} onclick="return confirm('{{ets_odm_confirm_trash_all_order}}')" {%endif%} class="dropdown-item js-bulk-action-submit-btn" type="button" data-form-url="{{ets_odm_link_list_orders}}&delete_all_order" data-form-method="POST" data-confirm-message=""> {{Delete_selected_orders_text}} </button>
+        {%endif%}
+        <button id="order_grid_bulk_action_export_pdf_selected" class="dropdown-item js-bulk-action-submit-btn" type="button" data-form-url="{{ets_odm_link_list_orders}}&print_invoice_all_order" data-form-method="POST" data-confirm-message=""> {{Print_selected_invoices_text}} </button>
+        <button id="order_grid_bulk_action_export_slip_selected" class="dropdown-item js-bulk-action-submit-btn" type="button" data-form-url="{{ets_odm_link_list_orders}}&print_slips_all_order" data-form-method="POST" data-confirm-message=""> {{Print_selected_delivery_slips_text}} </button>
+        <button id="{{ '%s_grid_bulk_action_%s'|format(grid.id, action.id) }}"
+                class="dropdown-item js-bulk-action-submit-btn"
+                type="button"
+                data-form-url="{{ets_odm_link_list_orders}}&export_all_order"
+                data-form-method="{{ action.options.submit_method }}"
+                data-confirm-message="{{ action.options.confirm_message }}"
+                {% if action.options.modal_options %}
+                data-close-button-label="{{ action.options.modal_options.options.close_button_label|default('Close'|trans({}, 'Admin.Actions')) }}"
+                data-confirm-title="{{ action.options.modal_options.options.title }}"
+                data-confirm-button-class="{{ action.options.modal_options.options.confirm_button_class|default('btn-primary') }}"
+                data-confirm-button-label="{{ action.options.modal_options.options.confirm_button_label|default('Confirm'|trans({}, 'Admin.Actions')) }}"
+                {% endif %}
+        >
+          {{ action.name }}
+        </button>
+    {%endif%}
+    <button id="order_grid_bulk_action_export_slip_selected" class="dropdown-item js-bulk-action-submit-btn" type="button" data-form-url="{{ets_odm_link_list_orders}}&print_delivery_label_all_order" data-form-method="POST" data-confirm-message=""> {{Print_selected_delivery_label_text}} </button>
+{%elseif action.options.submit_route=='admin_customers_bulk_verify'%}
+    {%if ets_fd_link_list_customers is defined%}
+        <button id="customer_grid_bulk_action_verify_selected" class="dropdown-item js-bulk-action-submit-btn" type="button" data-form-url="{{ets_fd_link_list_customers}}&verify_all_customer" data-form-method="POST" data-confirm-message=""> {{ action.name }} </button>
+    {%endif%}
+{%elseif action.options.submit_route=='admin_customers_bulk_unverify'%}
+    {%if ets_fd_link_list_customers is defined%}
+        <button id="customer_grid_bulk_action_verify_selected" class="dropdown-item js-bulk-action-submit-btn" type="button" data-form-url="{{ets_fd_link_list_customers}}&unverify_all_customer" data-form-method="POST" data-confirm-message=""> {{ action.name }} </button>
+    {%endif%}
+{%else%}
+    {% if constant('_PS_VERSION_')|number_format >= 8 %}
+        {% include '@!PrestaShop/Admin/Common/Grid/Actions/Bulk/submit.html.twig' %}
+    {% else %}
+        {% include 'PrestaShopBundle:Admin/Common/Grid/Actions/Bulk:submit.html.twig' %}
+    {% endif %}
+{%endif%}

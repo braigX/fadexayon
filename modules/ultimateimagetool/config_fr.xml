@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>ultimateimagetool</name>
+    <displayName><![CDATA[Image: WebP, Compress, Zoom, Regenerate &amp; More]]></displayName>
+    <version><![CDATA[2.3.2]]></version>
+    <description><![CDATA[Compress, WebP, Zoom, Regenerate, Delete, Lazy Load, SEO Alt Tags, Swap on  hover and much more.]]></description>
+    <author><![CDATA[advancedplugins]]></author>
+    <tab><![CDATA[administration]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+</module>

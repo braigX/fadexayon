@@ -1,0 +1,196 @@
+/**
+* 2007-2017 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* @author    Innova Deluxe SL
+* @copyright 2017 Innova Deluxe SL
+* @license   INNOVADELUXE
+*/
+
+
+
+
+ul {
+    text-decoration: none;
+}
+
+.step_title {
+    display: block;
+    border-bottom: 1px solid #353230;
+    width: 100%;
+    text-align: left !important;
+    padding: 10px 0px 10px 0px;
+    font-weight: bold;
+	font-size: 16px;
+}
+
+.step_title img {
+    width: 30px;
+}
+/*  */
+.sel_min_block a {
+    text-decoration: none;
+    display: block;
+    margin: 5px 0px;
+}
+
+
+.sel_min_block a:hover {
+    background:#f7f7f7;
+}
+
+.minified_sel{
+	width:100% !important;
+}
+
+.minified_sel button{
+	background: #2fb5d2;
+	color:#ffffff !important;
+	border-radius: 5px;
+}
+
+.minified_sel .dropdown-menu.inner{
+	padding:0px 20px !important;
+}
+
+/*  */
+
+
+.img-minified{
+	height: 50px;
+	width:50px;
+}
+
+.sel_min_img_block a {
+    text-decoration: none;
+    display: block;
+}
+
+
+.sel_min_img_block a:hover {
+    background:#f7f7f7;
+}
+
+.minified_sel_img{
+	width:100% !important;
+}
+
+.minified_sel_img button{
+	background: #2fb5d2;
+	color:#ffffff !important;
+	border-radius: 5px;
+}
+
+.minified_sel_img .dropdown-menu.inner{
+	padding:0px 20px !important;
+}
+
+
+/*   */
+
+#component_step_last {
+    margin-top: 20px;
+
+}
+#component_step_last .card-header{
+    color:#ffffff !important;
+}
+
+#component_step_last .card{
+	border-radius: 5px;
+}
+
+/*   */
+
+.input-container {
+    padding: 10px;
+   
+    border-radius: 5px;
+}
+
+.input-container input{
+   
+    background: #ffffff;
+}
+/* */
+#component_steps_container .dropdown-menu a{
+    color:#0e0e0e;
+
+}
+
+.min-desc{
+    font-style: italic;
+    color:#e7dbdb;
+    font-size:14px;
+    display: block;
+}
+
+/*  */
+
+.dropdown-toggle::after {
+    display: inline-block !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin-left: .1em !important;
+    vertical-align: middle !important;
+    content: "" !important;
+    border-top: 0.5em solid !important;
+    border-right: .5em solid transparent !important;
+    border-left: .5em solid transparent !important;
+    position: absolute !important;
+    right: 10px !important;
+    top: 40% !important;
+}   
+
+.minified_qty_block {
+    width: 50%;
+    float: right;
+    margin-top: -10px;
+}
+
+.minified_qty_block label {
+    padding-top: 10px;
+}
+
+.btn-minified .minified_qty_block {
+    display: none;
+}
+
+#component_step_last .minified_qty_block {
+    display: none;
+}
+
+/* Fix for themes warehouse and transformer */
+.minified_sel .show {
+    max-height: none !important;
+}
+.minified_sel .show .dropdown-menu{
+    max-height: none !important;
+    display: block !important;
+}
+
+.dropdown-menu.open {
+    max-height: none !important;
+}
+
+.dropdown-menu.inner {
+    max-height: none !important;
+}
+
+.dropdown-menu[aria-expanded="true"]{
+    display: block !important;
+}
+
+#component_steps .dropdown-menu li {
+    float: left;
+    width: 100%;
+}
+
+#component_steps .dropdown-menu.open li:hover {
+    background: #f7f7f7;
+}
+
+#component_steps .dropdown-menu.show {
+  overflow: visible !important;
+}

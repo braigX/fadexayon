@@ -1,0 +1,14 @@
+Forsinkelse i sendingen varsel
+
+Bestilling {order_id} med ref {order_Reference}
+Bør sendes i dag
+
+Bestilling {order_name} - Forsinket
+
+Bestillingen {order_name}
+Med ID {order_id}
+Må sendes umiddelbart eller vil ikke bli levert innen den estimerte datoen
+
+Du kan se gjennom bestillingen din og laste ned fakturaen din fra delen "Bestillingshistorikk" i din kundekonto ved å klikke på "Min konto" på vår butikk.
+
+{shop_name}

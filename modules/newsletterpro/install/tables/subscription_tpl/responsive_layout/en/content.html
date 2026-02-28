@@ -1,0 +1,126 @@
+<div class="pqnp-popup-box" style="background: url({module_path}views/img/front_subscription/popup.jpg) bottom left no-repeat;">
+    <form id="{id.form}" method="POST">
+        <div class="pqnp-popup-form-group pqnp-popup-clearfix pqnp-popup-logo-box">
+            <div class="pqnp-popup-show-logo">
+                <img src="{shop_logo_url}">
+            </div>
+        </div>
+
+        <div class="pqnp-popup-form-group pqnp-popup-clearfix pqnp-popup-title-box">
+            <h1 class="pqnp-popup-title">Be the first to know</h1>
+            <h5 class="pqnp-popup-title-small">about our latest products and exclusive offers.</h5>
+        </div>
+
+        <div class="pqnp-popup-form-group pqnp-popup-row">
+            <div class="pqnp-popup-col-sm-6 pqnp-popup-col-xs-12">
+                <label for="{id.email}">Email Address<sup>*</sup></label>
+                <input id="{id.email}" class="pqnp-popup-form-control" type="text" name="{field.email}" placeholder="Email Address">
+            </div>
+            <div class="pqnp-popup-col-sm-6 pqnp-popup-col-xs-12 pqnp-popup-xs-form-group">
+                <!-- @if intval({display_gender}) == 1 -->
+                <label for="{id.gender}">Gender</label>
+                <select id="{id.gender}" class="pqnp-popup-form-control" name="{field.gender}">
+                    <option value="0">- neutral -</option>
+                    {render_gender_options}
+                </select>
+                <!-- @endif -->
+            </div>
+        </div>
+
+        <div class="pqnp-popup-form-group pqnp-popup-row">
+            <!-- @if intval({display_firstname}) == 1 -->
+            <div class="pqnp-popup-col-sm-6 pqnp-popup-col-xs-12 pqnp-popup-xs-form-group">
+                <label for="{id.firstname}">First Name{render_mandatory_firstname}</label>
+                <input id="{id.firstname}" class="pqnp-popup-form-control" type="text" name="{field.firstname}" placeholder="First Name" value="{form.firstname}">
+            </div>
+            <!-- @endif -->
+            <!-- @if intval({display_lastname}) == 1 -->
+            <div class="pqnp-popup-col-sm-6 pqnp-popup-col-xs-12">
+                <label for="{id.lastname}">Last Name{render_mandatory_lastname}</label>
+                <input id="{id.lastname}" class="pqnp-popup-form-control" type="text" name="{field.lastname}" placeholder="Last Name" value="{form.lastname}">
+            </div>
+            <!-- @endif -->
+        </div>
+        
+        <!-- @if intval({display_birthday}) == 1 -->
+        <div class="pqnp-popup-form-group pqnp-popup-row">
+            <div class="pqnp-popup-col-sm-4 pqnp-popup-col-xs-12">
+                <label for="{id.birthday_day}">Day</label>
+                <select id="{id.birthday_day}" class="pqnp-popup-form-control" name="{field.birthday_day}">
+                    <option value="0">- none -</option>
+                    {render_birthday_day}
+                </select>
+            </div>
+            <div class="pqnp-popup-col-sm-4 pqnp-popup-col-xs-12">
+                <label for="{id.birthday_month}">Month</label>
+                <select id="{id.birthday_month}" class="pqnp-popup-form-control" name="{field.birthday_month}">
+                    <option value="0">- none -</option>
+                    {render_birthday_month}
+                </select>
+            </div>
+            <div class="pqnp-popup-col-sm-4 pqnp-popup-col-xs-12">
+                <label for="{id.birthday_year}">Year</label>
+                <select id="{id.birthday_year}" class="pqnp-popup-form-control" name="{field.birthday_year}">
+                    <option value="0">- none -</option>
+                    {render_birthday_year}
+                </select>
+            </div>
+        </div>
+        <!-- @endif -->
+
+        <!-- @if intval({display_list_of_interest}) == 1 -->
+        <div class="pqnp-popup-form-group pqnp-popup-row">
+            <div class="pqnp-popup-col-sm-12">
+                <label>Shoping Preferences</label>
+
+                <div class="pqnp-popup-row">
+                    <!-- @foreach {list_of_interest} as {item} -->
+                    <div class="pqnp-popup-col-sm-6 pqnp-popup-col-xs-12 pqnp-custom-checkbox-col">
+                        <span class="pqnp-custom-checkbox">
+                            <label>
+                                <input type="checkbox" name="{field.list_of_interest}" value="{item.id_newsletter_pro_list_of_interest}" condition-if="intval({item.checked}) == 1" checked condition-endif>
+                                <span><i class="pqnp-icon-checkbox-checked pqnp-checkbox-checked"></i></span>
+                                <span>{item.name}</span>
+                            </label>
+                        </span>
+                    </div>
+                    <!-- @endforeach -->
+                </div>
+            </div>
+        </div>
+        <!-- @endif -->
+
+        <div class="pqnp-popup-form-group pqnp-popup-row">
+            <div class="pqnp-popup-col-sm-12">
+                <span class="pqnp-custom-checkbox">
+                    <label>
+                        <input id="{id.terms_and_conditions}" type="checkbox" name="{field.terms_and_conditions}" value="1">
+                        <span><i class="pqnp-icon-checkbox-checked pqnp-checkbox-checked"></i></span>
+                        <span>I agree with the <a href="{terms_and_conditions_url}" class="pqnp-popup-button-link" target="_blank">terms and conditoins</a>.</span>
+                    </label>
+                </span>
+            </div>
+        </div>
+
+        <div id="{id.error}" class="pqnp-popup-alert pqnp-popup-alert-danger pqnp-popup-error" style="display: none;"></div>
+        <div id="{id.success}" class="pqnp-popup-alert pqnp-popup-alert-success pqnp-popup-success" style="display: none;"></div>
+
+        <div class="pqnp-popup-form-group pqnp-popup-row">
+            <div class="pqnp-popup-col-sm-6 pqnp-popup-col-xs-12 pqnp-popup-xs-form-group">
+                <a href="javascript:{}" id="{id.subscribe}" class="pqnp-popup-button pqnp-popup-button-primary pqnp-submit-newsletterpro-subscribe">Subscribe</a>
+            </div>
+            <div class="pqnp-popup-col-sm-6 pqnp-popup-col-xs-12">
+                <a href="javascript:{}" id="{id.unsubscribe}" class="pqnp-popup-button pqnp-popup-button-danger pqnp-submit-newsletterpro-unsubscribe">Unsubscribe</a>
+            </div>
+        </div>
+
+        <div class="pqnp-popup-row">
+            <div class="pqnp-popup-col-sm-8">
+                <a href="javascript:{}" id="{id.destroy}" class="pqnp-popup-button-link pqnp-popup-button-sm-link pqnp-popup-button-link-dark">Don't show me this popup again.</a>
+            </div>
+            <div class="pqnp-popup-col-sm-4 pqnp-popup-text-right">
+                <div id="{id.close_timeout}" class="pqnp-close-timeout pqnp-popup-text-sm" style="display: none;"></div>
+            </div>
+        </div>
+    </form>
+</div>

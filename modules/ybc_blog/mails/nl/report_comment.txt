@@ -1,0 +1,5 @@
+Hallo {author_name}
+{reporter} heeft zojuist een opmerking op {post_title} als misbruikt gemeld.
+{comment}
+Bekijk reactie
+

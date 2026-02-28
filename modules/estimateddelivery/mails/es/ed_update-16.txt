@@ -1,0 +1,8 @@
+[{shop_url}] 
+
+Hola {firstname} {lastname},
+
+La fecha de entrega para su pedido con referencia {order_name} ha sido actualizada. La nueva fecha es:
+
+Entrega mínima: {delivery_min}
+Entrega máxima: {delivery_max}

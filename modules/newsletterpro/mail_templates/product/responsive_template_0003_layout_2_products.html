@@ -1,0 +1,102 @@
+<!-- start header --><!--
+displayColumns = false;
+displayImageSize = false;
+displayProductWidth = false;
+loadImageSize = 300;
+content = template;
+info = {"color": "#1ea1d6", "for_template_name": "responsive_template_0003.html", "display_text_color": "#ffffff"};
+--><!-- end header -->
+
+np-template: {{
+	np-columns: {{ 2 }},
+	np-row: {{
+		<tr>
+			<td align="left">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+					<tr class="np-row-products-target">
+					</tr>
+				</table>
+			</td>
+		</tr>
+	}},
+
+	np-row-separator: {{
+		<tr><td height="15"></td></tr>
+	}},
+
+	np-product: {{
+		<td data-id="{id_product}" align="left" width="292" class="np_resize_600 newsletter-pro-product" valign="top" bgcolor="#ffffff">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;" bgcolor="#ffffff">
+				<tr>
+					<td align="left" class="np_resize_image">
+						<a href="{link}" target="_blank" style="text-decoration: none; display: block;">
+							<img class="newsletter-pro-image" src="{image_path}" width="292" style="display: block; width: 100%;" alt="" />
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td align="left" height="20"></td>
+				</tr>
+				<tr>
+					<td align="left">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+							<tr>
+								<td align="left" width="15" class="np_content_padding"></td>
+								<td align="left" class="np_content_center">
+									<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+										<tr>
+											<td align="left">
+												<a style="color: #1ea1d6; text-decoration: none; font-size: 14pt;" href="{link}" target="_blank" class="newsletter-pro-name">
+													{name}
+												</a>
+											</td>
+										</tr>
+										<tr>
+											<td align="left" height="15"></td>
+										</tr>
+										<tr>
+											<td align="left" class="newsletter-pro-description_short" align="left">
+												{description_short}
+											</td>
+										</tr>
+										<tr>
+											<td align="left" height="15"></td>
+										</tr>
+										<tr>
+											<td align="left">
+												<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+													<tr>
+														<td align="left" valign="middle">
+															{if reduction > 0}
+																<span style="text-decoration: line-through;">{price_without_reduction_display}</span><br />
+															{/if}
+															<span style="color: #1ea1d6; font-size: 18pt; font-weight: bold;">{price_display}</span>
+														</td>
+														{if reduction > 0}
+															<td align="right" valign="middle">
+																<span style="font-size: 17pt; font-weight: bold; color: #1ea1d6;">{discount}</span><br />
+																<span style="color: #1ea1d6;">discount</span>
+															</td>
+														{/if}
+													</tr>
+												</table>
+											</td>
+										</tr>
+										<tr>
+											<td align="left" height="15"></td>
+										</tr>
+									</table>	
+								</td>
+								<td align="left" width="15" class="np_content_padding"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	}},
+
+	np-product-separator: {{
+		<td align="left" width="16" class="np_show_height15"></td>
+	}},
+}}

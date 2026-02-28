@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => 'cfc84139541dae51b74ffdcb150c1cf36ef7d360',
+        'name' => 'teamwant/teamwant_redis_prestashop',
+        'dev' => false,
+    ),
+    'versions' => array(
+        'predis/predis' => array(
+            'pretty_version' => 'v3.0.1',
+            'version' => '3.0.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../predis/predis',
+            'aliases' => array(),
+            'reference' => '34fb0a7da0330df1bab4280fcac4afdeeccc3edf',
+            'dev_requirement' => false,
+        ),
+        'psr/http-message' => array(
+            'pretty_version' => '2.0',
+            'version' => '2.0.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../psr/http-message',
+            'aliases' => array(),
+            'reference' => '402d35bcb92c70c026d1a6a9883f06b2ead23d71',
+            'dev_requirement' => false,
+        ),
+        'teamwant/teamwant_redis_prestashop' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => 'cfc84139541dae51b74ffdcb150c1cf36ef7d360',
+            'dev_requirement' => false,
+        ),
+    ),
+);

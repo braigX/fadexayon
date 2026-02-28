@@ -1,0 +1,211 @@
+/* Tracking Popup */
+
+#order_tracking {
+    font-family: 'Open Sans', sans-serif;
+    color: #333333;
+    font-size: 1em;
+}
+
+#order_tracking table {
+    color: inherit;
+    font-size: inherit;
+}
+
+table {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-color: grey;
+}
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+td, th {
+    display: table-cell;
+    vertical-align: inherit;
+}
+
+div.tracking-header {
+    position: relative;
+    width: auto;
+    padding: 1ex 1ex 1ex 136px;
+    background: #F59B48 url(../../img/logo/96x60-w.png) 24px 12px no-repeat;
+    color: #FFFFFF;
+    font-size: 23px;
+    text-transform: uppercase;
+    line-height: 2.5em;
+    text-indent: 1ex;
+    font-weight: bold;
+}
+
+div.tracking-header a.close {
+    text-decoration: none;
+    background: url("../../img/tracking/close.jpg") 0 0 no-repeat;
+    float: right;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+}
+
+div.header-track {
+    margin-top: 2ex;
+    border: 1px solid  #e7e7e7;
+    border-width: 1px 0;
+    background-color: #ececec;
+    width: 100%;
+    padding: 0.25ex 4ex;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+div.header-track div {
+}
+
+div.header-track div.button {
+}
+
+div.header-track div.button a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+div.header-track div.track-label {
+    display: inline-block;
+    font-weight: bold;
+    width: 18ex;
+}
+
+div.header-track div.track-number {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1em;
+    background-color: #ffffff;
+    border-radius: 0.5ex;
+    border: 1px solid  #d3d3d3;
+    width: 24ex;
+    padding: 0.475em 0.6em;
+    margin: 0.375ex;
+    color: #222222;
+}
+
+div.tracking-body {padding: 1.5ex 0ex;}
+
+div.status-track {
+    padding: 3.75ex 1.5ex 2.75ex 3ex;
+    margin: 0ex 0ex 2.5ex 0ex;
+    border-radius: 0.5ex;
+    /* background-color: #f9f9ec; */
+}
+
+div.status-track p {
+    margin-top: 20px;
+    padding-left: 10px;
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+div.status-track li.status {
+    display: inline-block;
+    background-color: #dbdbdb;
+    color: #6e6e6e;
+    margin: 0 0.5ex;
+    border-radius: 0.5ex;
+    font-size: 0.725em;
+    font-weight: 600;
+    padding: 1.625ex 2.25ex;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+div.status-track ul li.current {
+    display: inline-block;
+    background-color: #1cb3f4;
+    color: #ffffff;
+}
+
+ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+.history-track {
+    margin: 2ex 1.25ex;
+}
+
+.history-track span.index {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 0.925em;
+    line-height: normal;
+    border-radius: 2em;
+    background-color: #f59b48;
+    width: 1.425em;
+    height: 1.425em;
+    color: #ffffff;
+    text-align: center;
+    padding: 0.125em;
+    margin: 0 0.5ex;
+}
+
+.history-track span.label {
+    margin: 0 0 0 1ex;
+    display: inline-block;
+    width: 30ex;
+    color: #000000;
+}
+
+.history-track span.date,
+.history-track span.hour,
+.history-track span.center {
+    display: inline-block;
+    font-weight: bold;
+}
+
+.history-track span.date {
+    width: 11ex;
+}
+.history-track span.hour {
+    width: 7ex;
+}
+
+div.button {
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #1cb3f4;
+    font-size: 0.9em;
+    padding: 1.35ex 2.25ex;
+    margin: 0.35ex 0;
+    border-radius: 0.5ex;
+    float: right;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+div.tnt-arrow {
+    width: 1em;
+    height: 2ex;
+    background: url("../../img/tracking/arrow.png") 0 0 no-repeat;
+    display: inline-block;
+    margin: 0.25ex 0 -0.25ex 0.5ex;
+}
+
+div.tracking-footer {
+    overflow: auto;
+    padding: 1ex 4ex 4ex;
+}
+
+div.tracking-footer div.button a{
+    color: #ffffff;
+    text-decoration: none;
+}

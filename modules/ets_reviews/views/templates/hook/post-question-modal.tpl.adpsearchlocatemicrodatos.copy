@@ -1,0 +1,183 @@
+{*
+ * Copyright ETS Software Technology Co., Ltd
+ *
+ * NOTICE OF LICENSE
+ *
+ * This file is not open source! Each license that you purchased is only available for 1 website only.
+ * If you want to use this file on more websites (or projects), you need to purchase additional licenses.
+ * You are not allowed to redistribute, resell, lease, license, sub-license or offer our resources to any third party.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future.
+ *
+ * @author ETS Software Technology Co., Ltd
+ * @copyright  ETS Software Technology Co., Ltd
+ * @license    Valid for 1 website (or project) for each purchase of license
+*}
+
+{assign var="productQuestionModal" value=($ETS_RV_QA_ALLOW_GUESTS && (!$logged || !$is_block_customer) || !$is_block_customer && $logged)}
+<div id="ets-rv-post-product-question-modal" class="ets-rv-modal fade ets-rv-product-comment-modal{if !$productQuestionModal && !$logged} popup_login_form{/if}" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+	<div class="ets-rv-modal-dialog" role="document">
+            <div class="ets_table-cell">
+
+        <div class="ets-rv-modal-content">
+            {if $productQuestionModal }
+				<form id="ets-rv-post-product-question-form" data-type="question" action="{$post_product_question_url nofilter}" method="POST">
+					<div class="ets-rv-modal-header">
+						<div class="h3" data-edit-title="{l s='Edit question' mod='ets_reviews'}" data-add-title="{l s='Add question' mod='ets_reviews'}">
+							<svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1344 960v-128q0-26-19-45t-45-19h-256v-256q0-26-19-45t-45-19h-128q-26 0-45 19t-19 45v256h-256q-26 0-45 19t-19 45v128q0 26 19 45t45 19h256v256q0 26 19 45t45 19h128q26 0 45-19t19-45v-256h256q26 0 45-19t19-45zm320-64q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"/></svg>
+							 {l s='Add your question' mod='ets_reviews'}
+						</div>
+						<button type="button" class="close" data-dismiss="ets-rv-modal" aria-label="Close">
+							<svg width="14" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1490 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z"/></svg>
+						</button>
+					</div>
+					<div class="ets-rv-modal-body">
+                        {if $ETS_RV_DISPLAY_PRODUCT_INFO|intval > 0}
+                            <div class="row">
+                                <div class="col-md-2 col-sm-2 modal_product_img">
+                                    {if isset($product_modal) && $product_modal}
+                                        {if isset($product_modal->flags)}
+                                            {block name='product_flags'}
+                                                <ul class="product-flags">
+                                                    {foreach from=$product_modal->flags item=flag}
+                                                        <li class="product-flag {$flag.type|escape:'html':'UTF-8'}">{$flag.label|escape:'html':'UTF-8'}</li>
+                                                    {/foreach}
+                                                </ul>
+                                            {/block}
+                                        {/if}
+                                        {block name='product_cover'}
+                                            <div class="product-cover">
+                                                {if !empty($product_modal->image)}
+                                                    <img class="js-qv-product-cover" src="{$product_modal->image->url nofilter}" alt="{$product_modal->image->legend|escape:'html':'UTF-8'}" title="{$product_modal->image->legend|escape:'html':'UTF-8'}" style="width:100%;" >
+                                                {/if}
+                                            </div>
+                                        {/block}
+                                    {/if}
+                                </div>
+                                <div class="col-md-10 col-sm-10 modal_product_info">
+                                    <h4>{$product_modal->name|escape:'html':'UTF-8'}</h4>
+                                    {block name='product_description_short'}
+                                        <div >{$product_modal->description_short nofilter}</div>
+                                    {/block}
+                                </div>
+                            </div>
+                        {/if}
+						<div class="row">
+                            {if !$logged}
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<label class="form-label" for="customer_name">{l s='Your name' mod='ets_reviews'}<sup class="required">*</sup></label>
+									<input id="customer_name" name="customer_name" type="text" value=""/>
+									<p class="desc_error">{l s='Your name is required' mod='ets_reviews'}</p>
+								</div>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <label class="form-label" for="email">{l s='Email' mod='ets_reviews'}<sup class="required">*</sup></label>
+                                    <input name="email" type="text" value=""/>
+                                    <p class="desc_error">{l s='Your email is required' mod='ets_reviews'}</p>
+                                </div>
+                            {/if}
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <label class="form-label" for="comment_title">{l s='Title' mod='ets_reviews'}<sup class="required">*</sup></label>
+                                <input name="comment_title" type="text" value="" placeholder="{l s='Enter title of your question' mod='ets_reviews'}"/>
+                                <p class="desc_error">{l s='Title is required' mod='ets_reviews'}</p>
+                            </div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<label class="form-label" for="comment_content">{l s='Content' mod='ets_reviews'}<sup class="required">*</sup></label>
+								<textarea name="comment_content" placeholder="{l s='Enter your question about this product here' mod='ets_reviews'}"></textarea>
+								<p class="desc_error">{l s='Question is required' mod='ets_reviews'}</p>
+							</div>
+						</div>
+                        <div class="row">
+							{(Module::getInstanceByName('ets_reviews')->hookRenderReCaptcha(['reCaptchaFor'=>'qa', 'class'=>'col-md-12 col-sm-12 col-xs-12'])) nofilter}
+                        </div>
+					</div>
+					<div class="ets-rv-post_content_footer_modal">
+						<div class="col-md-12 col-sm-12 col-xs-12 post-question-buttons">
+							<button type="button" class="btn btn-primary btn-question-inverse ets-rv-btn-question-big cancel_button ets_button_gray" data-dismiss="ets-rv-modal" aria-label="{l s='Cancel' mod='ets_reviews'}">
+								{l s='Cancel' mod='ets_reviews'}
+							</button>
+							<button type="submit" class="btn ets-rv-btn-question ets-rv-btn-question-big btn-primary {if !empty($ETS_RV_DESIGN_COLOR2)} background2{/if}{if !empty($ETS_RV_DESIGN_COLOR3)} bg_hover3 bd_hover3{/if}" data-add-title="{l s='Submit question' mod='ets_reviews'}" data-edit-title="{l s='Save' mod='ets_reviews'}">
+								{l s='Submit question' mod='ets_reviews'}
+							</button>
+						</div>
+					</div>
+					<input type="hidden" name="id_product_comment" value="0">
+				</form>
+            {elseif !$logged}
+				<div class="ets_rv_login">
+					<div class="ets-rv-modal-header">
+						<button type="button" class="close" data-dismiss="ets-rv-modal" aria-label="Close">
+							<svg width="14" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1490 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z"/></svg>
+						</button>
+					</div>
+					<div class="ets-rv-modal-body">
+						<p class="title">{l s='Please sign in or register to ask your question.' mod='ets_reviews'}</p>
+						<a class="btn btn-default btn-primary login" rel="nofollow" href="{$link->getPageLink('authentication') nofilter}?back={$currentUrl nofilter}"><i><svg width="14" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1536 1399q0 109-62.5 187t-150.5 78h-854q-88 0-150.5-78t-62.5-187q0-85 8.5-160.5t31.5-152 58.5-131 94-89 134.5-34.5q131 128 313 128t313-128q76 0 134.5 34.5t94 89 58.5 131 31.5 152 8.5 160.5zm-256-887q0 159-112.5 271.5t-271.5 112.5-271.5-112.5-112.5-271.5 112.5-271.5 271.5-112.5 271.5 112.5 112.5 271.5z"/></svg></i> {l s='Sign in' mod='ets_reviews'}</a>
+						<a class="btn btn-default btn-primary create_account" rel="nofollow" href="{$link->getPageLink('authentication') nofilter}?create_account=1&back={$currentUrl nofilter}"><svg width="16" height="14" viewBox="0 0 2048 1792" xmlns="http://www.w3.org/2000/svg"><path d="M704 896q-159 0-271.5-112.5t-112.5-271.5 112.5-271.5 271.5-112.5 271.5 112.5 112.5 271.5-112.5 271.5-271.5 112.5zm960 128h352q13 0 22.5 9.5t9.5 22.5v192q0 13-9.5 22.5t-22.5 9.5h-352v352q0 13-9.5 22.5t-22.5 9.5h-192q-13 0-22.5-9.5t-9.5-22.5v-352h-352q-13 0-22.5-9.5t-9.5-22.5v-192q0-13 9.5-22.5t22.5-9.5h352v-352q0-13 9.5-22.5t22.5-9.5h192q13 0 22.5 9.5t9.5 22.5v352zm-736 224q0 52 38 90t90 38h256v238q-68 50-171 50h-874q-121 0-194-69t-73-190q0-53 3.5-103.5t14-109 26.5-108.5 43-97.5 62-81 85.5-53.5 111.5-20q19 0 39 17 79 61 154.5 91.5t164.5 30.5 164.5-30.5 154.5-91.5q20-17 39-17 132 0 217 96h-223q-52 0-90 38t-38 90v192z"/></svg> {l s='Create account' mod='ets_reviews'}</a>
+					</div>
+				</div>
+            {elseif $is_block_customer}
+				<div class="ets_rv_is_block_question">
+					<div class="ets-rv-modal-header">
+						<button type="button" class="close" data-dismiss="ets-rv-modal" aria-label="Close">
+							<svg width="14" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1490 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z"/></svg>
+						</button>
+					</div>
+					<div class="ets-rv-modal-body">
+						<p class="alert alert-warning">{l s='You\'re blocked from leaving questions' mod='ets_reviews'}</p>
+					</div>
+				</div>
+            {else}
+				<div class="ets_rv_purchase_product">
+					<div class="ets-rv-modal-header">
+						<h2><i class="ets_svg_icon svg_exclamation-triangle"></i> {l s='Question status' mod='ets_reviews'}</h2>
+						<button type="button" class="close" data-dismiss="ets-rv-modal" aria-label="Close">
+							<svg width="14" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1490 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z"/></svg>
+						</button>
+					</div>
+					<div class="ets-rv-modal-body">
+						<div class="row">
+							<div class="col-md-12  col-sm-12" id="ets-rv-product-question-posted-modal-message">
+                                {l s='You can only ask a question after purchasing this product' mod='ets_reviews'}
+							</div>
+						</div>
+					</div>
+					<div class="ets-rv-modal-footer">
+						<div class="row">
+							<div class="col-md-12  col-sm-12 post-question-buttons ets">
+								<button type="button" class="btn btn-question btn-question-huge ets_button_gray" data-dismiss="ets-rv-modal" aria-label="OK">
+									{l s='OK' mod='ets_reviews'}
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+            {/if}
+		</div>
+        </div>
+	</div>
+</div>
+
+{* Comment posted modal *}
+{if !$moderation_active}
+    {assign var='question_posted_message' value="{l s='Your question has been submitted and will be published once approved by a store admin.' mod='ets_reviews'}"}
+{else}
+    {assign var='question_posted_message' value="{l s='Your question has been submitted!' mod='ets_reviews'}"}
+{/if}
+
+{include file='./alert-modal.tpl'
+modal_id='ets-rv-product-question-posted-modal'
+modal_title="{l s='Question sent' mod='ets_reviews'}"
+modal_message=$question_posted_message
+}
+
+{* Comment post error modal *}
+{include file='./alert-modal.tpl'
+modal_id='ets-rv-product-question-post-error'
+modal_title="{l s='Your question cannot be sent' mod='ets_reviews'}"
+icon='error'
+}

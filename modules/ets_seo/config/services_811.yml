@@ -1,0 +1,40 @@
+services:
+  _defaults:
+    public: true
+
+  ets_seo.form.type.seo_type:
+    class: 'Ets\Seo\FormType\SeoType'
+    decorates: 'form.type.sell.product.seo.seo_type'
+    parent: 'form.type.translatable.aware'
+    public: true
+    arguments:
+      - "@router"
+      - "@=service('prestashop.adapter.legacy.configuration').getBoolean('PS_REWRITING_SETTINGS')"
+      - "@=service('prestashop.adapter.legacy.configuration').getBoolean('PS_FORCE_FRIENDLY_PRODUCT')"
+      - '@prestashop.adapter.legacy.context'
+      - '@PrestaShop\PrestaShop\Core\ConfigurationInterface'
+    tags:
+      - { name: form.type }
+  ets_seo.form.type.analysis_type:
+    class: 'Ets\Seo\FormType\AnalysisType'
+    parent: 'form.type.translatable.aware'
+    public: true
+    arguments:
+      - "@translator"
+      - "@=service('prestashop.adapter.legacy.context').getLanguages()"
+    tags:
+      - { name: form.type }
+  ets_seo.form.type.social_type:
+    class: 'Ets\Seo\FormType\SeoSocialType'
+    parent: 'form.type.translatable.aware'
+    public: true
+    arguments:
+      - "@translator"
+      - "@=service('prestashop.adapter.legacy.context').getLanguages()"
+    tags:
+      - { name: form.type }
+    ets_seo.form.type.advance_type:
+        class: 'Ets\Seo\FormType\SeoAdvanceType'
+        public: true
+        tags:
+            - { name: form.type }

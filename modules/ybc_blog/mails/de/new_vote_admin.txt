@@ -1,0 +1,3 @@
+Beitrag: {post_title}
+Feedback: {feedback}
+Beitrag ist hilfreich für Kunden: {polls_helpful}

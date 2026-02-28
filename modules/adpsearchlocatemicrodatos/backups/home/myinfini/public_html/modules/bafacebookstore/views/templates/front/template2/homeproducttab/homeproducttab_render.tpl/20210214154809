@@ -1,0 +1,833 @@
+{*
+* 2007-2019 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Academic Free License (AFL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/afl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@buy-addons.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+* @author    Buy-addons    <contact@buy-addons.com>
+* @copyright 2007-2019 Buy-addons
+* @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*  International Registered Trademark & Property of PrestaShop SA
+*}
+<link href="{$path|escape:'htmlall':'UTF-8'}views/css/homeproducttab/homeproducttab_render.css" rel="stylesheet" type="text/css" media="all" />
+<script src="{$path|escape:'htmlall':'UTF-8'}views/js/homeproducttab/homeproducttab_render.js"></script>
+<div id="fb-root"></div>
+{***<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.async = true;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>***}
+{if $params != ''} 
+	<div class="clearfix"></div>
+	<ul class="home-page-tabs nav nav-tabs">
+			{if $params.ARRIVALS == 1}
+				<li class="active_class {if $params.ARRIVALS == 1}active{/if}" style="margin-right:9px; margin-left: 9px">
+					<a data-toggle="tab" class="blocknewproducts homefeatured" style="padding: 0px; padding-bottom: 9px;">{l s='NEW ARRIVALS' mod='bafacebookstore'}</a>
+				</li>
+			{/if}
+			{if $params.POPULAR == 1}
+				<li  class="homefeatured_class {if $params.ARRIVALS == 0 && $params.POPULAR == 1}active{/if}" style="margin-right:9px; margin-left: 9px">
+					<a data-toggle="tab" class="homefeatured" style="padding: 0px; padding-bottom: 9px;">{l s='POPULAR' mod='bafacebookstore'}</a>	
+				</li>
+			{/if}
+			{if $params.SPECIALS == 1}
+				<li class="SPECIALS {if $params.ARRIVALS == 0 && $params.POPULAR == 0 && $params.SPECIALS == 1}active{/if}" style="margin-right:9px; margin-left: 9px">
+					<a data-toggle="tab" class="homefeatured" style="padding: 0px; padding-bottom: 9px;">{l s='SPECALS' mod='bafacebookstore'}</a>
+				</li>
+			{/if}
+			{if $params.BEST_SELLERS == 1}
+				<li class="SELLERS {if $params.ARRIVALS == 0 && $params.POPULAR == 0 && $params.SPECIALS == 0 && $params.BEST_SELLERS == 1}active{/if}" style="margin-right:9px; margin-left: 9px">
+					<a data-toggle="tab" class="homefeatured" style="padding: 0px; padding-bottom: 9px;">{l s='BEST SELLERS' mod='bafacebookstore'}</a>
+				</li>
+			{/if}
+	</ul>
+	{if $params.FEATURED_NBR != 0}
+		{if $productsList != ''}
+			<div class="tab-content ARRIVALS">
+				{if $params.FEATURED_NBR > 0}
+					<ul class="product_list grid row  blocknewproducts tab-pane active">
+						{if $productsList|@count > $params.FEATURED_NBR}
+							{for $i=1 to $params.FEATURED_NBR}
+								<li class="ajax_block_product col-xs-12 col-sm-4 col-md-3  first-in-line last-line  first-item-of-mobile-line ba_li_syle" style="clear: none !important;" >
+									<div class="product-container">
+										<div class="left-block">
+											<div class="product-image-container">
+												<a href="{$productsList[$i]["link"]|escape:'htmlall':'UTF-8'}" class="product_img_link" target="_blank">
+													<img src="{$link->getImageLink($productsList[$i]["link_rewrite"], $productsList[$i]["id_image"], 'home_default')|escape:'html'}" height="100%" width="100%" alt="{$productsList[$i]["legend"]|escape:'htmlall':'UTF-8'}" />
+											
+												
+												
+												{if $productsList[$i]["condition"] != ''}
+													{if $productsList[$i]["condition"] == 'new'}
+														<span class="new-box"><span class="new">{$productsList[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													{if $productsList[$i]["condition"] == 'refurbished'}
+														<span class="refurbished-box"><span class="new">{$productsList[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													{if $productsList[$i]["condition"] == 'used'}
+														<span class="used-box"><span class="new">{$productsList[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+												{/if}
+												{if isset($productsList[$i]["specific_prices"]) && $productsList[$i]["specific_prices"] && isset($productsList[$i]["reduction"]) && $productsList[$i]["reduction"] > 0}
+													{if $productsList[$i]["specific_prices"]["reduction_type"] == 'percentage'}
+														<span class="sale_off"><span style="position: absolute;bottom: -6px;right: -30px;transform: rotate(45deg);font-size:20px;">-{$productsList[$i]["specific_prices"]["reduction"] * 100|escape:'htmlall':'UTF-8'}%</span></span>
+													{/if}
+												{/if}
+											</div>
+										</div>
+									</div>
+									<div class="right-block">
+										<h5><a class="product-name" href="{$productsList[$i]["link"]|escape:'htmlall':'UTF-8'}" title="{$productsList[$i]['name']|escape:'htmlall':'UTF-8'}" target="_blank">{$productsList[$i]["name"]|escape:'htmlall':'UTF-8'}</a></h5>
+										<p class="product-desc"></p>
+										<div class="content_price2">
+											<span class="price product-price" style="font-size: 19px;color: #F00;">{$productsList[$i]["price_tax_exc_formatted"]|escape:'htmlall':'UTF-8'}</span>
+										{if isset($productsList[$i]["specific_prices"]) && $productsList[$i]["specific_prices"] && isset($productsList[$i]["reduction"]) && $productsList[$i]["reduction"] > 0}
+											<span style="color: #6f6f6f;text-decoration: line-through;font-size:13px;">{$productsList[$i]["price_without_reduction_formatted"]|escape:'htmlall':'UTF-8'}</span>	
+										{/if}	
+										</div>
+										<div class="button-container" style="display:block">
+											<div class="bahoverbtnadd">
+												<a class="button btn btn-default ba_ajax_add_to_cart_button" rel="ajax_id_product_{$productsList[$i]["id_product"]|escape:'htmlall':'UTF-8'}" data-id-product="{$productsList[$i]["id_product"]|escape:'htmlall':'UTF-8'}" title="{l s='Add to cart' mod='bafacebookstore'}"><span><img src="{$server_dir|escape:'htmlall':'UTF-8'}modules/bafacebookstore/views/img/homeproducttab/icon_cart2.png" /></span></a>
+																				
+												<a class="button lnk_view btn btn-default bamore" title="{l s='View' mod='bafacebookstore'}" href="{$productsList[$i]["link"]|escape:'htmlall':'UTF-8'}" target="_blank"><span><i class="fa fa-eye fa-2" aria-hidden="true"></i></span></a>
+											</div>
+											{*<hr style=" margin-bottom: 6.5px; margin-top: 7.5px; margin-right: 10px"/>
+											<div class="box_social">
+												<a class="button btn ba_social" title="Like"><div class="fb-like" data-href="{$productsList[$i]["link"]|escape:'htmlall':'UTF-8'}" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div></a>
+												<a class="button btn ba_social" title="Comment"><div class="fb-send" data-href="{$productsList[$i]["link"]|escape:'htmlall':'UTF-8'}"></div></a>
+												<a class="button btn ba_social" title="Share"><div class="fb-share-button" data-href="{$productsList[$i]["link"]|escape:'htmlall':'UTF-8'}" data-layout="button"></div></a>
+											</div>*}
+										</div>
+										<div class="product-flags">
+										</div>
+										<span class="availability" style="display:none;"><span class="available-now">{l s='In Stock' mod='bafacebookstore'}</span></span>
+									</div>
+									<div class="functional-buttons clearfix" style="display:none;">
+										<div class="wishlist">
+										<a href="#" rel="{$productsList[$i]["id_product"]|escape:'htmlall':'UTF-8'}" onclick="WishlistCart('wishlist_block_list', 'add', '{$productsList[$i]["id_product"]|escape:'htmlall':'UTF-8'}', false, 1); return false;" class="addToWishlist wishlistProd_{$productsList[$i]["id_product"]|escape:'htmlall':'UTF-8'}">{l s='Add to Wishlist' mod='bafacebookstore'}</a>
+										</div>
+										<div class="compare">
+											<a>{l s='Add to Compare' mod='bafacebookstore'}</a>
+										</div>
+									</div>
+								</li>
+							{/for}
+						{/if}
+						{if $productsList|@count <= $params.FEATURED_NBR}
+							{for $i=0 to $productsList|@count - 1}
+								<li class="ajax_block_product col-xs-12 col-sm-4 col-md-3  first-in-line last-line  first-item-of-mobile-line ba_li_syle" style="clear: none !important;" >
+									<div class="product-container">
+										<div class="left-block">
+											<div class="product-image-container">
+												<a href="{$productsList[$i]["link"]|escape:'htmlall':'UTF-8'}" class="product_img_link" title="Printed Dress" target="_blank">
+												<img src="{$link->getImageLink($productsList[$i]["link_rewrite"], $productsList[$i]["id_image"], 'home_default')|escape:'html'}" height="100%" width="100%" alt="{$productsList[$i]["legend"]|escape:'htmlall':'UTF-8'}" />
+											
+												
+												
+												{if $productsList[$i]["condition"] != ''}
+													{if $productsList[$i]["condition"] == 'new'}
+														<span class="new-box"><span class="new">{$productsList[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													{if $productsList[$i]["condition"] == 'refurbished'}
+														<span class="refurbished-box"><span class="new">{$productsList[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													{if $productsList[$i]["condition"] == 'used'}
+														<span class="used-box"><span class="new">{$productsList[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+												{/if}
+												{if isset($productsList[$i]["specific_prices"]) && $productsList[$i]["specific_prices"] && isset($productsList[$i]["reduction"]) && $productsList[$i]["reduction"] > 0}
+													{if $productsList[$i]["specific_prices"]["reduction_type"] == 'percentage'}
+														<span class="sale_off"><span style="position: absolute;bottom: -6px;right: -30px;transform: rotate(45deg);font-size:20px;">-{$productsList[$i]["specific_prices"]["reduction"] * 100|escape:'htmlall':'UTF-8'}%</span></span>
+													{/if}
+												{/if}
+											</div>
+										</div>
+									</div>
+									<div class="right-block">
+										<h5><a class="product-name" href="{$productsList[$i]["link"]|escape:'htmlall':'UTF-8'}" title="{$productsList[$i]['name']|escape:'htmlall':'UTF-8'}" target="_blank">{$productsList[$i]["name"]|escape:'htmlall':'UTF-8'}</a></h5>
+										<p class="product-desc"></p>
+										<div class="content_price2">
+											<span class="price product-price" style="font-size: 19px;color: #F00;">{$productsList[$i]["price_tax_exc_formatted"]|escape:'htmlall':'UTF-8'}</span>
+										{if isset($productsList[$i]["specific_prices"]) && $productsList[$i]["specific_prices"] && isset($productsList[$i]["reduction"]) && $productsList[$i]["reduction"] > 0}
+											<span style="color: #6f6f6f;text-decoration: line-through;font-size:13px;">{$productsList[$i]["price_without_reduction_formatted"]|escape:'htmlall':'UTF-8'}</span>	
+										{/if}	
+										</div>
+										<div class="button-container" style="display:block">
+											<div class="bahoverbtnadd">
+												<a class="button btn btn-default ba_ajax_add_to_cart_button" rel="ajax_id_product_{$productsList[$i]["id_product"]|escape:'htmlall':'UTF-8'}" data-id-product="{$productsList[$i]["id_product"]|escape:'htmlall':'UTF-8'}" title="{l s='Add to cart' mod='bafacebookstore'}"><span><img src="{$server_dir|escape:'htmlall':'UTF-8'}modules/bafacebookstore/views/img/homeproducttab/icon_cart2.png" /></span></a>								
+												<a class="button lnk_view btn btn-default bamore" title="{l s='View' mod='bafacebookstore'}" href="{$productsList[$i]["link"]|escape:'htmlall':'UTF-8'}" target="_blank"><span><i class="fa fa-eye fa-2" aria-hidden="true"></i></span></a>
+											</div>
+											{*<hr style=" margin-bottom: 6.5px; margin-top: 7.5px; margin-right: 10px"/>
+											<div class="box_social">
+												<a class="button btn ba_social" title="Like"><div class="fb-like" data-href="{$productsList[$i]["link"]|escape:'htmlall':'UTF-8'}" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div></a>
+												<a class="button btn ba_social" title="Comment"><div class="fb-send" data-href="{$productsList[$i]["link"]|escape:'htmlall':'UTF-8'}"></div></a>
+												<a class="button btn ba_social" title="Share"><div class="fb-share-button" data-href="{$productsList[$i]["link"]|escape:'htmlall':'UTF-8'}" data-layout="button"></div></a>
+											</div>*}
+										</div>
+										<div class="product-flags">
+										</div>
+										<span class="availability" style="display:none;"><span class="available-now">{l s='In Stock' mod='bafacebookstore'}</span></span>
+									</div>
+									<div class="functional-buttons clearfix" style="display:none;">
+										<div class="wishlist">
+										<a href="#" rel="{$productsList[$i]["id_product"]|escape:'htmlall':'UTF-8'}" onclick="WishlistCart('wishlist_block_list', 'add', '{$productsList[$i]["id_product"]|escape:'htmlall':'UTF-8'}', false, 1); return false;" class="addToWishlist wishlistProd_{$productsList[$i]["id_product"]|escape:'htmlall':'UTF-8'}">{l s='Add to Wishlist' mod='bafacebookstore'}</a>
+										</div>
+										<div class="compare">
+											<a>{l s='Add to Compare' mod='bafacebookstore'}</a>
+										</div>
+									</div>
+								</li>
+							{/for}
+						{/if}
+					</ul>
+				{/if}
+			</div>
+		{/if}
+	{/if}
+	{if $params.POPULAR_NBR != 0}
+		{if $product_popular != ''}
+			<div class="tab-content popular">
+				{if $params.POPULAR_NBR > 0}
+					<ul id="blockspecials" class="product_list grid row blockspecials tab-pane active">
+						{if $product_popular|@count > $params.POPULAR_NBR}
+							{for $i=1 to $params.POPULAR_NBR}
+								<li class="ajax_block_product col-xs-12 col-sm-4 col-md-3 first-in-line last-line first-item-of-tablet-line first-item-of-mobile-line last-mobile-line ba_li_syle" style="clear: none !important;height: 256px; margin-bottom: 0px;">
+									<div class="product-container" itemscope="">
+										<div class="left-block">
+											<div class="product-image-container">
+												<a class="product_img_link" href="{$product_popular[$i]["link"]|escape:'htmlall':'UTF-8'}" title="{$product_popular[$i]["name"]|escape:'htmlall':'UTF-8'}" itemprop="url" target="_blank">
+													<img src="{$link->getImageLink($product_popular[$i]["link_rewrite"], $product_popular[$i]["id_image"], 'home_default')|escape:'html'}" height="100%" width="100%" alt="{$product_popular[$i]["legend"]|escape:'htmlall':'UTF-8'}" />
+												</a>
+												<div class="quick-view-wrapper-mobile">
+													<a class="quick-view-mobile">
+														<i class="icon-eye-open"></i>
+													</a>
+												</div>
+												<a class="quick-view" href="{$product_popular[$i]["link"]|escape:'htmlall':'UTF-8'}" target="_blank">
+													<span>{l s='Quick view' mod='bafacebookstore'}</span>
+												</a>
+											
+														{if $product_popular[$i]["condition"] != ''}
+														{if $product_popular[$i]["condition"] == 'new'}
+														<span class="new-box"><span class="new">{$product_popular[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+														{/if}
+														{if $product_popular[$i]["condition"] == 'refurbished'}
+														<span class="refurbished-box"><span class="new">{$product_popular[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+														{/if}
+														{if $product_popular[$i]["condition"] == 'used'}
+															<span class="used-box"><span class="new">{$product_popular[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+														{/if}
+														
+														{if isset($product_popular[$i]["specific_prices"]) && $product_popular[$i]["specific_prices"] && isset($product_popular[$i]["reduction"]) && $product_popular[$i]["reduction"] > 0}
+															{if $product_popular[$i]["specific_prices"]["reduction_type"] == 'percentage'}
+																<span class="sale_off" style="left: 159px;"><span style="position: absolute;bottom: -6px;right: -30px;transform: rotate(45deg);font-size:20px;">-{$product_popular[$i]["specific_prices"]["reduction"] * 100|escape:'htmlall':'UTF-8'}%</span></span>
+															{/if}
+														{/if}
+													{/if}
+													
+													<span class="unvisible" style="display:none;">
+														<link itemprop="availability">
+															{l s='In stock' mod='bafacebookstore'}																					
+													</span>
+												
+											</div>
+										</div>
+										<div class="right-block">
+											<h5 itemprop="name">
+												<a class="product-name" href="{$product_popular[$i]["link"]|escape:'htmlall':'UTF-8'}" title="{$product_popular[$i]["name"]|escape:'htmlall':'UTF-8'}" itemprop="url" target="_blank">
+													{$product_popular[$i]["name"]|escape:'htmlall':'UTF-8'}
+												</a>
+											</h5>
+											<p class="product-desc" itemprop="description" ></p>
+											<div class="content_price2">
+												<span class="price product-price" style="font-size: 19px;color: #F00;" >
+													{$product_popular[$i]["price_tax_exc_formatted"]|escape:'htmlall':'UTF-8'}		
+												</span>
+												{if isset($product_popular[$i]["specific_prices"]) && $product_popular[$i]["specific_prices"] && isset($product_popular[$i]["reduction"]) && $product_popular[$i]["reduction"] > 0}
+													<span style="color: #6f6f6f;text-decoration: line-through;font-size:13px;">{$product_popular[$i]["price_without_reduction_formatted"]|escape:'htmlall':'UTF-8'}</span>
+														
+												{/if}
+												
+												{*<span class="old-price product-price">
+													{$product_popular[$i]["price_without_reduction"]}
+												</span>*}
+												{*<span class="price-percent-reduction">{$product_popular[$i]["reduction"]}</span>*}
+											</div>
+											<div class="button-container" style="display:block">
+												<div class="bahoverbtnadd">
+													<a class="button ajax_add_to_cart_button btn btn-default ba_ajax_add_to_cart_button" rel="ajax_id_product_{$product_popular[$i]["id_product"]|escape:'htmlall':'UTF-8'}" data-id-product="{$product_popular[$i]["id_product"]|escape:'htmlall':'UTF-8'}" title="{l s='Add to cart' mod='bafacebookstore'}"><span><img src="{$server_dir|escape:'htmlall':'UTF-8'}modules/bafacebookstore/views/img/homeproducttab/icon_cart2.png" /></span></a>
+													<a class="button lnk_view btn btn-default bamore" title="{l s='View' mod='bafacebookstore'}" href="{$product_popular[$i]["link"]|escape:'htmlall':'UTF-8'}" target="_blank">
+														<span><i class="fa fa-eye fa-2" aria-hidden="true"></i></span>
+													</a>
+												</div>
+												{*<hr style=" margin-bottom: 6.5px; margin-top: 7.5px; margin-right: 10px"/>
+												<div class="box_social">
+													<a class="button btn ba_social" title="Like"><div class="fb-like" data-href="{$product_popular[$i]["link"]|escape:'htmlall':'UTF-8'}" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div></a>
+													<a class="button btn ba_social" title="Comment"><div class="fb-send" data-href="{$product_popular[$i]["link"]|escape:'htmlall':'UTF-8'}"></div></a>
+													<a class="button btn ba_social" title="Share"><div class="fb-share-button" data-href="{$product_popular[$i]["link"]|escape:'htmlall':'UTF-8'}" data-layout="button"></div></a>
+												</div>*}
+											</div>
+											<div class="product-flags">
+												<span class="discount">Reduced price!</span>
+											</div>
+											<span class="availability" style="display:none">
+												<span class=" label-success">
+													{l s='In stock' mod='bafacebookstore'}							
+												</span>
+											</span>
+										</div>
+									</div>
+								</li>
+							{/for}
+						{/if}
+						{if $product_popular|@count <= $params.POPULAR_NBR}
+							{for $i=0 to $product_popular|@count - 1}
+								<li class="ajax_block_product col-xs-12 col-sm-4 col-md-3 first-in-line last-line first-item-of-tablet-line first-item-of-mobile-line last-mobile-line ba_li_syle" style="clear: none !important;height: 256px; margin-bottom: 0px;">
+									<div class="product-container" itemscope="">
+										<div class="left-block">
+											<div class="product-image-container">
+												<a class="product_img_link" href="{$product_popular[$i]["link"]|escape:'htmlall':'UTF-8'}" title="{$product_popular[$i]["name"]|escape:'htmlall':'UTF-8'}" itemprop="url" target="_blank">
+													<img src="{$link->getImageLink($product_popular[$i]["link_rewrite"], $product_popular[$i]["id_image"], 'home_default')|escape:'html'}" height="100%" width="100%" alt="{$product_popular[$i]["legend"]|escape:'htmlall':'UTF-8'}" />
+												</a>
+												<div class="quick-view-wrapper-mobile">
+													<a class="quick-view-mobile">
+														<i class="icon-eye-open"></i>
+													</a>
+												</div>
+												<a class="quick-view" href="{$product_popular[$i]["link"]|escape:'htmlall':'UTF-8'}">
+													<span>{l s='Quick view' mod='bafacebookstore'}</span>
+												</a>
+												<div class="content_price1" itemprop="offers" itemscope="">
+													<span itemprop="price" class="price product-price">
+														{$productsListspecials[$i]["price_without_reduction"]|escape:'htmlall':'UTF-8'}								
+													</span>
+													{if $product_popular[$i]["condition"] != ''}
+													{if $product_popular[$i]["condition"] == 'new'}
+														<span class="new-box"><span class="new">{$product_popular[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													{if $product_popular[$i]["condition"] == 'refurbished'}
+														<span class="refurbished-box"><span class="new">{$product_popular[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													{if $product_popular[$i]["condition"] == 'used'}
+														<span class="used-box"><span class="new">{$product_popular[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													
+													{if isset($product_popular[$i]["specific_prices"]) && $product_popular[$i]["specific_prices"] && isset($product_popular[$i]["reduction"]) && $product_popular[$i]["reduction"] > 0}
+														{if $product_popular[$i]["specific_prices"]["reduction_type"] == 'percentage'}
+															<span class="sale_off" style="left: 154px;><span style="position: absolute;bottom: -6px;right: -30px;transform: rotate(45deg);font-size:20px;">-{$product_popular[$i]["specific_prices"]["reduction"] * 100|escape:'htmlall':'UTF-8'}%</span></span>
+														{/if}
+													{/if}
+												{/if}
+													<meta itemprop="priceCurrency" content="EUR">
+													<span class="old-price product-price">
+														{ price=$product_popular[$i]["price_without_reduction"]}	
+													</span>
+													{*<span class="price-percent-reduction">{$product_popular[$i]["reduction"]}</span>*}
+													<span class="unvisible" style="display:none;">
+														<link itemprop="availability">
+															{l s='In stock' mod='bafacebookstore'}																					
+													</span>
+												</div>
+											</div>
+										</div>
+										<div class="right-block">
+											<h5 itemprop="name">
+												<a class="product-name" href="{$product_popular[$i]["link"]|escape:'htmlall':'UTF-8'}" title="{$product_popular[$i]["name"]|escape:'htmlall':'UTF-8'}" itemprop="url" target="_blank">
+													{$product_popular[$i]["name"]|escape:'htmlall':'UTF-8'}
+												</a>
+											</h5>
+											<p class="product-desc" itemprop="description" ></p>
+											<div class="content_price2">
+												<span class="price product-price" style="font-size: 19px;color: #F00;">
+													{$product_popular[$i]["price_tax_exc_formatted"]|escape:'htmlall':'UTF-8'}		
+												</span>
+												{if isset($product_popular[$i]["specific_prices"]) && $product_popular[$i]["specific_prices"] && isset($product_popular[$i]["reduction"]) && $product_popular[$i]["reduction"] > 0}
+													<span style="color: #6f6f6f;text-decoration: line-through;font-size:13px;">{$product_popular[$i]["price_without_reduction_formatted"]|escape:'htmlall':'UTF-8'}</span>
+														
+												{/if}
+												
+												{*<span class="old-price product-price">
+													{$product_popular[$i]["price_without_reduction"]}
+												</span>*}
+												{*<span class="price-percent-reduction">{$product_popular[$i]["reduction"]}</span>*}
+											</div>
+											<div class="button-container" style="display:block">
+												<div class="bahoverbtnadd">
+													<a class="button ajax_add_to_cart_button btn btn-default ba_ajax_add_to_cart_button" rel="ajax_id_product_{$product_popular[$i]["id_product"]|escape:'htmlall':'UTF-8'}" data-id-product="{$product_popular[$i]["id_product"]|escape:'htmlall':'UTF-8'}" title="{l s='Add to cart' mod='bafacebookstore'}"><span><img src="{$server_dir|escape:'htmlall':'UTF-8'}modules/bafacebookstore/views/img/homeproducttab/icon_cart2.png" /></span></a>
+													<a class="button lnk_view btn btn-default bamore" title="{l s='View' mod='bafacebookstore'}" href="{$product_popular[$i]["link"]|escape:'htmlall':'UTF-8'}" target="_blank">
+														<span><i class="fa fa-eye fa-2" aria-hidden="true"></i></span>
+													</a>
+												</div>
+												{*<hr style=" margin-bottom: 6.5px; margin-top: 7.5px; margin-right: 10px"/>
+												<div class="box_social">
+													<a class="button btn ba_social" title="Like"><div class="fb-like" data-href="{$product_popular[$i]["link"]|escape:'htmlall':'UTF-8'}" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div></a>
+													<a class="button btn ba_social" title="Comment"><div class="fb-send" data-href="{$product_popular[$i]["link"]|escape:'htmlall':'UTF-8'}"></div></a>
+													<a class="button btn ba_social" title="Share"><div class="fb-share-button" data-href="{$product_popular[$i]["link"]|escape:'htmlall':'UTF-8'}" data-layout="button"></div></a>
+												</div>*}
+											</div>
+											<div class="product-flags">
+												<span class="discount">Reduced price!</span>
+											</div>
+											<span class="availability" style="display:none">
+												<span class=" label-success">
+													{l s='In stock' mod='bafacebookstore'}								
+												</span>
+											</span>
+										</div>
+									</div>
+								</li>
+							{/for}
+						{/if}
+					</ul>
+				{/if}
+			</div>
+		{/if}
+	{/if}
+	{if $params.SPECIALS_NBR != 0}
+		{if $productsListspecials != ''}
+			<div class="tab-content specials">
+				{if $params.SPECIALS_NBR > 0}
+					<ul id="blockspecials" class="product_list grid row blockspecials tab-pane active">
+						{if $productsListspecials|@count > $params.SPECIALS_NBR}
+							{for $i=1 to $params.SPECIALS_NBR}
+								<li class="ajax_block_product col-xs-12 col-sm-4 col-md-3 first-in-line last-line first-item-of-tablet-line first-item-of-mobile-line last-mobile-line ba_li_syle" style="clear: none !important;height: 256px; margin-bottom: 0px;">
+								<div class="product-container" itemscope="">
+									<div class="left-block">
+										<div class="product-image-container">
+											<a class="product_img_link" href="{$productsListspecials[$i]["link"]|escape:'htmlall':'UTF-8'}" title="{$productsListspecials[$i]["name"]|escape:'htmlall':'UTF-8'}" itemprop="url" target="_blank">
+												<img src="{$link->getImageLink($productsListspecials[$i]["link_rewrite"], $productsListspecials[$i]["id_image"], 'home_default')|escape:'html'}" height="100%" width="100%" alt="{$productsListspecials[$i]["legend"]|escape:'htmlall':'UTF-8'}" />
+											</a>
+										<div class="quick-view-wrapper-mobile">
+												<a class="quick-view-mobile">
+													<i class="icon-eye-open"></i>
+												</a>
+										</div>
+										<a class="quick-view" href="{$productsListspecials[$i]["link"]|escape:'htmlall':'UTF-8'}">
+											<span>{l s='Quick view' mod='bafacebookstore'}</span>
+										</a>
+										<div class="content_price1" itemprop="offers" itemscope="">
+												<span itemprop="price" class="price product-price">
+													{$productsListspecials[$i]["price_without_reduction"]|escape:'htmlall':'UTF-8'}						
+												</span>
+												{if $productsListspecials[$i]["condition"] != ''}
+													{if $productsListspecials[$i]["condition"] == 'new'}
+														<span class="new-box" style="left:10px;"><span class="new">{$productsListspecials[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													{if $productsListspecials[$i]["condition"] == 'refurbished'}
+														<span class="refurbished-box"><span class="new">{$productsListspecials[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													{if $productsListspecials[$i]["condition"] == 'used'}
+														<span class="used-box"><span class="new">{$productsListspecials[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													
+													{if isset($productsListspecials[$i]["specific_prices"]) && $productsListspecials[$i]["specific_prices"] && isset($productsListspecials[$i]["reduction"]) && $productsListspecials[$i]["reduction"] > 0}
+														{if $productsListspecials[$i]["specific_prices"]["reduction_type"] == 'percentage'}
+															<span class="sale_off" style="left:159px"><span style="position: absolute;bottom: -6px;right: -30px;transform: rotate(45deg);font-size:20px;">-{$productsListspecials[$i]["specific_prices"]["reduction"] * 100|escape:'htmlall':'UTF-8'}%</span></span>
+														{/if}
+													{/if}
+												{/if}
+												<meta itemprop="priceCurrency" content="EUR">
+												<span class="old-price product-price">
+													{$productsListspecials[$i]["price_without_reduction"]|escape:'htmlall':'UTF-8'}
+												</span>
+												{*<span class="price-percent-reduction">{$productsListspecials[$i]["reduction"]}</span>*}
+												<span class="unvisible" style="display:none;">
+													<link itemprop="availability">
+														{l s='In stock' mod='bafacebookstore'}																				
+													</span>
+											</div>
+										</div>
+										</div>
+											<div class="right-block">
+												<h5 itemprop="name">
+													<a class="product-name" href="{$productsListspecials[$i]["link"]|escape:'htmlall':'UTF-8'}" title="{$productsListspecials[$i]["name"]|escape:'htmlall':'UTF-8'}" itemprop="url" target="_blank">
+														{$productsListspecials[$i]["name"]|escape:'htmlall':'UTF-8'}
+													</a>
+												</h5>
+												<p class="product-desc" itemprop="description"></p>
+												<div class="content_price2">
+												<span class="price product-price" style="font-size: 19px;color: #F00;">{$productsListspecials[$i]["price_tax_exc_formatted"]|escape:'htmlall':'UTF-8'}</span>
+												{if isset($productsListspecials[$i]["specific_prices"]) && $productsListspecials[$i]["specific_prices"] && isset($productsListspecials[$i]["reduction"]) && $productsListspecials[$i]["reduction"] > 0}
+													<span style="color: #6f6f6f;text-decoration: line-through;font-size:13px;">{$productsListspecials[$i]["price_without_reduction_formatted"]|escape:'htmlall':'UTF-8'}</span>
+													
+												{/if}
+												{if $productsListspecials[$i]["condition"] != ''}
+													{if $productsListspecials[$i]["condition"] == 'new'}
+														<span class="new-box" style="left:10px;"><span class="new">{$productsListspecials[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													{if $productsListspecials[$i]["condition"] == 'refurbished'}
+														<span class="refurbished-box"><span class="new">{$productsListspecials[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													{if $productsListspecials[$i]["condition"] == 'used'}
+														<span class="used-box"><span class="new">{$productsListspecials[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													
+													{if isset($productsListspecials[$i]["specific_prices"]) && $productsListspecials[$i]["specific_prices"] && isset($productsListspecials[$i]["reduction"]) && $productsListspecials[$i]["reduction"] > 0}
+														{if $productsListspecials[$i]["specific_prices"]["reduction_type"] == 'percentage'}
+															<span class="sale_off" style="left:159px"><span style="position: absolute;bottom: -6px;right: -30px;transform: rotate(45deg);font-size:20px;">-{$productsListspecials[$i]["specific_prices"]["reduction"] * 100|escape:'htmlall':'UTF-8'}%</span></span>
+														{/if}
+													{/if}
+												{/if}
+												{*<span class="old-price product-price">
+													{$productsListspecials[$i]["price_without_reduction"]}
+												</span>*}
+												{*<span class="price-percent-reduction">{$productsListspecials[$i]["reduction"]}</span>*}
+											</div>
+											<div class="button-container" style="display:block">
+												<div class="bahoverbtnadd">
+													<a class="button ajax_add_to_cart_button btn btn-default ba_ajax_add_to_cart_button" rel="ajax_id_product_{$productsListspecials[$i]["id_product"]|escape:'htmlall':'UTF-8'}" data-id-product="{$productsListspecials[$i]["id_product"]|escape:'htmlall':'UTF-8'}" title="{l s='Add to cart' mod='bafacebookstore'}"><span><img src="{$server_dir|escape:'htmlall':'UTF-8'}modules/bafacebookstore/views/img/homeproducttab/icon_cart2.png" /></span></a>
+													<a class="button lnk_view btn btn-default bamore" title="{l s='View' mod='bafacebookstore'}" href="{$productsListspecials[$i]["link"]|escape:'htmlall':'UTF-8'}" target="_blank">
+														<span><i class="fa fa-eye fa-2" aria-hidden="true"></i></span>
+													</a>
+												</div>
+												{*<hr style=" margin-bottom: 6.5px; margin-top: 7.5px; margin-right: 10px"/>
+												<div class="box_social">
+													<a class="button btn ba_social" title="Like"><div class="fb-like" data-href="{$productsListspecials[$i]["link"]|escape:'htmlall':'UTF-8'}" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div></a>
+													<a class="button btn ba_social" title="Comment"><div class="fb-send" data-href="{$productsListspecials[$i]["link"]|escape:'htmlall':'UTF-8'}"></div></a>
+													<a class="button btn ba_social" title="Share"><div class="fb-share-button" data-href="{$productsListspecials[$i]["link"]|escape:'htmlall':'UTF-8'}" data-layout="button"></div></a>
+												</div>*}
+											</div>
+											<div class="product-flags">
+												<span class="discount">{l s='Reduced price!' mod='bafacebookstore'}</span>
+											</div>
+												<span class="availability" style="display:none">
+													<span class=" label-success">
+														{l s='In stock' mod='bafacebookstore'}								
+													</span>
+												</span>
+										</div>
+									</div>
+								</li>
+							{/for}
+						{/if}
+						{if $productsListspecials|@count <= $params.SPECIALS_NBR}
+							{for $i=0 to $productsListspecials|@count - 1}
+								<li class="ajax_block_product col-xs-12 col-sm-4 col-md-3 first-in-line last-line first-item-of-tablet-line first-item-of-mobile-line last-mobile-line ba_li_syle" style="clear: none !important;height: 256px; margin-bottom: 0px;">
+								<div class="product-container" itemscope="">
+									<div class="left-block">
+										<div class="product-image-container">
+											<a class="product_img_link" href="{$productsListspecials[$i]["link"]|escape:'htmlall':'UTF-8'}" title="{$productsListspecials[$i]["name"]|escape:'htmlall':'UTF-8'}" itemprop="url" target="_blank">
+												<img src="{$link->getImageLink($productsListspecials[$i]["link_rewrite"], $productsListspecials[$i]["id_image"], 'home_default')|escape:'html'}" height="100%" width="100%" alt="{$productsListspecials[$i]["legend"]|escape:'htmlall':'UTF-8'}" />
+											</a>
+										<div class="quick-view-wrapper-mobile">
+												<a class="quick-view-mobile">
+													<i class="icon-eye-open"></i>
+												</a>
+										</div>
+										<a class="quick-view" href="{$productsListspecials[$i]["link"]|escape:'htmlall':'UTF-8'}">
+											<span>{l s='Quick view' mod='bafacebookstore'}</span>
+										</a>
+										<div class="content_price1" itemprop="offers" itemscope="">
+												<span itemprop="price" class="price product-price">
+													{$productsListspecials[$i]["price_without_reduction"]|escape:'htmlall':'UTF-8'}							
+												</span>
+												{if $productsListspecials[$i]["condition"] != ''}
+													{if $productsListspecials[$i]["condition"] == 'new'}
+														<span class="new-box" style="left:10px;"><span class="new">{$productsListspecials[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													{if $productsListspecials[$i]["condition"] == 'refurbished'}
+														<span class="refurbished-box"><span class="new">{$productsListspecials[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													{if $productsListspecials[$i]["condition"] == 'used'}
+														<span class="used-box"><span class="new">{$productsListspecials[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													
+													{if isset($productsListspecials[$i]["specific_prices"]) && $productsListspecials[$i]["specific_prices"] && isset($productsListspecials[$i]["reduction"]) && $productsListspecials[$i]["reduction"] > 0}
+														{if $productsListspecials[$i]["specific_prices"]["reduction_type"] == 'percentage'}
+															<span class="sale_off" style="left:159px"><span style="position: absolute;bottom: -6px;right: -30px;transform: rotate(45deg);font-size:20px;">-{$productsListspecials[$i]["specific_prices"]["reduction"] * 100|escape:'htmlall':'UTF-8'}%</span></span>
+														{/if}
+													{/if}
+												{/if}
+												<meta itemprop="priceCurrency" content="EUR">
+												<span class="old-price product-price">
+													{$productsListspecials[$i]["price_without_reduction"]|escape:'htmlall':'UTF-8'}
+												</span>
+												{*<span class="price-percent-reduction">{$productsListspecials[$i]["reduction"]}</span>*}
+												<span class="unvisible" style="display:none;">
+													<link itemprop="availability">
+														{l s='In stock' mod='bafacebookstore'}																					
+												</span>
+											</div>
+										</div>
+										</div>
+											<div class="right-block">
+												<h5 itemprop="name">
+													<a class="product-name" href="{$productsListspecials[$i]["link"]|escape:'htmlall':'UTF-8'}" title="{$productsListspecials[$i]["name"]|escape:'htmlall':'UTF-8'}" itemprop="url" target="_blank">
+														{$productsListspecials[$i]["name"]|escape:'htmlall':'UTF-8'}
+													</a>
+												</h5>
+												<p class="product-desc" itemprop="description"></p>
+												<div class="content_price2">
+												<span class="price product-price" style="font-size: 19px;color: #F00;">{$productsListspecials[$i]["price_tax_exc_formatted"]|escape:'htmlall':'UTF-8'}</span>
+												{if isset($productsListspecials[$i]["specific_prices"]) && $productsListspecials[$i]["specific_prices"] && isset($productsListspecials[$i]["reduction"]) && $productsListspecials[$i]["reduction"] > 0}
+													<span style="color: #6f6f6f;text-decoration: line-through;font-size:13px;">{$productsListspecials[$i]["price_without_reduction_formatted"]|escape:'htmlall':'UTF-8'}</span>
+													
+												{/if}
+												{if $productsListspecials[$i]["condition"] != ''}
+													{if $productsListspecials[$i]["condition"] == 'new'}
+														<span class="new-box" style="left:10px;"><span class="new">{$productsListspecials[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													{if $productsListspecials[$i]["condition"] == 'refurbished'}
+														<span class="refurbished-box"><span class="new">{$productsListspecials[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													{if $productsListspecials[$i]["condition"] == 'used'}
+														<span class="used-box"><span class="new">{$productsListspecials[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													
+													{if isset($productsListspecials[$i]["specific_prices"]) && $productsListspecials[$i]["specific_prices"] && isset($productsListspecials[$i]["reduction"]) && $productsListspecials[$i]["reduction"] > 0}
+														{if $productsListspecials[$i]["specific_prices"]["reduction_type"] == 'percentage'}
+															<span class="sale_off" style="left:159px"><span style="position: absolute;bottom: -6px;right: -30px;transform: rotate(45deg);font-size:20px;">-{$productsListspecials[$i]["specific_prices"]["reduction"] * 100|escape:'htmlall':'UTF-8'}%</span></span>
+														{/if}
+													{/if}
+												{/if}
+												{*<span class="old-price product-price">
+													{$productsListspecials[$i]["price_without_reduction"]}
+												</span>*}
+												{*<span class="price-percent-reduction">{$productsListspecials[$i]["reduction"]}</span>*}
+											</div>
+											<div class="button-container" style="display:block">
+												<div class="bahoverbtnadd">
+													<a class="button ajax_add_to_cart_button btn btn-default ba_ajax_add_to_cart_button" rel="ajax_id_product_{$productsListspecials[$i]["id_product"]|escape:'htmlall':'UTF-8'}" data-id-product="{$productsListspecials[$i]["id_product"]|escape:'htmlall':'UTF-8'}" title="{l s='Add to cart' mod='bafacebookstore'}"><span><img src="{$server_dir|escape:'htmlall':'UTF-8'}modules/bafacebookstore/views/img/homeproducttab/icon_cart2.png" /></span></a>
+													<a class="button lnk_view btn btn-default bamore" title="{l s='View' mod='bafacebookstore'}" href="{$productsListspecials[$i]["link"]|escape:'htmlall':'UTF-8'}" target="_blank">
+														<span><i class="fa fa-eye fa-2" aria-hidden="true"></i></span>
+													</a>
+												</div>
+												{*<hr style=" margin-bottom: 6.5px; margin-top: 7.5px; margin-right: 10px"/>
+												<div class="box_social">
+													<a class="button btn ba_social" title="Like"><div class="fb-like" data-href="{$productsListspecials[$i]["link"]|escape:'htmlall':'UTF-8'}" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div></a>
+													<a class="button btn ba_social" title="Comment"><div class="fb-send" data-href="{$productsListspecials[$i]["link"]|escape:'htmlall':'UTF-8'}"></div></a>
+													<a class="button btn ba_social" title="Share"><div class="fb-share-button" data-href="{$productsListspecials[$i]["link"]|escape:'htmlall':'UTF-8'}" data-layout="button"></div></a>
+												</div>*}
+											</div>
+											<div class="product-flags">
+												<span class="discount">{l s='Reduced price!' mod='bafacebookstore'}</span>
+											</div>
+												<span class="availability" style="display:none">
+													<span class=" label-success">
+														{l s='In stock' mod='bafacebookstore'}								
+													</span>
+												</span>
+										</div>
+									</div>
+								</li>
+							{/for}
+						{/if}
+					</ul>
+				{/if}
+			</div>
+		{/if}
+	{/if}
+	{if $params.SELLERS_NBR != 0}
+		{if $listproduct_BestSellers != ''}
+			<div class="tab-content bestseller">
+				{if $params.SELLERS_NBR > 0}
+					<ul id="blockspecials" class="product_list grid row blockspecials tab-pane active">
+						{if $listproduct_BestSellers|@count > $params.SELLERS_NBR}
+							{for $i=1 to $params.SELLERS_NBR}
+								<li class="ajax_block_product col-xs-12 col-sm-4 col-md-3 first-in-line last-line first-item-of-tablet-line first-item-of-mobile-line last-mobile-line ba_li_syle" style="clear: none !important;height: 256px; margin-bottom: 0px;">
+								<div class="product-container" itemscope="">
+									<div class="left-block">
+										<div class="product-image-container">
+											<a class="product_img_link" href="{$listproduct_BestSellers[$i]["link"]|escape:'htmlall':'UTF-8'}" title="{$listproduct_BestSellers[$i]["name"]|escape:'htmlall':'UTF-8'}" itemprop="url" target="_blank">
+												<img src="{$link->getImageLink($listproduct_BestSellers[$i]["link_rewrite"], $listproduct_BestSellers[$i]["id_image"], 'home_default')|escape:'html'}" height="100%" width="100%" alt="{$listproduct_BestSellers[$i]["legend"]|escape:'htmlall':'UTF-8'}" />
+											</a>
+										<div class="quick-view-wrapper-mobile">
+												<a class="quick-view-mobile">
+													<i class="icon-eye-open"></i>
+												</a>
+										</div>
+										<a class="quick-view" href="{$listproduct_BestSellers[$i]["link"]|escape:'htmlall':'UTF-8'}">
+											<span>{l s='Quick view' mod='bafacebookstore'}</span>
+										</a>
+										<div class="content_price1" itemprop="offers" itemscope="">
+												<span itemprop="price" class="price product-price">
+													{$listproduct_BestSellers[$i]["price"]|escape:'htmlall':'UTF-8'}						
+												</span>
+												<meta itemprop="priceCurrency" content="EUR">
+												<span class="old-price product-price">
+													{$listproduct_BestSellers[$i]["price"]|escape:'htmlall':'UTF-8'}	
+												</span>
+												{*<span class="price-percent-reduction">{$listproduct_BestSellers[$i]["reduction"]}</span>*}
+												<span class="unvisible" style="display:none;">
+													<link itemprop="availability">
+														{l s='In stock' mod='bafacebookstore'}																				
+												</span>
+											</div>
+										</div>
+										</div>
+											<div class="right-block">
+												<h5 itemprop="name">
+													<a class="product-name" href="{$listproduct_BestSellers[$i]["link"]|escape:'htmlall':'UTF-8'}" title="{$listproduct_BestSellers[$i]["name"]|escape:'htmlall':'UTF-8'}" itemprop="url" target="_blank">
+														{$listproduct_BestSellers[$i]["name"]|escape:'htmlall':'UTF-8'}
+													</a>
+												</h5>
+												<p class="product-desc" itemprop="description"></p>
+												<div class="content_price2">
+												<span class="price product-price" style="font-size: 19px;color: #F00;">{$listproduct_BestSellers[$i]["price_tax_exc_formatted"]|escape:'htmlall':'UTF-8'}</span>
+												{if isset($listproduct_BestSellers[$i]["specific_prices"]) && $listproduct_BestSellers[$i]["specific_prices"] && isset($listproduct_BestSellers[$i]["reduction"]) && $listproduct_BestSellers[$i]["reduction"] > 0}
+													<span style="color: #6f6f6f;text-decoration: line-through;font-size:13px;">{$listproduct_BestSellers[$i]["price_without_reduction_formatted"]|escape:'htmlall':'UTF-8'}</span>
+													
+												{/if}
+												{if $listproduct_BestSellers[$i]["condition"] != ''}
+													{if $listproduct_BestSellers[$i]["condition"] == 'new'}
+														<span class="new-box" style="left:10px;"><span class="new">{$listproduct_BestSellers[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													{if $listproduct_BestSellers[$i]["condition"] == 'refurbished'}
+														<span class="refurbished-box"><span class="new">{$listproduct_BestSellers[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													{if $listproduct_BestSellers[$i]["condition"] == 'used'}
+														<span class="used-box"><span class="new">{$listproduct_BestSellers[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													
+													{if isset($listproduct_BestSellers[$i]["specific_prices"]) && $listproduct_BestSellers[$i]["specific_prices"] && isset($listproduct_BestSellers[$i]["reduction"]) && $listproduct_BestSellers[$i]["reduction"] > 0}
+														{if $listproduct_BestSellers[$i]["specific_prices"]["reduction_type"] == 'percentage'}
+															<span class="sale_off" style="left:159px"><span style="position: absolute;bottom: -6px;right: -30px;transform: rotate(45deg);font-size:20px;">-{$listproduct_BestSellers[$i]["specific_prices"]["reduction"] * 100|escape:'htmlall':'UTF-8'}%</span></span>
+														{/if}
+													{/if}
+												{/if}
+												{*<span class="old-price product-price">
+													{$listproduct_BestSellers[$i]["price_without_reduction"]}
+												</span>*}
+												{*<span class="price-percent-reduction">{$listproduct_BestSellers[$i]["reduction"]}</span>*}
+											</div>
+											<div class="button-container" style="display:block">
+												<div class="bahoverbtnadd">
+													<a class="button ajax_add_to_cart_button btn btn-default ba_ajax_add_to_cart_button" rel="ajax_id_product_{$listproduct_BestSellers[$i]["id_product"]|escape:'htmlall':'UTF-8'}" data-id-product="{$listproduct_BestSellers[$i]["id_product"]|escape:'htmlall':'UTF-8'}" title="{l s='Add to cart' mod='bafacebookstore'}"><span><img src="{$server_dir|escape:'htmlall':'UTF-8'}modules/bafacebookstore/views/img/homeproducttab/icon_cart2.png" /></span></a>
+													<a class="button lnk_view btn btn-default bamore" title="{l s='View' mod='bafacebookstore'}" href="{$listproduct_BestSellers[$i]["link"]|escape:'htmlall':'UTF-8'}" target="_blank">
+														<span><i class="fa fa-eye fa-2" aria-hidden="true"></i></span>
+													</a>
+												</div>
+												{*<hr style=" margin-bottom: 6.5px; margin-top: 7.5px; margin-right: 10px"/>
+												<div class="box_social">
+													<a class="button btn ba_social" title="Like"><div class="fb-like" data-href="{$listproduct_BestSellers[$i]["link"]|escape:'htmlall':'UTF-8'}" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div></a>
+													<a class="button btn ba_social" title="Comment"><div class="fb-send" data-href="{$listproduct_BestSellers[$i]["link"]|escape:'htmlall':'UTF-8'}"></div></a>
+													<a class="button btn ba_social" title="Share"><div class="fb-share-button" data-href="{$listproduct_BestSellers[$i]["link"]|escape:'htmlall':'UTF-8'}" data-layout="button"></div></a>
+												</div>*}
+											</div>
+											<div class="product-flags">
+												<span class="discount">{l s='Reduced price!' mod='bafacebookstore'}</span>
+											</div>
+												<span class="availability" style="display:none">
+													<span class=" label-success">
+														{l s='In stock' mod='bafacebookstore'}								
+													</span>
+												</span>
+										</div>
+									</div>
+								</li>
+							{/for}
+						{/if}
+						{if $listproduct_BestSellers|@count <= $params.SELLERS_NBR}
+							{for $i=0 to $listproduct_BestSellers|@count - 1}
+								<li class="ajax_block_product col-xs-12 col-sm-4 col-md-3 first-in-line last-line first-item-of-tablet-line first-item-of-mobile-line last-mobile-line ba_li_syle" style="clear: none !important;height: 256px; margin-bottom: 0px;">
+								<div class="product-container" itemscope="">
+									<div class="left-block">
+										<div class="product-image-container">
+											<a class="product_img_link" href="{$listproduct_BestSellers[$i]["link"]|escape:'htmlall':'UTF-8'}" title="{$listproduct_BestSellers[$i]["name"]|escape:'htmlall':'UTF-8'}" itemprop="url" target="_blank">
+												<img src="{$link->getImageLink($listproduct_BestSellers[$i]["link_rewrite"], $listproduct_BestSellers[$i]["id_image"], 'home_default')|escape:'html'}" height="100%" width="100%" alt="{$listproduct_BestSellers[$i]["legend"]|escape:'htmlall':'UTF-8'}" />
+											</a>
+										<div class="quick-view-wrapper-mobile">
+												<a class="quick-view-mobile">
+													<i class="icon-eye-open"></i>
+												</a>
+										</div>
+										<a class="quick-view" href="{$listproduct_BestSellers[$i]["link"]|escape:'htmlall':'UTF-8'}">
+											<span>{l s='Quick view' mod='bafacebookstore'}</span>
+										</a>
+										{if $listproduct_BestSellers[$i]["condition"] != ''}
+													{if $listproduct_BestSellers[$i]["condition"] == 'new'}
+														<span class="new-box" style="left:10px;"><span class="new">{$listproduct_BestSellers[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													{if $listproduct_BestSellers[$i]["condition"] == 'refurbished'}
+														<span class="refurbished-box"><span class="new">{$listproduct_BestSellers[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													{if $listproduct_BestSellers[$i]["condition"] == 'used'}
+														<span class="used-box"><span class="new">{$listproduct_BestSellers[$i]["condition"]|escape:'htmlall':'UTF-8'}</span></span>
+													{/if}
+													
+													{if isset($listproduct_BestSellers[$i]["specific_prices"]) && $listproduct_BestSellers[$i]["specific_prices"] && isset($listproduct_BestSellers[$i]["reduction"]) && $listproduct_BestSellers[$i]["reduction"] > 0}
+														{if $listproduct_BestSellers[$i]["specific_prices"]["reduction_type"] == 'percentage'}
+															<span class="sale_off" style="left:159px"><span style="position: absolute;bottom: -6px;right: -30px;transform: rotate(45deg);font-size:20px;">-{$listproduct_BestSellers[$i]["specific_prices"]["reduction"] * 100|escape:'htmlall':'UTF-8'}%</span></span>
+														{/if}
+													{/if}
+												{/if}
+										<div class="content_price1" itemprop="offers" itemscope="">
+												<span itemprop="price" class="price product-price">
+													{$listproduct_BestSellers[$i]["price"]|escape:'htmlall':'UTF-8'}						
+												</span>
+												<meta itemprop="priceCurrency" content="EUR">
+												<span class="old-price product-price">
+													{$listproduct_BestSellers[$i]["price"]|escape:'htmlall':'UTF-8'}	
+												</span>
+												{*<span class="price-percent-reduction">{$listproduct_BestSellers[$i]["reduction"]}</span>*}
+												<span class="unvisible" style="display:none;">
+													<link itemprop="availability">
+														{l s='In stock' mod='bafacebookstore'}																					
+												</span>
+											</div>
+										</div>
+										</div>
+											<div class="right-block">
+												<h5 itemprop="name">
+													<a class="product-name" href="{$listproduct_BestSellers[$i]["link"]|escape:'htmlall':'UTF-8'}" title="{$listproduct_BestSellers[$i]["name"]|escape:'htmlall':'UTF-8'}" itemprop="url" target="_blank">
+														{$listproduct_BestSellers[$i]["name"]|escape:'htmlall':'UTF-8'}
+													</a>
+												</h5>
+												<p class="product-desc" itemprop="description"></p>
+												<div class="content_price2">
+												<span class="price product-price" style="font-size: 19px;color: #F00;">{$listproduct_BestSellers[$i]["price_tax_exc_formatted"]|escape:'htmlall':'UTF-8'}</span>
+												{if isset($listproduct_BestSellers[$i]["specific_prices"]) && $listproduct_BestSellers[$i]["specific_prices"] && isset($listproduct_BestSellers[$i]["reduction"]) && $listproduct_BestSellers[$i]["reduction"] > 0}
+													<span style="color: #6f6f6f;text-decoration: line-through;font-size:13px;">{$listproduct_BestSellers[$i]["price_without_reduction_formatted"]|escape:'htmlall':'UTF-8'}</span>
+													
+												{/if}
+												
+											</div>
+											<div class="button-container" style="display:block">
+												<div class="bahoverbtnadd">
+													<a class="button ajax_add_to_cart_button btn btn-default ba_ajax_add_to_cart_button" rel="ajax_id_product_{$listproduct_BestSellers[$i]["id_product"]|escape:'htmlall':'UTF-8'}" data-id-product="{$listproduct_BestSellers[$i]["id_product"]|escape:'htmlall':'UTF-8'}" title="{l s='Add to cart' mod='bafacebookstore'}"><span><img src="{$server_dir|escape:'htmlall':'UTF-8'}modules/bafacebookstore/views/img/homeproducttab/icon_cart2.png" /></span></a>
+													<a class="button lnk_view btn btn-default bamore" title="{l s='View' mod='bafacebookstore'}" href="{$listproduct_BestSellers[$i]["link"]|escape:'htmlall':'UTF-8'}" target="_blank">
+														<span><i class="fa fa-eye fa-2" aria-hidden="true"></i></span>
+													</a>
+												</div>
+												{*<hr style=" margin-bottom: 6.5px; margin-top: 7.5px; margin-right: 10px"/>
+												<div class="box_social">
+													<a class="button btn ba_social" title="Like"><div class="fb-like" data-href="{$listproduct_BestSellers[$i]["link"]|escape:'htmlall':'UTF-8'}" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div></a>
+													<a class="button btn ba_social" title="Comment"><div class="fb-send" data-href="{$listproduct_BestSellers[$i]["link"]|escape:'htmlall':'UTF-8'}"></div></a>
+													<a class="button btn ba_social" title="Share"><div class="fb-share-button" data-href="{$listproduct_BestSellers[$i]["link"]|escape:'htmlall':'UTF-8'}" data-layout="button"></div></a>
+												</div>*}
+											</div>
+											<div class="product-flags">
+												<span class="discount">{l s='Reduced price!' mod='bafacebookstore'}</span>
+											</div>
+												<span class="availability" style="display:none">
+													<span class=" label-success">
+														{l s='In stock' mod='bafacebookstore'}								
+													</span>
+												</span>
+										</div>
+									</div>
+								</li>
+							{/for}
+						{/if}
+					</ul>
+				{/if}
+			</div>
+		{/if}
+	{/if}
+{/if}

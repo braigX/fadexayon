@@ -1,0 +1,13 @@
+Dobrý den {firstname} {lastname},
+
+Odeslání vaší objednávky bylo zpožděno
+
+Objednávka {order_name} - Zpožděná
+
+Odeslání vaší objednávky {order_name} bylo zpožděno z důvodu nepředvídaných okolností.
+Uděláme vše pro to, abychom jej odeslali co nejdříve.
+Pokud máte nějaké otázky nebo potřebujete další informace, obraťte se prosím na zákaznickou podporu nebo odpovězte na tuto zprávu.
+
+Můžete si prohlédnout svou objednávku a stáhnout fakturu v sekci "Historie objednávek" svého zákaznického účtu kliknutím na "Můj účet" v našem obchodě.
+
+{shop_name} PrestaShop™

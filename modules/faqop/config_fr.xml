@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>faqop</name>
+    <displayName><![CDATA[SEO FAQ Blocks on Any Page (Products, Categories, etc.)]]></displayName>
+    <version><![CDATA[4.4.17]]></version>
+    <description><![CDATA[Add FAQ lists with Schema Markup to any pages (product, category, etc.) 
+            to make them Google SEO friendly. Set rules of display by page, currency, language, customer group. 
+            Shortcodes and hooks, unlimited, custom and standard. And a separate FAQ page.]]></description>
+    <author><![CDATA[Opossum Dev]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+</module>

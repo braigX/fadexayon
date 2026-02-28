@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>phonecountry</name>
+    <displayName><![CDATA[Phone Country]]></displayName>
+    <version><![CDATA[2.0.2]]></version>
+    <description><![CDATA[Ce module permet de changer automatiquement le num&eacute;ro de t&eacute;l&eacute;phone vers la version internationale]]></description>
+    <author><![CDATA[Ether Creation]]></author>
+    <tab><![CDATA[administration]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+</module>

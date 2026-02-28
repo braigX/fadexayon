@@ -1,0 +1,13 @@
+[{shop_url}]
+
+Dobrý den {customer_name},
+S radostí vám oznamujeme, že jste po hodnocení zakoupeného zboží právě dostali kód voucheru.
+Kód: {voucher_code}
+Hodnota slevy: {voucher_value}
+Pro získání slevy zadejte tento kód při příštím nákupu
+
+Využijte voucher hned teď
+
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

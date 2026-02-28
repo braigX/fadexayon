@@ -1,0 +1,178 @@
+/* activity */
+.ets_rv_activity_list span.ets_rv_time {
+    font-size: 13px;
+    color: #999;
+}
+.ets_rv_activity_list span.ets_rv_author_avatar {
+    display: inline-block;
+    left: 0;
+    font-size: 0;
+    width: 50px;
+    position: relative;
+    height: 50px;
+    float: left;
+    box-shadow: 0 0 0 1px #ddd;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #eee;
+    background-size: cover;
+    background-position: center;
+}
+#activity .ets_rv_activity_list {
+    border-top: 1px solid #eee;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.ets_rv_activity_list span.ets_rv_author_caption {
+    display: block;
+    width: 100%;
+    height: 100%;
+    font-size: 30px;
+    color: #fff;
+    text-align: center;
+    line-height: 48px;
+}
+.ets_rv_activity_list a.ets_rv_author_link {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    opacity: 0;
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    background-color: rgba(0, 0, 0, 0.4);
+    font-size: 14px;
+    color: #fff;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    -webkit-align-items: center;
+    justify-content: center;
+    -webkit-justify-content: center;
+}
+.ets_rv_activity_list span.ets_rv_author_avatar:hover a.ets_rv_author_link,
+.ets_rv_activity_list .ets_rv_author_avatar:hover .ets_rv_author_link:before{
+    opacity: 1;
+}
+.ets_rv_activity_list .ets_rv_activity_item {
+    display: flex;
+    display: -webkit-flex;
+    width: 100%;
+}
+.ets_rv_activity_list .ets_rv_author {
+    margin-right: 15px;
+}
+.ets_rv_activity_list .ets_rv_content {
+    width: calc(100% - 75px);
+    width: -webkit-calc(100% - 75px);
+}
+.ets_rv_activity_list .ets_rv_activity_item:not(:last-child) {
+    margin-bottom: 24px;
+}
+.ets_rv_activity_list .ets_rv_content_content {
+    margin-bottom: 4px;
+    display: block;
+    font-size: 14px;
+    line-height: 1.75;
+}
+.ets_rv_activity_list .ets_rv_time svg {
+    width: 14px;
+    fill: #999;
+    vertical-align: -2px;
+    margin-right: 2px;
+}
+.ets_rv_pagination_footer ul.pagination i.ets_svg_icon {
+    height: 26px;
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    width: 26px;
+    justify-content: center;
+}
+.ets_rv_pagination_footer .pagination {
+    display: inline-block;
+    width: auto;
+    font-size: 14px;
+    color: #777;
+    position: relative;
+}
+.ets_rv_pagination_footer {
+    margin-top: 20px;
+}
+
+.ets_rv_pagination_footer .pagination button.btn.dropdown-toggle {
+    padding: 4px 10px;
+    font-size: 14px;
+    color: #555;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: transparent;
+    outline: none!important;
+    box-shadow: none!important;
+}
+
+.ets_rv_pagination_footer .pagination a.pagination-items-page {
+    display: block;
+    padding: 3px 15px;
+    font-size: 14px;
+    font-weight: normal;
+    text-align: center;
+    color: #666;
+}
+
+.ets_rv_pagination_footer .pagination ul.dropdown-menu {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.ets_rv_pagination_footer .pagination a.pagination-items-page:hover {
+    background: #2fb5d2;
+    color: #fff;
+}
+.ets_rv_pagination_footer ul.pagination.pull-right {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: flex-end;
+    -webkit-justify-content: flex-end;
+    width: auto;
+    margin-bottom: 10px;
+}
+.ets_rv_pagination_footer ul.pagination .pagination-link {
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    line-height: 24px;
+    display: inline-block;
+    border: 1px solid #ddd;
+    text-align: center;
+    margin-left: 3px;
+    font-weight: normal;
+    font-size: 14px;
+    color: #777;
+    cursor: pointer;
+}
+.ets_rv_pagination_footer .pagination button.btn.dropdown-toggle i.icon-caret-down {
+    margin-left: 4px;
+}
+.ets_rv_pagination_footer ul.pagination li.active .pagination-link {
+    font-weight: 600;
+    background: #2fb5d2;
+    border-color: #2fb5d2;
+    color: #fff;
+}
+.ets_rv_pagination_footer ul.pagination li.disabled .pagination-link {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+.ets_rv_pagination_footer ul.pagination .pagination-link:hover {
+    background-color: #eee;
+}
+.ets_rv_wrap_table thead th {
+    font-weight: 600;
+}
+.ets_rv_wrap_table .btn-group-action .btn-group a {
+    background: transparent;
+    border: none;
+}
+.ets_rv_wrap_table {
+    padding-bottom: 5px;
+}

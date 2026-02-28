@@ -1,0 +1,6 @@
+Hallo {customer},
+Ihr Kommentar wurde aktualisiert
+Betreff: {subject}
+Kommentar: {comment}
+Bewertung: {rating}
+Beitrag ansehen

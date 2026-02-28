@@ -1,0 +1,18 @@
+form.product-page .product-header-v2 {
+  padding: 1rem;
+}
+
+.box-seo-inner .select2-container .select2-selection--multiple .select2-selection__rendered {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 3px;
+}
+.box-seo-inner li.select2-selection__choice,
+.box-seo-inner .select2-container .select2-search--inline {
+  margin: 2px;
+  float: none;
+}
+.box-seo-inner li.select2-selection__choice {
+  padding-top: 3px;
+}

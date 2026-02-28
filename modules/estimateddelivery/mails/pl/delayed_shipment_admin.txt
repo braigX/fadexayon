@@ -1,0 +1,14 @@
+Opóźnienie w wysyłce ostrzeżenie
+
+Zamówienie {order_id} z ref {order_Reference}
+Powinno zostać wysłane dzisiaj
+
+Zamówienie {order_name} - Opóźnione
+
+Zamówienie {order_name}
+Z ID {order_id}
+Musi zostać wysłane natychmiast lub nie zostanie dostarczone w szacowanym terminie
+
+Możesz sprawdzić swoje zamówienie i pobrać fakturę z sekcji "Historia zamówień" swojego konta klienta, klikając "Moje konto" w naszym sklepie.
+
+{shop_name}

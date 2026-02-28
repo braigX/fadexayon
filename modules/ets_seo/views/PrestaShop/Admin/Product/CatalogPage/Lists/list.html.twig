@@ -1,0 +1,333 @@
+<script id="begin_tbody_list_product"></script><tbody class="tbody_list_product{%if ETS_PMN_ENABLE_INSTANT_FILTER is defined and ETS_PMN_ENABLE_INSTANT_FILTER==1%} search{%endif%}{% if activate_drag_and_drop %} sortable{% endif %}"
+
+                                       last_sql="{{ last_sql_query|escape('html_attr') }}"
+>
+{% for product in products %}
+  {% block product_catalog_form_table_row %}
+    {%if ets_pmg_product_fileds is defined%}
+      <tr data-uniturl="{{ product.unit_action_url|default('#') }}" data-product-id="{{ product.id_product }}">
+        <td class="checkbox-column form-group">
+          <div class="ets_td">
+            <div class="md-checkbox md-checkbox-inline">
+              <label>
+                <input type="checkbox" id="bulk_action_selected_products-{{ product.id_product }}" name="bulk_action_selected_products[]" value="{{ product.id_product }}">
+                <i class="md-checkbox-control"></i>
+              </label>
+            </div>
+            <input type="hidden" name="id_product" value="{{product.id_product}}" />
+            <input type="hidden" name="id_tax_rules_group" value="{{product.id_tax_rules_group}}" id="id_tax_rules_group" />
+          </div>
+        </td>
+        {% for key,field in ets_pmg_product_fileds %}
+          {%if field.input is defined%}
+            {%set field_input= field.input%}
+          {%else%}
+            {%set field_input = false%}
+          {%endif%}
+          <td class="column {{key}}{%if key=='sav_quantity'%} product-sav-quantity text-center{%endif%}" {%if key=='sav_quantity'%} data-product-quantity-value="{{ product.sav_quantity|default('') }}"{%endif%}>
+            <div class="ets_td{% if field_input %} has_input{% endif %}">
+              {%if key=='image' or key=='name'%}
+                <div class="{%if key=='name'%}span_change_product content s1{%else%}popup_change_product{%endif%}">
+                  <a href="{{ product.url|default('') }}#tab-step1">{{ product[key]|raw }}</a>
+                  {%if key=='image'%}
+                    <a class="btn tooltip-link product-edit-popup" href="#" title="Edit" onclick="etsGetFormPopupProduct($(this),'image');return false;">
+                      Edit
+                    </a>
+                  {%endif%}
+                </div>
+              {%elseif key=='price' or key=='price_final' or key=='wholesale_price'%}
+                <div class="span_change_product content s2">
+                  <a href="{{ product.url|default('') }}#tab-step2">{{ product[key]|raw }}</a>
+                </div>
+              {%elseif key =='associated_file'%}
+                {%if product.is_virtual%}
+                  <div class="popup_change_product">
+                    <div class="content">
+                      {%if product[key]!=''%}
+                        <a href="{{ product.link_associated_file|default('') }}">{{ product[key]|raw }}</a>
+                      {%else%}
+                        --
+                      {%endif%}
+                    </div>
+                    <a class="btn tooltip-link product-edit-popup" href="#" title="Edit" onclick="etsGetFormPopupProduct($(this),'associated_file');return false;">
+                      Edit
+                    </a>
+                  </div>
+                {%else%}
+                  --
+                {%endif%}
+              {%elseif key=='sav_quantity'%}
+                {% if 'PS_STOCK_MANAGEMENT'|configuration %}
+                  <div class="{%if product.has_attribute is defined and product.has_attribute==false%}span_change_product content s3{%else%}popup_change_product{%endif%}">
+                    {%if product.has_attribute is defined and product.has_attribute==true%}
+                    <div class="content">
+                      <div class="content_info">
+                        {%endif%}
+                        <a href="{{ product.url|default('') }}#tab-step3">
+                          {% if product.sav_quantity is defined and product.sav_quantity > 0 %}
+                            {{ product.sav_quantity }}
+                          {% else %}
+                            {{ product.sav_quantity|default('N/A'|trans({}, 'Admin.Global')) }}
+                          {% endif %}
+                        </a>
+                        {%if product.has_attribute is defined and product.has_attribute==true%}
+                      </div>
+                    </div>
+                    <a class="btn tooltip-link product-edit-popup" href="#" title="Edit" onclick="etsGetFormPopupProduct($(this),'sav_quantity');return false;">
+                      Edit
+                    </a>
+                    <a href="#" class="btn ets_pm_viewmore" data-more="View more" data-less="View less">
+                      View more
+                    </a>
+                    {%endif%}
+                  </div>
+                {% else %}
+                {% endif %}
+              {%elseif key=='on_sale' or key=='is_must_have' or key=='active'%}
+                {% if product[key]|default(0) == 0 %}
+                  <a href="#" onclick="unitProductActionEts(this, '{{key}}');return false;">
+                    <i class="material-icons action-disabled">clear</i>
+                  </a>
+                {% else %}
+                  <a href="#" onclick="unitProductActionEts(this, '{{key}}'); return false;">
+                    <i class="material-icons action-enabled ">check</i>
+                  </a>
+                {% endif %}
+              {%else%}
+                {%if field.input is defined and field.input%}
+                  <div class="span_change_product s4" data-name="{{key}}_{{product.id_product}}" data-lang="{{ets_pmn_id_lang}}">
+                {%else%}
+                  <div class="popup_change_product s5">
+                {%endif%}
+                <div class="content">
+                  <div class="content_info">
+                    {%if key == 'extra_product_tab_15' %}
+                      <div class="ets_content_file">
+                        {%if not product[key] or product[key]=='0000-00-00'%}
+                          --
+                        {%else%}
+                          {{ product[key]|raw }}
+                        {%endif%}
+                      </div>
+                    {%else%}
+                      {%if not product[key] or product[key]=='0000-00-00'%}
+                        --
+                      {%else%}
+                        {{ product[key]|raw }}
+                      {%endif%}
+                    {%endif%}
+                  </div>
+                </div>
+                {%if field.input is defined and field.input%}
+                  <a href="#" class="btn ets_pm_viewmore" data-more="View more" data-less="View less">
+                    View more
+                  </a>
+                  </div>
+                {%else%}
+                  {%if key!='id_product' and key!='seo_score' and key!='readability_score' and (key!='combinations' or product.add_combination)%}
+                    <a class="btn tooltip-link product-edit-popup" href="#" title="Edit" onclick="etsGetFormPopupProduct($(this),'{{key}}');return false;">
+                      Edit
+                    </a>
+                  {%endif%}
+                  <a href="#" class="btn ets_pm_viewmore" data-more="View more" data-less="View less">
+                    View more
+                  </a>
+                  </div>
+                {%endif%}
+              {%endif%}
+            </div>
+          </td>
+        {%endfor%}
+        {% if product.position is defined %}
+          <td {% if activate_drag_and_drop %}class="placeholder"{% endif %} style="cursor: pointer; cursor: hand;">
+            <div class="ets_td">
+              {% if activate_drag_and_drop %}
+                <big><big><svg style="width:12px;height:12px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"/></svg></big></big>
+              {% endif %}
+              <span class="position">{{ product.position }}</span>
+              <input type="hidden" name="mass_edit_action_sorted_products[]" value="{{ product.id_product }}" />
+              <input type="hidden" name="mass_edit_action_sorted_positions[]" value="{{ product.position }}" />
+            </div>
+          </td>
+        {% endif %}
+        <td class="text-right ets_action_col">
+          <div class="ets_td">
+            <div class="btn-group-action">
+              {% set buttons_action = [
+                {
+                  "href": product.preview_url|default('#'),
+                  "target": "_blank",
+                  "icon": "remove_red_eye",
+                  "label": "Preview"|trans({}, 'Admin.Actions')
+                }
+              ] %}
+              {% set buttons_action = buttons_action|merge([
+                {
+                  "href": product.url|default('#'),
+                  "icon": "mode_edit",
+                  "label": "Edit"|trans({}, 'Modules.Etsproductmanager.Admin')
+                }
+              ]) %}
+              {% set buttons_action = buttons_action|merge([
+                {
+                  "onclick": "unitProductAction(this, 'duplicate');",
+                  "icon": "content_copy",
+                  "label": "Duplicate"|trans({}, 'Admin.Actions')
+                }
+              ]) %}
+
+              {% set buttons_action = buttons_action|merge([
+                {
+                  "onclick": "unitProductAction(this, 'delete');",
+                  "icon": "delete",
+                  "label": "Delete"|trans({}, 'Admin.Actions')
+                }
+              ]) %}
+
+              {% include '@Product/CatalogPage/Forms/form_edit_dropdown.html.twig' with {
+                'button_id': "product_list_id_" ~ product.id_product ~ "_menu",
+                'default_item': {
+                  "href": product.url|default('#'),
+                  "icon": "mode_edit"
+                },
+                'right': true,
+                'items': buttons_action
+              } %}
+            </div>
+          </div>
+        </td>
+      </tr>
+    {%else%}
+      <tr data-uniturl="{{ product.unit_action_url|default('#') }}" data-product-id="{{ product.id_product }}">
+        <td class="checkbox-column form-group">
+          <div class="md-checkbox md-checkbox-inline">
+            <label>
+              <input type="checkbox" id="bulk_action_selected_products-{{ product.id_product }}"
+                     name="bulk_action_selected_products[]" value="{{ product.id_product }}">
+              <i class="md-checkbox-control"></i>
+            </label>
+          </div>
+        </td>
+        <td>
+          <label class="form-check-label" for="bulk_action_selected_products-{{ product.id_product }}">
+            {{ product.id_product }}
+          </label>
+        </td>
+        <td>
+          <a href="{{ product.url|default('') }}#tab-step1">{{ product.image|raw }}</a>
+        </td>
+        <td>
+          <a href="{{ product.url|default('') }}#tab-step1">{{ product.name|default('N/A'|trans({}, 'Admin.Global')) }}</a>
+        </td>
+        <td>
+          {{ product.reference|default('') }}
+        </td>
+        <td>
+          {{ product.name_category|default('') }}
+        </td>
+        <td class="text-center">
+          <a href="{{ product.url|default('') }}#tab-step2">{{ product.price|default('N/A'|trans({}, 'Admin.Global')) }}</a>
+        </td>
+        <td class="text-center">
+          <a href="{{ product.url|default('') }}#tab-step2">{{ product.price_final|default('N/A'|trans({}, 'Admin.Global')) }}</a>
+        </td>
+        {% if 'PS_STOCK_MANAGEMENT'|configuration %}
+          <td class="product-sav-quantity text-center"
+              data-product-quantity-value="{{ product.sav_quantity|default('') }}">
+            <a href="{{ product.url|default('') }}#tab-step3">
+              {% if product.sav_quantity is defined and product.sav_quantity > 0 %}
+                {{ product.sav_quantity }}
+              {% else %}
+                {{ product.sav_quantity|default('N/A'|trans({}, 'Admin.Global')) }}
+              {% endif %}
+            </a>
+          </td>
+        {% else %}
+          <td></td>
+        {% endif %}
+        <td class="text-center">
+          {% if product.active|default(0) == 0 %}
+            <a href="#" onclick="unitProductAction(this, 'activate'); return false;">
+              <i class="material-icons action-disabled">clear</i>
+            </a>
+          {% else %}
+            <a href="#" onclick="unitProductAction(this, 'deactivate'); return false;">
+              <i class="material-icons action-enabled ">check</i>
+            </a>
+          {% endif %}
+        </td>
+        {% if product.position is defined %}
+          <td {% if activate_drag_and_drop %}class="placeholder"{% endif %}
+              style="cursor: pointer; cursor: hand;">
+            {% if activate_drag_and_drop %}
+              <big><big><svg style="width:12px;height:12px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"/></svg></big></big>
+            {% endif %}
+            <span class="position">{{ product.position }}</span>
+            <input type="hidden" name="mass_edit_action_sorted_products[]" value="{{ product.id_product }}"/>
+            <input type="hidden" name="mass_edit_action_sorted_positions[]" value="{{ product.position }}"/>
+          </td>
+        {% endif %}
+        {% if ets_seo_seo_enabled is defined and  ets_seo_seo_enabled %}
+          <td class="text-center">
+            {% if product.seo_score is defined and product.seo_score|length > 0 %}
+              {{ product.seo_score | raw }}
+            {% else %}
+              <span class="text-center">--</span>
+            {% endif %}
+          </td>
+        {% endif %}
+
+        {% if ets_seo_readability_enabled is defined and  ets_seo_readability_enabled %}
+          <td class="text-center">
+            {% if product.readability_score is defined and product.readability_score|length > 0 %}
+              {{ product.readability_score | raw }}
+            {% else %}
+              <span class="text-center">--</span>
+            {% endif %}
+          </td>
+        {% endif %}
+
+        <td class="text-right ets_action_col">
+          <div class="btn-group-action">
+
+            {% set buttons_action = [
+              {
+                "href": product.preview_url|default('#'),
+                "target": "_blank",
+                "icon": "remove_red_eye",
+                "label": "Preview"|trans({}, 'Admin.Actions')
+              }
+            ] %}
+
+            {% set buttons_action = buttons_action|merge([
+              {
+                "onclick": "unitProductAction(this, 'duplicate');",
+                "icon": "content_copy",
+                "label": "Duplicate"|trans({}, 'Admin.Actions')
+              }
+            ]) %}
+
+            {% set buttons_action = buttons_action|merge([
+              {
+                "onclick": "unitProductAction(this, 'delete');",
+                "icon": "delete",
+                "label": "Delete"|trans({}, 'Admin.Actions')
+              }
+            ]) %}
+
+                            {% include '@Product/CatalogPage/Forms/form_edit_dropdown.html.twig' with {
+                                'button_id': "product_list_id_" ~ product.id_product ~ "_menu",
+                                'default_item': {
+                                    "href": product.url|default('#'),
+                                    "icon": "mode_edit"
+                                },
+                                'right': true,
+                                'items': buttons_action
+                            } %}
+                        </div>
+                    </td>
+                </tr>
+            {%endif%}
+        {% endblock %}
+    {%endfor%}
+</tbody><script id="end_tbody_list_product"></script>

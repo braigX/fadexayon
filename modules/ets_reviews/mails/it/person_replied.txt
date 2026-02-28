@@ -1,0 +1,12 @@
+[{shop_url}]
+
+Ciao {person_name},
+{from_person_name} ha risposto al tuo {object} su {product_name}
+“{object_content}”
+
+{content}
+
+[Visualizza risposta]
+
+{shop_name} [{shop_url}] realizzato da
+PrestaShop(tm) [http://www.prestashop.com/]

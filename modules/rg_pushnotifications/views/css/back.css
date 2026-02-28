@@ -1,0 +1,347 @@
+/**
+ * Web Browser Push Notifications using OneSignal
+ *
+ * @author    Rolige <www.rolige.com>
+ * @copyright Since 2011 Rolige - All Rights Reserved
+ * @license   Proprietary and confidential
+ */
+
+.bootstrap .fixed-width-xxxl {
+  width: 350px!important;
+}
+
+.rg-group-box.sticky-head {
+  overflow-y: auto;
+}
+
+.rg-group-box.sticky-head table > thead > tr > th {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  font-weight: 700;
+}
+
+.rg-group-box.sticky-head table > tbody > tr > td,
+.rg-group-box.sticky-head table > tbody > tr > td label {
+  font-weight: normal;
+}
+
+@media (min-width: 900px) {
+  .rg-group > div {
+    float: left;
+    margin-right: 5px;
+  }
+}
+
+.rg-group ~ .help-block {
+  clear: both;
+  float: left;
+}
+
+.flexdatalist-in-group .rg-group > div:first-child {
+  width: 100%;
+}
+
+#configure_content .list-group-item i {
+  margin-right: 10px;
+}
+
+.dashboard-form .title {
+  font-size: 20px;
+}
+
+.dashboard-form .module-info,
+.dashboard-form .partner-info {
+  text-align: center;
+  min-height: 212px;
+}
+
+.dashboard-form .partner-info .logo a {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.dashboard-form .partner-info .logo img {
+  max-height: 57px;
+}
+
+.dashboard-form .partner-info .partner-logo img {
+  max-height: 77px;
+}
+
+.dashboard-form .partner-info .logo a:first-child {
+  margin-right: 50px;
+}
+
+.dashboard-form .partner-info .title {
+  margin-bottom: 40px;
+}
+
+.dashboard-form .products-marketing-list {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.dashboard-form .products-marketing-list .slick-slide {
+  position: relative;
+  background: #fff;
+}
+
+.dashboard-form .products-marketing-list a:hover {
+  text-decoration: none;
+}
+
+.dashboard-form .products-marketing-list .name,
+.dashboard-form .products-marketing-list .price {
+  display: block;
+  height: 46px;
+  padding: 5px 10px;
+  overflow: hidden;
+}
+
+.dashboard-form .products-marketing-list .discount-percentage {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: .2125rem .3375rem;
+  color: #fff;
+  background: #f37272;
+  text-transform: uppercase;
+  min-width: 3.125rem;
+  min-height: 1.875rem;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, .5);
+}
+
+.dashboard-form .products-marketing-list .price .base-price {
+  color: #c8c7c7;
+  text-decoration: line-through;
+  margin-right: 4px;
+  font-size: 14px;
+}
+
+.dashboard-form .products-marketing-list .price .special-price {
+  font-size: 16px;
+}
+
+.cron-form .cron .command {
+  display: block;
+  padding: 10px 10px;
+  border: 1px solid #f3dce2;
+  margin-bottom: 3px;
+}
+
+.log-form .log .url {
+  font-weight: 700;
+}
+
+.help-form .title,
+.help-form .content {
+  text-align: center;
+}
+
+.help-form .title i,
+.help-form .title span {
+  display: block;
+}
+
+.help-form .title i {
+  font-size: 30px;
+}
+
+.help-form .title span {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.help-form .content {
+  min-height: 1px;
+  margin-top: 15px;
+}
+
+@media (min-width: 100px) {
+  .help-form .content {
+    min-height: 110px;
+  }
+}
+
+.help-form .content p {
+  display: block;
+  width: 100%;
+}
+
+.help-form .content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.help-form .content ul li {
+  display: inline;
+  white-space: nowrap;
+}
+
+.help-form .content ul li:after {
+  content: '\00b7';
+  margin-left: 5px;
+  margin-right: 2px;
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+.help-form .content ul li:last-child:after {
+  display: none;
+}
+
+.icon-Settings:before {
+  content: "";
+}
+.icon-Notifications:before {
+  content: "";
+}
+.icon-NotificationBell:before {
+  content: "";
+}
+.icon-CartReminder:before {
+  content: "";
+}
+.icon-Maintenance:before {
+  content: "";
+}
+.icon-CronJobs:before {
+  content: "\f017";
+}
+#onesignal-bell-container.onesignal-reset {
+  position: inherit !important;
+  z-index: 0 !important;
+}
+#onesignal-bell-container.onesignal-reset div.onesignal-bell-launcher-message {
+  left: 75px;
+}
+#menu-notifications-list i:before,
+#menu-campaign-list i:before,
+#menu-subscribers-list i:before {
+  font-size: 28px;
+}
+#menu-notifications-list i,
+#menu-campaign-list i,
+#menu-subscribers-list i {
+  height: 30px;
+  width: 30px;
+}
+#desc-module-update,
+#desc-module-hook {
+  display: none;
+}
+.icon-AdminRgPuNo:before {
+  content: "";
+}
+#RGPUNO_CART_ICON-images-thumbnails img,
+.table.rg_pushnotifications_campaign td img {
+  height: auto;
+  max-width: 64px;
+}
+
+.icons_panel .row {
+  margin-bottom: 0; }
+.icons_panel .icon-thumbnail {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  display: block;
+  margin-bottom: 5px;
+}
+.icons_panel .icon_radio {
+  position: absolute;
+  visibility: hidden;
+}
+.icons_panel .icon_label {
+  width: 100%;
+  height: 100%;
+  cursor: pointer !important;
+  background-size: contain !important; }
+.icons_panel .icon_label img {
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+}
+.icons_panel .icon_label > input:checked + img {
+  opacity: 1;
+}
+
+#rgpushnotifications_spinner {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000001;
+  margin: 0;
+  text-align: center;
+  margin-top: -43px; }
+#rgpushnotifications_spinner.hidden {
+  display: none !important; }
+#rgpushnotifications_spinner:after {
+  content: '';
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+  -moz-opacity: .9;
+  -khtml-opacity: .9;
+  -webkit-opacity: .9;
+  opacity: .9;
+  -ms-filter: alpha(opacity=90);
+  filter: alpha(opacity=90); }
+#rgpushnotifications_spinner:before {
+  content: "";
+  display: block;
+  margin: 0 auto 10px;
+  text-align: center;
+  width: 54px;
+  height: 54px;
+  border-left: 8px solid #000;
+  border-left: 8px solid rgba(0, 0, 0, 0.1);
+  border-right: 8px solid #000;
+  border-right: 8px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 8px solid #000;
+  border-bottom: 8px solid rgba(0, 0, 0, 0.1);
+  border-top: 8px solid #d65653;
+  border-radius: 50px;
+  -webkit-animation: rotation .7s infinite linear;
+  -moz-animation: rotation .7s infinite linear;
+  -o-animation: rotation .7s infinite linear;
+  animation: rotation 0.7s infinite linear; }
+#rgpushnotifications_spinner p {
+  color: #777;
+  text-shadow: 0 0 2px white; }
+#rgpushnotifications_processed {
+  font-weight: bold; }
+
+@-webkit-keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg); }
+  to {
+    -webkit-transform: rotate(359deg); } }
+@-moz-keyframes rotation {
+  from {
+    -moz-transform: rotate(0deg); }
+  to {
+    -moz-transform: rotate(359deg); } }
+@-o-keyframes rotation {
+  from {
+    -o-transform: rotate(0deg); }
+  to {
+    -o-transform: rotate(359deg); } }
+@keyframes rotation {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(359deg); } }

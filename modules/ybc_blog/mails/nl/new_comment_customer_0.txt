@@ -1,0 +1,4 @@
+Hallo {customer_name}
+Je reactie is succesvol ingediend op {post_title} en wacht op goedkeuring
+Review bericht
+

@@ -1,0 +1,40 @@
+/*Noto Sans*/
+@font-face{font-family:'Noto Sans';src:url('NotoSans-BoldItalic.woff2') format('woff2'),url('NotoSans-BoldItalic.woff') format('woff');font-weight:700;font-style:italic;font-display:swap}
+@font-face{font-family:'Noto Sans';src:url('NotoSans-ExtraLightItalic.woff2') format('woff2'),url('NotoSans-ExtraLightItalic.woff') format('woff');font-weight:200;font-style:italic;font-display:swap}
+@font-face{font-family:'Noto Sans';src:url('NotoSans-ExtraBold.woff2') format('woff2'),url('NotoSans-ExtraBold.woff') format('woff');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Noto Sans';src:url('NotoSans-Italic.woff2') format('woff2'),url('NotoSans-Italic.woff') format('woff');font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:'Noto Sans';src:url('NotoSans-ExtraLight.woff2') format('woff2'),url('NotoSans-ExtraLight.woff') format('woff');font-weight:200;font-style:normal;font-display:swap}
+@font-face{font-family:'Noto Sans';src:url('NotoSans-ExtraBoldItalic.woff2') format('woff2'),url('NotoSans-ExtraBoldItalic.woff') format('woff');font-weight:700;font-style:italic;font-display:swap}
+@font-face{font-family:'Noto Sans';src:url('NotoSans-Light.woff2') format('woff2'),url('NotoSans-Light.woff') format('woff');font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:'Noto Sans';src:url('NotoSans-LightItalic.woff2') format('woff2'),url('NotoSans-LightItalic.woff') format('woff');font-weight:300;font-style:italic;font-display:swap}
+@font-face{font-family:'Noto Sans';src:url('NotoSans-MediumItalic.woff2') format('woff2'),url('NotoSans-MediumItalic.woff') format('woff');font-weight:500;font-style:italic;font-display:swap}
+@font-face{font-family:'Noto Sans';src:url('NotoSans-Medium.woff2') format('woff2'),url('NotoSans-Medium.woff') format('woff');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Noto Sans';src:url('NotoSans-SemiBold.woff2') format('woff2'),url('NotoSans-SemiBold.woff') format('woff');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Noto Sans';src:url('NotoSans-SemiBoldItalic.woff2') format('woff2'),url('NotoSans-SemiBoldItalic.woff') format('woff');font-weight:600;font-style:italic;font-display:swap}
+@font-face{font-family:'Noto Sans';src:url('NotoSans-Regular.woff2') format('woff2'),url('NotoSans-Regular.woff') format('woff');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Noto Sans';src:url('NotoSans-Thin.woff2') format('woff2'),url('NotoSans-Thin.woff') format('woff');font-weight:100;font-style:normal;font-display:swap}
+@font-face{font-family:'Noto Sans';src:url('NotoSans-ThinItalic.woff2') format('woff2'),url('NotoSans-ThinItalic.woff') format('woff');font-weight:100;font-style:italic;font-display:swap}
+/*Oswald*/
+@font-face{font-family:Oswald;src:url('Oswald-Regular.woff2') format('woff2'),url('Oswald-Regular.woff') format('woff');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:Oswald;src:url('Oswald-Medium.woff2') format('woff2'),url('Oswald-Medium.woff') format('woff');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:Oswald;src:url('Oswald-SemiBold.woff2') format('woff2'),url('Oswald-SemiBold.woff') format('woff');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:Oswald;src:url('Oswald-Bold.woff2') format('woff2'),url('Oswald-Bold.woff') format('woff');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:Oswald;src:url('Oswald-ExtraLight.woff2') format('woff2'),url('Oswald-ExtraLight.woff') format('woff');font-weight:200;font-style:normal;font-display:swap}
+@font-face{font-family:Oswald;src:url('Oswald-Light.woff2') format('woff2'),url('Oswald-Light.woff') format('woff');font-weight:300;font-style:normal;font-display:swap}
+/*Nunito*/
+@font-face{font-family:Nunito;src:url('Nunito-Black.woff2') format('woff2'),url('Nunito-Black.woff') format('woff');font-weight:900;font-style:normal;font-display:swap}
+@font-face{font-family:Nunito;src:url('Nunito-BlackItalic.woff2') format('woff2'),url('Nunito-BlackItalic.woff') format('woff');font-weight:900;font-style:italic;font-display:swap}
+@font-face{font-family:Nunito;src:url('Nunito-ExtraBold.woff2') format('woff2'),url('Nunito-ExtraBold.woff') format('woff');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:Nunito;src:url('Nunito-ExtraLight.woff2') format('woff2'),url('Nunito-ExtraLight.woff') format('woff');font-weight:200;font-style:normal;font-display:swap}
+@font-face{font-family:Nunito;src:url('Nunito-ExtraBoldItalic.woff2') format('woff2'),url('Nunito-ExtraBoldItalic.woff') format('woff');font-weight:700;font-style:italic;font-display:swap}
+@font-face{font-family:Nunito;src:url('Nunito-Bold.woff2') format('woff2'),url('Nunito-Bold.woff') format('woff');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:Nunito;src:url('Nunito-BoldItalic.woff2') format('woff2'),url('Nunito-BoldItalic.woff') format('woff');font-weight:700;font-style:italic;font-display:swap}
+@font-face{font-family:Nunito;src:url('Nunito-ExtraLightItalic.woff2') format('woff2'),url('Nunito-ExtraLightItalic.woff') format('woff');font-weight:200;font-style:italic;font-display:swap}
+@font-face{font-family:Nunito;src:url('Nunito-Italic.woff2') format('woff2'),url('Nunito-Italic.woff') format('woff');font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:Nunito;src:url('Nunito-Light.woff2') format('woff2'),url('Nunito-Light.woff') format('woff');font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:Nunito;src:url('Nunito-LightItalic.woff2') format('woff2'),url('Nunito-LightItalic.woff') format('woff');font-weight:300;font-style:italic;font-display:swap}
+@font-face{font-family:Nunito;src:url('Nunito-Medium.woff2') format('woff2'),url('Nunito-Medium.woff') format('woff');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:Nunito;src:url('Nunito-MediumItalic.woff2') format('woff2'),url('Nunito-MediumItalic.woff') format('woff');font-weight:500;font-style:italic;font-display:swap}
+@font-face{font-family:Nunito;src:url('Nunito-Regular.woff2') format('woff2'),url('Nunito-Regular.woff') format('woff');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:Nunito;src:url('Nunito-SemiBoldItalic.woff2') format('woff2'),url('Nunito-SemiBoldItalic.woff') format('woff');font-weight:600;font-style:italic;font-display:swap}
+@font-face{font-family:Nunito;src:url('Nunito-SemiBold.woff2') format('woff2'),url('Nunito-SemiBold.woff') format('woff');font-weight:600;font-style:normal;font-display:swap}

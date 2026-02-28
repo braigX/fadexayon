@@ -1,0 +1,68 @@
+{**
+ * Copyright © Lyra Network.
+ * This file is part of Sogecommerce plugin for PrestaShop. See COPYING.md for license details.
+ *
+ * @author    Lyra Network (https://www.lyra.com/)
+ * @copyright Lyra Network
+ * @license   https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
+ *}
+
+<tr id="sogecommerce_oney{$suffix|escape:'html':'UTF-8'}_option_{$key|escape:'html':'UTF-8'}">
+  <td>
+    {include file="./input_text_lang.tpl"
+      languages=$prestashop_languages
+      current_lang=$prestashop_lang
+      input_name="SOGECOMMERCE_ONEY{$suffix|escape:'html':'UTF-8'}_OPTIONS[{$key|escape:'html':'UTF-8'}][label]"
+      field_id="SOGECOMMERCE_ONEY{$suffix|escape:'html':'UTF-8'}_OPTIONS_{$key|escape:'html':'UTF-8'}_label"
+      input_value=$option.label
+      style="width: 140px;"
+    }
+  </td>
+  <td>
+    <input id="SOGECOMMERCE_ONEY{$suffix|escape:'html':'UTF-8'}_OPTIONS_{$key|escape:'html':'UTF-8'}_code"
+        name="SOGECOMMERCE_ONEY{$suffix|escape:'html':'UTF-8'}_OPTIONS[{$key|escape:'html':'UTF-8'}][code]"
+        value="{$option.code|escape:'html':'UTF-8'}"
+        style="width: 65px;"
+        type="text">
+  </td>
+  <td>
+    <select id="SOGECOMMERCE_ONEY{$suffix|escape:'html':'UTF-8'}_OPTIONS_{$key|escape:'html':'UTF-8'}_card_type"
+        name="SOGECOMMERCE_ONEY{$suffix|escape:'html':'UTF-8'}_OPTIONS[{$key|escape:'html':'UTF-8'}][card_type]"
+        onchange="javascript: sogecommerceOneyOptionChanged({$key|escape:'html':'UTF-8'}, {$suffix|escape:'html':'UTF-8'});">
+        {foreach from=$oney_cards key="card_key" item="card_option"}
+            <option value="{$card_key|escape:'html':'UTF-8'}"{if isset($option.card_type) && $option.card_type === (string)$card_key} selected="selected"{/if}>{$card_option|escape:'html':'UTF-8'}</option>
+        {/foreach}
+    </select>
+  </td>
+  <td>
+    <input id="SOGECOMMERCE_ONEY{$suffix|escape:'html':'UTF-8'}_OPTIONS_{$key|escape:'html':'UTF-8'}_min_amount"
+        name="SOGECOMMERCE_ONEY{$suffix|escape:'html':'UTF-8'}_OPTIONS[{$key|escape:'html':'UTF-8'}][min_amount]"
+        value="{$option.min_amount|escape:'html':'UTF-8'}"
+        style="width: 75px;"
+        type="text">
+  </td>
+  <td>
+    <input id="SOGECOMMERCE_ONEY{$suffix|escape:'html':'UTF-8'}_OPTIONS_{$key|escape:'html':'UTF-8'}_max_amount"
+        name="SOGECOMMERCE_ONEY{$suffix|escape:'html':'UTF-8'}_OPTIONS[{$key|escape:'html':'UTF-8'}][max_amount]"
+        value="{$option.max_amount|escape:'html':'UTF-8'}"
+        style="width: 75px;"
+        type="text">
+  </td>
+  <td>
+    <input id="SOGECOMMERCE_ONEY{$suffix|escape:'html':'UTF-8'}_OPTIONS_{$key|escape:'html':'UTF-8'}_count"
+        name="SOGECOMMERCE_ONEY{$suffix|escape:'html':'UTF-8'}_OPTIONS[{$key|escape:'html':'UTF-8'}][count]"
+        value="{$option.count|default:''|escape:'html':'UTF-8'}"
+        style="width: 55px; {if isset($option.card_type) && $option.card_type == 'ONEY_PAYLATER'} opacity: 0.5 !important;{/if}"
+        type="text" {if isset($option.card_type) && $option.card_type == 'ONEY_PAYLATER'} disabled="disabled"{/if}>
+  </td>
+  <td>
+    <input id="SOGECOMMERCE_ONEY{$suffix|escape:'html':'UTF-8'}_OPTIONS_{$key|escape:'html':'UTF-8'}_rate"
+        name="SOGECOMMERCE_ONEY{$suffix|escape:'html':'UTF-8'}_OPTIONS[{$key|escape:'html':'UTF-8'}][rate]"
+        value="{$option.rate|escape:'html':'UTF-8'}"
+        style="width: 55px;"
+        type="text">
+  </td>
+  <td>
+    <button type="button" style="width: 75px;" onclick="javascript: sogecommerceDeleteOneyOption({$key|escape:'html':'UTF-8'}, {$suffix|escape:'html':'UTF-8'});">{l s='Delete' mod='sogecommerce'}</button>
+  </td>
+</tr>

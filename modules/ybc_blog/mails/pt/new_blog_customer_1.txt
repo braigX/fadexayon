@@ -1,0 +1,3 @@
+Olá {customer_name},
+Sua postagem {post_title} foi enviada com sucesso para {shop_name} e foi aprovada
+Revisar postagem

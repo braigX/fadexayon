@@ -1,0 +1,21 @@
+/**
+ * FAQ Pages with SEO Schema Markup module
+ *
+ * @author    Opossum Dev
+ * @copyright Opossum Dev
+ * @license   You are just allowed to modify this copy for your own use. You are not allowed
+ * to redistribute it. License is permitted for one Prestashop instance only, except for test
+ * instances.
+ */
+
+#subtab-AdminFaqop .link .material-icons {
+    display: none;
+}
+#subtab-AdminFaqop .link::before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url("../img/comment-dots-black.svg");
+    margin-left: 2px;
+}

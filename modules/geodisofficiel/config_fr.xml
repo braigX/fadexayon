@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>geodisofficiel</name>
+    <displayName><![CDATA[GEODIS V8]]></displayName>
+    <version><![CDATA[1.0.0]]></version>
+    <description><![CDATA[Offer your customers GEODIS delivery services to France or Europe, in standard or express delivery. With this module, you also benefit from the management of your orders from your backoffice.]]></description>
+    <author><![CDATA[NOVATIS Agency]]></author>
+    <tab><![CDATA[shipping_logistics]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+</module>

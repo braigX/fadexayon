@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>prestabtwobregistration</name>
+    <displayName><![CDATA[B2B Registration]]></displayName>
+    <version><![CDATA[8.0.0]]></version>
+    <description><![CDATA[Manage the B2B signups easily. Approve or disapprove the registration requests. Get notified when new B2B
+            signups are made. Everything with the feature-rich B2B Registration Form for Prestashop]]></description>
+    <author><![CDATA[presta_world]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+</module>

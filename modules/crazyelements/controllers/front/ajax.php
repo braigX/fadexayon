@@ -1,0 +1,172 @@
+<?php
+
+
+/**
+ * <ModuleName> => cheque
+ * <FileName> => validation.php
+ * Format expected: <ModuleName><FileName>ModuleFrontController
+ */
+require_once _PS_MODULE_DIR_ . 'crazyelements/includes/plugin.php';
+require_once _PS_MODULE_DIR_ . 'crazyelements/classes/CrazyContent.php';
+
+use CrazyElements\Icons_Manager;
+use CrazyElements\PrestaHelper;
+use CrazyElements\Plugin;
+use PrestaShop\PrestaShop\Adapter\Cart\CartPresenter;
+use PrestaShop\PrestaShop\Adapter\Product\PriceFormatter;
+class CrazyElementsAjaxModuleFrontController extends ModuleFrontController {
+
+
+
+	public function setMedia( $isNewTheme = false ) {
+		parent::setMedia();
+	}
+
+	public function initContent() {
+		parent::initContent();
+
+
+		$this->assignVariables();
+
+		Plugin::instance()->initForAjax();
+		
+		// Tools::get_value()
+		if ( isset( $_POST['action'] ) ) {
+			
+			
+			$action = $_POST['action'];
+			if(isset( $_GET['crazy_cart_init'])){
+				if (\Module::isInstalled('ps_shoppingcart') && \Module::isEnabled('ps_shoppingcart')) {
+					$this->crazy_cart_refresh($action);
+				}
+			}
+			PrestaHelper::do_action( 'wp_ajax_' . $action );
+			// exit();
+		} elseif ( isset( $_GET['action'] ) ) {
+			$action = $_GET['action'];
+			if (\Module::isInstalled('ps_shoppingcart') && \Module::isEnabled('ps_shoppingcart')) {
+				$this->crazy_cart_refresh($action);
+			}
+			PrestaHelper::do_action( 'wp_ajax_' . $action );
+		} elseif ( isset( $_GET['crazy_cart_init'] ) ) {
+			if (\Module::isInstalled('ps_shoppingcart') && \Module::isEnabled('ps_shoppingcart')) {
+				$this->crazy_cart_refresh('refresh');
+			}
+			PrestaHelper::do_action( 'wp_ajax_' . $action );
+		} else {
+
+		}
+		die( 'exit' );
+
+	}
+	/**
+     * Displays maintenance page if shop is closed.
+     */
+    protected function displayMaintenancePage()
+    {
+        return;
+    }
+
+	public function crazy_cart_refresh($action){
+		if ($action == 'add-to-cart' || $action == 'refresh' ) {
+			$modal = null;
+			$mod_ins = \Module::getInstanceByName('ps_shoppingcart');
+
+			if ($mod_ins instanceof Ps_Shoppingcart && Tools::getValue('action') === 'add-to-cart') {
+				$modal = $mod_ins->renderModal(
+					$this->context->cart,
+					(int) Tools::getValue('id_product'),
+					(int) Tools::getValue('id_product_attribute'),
+					(int) Tools::getValue('id_customization')
+				);
+			}
+
+			$context = \Context::getContext();
+			array_unshift($context->smarty->registered_resources['module']->paths, _PS_MODULE_DIR_ . 'crazyelements/views/templates/front/modules/');
+			$icon_html = Icons_Manager::render_icon( $_GET['icon_cart'], [ 'aria-hidden' => 'true' ], 'i', 0 );
+			$cart = (new CartPresenter())->present($context->cart);
+			$cart_page_url = $context->link->getPageLink(
+				'cart',
+				null,
+				$context->language->id,
+				[
+					'action' => 'show',
+				],
+				false,
+				null,
+				true
+			);
+
+			$active_text = 'inactive';
+			$prd_count = $cart['products_count'];
+			if($cart['products_count'] > 0){ 
+				$active_text = 'active';
+			}
+			$count_style       = $_GET['count_style'];
+			$count_text = '';
+			if($count_style == 'text'){
+								
+				$count_pref       =$_GET['count_pref'];
+				$count_suff       = $_GET['count_suff'];
+				$count_text = $count_pref . $cart['products_count'] . $count_suff;
+			}	
+			$formatted_subtotal = '';
+			if(isset($cart['subtotals'])){
+				$subtotal = 0;
+				$price_formatter = new PriceFormatter();
+				foreach($cart['subtotals'] as $sub_tem){
+					$subtotal += $sub_tem['amount'];
+				}
+				$formatted_subtotal = $price_formatter->format($subtotal);
+			}
+
+			$ajax_arr = array(
+				'active_text'      => $_GET['active_text'],
+				'icon_pos'      => $_GET['icon_pos'],
+				'count_style'       => $_GET['count_style'],
+				'show_count'       => $_GET['show_count'],
+				'show_subtotal'       => $_GET['show_subtotal'],
+				'cart_text'       => $_GET['cart_text'],
+				'count_pref'       => $_GET['count_pref'],
+				'count_suff'       => $_GET['count_suff'],
+				'icon_cart'       => $_GET['icon_cart'],
+				'crazy_cart_init'       => 1,
+				'elementprefix'    => 'crazy-shoping-cart',
+			);
+
+			$refres_url =  $context->link->getModuleLink('crazyelements', 'ajax', $ajax_arr, null, null, null, true);
+
+			
+			$ajax_arr['refres_url'] = $refres_url;
+			$ajax_arr['prd_count'] = $prd_count;
+			$ajax_arr['cart_page_url'] = $cart_page_url;
+			$ajax_arr['formatted_subtotal'] = $formatted_subtotal;
+			$ajax_arr['icon_html'] = Icons_Manager::render_icon( $_GET['icon_cart'], [ 'aria-hidden' => 'true' ], 'i', 0 );;
+
+			$context->smarty->assign(
+				$ajax_arr
+			);
+
+			$preview = $context->smarty->fetch('module:ps_shoppingcart/ps_shoppingcart.tpl');
+			
+
+			ob_end_clean();
+			header('Content-Type: application/json');
+			die(json_encode([
+				'preview' => $preview,
+				'modal' => $modal,
+			]));
+		}
+	}
+
+	public function assignVariables() {
+		PrestaHelper::$hook_current              = Tools::getValue( 'hook' );
+		PrestaHelper::$id_content_global         = Tools::getValue( 'id' );
+		PrestaHelper::$id_content_primary_global = PrestaHelper::getRealPostId( Tools::getValue( 'id' ) );
+		PrestaHelper::$id_lang_global            = Tools::getValue( 'id_lang' );
+
+
+		PrestaHelper::$id_shop_global            = $this->context->shop->id;
+	}
+
+}

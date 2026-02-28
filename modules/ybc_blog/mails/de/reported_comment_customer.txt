@@ -1,0 +1,4 @@
+Hallo {reporter}
+Sie haben erfolgreich Kommentare zu {post_title} als missbraucht gemeldet.
+{comment}
+Vielen Dank für Ihren Beitrag zu unserer Website

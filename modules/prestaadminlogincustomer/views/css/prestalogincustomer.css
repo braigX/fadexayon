@@ -1,0 +1,77 @@
+/**
+ * 2008-2024 Prestaworld
+ *
+ * NOTICE OF LICENSE
+ *
+ * The source code of this module is under a commercial license.
+ * Each license is unique and can be installed and used on only one website.
+ * Any reproduction or representation total or partial of the module, one or more of its components,
+ * by any means whatsoever, without express permission from us is prohibited.
+ *
+ * DISCLAIMER
+ *
+ * Do not alter or add/update to this file if you wish to upgrade this module to newer
+ * versions in the future.
+ *
+ * @author    prestaworld
+ * @copyright 2008-2024 Prestaworld
+ * @license https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+ * International Registered Trademark & Property of prestaworld
+ */
+
+#page-header-desc-customer-login_customer .icon-unlock::before {
+	font-size: 30px;
+}
+.presta_login_customer:hover, .presta_login_customer:focus {
+	text-decoration: none !important;
+}
+#presta_customer_header i.icon-unlock {
+	padding: 8px;
+}
+li.presta_header .dropdown-menu {
+    padding: 0 10px 10px;
+    width: 500px;
+    z-index: 9999999;
+}
+ul.prestaadminlogincustomer {
+	list-style-type: none;
+	float: left;
+}
+#dropdown_presta_customer_header {
+	float: left;
+}
+#presta_searched_result li {
+	background: #f5f8f9;
+	padding: 5px;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+#presta_searched_result li span {
+	min-width: 160px;
+    float: left;
+    margin: 4px;
+}
+#dropdown_presta_customer_header h3 {
+	float: left;
+}
+.presta_loader_img img {
+	float: right;
+	margin-top: 25px;
+}
+.prestahide {
+	display: none;
+}
+ul.prestaadminlogincustomer {
+	position: absolute;
+    left: 50%;
+    top: 5px;
+}
+ul.prestaadminlogincustomer li {
+	font-size: 15px;
+	font-weight: 600;
+}
+.presta_login_header {
+	font-size: 16px;
+	font-weight: 600;
+	text-align: center;
+}

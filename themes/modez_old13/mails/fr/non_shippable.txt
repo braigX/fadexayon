@@ -1,0 +1,15 @@
+{shop_url}
+
+Bonjour {firstname} {lastname},
+
+Merci pour votre commande et l’intérêt que vous portez à nos produits.
+
+Suite à votre demande de devis pour la livraison, nous souhaitons vous informer qu’il nous est malheureusement impossible de finaliser cette demande. En raison des dimensions ou du volume de l'article, les frais de transport seraient significativement plus élevés que la valeur du produit.
+
+Pour toute question ou pour discuter de cette situation, n'hésitez pas à nous contacter directement par téléphone au +33 (0)825 950 850. Notre équipe se fera un plaisir de vous assister.
+
+Merci pour votre compréhension.
+
+Bien cordialement,
+
+[{shop_name}]({shop_url})

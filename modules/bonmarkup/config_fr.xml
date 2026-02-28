@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>bonmarkup</name>
+    <displayName><![CDATA[SEO Schema Markup Structured Data Rich Snippet]]></displayName>
+    <version><![CDATA[2.8.0]]></version>
+    <description><![CDATA[Display structured data &amp; schema markup.]]></description>
+    <author><![CDATA[Bonpresta]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+</module>

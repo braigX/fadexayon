@@ -1,0 +1,9 @@
+[{shop_url}]
+
+Hallo {person_name},
+{from_person_name} mochte Ihr {object} auf {product_name} nicht
+
+{content}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

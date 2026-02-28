@@ -1,0 +1,15 @@
+.bootstrap .col-sm-5.panelSite {
+    min-height: 180px;
+}
+.bootstrap .col-sm-5.panelSite:nth-child(odd) {
+    margin-right : 30px;
+}
+.bootstrap .col-sm-5.panelSite .btn-primary {
+    text-transform: none;
+}
+
+@media screen and (max-width: 767px) {
+    .bootstrap .col-sm-5.panelSite:nth-child(odd) {
+        margin-right : 0;
+    }
+}

@@ -1,0 +1,64 @@
+a#author-blog-comment-link,
+a#author-blog-info-link,
+a#author-blog-link{
+    width: 100%;
+}
+li > a#author-blog-comment-link,
+li > a#author-blog-info-link,
+li > a#author-blog-link{
+    padding: 0!important;
+}
+.ss_icon_group {
+    position: relative;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    margin-bottom: 0;
+    height: 0;
+}
+.ss_icon_group .fa.fa-pencil {
+    display: block;
+    left: 0;
+    padding-left: 7px;
+    padding-top: 27px;
+    position: absolute;
+    top: 0;
+    margin-left: 13px!important;
+    transform-origin: top;
+    -webkit-transform-origin: top;
+    transform: scale(0.6);
+    -webkit-transform: scale(0.6);
+}
+.ss_icon_group .fa.fa-pencil.second {
+    color: #fff !important;
+    font-size: 3.6rem !important;
+    padding-left: 10px;
+    padding-top: 16px;
+}
+.ss_icon_group i {
+    padding: 0!important;
+    display: inline-flex!important;
+    width: auto!important;
+}
+i.second.blog_icon-pencil svg {
+    width: 30px;
+    height: 30px;
+    margin-top: 12px;
+}
+.ss_icon_group i.second.blog_icon-pencil {
+    margin-left: -24px;
+    z-index: 1;
+    color: #fff!important;
+}
+.ss_icon_group .blog_icon-pencil:last-child {
+    margin-left: -37px;
+    margin-top: 9px;
+}
+.ss_icon_group .blog_icon-pencil svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor!important;
+}
+li{
+    list-style: none;
+}

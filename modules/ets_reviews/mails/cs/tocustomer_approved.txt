@@ -1,0 +1,9 @@
+[{shop_url}]
+
+Dobrý den {customer_name},
+Váš {object} ve službě {product_name} byl schválen a publikován.
+
+{content}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

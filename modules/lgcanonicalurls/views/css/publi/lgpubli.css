@@ -1,0 +1,384 @@
+/**
+ * Copyright 2022 LÍNEA GRÁFICA E.C.E S.L.
+ *
+ * @author    Línea Gráfica E.C.E. S.L.
+ * @copyright Lineagrafica.es - Línea Gráfica E.C.E. S.L. all rights reserved.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/* Style the navigation menu */
+.lgmodule_menu {
+    width: 100%;
+    background-color: #363a41;
+    overflow: auto;
+    padding: 0px;
+    list-style-type: none;
+}
+
+/* Navigation links */
+.lgmodule_menu li {
+    float: left;
+    padding: 0px;
+}
+.lgmodule_menu li a {
+    display: block;
+    text-decoration: none!important;
+    padding: 15px 30px;
+    cursor: pointer;
+    color: #fff;
+}
+.lgmodule_menu li a:hover, .lgmodule_menu li a:focus {
+    background-color: #202226;
+    color: #fff;
+}
+.lgmodule_menu li a.active {
+    background-color: #61a60e;
+}
+@media only screen and (max-width: 600px) {
+    .lgmodule_menu li {
+        float: none;
+    }
+}
+/* Help tabs */
+
+/* Tabs Name Container */
+.tabs-container{
+    position: relative;
+    background: #fff;
+    width: 220px;
+    height: 100vh;
+    float: left;
+    z-index: 20;
+    font-size: 1.3em;
+}
+
+/* Tabs Names Label */
+.lgmodule-container-help .tabs-container label{
+    color: #61a60e!important;
+    position: relative;
+    padding: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    display: block;
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 0px;
+}
+
+/* Hover effect on tabs names */
+.lgmodule-container-help .tabs-container label:hover{
+    /*background: rgba(0, 0, 0, 0.2);*/
+    background: #eee;
+}
+
+/* Content area for tabs */
+.lgmodule-container-help .tab-content{
+    position: relative;
+    /*background: #eee;*/
+    width: calc(100% - 220px);
+    min-height: 100vh;
+    padding: 15px;
+    float: left;
+    box-sizing: border-box;
+    z-index: 19;
+    display: none;
+    font-size: 1.3em;
+    padding-top: 0px;
+}
+
+.lgmodule-container-help .tab-content h2 {
+    color: #61a60e!important;
+    font-size: 1.3em;
+    margin-top: 0px;
+}
+
+.lgmodule-container-help .tab-content h3 {
+    font-size: 1.2em!important;
+    margin: 0px!important;
+    padding: 0px!important;
+    text-transform: none!important;
+    margin-bottom: 15px!important;
+}
+
+.lgmodule-container-help .tab-content ul, .tab-content ol {
+    list-style: none;
+    margin: 15px 0px;
+}
+
+.tab-content ol {
+    counter-reset: li;
+}
+
+.lgmodule-container-help .tab-content ul li::before {
+    /*content: "\2022";*/
+    content: "\25AA";
+    color: #61a60e;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+.lgmodule-container-help .tab-content ol li::before {
+    content: counter(li);
+    color: #61a60e;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em
+}
+
+.lgmodule-container-help .tab-content ol li {
+    counter-increment: li
+}
+
+.lgmodule-container-help .tab-content ul li, .lgmodule-container-help .tab-content ol li {
+    margin-bottom: 15px;
+    max-width: 80%;
+    color: #555;
+}
+
+.lgmodule-container-help .tab-content:after{
+    content: "";
+    clear: both;
+}
+
+.lgmodule-container-help img {
+    max-width: 100%;
+    border: 1px solid #202226;
+    margin: 15px 0px;
+}
+
+.lgmodule-container-help p {
+
+}
+
+/* Hide input radio from users */
+.lgmodule-container-help input[name="tab"]{
+    display: none;
+}
+/* Show tab when input checked */
+.lgmodule-container-help input[name="tab"]:checked + .tab-content{
+    display: block;
+    animation: slide 0.5s forwards;
+}
+
+.lg-block {
+    position: relative;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: solid 1px #d3d8db;
+    background-color: #fff;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+    font: 400 12px/1.42857 "Open Sans", Helvetica, Arial, sans-serif;
+    color: #555;
+    display: inline-block;
+    width: 100%;
+}
+.lg-block a:focus {
+    text-decoration: none;
+    outline: none;
+}
+.lg-block .lg-block-icon {
+    display: inline-block;
+    margin-right: 20px;
+}
+.lg-block .lg-block-icon a {
+    display: inline-block;
+}
+.lg-block .lg-block-icon a * {
+    display: block;
+}
+.lg-block .lg-block-icon a img {
+    margin: 0 auto;
+}
+.lg-block .lg-block-icon a .text {
+    text-transform: uppercase;
+    margin-top: 5px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 11px;
+}
+.lg-block .lg-block-icon a.readme {
+    color: #8BCDD1;
+}
+.lg-block .lg-block-icon a.support {
+    color: #EF5D5A;
+}
+.lg-block .lg-block-icon a.faq {
+    color: #D7A9E4;
+}
+.lg-block .lg-block-icon a.opinion {
+    color: #FFC13D;
+}
+.lg-block .lg-block-icon a.see-modules {
+    color: #91C157;
+}
+.lg-block .lg-block-icon.right {
+    vertical-align: middle;
+    margin: 0 0 0 20px;
+    padding-left: 20px;
+    border-left: 1px solid #CCC;
+}
+.lg-block-company {
+    border-bottom: 1px solid #CCC;
+    margin-bottom: 25px;
+    padding: 10px 10px 25px 10px;
+}
+.lg-block-company span {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.lg-block-partner {
+    width: 60%;
+    display: inline-block;
+}
+.lg-block-partner span {
+    width: 115px;
+    margin: 20px 0 0 13px;
+    position: absolute;
+}
+.lg-block-creator {
+    width: 35%;
+    display: inline-block;
+}
+.lg-block-creator span {
+    width: 115px;
+    margin: 14px 0 0 13px;
+    position: absolute;
+}
+.lg-module-block {
+    border: 1px solid #CCC;
+    padding: 10px;
+    position: relative;
+}
+.lg-module-block a,
+.lg-module-block a:hover,
+.lg-module-block a:focus {
+    text-decoration: none;
+    color: #333333;
+    outline: none;
+}
+.lg-module-block .lg-title {
+    position: relative;
+}
+.lg-module-block .lg-module-name {
+    font-family: "Montserrat", Helvetica, Verdana, sans-serif;
+    font-weight: 400;
+    color: #251b5b;
+    margin: 0;
+    padding-left: 15px;
+    display: inline-block;
+    position: absolute;
+    font-size: 14px;
+    overflow: hidden;
+    height: 57px;
+}
+.lg-module-block .lg-description {
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #CCC;
+    height: 80px;
+    overflow: hidden;
+}
+.lg-module-block .lg-rating {
+    padding: 12px 0;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 900;
+}
+.lg-module-block .lg-rating img {
+    margin-left: 7px;
+}
+.lg-module-block .lg-button span {
+    padding: 8px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    text-align: center;
+    font-weight: 700;
+    background: #251B5B;
+    display: block;
+    font-size: 11px;
+    transition: background .2s ease-out;
+    -moz-transition: background .2s ease-out;
+    -webkit-transition: background .2s ease-out;
+    -o-transition: background .2s ease-out;
+}
+.lg-module-block:hover .lg-button span,
+.lg-module-block a:hover .lg-button span {
+    background: #DF0067;
+}
+.lg-background-image {
+    background: url('../../img/publi/ico_see_modules_big.png') no-repeat;
+    margin-left: -16px;
+    height: 175px;
+    margin-top: 33px;
+    position: relative;
+}
+.lg-vertical-text {
+    display: block;
+    position: absolute;
+    left: -47px;
+    top: 70px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 900;
+    width: 140px;
+    text-align: center;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+.lg-vertical-text a {
+    color: #FFFFFF;
+}
+.lg-vertical-text a:hover,
+.lg-vertical-text a:focus {
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+@media(max-width: 1600px) {
+    .lg-block-partner,
+    .lg-block-creator {
+        display: inline-block;
+        text-align: center;
+    }
+    .lg-block-creator {
+        margin-top: 20px;
+    }
+    .lg-block-partner img {
+        width: 8em;
+    }
+    .lg-block-creator img {
+        width: 3em;
+    }
+    .lg-block-creator span,
+    .lg-block-partner span {
+        margin: 10px auto 0 auto;
+        position: relative;
+        display: block;
+    }
+}
+@media(max-width: 1200px) {
+    .lg-block-partner,
+    .lg-block-creator {
+        margin-bottom: 20px;
+    }
+}

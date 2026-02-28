@@ -1,0 +1,33 @@
+button#avatar-selectbutton {
+    height: 100%;
+    display: block;
+    min-height: 38px;
+    margin-top: 0;
+}
+.svg_image_icon svg {
+    width: 14px;
+    height: 14px;
+    fill: #555;
+    vertical-align: middle;
+}
+span.form-control-comment {
+    color: #999;
+    font-style: italic;
+}
+.ets_rv_profile_image i.ets_svg_icon:before {
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.col-md-6.ets_rv_profile_image + .col-md-3.form-control-comment {
+    display: none;
+}
+.ets_rv_profile_image #ets_rv_avatar_thumbnail img {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.ets_rv_profile_image span.input-group-addon {
+    width: auto;
+}
+.ets_rv_delete_avatar {
+    cursor: pointer;
+}

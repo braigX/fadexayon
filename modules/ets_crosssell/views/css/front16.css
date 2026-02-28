@@ -1,0 +1,47 @@
+.crosssell_product_list_wrapper {
+    margin: 0;
+}
+#layer_cart .ets_crosssell_block {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.ets_crosssell_quick_view_page .functional-buttons {
+    display: none;
+}
+ul#product_list {
+    width: 100%;
+}
+.ets_crosssell_block.ets_crosssell_layout-tab.layout-slide.ets_crosssell_quick_view_page {
+    padding-left: 35px;
+    padding-right: 30px;
+    clear: both;
+    padding-top: 30px;
+}
+.crosssell_product_list_wrapper .product-container .product-desc {
+    display: none;
+}
+.crosssell_product_list_wrapper .product-image-container .content_price {
+    display: none;
+}
+.crosssell_product_list_wrapper .product-image-container {
+    position: relative;
+}
+.crosssell_product_list_wrapper .ajax_block_product .product-container {
+    padding-top: 6px;
+}
+.ets_crosssell_block ul.product_list.grid.slick-slider li {
+    clear: none!important;
+}
+.ets_crosssell_block h4.ets_crosssell_title {
+    padding: 10px 5px 10px 20px;
+}
+.ets_crosssell_list_blocks .tab_content button.slick-arrow {
+    top: 15px;
+    margin-left: 0;
+    margin-right: 10px;
+}
+@media (max-width: 767px){
+    .first-item-of-mobile-line {
+        clear: both;
+    }
+}

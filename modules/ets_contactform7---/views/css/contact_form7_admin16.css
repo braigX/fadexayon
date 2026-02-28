@@ -1,0 +1,62 @@
+i.action-enabled,
+.product-edit i.material-icons,
+i.material-icons.action-disabled,
+.preview-contact i{
+    font-size: 0!important;
+    font-style: normal;
+}
+i.action-enabled:before{
+    content:"\f00c";
+    font-size: 16px;
+    font-family: Fontawesome;
+}
+i.material-icons.action-disabled:before{
+    content:"\f00d";
+    font-size: 16px;
+    font-family: Fontawesome;
+}
+.product-edit i.material-icons:before{
+    content:"\f044";
+    font-size: 12px;
+    font-family: Fontawesome;
+}
+.btn-group > .product-edit i.material-icons:before{
+    font-size: 16px;
+}
+.preview-contact i:before{
+    content:"\f06e";
+    font-size: 16px;
+    font-family: Fontawesome;
+}
+i.icon-AdminContactForm:before {
+    content: "\f003";
+    display: inline-block;
+    font-family: Fontawesome;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

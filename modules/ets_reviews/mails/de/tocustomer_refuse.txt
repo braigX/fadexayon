@@ -1,0 +1,13 @@
+[{shop_url}]
+
+Hallo {customer_name},
+Ihre Bewertung zu {product_name} wurde abgelehnt.
+
+{title}
+
+{content}
+
+{reason}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

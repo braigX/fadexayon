@@ -1,0 +1,6 @@
+Cześć {customer},
+Twój komentarz został zaktualizowany
+Temat: {subject}
+Komentarz: {comment}
+Ocena: {rating}
+Zobacz post

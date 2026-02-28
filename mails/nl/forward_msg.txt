@@ -1,0 +1,17 @@
+ 
+
+{shop_url}
+
+Hallo {firstname} {lastname},
+
+Klantendienst - Doorgestuurd Bericht
+
+{employee} wil deze discussie naar u doorzenden.
+
+Bericht geschiedenis: {messages}
+
+{employee} heeft {comment} toegevoegd
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop-project.org/)

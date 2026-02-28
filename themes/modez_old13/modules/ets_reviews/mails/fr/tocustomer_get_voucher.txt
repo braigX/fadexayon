@@ -1,0 +1,13 @@
+[{shop_url}]
+
+Bonjour {customer_name},
+Nous sommes heureux de vous informer que vous venez de recevoir un code promotionnel après avoir évalué vos articles achetés.
+Code : {voucher_code}
+Valeur de remise : {voucher_value}
+Veuillez saisir ce code lors de votre prochain achat pour bénéficier de la remise
+
+Utilisez le bon maintenant
+
+
+{shop_name} [{shop_url}] propulsé par
+PrestaShop(tm) [http://www.prestashop.com/]

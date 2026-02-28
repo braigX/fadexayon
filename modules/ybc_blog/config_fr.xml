@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>ybc_blog</name>
+    <displayName><![CDATA[BLOG]]></displayName>
+    <version><![CDATA[4.5.1]]></version>
+    <description><![CDATA[Le module de blog le plus puissant, flexible et riche en fonctionnalit&eacute;s de Prestashop. BLOG fournit tout ce dont vous avez besoin pour cr&eacute;er une zone de blog professionnel pour votre site Web.]]></description>
+    <author><![CDATA[PrestaHero]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+</module>

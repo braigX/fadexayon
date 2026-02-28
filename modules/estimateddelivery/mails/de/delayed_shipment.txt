@@ -1,0 +1,13 @@
+Hallo {firstname} {lastname},
+
+Der Versand Ihrer Bestellung wurde verzögert
+
+Bestellung {order_name} - Verzögert
+
+Der Versand Ihrer Bestellung {order_name} wurde verzögert aufgrund unvorhergesehener Umstände.
+Wir werden unser Bestes tun, um es so schnell wie möglich zu versenden.
+Wenn Sie Fragen haben oder weitere Informationen benötigen, wenden Sie sich bitte an den Kundendienst oder antworten Sie auf diese Nachricht.
+
+Sie können Ihre Bestellung einsehen und Ihre Rechnung aus dem Abschnitt "Bestellhistorie" Ihres Kundenkontos herunterladen, indem Sie im Shop auf "Mein Konto" klicken.
+
+{shop_name} betrieben durch PrestaShop™

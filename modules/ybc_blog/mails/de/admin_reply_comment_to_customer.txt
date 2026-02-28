@@ -1,0 +1,5 @@
+Hallo {customer_name},
+{replier} hat gerade auf Ihren Kommentar zu {post_title} geantwortet
+{comment_reply}
+Antwort anzeigen
+

@@ -1,0 +1,13 @@
+[{shop_url}]
+
+Hola {customer_name},
+Esperamos que pueda dedicar su tiempo para calificar sus artículos comprados recientemente:
+
+{product_list}
+
+Gracias por confiar y comprar en nuestra tienda
+
+Califica ahora
+
+{shop_name} [{shop_url}] impulsado por
+PrestaShop(tm) [http://www.prestashop.com/]

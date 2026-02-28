@@ -1,0 +1,360 @@
+/**
+* 2007-2020 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Academic Free License (AFL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/afl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author    PrestaShop SA <contact@prestashop.com>
+*  @copyright 2007-2020 PrestaShop SA
+*  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*  International Registered Trademark & Property of PrestaShop SA
+*
+* Don't forget to prefix your containers with your own identifier
+* to avoid any conflicts with others containers.
+*/
+body.seo_locked {
+    overflow: hidden;
+}
+
+#front_seo {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    z-index: 10000000; /*enorme z-index pour contrer les themes nuls */
+}
+
+.seo-grp {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    background: #00cc66;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+#front_seo.score-yellow .seo-grp {
+    background: #FFD700;
+}
+#front_seo.score-orange .seo-grp {
+    background: orange;
+}
+#front_seo.score-red .seo-grp {
+    background: red;
+}
+
+#front_seo .pulsation {
+    width: 90px;
+    height: 90px;
+    background-color: #00cc66;
+    border-radius: 50px;
+    position: absolute;
+    left: -10px;
+    top: -10px;
+    z-index: -1;
+    transform: translate(-50%,-50%) scale(0);
+    animation: ether-pulse 2s infinite;
+}
+
+#front_seo.score-yellow .pulsation {
+    background-color: #FFD700;
+}
+#front_seo.score-orange .pulsation {
+    background-color: orange;
+}
+#front_seo.score-red .pulsation {
+    background-color: red;
+}
+
+#front_seo.active .seo-grp {
+    border: 8px solid #00cc66;
+    background-color: #fff;
+    color: #00cc66;
+}
+#front_seo.active.score-yellow .seo-grp {
+    border: 8px solid #FFD700;
+    background-color: #fff;
+    color: #FFD700;
+}
+#front_seo.active.score-orange .seo-grp {
+    border: 8px solid orange;
+    background-color: #fff;
+    color: orange;
+}
+#front_seo.active.score-red .seo-grp {
+    border: 8px solid red;
+    background-color: #fff;
+    color: red;
+}
+
+
+#seo-popup {
+    position: absolute;
+    right: 100%;
+    bottom: 100%;
+    color: #777;
+    border-radius: 2px;
+    width: 950px;
+    overflow: hidden;
+    visibility: hidden;
+    transition: visibility 0.3s;
+}
+
+#front_seo.active #seo-popup {
+    display: block;
+    visibility: visible;
+}
+
+#front_seo .seo-popup-inner {
+    transform:translate(100%,100%);
+    transition: transform 0.3s;
+}
+
+#front_seo.active .seo-popup-inner {
+    transform:translate(0,0);
+}
+
+.seo-onglet {
+    background: #e2e2e2;
+    transition: background-color 0.3s ease;
+}
+
+.seo-onglet:not(.active) {
+    border-bottom: 1px solid #ccc;
+    
+    cursor: pointer;
+}
+
+.seo-onglet:not(.active):hover {
+    background: #f0f0f0;
+}
+
+.seo-onglet.active {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-bottom: 0;
+    border-radius: 2px;
+}
+
+.seo-onglets {
+    display: flex;
+}
+
+.seo-onglet {
+    text-align: center;
+    text-transform: uppercase;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    flex-basis: 50%;
+}
+
+.seo-content:not(.active) {
+    display: none;
+}
+
+.seo-content-title {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+.seo-popup-content {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-top: 0;
+    border-radius: 2px;
+    font-size: 12px;
+    padding: 25px;
+    height: 750px;
+    max-height: calc(90vh - 85px);
+    overflow-y: scroll;
+    scrollbar-width: 0;
+}
+
+.seo-popup-content::-webkit-scrollbar {
+    display: none;
+}
+
+.seo-content-grp {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    padding: 15px 0;
+}
+
+.seo-content-grp:last-child {
+    border-bottom: 0;
+}
+
+.seo-label {
+    font-weight: bold;
+    flex-basis: 155px;
+    flex-shrink: 0;
+    padding-right: 10px;
+}
+
+.seo-notation {
+    flex-basis: 40px;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.seo-notation .inner-notation {
+    display: inline-block;
+    font-size: 0;
+    width: 20px;
+    height: 20px
+}
+
+.seo-txt {
+    padding-right: 10px;
+    flex-grow: 1;
+}
+
+.seo-txt-item .seo-icon {
+    margin-right: 4px;
+}
+
+.seo-txt-item.bad .seo-icon.good {
+    display: none;
+}
+.seo-txt-item.good .seo-icon.bad {
+    display: none;
+}
+
+.seo-link {
+    flex-shrink: 0;
+}
+
+.seo-link a {
+    display: inline-block;
+    border: 1px solid #2626c1;
+    border-radius: 4px;
+    color: #2626c1;
+    padding: 5px 10px;
+    transition: all 300ms ease;
+}
+
+.seo-link a:hover {
+    background: #2626c1;
+    color: #fff;
+}
+
+table.table-hh {
+    width: 100%;
+    background-color: #efefef;
+    border: 2px solid #efefef;
+    margin: 5px 0 0 0;
+    border-spacing: 3px;
+    border-collapse: separate;
+}
+
+table.table-hh tr th {
+    color: #212529;
+    font-size: 12px;
+}
+
+#front_seo.active .seo-mask-mobile {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.6);
+}
+
+#front_seo .seo-inner {
+    font-size: 16px;
+    line-height: 1;
+    padding-top: 5px;
+}
+
+#front_seo .score-btn {
+    display: block;
+    font-size: 12px;
+    text-align: center;
+    transform: translateX(10%);
+}
+
+
+@media (max-width: 991px) {
+
+    .seo-onglet:not(.active) {
+        background: rgba(0,0,0,0.4);
+        color: #ccc;
+    }
+
+    #seo-popup {
+        right: 0;
+        bottom: calc(100% + 5px);
+        max-width: calc(100vw - 30px);
+        overflow-y: scroll;
+    }
+
+    .seo-popup-content {
+        max-height: calc(100vh - 200px);
+    }
+
+    .seo-content-grp {
+        flex-wrap: wrap;
+    }
+
+    #front_seo .seo-popup-inner {
+        transform:translate(0,100%);
+    }
+
+    .seo-notation {
+        flex-basis: 25px;
+        text-align: left;
+        order: 0;
+    }
+
+    .seo-label {
+        flex-basis: calc(100% - 25px);
+        padding-right: 0;
+        order: 1;
+    }
+
+    .seo-txt {
+        padding: 10px 0;
+        order: 2;
+    }
+
+    .seo-link {
+        order: 3;
+    }
+}
+
+
+@keyframes ether-pulse {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}

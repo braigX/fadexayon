@@ -1,0 +1,28 @@
+/* Custom Shipping Rate CSS */
+
+#unable_to_calculate_custom_shipping {
+    padding: 10px 0px;
+    margin-bottom: 1em;
+}
+#unable_to_calculate_custom_shipping p {
+    margin-bottom:15px;
+}
+#unable_to_calculate_custom_shipping .message.row {
+    margin-top:15px;
+	display:none;
+}
+#get_custom_shipping_rate {
+    margin-bottom:15px;
+}
+#unable_to_calculate_custom_shipping #spinner_loader {
+    text-align: left;
+	margin-top:15px;
+	display:none;
+}
+#unable_to_calculate_custom_shipping #spinner_loader i.icon-spinner {
+    font-size: 22px;
+	color:#669900;
+}
+#unable_to_calculate_custom_shipping h4.success-message.text-success {
+	color:#009966;
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>af_seopages</name>
+    <displayName><![CDATA[SEO Pages for Amazzing Filter]]></displayName>
+    <version><![CDATA[1.0.1]]></version>
+    <description><![CDATA[Configurable SEO pages for Amazzing Filter]]></description>
+    <author><![CDATA[Amazzing]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+    <is_configurable>0</is_configurable>
+    <need_instance>0</need_instance>
+</module>

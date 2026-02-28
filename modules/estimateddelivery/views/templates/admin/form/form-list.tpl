@@ -1,0 +1,22 @@
+{** * Smart Modules Tool
+ *
+ * NOTICE OF LICENSE
+ *
+ * @author    Pol Rué
+ * @copyright Smart Modules 2013
+ * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category Transport & Logistics
+ * Registered Trademark & Property of smart-modules.com
+ *
+ * ***************************************************
+ * *                 Smart Modules                   *
+ * *          http://www.smart-modules.com           *
+ * *                                                 *
+ * ***************************************************
+ *}
+
+<{$tmp_type|escape:'htmlall':'UTF-8'}{if $tmp_params !== ''} {$tmp_params nofilter}{/if}> {* Can't escape as it contains HTML *}
+    {foreach from=$tmp_items item=item}
+        <li>{$item nofilter}</li> {* can't escape as it may contain HTML *}
+    {/foreach}
+</{$tmp_type}>

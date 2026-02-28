@@ -1,0 +1,14 @@
+Retard dans la livraison avertissement
+
+Commande {order_id} avec ref {order_Reference}
+Devrait être expédié aujourd'hui
+
+Commande {order_name} - Retardée
+
+La commande {order_name}
+Avec ID {order_id}
+Doit être expédié immédiatement ou il ne sera pas livré à la date estimée
+
+Vous pouvez consulter votre commande et télécharger votre facture dans la section "Historique des commandes" de votre compte client en cliquant sur "Mon compte" sur notre boutique.
+
+{shop_name}

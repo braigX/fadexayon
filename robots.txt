@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /racine/
+# Autoriser tout le reste
+Allow: /
+
+# Sitemap PrestaShop
+Sitemap: https://www.plexi-cindar.com/1_index_sitemap.xml
+

@@ -1,0 +1,4 @@
+Ahoj admin,
+Komentář k článku {post_title} upravil {customer_name}.
+Předchozí verze: {comment_old}
+Nová verze: {comment}

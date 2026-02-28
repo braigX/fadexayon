@@ -1,0 +1,14 @@
+ 
+
+{shop_url}
+
+Bonjour,
+
+{product} est presque en rupture de stock.
+
+Il y a maintenant moins de {last_qty} articles en stock.
+Stock restant :: {qty}
+
+Rechargez votre inventaire, rendez-vous dans la section Catalogue > Stocks de votre espace administratif pour gérer votre stock.
+
+[{shop_name}]({shop_url})

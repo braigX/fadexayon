@@ -1,0 +1,15 @@
+.prestawpblock .posts_container-fi .pswp-post-fi-title {
+    position: static;
+}
+.prestawpblock .posts_container-fi .pswp-post-wrp-1 {
+    border-radius: 5px;
+    overflow: hidden;
+    transition: opacity 0.25s;
+    opacity: 1;
+}
+.prestawpblock .posts_container-fi .pswp-post-fi-title {
+    background-color: #2b2c2d;
+}
+.prestawpblock .pswp_grid .pswp-post-wrp:hover .pswp-post-wrp-1 {
+    opacity: 0.9;
+}

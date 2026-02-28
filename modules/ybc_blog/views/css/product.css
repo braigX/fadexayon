@@ -1,0 +1,194 @@
+.ybc-blog-related-posts.on_product {
+    background-color: #fff;
+    box-shadow: 2px 2px 8px 0 rgba(0,0,0,.2);
+    -webkit-box-shadow: 2px 2px 8px 0 rgba(0,0,0,.2);
+    margin-top: 30px;
+    padding: 30px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    position: relative;
+}
+span.ybc-blog-latest-toolbar-views {
+    margin-right: 10px;
+}
+.ybc-blog-related-posts-list-li {
+    padding-bottom: 30px;
+}
+.ybc-blog-related-posts-list {
+    float: left;
+    position: relative;
+    width: 100%;
+    margin-left: 0;
+}
+.ybc_blog_carousel .slick-list {
+    width: 100%;
+}
+.ybc-blog-latest-toolbar > span:not(:last-child) {
+    margin-right: 10px;
+}
+.ybc_title_block {
+    color: #414141;
+    float: left;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 20px;
+    margin-bottom: 0;
+    margin-top: 9px;
+    padding: 5px 0 9px;
+    text-transform: uppercase;
+    width: 100%;
+    outline: none !important;
+    text-decoration: none !important;
+}
+.be-categories > a, .ybc-blog-tags a, .be-categories {
+    color: #bfbfbf;
+}
+.be-categories {
+    color: #bfbfbf;
+    font-size: 14px;
+}
+.ybc-blog-latest-toolbar > span:not(:last-child),
+.blog_rating_wrapper, .blog_rating_reviews {
+    margin-right: 10px;
+}
+.ybc-blog-latest-toolbar {
+    color: #bfbfbf;
+    float: left;
+    font-size: 14px;
+    margin-bottom: 7px;
+    width: 100%;
+}
+.ybc-blog-latest-toolbar span {
+    display: inline-block;
+}
+.post-date .be-label {
+    display: block;
+    float: left;
+    overflow: hidden;
+    text-indent: 999px;
+    white-space: nowrap;
+    width: 20px;
+}
+.post-date{
+    margin-bottom: 5px;
+    margin-right: 15px;
+    width: auto;
+}
+.ybc-blog-sidear-post-meta {
+    clear: both;
+    color: #b1b1b1;
+    display: none;
+    float: left;
+    font-size: 13px;
+    width: 100%;
+}
+.ybc-blog-related-posts-list {
+    margin-bottom: 0;
+    width: calc(100% + 30px);
+    width: -webkit-calc(100% + 30px);
+    margin-left: -15px;
+    position: static;
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+}
+.ybc-blog-related-posts {
+    border-top: 1px solid #ebebeb;
+    float: left;
+    padding-top: 25px;
+    width: 100%;
+}
+#ybc-blog-related-products .ybc_blog_carousel button.slick-arrow.slick-prev,
+.ybc-blog-related-posts.ybc_blog_carousel button.slick-arrow.slick-prev {
+    right: 32px;
+}
+
+.blog_description {
+    clear: left;
+    font-size: 14px;
+    line-height: 24px;
+    color: #414141;
+}
+.read_more {
+    font-size: 14px;
+    text-decoration: none!important;
+    margin-top: 10px;
+    display: inline-block;
+    padding-bottom: 1px;
+    font-style: italic;
+    color: #999;
+    border-bottom: 1px dotted;
+}
+.ybc-blog-latest-toolbar {
+    color: #bfbfbf;
+    float: left;
+    font-size: 13px;
+    margin-bottom: 7px;
+    width: 100%;
+}
+.ybc-blog-related-posts .title_blog {
+    margin-bottom: 25px;
+    text-transform: uppercase;
+}
+.ybc_blog_carousel button.slick-arrow {
+    background: #fff none repeat scroll 0 0 !important;
+    border: 1px solid #ebebeb;
+    border-radius: 0 !important;
+    color: #c6c6c6 !important;
+    cursor: pointer;
+    float: left;
+    font-size: 0;
+    height: 25px;
+    line-height: 21px;
+    margin: 0 2px !important;
+    padding: 0 !important;
+    width: 25px;
+    position: absolute;
+    right: 22px;
+    top: 26px;
+    transform: none;
+}
+#ybc-blog-related-products .ybc_blog_carousel button.slick-arrow, .ybc-blog-related-posts.ybc_blog_carousel button.slick-arrow {
+    right: 15px;
+}
+#ybc-blog-related-products .ybc_blog_carousel button.slick-arrow.slick-prev, .ybc-blog-related-posts.ybc_blog_carousel button.slick-arrow.slick-prev {
+    right: 45px;
+}
+.ybc_blog_carousel button.slick-prev:before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    position: absolute;
+    border-top: 1px solid #777;
+    border-right: 1px solid #777;
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    top: 8px;
+    right: 7px;
+}
+.ybc_blog_carousel button.slick-next:before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    position: absolute;
+    border-top: 1px solid #777;
+    border-right: 1px solid #777;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    top: 8px;
+    right: 9px;
+}
+.ybc_blog_content_block button.slick-arrow:hover {
+    background: #eee!important;
+}
+@media (min-width: 768px) {
+    .ybc-blog-related-posts-list > li {
+        float: left;
+        padding: 0 15px;
+        margin-bottom: 30px;
+    }
+
+    .product .ybc_blog_related_posts_type_default .ybc-blog-related-posts-wrapper {
+        margin: 0;
+    }
+}

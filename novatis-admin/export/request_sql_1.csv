@@ -1,0 +1,676 @@
+id_order;reference;total_paid_tax_incl;payment;date_add;id_currency;id_pdf;customer;osname;color;new;cname;badge_success;shop_name;total_products_sold;cancelled_products;net_products_sold
+752;MOAPZCCCI;85.080000;"Paiement par carte bancaire";"2024-05-29 11:30:04";1;752;"E. Boulo";"Commande à disposition";#008000;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+751;HRPNSSTNL;291.590000;"Paiement par carte bancaire";"2024-05-29 11:29:44";1;751;"T. Prost";"En cours de préparation";#3498D8;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+750;RMPCOJSAJ;66.300000;"Paiement par carte bancaire";"2024-05-29 11:03:06";1;750;"M. Lolivrel";"Colis prêt à être remis au transporteur [TNT]";#00E4F5;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+749;QOZKZZAOR;128.570000;"Paiement par carte bancaire";"2024-05-29 10:25:58";1;749;"s. favier";"En cours de préparation";#3498D8;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+748;MSYSCTAHS;37.930000;"Paiement par carte bancaire";"2024-05-29 09:39:47";1;748;"A. Bourdin";"En cours de préparation";#3498D8;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+747;USOPRPEMI;53.090000;"Paiement par carte bancaire";"2024-05-28 16:43:24";1;747;"E. JSP";"En cours de préparation";#3498D8;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+746;OUIDVGMXZ;277.920000;"Paiement par carte bancaire";"2024-05-28 16:01:53";1;746;"J. POTIGNY";"En cours de préparation";#3498D8;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+745;TJWBOVVWH;29.550000;"Paiement par carte bancaire";"2024-05-28 13:26:34";1;745;"M. Rimozi";"En cours de préparation";#3498D8;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+744;MMWYQNHGD;100.060000;"Paiement par carte bancaire";"2024-05-28 09:44:55";1;744;"L. LAPORTE";"Colis prêt à être remis au transporteur [TNT]";#00E4F5;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+743;DJOGYPHNF;24.140000;"Paiement par carte bancaire";"2024-05-28 08:42:12";1;743;"J. CANADI";"En cours de préparation";#3498D8;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+742;FQPPGOFAA;42.270000;"Paiement par carte bancaire";"2024-05-27 22:08:33";1;742;"J. Parisien";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+741;LKNGLMZHL;4.500000;"Paiement par carte bancaire";"2024-05-27 20:10:05";1;741;"R. Andrino";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+740;VFNYHRMHT;501.370000;"Paiement par carte bancaire";"2024-05-27 14:26:09";1;740;"L. Miralles";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+739;YBMFYLWZD;501.370000;"Transfert bancaire";"2024-05-27 13:17:17";1;739;"L. Miralles";Annulé;#2C3E50;1;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+738;PZYXEQRGT;177.700000;"Paiement par carte bancaire";"2024-05-27 11:15:46";1;738;"N. DUPLAN";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+737;KKRIEWTWY;100.040000;"Paiement par carte bancaire";"2024-05-27 09:27:35";1;737;"m. Miara";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+736;JXSSYUDVA;127.900000;"Paiement par carte bancaire";"2024-05-27 08:35:54";1;736;"P. TCHUMAK";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";4;0;4
+735;JFPSQKJLC;97.060000;"Paiement par carte bancaire";"2024-05-26 22:46:20";1;735;"Y. Berger";"Commande à disposition";#008000;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+734;JUGEUHVHB;33.200000;"Paiement par carte bancaire";"2024-05-26 22:05:33";1;734;"e. campofranco";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+733;ANHGMNTEU;12.780000;"Paiement par carte bancaire";"2024-05-26 11:02:41";1;733;"P. Audebert";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+732;ICAEMWQCU;66.410000;"Paiement par carte bancaire";"2024-05-25 18:45:58";1;732;"S. Rothhut";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+731;KZUVORTND;67.800000;"Paiement par carte bancaire";"2024-05-24 15:30:35";1;731;"S. Dufour";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+730;PQGZMNPWV;39.440000;"Paiement par carte bancaire";"2024-05-24 14:52:08";1;730;"p. Massonnet";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+729;BBQKMEDLJ;1104.380000;"Paiement par carte bancaire";"2024-05-24 08:33:47";1;729;"H. Guérin";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";5;0;5
+728;CFNBLSVRX;93.590000;"Paiement par carte bancaire";"2024-05-23 22:39:15";1;728;"G. HOUBART";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+727;FNWQVVFRB;123.590000;"Paiement par carte bancaire";"2024-05-23 15:11:15";1;727;"E. Vessier";"Commande à disposition";#008000;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+726;ZQEODTXLQ;204.240000;"Paiement par carte bancaire";"2024-05-23 15:07:21";1;726;"M. BECHU";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+725;RKDREFWCS;1635.390000;"Paiement par carte bancaire";"2024-05-23 14:19:25";1;725;"a. mourin";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+724;KUXLJKWDN;69.270000;Sogecommerce;"2024-05-23 09:20:33";1;724;"V. Poupard";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+723;DCBXZYWOI;626.960000;"Paiement par carte bancaire";"2024-05-22 16:34:09";1;723;"M. Depontieu";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";4;0;4
+722;DRWQTCYHJ;12.200000;"Transfert bancaire";"2024-05-22 16:26:19";1;722;"A. Loubatié";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+721;BYBRSYZWY;12.200000;"Transfert bancaire";"2024-05-22 15:43:30";1;721;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+720;ETHGAZMJF;273.260000;"Paiement par carte bancaire";"2024-05-22 09:36:57";1;720;"H. Zourdani";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+719;UDQHWGKBD;124.500000;"Paiement par carte bancaire";"2024-05-22 00:56:00";1;719;"R. Jean-Michel";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";4;0;4
+718;TBQIVKNNC;34.890000;"Paiement par carte bancaire";"2024-05-21 18:25:51";1;718;"P. LORILLON";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+717;GWPOFVXFE;4.500000;"Paiement par carte bancaire";"2024-05-21 15:51:59";1;717;"G. BOCQUET";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+716;JGUEKWMEJ;81.260000;"Paiement par carte bancaire";"2024-05-21 15:26:38";1;716;"B. Faure";"Commande à disposition";#008000;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+715;UCLBWVKMP;115.300000;"Paiement par carte bancaire";"2024-05-21 15:11:13";1;715;"H. Deverchere";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";4;0;4
+714;ZEZAVMWZK;85.210000;"Paiement par carte bancaire";"2024-05-21 11:33:55";1;714;"A. Delor Aprile DBLUM";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+713;VXOXWBOEN;46.320000;"Paiement par carte bancaire";"2024-05-21 10:40:14";1;713;"T. Feminier";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+712;VRIQAFGJM;74.300000;"Transfert bancaire";"2024-05-21 10:37:59";1;712;"f. MASSON";"Colis prêt à être remis au transporteur [TNT]";#00E4F5;0;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+711;PYNKNGUFW;18.660000;"Paiement par carte bancaire";"2024-05-20 11:22:58";1;711;"V. Matussiere";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+710;CCODRQIRN;4309.220000;"Paiement par carte bancaire";"2024-05-20 11:07:28";1;710;"A. ROUX";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+709;KMRZNWPGY;42.270000;"Paiement par carte bancaire";"2024-05-20 09:02:42";1;709;"B. BAILLY";"Colis prêt à être remis au transporteur [TNT]";#00E4F5;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+708;PYAAORJLV;297.100000;"Paiement par carte bancaire";"2024-05-19 21:41:21";1;708;"a. brugiere-GAEC DU MILLEPERTUIS";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+707;ZKNRMLYPD;58.260000;"Paiement par carte bancaire";"2024-05-19 21:03:11";1;707;"f. teixeira";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+706;LVXNRYBCW;141.360000;"Paiement par carte bancaire";"2024-05-19 18:10:24";1;706;"T. Kilzer";"Colis prêt à être remis au transporteur [TNT]";#00E4F5;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+705;RIHCTBAXJ;4.500000;"Paiement par carte bancaire";"2024-05-19 16:32:32";1;705;"J. RAOULT";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+704;ITZFCXHGW;1745.910000;"Paiement par carte bancaire";"2024-05-19 14:07:35";1;704;"L. SIMON JEAN CLAUDE ";"Commande à disposition";#008000;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+703;KFCVJARIA;140.160000;"Paiement par carte bancaire";"2024-05-18 23:00:27";1;703;"l. berchiche";"Colis prêt à être remis au transporteur [TNT]";#00E4F5;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+702;YFPBEXBWC;60.550000;"Paiement par carte bancaire";"2024-05-18 11:46:30";1;702;"J. Mota";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+701;TZYLGMZVA;42.990000;"Transfert bancaire";"2024-05-17 17:31:08";1;701;"S. HUBERT";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+700;ZSXPIUDTY;127.270000;"Paiement par carte bancaire";"2024-05-17 17:08:34";1;700;"P. Henry";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+699;IGSFTEURZ;28.910000;"Paiement par carte bancaire";"2024-05-17 15:35:54";1;699;"J. Castano";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+698;TDOZNCFKF;28.910000;"Transfert bancaire";"2024-05-17 15:22:41";1;698;"J. Castano";"En attente de virement bancaire";#34209E;0;France;0;"Découpe Plexiglas® sur Mesure";3;0;3
+697;WLYSEJSDT;144.970000;"Transfert bancaire";"2024-05-17 14:51:22";1;697;"S. Chapoutot";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+696;STZVXJJTY;50.240000;"Paiement par carte bancaire";"2024-05-17 14:14:31";1;696;"D. HAAS";"Commande à disposition";#008000;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+695;HEVYHQIMQ;224.090000;"Paiement par carte bancaire";"2024-05-16 15:12:00";1;695;"E. flanet-delpire";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+694;DKGPXWXXY;17.090000;"Paiement par carte bancaire";"2024-05-16 11:13:57";1;694;"S. SERIPRO";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+693;VHBVSLQJC;672.260000;"Paiement par carte bancaire";"2024-05-15 19:44:55";1;693;"A. REHAB";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+692;SUXJHHQNS;69.190000;"Paiement par carte bancaire";"2024-05-15 17:54:29";1;692;"S. JBSB";"Colis prêt à être remis au transporteur [TNT]";#00E4F5;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+691;JIGKIUZDT;104.160000;"Paiement par carte bancaire";"2024-05-15 16:28:54";1;691;"R. EL GERGAWY";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+690;PCPEGDHWE;68.980000;"Paiement par carte bancaire";"2024-05-15 15:45:43";1;690;"J. PICARD";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+689;TJRXKQFDN;61.400000;"Paiement par carte bancaire";"2024-05-15 13:46:26";1;689;"A. Yoshida";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+688;HNXMQNTAA;48.930000;"Paiement par carte bancaire";"2024-05-15 12:28:12";1;688;"d. barontini";"Colis prêt à être remis au transporteur [TNT]";#00E4F5;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+687;NTPCITXTJ;45.990000;"Paiement par carte bancaire";"2024-05-15 11:31:42";1;687;"Y. Maisse";"Colis pris en charge par le transporteur [TNT]";#E099FF;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+686;OKJCHSQUH;187.190000;"Paiement par carte bancaire";"2024-05-15 10:38:43";1;686;"U. Kerdraon";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+685;RGPZUXPGR;50.110000;"Paiement par carte bancaire";"2024-05-14 23:23:39";1;685;"L. JOHN";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+684;KCBULDMPX;42.920000;"Transfert bancaire";"2024-05-14 11:45:11";1;684;"t. test";"Paiement accepté";#3498D8;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+683;OUHBJRTHC;50.170000;"Paiement par carte bancaire";"2024-05-13 18:53:39";1;683;"a. law";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+682;QNOWOEKBA;127.650000;"Paiement par carte bancaire";"2024-05-13 17:34:15";1;682;"p. morizur";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+681;YOXFXSZGM;35.770000;"Paiement par carte bancaire";"2024-05-13 16:32:57";1;681;"H. Millien";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+680;KYAHZSNIJ;21.740000;"Paiement par carte bancaire";"2024-05-13 14:38:24";1;680;"E. FONTAN ";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+679;EJORUJSES;88.020000;"Paiement par carte bancaire";"2024-05-13 13:59:48";1;679;"f. MASSON";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+678;ZYWIYVHNO;53.290000;"Paiement par carte bancaire";"2024-05-13 11:23:59";1;678;"D. MORAILLON";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+677;XKWAFYMCX;4.500000;"Paiement par carte bancaire";"2024-05-13 10:40:50";1;677;"m. buelens";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+676;RMCHJALHK;28.240000;"Paiement par carte bancaire";"2024-05-13 10:12:40";1;676;"s. pfeffer";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+675;AUSIMTCKP;27.220000;"Paiement par carte bancaire";"2024-05-13 08:14:01";1;675;"C. Hoy";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+674;MBVVVDQQM;35.400000;"Paiement par carte bancaire";"2024-05-12 17:09:18";1;674;"S. Rothhut";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+673;RXVFUSJFA;13.500000;"Paiement par carte bancaire";"2024-05-12 16:33:53";1;673;"J. Hourquebie";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+672;XHEKEIRKU;319.490000;"Paiement par carte bancaire";"2024-05-12 16:07:10";1;672;"c. zeller";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+671;YKBIWDCXY;385.130000;"Paiement par carte bancaire";"2024-05-12 15:13:16";1;671;"j. vonthron";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";4;0;4
+670;DDDKYZHGS;372.520000;"Paiement par carte bancaire";"2024-05-11 12:50:57";1;670;"s. kadri";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";9;0;9
+669;XYUAYLVRO;382.790000;"Paiement par carte bancaire";"2024-05-11 05:45:44";1;669;"C. FALEMPIN";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";10;0;10
+668;IMYPAVWWA;34.800000;"Paiement par carte bancaire";"2024-05-10 15:31:25";1;668;"D. STAMMLER";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+667;IYOSHOHXJ;34.000000;"Paiement par carte bancaire";"2024-05-10 12:10:00";1;667;"C. AGNUS";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+666;OKCUNPVQI;18.630000;"Paiement par carte bancaire";"2024-05-10 09:18:06";1;666;"P. VRIGNAUD";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+665;QOCARIWTD;42.920000;"Paiement par carte bancaire";"2024-05-10 09:02:48";1;665;"D. Karadjitch";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+664;LAAMUNPLA;184.740000;"Paiement par carte bancaire";"2024-05-09 20:13:07";1;664;"E. Arnaud ";"Colis pris en charge par le transporteur [TNT]";#E099FF;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+663;RBSICMJHS;98.530000;"Paiement par carte bancaire";"2024-05-09 12:51:24";1;663;"S. Dufour";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+662;POWWBINUE;96.010000;"Paiement par carte bancaire";"2024-05-08 07:40:41";1;662;"J. SAUBIEZ";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+661;PZOLRJFTQ;45.150000;"Paiement par carte bancaire";"2024-05-08 01:37:23";1;661;"S. Mariez";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+660;EZSUFWIMW;57.120000;"Paiement par carte bancaire";"2024-05-07 22:29:28";1;660;"J. Klingemann";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+659;SJAOBNERR;35.080000;"Paiement par carte bancaire";"2024-05-07 18:01:13";1;659;"D. Clin";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+658;CDEIYZTKE;59.040000;"Paiement par carte bancaire";"2024-05-07 16:09:25";1;658;"N. ELBEZE";"Colis prêt à être remis au transporteur [TNT]";#00E4F5;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+657;YSWSOABPQ;103.320000;"Paiement par carte bancaire";"2024-05-07 11:43:03";1;657;"S. Letrange";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";4;0;4
+656;GWJQVBMEX;1246.590000;"Transfert bancaire";"2024-05-07 09:01:33";1;656;"J. Blondeel";Expédié;#01B887;1;Belgique;1;"Découpe Plexiglas® sur Mesure";1;0;1
+655;HMBBHOMEI;69.560000;"Paiement par carte bancaire";"2024-05-06 22:37:31";1;655;"V. UNGUREANU";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+654;KZCWXHBNC;156.660000;"Paiement par carte bancaire";"2024-05-06 19:16:29";1;654;"R. Bussy";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+653;BMACMPFLU;118.590000;"Paiement par carte bancaire";"2024-05-06 18:22:54";1;653;"P. ESTIVALET";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";4;0;4
+652;HKQKCVGGP;30.700000;"Paiement par carte bancaire";"2024-05-06 18:17:08";1;652;"N. ELBEZE";"Remboursé avec Sogecommerce";#ec2e15;0;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+651;MBCXEIDBB;30.700000;"Transfert bancaire";"2024-05-06 18:13:01";1;651;"N. ELBEZE";Annulé;#2C3E50;1;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+650;QTOFCXHIV;36.090000;"Paiement par carte bancaire";"2024-05-06 12:42:27";1;650;"V. MOREY";"Colis prêt à être remis au transporteur [TNT]";#00E4F5;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+649;NPOTCTZQZ;15.430000;"Transfert bancaire";"2024-05-06 11:53:05";1;649;"A. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";3;3;0
+648;PHENIAACX;7.200000;"Paiement par carte bancaire";"2024-05-06 10:18:41";1;648;"M. Soter";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+647;AKSDQAJPE;548.830000;"Paiement par carte bancaire";"2024-05-05 18:17:40";1;647;"R. Bussy";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+646;RBAJBNTUB;424.270000;"Transfert bancaire";"2024-05-05 04:46:14";1;646;"t. test";"En attente de capture";#3498D8;0;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+645;YPTLLPNBT;424.270000;Sogecommerce;"2024-05-05 04:38:14";1;645;"t. test";"En attente de capture";#3498D8;0;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+644;IFJNHLFNB;86.200000;"Paiement par carte bancaire";"2024-05-05 04:26:24";1;644;"t. test";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+643;NIEBWLHBB;320.640000;"Paiement par carte bancaire";"2024-05-05 04:22:58";1;643;"t. test";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+642;NUVNQXHXR;320.640000;"Paiement par carte bancaire";"2024-05-05 03:57:36";1;642;"t. test";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+641;BAWUMNBPJ;102.530000;"Paiement par carte bancaire";"2024-05-04 19:52:31";1;641;"B. RIDA";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+640;JDYBHCAZU;4.500000;"Paiement par carte bancaire";"2024-05-04 18:16:52";1;640;"P. Henry";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+639;UUKKWPNOV;97.210000;"Paiement par carte bancaire";"2024-05-04 14:38:22";1;639;"l. lecocq delpozo";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+638;NSXLJHHWC;58.500000;"Paiement par carte bancaire";"2024-05-04 00:24:17";1;638;"A. BARY";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";13;0;13
+637;AIPOELFWI;41.580000;"Paiement par carte bancaire";"2024-05-03 23:38:26";1;637;"t. test";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+636;ESHVAVKHW;64.660000;"Paiement par carte bancaire";"2024-05-03 18:40:58";1;636;"G. Société DOMGM";"Commande à disposition";#008000;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+635;PHIXFASWF;18.540000;"Paiement par carte bancaire";"2024-05-03 13:08:23";1;635;"P. LANDES";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+634;OERGQGCRR;41.580000;"Paiement par carte bancaire";"2024-05-03 08:52:47";1;634;"t. test";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+627;JUGQKXIZO;127.400000;"Paiement par carte bancaire";"2024-05-02 22:52:37";1;627;"P. Depré";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+626;QNRFLETGR;30.610000;"Transfert bancaire";"2024-05-02 21:31:40";1;626;"j. Maniouloux";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+625;XPXFDNECQ;162.610000;"Paiement par carte bancaire";"2024-05-02 16:55:48";1;625;"P. OLIVE";"Colis prêt à être remis au transporteur [TNT]";#00E4F5;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+624;ZSURLTIEN;199.240000;"Paiement par carte bancaire";"2024-05-02 16:36:55";1;624;"g. gualterotti";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+623;OTBHGMXYW;355.460000;"Paiement par carte bancaire";"2024-05-02 16:26:11";1;623;"N. BAUMGARTNER";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+622;CNUMTVKXX;1175.120000;"Transfert bancaire";"2024-05-02 11:42:11";1;622;"S. CALVET";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+615;BZUOSERCL;4.500000;"Paiement par carte bancaire";"2024-05-01 20:37:38";1;615;"J. Hourquebie";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+614;LXDMOTZFB;192.790000;"Paiement par carte bancaire";"2024-05-01 11:54:16";1;614;"F. Gautron";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+613;JLNHJECWL;159.410000;"Paiement par carte bancaire";"2024-04-30 23:24:41";1;613;"j. KIEN";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+608;KBGCODNFG;122.630000;"Paiement par carte bancaire";"2024-04-30 17:25:04";1;608;"L. WEHR";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+607;YUVMJDARQ;37.140000;"Paiement par carte bancaire";"2024-04-30 11:15:38";1;607;"V. DENYS";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+606;XXOBWWMKD;4.500000;"Paiement par carte bancaire";"2024-04-30 10:40:58";1;606;"F. ARTU";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+605;PXDUJAHUV;119.840000;"Paiement par carte bancaire";"2024-04-29 21:00:23";1;605;"F. Delage";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+604;JAEOKZLEE;172.930000;"Paiement par carte bancaire";"2024-04-29 18:43:09";1;604;"S. Letrange";"Colis pris en charge par le transporteur [TNT]";#E099FF;1;France;1;"Découpe Plexiglas® sur Mesure";13;0;13
+603;LZVMSUPQI;693.440000;"Paiement par carte bancaire";"2024-04-29 15:12:58";1;603;"F. JUAN";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";4;0;4
+601;PJJIFVVGG;120.710000;"Paiement par carte bancaire";"2024-04-29 13:53:23";1;601;"Y. Addala ";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+598;QPBWNMDQL;109.100000;"Paiement par carte bancaire";"2024-04-29 10:54:36";1;598;"R. Jean-Michel";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+596;ZKYYBNWXY;100.120000;"Paiement par carte bancaire";"2024-04-29 10:47:58";1;596;"M. Craig";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+595;PRLHCVKWZ;82.840000;"Transfert bancaire";"2024-04-29 10:03:47";1;595;"P. PAQUET";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+591;ZNSZNEJNW;26.080000;"Paiement par carte bancaire";"2024-04-28 13:05:04";1;591;"R. Solignac";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+590;OKEQQMFGO;26.080000;"Transfert bancaire";"2024-04-28 12:57:55";1;590;"R. Solignac";Annulé;#2C3E50;1;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+589;CLVBSNZZX;41.580000;"Paiement par carte bancaire";"2024-04-27 23:06:18";1;589;"t. test";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+588;IRKCUBYOW;41.580000;"Paiement par carte bancaire";"2024-04-27 23:04:17";1;588;"t. test";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+587;VFSLXRWAJ;41.580000;"Paiement par carte bancaire";"2024-04-27 23:02:18";1;587;"t. test";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+586;KZSRFTHBA;11.240000;"Paiement par carte bancaire";"2024-04-27 15:41:51";1;586;"M. MIRABEL";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+585;MYWCXXPAW;45.600000;"Paiement par carte bancaire";"2024-04-26 19:23:52";1;585;"t. test";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+584;EFGJZZJTJ;64.540000;"Paiement par carte bancaire";"2024-04-26 15:29:47";1;584;"F. Riggi";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+583;OLDMNICGJ;83.840000;"Transfert bancaire";"2024-04-26 14:29:19";1;583;"L. Ecole henri WALLON B";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+582;LMOPGTKXH;1464.560000;"Paiement par carte bancaire";"2024-04-26 14:16:11";1;582;"A. Leuwers";Expédié;#01B887;1;Belgique;1;"Découpe Plexiglas® sur Mesure";10;0;10
+581;WUDDFALXR;13.500000;"Paiement par carte bancaire";"2024-04-26 07:10:04";1;581;"A. REHAB";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+580;VLTVZUQYQ;88.150000;"Paiement par carte bancaire";"2024-04-25 22:01:50";1;580;"N. GALAIS";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+579;FGELVYBHY;43.770000;"Paiement par carte bancaire";"2024-04-25 18:24:16";1;579;"y. front";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+578;TMHXLAFZV;35.080000;"Paiement par carte bancaire";"2024-04-25 15:36:38";1;578;"F. BELLITY";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+577;VATLDFUVN;48.740000;"Paiement par carte bancaire";"2024-04-25 14:06:38";1;577;"A. Lecourt";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+576;MCPTCMQWP;258.600000;"Paiement par carte bancaire";"2024-04-25 13:37:40";1;576;"J. RAPENNE";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";5;0;5
+575;VKNBAJHGI;385.080000;"Paiement par carte bancaire";"2024-04-25 13:26:05";1;575;"S. SINGEY";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+574;UHAJESCNW;173.280000;"Paiement par carte bancaire";"2024-04-25 12:22:23";1;574;"H. Auch-Roy";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+573;EJQMSROYO;589.920000;"Transfert bancaire";"2024-04-25 12:15:34";1;573;"S. Chastanet";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+572;YBGNGSKHI;32.470000;"Paiement par carte bancaire";"2024-04-25 12:08:54";1;572;"M. GRISOLIA";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+571;OPDIZFSFM;25.070000;"Paiement par carte bancaire";"2024-04-25 11:50:06";1;571;"j. charbonnier";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+570;KNZSNKVTL;18.000000;"Paiement par carte bancaire";"2024-04-25 10:28:44";1;570;"J. Discrit";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";4;0;4
+569;ERPVBIOXO;169.160000;"Paiement par carte bancaire";"2024-04-25 10:24:01";1;569;"C. LAURENT";"Colis prêt à être remis au transporteur [TNT]";#00E4F5;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+568;OCBPXFGVS;354.510000;"Paiement par carte bancaire";"2024-04-24 11:43:56";1;568;"C. BARRET";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";10;0;10
+567;NFNHJIFMB;264.800000;"Paiement par carte bancaire";"2024-04-23 20:19:09";1;567;"J. Bernardo";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+566;ZMAOMZDLQ;312.100000;"Paiement par carte bancaire";"2024-04-23 17:01:51";1;566;"j. LECA";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+565;PEKKNBOZD;21.990000;"Paiement par carte bancaire";"2024-04-23 14:38:00";1;565;"J. Castano";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+564;QIIJTGFSE;554.910000;"Paiement par carte bancaire";"2024-04-23 14:26:24";1;564;"M. KOI";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+563;KACJGPIYA;96.670000;"Paiement par carte bancaire";"2024-04-23 10:46:04";1;563;"m. Bidron";"Colis prêt à être remis au transporteur [TNT]";#00E4F5;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+562;MFEMVNVCU;103.130000;"Paiement par carte bancaire";"2024-04-23 08:40:19";1;562;"V. Poupard";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+561;AKFBMNZHU;28.700000;"Paiement par carte bancaire";"2024-04-22 21:30:25";1;561;"P. Landry";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+560;RIDAFWBQV;125.710000;"Paiement par carte bancaire";"2024-04-22 16:09:44";1;560;"B. NGUYEN";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";6;0;6
+559;JSWOBOUVS;173.020000;"Transfert bancaire";"2024-04-22 16:02:19";1;559;"j. Proux";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+558;ZZLDCDITS;27.000000;"Paiement par carte bancaire";"2024-04-22 14:57:42";1;558;"P. Depré";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";6;0;6
+557;MDJJIMVNA;129.970000;"Paiement par carte bancaire";"2024-04-22 12:15:38";1;557;"j. souvignet";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+556;KCMRNUSKV;15.460000;"Paiement par carte bancaire";"2024-04-22 09:14:10";1;556;"E. Marecal";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+555;CYBPHCMWL;54.190000;"Paiement par carte bancaire";"2024-04-20 17:18:00";1;555;"L. JOHN";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+554;PIUXNWGOW;140.410000;"Paiement par carte bancaire";"2024-04-19 19:41:08";1;554;"C. Belizaire";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";5;0;5
+553;PNHQHHUPL;4.500000;"Paiement par carte bancaire";"2024-04-19 14:04:54";1;553;"H. Auch-Roy";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+552;SXHBGPEOW;16.730000;"Paiement par carte bancaire";"2024-04-19 12:45:47";1;552;"X. Devillard";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+551;GZTBYQFNC;9.000000;"Paiement par carte bancaire";"2024-04-18 23:35:18";1;551;"J. Tastet";Annulé;#2C3E50;1;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+550;NLRZHLXPK;17.330000;"Paiement par carte bancaire";"2024-04-18 19:09:26";1;550;"C. GEHIN";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+549;BKPFRPRDC;2.400000;"Paiement par carte bancaire";"2024-04-18 19:06:47";1;549;"L. Beynel";Remboursé;#01B887;1;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+548;MJDIPVMLC;113.690000;"Paiement par carte bancaire";"2024-04-18 16:23:28";1;548;"S. FISCHER";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+547;XAOISFSNP;337.340000;"Paiement par carte bancaire";"2024-04-18 14:47:04";1;547;"G. HOUBART";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";9;0;9
+546;LRFWASGWE;34.420000;"Paiement par carte bancaire";"2024-04-18 10:31:55";1;546;"D. Ribout";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+545;ESCGDEIDI;179.750000;"Paiement par carte bancaire";"2024-04-18 08:14:20";1;545;"L. cesare";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+544;QMUMYCYIF;145.820000;"Paiement par carte bancaire";"2024-04-17 18:10:51";1;544;"j. GIOANNI";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+543;NAXFRCBWT;38.170000;"Paiement par carte bancaire";"2024-04-17 16:41:50";1;543;"S. ROUGIER";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+542;QAECRQXGW;101.360000;"Transfert bancaire";"2024-04-17 15:31:51";1;542;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+541;QBMYZEXUT;102.100000;"Paiement par carte bancaire";"2024-04-17 14:50:51";1;541;"O. Izquierdo";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+540;PMUUJBHDV;45.600000;"Paiement par carte bancaire";"2024-04-17 09:38:55";1;540;"m. PERNET DEMORET";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+539;VFXGEFCJM;14.290000;"Paiement par carte bancaire";"2024-04-16 19:47:57";1;539;"C. GEHIN";Remboursé;#01B887;1;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+538;PTOAIMUTH;248.890000;"Paiement par carte bancaire";"2024-04-16 16:57:34";1;538;"D. HENRARD";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+537;IEUIKGDIZ;323.610000;"Transfert bancaire";"2024-04-16 16:22:03";1;537;"A. FIRMIN et asscoiés";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+536;BVLSAXWZT;436.430000;"Transfert bancaire";"2024-04-16 14:57:52";1;536;"C. BARRET";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";9;0;9
+535;VPVXXXTKW;25.360000;"Transfert bancaire";"2024-04-16 13:40:59";1;535;"A. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+534;TAWSNNFTU;109.750000;"Paiement par carte bancaire";"2024-04-16 11:20:09";1;534;"G. PAIRE";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+533;WHZOHVRGN;200.100000;"Paiement par carte bancaire";"2024-04-16 08:40:54";1;533;"S. CALVET";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";7;0;7
+532;SVSKMMGTQ;60.240000;"Paiement par carte bancaire";"2024-04-15 20:55:56";1;532;"R. Cvejic";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+531;DMICTSURY;35.360000;"Paiement par carte bancaire";"2024-04-15 14:05:18";1;531;"T. ROUX";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+530;VXDKXSAIO;10.850000;"Paiement par carte bancaire";"2024-04-15 12:39:24";1;530;"M. BARBERY";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+529;GAJKJDJKL;28.080000;"Paiement par carte bancaire";"2024-04-14 23:58:18";1;529;"B. MAZIER";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+528;YBQJVYMBT;19.820000;"Paiement par carte bancaire";"2024-04-13 14:15:32";1;528;"F. Humbert";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+527;FRLRFANCK;48.970000;"Transfert bancaire";"2024-04-13 11:50:16";1;527;"n. wieght fix";"En attente de virement bancaire";#34209E;1;France;0;"Découpe Plexiglas® sur Mesure";2;0;2
+526;WQBPUIMDH;4.500000;"Paiement par carte bancaire";"2024-04-12 14:52:29";1;526;"D. VANTAGGIOLI";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+525;MCQGTRYHM;34.250000;"Paiement par carte bancaire";"2024-04-12 10:39:34";1;525;"L. Martin";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+524;LFVWGKXPK;65.700000;"Paiement par carte bancaire";"2024-04-12 10:39:00";1;524;"S. Bramato";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+523;NDNMNUAEI;718.390000;"Paiement par carte bancaire";"2024-04-12 10:11:17";1;523;"Q. ROBERT ";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+522;VKWGJMWYF;66.040000;"Paiement par carte bancaire";"2024-04-12 09:25:14";1;522;"S. Bramato";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+521;WJNHAITOU;84.000000;"Transfert bancaire";"2024-04-12 08:56:54";1;521;"A. BOUKAABAR";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+520;BNERYHTVP;13.060000;"Paiement par carte bancaire";"2024-04-12 08:13:10";1;520;"A. Alioui";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+519;EGNNMFWVB;7.820000;"Paiement par carte bancaire";"2024-04-11 23:51:09";1;519;"S. Annabi";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+518;BBOJQUNXE;180.030000;"Paiement par carte bancaire";"2024-04-11 21:01:59";1;518;"M. Passot";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+517;PTMYHRGRG;50.240000;"Paiement par carte bancaire";"2024-04-11 20:13:28";1;517;"A. GIROUD";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";4;0;4
+516;WJTBGXMJS;24.220000;"Paiement par carte bancaire";"2024-04-11 18:51:25";1;516;"N. BARTHOLEMY";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+515;LKNRILSQD;10.990000;"Paiement par carte bancaire";"2024-04-11 11:40:48";1;515;"F. ANDREO";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+514;CLRPVPNUY;24.850000;"Paiement par carte bancaire";"2024-04-11 11:33:03";1;514;"P. Agencement";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+513;VPHSKGBBR;24.970000;"Paiement par carte bancaire";"2024-04-10 17:12:15";1;513;"J. Creach";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+512;HQHNQWFVQ;55.140000;"Paiement par carte bancaire";"2024-04-10 14:15:54";1;512;"G. LOZANO";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+511;TWKKSQSQZ;18.170000;"Paiement par carte bancaire";"2024-04-10 09:32:24";1;511;"f. LOIZEAU";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+510;LZJNHIJVY;29.370000;"Paiement par carte bancaire";"2024-04-10 09:00:59";1;510;"S. WATTEBLED";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+509;TGFFLXGGZ;17.080000;"Paiement par carte bancaire";"2024-04-10 00:15:00";1;509;"V. MAHISTRE";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+508;INIADBRTP;4.500000;"Paiement par carte bancaire";"2024-04-09 17:45:50";1;508;"s. kadri";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+507;BIOGMMMXU;33.180000;"Paiement par carte bancaire";"2024-04-09 17:21:27";1;507;"N. MICHEL";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+506;VJVBJGICW;224.160000;"Paiement par carte bancaire";"2024-04-09 15:47:00";1;506;"R. MULLER";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+505;JAGYGQZCN;368.660000;"Paiement par carte bancaire";"2024-04-09 12:54:23";1;505;"j. LECA";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+504;BNRVPIIFB;173.140000;"Paiement par carte bancaire";"2024-04-08 21:31:01";1;504;"S. Rothhut";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+503;KVGQMUUXO;52.200000;"Paiement par carte bancaire";"2024-04-08 16:29:56";1;503;"N. BOUBET";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+502;SJDAAQSFH;65.690000;"Paiement par carte bancaire";"2024-04-08 16:28:45";1;502;"S. Dufour";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+501;BQNLIWAVJ;163.410000;"Transfert bancaire";"2024-04-08 11:50:44";1;501;"S. Chapoutot";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+500;LNUWIVUHR;101.830000;"Transfert bancaire";"2024-04-08 10:19:33";1;500;"S. JACQUIER";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+499;IDXNXDURY;73.480000;"Paiement par carte bancaire";"2024-04-06 18:06:56";1;499;"S. HEUZEBROC";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+498;LSFEIKEDS;201.020000;"Transfert bancaire";"2024-04-06 12:00:41";1;498;"T. COMBEL";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+497;DJUFUMMJJ;15.270000;"Paiement par carte bancaire";"2024-04-06 11:27:50";1;497;"J. Orth";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+496;WYBXUULCO;20.770000;"Paiement par carte bancaire";"2024-04-06 11:16:17";1;496;"A. GIROUD";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+495;EIVWJWHEX;235.900000;"Paiement par carte bancaire";"2024-04-06 09:03:43";1;495;"J. Hugue";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+494;LNPTAEOIZ;25.550000;"Paiement par carte bancaire";"2024-04-05 21:25:08";1;494;"P. Audebert";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+493;EQRITGXHJ;25.080000;"Transfert bancaire";"2024-04-05 20:51:58";1;493;"P. Audebert";"En attente de virement bancaire";#34209E;1;France;0;"Découpe Plexiglas® sur Mesure";2;0;2
+492;DHIUCMAFI;35.650000;"Paiement par carte bancaire";"2024-04-05 16:10:41";1;492;"E. BOURDON";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+491;KKDGYAIVJ;9.140000;"Transfert bancaire";"2024-04-05 12:32:43";1;491;"E. MARTIN";"En attente de virement bancaire";#34209E;1;France;0;"Découpe Plexiglas® sur Mesure";2;0;2
+490;DEKBKLPBP;36.810000;"Paiement par carte bancaire";"2024-04-05 09:17:59";1;490;"S. DIOU";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";6;0;6
+489;UDXVAJDQR;60.680000;"Paiement par carte bancaire";"2024-04-05 09:09:37";1;489;"B. Ouamar";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";4;0;4
+488;YVMYLOQGF;61.610000;"Transfert bancaire";"2024-04-05 09:06:59";1;488;"T. VUJEVA";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+487;ATICAMIBK;87.420000;"Paiement par carte bancaire";"2024-04-04 17:05:49";1;487;"A. Barkhudaryan";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+486;FVRDHJHDE;20.980000;"Paiement par carte bancaire";"2024-04-04 16:27:09";1;486;"N. Bebenek";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+485;TDHDGSMBJ;32.980000;"Paiement par carte bancaire";"2024-04-04 11:51:37";1;485;"c. barbier";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+484;NPIJJNBKR;138.140000;"Transfert bancaire";"2024-04-04 11:50:47";1;484;"S. Chapoutot";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+483;TRHYMBEZF;13.260000;"Paiement par carte bancaire";"2024-04-04 09:46:44";1;483;"C. Dincuff";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+482;BBMVOYBSF;82.750000;"Paiement par carte bancaire";"2024-04-03 18:55:03";1;482;"A. Castellanos";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+481;XLJSPDTLN;87.210000;"Paiement par carte bancaire";"2024-04-03 17:19:51";1;481;"V. Matussiere";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";8;0;8
+480;FQODMLRJK;2024.370000;"Paiement par carte bancaire";"2024-04-03 16:53:09";1;480;"p. galindo";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";13;0;13
+479;TUKSUCERY;18.000000;"Paiement par carte bancaire";"2024-04-03 11:54:41";1;479;"a. damour";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+478;IIZUFFGLR;63.000000;"Paiement par carte bancaire";"2024-04-02 16:04:34";1;478;"j. Proux";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+477;TLOHXSBDC;18.870000;"Paiement par carte bancaire";"2024-04-02 15:34:50";1;477;"A. FLET";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+476;VRQQIZISY;65.990000;"Paiement par carte bancaire";"2024-04-02 11:38:32";1;476;"K. FOURNET";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+475;MXDMOFJXZ;16.420000;"Paiement par carte bancaire";"2024-04-02 11:12:03";1;475;"S. Dufour";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+474;ZSJWMHQKL;26.440000;"Paiement par carte bancaire";"2024-04-02 11:09:36";1;474;"A. CUNY";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+473;BDDAXNCLJ;20.960000;"Paiement par carte bancaire";"2024-04-02 10:18:49";1;473;"E. SUFRIN";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+472;KOKYPQJEH;57.290000;"Paiement par carte bancaire";"2024-04-01 17:02:47";1;472;"T. DEMOULIN";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";6;0;6
+471;BDZLIKPJO;267.730000;"Paiement par carte bancaire";"2024-04-01 16:45:28";1;471;"M. De carvalho";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+470;LQPGJLXJG;4.500000;"Paiement par carte bancaire";"2024-04-01 12:11:39";1;470;"H. Launois";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+469;OGWWUVBHK;1124.750000;"Paiement par carte bancaire";"2024-03-31 12:45:47";1;469;"F. SWITALA";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+468;BSCOMMXQV;97.310000;"Paiement par carte bancaire";"2024-03-31 12:10:39";1;468;"T. LE GLATIN";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+467;XQWBTHWDZ;18.220000;"Paiement par carte bancaire";"2024-03-31 12:09:50";1;467;"P. Hopker";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+466;FUBDWNEQS;76.310000;"Transfert bancaire";"2024-03-29 19:09:10";1;466;"f. barguil";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";4;0;4
+465;EYTDLIPIE;43.330000;"Paiement par carte bancaire";"2024-03-29 18:15:43";1;465;"P. BELLEC";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+464;AAWRRUNTP;542.990000;"Paiement par carte bancaire";"2024-03-29 12:09:23";1;464;"W. BERARD";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+463;HLXXWCVNO;28.610000;"Paiement par carte bancaire";"2024-03-28 21:30:00";1;463;"h. NOEL";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+462;WYIXGUKIS;75.670000;"Paiement par carte bancaire";"2024-03-28 18:11:36";1;462;"g. collier";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+461;NXYNEIZXU;157.450000;"Paiement par carte bancaire";"2024-03-28 17:16:31";1;461;"H. LIEBIG";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";4;0;4
+460;QVPNCGHFJ;108.210000;"Paiement par carte bancaire";"2024-03-28 16:52:47";1;460;"H. Francillon";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+459;JYSULCETH;110.440000;"Paiement par carte bancaire";"2024-03-28 11:00:19";1;459;"A. goldman";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+458;ICNTMVHJQ;129.840000;"Paiement par carte bancaire";"2024-03-28 10:59:16";1;458;"a. caracachian";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+457;IAKWVOJMS;1176.700000;"Transfert bancaire";"2024-03-27 23:15:06";1;457;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+456;FIZPOGREB;9.000000;"Paiement par carte bancaire";"2024-03-27 23:04:42";1;456;"M. CHAMBON-MINEO";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+455;XRWECFTWN;98.040000;"Transfert bancaire";"2024-03-27 21:40:55";1;455;"A. Loubatié";"En attente de virement bancaire";#34209E;0;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+454;IYRGCEJRI;4.500000;"Transfert bancaire";"2024-03-27 21:37:45";1;454;"A. Loubatié";"En attente de virement bancaire";#34209E;0;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+453;JDXPIFQUM;46.040000;"Transfert bancaire";"2024-03-27 21:29:15";1;453;"A. Loubatié";"En attente de virement bancaire";#34209E;0;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+452;DDMOCKPKA;4.640000;"Paiement par carte bancaire";"2024-03-27 19:57:52";1;452;"A. Bourlet";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+451;NQQNITALY;27.440000;"Paiement par carte bancaire";"2024-03-27 19:23:38";1;451;"e. campofranco";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+450;FGFGFFTOC;30.710000;"Transfert bancaire";"2024-03-27 17:18:41";1;450;"A. BOULARD";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+449;SINOFVXLS;9.600000;"Paiement par carte bancaire";"2024-03-27 14:13:29";1;449;"G. SOUBRIARD";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+448;WKBIOLLTF;26.090000;"Paiement par carte bancaire";"2024-03-27 10:51:42";1;448;"H. DECHAMP";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+447;SJISNDJZB;59.540000;"Paiement par carte bancaire";"2024-03-27 10:33:30";1;447;"A. Bourgeois";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+446;TZSJUZCIP;13.390000;"Paiement par carte bancaire";"2024-03-27 09:06:48";1;446;"G. SOUBRIARD";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+445;SHQTENYPD;15.170000;"Transfert bancaire";"2024-03-27 00:17:02";1;445;"t. test";"En attente de virement bancaire";#34209E;1;France;0;"Découpe Plexiglas® sur Mesure";2;0;2
+443;QQQZWONVG;165.550000;"Transfert bancaire";"2024-03-26 17:05:57";1;443;"S. Chastanet";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+442;LFVKKEGLG;152.930000;"Transfert bancaire";"2024-03-26 16:54:20";1;442;"S. Chastanet";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+441;JTBIIMEJS;141.490000;"Paiement par carte bancaire";"2024-03-26 15:18:48";1;441;"s. cuevas";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+440;JZGKIKMKX;35.100000;"Paiement par carte bancaire";"2024-03-26 10:11:24";1;440;"P. Moutinho ";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+439;KACDQVBIC;87.420000;"Paiement par carte bancaire";"2024-03-26 09:40:48";1;439;"A. Barkhudaryan";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+438;IWCHVPLBG;41.570000;"Paiement par carte bancaire";"2024-03-26 03:17:36";1;438;"P. Badaroux";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+437;QDQASDWNF;21.010000;"Paiement par carte bancaire";"2024-03-25 22:50:48";1;437;"F. DUTRION";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+436;HLIMIXFDF;158.230000;"Paiement par carte bancaire";"2024-03-25 15:31:03";1;436;"M. CHRISTOPHE";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+435;BQXASAIGA;190.180000;"Paiement par carte bancaire";"2024-03-25 10:54:02";1;435;"P. TCHUMAK";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+434;ECUZQXYPQ;196.570000;"Paiement par carte bancaire";"2024-03-25 08:59:54";1;434;"P. TURPIN";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";7;0;7
+433;HBFPEYAAN;69.590000;"Paiement par carte bancaire";"2024-03-25 08:11:35";1;433;"N. DAVIER";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+432;AOINMLOJV;31.490000;"Paiement par carte bancaire";"2024-03-24 15:37:53";1;432;"B. Nassali";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+431;UEJIJZDJL;107.830000;"Paiement par carte bancaire";"2024-03-24 11:22:19";1;431;"B. Haller";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+430;WVWEODFXU;50.610000;"Paiement par carte bancaire";"2024-03-23 20:07:21";1;430;"R. CHEVILLARD";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+429;DOVTTNXDY;18.220000;"Paiement par carte bancaire";"2024-03-23 18:25:15";1;429;"Y. RIVIERE";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+428;PUSCHOGRJ;4.500000;"Paiement par carte bancaire";"2024-03-23 14:05:03";1;428;"S. Dufour";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+427;QREXILWWP;9.000000;"Paiement par carte bancaire";"2024-03-23 12:53:45";1;427;"D. DIABATE";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+426;IADWDKLPA;200.640000;"Paiement par carte bancaire";"2024-03-22 11:06:49";1;426;"C. Langlois";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+425;DSKRQGBWW;76.000000;"Paiement par carte bancaire";"2024-03-21 16:43:49";1;425;"C. INDREAN";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+424;NZYZHBOXU;73.940000;"Transfert bancaire";"2024-03-21 16:32:50";1;424;"A. Loubatié";"Paiement accepté";#3498D8;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+423;GGVMUFIGQ;41.580000;"Paiement par carte bancaire";"2024-03-21 09:03:44";1;423;"M. Validé saison trois";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+422;BSTVSBXXA;80.400000;"Paiement par carte bancaire";"2024-03-21 08:46:32";1;422;"E. BOUR";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+421;BOQOUFCKC;291.830000;"Paiement par carte bancaire";"2024-03-20 12:05:57";1;421;"M. PERNIN";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";9;0;9
+420;ZGXDQFIYF;125.030000;"Paiement par carte bancaire";"2024-03-20 09:16:51";1;420;"c. popineau";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+419;LDQCKXDSL;219.480000;"Paiement par carte bancaire";"2024-03-20 09:05:24";1;419;"P. Da silva";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+418;ISQPLPQUS;22.640000;"Paiement par carte bancaire";"2024-03-20 07:16:24";1;418;"F. Islamovic";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+417;NNLYTEOKF;55.550000;"Paiement par carte bancaire";"2024-03-19 16:07:09";1;417;"E. DEPARIS";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+416;KGPAEKVTP;169.550000;"Paiement par carte bancaire";"2024-03-19 10:10:34";1;416;"G. HOUBART";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";4;0;4
+415;AHZYIYYQG;140.570000;"Paiement par carte bancaire";"2024-03-18 22:57:23";1;415;"C. Tuaillon";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";5;0;5
+414;FJRIPQERS;17.080000;"Paiement par carte bancaire";"2024-03-18 16:15:24";1;414;"P. LABLANCHE";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+413;KNVNBNMZD;80.400000;"Paiement par carte bancaire";"2024-03-18 15:20:13";1;413;"s. kadri";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+412;OUMRUNSGO;220.780000;"Paiement par carte bancaire";"2024-03-17 17:37:50";1;412;"s. kadri";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";6;0;6
+411;VQLGTXEVC;31.780000;"Transfert bancaire";"2024-03-17 15:38:17";1;411;"A. Loubatié";"En attente de virement bancaire";#34209E;0;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+410;QGPEZEZGE;27.220000;"Paiement par carte bancaire";"2024-03-16 17:32:09";1;410;"F. maurisse";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+409;DQCJWDTII;23.840000;"Paiement par carte bancaire";"2024-03-16 17:18:40";1;409;"d. leterreur";Remboursé;#01B887;1;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+408;BSIBTYXVA;4.500000;"Paiement par carte bancaire";"2024-03-15 20:01:34";1;408;"f. barguil";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+407;QNUMXPJPR;90.000000;"Paiement par carte bancaire";"2024-03-15 16:17:01";1;407;"B. Ronzani - VELOURS";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+406;SAKRFAHMB;162.650000;"Transfert bancaire";"2024-03-14 17:36:16";1;406;"j. duvivier";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+405;MRLGSKBEC;69.180000;"Paiement par carte bancaire";"2024-03-14 17:25:45";1;405;"n. binauld";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+404;PVSLOBSGJ;74.910000;"Paiement par carte bancaire";"2024-03-14 16:12:23";1;404;"V. Poupard";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+403;XUBULBDHC;17.770000;"Transfert bancaire";"2024-03-14 14:00:36";1;403;"S. Chapoutot";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+402;ZDUFDDICL;250.700000;"Paiement par carte bancaire";"2024-03-14 11:45:33";1;402;"A. Georgy";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+401;FCCIMNMGK;98.220000;"Paiement par carte bancaire";"2024-03-13 08:38:53";1;401;"L. REZKI";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+400;ZLEVEEPWA;105.630000;"Paiement par carte bancaire";"2024-03-12 19:02:34";1;400;"B. Ronzani - VELOURS";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+399;BVIJAFVCG;120.280000;"Paiement par carte bancaire";"2024-03-12 18:02:46";1;399;"J. REGNIER ";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+398;WDXILQIEH;204.780000;"Transfert bancaire";"2024-03-12 10:37:56";1;398;"G. Atwood";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+397;DMLQBIEYN;4.500000;"Paiement par carte bancaire";"2024-03-11 18:03:03";1;397;"P. Da silva";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+396;TCCHCSAHR;25.490000;"Paiement par carte bancaire";"2024-03-11 11:24:33";1;396;"L. JOHN";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+395;HEFSKTYLP;33.890000;"Paiement par carte bancaire";"2024-03-10 17:47:37";1;395;"B. Alexandre ";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+394;EOVFPZAWA;4.500000;"Paiement par carte bancaire";"2024-03-09 15:24:31";1;394;"c. rondet";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+393;CTMRWXBZN;146.190000;"Paiement par carte bancaire";"2024-03-08 22:44:21";1;393;"D. PETITBOULANGER";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+392;PRZLASFJH;152.190000;"Transfert bancaire";"2024-03-08 22:33:57";1;392;"D. PETITBOULANGER";"En attente de virement bancaire";#34209E;1;France;0;"Découpe Plexiglas® sur Mesure";2;0;2
+391;RHQCCJWRR;74.180000;"Paiement par carte bancaire";"2024-03-08 19:11:09";1;391;"J. Trinquier";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+390;UDNJWGSXP;18.000000;"Paiement par carte bancaire";"2024-03-08 09:25:49";1;390;"M. Bonjean";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+389;BHDTISDGQ;156.770000;"Paiement par carte bancaire";"2024-03-07 16:55:12";1;389;"j. vonthron";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+388;HMOPKLDNG;35.200000;"Paiement par carte bancaire";"2024-03-07 14:40:13";1;388;"C. FAUVIN";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+387;CQYHOQNVC;1118.360000;"Paiement par carte bancaire";"2024-03-07 13:14:55";1;387;"M. Depontieu";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+386;FQKCLXGVQ;59.060000;"Paiement par carte bancaire";"2024-03-06 19:28:59";1;386;"F. Duchesne";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+385;OBCITLNQW;124.620000;"Paiement par carte bancaire";"2024-03-06 15:10:36";1;385;"p. virgolino";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+384;ZNMJGIGXP;29.840000;"Paiement par carte bancaire";"2024-03-05 18:34:27";1;384;"C. CAZAUTETS";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+383;ECFLSJHLV;29.840000;"Paiement par carte bancaire";"2024-03-05 18:28:01";1;383;"C. CAZAUTETS";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+382;TRHIJKRCR;64.190000;"Paiement par carte bancaire";"2024-03-05 16:13:52";1;382;"J. GOOSSENS";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+381;YDARUOECK;137.340000;"Transfert bancaire";"2024-03-05 15:15:47";1;381;"A. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+380;SPCSYZBRL;36.000000;"Paiement par carte bancaire";"2024-03-05 14:46:02";1;380;"J. Francisco";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+379;MZTQZUSGG;26.440000;"Transfert bancaire";"2024-03-05 14:23:43";1;379;"G. RODARIE";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+378;GXRXEQBVZ;9.000000;"Paiement par carte bancaire";"2024-03-05 13:58:57";1;378;"C. Dupont - ORGA-LINK";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+377;YRVJTWXIC;213.870000;"Paiement par carte bancaire";"2024-03-05 10:00:40";1;377;"T. GILLES";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+376;IGXXFAEFR;49.460000;"Paiement par carte bancaire";"2024-03-04 20:27:36";1;376;"B. Ronzani - VELOURS";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+375;BJLYDJZQT;104.910000;"Paiement par carte bancaire";"2024-03-04 19:01:57";1;375;"T. Richard";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+374;LVLLQIKJV;7884.000000;"Transfert bancaire";"2024-03-04 17:16:41";1;374;"t. test";"En attente de virement bancaire";#34209E;0;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+373;JNMPQARZD;103.010000;"Paiement par carte bancaire";"2024-03-04 15:57:10";1;373;"S. Mahdaoui";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+372;NVPACPLLB;131.340000;"Paiement par carte bancaire";"2024-03-04 15:16:16";1;372;"j. Proux";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+371;SZIUGGUNV;95.230000;"Paiement par carte bancaire";"2024-03-04 11:47:35";1;371;"G. PAIRE";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+370;KNWUFEIZA;2465.960000;"Transfert bancaire";"2024-03-04 10:43:20";1;370;"A. Loubatié";"En attente de virement bancaire";#34209E;0;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+369;NGETHQKCM;188.590000;"Paiement par carte bancaire";"2024-03-04 10:37:52";1;369;"O. EXSHAW";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";5;0;5
+368;SUBAWQYXM;86.430000;"Paiement par carte bancaire";"2024-03-03 18:56:41";1;368;"P. CRUANES";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+367;IKVLQKUEM;2.400000;"Paiement par carte bancaire";"2024-03-03 18:43:39";1;367;"P. CRUANES";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+366;YHSRXZACZ;43.820000;"Paiement par carte bancaire";"2024-03-01 17:21:27";1;366;"A. Got";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+365;WWZZSQQBB;61.140000;"Paiement par carte bancaire";"2024-03-01 16:10:50";1;365;"B. Hemard";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+364;WCSUGWEHZ;126.310000;"Paiement par carte bancaire";"2024-03-01 11:22:17";1;364;"e. Demarthe";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+363;SXCRBTAWY;53.120000;"Paiement par carte bancaire";"2024-03-01 10:49:22";1;363;"B. BLANCHARD";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+362;SUXNJEJLT;71.100000;"Paiement par carte bancaire";"2024-02-29 17:31:37";1;362;"m. Smigielski";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+361;SXWWBMCYO;71.100000;"Transfert bancaire";"2024-02-29 17:26:10";1;361;"m. Smigielski";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+360;AJXYJIOOH;25.890000;"Paiement par carte bancaire";"2024-02-29 16:50:26";1;360;"T. Mokowicz";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+359;WFOLJTWWX;551.320000;"Paiement par carte bancaire";"2024-02-29 16:34:31";1;359;"s. kadri";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";5;0;5
+358;LHZUBBVML;24.320000;"Paiement par carte bancaire";"2024-02-29 16:27:32";1;358;"S. HAGEGE";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+357;SPPIRIQCF;57.440000;"Paiement par carte bancaire";"2024-02-28 21:16:46";1;357;"j. vonthron";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+356;PHTZYPGKO;30.760000;"Paiement par carte bancaire";"2024-02-28 18:57:11";1;356;"M. DAOUD";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+355;OMWRQFAHO;21.380000;"Paiement par carte bancaire";"2024-02-28 16:45:33";1;355;"B. AUVERT";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+354;UQOLPSNVN;96.890000;"Paiement par carte bancaire";"2024-02-28 16:10:13";1;354;"E. PORTMANN";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";7;0;7
+353;MOFPGNFSX;66.310000;"Paiement par carte bancaire";"2024-02-28 15:53:03";1;353;"Y. Menou";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+352;NIPUGXCSP;60.620000;"Paiement par carte bancaire";"2024-02-28 10:53:01";1;352;"C. Camilleri";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+351;TWGYMQXEL;31.310000;"Paiement par carte bancaire";"2024-02-28 09:33:08";1;351;"M. CHARMOILLE";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+350;FWSMQXNKP;43.050000;"Paiement par carte bancaire";"2024-02-27 19:44:53";1;350;"C. HUBERT";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+349;GGWXZYABT;277.020000;"Paiement par carte bancaire";"2024-02-27 16:26:54";1;349;"A. Georgy";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";4;0;4
+348;QYDIPRVXE;87.690000;"Paiement par carte bancaire";"2024-02-27 16:07:31";1;348;"r. auguste";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+347;BFRVIOVGO;15.550000;"Paiement par carte bancaire";"2024-02-27 14:44:12";1;347;"R. De Meulenaer";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+346;SFKHNYWQD;46.520000;"Paiement par carte bancaire";"2024-02-27 12:28:26";1;346;"C. BODSON ";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+345;NRQCPPHHZ;39.070000;"Transfert bancaire";"2024-02-27 11:51:52";1;345;"S. Chapoutot";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+344;UFYLNKSVR;19.440000;"Paiement par carte bancaire";"2024-02-27 11:09:29";1;344;"A. LECOURT";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+343;HZXNHNYYX;300.930000;"Paiement par carte bancaire";"2024-02-26 21:01:39";1;343;"B. BLANCHARD";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+342;RUOOZWSET;143.710000;"Paiement par carte bancaire";"2024-02-26 10:57:46";1;342;"J. Depaul ";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+341;BDEUYBSEE;4.500000;"Paiement par carte bancaire";"2024-02-24 13:37:33";1;341;"P. PILLIAS";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+340;KSTWRTGIG;112.110000;"Paiement par carte bancaire";"2024-02-23 23:14:14";1;340;"T. Batyoz";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+339;BQOWAWXNK;38.160000;"Paiement par carte bancaire";"2024-02-23 16:53:16";1;339;"A. LECOURT";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+338;VRNNPHKMN;4.500000;"Paiement par carte bancaire";"2024-02-23 16:51:49";1;338;"D. FRONTIER";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+337;TWYZIQLPP;155.230000;"Paiement par carte bancaire";"2024-02-23 15:27:47";1;337;"L. Albertini";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+336;TWDLLYKFM;55.380000;Sogecommerce;"2024-02-23 15:06:54";1;336;"M. Blanche";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+335;HYIWCNIFT;47.910000;"Paiement par carte bancaire";"2024-02-23 10:03:51";1;335;"c. MARIE";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+334;AORSPNPYS;34.270000;"Paiement par carte bancaire";"2024-02-23 10:03:01";1;334;"M. DOUX";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+333;HJBJICFLJ;84.340000;"Paiement par carte bancaire";"2024-02-23 03:02:10";1;333;"B. Ronzani - VELOURS";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+332;SQHGZWJZX;4.500000;"Paiement par carte bancaire";"2024-02-22 14:45:30";1;332;"A. Anime Tes Rêves";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+331;WYUWQKICH;114.860000;"Paiement par carte bancaire";"2024-02-22 14:19:09";1;331;"M. Lesieur";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+330;RKMAZNZRP;218.710000;"Paiement par carte bancaire";"2024-02-22 13:12:56";1;330;"E. BASER";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+329;LPLFRQXPD;127.140000;"Paiement par carte bancaire";"2024-02-22 12:18:21";1;329;"n. philippo";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+328;TWNAFZMHI;758.520000;"Paiement par carte bancaire";"2024-02-22 10:06:28";1;328;"F. Pare-brise";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+327;YTWANGQAQ;66.050000;"Paiement par carte bancaire";"2024-02-21 17:49:07";1;327;"M. juzans";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+326;SRPJPUVTT;43.530000;"Paiement par carte bancaire";"2024-02-21 12:32:54";1;326;"M. SERVICES";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+325;VQIZLQJLU;13.630000;"Paiement par carte bancaire";"2024-02-20 22:52:29";1;325;"S. Bleicher";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+324;DOATPLEAC;12.830000;"Paiement par carte bancaire";"2024-02-20 18:02:51";1;324;"F. LEGENDART";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+323;LQNNMPYYY;20.400000;"Paiement par carte bancaire";"2024-02-20 16:14:06";1;323;"E. PESCAYRE";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+322;IJJBQZKQZ;54.000000;"Paiement par carte bancaire";"2024-02-20 13:40:19";1;322;"O. EXSHAW";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";11;0;11
+321;BWKWZNZIM;76.000000;"Paiement par carte bancaire";"2024-02-20 12:59:31";1;321;"Y. POIRET";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+320;YBAQKIGPY;18.000000;"Transfert bancaire";"2024-02-20 10:27:00";1;320;"t. test";"En attente de paiement par Carte de Crédit";#34209E;0;France;0;"Découpe Plexiglas® sur Mesure";2;0;2
+319;JXSTIWJVS;378.730000;"Transfert bancaire";"2024-02-20 09:30:03";1;319;"R. Reuillon";"En attente de paiement par Carte de Crédit";#34209E;1;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+318;SLATSVQNI;2.400000;Sogecommerce;"2024-02-20 09:13:08";1;318;"s. chapoutot";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+317;XFEPZBIEE;129.570000;"Paiement par carte bancaire";"2024-02-19 20:36:54";1;317;"Z. CHAOUCH";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+316;ZXYBRDJCL;242.170000;"Paiement par carte bancaire";"2024-02-19 17:51:25";1;316;"E. PESCAYRE";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";5;0;5
+315;DMUDGXUUA;9.000000;"Paiement par carte bancaire";"2024-02-19 15:11:53";1;315;"t. test";"Paiement accepté";#3498D8;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+314;XQYCJZFVV;9.000000;"Paiement par carte bancaire";"2024-02-19 15:10:02";1;314;"t. test";"Paiement accepté";#3498D8;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+313;IHCJSYZAW;41.580000;"Paiement par carte bancaire";"2024-02-19 15:08:17";1;313;"t. test";"Paiement accepté";#3498D8;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+312;IQKIJYJKY;41.580000;"Paiement par carte bancaire";"2024-02-19 15:05:29";1;312;"t. test";"Paiement accepté";#3498D8;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+311;GFZUDRRYA;41.580000;"Paiement par carte bancaire";"2024-02-19 15:03:30";1;311;"t. test";"Paiement accepté";#3498D8;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+310;OFLNNRFYD;41.580000;"Paiement par carte bancaire";"2024-02-19 14:59:57";1;310;"t. test";"Paiement accepté";#3498D8;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+309;TVTCXVDWT;45.600000;"Paiement par carte bancaire";"2024-02-19 14:58:21";1;309;"t. test";"Paiement accepté";#3498D8;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+308;EHJJBIIYI;41.580000;"Paiement par carte bancaire";"2024-02-19 14:55:40";1;308;"t. test";"Paiement accepté";#3498D8;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+307;HUFYJKWUV;79.430000;"Paiement par carte bancaire";"2024-02-19 13:46:50";1;307;"A. Georgy";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+306;NVRJIDKYA;42.180000;Sogecommerce;"2024-02-19 11:38:01";1;306;"m. ben salah";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+305;CZVBYVNYO;46.010000;"Paiement par carte bancaire";"2024-02-18 22:48:44";1;305;"G. Tapia";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+304;GYWHCJTMA;101.750000;"Paiement par carte bancaire";"2024-02-18 18:49:30";1;304;"A. BOUACHRAOUI";Remboursé;#01B887;1;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+303;CGFOMJETG;65.110000;"Paiement par carte bancaire";"2024-02-18 17:30:11";1;303;"E. KOSKAS ACDVS";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+302;JBTXWOUZN;81.320000;"Paiement par carte bancaire";"2024-02-18 15:19:08";1;302;"G. HOUBART";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+301;NIFIDHMDT;27.620000;"Paiement par carte bancaire";"2024-02-18 10:03:48";1;301;"C. CHAMPCIAUX";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+300;HVAHGZECD;37.070000;"Paiement par carte bancaire";"2024-02-16 16:28:11";1;300;"P. BELLEC";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+299;MSGJYLLKD;31.040000;"Paiement par carte bancaire";"2024-02-16 14:20:37";1;299;"W. ROBERT";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+298;WWNPIDSBW;33.760000;"Paiement par carte bancaire";"2024-02-16 13:50:09";1;298;"N. Noyon";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+297;JWTDJQIUW;11.860000;Sogecommerce;"2024-02-16 10:55:11";1;297;"D. PLESSIS";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+296;AKIADYJSO;7.730000;Sogecommerce;"2024-02-16 10:33:24";1;296;"T. PAINSECQ";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+295;PAPQWSOTZ;164.710000;"Paiement par carte bancaire";"2024-02-16 09:35:19";1;295;"M. PERNIN";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";6;0;6
+294;VYKQKVLYZ;7.730000;Sogecommerce;"2024-02-16 09:14:45";1;294;"T. PAINSECQ";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+293;TLTUTEHFM;41.580000;"Transfert bancaire";"2024-02-15 18:35:04";1;293;"t. test";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+292;JWEYOFWUI;36.340000;"Paiement par carte bancaire";"2024-02-15 17:48:09";1;292;"M. Yraeta";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+291;GOEBNYWVK;262.710000;"Paiement par carte bancaire";"2024-02-15 15:44:50";1;291;"U. Caen Normandie";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+290;CTIEKZLTN;15.520000;"Paiement par carte bancaire";"2024-02-15 15:17:22";1;290;"R. De Meulenaer";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+289;UTOSJYABU;124.440000;"Paiement par carte bancaire";"2024-02-15 13:05:06";1;289;"R. Cipriani";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+288;TRFKUWLLE;282.880000;"Paiement par carte bancaire";"2024-02-15 11:13:02";1;288;"A. ADEL";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+287;ZVGIPTEQZ;179.590000;"Paiement par carte bancaire";"2024-02-15 10:45:58";1;287;"r. marcotullio";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+286;WQFYXOXSH;75.470000;"Paiement par carte bancaire";"2024-02-15 10:29:30";1;286;"F. Duchesne";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+285;FRSOZZGJU;3.450000;"Paiement par carte bancaire";"2024-02-15 09:55:33";1;285;"T. PAINSECQ";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+284;CZFSDQKSQ;90.750000;"Paiement par carte bancaire";"2024-02-15 09:43:58";1;284;"S. Perrin";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+283;PRCGQBHKN;132.920000;"Transfert bancaire";"2024-02-14 17:13:01";1;283;"A. Mourin";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+282;LCOZGTDVZ;33.220000;"Paiement par carte bancaire";"2024-02-14 16:38:11";1;282;"L. Romaric ANDRE";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+281;PZPJDNLOZ;229.750000;"Paiement par carte bancaire";"2024-02-14 14:12:10";1;281;"m. Smigielski";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+280;FRYAVKSNK;37.820000;"Paiement par carte bancaire";"2024-02-13 20:44:59";1;280;"B. Matar";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+279;UTZIJCALV;200.750000;"Paiement par carte bancaire";"2024-02-13 16:58:37";1;279;"Y. POIRET";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";5;0;5
+278;QCIOTBZGN;401.860000;"Transfert bancaire";"2024-02-13 15:13:10";1;278;"S. MADENR";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+277;IIYMJJVRJ;52.960000;"Paiement par carte bancaire";"2024-02-13 14:26:07";1;277;"S. PFEFFER";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+276;VXARJALWX;18.960000;"Paiement par carte bancaire";"2024-02-13 11:02:42";1;276;"D. Dubi";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";4;0;4
+275;XNQYOAKOQ;260.690000;"Paiement par carte bancaire";"2024-02-12 17:05:40";1;275;"s. kadri";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+274;FMJAWLSXM;54.370000;"Paiement par carte bancaire";"2024-02-12 16:16:38";1;274;"F. LASSERRE";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+273;KQVEKWDTQ;40.540000;"Paiement par carte bancaire";"2024-02-12 16:00:30";1;273;"J. ELIE";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+272;YNRYGSMVU;112.090000;"Paiement par carte bancaire";"2024-02-12 15:51:12";1;272;"H. VERALDI";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+271;FNKMZJJDQ;9.000000;Sogecommerce;"2024-02-12 15:40:34";1;271;"t. test";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+270;DVLFPCSKY;9.000000;Sogecommerce;"2024-02-12 15:38:16";1;270;"t. test";;;0;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+269;VNGJNPUUQ;40.990000;Sogecommerce;"2024-02-12 15:31:58";1;269;"t. test";;;0;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+268;YMWWLIKCG;30.000000;Sogecommerce;"2024-02-12 15:15:22";1;268;"P. JOUANARD";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+267;XTVBCRNLE;39.360000;"Paiement par carte bancaire";"2024-02-11 19:47:21";1;267;"I. Boyer";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+266;QTVYOEBTE;4.500000;"Paiement par carte bancaire";"2024-02-11 17:43:40";1;266;"M. PERNIN";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+265;BYOXIQYPB;48.290000;"Paiement par carte bancaire";"2024-02-10 19:22:46";1;265;"C. Danneels";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+264;FJISIXZMX;18.220000;"Paiement par carte bancaire";"2024-02-10 18:34:57";1;264;"R. Berenguer";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+263;YTSGHSMVT;17.080000;"Paiement par carte bancaire";"2024-02-09 16:38:34";1;263;"W. Poppeliers";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+262;KICFKCSWR;18.330000;"Paiement par carte bancaire";"2024-02-09 13:57:19";1;262;"R. Colson";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+261;WWVJGXXAP;71.800000;"Paiement par carte bancaire";"2024-02-09 13:42:45";1;261;"F. Couratin";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+260;QZWCIQOXW;16.330000;"Paiement par carte bancaire";"2024-02-08 08:49:37";1;260;"M. RUAULT";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+259;AWSTWCDUT;52.900000;"Paiement par carte bancaire";"2024-02-07 16:10:41";1;259;"A. ROY";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+258;YEASDCILT;27.600000;"Paiement par carte bancaire";"2024-02-06 12:09:04";1;258;"f. GUILLAUME";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+257;ZJKBXFPDO;43.740000;"Paiement par carte bancaire";"2024-02-06 09:42:56";1;257;"A. Bourdin";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";5;0;5
+256;FVLWTLMQE;43.740000;"Transfert bancaire";"2024-02-06 09:29:51";1;256;"A. Bourdin";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";5;5;0
+255;BWVASQTBH;532.380000;"Paiement par carte bancaire";"2024-02-05 16:36:20";1;255;"A. Raimbault";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+254;YMOFORODV;27.810000;"Paiement par carte bancaire";"2024-02-05 16:07:44";1;254;"T. VUJEVA";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+253;PRRFJYICL;120.480000;"Paiement par carte bancaire";"2024-02-05 15:02:11";1;253;"G. VERRON";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+252;LQAIVGCIR;79.200000;"Transfert bancaire";"2024-02-05 09:48:01";1;252;"V. LOURME";"En attente de virement bancaire";#34209E;1;France;0;"Découpe Plexiglas® sur Mesure";2;0;2
+251;PPPLQRCHI;10.270000;"Paiement par carte bancaire";"2024-02-04 19:40:22";1;251;"M. RUAULT";Remboursé;#01B887;1;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+250;FYJAHPKUM;29.180000;"Paiement par carte bancaire";"2024-02-04 14:32:35";1;250;"e. campofranco";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+249;SPIZPXHSF;114.390000;"Paiement par carte bancaire";"2024-02-03 19:36:29";1;249;"J. GOURGEAUD";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+248;AXXTKVCGA;54.760000;"Paiement par carte bancaire";"2024-02-02 16:13:40";1;248;"s. pfeffer";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+247;XNAGKIIDM;5.850000;"Transfert bancaire";"2024-02-02 15:20:51";1;247;"t. test";"En attente de virement bancaire";#34209E;0;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+246;JKZWUZKSV;854.170000;"Paiement par carte bancaire";"2024-02-02 14:17:55";1;246;"R. SINGLER";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+245;BAHPCCKYX;108.700000;"Transfert bancaire";"2024-02-02 11:34:39";1;245;"A. SILVA";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";8;0;8
+244;OMRCWIZWR;93.110000;"Paiement par carte bancaire";"2024-02-02 09:01:04";1;244;"M. Craig";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+243;AQINOJCWT;62.160000;"Paiement par carte bancaire";"2024-02-01 16:31:06";1;243;"Q. Blin";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+242;FXUKJJBPY;31.840000;"Paiement par carte bancaire";"2024-02-01 13:37:40";1;242;"r. auguste";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+241;DUVPVSJEH;17.540000;"Transfert bancaire";"2024-02-01 10:23:16";1;241;"a. chauffree";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+240;XFOUDZJUH;40.180000;"Transfert bancaire";"2024-01-31 17:45:33";1;240;"t. test";"En attente de virement bancaire";#34209E;1;France;0;"Découpe Plexiglas® sur Mesure";3;0;3
+239;CNPIMWOFJ;29.440000;"Paiement par carte bancaire";"2024-01-31 00:31:11";1;239;"K. Bohec";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+238;WBIIRLILO;94.760000;"Paiement par carte bancaire";"2024-01-30 18:42:58";1;238;"A. Bourdin";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+237;EGLBHWMZC;90.110000;"Paiement par carte bancaire";"2024-01-30 14:40:11";1;237;"A. ROY";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+236;RKHVQKAWM;14.750000;"Paiement par carte bancaire";"2024-01-30 11:16:32";1;236;"D. Kalifa ";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+235;SYZWNXLWP;96.060000;"Paiement par carte bancaire";"2024-01-30 11:07:01";1;235;"A. Adoult";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+234;TNESEBNZQ;38.130000;"Paiement par carte bancaire";"2024-01-30 10:10:12";1;234;"s. duchant";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";4;0;4
+233;HGXLJALZC;4.500000;"Paiement par carte bancaire";"2024-01-30 02:11:17";1;233;"T. Simon";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+232;IDFEMPCCB;124.730000;"Paiement par carte bancaire";"2024-01-29 18:34:11";1;232;"C. Roche Boutin";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+231;WRHILPMVQ;46.800000;"Paiement par carte bancaire";"2024-01-29 17:32:50";1;231;"A. FRANCISCO";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+230;CIMVADDRV;131.910000;"Paiement par carte bancaire";"2024-01-29 16:27:17";1;230;"U. Caen Normandie";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+229;UMOMRCEZR;209.260000;"Paiement par carte bancaire";"2024-01-29 12:19:43";1;229;"T. CHUSSEAU";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+228;WIPGXIGMW;6.280000;"Paiement par carte bancaire";"2024-01-28 15:29:21";1;228;"J. GOMES";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+227;ONUTXGTWY;6.280000;"Transfert bancaire";"2024-01-28 15:23:35";1;227;"J. GOMES";"En attente de virement bancaire";#34209E;1;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+226;ZFJDSSAJT;112.910000;"Paiement par carte bancaire";"2024-01-27 15:34:12";1;226;"T. Mokowicz";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+224;JFTZJVBXI;173.850000;"Paiement par carte bancaire";"2024-01-26 17:23:33";1;224;"S. Gérard";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+223;NMXEKJGPE;148.110000;"Paiement par carte bancaire";"2024-01-26 15:16:47";1;223;"S. MICHAUX ";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+222;FMRLMJILU;34.570000;"Transfert bancaire";"2024-01-25 22:10:38";1;222;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+221;HFTDGJQRV;10.810000;"Transfert bancaire";"2024-01-25 22:07:50";1;221;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+220;OOJMEYCQE;26.310000;"Transfert bancaire";"2024-01-25 21:18:52";1;220;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+219;ZMRBRCMXC;88.020000;"Paiement par carte bancaire";"2024-01-24 17:26:48";1;219;"V. Poupard";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+218;CKTRMCUEU;22.950000;"Paiement par carte bancaire";"2024-01-24 16:15:02";1;218;"Y. Menou";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+217;XGHKQHUHU;783.540000;"Paiement par carte bancaire";"2024-01-24 15:17:01";1;217;"A. gautier";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+216;JTXEXYMBJ;92.730000;"Paiement par carte bancaire";"2024-01-24 09:34:54";1;216;"N. RAHMANI";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+215;LTIXHNOLU;17.080000;Sogecommerce;"2024-01-23 20:21:11";1;215;"a. novatis";"En attente de paiement par Carte de Crédit";#34209E;0;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+214;KKWAYPOIK;60.000000;Sogecommerce;"2024-01-23 17:56:26";1;214;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+213;SPBCRLKUK;18.000000;Sogecommerce;"2024-01-23 17:50:18";1;213;"S. Chapoutot";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+212;DUHFKUEMO;143.890000;Sogecommerce;"2024-01-23 17:44:52";1;212;"s. chapoutot";Annulé;#2C3E50;1;France;0;"Découpe Plexiglas® sur Mesure";2;2;0
+211;WVEEHFYDQ;36.070000;"Paiement par carte bancaire";"2024-01-23 17:01:00";1;211;"a. chauffree";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+210;IVIXWLWQQ;206.680000;"Paiement par carte bancaire";"2024-01-23 15:13:13";1;210;"j. Frandon";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+209;RDGQJKHCM;6.020000;"Transfert bancaire";"2024-01-23 03:21:24";1;209;"a. novatis";Annulé;#2C3E50;1;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+204;TAIWXWRHM;158.420000;"Transfert bancaire";"2024-01-22 14:30:59";1;204;"X. ANDRIEUX";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+203;NPWHXZGZN;71.840000;"Transfert bancaire";"2024-01-22 11:44:05";1;203;"J. PONS";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+202;XIKFRXRPH;215.000000;"Paiement par carte bancaire";"2024-01-22 10:13:32";1;202;"R. WEISS";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+201;ZKSBDXKGW;112.030000;"Paiement par carte bancaire";"2024-01-21 18:33:30";1;201;"E. Artus";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+200;LRWFHXCHW;61.310000;"Paiement par carte bancaire";"2024-01-21 18:20:34";1;200;"j. Brachet";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+199;OWCDZDVMZ;84.150000;"Paiement par carte bancaire";"2024-01-21 11:57:06";1;199;"S. Rothhut";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+198;BTANXMJHR;4.500000;"Paiement par carte bancaire";"2024-01-20 15:50:33";1;198;"P. RAGOT";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+197;KMPDGPNVQ;222.280000;"Paiement par carte bancaire";"2024-01-19 19:24:56";1;197;"s. kadri";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+196;CHVUHTCGT;170.930000;"Paiement par carte bancaire";"2024-01-19 14:03:25";1;196;"R. SINGLER";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+195;WGFRDPBFC;77.070000;"Paiement par carte bancaire";"2024-01-19 13:39:01";1;195;"A. Sauniere";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+194;IQLMAOIRC;18.220000;"Paiement par carte bancaire";"2024-01-18 21:41:02";1;194;"B. Faugeras";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+193;QBOGCYZHN;28.990000;"Transfert bancaire";"2024-01-18 15:15:45";1;193;"R. Attanasio";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+192;QGNVIDISB;30.000000;"Paiement par carte bancaire";"2024-01-18 14:54:30";1;192;"p. ELIZABE";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+191;CROIGYPUE;53.740000;"Paiement par carte bancaire";"2024-01-18 03:22:14";1;191;"G. Tapia";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+190;LJDGGDWDZ;25.210000;"Transfert bancaire";"2024-01-17 23:03:52";1;190;"p. Massonnet";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+189;NXMKDVXGQ;20.380000;"Paiement par carte bancaire";"2024-01-17 22:53:11";1;189;"p. Massonnet";Annulé;#2C3E50;1;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+188;PYGXXKWXH;105.230000;"Paiement par carte bancaire";"2024-01-17 14:27:18";1;188;"w. Sire";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";5;0;5
+187;XUFNHRXWR;75.300000;"Paiement par carte bancaire";"2024-01-17 12:31:36";1;187;"c. simian";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+186;BKWOZIZBY;124.130000;"Paiement par carte bancaire";"2024-01-17 09:41:29";1;186;"F. GARRONE";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+185;ZYXEWSETO;20.760000;"Paiement par carte bancaire";"2024-01-17 09:32:24";1;185;"J. Cerqueira";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+184;XPVMYNVJQ;392.910000;"Transfert bancaire";"2024-01-16 16:28:12";1;184;"L. LEGENDRE";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";8;0;8
+183;SIGPUWPJM;65.580000;"Transfert bancaire";"2024-01-16 15:53:37";1;183;"L. LOGO";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+182;LWFJRHSBE;256.960000;"Paiement par carte bancaire";"2024-01-16 13:18:40";1;182;"W. BERARD";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+181;NRBHZMHFV;81.560000;"Paiement par carte bancaire";"2024-01-16 12:46:34";1;181;"S. POIRIER";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+180;KEMMLFLRA;55.330000;"Paiement par carte bancaire";"2024-01-16 12:05:03";1;180;"T. Mokowicz";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+179;ABUJSLYBW;108.150000;"Paiement par carte bancaire";"2024-01-16 08:08:45";1;179;"N. DAVIER";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+178;RABEWHWUK;157.420000;"Paiement par carte bancaire";"2024-01-16 00:06:38";1;178;"J. Corona";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+177;FATYRDRWX;131.790000;"Paiement par carte bancaire";"2024-01-15 21:53:23";1;177;"R. Dosoo";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+176;IZKRTSTBQ;83.760000;"Paiement par carte bancaire";"2024-01-15 16:26:11";1;176;"E. Flores";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+175;GDZMXFGSC;9.000000;"Paiement par carte bancaire";"2024-01-15 11:48:33";1;175;"B. Faugeras";"Remboursé avec Sogecommerce";#ec2e15;1;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+174;OGVGPISOR;110.890000;"Paiement par carte bancaire";"2024-01-15 10:18:41";1;174;"a. Brunetot";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";7;0;7
+173;XEUTYXROW;167.970000;"Paiement par carte bancaire";"2024-01-14 17:49:23";1;173;"G. Saint-Sauby";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+172;ZVVJPBVEV;220.630000;"Transfert bancaire";"2024-01-13 19:45:49";1;172;"a. novatis";"En attente de virement bancaire";#34209E;0;France;0;"Découpe Plexiglas® sur Mesure";3;0;3
+171;MTYSOUHEK;60.100000;"Paiement par carte bancaire";"2024-01-13 16:21:28";1;171;"B. Lainé";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+170;WAZRVFKLX;18.480000;"Paiement par carte bancaire";"2024-01-13 15:39:00";1;170;"A. Robert";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+169;TDRODNEJH;30.420000;"Transfert bancaire";"2024-01-12 15:04:43";1;169;"a. novatis";"En attente de virement bancaire";#34209E;0;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+168;ZKUUVBTLG;61.370000;"Transfert bancaire";"2024-01-12 15:01:57";1;168;"a. novatis";"En attente de virement bancaire";#34209E;0;France;0;"Découpe Plexiglas® sur Mesure";3;0;3
+167;ZIBQXFVXF;36.760000;"Paiement par carte bancaire";"2024-01-12 14:01:32";1;167;"S. Desclozeaux - EQUINOXE";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+166;KXMEWTKJY;64.840000;"Paiement par carte bancaire";"2024-01-12 13:25:18";1;166;"F. Couratin";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+165;RQNNJVAQN;9.000000;Sogecommerce;"2024-01-12 10:20:51";1;165;"E. Benitah";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+164;BAVGKDKZO;289.270000;"Paiement par carte bancaire";"2024-01-11 18:59:26";1;164;"s. kadri";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";5;0;5
+163;ONWFOCJXQ;134.350000;"Paiement par carte bancaire";"2024-01-11 14:33:20";1;163;"R. Attanasio";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+162;KRVHOJUYN;769.950000;"Transfert bancaire";"2024-01-11 09:53:19";1;162;"s. ghalmi";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+161;FKPYSPBJZ;261.490000;"Paiement par carte bancaire";"2024-01-10 20:12:13";1;161;"S. GILLET";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+160;PAEEYHXJN;10.800000;Sogecommerce;"2024-01-10 08:50:33";1;160;"V. CONSTANS";"En attente de paiement par Carte de Crédit";#34209E;0;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+159;KCYYTUICY;350.460000;"Paiement par carte bancaire";"2024-01-09 16:11:18";1;159;"E. Benitah";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";6;0;6
+158;QCOYMNSZN;108.380000;"Paiement par carte bancaire";"2024-01-09 13:32:23";1;158;"F. ROANNAIS AGGLOMERATION";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+157;BCDIZGAVO;29.340000;"Paiement par carte bancaire";"2024-01-09 12:02:55";1;157;"r. auguste";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+156;BBFGXCQFL;56.400000;"Paiement par carte bancaire";"2024-01-09 10:07:46";1;156;"a. thomas";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+155;VFHVYADDU;74.030000;"Paiement par carte bancaire";"2024-01-09 09:57:04";1;155;"f. ADAM";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+154;QSOVWUHKF;163.110000;"Paiement par carte bancaire";"2024-01-08 12:33:38";1;154;"S. POIRIER";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+153;PAXTRLRLN;60.230000;"Paiement par carte bancaire";"2024-01-08 11:52:23";1;153;"F. Couratin";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+152;DUBMUBBQR;40.910000;"Paiement par carte bancaire";"2024-01-07 15:59:23";1;152;"P. DUMOND";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+151;OLNOQETJV;140.260000;"Paiement par carte bancaire";"2024-01-07 12:02:57";1;151;"T. PONCHON DE SAINT ANDRE";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+150;MXZZDLMCZ;91.020000;"Paiement par carte bancaire";"2024-01-05 17:24:14";1;150;"E. BRUNET";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+149;LMTQCESGE;42.100000;"Paiement par carte bancaire";"2024-01-05 12:29:37";1;149;"F. Stuppfler";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+148;OVTJPJDZI;54.720000;"Paiement par carte bancaire";"2024-01-05 11:18:43";1;148;"d. Couturat";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+147;WATPEVCBF;216.190000;"Paiement par carte bancaire";"2024-01-05 10:11:44";1;147;"V. Poupard";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+146;IQUGFRUCP;1509.480000;"Paiement par carte bancaire";"2024-01-05 09:56:19";1;146;"H. CHIRON";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+145;PRZXNLDJZ;467.510000;"Paiement par carte bancaire";"2024-01-05 09:36:34";1;145;"D. MARQUES";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+144;JNPQCDDDM;26.280000;"Paiement par carte bancaire";"2024-01-04 20:04:20";1;144;"J. Thomas";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+143;UPGYEQDJZ;9.220000;Sogecommerce;"2024-01-04 16:06:00";1;143;"c. DOMANGE";Expédié;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+142;AWONYQSOL;97.650000;"Transfert bancaire";"2024-01-04 15:26:37";1;142;"S. Bérillon";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";3;0;3
+141;YVNMMHBQG;172.180000;"Paiement par carte bancaire";"2024-01-04 11:46:12";1;141;"H. SARL";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+140;ZFDINRODP;303.100000;"Paiement par carte bancaire";"2024-01-03 16:03:47";1;140;"A. Bidron";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+139;PNEQUBKBI;1476.320000;"Transfert bancaire";"2024-01-03 10:14:10";1;139;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";4;4;0
+138;DOYGQRUGB;34.270000;"Paiement par carte bancaire";"2024-01-02 22:01:45";1;138;"B. MAZIER";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";4;0;4
+137;TDDYSSJCF;25.200000;"Paiement par carte bancaire";"2024-01-02 16:05:11";1;137;"c. DOMANGE";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+136;UXRCNJBZZ;4.500000;"Paiement par carte bancaire";"2024-01-02 15:35:48";1;136;"j. garrido";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+135;NJRAHZQYO;34.760000;"Paiement par carte bancaire";"2024-01-01 22:18:24";1;135;"c. MARIE";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+134;NOLXCWJRB;45.430000;"Paiement par carte bancaire";"2023-12-31 17:58:14";1;134;"L. TRIVERIO";enlevé;#01B887;0;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+133;BNZLTTBBP;289.250000;"Paiement par carte bancaire";"2023-12-30 16:58:38";1;133;"B. ROBIDOU";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+132;BXRBXYPCZ;140.380000;"Transfert bancaire";"2023-12-30 16:11:14";1;132;"f. vandeplassche";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+131;BABIRAHTD;20.150000;"Paiement par carte bancaire";"2023-12-30 11:07:14";1;131;"T. Leclerc";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+130;PVNVYSXRX;314.980000;"Paiement par carte bancaire";"2023-12-30 10:32:43";1;130;"V. Nguyen";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+129;SPCIUJNEY;9.000000;"Transfert bancaire";"2023-12-30 09:54:48";1;129;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+128;LXFPIBZLW;0.000000;"Paiement par carte bancaire";"2023-12-29 22:18:08";1;128;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+127;LXFPIBZLW;46.780000;"Paiement par carte bancaire";"2023-12-29 22:18:08";1;127;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";2;2;0
+126;DYYAHCCJP;5.400000;"Paiement par carte bancaire";"2023-12-29 13:11:07";1;126;"t. test";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+125;TDUADOITU;5.400000;"Paiement par carte bancaire";"2023-12-29 13:10:43";1;125;"J. RETAULT";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+124;LZDWOOZGH;5.400000;"Paiement par carte bancaire";"2023-12-29 01:23:08";1;124;"t. test";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+123;LWVRPAIAT;5.400000;"Transfert bancaire";"2023-12-29 01:20:35";1;123;"t. test";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+122;IDZNRUJYB;5.400000;"Paiement par carte bancaire";"2023-12-28 21:27:02";1;122;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+121;DHJQJZBYI;5.400000;"Paiement par carte bancaire";"2023-12-28 21:20:20";1;121;"t. test";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+120;YCVXASZXG;5.400000;"Paiement par carte bancaire";"2023-12-28 20:30:17";1;120;"t. test";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+119;FCYNHUPCW;5.400000;"Paiement par carte bancaire";"2023-12-28 19:59:49";1;119;"t. test";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+118;MBOPPQEGH;5.400000;"Paiement par carte bancaire";"2023-12-28 19:46:58";1;118;"t. test";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+117;AAXSEVDUP;5.400000;"Paiement par carte bancaire";"2023-12-28 19:02:59";1;117;"t. test";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+116;LMDJZYYDY;5.400000;"Transfert bancaire";"2023-12-28 18:58:59";1;116;"t. test";Annulé;#2C3E50;1;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+115;IVPCXXDNT;5.400000;"Paiement par carte bancaire";"2023-12-28 15:16:44";1;115;"R. CHEVILLARD";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+114;GPTOFOJWY;5.400000;"Transfert bancaire";"2023-12-28 15:10:33";1;114;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+113;NFVMGLJUA;36.720000;"Paiement par carte bancaire";"2023-12-28 02:07:19";1;113;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+112;UAPGRTQQT;5.400000;"Paiement par carte bancaire";"2023-12-28 01:49:21";1;112;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+111;PELUWFPUL;24.640000;"Transfert bancaire";"2023-12-27 22:00:24";1;111;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";3;3;0
+110;RMJQMBDHH;36.720000;"Paiement par carte bancaire";"2023-12-27 21:15:33";1;110;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+109;VKDZRHLCQ;5.400000;"Paiement par carte bancaire";"2023-12-27 20:54:40";1;109;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+108;KVREUSWMC;15.440000;"Paiement par carte bancaire";"2023-12-27 19:51:49";1;108;"L. TRIVERIO";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+107;RLPTBIMFS;30.870000;"Paiement par carte bancaire";"2023-12-27 19:44:11";1;107;"e. campofranco";"Erreur de paiement";#E74C3C;1;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+106;TMDVCQCTP;251.770000;"Paiement par carte bancaire";"2023-12-27 17:36:35";1;106;"g. delcour";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+105;ATCTVNJTT;136.200000;"Transfert bancaire";"2023-12-27 15:03:41";1;105;"A. novatis";Annulé;#2C3E50;1;France;0;"Découpe Plexiglas® sur Mesure";2;2;0
+104;GCCEJPRCG;124.110000;"Paiement par carte bancaire";"2023-12-27 11:01:12";1;104;"M. RICUPERO";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+103;SZMYSAEIC;118.880000;"Transfert bancaire";"2023-12-27 10:30:44";1;103;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";2;2;0
+102;XJIUBPHAV;38.680000;"Transfert bancaire";"2023-12-27 10:26:57";1;102;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";3;3;0
+101;FORUKCHOG;58.840000;"Paiement par carte bancaire";"2023-12-25 11:04:07";1;101;"V. Nicoulaud";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+100;GDIMSMVBX;35.950000;"Transfert bancaire";"2023-12-21 23:20:39";1;100;"p. toure";"En attente de virement bancaire";#34209E;1;France;0;"Découpe Plexiglas® sur Mesure";1;0;1
+98;WFGVXEWUV;83.400000;"Paiement par carte bancaire";"2023-12-21 17:19:10";1;98;"V. Matussiere";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";2;0;2
+95;ROMBMRGAW;9.000000;"Paiement par carte bancaire";"2023-12-21 11:17:32";1;95;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+94;LXJWVDLRB;5.310000;"Transfert bancaire";"2023-12-21 10:28:27";1;94;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+92;QAYVDWTCC;9.000000;"Paiement par carte bancaire";"2023-12-20 22:39:49";1;92;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+91;QTABQQAHK;9.000000;"Paiement par carte bancaire";"2023-12-20 22:38:15";1;91;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+90;ROVYTDPLL;9.000000;"Paiement par carte bancaire";"2023-12-20 22:20:07";1;90;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+89;ATSDPLILA;9.000000;"Paiement par carte bancaire";"2023-12-20 22:17:33";1;89;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+88;KLUJXSQWM;79.570000;"Paiement par carte bancaire";"2023-12-20 20:15:17";1;88;"S. Kok";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+87;BOGNTOQTN;56.560000;"Paiement par carte bancaire";"2023-12-20 20:07:33";1;87;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+86;WXRUZLMJR;9.000000;"Paiement par carte bancaire";"2023-12-20 19:49:01";1;86;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+85;MMWPVICSS;9.000000;"Paiement par carte bancaire";"2023-12-20 19:45:46";1;85;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+84;UOCLCXARG;9.000000;"Paiement par carte bancaire";"2023-12-20 19:44:34";1;84;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+83;ZFXJNORKE;9.000000;"Paiement par carte bancaire";"2023-12-20 19:25:40";1;83;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+82;KCZGMKNRH;9.000000;"Paiement par carte bancaire";"2023-12-20 18:50:51";1;82;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+81;CRCHZAIZT;9.000000;"Paiement par carte bancaire";"2023-12-20 17:07:02";1;81;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+80;RICVDOZRK;9.000000;"Paiement par carte bancaire";"2023-12-20 16:56:53";1;80;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+79;LBDGGMLVS;13.380000;"Paiement par carte bancaire";"2023-12-20 16:55:02";1;79;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+78;ABLYPKISV;75.700000;"Paiement par carte bancaire";"2023-12-20 16:17:46";1;78;"S. Karpinski";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+77;QUIRSASEH;283.090000;"Paiement par carte bancaire";"2023-12-20 16:15:39";1;77;"A. CUENCA";"Remboursé avec Sogecommerce";#ec2e15;0;France;0;"Découpe Plexiglas® sur Mesure";3;0;3
+76;KGYPVEANJ;9.000000;"Paiement par carte bancaire";"2023-12-20 15:06:12";1;76;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+75;HUJEUPZUW;9.000000;"Paiement par carte bancaire";"2023-12-20 15:04:17";1;75;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+74;NCLFQANGO;9.000000;"Paiement par carte bancaire";"2023-12-20 15:02:06";1;74;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+73;KRCCZMZFK;9.000000;"Paiement par carte bancaire";"2023-12-20 14:57:24";1;73;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+72;BLSBKUHEU;9.000000;"Paiement par carte bancaire";"2023-12-20 13:38:48";1;72;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+71;LUUWRGUAO;9.000000;"Paiement par carte bancaire";"2023-12-20 13:36:15";1;71;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+70;GOVWGCTXH;6.080000;"Paiement par carte bancaire";"2023-12-20 11:40:34";1;70;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+69;HAHGSLENR;52.920000;"Paiement par carte bancaire";"2023-12-20 11:00:56";1;69;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+68;SPXWIDPMI;7.070000;"Paiement par carte bancaire";"2023-12-20 10:44:58";1;68;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+67;QNHCDZGMJ;529.200000;"Paiement par carte bancaire";"2023-12-20 10:30:31";1;67;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+66;QRTHSHWCB;11.220000;"Paiement par carte bancaire";"2023-12-20 10:11:03";1;66;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+65;YUIGBUBYN;5.000000;"Paiement par carte bancaire";"2023-12-20 10:07:34";1;65;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+64;HASJYUZXY;7.070000;"Paiement par carte bancaire";"2023-12-20 09:56:15";1;64;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+63;DZPFGBEDT;14.950000;"Paiement par carte bancaire";"2023-12-20 09:50:07";1;63;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+61;OKBFNQKPH;22.660000;"Paiement par carte bancaire";"2023-12-20 09:11:09";1;61;"M. Despagne";enlevé;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+59;ZIIHSFVLD;184.340000;"Paiement par carte bancaire";"2023-12-20 00:20:04";1;59;"A. CUENCA";"Remboursé avec Sogecommerce";#ec2e15;1;France;0;"Découpe Plexiglas® sur Mesure";3;0;3
+58;KVAKXQUNK;10.040000;"Paiement par carte bancaire";"2023-12-19 20:40:59";1;58;"V. CONSTANS";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+57;PYBAOPCAM;182.920000;"Transfert bancaire";"2023-12-19 17:48:11";1;57;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+56;NDRXWKEWE;190.650000;"Transfert bancaire";"2023-12-19 17:32:36";1;56;"a. novatis";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+55;UXYCZMYHX;190.650000;"Transfert bancaire";"2023-12-19 16:21:12";1;55;"S. Chapoutot";Annulé;#2C3E50;1;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+54;JKMOTBYMB;400.260000;"Paiement par carte bancaire";"2023-12-19 14:45:17";1;54;"R. FACCHINETTI";"Erreur de paiement";#E74C3C;1;France;0;"Découpe Plexiglas® sur Mesure";3;0;3
+53;BACRUHFXA;190.650000;"Transfert bancaire";"2023-12-19 14:14:10";1;53;"A. Mourin";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+52;LMBWKZVKN;176.300000;"Transfert bancaire";"2023-12-19 08:34:53";1;52;"E. DEVANNE";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+50;GWOKHHEAQ;19.700000;"Paiement par carte bancaire";"2023-12-18 12:53:57";1;50;"I. Aissa";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+49;RZWUKEDTE;16.310000;"Paiement par carte bancaire";"2023-12-18 08:35:37";1;49;"V. CLEMENS";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+48;YXDEUEXLQ;48.620000;"Paiement par carte bancaire";"2023-12-16 11:57:38";1;48;"b. rowe";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+47;OZBEMZFCQ;11.720000;"Paiement par carte bancaire";"2023-12-16 09:31:32";1;47;"B. Roques";Expédié;#01B887;1;France;1;"Découpe Plexiglas® sur Mesure";1;0;1
+46;NIAOLRRHG;56.910000;"Transfert bancaire";"2023-12-15 16:49:19";1;46;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+45;URUIXFSRH;214.380000;"Transfert bancaire";"2023-12-15 16:20:08";1;45;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";3;3;0
+42;RNHWCOZZA;27.430000;"Transfert bancaire";"2023-12-15 12:36:00";1;42;"a. novatis";Annulé;#2C3E50;1;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+39;KOUNVGMEO;35.380000;"Transfert bancaire";"2023-12-14 18:24:24";1;39;"A. Loubatié";Annulé;#2C3E50;0;France;0;"Découpe Plexiglas® sur Mesure";1;1;0
+38;WDSAIVLHA;645.060000;"Transfert bancaire";"2023-12-14 17:59:56";1;38;"A. Loubatié";Annulé;#2C3E50;1;France;0;"Découpe Plexiglas® sur Mesure";2;2;0

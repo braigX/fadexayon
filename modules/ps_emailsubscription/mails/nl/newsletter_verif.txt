@@ -1,0 +1,12 @@
+ 
+
+{shop_url}
+
+Hallo,
+
+Bedankt voor het abonneren op onze nieuwsbrief. Klik op de volgende link om uw inschrijving te bevestigen:
+{verif_url}
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop-project.org/)

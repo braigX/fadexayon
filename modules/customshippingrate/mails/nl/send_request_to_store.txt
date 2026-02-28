@@ -1,0 +1,6 @@
+
+[/{shop_url}] {customer} heeft een verzendofferte aangevraagd. E-mailadres van de klant: {email} Bericht: {message} 
+
+{shop_name} [/{shop_url}] powered by PrestaShop(tm)
+[http://www.prestashop.com/] 
+

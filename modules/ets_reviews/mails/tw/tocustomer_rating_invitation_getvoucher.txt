@@ -1,0 +1,14 @@
+[{shop_url}]
+
+Hello {customer_name},
+We hope that you can spare your time to rate your recently purchased items:
+
+{product_list}
+
+As a thank you gift, after the review is approved, we will give you a voucher code with {voucher_value} off for your next order.
+Thank you for trusting and shopping at our store
+
+Rate now
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

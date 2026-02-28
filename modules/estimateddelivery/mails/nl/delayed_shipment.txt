@@ -1,0 +1,13 @@
+Hallo {firstname} {lastname},
+
+De verzending van uw bestelling is vertraagd
+
+Bestelling {order_name} - Vertraagd
+
+De verzending van uw bestelling {order_name} is vertraagd vanwege onvoorziene omstandigheden.
+We zullen ons best doen om het zo snel mogelijk te verzenden.
+Als u vragen heeft of aanvullende informatie nodig heeft, neem dan contact op met de klantenservice of antwoord op dit bericht.
+
+U kunt uw bestelling bekijken en uw factuur downloaden vanuit de sectie "Bestelgeschiedenis" van uw klantaccount door te klikken op "Mijn account" in onze winkel.
+
+{shop_name}

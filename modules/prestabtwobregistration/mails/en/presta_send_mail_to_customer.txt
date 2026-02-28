@@ -1,0 +1,6 @@
+Your account has been validated
+Hello {customer_name}
+Congratulation, your B2B Registration has been approved.
+Your details
+Name: {name}
+Email:</strong>{email}

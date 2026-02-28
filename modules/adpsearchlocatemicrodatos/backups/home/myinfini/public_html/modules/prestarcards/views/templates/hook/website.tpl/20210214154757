@@ -1,0 +1,26 @@
+{*
+* 2017-2018 PSBlog
+*
+* NOTICE OF LICENSE
+*
+* READ ATTACHED LICENSE.TXT
+*
+*  @author    PSBlog
+*  @copyright 2017-2018 PSBlog
+*  @license   LICENSE.TXT
+*}
+
+<!-- WebSite -->
+<script	type="application/ld+json">
+{
+	"@context":	"http://schema.org",
+	"@type": "WebSite",
+	"url": "{$link_site|escape:'html':'UTF-8'}",
+	"image": {
+		"@type": "ImageObject",
+		"url":  "{$logo|escape:'html':'UTF-8'}"
+	}
+}
+</script>
+
+{include file='./webpage.tpl'}

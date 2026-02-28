@@ -1,0 +1,657 @@
+/**
+ *  2024 ALGO-FACTORY.COM
+ *
+ *  NOTICE OF LICENSE
+ *
+ * @author        Algo Factory <contact@algo-factory.com>
+ * @copyright     Copyright (c) 2024 Algo Factory
+ * @license   You are just allowed to modify this copy for your own use. You must not redistribute it. License
+ *               is permitted for one Prestashop instance only but you can install it on your test instances.
+ *
+ * @version       1.0.0
+ * @website       www.algo-factory.com
+ *
+ *  You can not resell or redistribute this software.
+ */
+/*addToCart Vars*/
+/*toasterCart Vars*/
+/*goCheckout Vars*/
+/**
+ *  2024 ALGO-FACTORY.COM
+ *
+ *  NOTICE OF LICENSE
+ *
+ * @author        Algo Factory <contact@algo-factory.com>
+ * @copyright     Copyright (c) 2024 Algo Factory
+ * @license   You are just allowed to modify this copy for your own use. You must not redistribute it. License
+ *               is permitted for one Prestashop instance only but you can install it on your test instances.
+ *
+ * @version       1.0.0
+ * @website       www.algo-factory.com
+ *
+ *  You can not resell or redistribute this software.
+ */
+@font-face {
+  font-family: "flaticon_smartcart";
+  src: url("../fonts/flaticon_smartcart.ttf?0d08d365676767db8e556456454654656958145545") format("truetype"), url("../fonts/flaticon_smartcart.woff?0d08d365676767db8e556456454654656958145545") format("woff"), url("../fonts/flaticon_smartcart.woff2?0d08d365676767db8e556456454654656958145545") format("woff2"), url("../fonts/flaticon_smartcart.eot?0d08d365676767db8e556456454654656958145545#iefix") format("embedded-opentype"), url("../img/flaticon_smartcart.svg?0d08d365676767db8e556456454654656958145545#flaticon") format("svg");
+}
+i[class^=flaticon-sm-]:before, i[class*=" flaticon-sm-"]:before {
+  font-family: flaticon_smartcart !important;
+  font-style: normal;
+  font-weight: normal !important;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-sm-close:before {
+  content: "\f101";
+}
+
+.flaticon-sm-shopping-cart:before {
+  content: "\f102";
+}
+
+.flaticon-sm-garbage:before {
+  content: "\f103";
+}
+
+.flaticon-sm-delete:before {
+  content: "\f104";
+}
+
+.flaticon-sm-close-1:before {
+  content: "\f105";
+}
+
+.flaticon-sm-cross:before {
+  content: "\f106";
+}
+
+.flaticon-sm-add:before {
+  content: "\f107";
+}
+
+.flaticon-sm-plus:before {
+  content: "\f108";
+}
+
+.flaticon-sm-minus-sign:before {
+  content: "\f109";
+}
+
+.flaticon-sm-minus:before {
+  content: "\f10a";
+}
+
+.flaticon-sm-shopping-cart-empty-side-view:before {
+  content: "\f10b";
+}
+
+.flaticon-sm-right-arrow:before {
+  content: "\f10c";
+}
+
+.flaticon-sm-add-to-cart:before {
+  content: "\f10d";
+}
+
+.flaticon-sm-right-arrow-1:before {
+  content: "\f10e";
+}
+
+/**
+ *  2024 ALGO-FACTORY.COM
+ *
+ *  NOTICE OF LICENSE
+ *
+ * @author        Algo Factory <contact@algo-factory.com>
+ * @copyright     Copyright (c) 2024 Algo Factory
+ * @license   You are just allowed to modify this copy for your own use. You must not redistribute it. License
+ *               is permitted for one Prestashop instance only but you can install it on your test instances.
+ *
+ * @version       1.0.0
+ * @website       www.algo-factory.com
+ *
+ *  You can not resell or redistribute this software.
+ */
+body #add-to-cart-or-refresh-clone {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  z-index: 999999;
+  border: 0 !important;
+  padding: 0px !important;
+  width: 100%;
+}
+body #add-to-cart-or-refresh-clone.visible {
+  display: block;
+}
+body #add-to-cart-or-refresh-clone #afAddToCart {
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+  background: #fff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+body #add-to-cart-or-refresh-clone #afAddToCart .flaticon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body #add-to-cart-or-refresh-clone #afAddToCart .productInfo {
+  display: flex;
+  flex-direction: column;
+}
+body #add-to-cart-or-refresh-clone #afAddToCart .productInfo #titleProduct {
+  flex: auto;
+  color: inherit;
+  text-transform: uppercase;
+  font-size: 16px;
+  padding: 0 1rem;
+}
+@media screen and (max-width: 768px) {
+  body #add-to-cart-or-refresh-clone #afAddToCart .productInfo #titleProduct {
+    font-size: 0.8rem;
+  }
+}
+body #add-to-cart-or-refresh-clone #afAddToCart .productInfo #productPrice {
+  flex: auto;
+  color: inherit;
+  font-size: 1rem;
+  padding: 0 1rem;
+  font-weight: bold;
+}
+body #add-to-cart-or-refresh-clone #afAddToCart .productInfo #productPrice .regular-price {
+  margin-right: 0.625rem;
+  font-weight: 500;
+  text-decoration: line-through;
+}
+body #add-to-cart-or-refresh-clone #addToCart {
+  border-radius: 0;
+  white-space: initial;
+  min-width: 100px;
+  font-size: 0.8rem;
+  padding: 0.5rem;
+  min-height: 42px;
+  display: flex !important;
+  align-items: center;
+}
+body #add-to-cart-or-refresh-clone #addToCart:hover {
+  text-decoration: underline;
+}
+body #add-to-cart-or-refresh-clone #cartInfoHtml {
+  display: flex;
+  color: #222;
+  padding: 5px 15px;
+  align-items: center;
+}
+
+/**
+ *  2024 ALGO-FACTORY.COM
+ *
+ *  NOTICE OF LICENSE
+ *
+ * @author        Algo Factory <contact@algo-factory.com>
+ * @copyright     Copyright (c) 2024 Algo Factory
+ * @license   You are just allowed to modify this copy for your own use. You must not redistribute it. License
+ *               is permitted for one Prestashop instance only but you can install it on your test instances.
+ *
+ * @version       1.0.0
+ * @website       www.algo-factory.com
+ *
+ *  You can not resell or redistribute this software.
+ */
+body .vertalign {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+body .btnOpenCloseToaster {
+  position: fixed;
+  z-index: 998;
+  top: 50%;
+  right: 1rem;
+  border-radius: 60px;
+  font-size: 1rem;
+  padding: 0.6rem 0rem;
+  height: 42px;
+  width: 42px;
+  color: #fff !important;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+body .btnOpenCloseToaster span {
+  height: 20px;
+  width: 20px;
+  background: #000;
+  border-radius: 20px;
+  position: absolute;
+  right: 0px;
+  top: -8px;
+  font-size: 0.8rem;
+  line-height: 1.2rem;
+}
+body .btnOpenCloseToaster i {
+  margin: initial !important;
+}
+body .btnOpenCloseToaster i.flaticon {
+  font-size: 1.3rem;
+}
+body .overlay {
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+body .toasterCart {
+  opacity: 0;
+  z-index: 1001;
+  background-color: #000;
+  color: #fff;
+  box-shadow: -5px 0 10px rgba(0, 0, 0, 0.2);
+  padding: 0px;
+  height: 100%;
+  overflow-y: scroll;
+}
+body .toasterCart.toasterPanel {
+  top: 0;
+  position: fixed;
+  max-width: 340px;
+  right: -320px;
+  animation: slideOutleft;
+  transition: all 200ms ease-in-out;
+}
+@media screen and (min-width: 768px) {
+  body .toasterCart.toasterPanel {
+    display: flex;
+  }
+}
+@media screen and (min-width: 768px) {
+  body .toasterCart.toasterPanel {
+    width: auto;
+    min-width: 420px;
+    max-width: 720px;
+    right: -720px;
+  }
+}
+body .toasterCart.toasterPanel.opened {
+  opacity: 1;
+  right: 0;
+  animation: slideInleft 200ms;
+}
+body .toasterCart.toasterPanel.opened a:not(.btn) {
+  color: #ff3452;
+}
+body .toasterCart.toasterPanel.opened a:not(.btn):hover {
+  color: #333;
+}
+body .toasterCart.toasterPanel #toasterPanel {
+  width: 100%;
+  max-width: 420px;
+  padding: 1rem;
+}
+body .toasterCart.toasterPanel #toasterPanel .btn {
+  box-shadow: none;
+}
+body .toasterCart #toasterCrossSellingPanel {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 2rem;
+  padding: 1rem;
+}
+@media screen and (min-width: 768px) {
+  body .toasterCart #toasterCrossSellingPanel {
+    border-right: 1px solid #ccc;
+    margin-right: 0.5rem;
+    margin-top: 0rem;
+    max-width: 260px;
+  }
+}
+body .toasterCart #toasterCrossSellingPanel .toasterHeader {
+  border-bottom: 1px solid #ccc;
+  padding: 0 0 0.5rem 0;
+}
+body .toasterCart #toasterCrossSellingPanel .toasterHeader .toasterTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+body .toasterCart #toasterCrossSellingPanel .toasterHeader p {
+  margin-bottom: 0;
+  line-height: 28px;
+}
+body .toasterCart #toasterCrossSellingPanel .toasterHeader .closeToasterButton {
+  font-weight: bold;
+}
+body .toasterCart #toasterCrossSellingPanel .toasterBody {
+  max-height: 768px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding: 0 0.5rem 0 0;
+}
+body .toasterCart #toasterCrossSellingPanel .toasterBody .toasterPanelProduct {
+  border-bottom: 1px solid #ccc;
+}
+body .toasterCart #toasterCrossSellingPanel .toasterBody .toasterPanelProduct:last-child {
+  border-bottom: none !important;
+}
+body .toasterCart #toasterCrossSellingPanel .toasterBody .toasterPanelProduct .product-thumbnail img {
+  max-height: 82px;
+  border-radius: 4px;
+}
+body .toasterCart #toasterCrossSellingPanel .toasterBody .toasterPanelProduct .product-name {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+body .toasterCart #toasterCrossSellingPanel .toasterBody .toasterPanelProduct .product-name:hover {
+  text-decoration: underline;
+}
+body .toasterCart #toasterCrossSellingPanel .toasterBody .toasterPanelProduct .whitout-reduc {
+  text-decoration: line-through;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+body .toasterCart #toasterCrossSellingPanel .toasterBody .toasterPanelProduct .product-price {
+  font-size: 0.9rem;
+}
+body .toasterCart #toasterCrossSellingPanel .toasterBody .toasterPanelProduct .addProductLink {
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+}
+body .toasterCart #toasterCrossSellingPanel .toasterBody .toasterPanelProduct .addProductLink:hover {
+  text-decoration: underline;
+}
+body .toasterCart #toasterCrossSellingPanel .toasterBody .toasterPanelProduct .addProductLink:hover i {
+  text-decoration: none;
+}
+body .toasterCart #toasterCrossSellingPanel .toasterBody .toasterPanelProduct .falticon {
+  font-size: 20px;
+}
+body .toasterCart #toasterPanel {
+  position: relative;
+}
+body .toasterCart #toasterPanel .toasterHeader {
+  border-bottom: 1px solid #ccc;
+  padding: 0 0 0.5rem 0;
+}
+body .toasterCart #toasterPanel .toasterHeader .toasterTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+body .toasterCart #toasterPanel .toasterHeader p {
+  margin-bottom: 0;
+}
+body .toasterCart #toasterPanel .toasterHeader .closeToasterButton {
+  font-weight: bold;
+}
+body .toasterCart #toasterPanel .toasterBody {
+  max-height: 400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+body .toasterCart #toasterPanel .toasterBody .toasterPanelProduct {
+  border-bottom: 1px solid #ccc;
+}
+body .toasterCart #toasterPanel .toasterBody .toasterPanelProduct:last-child {
+  border-bottom: none !important;
+}
+body .toasterCart #toasterPanel .toasterBody .toasterPanelProduct .product-thumbnail img {
+  max-height: 82px;
+  border-radius: 4px;
+}
+body .toasterCart #toasterPanel .toasterBody .toasterPanelProduct .product-name {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+body .toasterCart #toasterPanel .toasterBody .toasterPanelProduct .product-name:hover {
+  text-decoration: underline;
+}
+body .toasterCart #toasterPanel .toasterBody .toasterPanelProduct .product-reference {
+  display: block;
+  font-size: 0.8rem;
+}
+body .toasterCart #toasterPanel .toasterBody .toasterPanelProduct .product-attribute {
+  display: block;
+  font-size: 0.8rem;
+}
+body .toasterCart #toasterPanel .toasterBody .toasterPanelProduct .customizations {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 0;
+}
+body .toasterCart #toasterPanel .toasterBody .toasterPanelProduct .customizations dt {
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 0.7rem 0;
+}
+body .toasterCart #toasterPanel .toasterBody .toasterPanelProduct .customizations dd {
+  margin-bottom: 0;
+  font-size: 0.7rem;
+  font-weight: normal;
+}
+body .toasterCart #toasterPanel .toasterBody .toasterPanelProduct .customizations dd img {
+  width: 36px;
+  border-radius: 4px;
+}
+body .toasterCart #toasterPanel .toasterBody .toasterPanelProduct .product-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+body .toasterCart #toasterPanel .toasterBody .toasterPanelProduct .product-actions > div {
+  flex: 0;
+}
+body .toasterCart #toasterPanel .toasterBody .toasterPanelProduct .product-actions > div span {
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+body .toasterCart #toasterPanel .toasterBody .toasterPanelProduct .product-actions .whitout-reduc {
+  text-decoration: line-through;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+body .toasterCart #toasterPanel .toasterBody .toasterPanelProduct .product-actions .input-group-quantity {
+  display: flex;
+  align-items: center;
+}
+body .toasterCart #toasterPanel .toasterBody .toasterPanelProduct .product-actions .input-group-quantity .btn {
+  width: 36px;
+  padding: 0.3rem;
+  color: #fff;
+}
+body .toasterCart #toasterPanel .toasterBody .toasterPanelProduct .product-actions .input-group-quantity .btn:first-child {
+  border-radius: 4px 0 0 4px;
+}
+body .toasterCart #toasterPanel .toasterBody .toasterPanelProduct .product-actions .input-group-quantity .btn:last-child {
+  border-radius: 0 4px 4px 0;
+}
+body .toasterCart #toasterPanel .toasterBody .toasterPanelProduct .product-actions .input-group-quantity input {
+  width: 56px;
+  height: 32px;
+  border: 0;
+  background: #eee;
+  text-align: center;
+}
+body .toasterCart #toasterPanel .toasterBody .toasterPanelProduct .falticon {
+  font-size: 20px;
+}
+body .toasterCart #toasterPanel .toasterFooter .toasterTotal .priceproductshipping {
+  font-size: 0.9rem;
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+}
+body .toasterCart #toasterPanel .toasterFooter .toasterTotal.finalTotal {
+  font-weight: bold;
+}
+body .toasterCart #toasterPanel .toasterFooter .btnCardOrder .btn-primary {
+  border-radius: 4px;
+}
+body .toasterCart #toasterPanel .toasterFooter .discounts-form-list {
+  margin: 1rem 0;
+}
+body .toasterCart #toasterPanel .toasterFooter .discounts-form-list form input, body .toasterCart #toasterPanel .toasterFooter .discounts-form-list form .btn {
+  height: 36px;
+}
+body .toasterCart #toasterPanel .toasterFooter .discounts-form-list form input {
+  border-color: #fff;
+  background-color: #f8f8f8;
+  border-radius: 4px 0 0 4px;
+}
+body .toasterCart #toasterPanel .toasterFooter .discounts-form-list form .btn {
+  border-radius: 0 4px 4px 0;
+}
+body .toasterCart #toasterPanel .toasterFooter .vouchers {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 0;
+  margin-top: 0.5rem;
+}
+body .toasterCart #toasterPanel .toasterFooter .vouchers dt {
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 0.3rem 0;
+}
+body .toasterCart #toasterPanel .toasterFooter .vouchers dd {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  font-weight: normal;
+}
+body .toasterCart #toasterPanel .toasterFooter .vouchers dd .falticon {
+  font-size: 20px;
+}
+body .toasterCart #toasterPanel .toasterFooter .toasterExtraText * {
+  color: inherit;
+}
+body .toasterCart #toasterPanel .toasterFooter .toasterExtraText img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+body .toasterCart .js-cart-line-product-quantity {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body .toasterCart .remainingShipping {
+  font-size: 0.9rem;
+  display: block;
+  text-align: center;
+  padding: 0.5rem 0;
+}
+body .toasterCart .remainingShipping .abdf_message_container {
+  text-align: center;
+  font-weight: bold;
+}
+body .toasterCart .remainingShipping .free_delivery {
+  text-align: center;
+  font-weight: bold;
+}
+body .toasterCart .remainingShipping .free_delivery .bar_free_delivery {
+  display: none;
+}
+body .toasterCart .remainingShipping .notfreedelivery {
+  display: none;
+  margin-top: 1rem;
+}
+body .toasterCart .remainingShipping .notfreedelivery .progress-bar {
+  background: rgb(47, 181, 210);
+  height: 5px;
+  width: 100%;
+}
+body .toasterCart .remainingShipping .notfreedelivery .progress-bar .progress-bar-fill {
+  position: relative;
+  background: #2f4858;
+  height: 5px;
+  display: block;
+}
+body .toasterCart .remainingShipping .notfreedelivery .progress-bar .progress-bar-fill img {
+  position: absolute;
+  top: -13px;
+  right: 0;
+}
+body .toasterCart #discountForm {
+  padding-top: 1rem;
+  border-top: 1px solid #ccc;
+}
+body .toasterLoader {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: rgba(25, 25, 25, 0.5);
+  z-index: 100;
+}
+body .toasterLoader .container-spinner {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+body .toasterLoader .spinner {
+  width: 75px;
+  height: 75px;
+  display: inline-block;
+  border-width: 10px;
+  border-color: rgba(255, 255, 255, 0.05);
+  border-top-color: #fff;
+  animation: spin 1s infinite linear;
+  border-radius: 100%;
+  border-style: solid;
+}
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/**
+ *  2024 ALGO-FACTORY.COM
+ *
+ *  NOTICE OF LICENSE
+ *
+ * @author        Algo Factory <contact@algo-factory.com>
+ * @copyright     Copyright (c) 2024 Algo Factory
+ * @license   You are just allowed to modify this copy for your own use. You must not redistribute it. License
+ *               is permitted for one Prestashop instance only but you can install it on your test instances.
+ *
+ * @version       1.0.0
+ * @website       www.algo-factory.com
+ *
+ *  You can not resell or redistribute this software.
+ */
+body #afFinalizeCart {
+  position: fixed;
+  bottom: 0;
+  background: #fff;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0px !important;
+  z-index: 998;
+  color: #222;
+  background: #fff;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+}
+body #afFinalizeCart #buttonProduct {
+  width: 100%;
+}

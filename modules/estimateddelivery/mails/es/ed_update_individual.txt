@@ -1,0 +1,15 @@
+Actualización de la fecha de entrega para tu pedido {order_name}
+
+Hola {firstname} {lastname},
+
+Pedido {order_name} - Fecha de entrega actualizada
+
+La fecha estimada de entrega para su pedido con la referencia {order_name} ha sido actualizada. La nueva fecha prevista es:
+
+{deliveries}
+
+Puede revisar su pedido y descargar su factura desde la sección "Historial de pedidos" de su cuenta de cliente haciendo clic en "Mi cuenta" en nuestra tienda.
+
+Si tiene una cuenta de invitado, puede seguir su pedido vía la sección "Seguimiento de Invitado" en nuestra tienda.
+
+{shop_name} powered by PrestaShop™

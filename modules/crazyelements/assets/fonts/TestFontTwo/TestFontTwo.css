@@ -1,0 +1,8 @@
+@font-face {
+                font-family: 'TestFontTwo';
+                src: url('Arial Rounded Bold.ttf') format('truetype');
+                font-display: auto;
+                font-weight: 600;
+                font_style: family;
+            }
+            .TestFontTwo{font-family: 'TestFontTwo' !important;}

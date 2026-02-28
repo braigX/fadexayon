@@ -1,0 +1,164 @@
+.quantityupdate .form-wrapper {
+    max-width: 100% !important;
+}
+
+.quantityupdate .form_group_category .col-lg-8,
+.quantityupdate .form-group .col-lg-8 {
+    width: 75%;
+}
+
+.quantityupdate .form_group_category .col-lg-4,
+.quantityupdate .form-group .col-lg-4 {
+    width: 25%;
+}
+
+.quantityupdate  .control-label {
+    padding-right: 5px !important;
+}
+
+.quantityupdate .sort_block_orderway .col-lg-8 .radio {
+    float: left;
+    width: 100px;
+    padding-top: 2px;
+}
+
+.quantityupdate .sort_block_orderway .col-lg-8 .radio label {
+    border: 1px solid #dadada;
+    padding: 5px 25px 5px 40px;
+    border-radius: 3px;
+}
+
+.quantityupdate .form_group_class_hide .col-lg-4,
+.quantityupdate .active_block .col-lg-4,
+.quantityupdate .upload_file_update .col-lg-4,
+.quantityupdate .blockfilterCategories .col-lg-4 {
+    width: 12% !important;
+}
+
+.quantityupdate .button_export_block .col-lg-8,
+.quantityupdate .button_update_block .col-lg-8,
+.quantityupdate .renderListProducts .col-lg-8,
+.quantityupdate .support_tab_content .col-lg-8 {
+    width: 100%;
+}
+
+.quantityupdate .block_type_quantity label,
+.quantityupdate .block_type_price label,
+.quantityupdate .block_selection_type label {
+    height: 39px !important;
+    padding-top: 4px;
+    border-radius: 4px;
+}
+
+.quantityupdate .form_group_class_hide .fixed-width-xl {
+    width: 220px !important;
+}
+
+.quantityupdate .tree-panel-heading-controls .tt-query,
+.quantityupdate .tree-actions .pull-right,
+.quantityupdate .search_checkbox_table {
+    height: 35px !important;
+}
+
+.quantityupdate .tree-panel-heading-controls .btn {
+    padding: 8px 8px;
+}
+
+.quantityupdate .tree-actions .twitter-typeahead {
+    top: 0;
+}
+
+.quantityupdate .slide-button {
+    height: 22px !important;
+}
+
+.quantityupdate .table_product_list .bulk_actions {
+    width: 140px;
+}
+
+.quantityupdate .button_update_live .col-lg-8 {
+    margin-left: 45%;
+}
+
+.quantityupdate .price_increment_block .col-lg-4,
+.quantityupdate .operations_block .col-lg-4,
+.quantityupdate .quantity_increment_block .col-lg-4,
+.quantityupdate .quantity_operations_block .col-lg-4,
+.quantityupdate .mapping_form .col-lg-4 {
+    width: 15%;
+}
+
+.quantityupdate .block_style_width_200 {
+    width: 270px !important;
+}
+
+.quantityupdate .fields_mapping {
+    height: 39px;
+    white-space: nowrap;
+}
+
+.quantityupdate #automatic label {
+    width: 210px !important;
+}
+.quantityupdate #automatic .col-lg-8 {
+    width: 68% !important;
+}
+
+.quantityupdate #automatic .mapping_form .col-lg-8 {
+    width: 50% !important;
+}
+
+.quantityupdate .file_product_price:before,
+.quantityupdate .file_product_identifier:before{
+    top: 6px;
+}
+
+.quantityupdate .save_settings button {
+    height: 39px;
+}
+
+.quantityupdate .renderListProducts .icon-search {
+    margin-right: 5px;
+}
+
+.quantityupdate .col-lg-6 .table-bordered .buttons-block {
+    display: flex;
+}
+
+.quantityupdate .tree-actions {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 5px;
+}
+
+.quantityupdate .table-bordered tr>td:nth-child(3) {
+    width: 520px;
+}
+
+.quantityupdate .form_group_category .col-lg-4,
+.quantityupdate .supplier_list .col-lg-3 {
+    padding-left: 30px;
+}
+
+@media (max-width: 1500px) {
+    .quantityupdate .form_group_category .col-lg-4,
+    .quantityupdate .supplier_list .col-lg-3 {
+        padding-left: 0;
+    }
+}
+
+.quantityupdate .tree-panel-heading-controls .tree-actions a {
+    white-space: nowrap;
+}
+
+.quantityupdate .tree-panel-heading-controls .tree-actions #categories-tree-categories-search {
+    width: 175px !important;
+}
+
+
+
+
+
+
+
+

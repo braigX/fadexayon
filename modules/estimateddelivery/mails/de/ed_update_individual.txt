@@ -1,0 +1,15 @@
+Lieferdatum für Ihre Bestellung {order_name} wurde aktualisiert
+
+Hallo {firstname} {lastname},
+
+Bestellung {order_name} - Aktualisiertes Lieferdatum
+
+Das voraussichtliche Lieferdatum für Ihre Bestellung mit der Referenz {order_name} wurde aktualisiert. Das neue erwartete Datum ist:
+
+{deliveries}
+
+Sie können Ihre Bestellung einsehen und Ihre Rechnung im Abschnitt "Bestellhistorie" Ihres Kundenkontos herunterladen, indem Sie auf "Mein Konto" in unserem Shop klicken.
+
+Wenn Sie ein Gastkonto haben, können Sie Ihre Bestellung im Abschnitt "Gastverfolgung" in unserem Shop verfolgen.
+
+{shop_name} powered by PrestaShop™

@@ -1,0 +1,20 @@
+.op-faq-description, .op-faq-item {
+    margin-bottom: 40px;}
+.op-faq-title{
+    margin-bottom: 30px;
+}
+.op-faq-question, .op-faq-question p {
+    margin-bottom: 20px;
+    font-weight: bold;}
+
+/* Accordion */
+.op-accordion-panel {
+    -webkit-transition: height 0.5s ease-in-out;
+    transition: height 0.5s ease-in-out;
+    overflow: hidden;
+    height: 0;
+}
+
+.op-accordion-toggle {
+    cursor: pointer;
+}

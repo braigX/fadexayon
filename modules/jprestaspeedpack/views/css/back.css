@@ -1,0 +1,67 @@
+.maxwidth10rem {
+    max-width: 10rem;
+}
+span.cron_url {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 3px;
+    margin: 5px;
+    font-family: monospace;
+    background-color: #eee;
+}
+#beforeAfterSlider {
+    border: 1px solid #aaa;
+    border-radius: 4px;
+}
+.reportHead {
+    padding: 4px 4px 4px 2rem !important;
+}
+.bootstrap .reportHead.alert.alert-success,
+.bootstrap .reportHead.alert.alert-warning {
+    border-radius: 0;
+}
+.bootstrap .reportHead.alert.alert-success::before,
+.bootstrap .reportHead.alert.alert-warning::before {
+    top: 2px;
+    left: 0.5rem;
+}
+.adminjprestawebpconfiguration .collapse, .adminjprestawebpconfiguration .collapsing {
+}
+.adminjprestawebpconfiguration .report {
+    font-family: monospace;
+    border: 1px solid #ccc;
+    border-top: none !important;
+    background-color: #ddd;
+    margin: 0 0 5px 0;
+    border-radius: 0 3px;
+    padding: 5px;
+    color: #363a41;
+}
+.adminjprestawebpconfiguration .reportHead {
+    margin-bottom: 0 !important;
+    border-bottom: 1px solid #ccc !important;
+    margin-top: 3px !important;
+}
+.adminjprestawebpconfiguration label .alert {
+    margin-bottom: 3px;
+}
+.adminjprestawebpconfiguration .btntoggle {
+    margin: 0 5px;
+    font-size: 0.8rem;
+}
+.adminjprestawebpconfiguration .btntoggle.collapsed {
+
+}
+
+.pre {
+    font-family: monospace;
+}
+.pre .log_error {
+    color: red;
+    font-weight: bold;
+}
+h4 {
+    text-transform: uppercase;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}

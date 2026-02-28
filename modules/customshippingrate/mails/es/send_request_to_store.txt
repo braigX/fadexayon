@@ -1,0 +1,6 @@
+
+[/{shop_url}] {customer} ha solicitado una cotización de envío. Dirección de correo electrónico del cliente: {email} Mensaje: {message} 
+
+{shop_name} [/{shop_url}] powered by PrestaShop(tm)
+[http://www.prestashop.com/] 
+

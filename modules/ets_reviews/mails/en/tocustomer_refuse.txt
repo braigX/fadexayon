@@ -1,0 +1,13 @@
+[{shop_url}]
+
+Hello {customer_name},
+Your {object} on {product_name} has been rejected.
+
+{title}
+
+{content}
+
+{reason}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

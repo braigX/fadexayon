@@ -1,0 +1,42 @@
+/** * Estimated Delivery - Front Office Feature
+ *
+ * NOTICE OF LICENSE
+ *
+ * @author    Pol Rué
+ * @copyright Smart Modules 2015
+ * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category Transport & Logistics
+ * Registered Trademark & Property of smart-modules.com
+ *
+ * ***************************************************
+ * *               Estimated Delivery                *
+ * *          http://www.smart-modules.com           *
+ * *                                                  *
+ * ***************************************************
+
+*/
+/* Estimated Delivery list */
+.hide-default {
+    display:none;
+}
+.estimateddelivery-list {
+    margin:3px 0;
+    text-align: center;
+}
+.estimateddelivery-list *, .estimateddelivery-list *::before {
+    font-size: 13px !important;
+}
+.estimateddelivery-list p {
+    margin-bottom:0;
+}
+
+.estimateddelivery-list h4:before, .estimateddelivery-list .ed_orderbefore:before {
+    font-size: 13px;
+    line-height: 14px;
+    margin-right: 5px;
+ /* *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0d1;'); */
+}
+/*
+.product-miniature {
+    margin-bottom:40px !important;
+}*/

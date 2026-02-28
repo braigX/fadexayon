@@ -1,0 +1,6 @@
+Hallo {customer},
+Je reactie is bijgewerkt
+Onderwerp: {subject}
+Commentaar: {comment}
+Beoordeling: {rating}
+Bekijk bericht

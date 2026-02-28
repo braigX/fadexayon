@@ -1,0 +1,71 @@
+{block name='head_charset'}
+  <meta charset="utf-8">
+{/block}
+{block name='head_ie_compatibility'}
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+{/block}
+
+{block name='head_seo'}
+  <title>{block name='head_seo_title'}{$page.meta.title}{/block}</title>
+  <meta property="og:title" content="{block name='head_seo_title'}{$page.meta.title}{/block}">
+  <meta name="description"  content="{block name='head_seo_description'}{$page.meta.description}{/block}">
+  <meta name="keywords" content="{block name='head_seo_keywords'}{$page.meta.keywords}{/block}">
+  <meta name="google-site-verification" content="MzxiT26QcVJbDd3sLmcHOH6lw2DoQogDYMj3XV-caPM">
+  {if $page.meta.robots !== 'index'}
+  <meta name="robots" content="{$page.meta.robots}">
+  {/if}
+  {if $page.canonical}
+    <link rel="canonical" href="{$page.canonical}">
+  {/if}
+  {block name='head_hreflang'}
+      {foreach from=$urls.alternative_langs item=pageUrl key=code}
+            <link rel="alternate" href="{$pageUrl}" hreflang="{$code}">
+      {/foreach}
+  {/block}
+{/block}
+
+
+{block name='head_viewport'}
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+{/block}
+
+{block name='head_icons'}
+  <link rel="icon" type="image/vnd.microsoft.icon" href="{$shop.favicon}?{$shop.favicon_update_time}">
+  <link rel="shortcut icon" type="image/x-icon" href="{$shop.favicon}?{$shop.favicon_update_time}">
+{/block}
+
+{block name='stylesheets'}
+  {include file="_partials/stylesheets.tpl" stylesheets=$stylesheets}
+{/block}
+
+{block name='javascript_head'}
+  {include file="_partials/javascript.tpl" javascript=$javascript.head vars=$js_custom_vars}
+{/block}
+{block name='hook_header'}
+  {$HOOK_HEADER nofilter}
+{/block}
+
+<!-- Smartsupp Live Chat script -->
+<script>
+var smartsupp = smartsupp || {};
+_smartsupp.key = 'c6daa6a7eba8f53cc3ec98766b192eb0e4d2acb5';
+window.smartsupp||(function(d) {
+  var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
+  s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+  c.type='text/javascript';c.charset='utf-8';c.async=true;
+  c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+})(document);
+</script>
+{literal}
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:5294033,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+{/literal}
+{block name='hook_extra'}{/block}

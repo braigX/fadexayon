@@ -1,0 +1,36 @@
+<?php
+/**
+ * Page Cache Ultimate, Page Cache standard and Speed pack are powered by Jpresta (jpresta . com)
+ *
+ *    @author    Jpresta
+ *    @copyright Jpresta
+ *    @license   See the license of this module in file LICENSE.txt, thank you.
+ */
+
+if (!defined('_PS_VERSION_')) {exit;}
+
+abstract class Db extends DbCore
+{
+    public function query($sql)
+    {
+        if (isset($_COOKIE['jpresta_profiler_run'])) {
+            if (file_exists(_PS_MODULE_DIR_ . 'jprestaspeedpack/classes/JprestaSQLProfilerModule.php')) {
+                require_once _PS_MODULE_DIR_ . 'jprestaspeedpack/classes/JprestaSQLProfilerModule.php';
+            }
+            else {
+                require_once _PS_MODULE_DIR_ . 'jprestasqlprofiler/classes/JprestaSQLProfilerModule.php';
+            }
+            $start = microtime(true);
+        }
+        $result = parent::query($sql);
+        if (isset($_COOKIE['jpresta_profiler_run'])
+            && ((defined('_PS_ADMIN_DIR_') && $_COOKIE['jpresta_profiler_run'] === 'admin')
+                || (!defined('_PS_ADMIN_DIR_') && $_COOKIE['jpresta_profiler_run'] === 'front')
+            )
+        ) {
+            $e = new \Exception;
+            JprestaSQLProfilerModule::addQuery($sql, microtime(true) - $start, $e->getTrace(), $result ? $this->_numRows($result) : 0);
+        }
+        return $result;
+    }
+}

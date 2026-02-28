@@ -1,0 +1,147 @@
+/**
+ * 2008-2024 Prestaworld
+ *
+ * NOTICE OF LICENSE
+ *
+ * The source code of this module is under a commercial license.
+ * Each license is unique and can be installed and used on only one website.
+ * Any reproduction or representation total or partial of the module, one or more of its components,
+ * by any means whatsoever, without express permission from us is prohibited.
+ *
+ * DISCLAIMER
+ *
+ * Do not alter or add/update to this file if you wish to upgrade this module to newer
+ * versions in the future.
+ *
+ * @author    prestaworld
+ * @copyright 2008-2024 Prestaworld
+ * @license https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+ * International Registered Trademark & Property of prestaworld
+ */
+.presta-button {
+    float: left;
+    width: 50%;
+    height: 54px;
+    position: relative;
+}
+
+.presta-button label, .presta-button input {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0px;
+    height: 52px;
+    cursor: pointer;
+}
+
+.presta-button input[type="radio"] {
+    opacity: 0.011;
+    z-index: 100;
+}
+
+.presta-button input[type="radio"]:checked + label {
+    background: #24b9d7;
+    color: white;
+}
+
+.presta-button label {
+    cursor: pointer;
+    z-index: 90;
+    line-height: 1.8em;
+    font-size: 20px;
+}
+
+#presta_custom_field .Checkbox {
+    display: flex;
+    row-gap: -3px;
+    column-gap: 7px;
+    padding: 9px;
+    align-items: center;
+}
+
+#presta_custom_field .radio_button {
+    display: flex;
+    row-gap: -3px;
+    column-gap: 7px;
+    padding: 9px;
+    align-items: center;
+}
+
+#presta_custom_field .dropdown_values,
+#presta_custom_field .col-md-6.presta_notice_messages,
+#presta_custom_field .presta_yes-no {
+    margin-top: 10px;
+}
+
+#presta_custom_field select.presta_rf_selected {
+    width: 66%;
+    margin-left: -14px;
+}
+
+#presta_custom_field .required {
+  color: red;
+}
+
+#presta_custom_field span.ps-shown-by-js {
+    margin: 6px;
+}
+
+#presta_custom_field .col-md-9.presta_yes_no {
+    margin-top: 10px;
+}
+
+/* #presta_custom_field select {
+    width: inherit;
+} */
+
+#presta_custom_field span.custom-checkbox {
+    display: block !important;
+}
+
+#presta_custom_field input.form-control {
+    margin-top: 9px;
+}
+
+#presta_custom_field .form-group.row.presta_multipleSelected {
+    margin-left: 4px;
+}
+
+#presta_custom_field p.presta_custom_error_msg {
+    color: red;
+    margin: 0 auto;
+    width: 47%;
+}
+
+#presta_custom_field select#presta-dropdown,
+#presta_custom_field .form-group.row.presta_field-dependant {
+    margin-top: 11px;
+}
+
+#presta_custom_field select.form-control.dependent.presta_rf_selected {
+    margin-left: 0px;
+    width: 65%;
+}
+.presta-btob-btns {
+    border: 1px solid #24b9d7;
+    height: 54px;
+    margin-bottom: 10px;
+}
+.presta-custom-field-errors {
+    color: #ff0000;
+}
+.top-link-btn{
+    color: white;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-left: 3px;
+    padding-top: 12px;
+}
+.top-link-text{
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+}

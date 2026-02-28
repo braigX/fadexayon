@@ -1,0 +1,5 @@
+Ahoj {customer_name},
+Děkujeme za vaši zpětnou vazbu k příspěvku na našem blogu: {post_title}
+Tento e-mail potvrzuje, že jsme obdrželi vaši cennou zpětnou vazbu.
+Vaše zpětná vazba: {feedback}
+Byl příspěvek užitečný: {polls_helpful}

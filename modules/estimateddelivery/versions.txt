@@ -1,0 +1,506 @@
+#Estimated Deliery
+## Versions History
+
+1.0.0 First release
+1.1.0 Better compatibility with Prestashop 1.5.x versions
+1.1.1 Added dropshipping compatibility
+1.1.2 Added CSS Tooltip Display
+1.1.3 Code optimization
+1.1.4 Bug Fixing and same delivery date displayed only once
+1.1.5 Now carriers can be disabled individually through the Product > Shipping tab
+1.2.0 Added Standard delivery time for non defined carriers & Better carrier sorting
+1.2.1 Added locale detection, fixed and encoding bug
+1.2.2 Better Date Sorting
+1.2.3 Better Locale detection code
+1.2.5 Small bug in JS variations without stock fixed
+1.3.0 Better locale detection system for correctly displaying the Dates
+1.3.2 More date format options
+1.3.3 Make improvements on the State detection
+2.0.0 Added mode options and individual control, new display system, carrier alias, carrier disable...
+2.0.1 Improved Spain Province detection system
+2.0.2 Now Estimated Delivery prints relative dates like Today and Tomorrow
+2.0.3 Added a secondary Geolocation system
+2.0.4 Some bugs fixed
+2.0.5 Tabs Content Added
+2.0.6 Added a this Geolocation system, now once a user is geolocated it stores a cookie to make browsing faster
+2.0.7 Added a tooltip switch for themes that doesn't support it
+2.0.8 Fixed a bug on Sundays
+2.0.9 Minor fixes
+2.1.0 Better compatibility for 1.5.X versions
+2.1.1 Better Warehouse detection
+2.1.2 Feature requested: Added product / category OOS days
+2.1.3 Bug Fixes
+2.1.4 Improved the amazon display style
+2.1.5 Better combination detection and OOS days
+2.1.6 Minor Bug Fixes
+2.1.7 Instant delivery for virtual products
+2.1.8 Added available date for preorder products
+2.1.8 Fixed a bug in date calculation on combinations with Oos
+2.2.0 Added an advanced mode for debugging and override
+2.2.1 Improved coding for location detection
+2.2.1 Improved combination OOS days calculation func
+2.2.1 Bugs fixed
+2.2.2 Improved date calculation on oos days, code optimization
+2.2.2 Better Multi-shop support
+2.2.3 Code improvement
+2.2.3 Added Beta feature, ED on product lists
+2.2.4 Added increase picking days by product feature
+2.2.5 UX and functionality improved for 1.5
+2.2.5 Take into account user group show_price option
+2.2.6 Improved the state detection and covered failure cases
+2.2.7 Module update reviews - Reapply missing updates
+2.2.7 Better locale encoding
+2.3.0 Add Estimated Prices to Estimated Delivery
+2.3.0 Compatible with PrestaShop 1.7.X
+2.5.0 Added the ED to order process
+2.5.0 Estimated delivery is saved on the database
+2.5.0 Estimated delivery can be accessed through BO and in the Order History
+2.5.1 Bugs Fixed
+2.5.1 Better stock detection for product listing
+2.5.1 Estimated Delivery on orders can be modified through the BO
+2.5.1 Added Italian Translation
+2.5.1 Added Deutsche Translation
+2.5.1 Added Portuguese Translation
+2.5.1 Added Dutch Translation
+2.5.2 Compatible with SuperCheckout Module
+2.5.2 Individual and shorter template for ED in product Listings
+2.5.3 Fixed a bug in Holidays calculation
+2.5.4 Small bug fix on OOS product stock detection
+2.5.4 Fixed a small issue with products out os stock with slaes enabled in checkout process
+2.5.5 Fixed a small bug on stock detection for PS 1.7
+2.5.5 Fixed a bug on picking calculation when picking and shipping did not match
+2.5.5 Better massive select and unselect for section 2.2 and 2.3
+2.5.6 Improved ED cart JS
+2.5.6 Better multi-shop support
+2.5.6 Improved French translation
+2.5.7 Better OOS detection on Product Lists
+2.5.7 Better OOS performance on Product Pages
+2.5.7 Better Calculation for ED in the order process when there more products than stock (and sales enabled)
+2.5.8 Updated to be compatible with Presta 1.7.2.0
+2.5.8 Fixed a bug for shops not using the stock managment feature
+2.5.8 Added Spanish MX Translation
+2.5.8 Added Spanish CL Translation
+2.5.8 Added Czech Translation
+2.5.8 Added Norweigan Translation
+2.5.9 Added Additional picking days by manufacturer
+2.6.0 ED on product List feature for Prestashop 1.7
+2.6.1 Added Additional picking days by manufacturer
+2.6.2 Added more options to ED in Product Listing
+2.6.3 Fixed a small bug on ED in order when product has 1 stock
+2.6.4 Small bug fixed on holidays (in cart)
+2.6.4 New configuration options for the order process
+2.6.5 New options to display an advice for those orders who does have a longer delivery date
+2.6.5 Added availability_date notice in Prestashop 1.7 for a product with a future available date and without stock
+2.7.0 Individual carrier settings allowed for each shop (multi-shop sites)
+2.7.1 Better ED in order process
+2.7.1 Improved code for ED in products listing
+2.7.1 Improved Combination change detect in PS 1.7
+2.7.2 Added an option to force disable the ED for OOS products
+2.7.2 More positioning options for 1.7.X versions
+2.7.3 Improved multishop brand / supplier additional picking days behaviour
+2.7.3 Improved module's 3rd display stile to have a better structure and performance on date calculation.
+2.7.4 Category Exclude from ED
+2.7.4 Disable ED now breaks the Calculation process if one of the items in the cart can't be computed to display a delivery
+3.0.0 Code renewal
+3.0.0 Improved Combination detection system
+3.0.0 Module implementation to be able to work at combination level
+3.0.0 ED in product list now available in PS 1.7.X (may need adjustments depending on the theme)
+3.0.0 ED in the email templates (Add it with just a line of code!, won't work if you already have an override in the PaymentModule class)
+3.0.1 Fixed an Installation issue
+3.0.1 Fixed a bug on Global OOS add days
+3.0.2 Added OOS days by supplier
+3.0.2 Bug fixes in complex combination additional day calculations
+3.0.2 Add reset procedure to Reset the parameters and hooks but keeping the vacations saved
+3.0.2 Code improvement for free carriers
+3.0.2 Improved getProductCarriers
+3.0.2 Fixed an issue with advanced carriers
+3.0.2 Added the product's minimal quantity to the OOS calculation
+3.0.2 Added new format for the date in the product list.
+3.0.3 Improved Combination detection PS 1.7
+3.0.3 Added carrier weight restrictions to limit the carriers for the ED
+3.0.3 Improved the free shipping detection conditions
+3.0.3 Corrected the calculation for validate order for orders with the exact amount as the remaining shop's stock
+3.0.3 Fixed Holidays add new
+3.0.4 Improved compatibility with older versions in order process
+3.0.5 Small fix on Configuration page
+3.0.5 Fixed a bug on Price calculation giving false "free shipping" prices
+3.0.6 Improved Preorder and Available later ED in order process
+3.0.6 Improved OPC PS compatibility
+3.0.6 Force all carriers to be enabled in the order process
+3.0.7 Changed the Delivery class name to avoid conflicts with other modules
+3.0.7 Fixed an issue on confirmation dates for products oos
+3.0.7 Fixed an issue on Product additional delivery days
+3.0.7 Fixed an issue with picking time calculation
+3.0.8 Added Brand for OOS Days
+3.0.8 DataBase tables restructuration to save resources and optimize procedures
+3.0.8 Small fix on displaying carriers on cart
+3.0.8 Established a limit of 0.08 seconds to check and retrieve the data from the IP
+3.0.8 Small improvement for Products with combinations using the Order Before style for PrestaShop 1.6
+3.0.9 Several improvements on LDA Feature (Long Delivery Advice)
+3.0.9 Improved SQL for zone to prevent it from returnning id = 0
+3.0.9 Added Ignore Picking option for carriers
+3.0.10 Improved the order delivery time calculation
+3.0.10 Fixed a small issue with combinations
+3.0.10 Improved additional picking days
+3.1.0 Fixed an issue with delivery dates when changing an order state
+3.1.1 Improved installation procedure
+3.1.1 Improved ED in email templates, the override is no needed anymore to display the ED in the emails.
+3.1.1 Improved the ED Date update procedure when a order state changes
+3.1.1 New options to manually update date from the Order History panel in the Back Office
+3.1.2 Improved PrestaShop 1.5 compatibility
+3.1.2 Solved an issue in holidays calculation
+3.1.2 Improved module's debug mode to not interfere with ajax procedures
+3.1.3 Improved override remove procedure for updating versions
+3.1.3 Added compatibility with One Page Checkout module (onepagecheckout)
+3.1.3 Added a date format selector for email messages
+3.1.4 Fixed a translation issue with library items not using the specific feature
+3.1.5 Added a filter to remove carriers out of Range (weight or price) from the ED calculation.
+3.1.5 Optimized add price to Estimated Delivery feature
+3.1.5 Fixed a small issue for Estimated Delivery data on non paid orders
+3.1.5 Fixed a JS error in ED display in Back Office
+3.1.5 Fixed an issue on first order stages
+3.1.5 Big performance improvement on ED calculation for products with combinations in 1.6 versions
+3.1.5 Improved Free delivery detection
+3.1.6 New method to increase the estimated delivery variable in email templates
+3.1.6 Improved compatibility with OnePageCheckout PS module
+3.1.6 Improved Carrier selection on order process (customer groups)
+3.1.6 Improved the display of the ED in the orders (after the carriers option)
+3.1.7 Reviewed product with Release Date and Available date behaviour on the checkout process
+3.1.7 Improved performance when different type of products are present in the cart
+3.1.7 Added Sandbox mode
+3.1.7 Added Prices Drop and Best Sales template support for Estimated Delivery in Product List
+3.1.7 Improved Time To Picking feature
+3.1.7 Added ED generation to admin order details
+3.1.7 Added special encoding option
+3.1.8 Fixed a character encoding issue
+3.1.8 Fixed a small notice on city_equivalances
+3.1.8 Improved Shipping Calculation
+3.1.8 Fixed a small issue with Gifts on cart
+3.1.8 Better locale detection for email messages
+3.1.8 Updated display price 0.0 to Free
+3.1.8 Fixed an available date issue
+3.1.8 Fixed an issue with newly created combinations
+3.1.8 Fixed handling on free carriers
+3.1.9 Compatible with PrestaShop 1.7.6
+3.1.9 Fixed an issue with some Virtual product date creation
+3.1.9 Fixed an issue with product page combinations in PS 1.7.5.2
+3.1.9 Improved the last resort query to not add the deleted carriers
+3.2.0 Fixed a small issue on product page
+3.2.0 Fixed a carrier restriction issue
+3.2.0 Improved the display message for sandbox mode
+3.2.0 Fixed an issue with virtual products
+3.2.0 Improved translations for emails for PS versions below 1.7.3
+3.2.0 Improved the countdown mode
+3.2.1 Improved Sandbox mode
+3.2.1 Fixed a small issue with Holiday names containing apostrophes
+3.2.1 Improved the combination detection and display
+3.2.1 Improved the carrier restriction with combinations
+3.2.1 Added product packaging dimensions restriction for carriers
+3.2.1 Improved display mode: Time to picking
+3.2.1 Optional "Today" and "Tomorrow" usage for the module
+3.2.1 Solved an issue with the "Force Country" mode and the Geo IP by State
+3.2.2 New Hook for Product Listing displayEDInProductList
+3.2.2 Added 8 new date formats
+3.2.3 Added a new feature: Disable ED in Order Detail after Shipping
+3.2.3 Fixed a small issue with Today/Tomorrow special words delivery dates
+3.2.3 Improved One Page Checkout Modules integration
+3.2.4 Fixed an issue with new orders date creation for products that reach exactly 0 quantity after the order
+3.2.4 Fixed a notice with ignore ED for carrier in order process
+3.2.4 Solved a combination issue
+3.2.5 Added new location: PS 1.7 tabs
+3.2.5 Compatibility with Pack products and Advanced Pack (module) products. ED calculates the Estimated Delivery based on the products of the pack
+3.2.5 Reviewed available date feature, now there is the possibility to calculate the date or show a special message. When date is calculated from the available_date the OOS Days feature is not applied
+3.2.5 Fixed an issue with the picking countdown when holiday was closing in
+3.2.6 Improved price display and free price calculation with different currencies
+3.2.6 Fixed an issue preventing the additional picking days to be applied
+3.2.6 Fixed a display issue in the Module tab from the Prdouct edit page
+3.2.7 Fixed a minor issue in the display of the BO menus
+3.2.7 Fixed a bug on empty shipping or delivery days that caused a minor error. Now the module sets the default weekdays if this kind of misconfiguration is present
+3.2.8 Fixed a small issue on new orders occasionally making the page to not refresh
+3.2.8 Improved compatibility for PS 1.5 and older 1.6 versions
+3.2.8 Improved debugging options: Date can be forced to test the Estimated Deliveries
+3.2.8 Improved LDA on orders
+3.2.8 Improvements in combination detection system
+3.2.8 Fixed a Forced Date issue with recalculation of the Estimated Delivery
+3.2.8 Small fix on class detection in email after the order
+3.2.8 Fixed a small notice when adding the estimated delivery variable in the emails
+3.2.8 Improved the force carriers feature on order process, now you can choose what carriers to re-enable
+3.2.9 Added a new special hook to display the delivery time after each item in the summary (Beta version, only works on default theme structure)
+3.2.9 Improved UX to have a better awareness of advanced settings
+3.2.9 Fixed a small delivery calculation error multiple products calculation
+3.2.9 Added a very basic compatibility for sites using AMP in the checkout process
+3.2.9 Fixed a small issue causing wrong dates in orders
+3.3.0 Added optional behaviour for pack products to be treat as an individual product or as a collection of products
+3.3.0 Improved Estimated Delivery time for packs on product list
+3.3.0 Improved Order Summary display
+3.3.0 Improved 1.6 combination detection, added some delayed checks
+3.3.1 Improvements on Release and Available dates management in orders
+3.3.1 Improved the handling or orders with Virtual Products
+3.3.2 Added multi picking times
+3.3.2 Improved handling of carrier's groups
+3.3.2 Fixed small issue with pre-relase date display
+3.3.2 Improved multi-picking behaviours in Order Details
+3.3.2 Fixed a warehouse issue when detecting some carriers
+3.3.3 Added a date format selector for special date types (Available and Release)
+3.3.3 Fixed an issue with picking limit display
+3.3.3 Fixed an issue with the past available dates validation
+3.3.3 Fixes an error on the date calculation for combinations that reached stock 0 after the purchase
+3.3.3 Fixed the combination check for the additional oos and picking days
+3.3.3 Fixed a small error preventing the order to validate / change the state in some cases
+3.3.3 Template adaptation for Admin orders in PS 1.7.7.1
+3.3.3 Added backward PHP's compatibility for the array_key_first
+3.3.3 Fixed an issue which prevented to detect the available_date in 1.6 combinations
+3.3.3 Fixed an issue with the time to picking display mode with multiple picking times
+3.3.3 Individualized days_to_add for time to picking calculation
+3.3.3 Fixed a little bug with days_to_add variable
+3.3.3 Updated the Super-checkout behaviour to not remove the carrier label
+3.3.3 Added an option to disable the Product Carriers check for sites where their carriers are handled directly by a module
+3.3.3 Fixed a small issue with 1.6 combinations that prevented the OOS Days from being applied in some cases
+3.3.3 Updated combination validation procedure
+3.3.3 Fixed an issue with the release date calculation in the order process
+3.3.4 New placement
+3.3.4 New optimized combination detection system for 1.7
+3.3.4 New option: Display the default carrier first
+3.3.4 New option: Sort the carriers according to the priority
+3.3.4 New option: Disable the Geolocation
+3.3.4 New option: Display the Estimated Delivery dates on invoice
+3.3.4 New option: Allow to display the individual dates
+3.5.0 New option: Display Estimated Delivery on modal add to cart
+3.5.0 ED can be displayed now on the Back Office orders list
+3.5.0 New option: Estimated Delivery custom placement. Now any position is posible through a custom selector
+3.5.0 New option: Repeatable holidays. Holidays that repeat each year can now be created
+3.5.0 New feature: Live Estimation based on the current product quantity on product page
+3.5.0 New dedicated menu for the special dates
+3.5.1 Bug fixes
+3.5.1 Small fix on combinations in 1.6 versions
+3.5.1 Solved a small fix on OOS false positives
+3.5.1 Added live Estimated Delivery Update on cart details
+3.5.2 Added Customizations Extra time
+3.5.3 Fixed an issue with combinations on PS 1.6
+3.5.4 Added customization days feature
+3.5.4 Added Delayed Delivery Warning feature
+3.5.4 Added an option to limit the displayed hours for the countdown mode
+3.5.4 Added an independent table to handle the individual delivery dates
+3.5.5 Improved the time to picking calculation procedure
+3.5.5 Fixed a small issue on negative quantity orders
+3.5.5 Fixed an issue with the display of a non definitive date when individualized delivery dates setting is active
+3.5.6 Fixed display issue with custom placement
+3.5.7 Fixed small issue when processing Holidays / No delivery days
+3.5.7 Fixed an issue with the 1.6 versions when updating
+3.5.7 Improved the upgrade procedure just in case the updates doesn't complete on the first run
+3.5.8 Added New controller to display orders by picking date
+3.5.8 Order Picking date and Shipping date will be displayed in the orders list (PS 1.7)
+3.5.8 Added compatibility with the Amazon Marketplace picking dates for the Order Picking section
+3.5.8 Fixed an issue with pre-order dates for combinations
+3.5.8 Fixed an issue with the availability date for products with positive quantities
+3.5.9 Improved UI and UX from the new section "Delivery Times by Zone"
+3.5.9 Fixed an issue in the ED update/recalculation feature inside the order details
+3.5.9 Improved the saved picking time
+3.5.9 Fixed some issues with the individual date generation
+3.5.9 Added the double date display mode
+3.6.0 Fixed an issue when saving the custom messages data
+3.6.0 Fixed some notices when the ED was not successfully generated for an order
+3.6.1 Fixed a date duplication issue
+3.6.1 Added compatibility with the OPC module "The Checkout"
+3.6.2 Fixed a small bug on the install procedure
+3.6.3 Fixed a small issue on the AdminOrders picking / shipping column generation (PS 1.7)
+3.6.3 Improved picking limit times
+3.6.3 Fixed a small bug on commonCarriersRecursive from deliveryHelper
+3.6.3 Fixed a productsList issue when the delivery returned false
+3.6.4 Added a Product Disable / exclusion Feature
+3.6.4 Fixed a small bug when generating orders with disabled carriers
+3.6.5 Added an optional feature to be able to let the customer choose the desired delivery date for the order in a calendar
+3.6.5 Improved ED for individual date display on Back office orders
+3.6.5 Fixed a small issue preventing the save action in the product edit page
+3.6.5 Fixed an issue which prevented the loading of the categories already excluded in the module's configuration page
+3.6.5 Fixed an issue with advanced mode which prevented processing the client's IP if the advanced options are not active
+3.6.5 Added compatibility for the module Advanced Search 4
+3.6.5 Added Smart Form to improve the module descriptions
+3.6.6 Code review and cleanup
+3.6.6 Improved UX
+3.6.6 Small modification in the calendar days behavior (now instead of the natural days the number represents the selectable days)
+3.6.6 Improved Smart Form
+3.6.6 Improved disabled product detection & update
+3.6.7 Fixed a small issue which mistook the availability of the products in the order updates
+3.6.7 Prevent nested packs from being processed as individual products to prevent memory issues
+3.6.7 Improved Warehouse detection
+3.6.7 Small notice fixes
+3.6.7 Fixed an issue related to the geolocation detection disabled
+3.6.7 Optimized combination handling on 1.6 (generation limited to only 1 date to optimize performance)
+3.6.8 Added a check on product update to prevent issues with programmatically updated products
+3.6.8 Improved product enable/disable feature
+3.6.9 Added Import Feature to the module (beta phase)
+3.6.10 Small upgrade fix
+3.7.0 Improved Import system
+3.7.1 Fixed a small bug triggering the customization days on non customizable products.
+3.7.1 Fixed a bug on preventing the order state update on some versions
+3.7.1 Added the option to display / hide the ED data in the orders list
+3.7.2 Orders section UX / UI Improvement. Features sorted and added more detailed descriptions of each one
+3.7.2 Improved the checkNext flexibility in case the picking limit has not been configured
+3.7.2 Fixed an issue triggered when changing the order status in some PS versions
+3.7.2 Small bug fixes
+3.7.3 Added new hook for Modal view (displayCartModalContent) - only newer versions with hook support
+3.7.3 Fixed a small notice generated by the mb_detect_encoding function
+3.7.3 Improved Advanced encoding validation
+3.7.4 Improved results sorting
+3.7.4 Holiday small improvements
+3.7.5 Improved countdown calculation
+3.7.5 Improved module's debug info
+3.7.5 Improved the delay days display on the Back Office for ajax loaded category related settings
+3.7.5 Small improvement on the Geolocation and the stored cache, now changing IP address will revoke the cache
+3.7.5 Improved disabled product check for multi-shop
+3.7.5 Improved the Preview feature, added the previews for Picking day and the double display modes
+3.7.6 Fixed an issue with the today and tomorrow special keywords
+3.7.6 Fixed a small bug on time to picking display mode with today/tomorrow display
+3.7.6 Rounding the dates when calculating the date difference for special keywords usage to prevent issues
+3.7.6 Improved the carriers popup feature
+3.7.6 Removed special date keywords from Back Office orders to always see the delivery date
+3.7.6 Improved UI / UX from Product Edit page
+3.7.6 Added additional helpers on the Product Edit Page
+3.7.7 Improved the generated info when module's debug mode is active
+3.7.7 Fixed a small issue with delivery range dates for logged in customers
+3.7.7 Improved the display on the Products List view
+3.7.7 Fixed a small issue
+3.7.7 Improved some features compatibility with the multi-shop feature
+3.7.7 Improved display Cart Modal feature
+3.7.7 Fixed an issue with the combination data sorting and saving
+3.7.7 Limited size for the carriers images in the Popup View
+3.7.8 Upgraded the live update for the order summary step
+3.7.8 Fixed some issues on PS 8.0.2 initial installation
+
+3.7.9 Improved BO delivery date regeneration
+3.7.9 Added debug generation times in the advanced options
+3.7.9 Remove the type cast in the DateFormat and DateFormatter to prevent issues with older PHP versions
+3.7.9 Optimized generation times for shops with a large number of categories and limited resources
+3.7.9 Improved Calendar Dates
+3.7.9 Added the option to print the debug information directly on pages (useful to see the debug info when HTML is cleaned and comments removed)
+3.8.0 Improved the combination handling, reduced the requested queries for products with combinations by 5
+3.8.0 Added the option to disable the Estimated Delivery on a combination level
+3.8.0 Added the option to set up undefined delivery dates on products without stock by supplier
+3.8.1 Added a new option to display only the current product delivery time.
+3.8.1 Fixed issues with carrier restriction
+3.8.1 Fixed issues with getAddrCarrier when the cart was empty
+3.8.2 Fixed small issue with deliveries list which didn't have a item on the 0th position and caused a notice
+3.8.2 Rearranged the Advanced settings to have a clear order
+3.8.2 Added an option to allow the module to directly check on the database the quantity available
+3.8.2 Added an child-option to allow the module to create a pseudo OOS state if the direct check option is enabled
+3.8.2 Increased the z-index for the popup carriers feature to prevent underlay displays with some themes
+3.8.2 Improved modal display handling (prevent duplicates if both, the hook and the JS script executes)
+3.8.2 Fixed a small JS error on PS 1.6 versions when loading the trees dynamically
+3.8.2 Added undefined delivery days option for Manufacturers
+3.8.3 Improved the estimateddelivery-cart-line template behavior so save resources and look for changes mor efficiently
+3.8.3 Improved some old upgrades
+3.8.3 Improved the Visuals and UX for section 4.1 Carrier Delivery Zone Intervals
+3.8.3 Unified config names
+3.8.3 Improved form generation
+3.8.3 Fixed CSV import issue with combinations
+3.8.3 Fixed an issue with the holiday ADD/REMOVE
+3.8.3 Rearranged the holidays list to appear alongside with the form to add new holidays
+3.8.3 Improved section descriptions
+3.8.4 Added compatibility with PM AdvancedPack 5 to detect product quantity changes
+3.8.4 Improved the tab magic menus script to remember the last active section
+3.8.4 Added a condition to display the carrier prices depending on the global tax settings
+3.8.4 Fixed a small issue with OOS products on orders
+3.8.4 Improved undefined delivery days on orders
+3.8.4 Fixed an issues with updateED in orders when the SmartForm has not been initialized and there is some kind of error to be displayed
+3.8.4 Added a system to better integrate the undefined delivery dates throughout all the order process
+3.8.4 Added new options to improve the undefined delivery dates system by adding some extra texts and parameters
+3.8.4 Added a new feature to notify the admins once a undefined delivery order has been created
+3.8.5 Small improvement on the product's edit page, module section to improve compatibility
+3.8.5 Improvement on the delayed category data loading
+3.8.6 Improved the ed_holidays table to increase compatibility with Maria DB
+3.8.6 Added a delayed date picker loading if an OPC is active
+3.8.7 Improved the handling and efficiency of the pre-sale dates calculation
+3.8.8 Creative Elements auto detection and suggestions. Now the module suggests changes in the settings if the Creative Elements Page Builder is detected to improve the performance
+3.8.8 Fixed a display issue when a carrier was selected on the carrier steps and user visited a product afterwards
+3.8.8 Fixed a condition that prevented the All Carriers Popup from being displayed in some cases
+3.8.8 Improved the date refresh of the module with some OPC modules, where the individual dates as well as the global date is updated dynamically now
+3.8.8 Improved the import system
+3.8.8 Improved the compatibility for systems having used both date display systems for the orders (global date display and product individual delivery date)
+3.8.8 Fixed a compatibility issue with third party modules trying to send email without a cart or employee set. In those cases, the module will not add the {estimateddelivery} variable
+3.8.9 Extended the Order Picking Controller with more display options and columns
+3.8.9 Improved the zone check and the checking procedure of the carrier restrictions
+3.9.0 Improved the date calculation selector
+3.9.0 Removed unused configurations
+3.9.0 Improved CSV-Importer
+3.9.0 Fixed an error on when generating the picking day display for non-validated orders
+3.9.0 Added empty var content for orders without an Estimated Delivery.
+3.9.0 Fixed current order calculation on carriers display
+3.9.0 Fixed carrier_min notice on first install when no carriers are configured
+3.9.0 Improved BO regenerate date behavior
+3.9.0 Improved the SmartForm class loading
+3.9.0 Improved the holiday repeatable management and processing
+3.9.0 Fixed a date display issue on ambiguous dates the picking day on the order list controller from the BO
+3.9.0 Fixed an issue with the ed_custom_days variable which wasn't updated
+3.9.1 Improved Calendar Dates Behavior
+3.9.1 Improved the compatibility of the Popup carriers with the double display mode
+3.9.1 Improved the calendar UI and UX on the shopping cart summary
+3.9.1 Improved the custom date descriptions in the BO
+3.9.1 Improved the datepicker translations on the front
+3.9.1 Small code optimization
+3.9.1 Improved double-display template
+3.9.2 Added new options for the Popup Display button
+3.9.2 Now the popup display can be called also from the class .ed_popup allowing custom links or buttons for the display button
+3.9.2 The time reference options variables have been added to the EDDelivery class, allowing any template to use them instead of only the default ones
+3.9.2 Automatically fixes maximum delivery days when the delivery days are less then the minimum delivery
+3.9.2 Improved the dismiss locales check feature
+3.9.2 Added the option to be able to repeat the carrier in the double display mode
+3.9.2 Small improvements on the global set of the order before variables
+3.9.2 Calendar cookie initialization when the order process starts to prevent unassigned possibilities
+3.9.2 Further improved the saved calendar value to avoid empty calendar values and automatic removal of pre-saved calendar dates older than 7 days
+3.9.2 Improved the view for the new options on the display All carriers popup feature on mobile view
+3.9.2 Reviewed and improved the functions related to the rest parameters
+3.9.2 Reviewed and improved the functions that manages the days added
+3.9.2 Improved the re-population feature for combinations when custom placements are used
+3.9.2 Fixed a display issue on carriers configurations when using the multi-shop feature
+3.9.2 Fixed a multi-shop on the cart process
+3.9.2 Improved product page ajax detection procedure
+3.9.2 Further improved and simplified the TOT usage
+3.9.3 Fixed LDA saving/updating issue
+3.9.3 Fixed Order Picking controller orders not being filtered
+3.9.3 Improved LDA display
+3.9.3 Small CSS improvements
+3.9.4 Added an additional display mode for ED in products listing
+3.9.4 Added the option to limit the display on the products listing based on the days
+3.9.4 Added a new option to be able to display the longest picking date if several carriers have the same delivery
+3.9.4 Improved the placement JS to improve the Tuesday date translation for Polish users
+3.9.4 Fixed some small bugs
+3.9.4 Improved install and uninstall procedure
+3.9.4 Improved actionCarrierUpdate hook
+3.9.5 Further improved Polish date particularities to be able to generate the future weekdays
+3.9.5 improved estimated delivery list template date format condition check
+3.9.5 Added JoliSearch Controller compatibility for product listings
+3.9.5 Added CMP Days variable to keep the days difference between the actual date and the delivery one
+3.9.5 Improved the Shipping date calculation, for display Picking modes
+3.9.5 Improved a bit the Delayed Delivery order state detection check, to prevent unnecessary work if the feature is not enabled
+3.9.6 Increased the ajax refresh compatibility of the carrier selection in the order process for PS 1.6 with One Page Checkout module
+3.9.6 Fixed a stock detection issue on Advanced Warehouses management
+3.9.6 Improved pack date estimation on the cart and in the orders
+3.9.6 Added Apollo Page Builder to the automatic detection settings for page builders.
+3.9.6 Added a delay to prevent closing the popup too soon.
+3.9.6 Improved ED Product Placement for sites that are generated dynamically or take more time to load
+3.9.6 Fixed URL error on Delayed delivery Warnings
+3.9.6 Improved data-picker loading for calendar dates
+3.9.6 Added the Delayed Delivery warning templates for all languages
+3.9.6 Improved Spanish translations
+3.9.6 Improved summary display. Now results are sorted
+3.9.6 Improved summary individual dates display. Now results are sorted
+3.9.6 Updated the Individual delivery email templates translations
+3.9.6 Fixed a translation issue on quick-view
+3.9.6 Fixed a display issue for customizable products with an available date needed to be displayed
+3.9.6 Improved the code to add the {estimateddelivery} data to the emails
+3.9.7 Improved and extended the usage of the Cache class to optimize the module generation
+3.9.7 Improved the ED Custom Placement feature duplicates prevention
+3.9.8 Improved Holidays management, now holidays are multi-shop compatible
+3.9.8 Improved old upgrade files to prevent issues when the upgrade fails and need to be repeated
+3.9.8 Fixed bugs when using webservices to generate orders
+3.9.8 Improved the calculation for the carrier restrictions application while in the order process
+3.9.8 Added a Hook Management section to easily activate or deactivate the module's hooks
+3.9.8 Improved multishop management for date modifiers
+3.9.8 Updated theme structures
+3.9.8 Fixed some small issues on the Product Edit Page options
+3.9.8 Improve the UX / UI on the Product Edit Page options
+3.9.8 Fixed a small issue when all products in the cart had the delivery generation excluded
+3.9.8 Fixed some small issues with the Deliveries filtering options
+3.9.8 Moved hook display generation to a TPL
+3.9.8 Updated and improved the security of the module's SQL

@@ -1,0 +1,5 @@
+Ahoj {author_name}
+{reporter} právě nahlásil komentář k {post_title} jako zneužitý.
+{comment}
+Zobrazit komentář
+

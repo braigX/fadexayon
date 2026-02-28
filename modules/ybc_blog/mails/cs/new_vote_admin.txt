@@ -1,0 +1,3 @@
+Blogový příspěvek: {post_title}
+Zpětná vazba: {feedback}
+Příspěvek je užitečný pro zákazníka: {polls_helpful}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>pm_seointernallinking</name>
+    <displayName><![CDATA[SEO Internal Linking]]></displayName>
+    <version><![CDATA[1.2.3]]></version>
+    <description><![CDATA[Permet la cr&eacute;ation d&#039;un maillage interne automatique de votre boutique ! Ce module vous aide &agrave; cr&eacute;er une s&eacute;rie de liens sur vos pages d&#039;accueil, produits, et cms afin d&#039;am&eacute;liorer votre r&eacute;f&eacute;rencement.]]></description>
+    <author><![CDATA[Presta-Module]]></author>
+    <tab><![CDATA[seo]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+</module>

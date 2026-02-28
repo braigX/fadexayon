@@ -1,0 +1,9 @@
+[{shop_url}]
+
+Ciao {person_name},
+{from_person_name} ha apprezzato il tuo {object} su {product_name}
+
+{content}
+
+{shop_name} [{shop_url}] realizzato da
+PrestaShop(tm) [http://www.prestashop.com/]

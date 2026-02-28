@@ -1,0 +1,10 @@
+[{shop_url}]
+
+Hola {admin_name},
+{customer_name} envió {object}. Por favor revise su contenido y tome su decisión:
+
+{product}
+{content}
+
+{shop_name} [{shop_url}] impulsado por
+PrestaShop(tm) [http://www.prestashop.com/]

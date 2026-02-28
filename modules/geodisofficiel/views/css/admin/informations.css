@@ -1,0 +1,56 @@
+.formConnexion--input {
+    min-width : 220px;
+    margin-top : 20px;
+}
+
+.formConnexion {
+    margin : auto;
+    width : 400px;
+}
+
+.formConnexion * {
+    text-align : center;
+}
+
+.process-icon-ok {
+    color : green;
+    display: inline-block;
+    margin-right: 10px;
+    position: relative;
+    top: 4px;
+}
+
+.process-icon-cancel {
+    color : red;
+    display: inline-block;
+    margin-right: 10px;
+    position: relative;
+    top: 4px;
+}
+
+.process-icon-help {
+    margin-top: 5px;
+    color : blue;
+}
+
+.center {
+    text-align : center;
+}
+
+.formConnexion--button {
+    margin-top : 20px;
+}
+
+.secretKey {
+    display : block;
+}
+.formConnexion-textError {
+    color: red;
+}
+.formConnexion-successMessage {
+    color: red;
+}
+
+.information-synchronization {
+    margin-top : 20px;
+}

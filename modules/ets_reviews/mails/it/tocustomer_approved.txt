@@ -1,0 +1,9 @@
+[{shop_url}]
+
+Ciao {customer_name},
+Il tuo {object} su {product_name} è stato approvato e pubblicato.
+
+{content}
+
+{shop_name} [{shop_url}] realizzato da
+PrestaShop(tm) [http://www.prestashop.com/]

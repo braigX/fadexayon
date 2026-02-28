@@ -1,0 +1,5 @@
+Cześć {customer_name},
+{commented_customer_name} właśnie odpowiedziała na Twój komentarz do {post_title}
+{comment_reply}
+Zobacz odpowiedź
+

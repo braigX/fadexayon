@@ -1,0 +1,248 @@
+/**
+* 2007-2023 PrestaShop
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+* @author    Ádalop <contact@prestashop.com>
+* @copyright 2023 Ádalop
+* @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*
+*/
+
+.not-active {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  color: black;
+  display: none !important;
+}
+
+#tab_help span.faq-h1 {
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+#tab_help span.faq-h2 {
+    font-size: 14px;
+    display: block;
+    cursor: pointer;
+}
+
+#tab_help span.faq-h2:hover {
+    color: #25B9D7;
+}
+
+#tab_help span.faq-h2.faq-open {
+    color: #25B9D7;
+    font-weight: bold;
+}
+
+#tab_help span.faq-h2 i {
+    font-size: 13px;
+    margin-right: 2px;
+}
+
+#tab_help > ul {
+    list-style: none;
+}
+
+#tab_help > ul > li {
+    list-style: none;
+    padding: 5px
+}
+
+#tab_help .faq-text {
+    padding: 15px 15px;
+    background: #f7f7f7;
+    margin: 10px 0;
+}
+
+.help-block {
+    color: #e08f95 !important;
+}
+
+#form_options_adp label, #form_customize_adp label{
+  font-weight: inherit !important;
+  text-align: left !important;
+  padding-top: 0px !important;
+}
+
+.block_related_modules ul li:nth-child(odd) {
+    background: #eff1f2;
+}
+
+.block_related_modules ul {
+    list-style: none;
+    max-width: 1300px;
+    min-width: 800px;
+    margin: 0 auto;
+    padding-right: 50px;
+    margin-top: 30px;
+}
+
+.block_related_modules ul li {
+    width: 100%;
+    display: block;
+    height: 120px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+.block_related_modules ul li .logo_module {
+    float: left;
+    width: 57px;
+    margin-top: 27px;
+}
+
+.block_related_modules ul li .module_title {
+    float: left;
+    width: calc( 40% - 180px);
+    height: 120px;
+    font-weight: bolder;
+    color: #55595c;
+    font-size: .9rem;
+    padding-top: inherit !important;
+    font-family: Open Sans,sans-serif;
+}
+
+.block_related_modules ul li .module_description {
+    float: left;
+    width: calc( 60% - 40px);
+    height: 120px;
+}
+
+.block_related_modules ul li .module_description span, .block_related_modules ul li .module_title span {
+    width: 100%;
+    height: 120px;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0px 10px;
+    font-family: Open Sans,sans-serif;
+    font-size: .9rem;
+    color: #363a41;
+    line-height: 22px;
+}
+
+.block_related_modules ul li .module_button {
+    float: left;
+    width: 144px;
+    margin-top: 43px;
+}
+
+.block_related_modules ul li .module_href {
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    line-height: 10px;
+    font-size: .75em;
+    display: block;
+    border-radius: 3px;
+    height: 35px;
+    width: 135px;
+    font-weight: 600;
+    color: #00aff0;
+    text-align: center;
+    padding-top: 9px;
+    background-image: none;
+    background-color: transparent;
+    border-color: #00aff0;
+    border: 2px solid #00aff0;
+    text-decoration: none;
+    box-sizing: border-box;
+    float: left;
+    margin-right: 15px;
+    font-family: Open Sans,sans-serif;
+}
+
+#titulo_admin_adpmicrodatos{
+    margin-top: 0px;
+    margin-left: 5px;
+    margin-bottom: 10px;
+}
+
+span.label-novedad {
+    font-size: 12px;
+    color: #e29851;
+}
+
+
+.adpmicrodatos-results {
+    /* word-break: break-all; */
+    table-layout: fixed;
+}
+
+.adpmicrodatos-results .result-content {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap;
+}
+
+.diff-inserted{
+    color: green;
+}
+.diff-deleted{
+    color: red;
+}
+
+#adpmicrodatos_filedetailsmodal caption{
+    text-align: left;
+    /* color: #00aff0; */
+    font-size: 18px;
+    letter-spacing: 1px;
+    background: gray;
+    color: white;
+    padding: 3px 7px;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+#adpmicrodatos_filedetailsmodal caption span{
+    vertical-align: middle;
+}
+
+#adpmicrodatos_filedetailsmodal .modal-body {
+    max-height: 500px;
+    padding: 0;
+    overflow-y: auto;
+}
+
+#adpmicrodatos_filedetailsmodal table {
+    margin: 0;
+    border: 0;
+}
+
+label.control-label span.label-tooltip:before {
+    font-family: "Material Icons",Arial,sans-serif;
+    font-size: 18px;
+    color: #25b9d7;
+    content: "\e887";
+    -webkit-transition: .25s ease-out;
+    transition: .25s ease-out;
+    vertical-align: middle !important;
+}
+
+.installation_adpmicrodatos_sucessful {
+    color: #fafbfc;
+    background: #2ea965;
+    font-size: 13px;
+    padding: 6px;
+}
+
+#customize_refunds_policy .panel_pais {
+    width: 100% !important;
+    margin-bottom: 10px !important;
+    display: flex;
+    -webkit-box-align: end;
+    align-items: end;
+}
+
+#customize_refunds_policy .panel_pais .label_panel_pais{
+    padding-left: .625rem;
+    padding-bottom: 3px;
+    text-transform: uppercase;
+}

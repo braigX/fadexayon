@@ -1,0 +1,14 @@
+[{shop_url}]
+
+Hallo {customer_name},
+Wir hoffen, dass Sie sich die Zeit nehmen können, Ihre kürzlich gekauften Artikel zu bewerten:
+
+{product_list}
+
+Als Dankeschön erhalten Sie nach Genehmigung der Bewertung einen Gutscheincode mit {voucher_value} Rabatt für Ihre nächste Bestellung.
+Vielen Dank für Ihr Vertrauen und Ihren Einkauf in unserem Geschäft
+
+Jetzt bewerten
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

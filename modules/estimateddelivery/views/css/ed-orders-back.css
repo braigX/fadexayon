@@ -1,0 +1,88 @@
+/** * Estimated Delivery - Front Office Feature
+ *
+ * NOTICE OF LICENSE
+ *
+ * @author    Pol Rué
+ * @copyright Smart Modules 2015
+ * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category Transport & Logistics
+ * Registered Trademark & Property of smart-modules.com
+ *
+ * ***************************************************
+ * *               Estimated Delivery                *
+ * *          http://www.smart-modules.com           *
+ * *                                                  *
+ * ***************************************************
+*/
+
+.column-picking_date span,
+.column-ed_date span,
+.column-delivery_min span,
+#table-order span.picking_date {
+    border-radius: 5px;
+    padding: 2px 8px 3px;
+    word-break: normal;
+    font-weight: bold;
+    color: #fff;
+}
+.ed-red {
+    background-color:#c8553e;
+}
+.ed-orange {
+    background-color: #dc993e;
+}
+.ed-yellow {
+    background-color: #f2dc3b;
+}
+.ed-light-green {
+    background-color: #7ab740;
+}
+.ed-green {
+    background-color: #009249;
+}
+.ed-dark-green {
+    background-color: #006030;
+}
+
+.column-picking_date a,
+.column-picking_day a,
+.column-ed_date a{
+    color: #fff;
+}
+
+/*********/
+/*Order picking day listing start*/
+/*********/
+.pointer span {
+    border-radius: 5px;
+    padding: 2px 8px 3px;
+    word-break: normal;
+}
+
+span.picking_date {
+    display: inline-block;
+    white-space: nowrap;
+}
+.bootstrap .tooltip .arrow {
+    position: absolute;
+    display: block;
+    width: 12.8px;
+    width: 0.8rem;
+    height: 6.4px;
+    height: 0.4rem;
+}
+
+.bootstrap .tooltip-inner {
+    max-width: 200px;
+    border-radius: 3px;
+    padding: 10px 20px;
+    padding: 0.625rem 1.25rem;
+    color: #fff;
+    text-align: center;
+    background-color: #6c868e;
+    text-decoration: none;
+}
+/*********/
+/*Order picking day listing end*/
+/*********/
+

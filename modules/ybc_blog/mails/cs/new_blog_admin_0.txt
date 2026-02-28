@@ -1,0 +1,4 @@
+Do {shop_name} byl odeslán nový příspěvek a čeká na vaše schválení
+Autor: {customer_name}
+Název příspěvku: {post_title}
+Zobrazit příspěvek

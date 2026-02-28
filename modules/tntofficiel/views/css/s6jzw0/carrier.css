@@ -1,0 +1,676 @@
+div.fancybox-bgc div.fancybox-skin {
+    background-color: #FFFFFF !important;
+}
+div.fancybox-bgc div.fancybox-skin div {
+    color: #000000;
+}
+
+.DROPOFFPOINT *,
+.DEPOT * {
+    font-family: 'Noto Sans', 'Open Sans', sans-serif;
+}
+
+.addresses-list {
+    position: absolute;
+    left: 2px;
+    top: 147px;
+    right: 2px;
+    bottom: 2px;
+    z-index: 1;
+    background-color: #FFFFFF;
+}
+
+.addresses-list ul,
+.addresses-list ul li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+
+#list_scrollbar_container,
+#DROPOFFPOINT_map,
+#DEPOT_map {
+    display: block;
+}
+
+#list_scrollbar_container {
+    float: left;
+    position: relative;
+    width: 64.5% !important;
+}
+
+#DROPOFFPOINT_map,
+#DEPOT_map {
+    float: right;
+    width: 35%;
+    height: 100%;
+    border-left: 1px solid #FFFFFF;
+}
+
+.DROPOFFPOINT .validation-advice,
+.DEPOT .validation-advice {
+    position: absolute;
+    background-color: #df280a;
+    padding: 0 10px;
+    color: #FFF !important;
+    top: -30px;
+    border-radius: 2px;
+}
+
+.DROPOFFPOINT .validation-advice::before,
+.DEPOT .validation-advice::before {
+    content: '\25BC';
+    color: #df280a;
+    position: absolute;
+    top: 17px;
+    left: 30px;
+}
+
+.DROPOFFPOINT button,
+.DEPOT button {
+    padding: 5px 10px;
+    font-weight: bold;
+    line-height: 1.425em;
+    font-size: 14px;
+    border: 0;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    color: white;
+    background: #1cb3f4;
+    cursor: pointer;
+    text-shadow: none;
+}
+
+.DROPOFFPOINT-container,
+.DEPOT-container {
+    overflow: hidden;
+    font-size: 14px;
+    line-height: normal;
+}
+
+.DROPOFFPOINT-form,
+.DEPOT-form {
+    overflow: hidden;
+}
+
+.DROPOFFPOINT-form .label,
+.DEPOT-form .label {
+    font-weight: bold;
+    color: #444;
+}
+
+.DROPOFFPOINT-list .DROPOFFPOINT-item:hover,
+.DROPOFFPOINT-list .DROPOFFPOINT-item.is-selected,
+.DEPOT-list .DEPOT-item:hover,
+.DEPOT-list .DEPOT-item.is-selected {
+    background: #eeeeee !important;
+    cursor: pointer;
+}
+
+.DROPOFFPOINT-list .DROPOFFPOINT-item-please-wait,
+.DEPOT-list .DEPOT-item-please-wait {
+    float: none;
+}
+
+.DROPOFFPOINT-code b, .DEPOT-code b,
+.DROPOFFPOINT-map b, .DEPOT-map b,
+.DROPOFFPOINT-list .DROPOFFPOINT-name,
+.DROPOFFPOINT-list .DEPOT-name,
+.DEPOT-list .DROPOFFPOINT-name,
+.DEPOT-list .DEPOT-name {
+    font-weight: bold;
+}
+
+.DROPOFFPOINT-list .no-results,
+.DEPOT-list .no-results{
+    border: 1px solid #e7e7e7;
+    padding: 20px;
+    margin-right: -26px;
+    text-align: center;
+}
+.DROPOFFPOINT-header,
+.DEPOT-header {
+    height: 86px;
+    margin-right: 25px;
+    margin-top: 2px;
+}
+
+.DROPOFFPOINT-header h2,
+.DEPOT-header h2 {
+    display: block;
+    font-size: 24px;
+    margin: 0;
+    border: 0;
+    padding: 0 0 0 156px;
+    line-height: 80px;
+    font-weight: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.DROPOFFPOINT-header h2,
+.DEPOT-header h2 {
+    background: url("../../img/logo/112x70.png") 20px center no-repeat;
+}
+
+.DROPOFFPOINT .location-topbar,
+.DEPOT .location-topbar {
+    padding: 8px 10px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: 1px solid #e7e7e7;
+    background: #f8f8f8;
+    overflow: visible;
+    position: relative;
+}
+
+.DROPOFFPOINT .location-topbar .DROPOFFPOINT-form,
+.DEPOT .location-topbar .DEPOT-form {
+    display: table;
+    width: 100%;
+}
+
+.location-topbar .DROPOFFPOINT-form span,
+.location-topbar .DROPOFFPOINT-form .form-list,
+.location-topbar .DEPOT-form span,
+.location-topbar .DEPOT-form .form-list {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.location-topbar .DROPOFFPOINT-form .form-list,
+.location-topbar .DEPOT-form .form-list {
+    max-width: 750px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.location-topbar .DROPOFFPOINT-form .fields,
+.location-topbar .DEPOT-form .fields {
+    margin: 0 0 0 15px;
+    padding: 0;
+    list-style: none;
+}
+
+.location-topbar .DROPOFFPOINT-form .field,
+.location-topbar .DEPOT-form .field {
+    float: left;
+    margin: 0 10px;
+    position: relative;
+    vertical-align: middle;
+    width: inherit
+}
+
+.lt-ie8 .location-topbar .DROPOFFPOINT-form .field,
+.lt-ie8 .location-topbar .DEPOT-form .field {
+    display: inline;
+    zoom: 1;
+}
+
+.location-topbar .DROPOFFPOINT-form .field label,
+.location-topbar .DEPOT-form .field label {
+    color: #000000 !important;
+    font-weight: normal !important;
+}
+
+.location-topbar .DROPOFFPOINT-form .field label,
+.location-topbar .DROPOFFPOINT-form .field select,
+.location-topbar .DROPOFFPOINT-form .field .input-box,
+.location-topbar .DEPOT-form .field label,
+.location-topbar .DEPOT-form .field select,
+.location-topbar .DEPOT-form .field .input-box {
+    display: table-cell;
+    vertical-align: middle;
+    height: 30px;
+    line-height: 1em;
+    float: none;
+}
+
+.location-topbar .DROPOFFPOINT-form .field select,
+.location-topbar .DEPOT-form .field select {
+    margin-top: 0;
+    background: white;
+}
+
+.location-topbar .DROPOFFPOINT-form .field select,
+.location-topbar .DROPOFFPOINT-form .field .input-box input,
+.location-topbar .DEPOT-form .field select,
+.location-topbar .DEPOT-form .field .input-box input {
+    height: 30px;
+    width: inherit;
+    margin-left: 20px;
+    padding: 0 10px;
+    border: 1px solid #e7e7e7;
+    border-radius: 4px;
+    line-height: 30px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.location-topbar .DROPOFFPOINT-form .field em.required,
+.location-topbar .DEPOT-form .field em.required {
+    color: #eb340a;
+    float: right;
+}
+
+.location-topbar button {
+    position: relative;
+}
+
+.DROPOFFPOINT-list .DROPOFFPOINT-item,
+.DEPOT-list .DEPOT-item {
+    display: table;
+    width: 100%;
+    margin-bottom: 16px;
+    border: 1px solid #e7e7e7;
+}
+
+.DROPOFFPOINT-list .DROPOFFPOINT-item:hover,
+.DEPOT-list .DEPOT-item:hover {
+    background: white;
+}
+
+.DROPOFFPOINT-list .DROPOFFPOINT-item > div,
+.DEPOT-list .DEPOT-item > div {
+    display: table-cell;
+    vertical-align: top;
+    padding: 15px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.DROPOFFPOINT-list .DROPOFFPOINT-item div.DROPOFFPOINT-address,
+.DEPOT-list .DEPOT-item div.DEPOT-address {
+    width: 33%;
+    background: #F8F8F8;
+    color: #444444;
+}
+
+.DROPOFFPOINT-list .DROPOFFPOINT-item div.DROPOFFPOINT-closing,
+.DEPOT-list .DEPOT-item div.DEPOT-closing {
+    margin-top: 0.5em;
+    font-style: italic;
+    color: #DB3624;
+}
+
+
+.DROPOFFPOINT-list .DROPOFFPOINT-item div.DROPOFFPOINT-details,
+.DEPOT-list .DEPOT-item div.DEPOT-details {
+    width: 50%;
+}
+
+.DROPOFFPOINT-list .DROPOFFPOINT-item > div.DROPOFFPOINT-details p,
+.DEPOT-list .DEPOT-item > div.DEPOT-details p {
+    display: inline;
+    color: #444444;
+}
+
+.DROPOFFPOINT-list .DROPOFFPOINT-item > div.DROPOFFPOINT-action,
+.DEPOT-list .DEPOT-item > div.DEPOT-action {
+    width: 17%;
+    text-align: center;
+}
+
+.DROPOFFPOINT-list .DROPOFFPOINT-item > div.DROPOFFPOINT-action > div,
+.DEPOT-list .DEPOT-item > div.DEPOT-action > div {
+    margin-bottom: 10px;
+}
+
+.DROPOFFPOINT-list .DROPOFFPOINT-item > div.DROPOFFPOINT-action .location-code,
+.DEPOT-list .DEPOT-item > div.DEPOT-action .location-code {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.DROPOFFPOINT-list .DROPOFFPOINT-item > div.DROPOFFPOINT-action .location-nb,
+.DEPOT-list .DEPOT-item > div.DEPOT-action .location-nb {
+    background: url("../../img/map/marker/blank.png") center no-repeat;
+    height: 34px;
+    line-height: 25px;
+    color: white;
+    font-weight: bold;
+    width: 21px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.lt-ie8 .DROPOFFPOINT-list .DROPOFFPOINT-item > div.DROPOFFPOINT-action .location-nb,
+.lt-ie8 .DEPOT-list .DEPOT-item > div.DEPOT-action .location-nb {
+    display: inline;
+    zoom: 1;
+}
+
+.DROPOFFPOINT-list .DROPOFFPOINT-item > div.DROPOFFPOINT-action .location-distance,
+.DEPOT-list .DEPOT-item > div.DEPOT-action .location-distance {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background: #EA661D;
+    display: inline-block;
+    padding: 0px 12px 1px;
+    margin: 2px auto 0;
+    border-radius: 2px;
+}
+
+.tntofficiel-shipping-method-info {
+    cursor: pointer;
+    padding: 0.75em 1.5em;
+    background-color: rgba(250, 250, 250, 0.96);
+    text-align: left;
+    border-left: 3px solid #ff6600;
+    margin: 0.5em 0;
+    line-height: normal;
+}
+
+.tntofficiel-shipping-method-info p {
+    margin: 0;
+}
+.tntofficiel-shipping-method-info i {
+    font-style: italic;
+}
+
+.shipping-method-info-name {
+    font-weight: bold;
+}
+
+.shipping-method-info-details {
+    margin-top: 0.5em;
+}
+
+.shipping-method-info-time > p {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+div.shipping-method-info-code,
+.DROPOFFPOINT-list div.DROPOFFPOINT-code,
+.DEPOT-list div.DEPOT-code {
+    display: inline-block;
+    margin: 0 0 0.325ex 0;
+}
+
+div.shipping-method-info-details .DROPOFFPOINT-time-title,
+div.shipping-method-info-details .DEPOT-time-title,
+.DROPOFFPOINT-list .DROPOFFPOINT-item div.DROPOFFPOINT-details .DROPOFFPOINT-time-title,
+.DEPOT-list .DEPOT-item div.DEPOT-details .DEPOT-time-title {
+    display: inline-block;
+    margin: 0.25ex 0 0.325ex 0;
+}
+
+.DROPOFFPOINT-time p,
+.DEPOT-time p {
+    display: inline-block;
+    *display: inline;
+    *z-index: 1;
+}
+
+div.shipping-method-info-details div.DROPOFFPOINT-time .DROPOFFPOINT-time-label,
+div.shipping-method-info-details div.DEPOT-time .DEPOT-time-label,
+.DROPOFFPOINT-list .DROPOFFPOINT-item div.DROPOFFPOINT-details div.DROPOFFPOINT-time .DROPOFFPOINT-time-label,
+.DEPOT-list .DEPOT-item div.DEPOT-details div.DEPOT-time .DEPOT-time-label {
+    display: inline-block;
+    min-width: 12ex;
+    margin: 0;
+    padding : 0;
+}
+
+
+.lt-ie8 .shipping-method-info-time > p {
+    display: inline;
+    zoom: 1;
+}
+
+/* TNT delivery logo */
+#checkout div.delivery-option img {
+    max-width: 100%;
+    min-width: 48px;
+    max-height: none;
+    margin: 0 auto;
+    display: block;
+}
+
+/* TNT Service description */
+#checkout .tntofficiel-name {
+    display: inline-block;
+    margin: 0.25ex 0 0.325ex 0;
+}
+#checkout .tntofficiel-edd{
+    display: inline-block;
+    width: 100%;
+    margin: 0.65ex 0 0.25ex;
+}
+
+
+@media (max-width: 770px) {
+    .DROPOFFPOINT-header,
+    .DEPOT-header {
+        background-position: 50% 0;
+        background-size: auto 50px;
+        display: block;
+        height: auto;
+        margin-bottom: 10px;
+        margin-right: 0;
+        padding-top: 10px;
+        text-align: center;
+        vertical-align: middle
+    }
+
+    .DROPOFFPOINT-header h2,
+    .DEPOT-header h2 {
+        background: transparent none repeat scroll 0 0;
+        display: inline;
+        font-size: 16px;
+        line-height: normal;
+        margin-bottom: 0;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        position: relative;
+    }
+
+    .DROPOFFPOINT-container .DROPOFFPOINT-form > span,
+    .DEPOT-container .DEPOT-form > span {
+        display: none;
+    }
+
+    .DROPOFFPOINT-container .DROPOFFPOINT-form .form-list,
+    .DEPOT-container .DEPOT-form .form-list {
+        display: block
+    }
+
+    .DROPOFFPOINT-container .DROPOFFPOINT-form .form-list .fields,
+    .DROPOFFPOINT-container .DROPOFFPOINT-form .form-list .field,
+    .DROPOFFPOINT-container .DROPOFFPOINT-form .form-list input,
+    .DROPOFFPOINT-container .DROPOFFPOINT-form .form-list select,
+    .DEPOT-container .DEPOT-form .form-list .fields,
+    .DEPOT-container .DEPOT-form .form-list .field,
+    .DEPOT-container .DEPOT-form .form-list input,
+    .DEPOT-container .DEPOT-form .form-list select {
+        margin: 0
+    }
+
+    .DROPOFFPOINT-container .DROPOFFPOINT-form .form-list .field,
+    .DEPOT-container .DEPOT-form .form-list .field {
+        overflow: hidden;
+        padding-top: 6px;
+        width: 100%
+    }
+
+    .DROPOFFPOINT-container .DROPOFFPOINT-form .form-list .field label,
+    .DEPOT-container .DEPOT-form .form-list .field label {
+        width: 15%
+    }
+
+    .DROPOFFPOINT-container .DROPOFFPOINT-form .form-list .field .input-box,
+    .DEPOT-container .DEPOT-form .form-list .field .input-box {
+        width: 20%
+    }
+
+    .DROPOFFPOINT-container .DROPOFFPOINT-form .form-list .field input,
+    .DROPOFFPOINT-container .DROPOFFPOINT-form .form-list .field select,
+    .DEPOT-container .DEPOT-form .form-list .field input,
+    .DEPOT-container .DEPOT-form .form-list .field select {
+        display: block;
+        margin: 0;
+        width: 100%
+    }
+
+    .DROPOFFPOINT-container .DROPOFFPOINT-form .form-list button[type="submit"],
+    .DEPOT-container .DEPOT-form .form-list button[type="submit"] {
+        text-align: center;
+        width: 100%
+    }
+
+    .DROPOFFPOINT-container .DROPOFFPOINT-form .form-list button[type="submit"] span,
+    .DEPOT-container .DEPOT-form .form-list button[type="submit"] span {
+        display: block
+    }
+
+    .DROPOFFPOINT-container #list_scrollbar_container,
+    .DEPOT-container #list_scrollbar_container {
+        display: block;
+        float: none;
+        width: 100% !important
+    }
+
+    .DROPOFFPOINT-container #list_scrollbar_container .DROPOFFPOINT-address,
+    .DROPOFFPOINT-container #list_scrollbar_container .DROPOFFPOINT-details,
+    .DROPOFFPOINT-container #list_scrollbar_container .DROPOFFPOINT-action,
+    .DEPOT-container #list_scrollbar_container .DEPOT-address,
+    .DEPOT-container #list_scrollbar_container .DEPOT-details,
+    .DEPOT-container #list_scrollbar_container .DEPOT-action {
+        display: block;
+        width: 100%
+    }
+
+    .DROPOFFPOINT-container #list_scrollbar_container div.DROPOFFPOINT-address,
+    .DROPOFFPOINT-container #list_scrollbar_container div.DROPOFFPOINT-details,
+    .DROPOFFPOINT-container #list_scrollbar_container .DROPOFFPOINT-action,
+    .DEPOT-container #list_scrollbar_container .DEPOT-action {
+        font-size: 1em;
+        line-height: normal;
+        padding: 0.825em 0;
+    }
+
+    .DROPOFFPOINT-container #list_scrollbar_container .DROPOFFPOINT-action .location-nb,
+    .DEPOT-container #list_scrollbar_container .DEPOT-action .location-nb {
+        display: block;
+        width: 100%
+    }
+
+    .DROPOFFPOINT-container #list_scrollbar_container .DROPOFFPOINT-action .location-distance,
+    .DEPOT-container #list_scrollbar_container .DEPOT-action .location-distance {
+        padding: 0 10px;
+        display: inline-block;
+        vertical-align: middle
+    }
+
+    .lt-ie8 .DROPOFFPOINT-container #list_scrollbar_container .DROPOFFPOINT-action .location-distance,
+    .lt-ie8 .DEPOT-container #list_scrollbar_container .DEPOT-action .location-distance {
+        display: inline;
+        zoom: 1
+    }
+
+    .DROPOFFPOINT-container #list_scrollbar_container .DROPOFFPOINT-item,
+    .DEPOT-container #list_scrollbar_container .DEPOT-item {
+        display: block;
+        text-align: center !important
+    }
+
+    .DROPOFFPOINT-container #list_scrollbar_container .please-wait,
+    .DEPOT-container #list_scrollbar_container .please-wait {
+        margin-bottom: 15px;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-top: 0 !important;
+        display: inline-block;
+        vertical-align: middle
+    }
+
+    .lt-ie8 .DROPOFFPOINT-container #list_scrollbar_container .please-wait,
+    .lt-ie8 .DEPOT-container #list_scrollbar_container .please-wait {
+        display: inline;
+        zoom: 1
+    }
+
+    .DROPOFFPOINT-container .DROPOFFPOINT-map,
+    .DROPOFFPOINT-container .DEPOT-map,
+    .DEPOT-container .DROPOFFPOINT-map,
+    .DEPOT-container .DEPOT-map {
+        display: none !important
+    }
+
+    .DROPOFFPOINT .addresses-list,
+    .DEPOT .addresses-list {
+        top: 204px;
+    }
+
+    .lv_contentBottom {
+        overflow: hidden
+    }
+}
+
+@media (max-width: 320px) {
+    .DROPOFFPOINT-container #list_scrollbar_container div.DROPOFFPOINT-address,
+    .DROPOFFPOINT-container #list_scrollbar_container div.DROPOFFPOINT-details,
+    .DROPOFFPOINT-container #list_scrollbar_container .DROPOFFPOINT-action,
+    .DEPOT-container #list_scrollbar_container .DEPOT-action {
+        font-size: 12px;
+        line-height: normal;
+        padding: 0.825em 0;
+    }
+
+    .DROPOFFPOINT-container #list_scrollbar_container li.DROPOFFPOINT-item p,
+    .DEPOT-container #list_scrollbar_container li.DROPOFFPOINT-item p {
+        margin: 0 0 0.5ex;
+    }
+}
+
+
+@media (min-width: 770px) and (max-width: 979px) {
+    .DROPOFFPOINT-header h2,
+    .DEPOT-header h2 {
+        font-size: 18px;
+    }
+
+    .location-topbar .DROPOFFPOINT-form .field,
+    .location-topbar .DEPOT-form .field {
+        display: table-row;
+        display: block;
+        float: none;
+    }
+
+    .location-topbar .DROPOFFPOINT-form .field label,
+    .location-topbar .DEPOT-form .field label {
+        width: 40%;
+    }
+
+    .location-topbar .DROPOFFPOINT-form .field .input-box,
+    .location-topbar .DEPOT-form .field .input-box {
+        width: 60%
+    }
+
+    .location-topbar .DROPOFFPOINT-form button[type="submit"],
+    .location-topbar .DEPOT-form button[type="submit"] {
+        margin-top: 10px;
+        text-align: center;
+        width: 100%
+    }
+
+    .location-topbar .DROPOFFPOINT-form button[type="submit"] span,
+    .location-topbar .DEPOT-form button[type="submit"] span {
+        display: block
+    }
+
+    .DROPOFFPOINT .addresses-list,
+    .DEPOT .addresses-list {
+        top: 212px;
+    }
+}

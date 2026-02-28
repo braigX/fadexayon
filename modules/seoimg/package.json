@@ -1,0 +1,9 @@
+{
+    "author": "PrestaShop",
+    "name": "seoimg",
+    "homepage": "https://github.com/PrestaShopCorp/seoimg",
+    "version": "1.0.0",
+    "dependencies": {},
+    "license": "AFL-3.0",
+    "private": true
+}

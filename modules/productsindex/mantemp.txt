@@ -1,0 +1,330 @@
+Array
+(
+    [object] => Manufacturer Object
+        (
+            [id] => 5
+            [id_lang:protected] => 
+            [lang_associated:protected] => 
+            [id_shop:protected] => 1
+            [id_shop_list] => Array
+                (
+                )
+
+            [get_shop_from_context:protected] => 1
+            [table:protected] => manufacturer
+            [identifier:protected] => id_manufacturer
+            [fieldsRequired:protected] => Array
+                (
+                    [0] => name
+                )
+
+            [fieldsSize:protected] => Array
+                (
+                    [name] => 64
+                )
+
+            [fieldsValidate:protected] => Array
+                (
+                    [name] => isCatalogName
+                )
+
+            [fieldsRequiredLang:protected] => Array
+                (
+                )
+
+            [fieldsSizeLang:protected] => Array
+                (
+                    [meta_title] => 255
+                    [meta_description] => 512
+                )
+
+            [fieldsValidateLang:protected] => Array
+                (
+                    [description] => isCleanHtml
+                    [short_description] => isCleanHtml
+                    [meta_title] => isGenericName
+                    [meta_description] => isGenericName
+                    [meta_keywords] => isGenericName
+                )
+
+            [tables:protected] => Array
+                (
+                )
+
+            [webserviceParameters:protected] => Array
+                (
+                    [fields] => Array
+                        (
+                            [active] => Array
+                                (
+                                )
+
+                            [link_rewrite] => Array
+                                (
+                                    [getter] => getLink
+                                    [setter] => 
+                                )
+
+                        )
+
+                    [associations] => Array
+                        (
+                            [addresses] => Array
+                                (
+                                    [resource] => address
+                                    [setter] => 
+                                    [fields] => Array
+                                        (
+                                            [id] => Array
+                                                (
+                                                    [xlink_resource] => addresses
+                                                )
+
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [image_dir:protected] => C:\osp\domains\smartmart.com\prestashop810/img/m/
+            [image_format:protected] => jpg
+            [translator:protected] => 
+            [def:protected] => Array
+                (
+                    [table] => manufacturer
+                    [primary] => id_manufacturer
+                    [multilang] => 1
+                    [fields] => Array
+                        (
+                            [name] => Array
+                                (
+                                    [type] => 3
+                                    [validate] => isCatalogName
+                                    [required] => 1
+                                    [size] => 64
+                                )
+
+                            [active] => Array
+                                (
+                                    [type] => 2
+                                )
+
+                            [date_add] => Array
+                                (
+                                    [type] => 5
+                                )
+
+                            [date_upd] => Array
+                                (
+                                    [type] => 5
+                                )
+
+                            [description] => Array
+                                (
+                                    [type] => 6
+                                    [lang] => 1
+                                    [validate] => isCleanHtml
+                                )
+
+                            [short_description] => Array
+                                (
+                                    [type] => 6
+                                    [lang] => 1
+                                    [validate] => isCleanHtml
+                                )
+
+                            [meta_title] => Array
+                                (
+                                    [type] => 3
+                                    [lang] => 1
+                                    [validate] => isGenericName
+                                    [size] => 255
+                                )
+
+                            [meta_description] => Array
+                                (
+                                    [type] => 3
+                                    [lang] => 1
+                                    [validate] => isGenericName
+                                    [size] => 512
+                                )
+
+                            [meta_keywords] => Array
+                                (
+                                    [type] => 3
+                                    [lang] => 1
+                                    [validate] => isGenericName
+                                )
+
+                        )
+
+                    [classname] => Manufacturer
+                    [associations] => Array
+                        (
+                            [l] => Array
+                                (
+                                    [type] => 2
+                                    [field] => id_manufacturer
+                                    [foreign_field] => id_manufacturer
+                                )
+
+                        )
+
+                )
+
+            [update_fields:protected] => 
+            [force_id] => 
+            [name] => FLASLD
+            [description] => 
+            [short_description] => 
+            [id_address] => 
+            [date_add] => 2023-10-10 14:31:29
+            [date_upd] => 2023-10-10 14:31:29
+            [link_rewrite] => 
+            [meta_title] => 
+            [meta_keywords] => 
+            [meta_description] => 
+            [active] => 1
+        )
+
+    [cookie] => Cookie Object
+        (
+            [_content:protected] => Array
+                (
+                    [date_add] => 2023-10-09 13:07:22
+                    [id_lang] => 1
+                    [detect_language] => 1
+                    [shopContext] => s-1
+                    [id_employee] => 1
+                    [email] => magrabota@gmail.com
+                    [profile] => 1
+                    [passwd] => $2y$10$VDqSeCCMI7kEVSlRpuKL3.zaU2GEl1vauFJy7x/d6vOrQJBax4Ccy
+                    [remote_addr] => 2130706433
+                    [session_id] => 5
+                    [session_token] => 7de2562f2a19fb9dc32389b35ebf48111ddeebf4
+                    [checksum] => 9769a8e5019b48be79bc9143a766a9d7ce3ffd02f221514dd762ccbb2e2a630f
+                )
+
+            [_name:protected] => PrestaShop-402cb2e06a92f598df364ccd7eb38046
+            [_expire:protected] => 1698665483
+            [_domain:protected] => smartmart.com
+            [_sameSite:protected] => Lax
+            [_path:protected] => /prestashop810/
+            [cipherTool:protected] => PhpEncryption Object
+                (
+                )
+
+            [_modified:protected] => 
+            [_allow_writing:protected] => 1
+            [_salt:protected] => hcqfEtaULAz2oMxppsxtvR2tEt62Em96
+            [_standalone:protected] => 
+            [_secure:protected] => 
+            [session:protected] => EmployeeSession Object
+                (
+                    [id] => 5
+                    [id_lang:protected] => 
+                    [lang_associated:protected] => 
+                    [id_shop:protected] => 
+                    [id_shop_list] => Array
+                        (
+                        )
+
+                    [get_shop_from_context:protected] => 1
+                    [table:protected] => employee_session
+                    [identifier:protected] => id_employee_session
+                    [fieldsRequired:protected] => Array
+                        (
+                            [0] => id_employee
+                        )
+
+                    [fieldsSize:protected] => Array
+                        (
+                            [token] => 40
+                        )
+
+                    [fieldsValidate:protected] => Array
+                        (
+                            [id_employee] => isUnsignedId
+                            [token] => isSha1
+                            [date_upd] => isDate
+                            [date_add] => isDate
+                        )
+
+                    [fieldsRequiredLang:protected] => Array
+                        (
+                        )
+
+                    [fieldsSizeLang:protected] => Array
+                        (
+                        )
+
+                    [fieldsValidateLang:protected] => Array
+                        (
+                        )
+
+                    [tables:protected] => Array
+                        (
+                        )
+
+                    [webserviceParameters:protected] => Array
+                        (
+                        )
+
+                    [image_dir:protected] => 
+                    [image_format:protected] => jpg
+                    [translator:protected] => 
+                    [def:protected] => Array
+                        (
+                            [table] => employee_session
+                            [primary] => id_employee_session
+                            [fields] => Array
+                                (
+                                    [id_employee] => Array
+                                        (
+                                            [type] => 1
+                                            [validate] => isUnsignedId
+                                            [required] => 1
+                                        )
+
+                                    [token] => Array
+                                        (
+                                            [type] => 3
+                                            [validate] => isSha1
+                                            [size] => 40
+                                            [copy_post] => 
+                                        )
+
+                                    [date_upd] => Array
+                                        (
+                                            [type] => 5
+                                            [validate] => isDate
+                                            [copy_post] => 
+                                        )
+
+                                    [date_add] => Array
+                                        (
+                                            [type] => 5
+                                            [validate] => isDate
+                                            [copy_post] => 
+                                        )
+
+                                )
+
+                            [classname] => EmployeeSession
+                        )
+
+                    [update_fields:protected] => 
+                    [force_id] => 
+                    [id_employee] => 1
+                    [token] => 7de2562f2a19fb9dc32389b35ebf48111ddeebf4
+                    [date_upd] => 2023-10-10 14:31:23
+                    [date_add] => 2023-10-09 13:07:23
+                )
+
+        )
+
+    [cart] => 
+    [altern] => 3
+)

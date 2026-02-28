@@ -1,0 +1,14 @@
+[{shop_url}]
+
+Bonjour {customer_name},
+Nous espérons que vous pourrez épargner votre temps pour évaluer vos articles récemment achetés :
+
+{product_list}
+
+En guise de cadeau de remerciement, une fois l'examen approuvé, nous vous donnerons un code promotionnel avec {voucher_value} de réduction pour votre prochaine commande.
+Merci de votre confiance et de vos achats dans notre magasin
+
+Évaluer maintenant
+
+{shop_name} [{shop_url}] propulsé par
+PrestaShop(tm) [http://www.prestashop.com/]

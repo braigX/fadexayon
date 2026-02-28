@@ -1,0 +1,15 @@
+{
+    "require": {
+        "voku/html-min": "^4.5"
+    },
+    "replace": {
+        "symfony/css-selector": "*"
+    },
+    "config": {
+        "prepend-autoloader": false
+    },
+    "require-dev": {
+    },
+    "autoload": {
+    }
+}

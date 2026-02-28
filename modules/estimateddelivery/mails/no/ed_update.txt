@@ -1,0 +1,8 @@
+[{shop_url}] 
+
+Hei {firstname} {lastname}, 
+
+Forventet levering for din bestilling med referansenummer {order_name} er oppdatert. Ny forventet levering er
+
+Levering min: {delivery_min}
+Levering maks: {delivery_max}

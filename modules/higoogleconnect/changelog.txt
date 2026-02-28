@@ -1,0 +1,12 @@
+version 1.1.1
+    * General improvements
+
+version 1.1.0
+    * Added compatibility with PrestaShop 8.
+    * Added pie chart for statistics.
+    * Added option to unlink registrations from Google.
+    * Added documentation in module configuration page.
+    * Improved stability
+
+version 1.0.0
+    * initial release

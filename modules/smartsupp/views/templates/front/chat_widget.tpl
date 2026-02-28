@@ -1,0 +1,2 @@
+
+{$smartsupp_js nofilter}

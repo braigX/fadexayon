@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>socialmetadata</name>
+    <displayName><![CDATA[Social Meta Data]]></displayName>
+    <version><![CDATA[1.2.0]]></version>
+    <description><![CDATA[Social Meta Data is a plugin that helps you get absolute control over your shop meta data.]]></description>
+    <author><![CDATA[Inno-mods.io]]></author>
+    <tab><![CDATA[administration]]></tab>
+	<confirmUninstall><![CDATA[Are you sure you want to uninstall Social Meta Data?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+</module>

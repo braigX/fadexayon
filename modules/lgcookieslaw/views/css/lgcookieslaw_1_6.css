@@ -1,0 +1,40 @@
+
+#lgcookieslaw_fixed_button,
+.lgcookieslaw-banner {
+    background-color: rgba(255,15,,0);
+    color: #041a44 !important;
+    -webkit-box-shadow: 0px 1px 5px 0px #707070;
+    -moz-box-shadow: 0px 1px 5px 0px #707070;
+    box-shadow: 0px 1px 5px 0px #707070;
+}
+#lgcookieslaw_fixed_button svg {
+    fill: #ffffff;
+}
+#lgcookieslaw_banner .lgcookieslaw-banner-message p {
+    color: #041a44 !important;
+}
+#lgcookieslaw_banner .lgcookieslaw-banner-message a {
+    color: #041a44 !important;
+    border-bottom: 1px solid #041a44;
+}
+.lgcookieslaw-modal-header {
+    border-top: 4px solid #004188 !important;
+}
+.lgcookieslaw-slider-checked {
+    box-shadow: 0 0 1px #004188 !important;
+}
+.lgcookieslaw-button-container .lgcookieslaw-accept-button,
+.lgcookieslaw-modal .lgcookieslaw-accept-button,
+.lgcookieslaw-modal .lgcookieslaw-badge,
+.lgcookieslaw-slider.lgcookieslaw-slider-checked {
+    color: #FFFFFF !important;
+    background: #004188 !important;
+    border-color: #004188 !important;
+}
+.lgcookieslaw-button-container .lgcookieslaw-reject-button,
+.lgcookieslaw-modal .lgcookieslaw-reject-button {
+    color: #FFFFFF !important;
+    background: #cd205f !important;
+    border-color: #cd205f !important;
+}
+

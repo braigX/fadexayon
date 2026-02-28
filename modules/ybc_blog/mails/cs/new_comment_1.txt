@@ -1,0 +1,5 @@
+Ahoj {author_name}
+Na {post_title} byl zveřejněn nový komentář, který byl automaticky schválen
+Zobrazit komentář
+
+

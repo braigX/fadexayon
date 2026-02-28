@@ -1,0 +1,8 @@
+Message from {shop_name}
+
+Hello Admin,
+
+{presta_message}{presta_date}
+Customer Details
+Customer name: {name}
+email : {email}

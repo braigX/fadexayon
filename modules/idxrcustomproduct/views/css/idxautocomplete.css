@@ -1,0 +1,98 @@
+/**
+* 2007-2020 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* @author    Innovadeluxe SL
+* @copyright 2020 Innovadeluxe SL
+
+* @license   INNOVADELUXE
+*/
+
+.idxrcustomproduct-autocomplete {
+    clear: both;
+}
+.idxrcustomproduct-autocomplete .twitter-typeahead {
+    display: block !important;
+}
+.idxrcustomproduct-autocomplete .typeahead-list li {
+    display: -webkit-box!important;
+    display: -ms-flexbox!important;
+    display: flex!important
+}
+
+.idxrcustomproduct-autocomplete .typeahead-list li {
+    -webkit-box-align: center!important;
+    -ms-flex-align: center!important;
+    align-items: center!important
+}
+
+.idxrcustomproduct-autocomplete .typeahead-list li{
+    margin-top: 5px!important;
+    margin-top: .3125rem!important
+}
+
+.idxrcustomproduct-autocomplete .typeahead-list li>.media-body .label{
+    margin-right: 5px!important;
+    margin-right: .3125rem!important
+}
+
+.idxrcustomproduct-autocomplete .typeahead-list li>.media-body .label{
+    margin-left: 5px!important;
+    margin-left: .3125rem!important;
+    color: #555;
+}
+
+.idxrcustomproduct-autocomplete .typeahead-list li {
+    padding: 5px!important;
+    padding: .3125rem!important;
+    background: #fff;
+    border: 1px solid #bbcdd2;
+}
+
+.idxrcustomproduct-autocomplete .twitter-typeahead .tt-menu {
+    width: 100%;
+    border: 1px solid #6c868e;
+    background: #fff;
+    padding: 5px 0;
+    padding: .3125rem 0;
+    max-height: 312px;
+    max-height: 19.5rem;
+    overflow: auto
+}
+
+.idxrcustomproduct-autocomplete .twitter-typeahead .tt-suggestion {
+    cursor: pointer;
+    padding: 5px 10px;
+    padding: .3125rem .625rem;
+    color: #6c868e
+}
+
+.idxrcustomproduct-autocomplete .twitter-typeahead .tt-suggestion:hover {
+    background-color: #3ed2f0;
+    color: #fff
+}
+
+.idxrcustomproduct-autocomplete .typeahead-list li>.media-left{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 50px;
+    width: 50px;
+
+}
+.idxrcustomproduct-autocomplete .typeahead-list li>.media-left img {
+    max-width: 50px;
+    max-height: 50px;
+
+}
+.idxrcustomproduct-autocomplete .typeahead-list.imagenes-gris li>.media-left img {
+    filter: url(data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter i…0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale);
+    filter: gray;
+    -webkit-filter: grayscale(100%);
+}
+
+.idxrcustomproduct-autocomplete .typeahead-list li>.media-body i.eliminar {
+    cursor: pointer;
+    float: right
+}

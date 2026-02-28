@@ -1,0 +1,27 @@
+
+.newsletterpro-my-account {
+	
+}
+
+.newsletterpro-list-of-interests {
+	margin: 0;
+	list-style: none;
+}
+
+.newsletterpro-my-account .np-category-tree ul ul {
+    margin-left: 16px;
+    /*border-left: solid 1px #ccc;*/
+    padding-left: 5px;
+}
+
+.newsletterpro-my-account .np-category-tree .np-category-toggle {
+	display: inline-block;
+}
+
+.newsletterpro-my-account .np-category-tree .np-category-toggle.np-visibility-hidden {
+	visibility: hidden;
+}
+
+.newsletterpro-my-account .np-category-tree .np-category-toggle i {
+	font-size: 20px;
+}

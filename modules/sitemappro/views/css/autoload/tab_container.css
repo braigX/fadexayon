@@ -1,0 +1,330 @@
+
+@media (max-width: 768px) {
+    .bootstrap .page-head .toolbarBox {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) {
+    .mobile #content.bootstrap {
+        padding-top: 100px;
+    }
+}
+
+.style_tabs .prestashop-switch {
+    display: inline-block;
+}
+
+.style_tabs .tabs:after
+{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.style_tabs .tabs li
+{
+    float: left;
+    /*line-height: 30px;*/
+    color: #333333;
+    /*background: #ffffff;*/
+    font-size: 14px;
+    /*text-transform: uppercase;*/
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    border-top: solid 0.1875rem transparent;
+}
+
+@media (max-width: 767px) {
+    .style_tabs .tabs li
+    {
+        width: 50%;
+    }
+
+    .tabs_content .style_tabs .tabs li
+    {
+        width: 25%;
+    }
+}
+
+.style_tabs .tabs li.active
+{
+    background: #ffffff;
+    border-top: solid 0.1875rem #25b9d7;
+}
+
+.style_tabs .tabs li.active a
+{
+    color: #363a41;
+}
+
+.style_tabs .tabs li a
+{
+    color: #6c868e;
+    padding: 0.9375rem 1.25rem;
+}
+
+.style_tabs .nav-tabs>li>a {
+    border-radius: 0;
+}
+
+.style_tabs .nav-tabs>li.active>a,
+.style_tabs .nav-tabs>li.active>a:hover,
+.style_tabs .nav-tabs>li.active>a:focus {
+    border: none;
+}
+
+.style_tabs .tabs li:after
+{
+    content: '';
+    display: block;
+    width: 3px;
+    height: 1px;
+    background: #DDDDDD;
+    position: absolute;
+    left: -3px;
+    bottom: 0;
+}
+.style_tabs .tabs li:first-child:after
+{
+    display: none;
+}
+
+.style_tabs .nav-tabs li.active a,
+.style_tabs .nav-tabs li.active a:hover,
+.style_tabs .nav-tabs li.active a:focus {
+    background-color: #03a9db;
+    color: #FFFFFF;
+}
+
+.style_tabs .tabs .material-icons {
+    display: inline-block;
+    font-size: 16px;
+}
+
+.style_tabs .tabs .arrow {
+    padding: .9375rem .3125rem;
+    position: relative;
+    height: 3rem;
+    z-index: 3;
+    visibility: hidden;
+    background: #25b9d7;
+    color: #fff;
+    cursor: pointer;
+}
+
+.style_tabs .tabs .arrow.visible {
+    visibility: visible
+}
+
+.style_tabs .tabs .right-arrow {
+    margin-top: -3.125rem
+}
+
+.style_tabs .tabs_content
+{
+    border: 1px solid #03a9db;
+    position: relative;
+    z-index: 1;
+    margin-top: -1px;
+    border-radius: 3px;
+    border-top-left-radius: 0;
+}
+.style_tabs .tabs_content > div
+{
+    padding: 15px;
+}
+
+.style_tabs .nav-tabs {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.style_tabs .nav-tabs>li>a {
+    margin-right: 0;
+    border: none;
+}
+
+.style_tabs .link-sitemap,
+.style_tabs .link-pages-sitemap {
+    width: 100%;
+    float: left;
+    line-height: 2em;
+}
+
+.style_tabs .link-pages-sitemap ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.style_tabs .cron-sitemap {
+    word-wrap: break-word;
+}
+
+.style_tabs .shop_domain {
+    line-height: 26px;
+}
+.style_tabs .shop_domain_wrap {
+    min-width: 200px;
+}
+
+.style_tabs .shop_domain_wrap label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.style_tabs .form-group .translatable-field input[type="text"] {
+    margin: 0;
+}
+
+.style_tabs .default-settings {
+    border-bottom: solid 1px #dfdfdf;
+    padding-bottom: 15px;
+    margin-bottom: 8px;
+}
+
+.style_tabs #tab_manufacturer .default-settings {
+    margin-bottom: 15px;
+}
+
+.style_tabs #tab_supplier .default-settings {
+    margin-bottom: 15px;
+}
+
+.style_tabs .default-category {
+    border-bottom: solid 1px #dfdfdf;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.style_tabs .product_selected_categories_block {
+    border-bottom: solid 1px #dfdfdf;
+    /*border-top: solid 1px #dfdfdf;*/
+    /*padding-top: 8px;*/
+    padding-bottom: 15px;
+    /*margin-top: 13px;*/
+    margin-bottom: 8px;
+}
+
+.style_tabs .block_search_product {
+    border-bottom: solid 1px #dfdfdf;
+    /*border-top: solid 1px #dfdfdf;*/
+    /*padding-top: 8px;*/
+    padding-bottom: 15px;
+    /*padding-top: 8px;*/
+    /*margin-top: 13px;*/
+    margin-bottom: 8px;
+}
+
+.style_tabs .search_manufacturer_wrap {
+    border-bottom: solid 1px #dfdfdf;
+    /*border-top: solid 1px #dfdfdf;*/
+    /*padding-top: 8px;*/
+    /*padding-bottom: 15px;*/
+}
+
+.style_tabs .search_supplier_wrap {
+    border-bottom: solid 1px #dfdfdf;
+    /*border-top: solid 1px #dfdfdf;*/
+    /*padding-top: 8px;*/
+    /*padding-bottom: 15px;*/
+    margin-bottom: 15px;
+}
+
+.style_tabs .search-category-wrap {
+    border-bottom: solid 1px #dfdfdf;
+    /*border-top: solid 1px #dfdfdf;*/
+    /*padding-top: 8px;*/
+    padding-bottom: 15px;
+}
+
+.style_tabs .sitemap-excluded-wrap {
+    border-bottom: solid 1px #dfdfdf;
+    /*border-top: solid 1px #dfdfdf;*/
+    /*padding-top: 8px;*/
+    padding-bottom: 15px;
+}
+
+.style_tabs .icon-remove:before {
+    content: "\f1f8";
+}
+
+.tabs_content .style_tabs {
+    background: #eff1f2;
+    padding: 10px;
+    padding-top: 15px;
+}
+
+#tab5 .separator {
+    float: left;
+    width: 100%;
+    border-bottom: solid 1px #dfdfdf;
+    margin-bottom: 15px;
+}
+
+#tab5 .tabs_content > .separator {
+    margin-top: 22px;
+}
+
+#tab5 .tabs_content > .separator:last-child {
+    border: none;
+    margin-bottom: 0;
+}
+
+.tab_container {
+    max-width: 991px;
+    position: relative;
+    margin-bottom: 20px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.tab_container .tabs_content {
+    padding: 15px;
+    border: solid 1px #d3d8db !important;
+    background-color: #fff;
+    border-radius: 0px !important;
+}
+
+.lds-dual-ring.hidden {
+    display: none;
+}
+.overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100vh;
+    z-index: 999;
+    opacity: 1;
+    transition: all 0.5s;
+}
+
+.lds-dual-ring {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+.lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 5% auto;
+    border-radius: 50%;
+    border: 6px solid #08ff00;
+    border-color: #09dbee transparent #09dbee transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

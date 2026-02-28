@@ -1,0 +1,8 @@
+[{shop_url}] 
+
+Hallo {firstname} {lastname}, 
+
+De geschatte afleverdatum voor uw bestelling met referentie {order_name} is veranderd. De nieuwe verwachte afleverdatum is
+
+Snelste bezorgdatum: {delivery_min}
+Uiterlijke bezorgdatum: {delivery_max}

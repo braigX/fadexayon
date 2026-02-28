@@ -1,0 +1,32 @@
+
+#block_myaccount_infos .ss_icon_group {
+    display: none;
+}
+#footer_account_list > li {
+    padding: 0;
+    width: 100% !important;
+}
+#footer_account_list > li .ss_icon_group {
+    display:none;
+}
+#footer_account_list li {
+    width: 100%;
+    padding: 0;
+}
+*{
+    outline: none!important;
+}
+.ybc_item_img img {
+    max-width: 100%;
+    height: auto;
+}
+i.ets_svg {
+    vertical-align: -2px;
+}
+svg {
+    fill: currentColor;
+}
+.ybc_blog_review {
+    color: orange;
+    font-size: 18px;
+}

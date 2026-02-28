@@ -1,0 +1,3 @@
+Blogbericht: {post_title}
+Feedback: {feedback}
+Blogbericht is nuttig voor klant: {polls_helpful}

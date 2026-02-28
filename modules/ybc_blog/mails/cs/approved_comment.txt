@@ -1,0 +1,4 @@
+Ahoj {customer_name},
+Váš komentář k {post_title} byl schválen.
+Zobrazit příspěvek
+

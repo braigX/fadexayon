@@ -1,0 +1,4 @@
+Olá {author_name}
+{replier} acabou de responder a um comentário em {post_title} e está aguardando sua aprovação
+{comment_reply}
+Ver resposta

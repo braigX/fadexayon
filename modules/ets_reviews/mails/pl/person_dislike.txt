@@ -1,0 +1,9 @@
+[{shop_url}]
+
+Witaj {person_name},
+Użytkownikowi {from_person_name} nie spodobał się Twój {object} w {product_name}
+
+{content}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

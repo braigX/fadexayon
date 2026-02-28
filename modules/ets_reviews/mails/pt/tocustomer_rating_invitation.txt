@@ -1,0 +1,13 @@
+[{shop_url}]
+
+Olá {customer_name},
+Esperamos que você possa reservar seu tempo para avaliar seus itens comprados recentemente:
+
+{product_list}
+
+Obrigado pela confiança e compra em nossa loja
+
+Avalie agora
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

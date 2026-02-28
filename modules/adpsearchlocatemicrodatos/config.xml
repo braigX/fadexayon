@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>adpsearchlocatemicrodatos</name>
+    <displayName><![CDATA[Search and Clean Incorrect Microdata - SEO]]></displayName>
+    <version><![CDATA[2.3.2]]></version>
+    <description><![CDATA[Find duplicate or incorrectly configured microdata in your e-commerce and clean it up automatically.]]></description>
+    <author><![CDATA[Adalop]]></author>
+    <tab><![CDATA[administration]]></tab>
+	<confirmUninstall><![CDATA[Are you sure about removing these options?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

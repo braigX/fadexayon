@@ -1,0 +1,3 @@
+Привет {customer_name},
+Ваше сообщение {post_title} has been successfully submitted to {shop_name} and was approved
+Сообщение с обзором

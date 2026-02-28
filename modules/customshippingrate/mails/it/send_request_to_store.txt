@@ -1,0 +1,6 @@
+
+[/{shop_url}] {customer} ha richiesto un preventivo di spedizione. Indirizzo e-mail del cliente: {email} Messaggio: {message} 
+
+{shop_name} [/{shop_url}] powered by PrestaShop(tm)
+[http://www.prestashop.com/] 
+

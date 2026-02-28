@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>trustpilot</name>
+    <displayName><![CDATA[Trustpilot reviews]]></displayName>
+    <version><![CDATA[2.50.880]]></version>
+    <description><![CDATA[The Trustpilot Review extension makes it simple and easy for merchants to collect reviews from their customers to power their marketing efforts, increase sales conversion, build their online reputation and draw business insights.]]></description>
+    <author><![CDATA[Trustpilot]]></author>
+    <tab><![CDATA[checkout]]></tab>
+	<confirmUninstall><![CDATA[Are you sure you want to uninstall?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+</module>

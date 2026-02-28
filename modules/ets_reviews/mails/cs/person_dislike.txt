@@ -1,0 +1,9 @@
+[{shop_url}]
+
+Dobrý den {person_name},
+Uživateli {from_person_name} se nelíbí váš {object} ve službě {product_name}
+
+{content}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

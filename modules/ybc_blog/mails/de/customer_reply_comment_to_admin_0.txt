@@ -1,0 +1,4 @@
+Hallo {author_name}
+{replier} hat gerade auf einen Kommentar zu {post_title} geantwortet und wartet auf Ihre Zustimmung
+{comment_reply}
+Antwort anzeigen

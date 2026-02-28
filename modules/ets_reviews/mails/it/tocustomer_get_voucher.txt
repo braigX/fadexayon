@@ -1,0 +1,13 @@
+[{shop_url}]
+
+Ciao {customer_name},
+Siamo felici di informarti che hai appena ricevuto un codice voucher dopo aver valutato gli articoli acquistati.
+Codice: {voucher_code}
+Valore di sconto: {voucher_value}
+Inserisci questo codice sul tuo prossimo acquisto per ottenere lo sconto
+
+Usa il voucher ora
+
+
+{shop_name} [{shop_url}] realizzato da
+PrestaShop(tm) [http://www.prestashop.com/]

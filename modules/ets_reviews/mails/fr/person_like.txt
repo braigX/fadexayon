@@ -1,0 +1,9 @@
+[{shop_url}]
+
+Bonjour {person_name},
+{from_person_name} a aimé votre {object} sur {product_name}
+
+{content}
+
+{shop_name} [{shop_url}] propulsé par
+PrestaShop(tm) [http://www.prestashop.com/]

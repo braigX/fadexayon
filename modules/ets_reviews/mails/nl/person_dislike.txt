@@ -1,0 +1,9 @@
+[{shop_url}]
+
+Hallo {person_name},
+{from_person_name} vond uw {object} op {product_name} niet leuk
+
+{content}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

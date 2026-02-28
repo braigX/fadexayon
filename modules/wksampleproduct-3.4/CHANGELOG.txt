@@ -1,0 +1,134 @@
+------------------------------------------------------------------------------
+Change Log : V5.3.3 To V5.3.4 | COMPATIBLE:: PRESTASHOP V1.7 & V8.x.x & V9.x.x
+------------------------------------------------------------------------------
+
+## Update Policy:
+	The admin only needs to upload the ZIP file of the new module version (v5.3.4). An upgrade script is included in the module, which will automatically perform the necessary upgrade tasks for v5.3.4.
+
+    The upgrade script located at upgrade/upgrade-5.3.4.php will:
+		- Remove existing overrides and install the updated versions.
+
+## Improvements:
+    - Compatible with Prestashop 9 version.
+	- Removed deprecated code and improved performance.
+
+
+## Bug fixed:
+    - Fixed Validation issue.
+    - Fixed some design related issue.
+    - Some minor bug fixed.
+
+
+-----------------------------------------------------------------
+Change Log : V5.3.2 To V5.3.3 | COMPATIBLE:: PRESTASHOP V1.7 & V8.x.x
+-----------------------------------------------------------------
+
+## Update Policy:
+- You can directly install the updated version zip
+
+## Improvements:
+- If order contains sample product then sample product table will display in invoice and delivery slip.
+
+## Bug fixed:
+    - Design related issues fixed.
+    - Validation related issues fixed .
+    - Fixed compatibility issues
+
+-----------------------------------------------------------------
+Change Log : V5.3.1 To V5.3.2 | COMPATIBLE:: PRESTASHOP V1.7 & V8.x.x
+-----------------------------------------------------------------
+
+## Update Policy:
+-You can directly install the updated version zip
+
+## Bug fixed:
+    -Fixed price issues.
+    -Fixed display issues.
+    -Fixed compatibility issues
+    -Fixed checkout page issues.
+
+## Improvements:
+    -Compatible with new catalog page.
+
+-----------------------------------------------------------------
+ChangeLog: V5.3.0 to V5.3.1 | Compatible: PS1.7.x.x and PS8.x.x
+-----------------------------------------------------------------
+Bug Fixed:
+- Validation and Display issues fixed
+- Translation issue resolved
+
+Improvements:
+- UI Changes -  Content change "A percentage of product price" to "Deduct percentage of price from product price"
+
+Hook added:
+    - actionObjectProductAddBefore
+    - actionObjectProductUpdateBefore
+
+---------------------------
+ChangeLog: V5.2.0 to V5.3.0
+---------------------------
+- added `weight` column in "wk_sample_product" table to store sample weight.
+- Created "wk_sample_carrier" table to store sample product carriers.
+
+New Features:
+- Individual product sample can be disabled even when global sample is enabled.
+- Select different carriers for sample products.
+- Select different weight for sample products
+- Bulk assign sample settings to products.
+
+Bug Fix:
+- Add sample to cart when reordering a sample order.
+- Display sample product information in order details page in front office
+- Correct order carriers in admin order details page according to sample prices/weight
+
+---------------------------
+ChangeLog: V5.1.0 to V5.2.0
+---------------------------
+- added `sample_file` column in "wk_sample_product" table to store uploaded vitual sample file name.
+- Created "wk_sample_product_lang" table to store button title and description.
+
+New Features:
+- Sample button title and description multilanguage support.
+- Sample file name is sample as name of the uploaded file.
+
+Bug Fix:
+- Validation applied for button title maxlength.
+- Using "actionCartUpdateQuantityBefore" hook for >= PS1.7.7.0 compatibility
+- Fixed issue Sample button disabled on load
+
+---------------------------
+ChangeLog: V5.0.1 to V5.1.0
+---------------------------
+New Features:
+- Sample add to cart action is now compatible with standard add to cart popup.
+- Combination sample compatibility added.
+- `id_product_attribute` added in wk_sample_cart table to make this compatible with combinations.
+- New configuration for Buy sample button text color and Background color.
+- New configuration for sample quantity spinner.
+- Multistore compatibility.
+
+Bug Fix:
+- Cart controller quantity display issue fixed with prestashop events.
+- Always disabled sample button fixed in case of periodic Ajax requests.
+- Cart::CheckQuantities() override added to restrict the checkout if sample quantity is decreased than before.
+- "Free sample" translation issue fixed.
+
+
+---------------------------
+ChangeLog: V5.0.0 to V5.0.1
+---------------------------
+New Features:
+- Virtual product sample has been implemented.
+- New configuration for product specific price discount (Consider discount in sample price or not).
+- Sample price compatibility with existing product specific prices has been managed.
+- Tax removed from precentage type reduction.
+- Sample product identification in cart ("sample" will be displayed under the sample products in cart)
+
+Bug Fix:
+- The sample price has been managed according to price display type of customer group. (Tax incl/excl).
+- Sample price issues (incorrect prices) has been resolved.
+- Sample product add-to-cart issue when max quantity in cart is less than min quantity for purchase.
+- Script validation in sample product description field
+- Sample and standard product cannot be added to cart together.
+
+- First Version: V5.0.0 Compatible to PrestaShop V1.7.x.x

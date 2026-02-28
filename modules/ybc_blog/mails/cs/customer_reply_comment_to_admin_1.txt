@@ -1,0 +1,4 @@
+Ahoj {author_name}
+{replier} právě odpověděl na komentář k {post_title} a byl automaticky schválen
+{comment_reply}
+Zobrazit odpověď

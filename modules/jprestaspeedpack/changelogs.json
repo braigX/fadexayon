@@ -1,0 +1,2082 @@
+{
+    "10.1.0" : [
+        "Page Cache: Add an option to include secondary customer groups in the cache key",
+        "Fix install when used with Theme Origin"
+    ],
+    "10.0.10" : [
+        "Page Cache: Handle hook actionCategoryUpdate which is not called correctly by StoreCommander",
+        "Page Cache: Fix ps_versions_compliancy for PS1.6 and PS1.5"
+    ],
+    "10.0.9" : [
+        "Page Cache: Improve compatibility with module lgcookieslaw by Línea Gráfica and cache-warmer"
+    ],
+    "10.0.8" : [
+        "Page Cache: Better handle logout",
+        "Page Cache: Handle old hook actionProductUpdate for StoreCommander",
+        "Page Cache: Fix a bug concerning advanced configuration of the cache for user groups"
+    ],
+    "10.0.7" : [
+        "Page Cache: Enable cache for Smartblog module (ClassyDevs)"
+    ],
+    "10.0.6" : [
+        "Page Cache: Fix a problem with old version (<5) of pm_advancedsearch4 module (Presta-Module)"
+    ],
+    "10.0.4" : [
+        "Page Cache: Improve compatibility with groupinc by Idnovate",
+        "Page Cache: Compatibility with module 'Promokit Amp' (pkamp) version 4",
+        "Page Cache: Handle a specific case where context->customer is not null but is not a customer"
+    ],
+    "10.0.3" : [
+        "Speed Pack: Handle error if Page Cache Ultimate is not completely removed"
+    ],
+    "10.0.2" : [
+        "Use json_encode/json_decode instead of serialize/unserialize as requested by Addons"
+    ],
+    "10.0.1" : [
+        "Page Cache: Set HTML minification to disabled by default to encourage testing before activation",
+        "Small fix for spanish translation"
+    ],
+    "10.0.0" : [
+        "WEBP: AVIF format conversion is now available on PHP 8.1+ with AVIF support – faster, lighter, better!",
+        "Page Cache: HTML and inline CSS are now automatically minified on PHP 7+ – smaller cache (about -10%), faster load times.",
+        "Already compatible with Prestashop 9!",
+        "The module is now using the Prestashop coding rules",
+        "Remove override of Context",
+        "Translations into Spanish, Italian, Polish and Portuguese",
+        "WEBP: Small fix for multi-domain shops"
+    ],
+    "9.6.3" : [
+        "Page Cache: Force the browser cache to be disabled in static cache when it is disabled in module configuration"
+    ],
+    "9.6.2" : [
+        "Page Cache: Compatibility with leoquicklogin 1.1.0",
+        "Page Cache: Make $cookies_to_preserve protected instead of private"
+    ],
+    "9.6.1" : [
+        "Page Cache: Compress pagecache_cachekey_usergroups value to fix a problem with shop having thousands of user groups",
+        "Page Cache: Use Module::fetch() instead of Module::display() to avoid error with open_basedir restrictions"
+    ],
+    "9.6.0" : [
+        "SQL Profiler: Use our specific version of greenlion/php-sql-parser, not the one provided by Prestashop",
+        "Page Cache: Don't check Apache optimisation if using nginx server",
+        "Page Cache: Add an advanced option to disable the cache when coming from a specific referer (usefull when using a SSO)"
+    ],
+    "9.5.10" : [
+        "Page Cache: Make sure the cache_key has a uniq index"
+    ],
+    "9.5.9" : [
+        "Page Cache: Fix to store the correct referer in traffic source"
+    ],
+    "9.5.8" : [
+        "Page Cache: Fix an issue concerning the cache-warmer. I reset of the cache is recommended after the upgrade (red button under the statistics table).",
+        "Page Cache: Fix missing URL parameter 'dbgpagecache' when testing on some shops"
+    ],
+    "9.5.7" : [
+        "Page Cache: Optimize the creation of the list of URLs to generate by the Cache-Warmer",
+        "Page Cache: Now handle very long URLs"
+    ],
+    "9.5.6" : [
+        "Page Cache: Fixes a bug in version 9.5.5 for new install"
+    ],
+    "9.5.5" : [
+        "Page Cache: Add a missing index for the Cache-Warmer"
+    ],
+    "9.5.4" : [
+        "Page Cache: Improve a slow SQL query"
+    ],
+    "9.5.3" : [
+        "Page Cache: Improve v9.5.0 upgrade script"
+    ],
+    "9.5.2" : [
+        "Page Cache: Fix statistics count on pages having URL parameters"
+    ],
+    "9.5.1" : [
+        "Page Cache: Make sure there is no duplicate before creating the UNIQUE index on cache_key"
+    ],
+    "9.5.0" : [
+        "Page Cache: Improve performances and reduce database size",
+        "Page Cache: Improve handling of long URLs and case sensitivity in URLs",
+        "Page Cache: Reduce the number of deletions and insertions in the backlinks table to prevent deadlocks",
+        "Page Cache: Add a primary key to backlinks table"
+    ],
+    "9.4.21" : [
+        "Page Cache: Fix a problem to access to the license informations (error #47 - Maximum redirects followed)"
+    ],
+    "9.4.20" : [
+        "Page Cache: Compatibility with thcountryselector module by Thecon"
+    ],
+    "9.4.19" : [
+        "Page Cache: Add a lock in triggerReffreshment() to improve speed and avoid dead locks"
+    ],
+    "9.4.18" : [
+        "Page Cache: In cache-warmer, add the function specificTreatmentOnUrl() that can be overriden for special needs"
+    ],
+    "9.4.17" : [
+        "Page Cache: Compatibility with module blockwishlist v3 by Prestashop"
+    ],
+    "9.4.15" : [
+        "Page Cache: Compatibility with module cm_cookielaw by caleydon.com"
+    ],
+    "9.4.14" : [
+        "Page Cache: Compatibility with PS 8.2.0"
+    ],
+    "9.4.13" : [
+        "Page Cache: Improve compatibility with cookiesplus module by Idnovate (creates less context)"
+    ],
+    "9.4.12" : [
+        "WEBP : Migrating to the last version of WEBP converter : rosell-dk/webp-convert v2.9.3",
+        "Page Cache: Compatibility with ec_cookies module by 4EC.EU"
+    ],
+    "9.4.11" : [
+        "Page Cache: Googlebots and maybe other bots provide suspicious performances timing so we ignore them.",
+        "Page Cache: Add mot_tcid as ignored URL parameters (they are trackers)"
+    ],
+    "9.4.10" : [
+        "SQL Profiler: Improve error message if Db is already overridden",
+        "Page Cache: Cache-warmer can now generate SEO pages generated by pm_advancedsearch4 module (Presta-Module)"
+    ],
+    "9.4.9" : [
+        "Page Cache: Fix 9.4.8 for older Prestashop version"
+    ],
+    "9.4.8" : [
+        "Page Cache: Do not use 'module' in URLs to avoid redirection problem done by other modules"
+    ],
+    "9.4.7" : [
+        "Page Cache: Fix a bug that was displaying disabled widgets",
+        "Page Cache: Improve javascript that avoid problem on redirection after login"
+    ],
+    "9.4.6" : [
+        "Page Cache: Avoid useless logs",
+        "Page Cache: Fix compatibility with Creative Elements v2 by WebshopWorks",
+        "Page Cache: Fix a security check added in 9.4.2 (Forbidden path) when used with symbolic links"
+    ],
+    "9.4.5" : [
+        "Page Cache: Make sure realpath() is not called with empty string"
+    ],
+    "9.4.4" : [
+        "Page Cache: Improve compatibility with groupinc module by Idnovate",
+        "Page Cache: Fix a security check added in 9.4.2 (Forbidden path)",
+        "Page Cache: Add cjdata,cjevent,publishername,mc_cid,mc_eid,gbraid and wbraid as ignored URL parameters (they are trackers)"
+    ],
+    "9.4.3" : [
+        "SQL Profiler: Fix migration issue",
+        "WEBP: Fix saving issue for multi-stores",
+        "Page Cache: Improve compatibility with module lgcookieslaw by Línea Gráfica and cache-warmer",
+        "Page Cache: Fix the error with ReflectionObject on some shops"
+    ],
+    "9.4.2" : [
+        "SQL Profiler: Fixed a bug in SQL query uniqueness",
+        "SQL Profiler: Fix small bugs",
+        "Improve code to be ready for PrestaShop Enterprise"
+    ],
+    "9.4.1" : [
+        "Page Cache: Remove reference to Jprestaspeedpack"
+    ],
+    "9.4.0" : [
+        "Handle the migration of your old Page Cache Ultimate license to our all-in-one Speed Pack module license",
+        "SQL Profiler: state enabled/disabled is now the same for all shops (for multi-stores)",
+        "Page Cache: Fix the warning concerning mb_convert_encoding()",
+        "Page Cache: Exclude hooks that cannot be marked as dynamic"
+    ],
+    "9.3.9" : [
+        "Page Cache: Improve compatibility with idxcookies module by Innovadeluxe"
+    ],
+    "9.3.8" : [
+        "Page Cache: Improve compatibility with hicookielaw module by Hipresta",
+        "Page Cache: Fix a javascript error introduced in 9.3.7"
+    ],
+    "9.3.7" : [
+        "WEBP: Replace the option to exclude the /upload directory by a list of paths to exclude from the WEBP compression",
+        "Page Cache: Fix Static cache does was not active on some shops",
+        "Page Cache: Fix the problem that displays a page with 'js:...' when the customer sign in",
+        "Page Cache: Better compatibility with pkamp module by PromoKit",
+        "Page Cache: Fix the bug Exception TypeError: 'array_key_exists(): Argument #2 ($array) must be of type array, null given'"
+    ],
+    "9.3.6" : [
+        "Page Cache: Ensures pagecache_ignored_params is set correctly with the latest known trackers",
+        "Page Cache: Bug fixes for PS1.6 and PS1.5",
+        "Page Cache: Enable cache for hifaq module (HiPresta) for PS1.6"
+    ],
+    "9.3.5" : [
+        "Fix warnings",
+        "Page Cache: Improve compatibility with cookiesplus module by Idnovate"
+    ],
+    "9.3.4" : [
+        "Page Cache: Improve cache-warmer listing for products with combinations",
+        "Page Cache: Do not try to generate cache of forbidden products (avoid 403)"
+    ],
+    "9.3.3" : [
+        "Page Cache: Return correct HTTP code to the cache-warmer when it is different of 200",
+        "Page Cache: Do not try to generate cache of forbidden categories (avoid 403)"
+    ],
+    "9.3.2": [
+        "Page Cache: Fix compatibility with module megacookies by presta.design",
+        "Page Cache: Fix compatibility with module medcookiefirst by Mediacom87"
+    ],
+    "9.3.1": [
+        "Page Cache: Compatibility with module megacookies module by presta.design"
+    ],
+    "9.3.0": [
+        "Page Cache: Optimization for pages that cannot be cached",
+        "Page Cache: Compatibility with module medcookiefirst by Mediacom87",
+        "Page Cache: Better check products/categories restrictions for Cache-Warmer (Compatibility with module pga by MyPresta.eu)",
+        "Page Cache: Enable cache for af_producttagspro module (Prestayar.com)",
+        "Page Cache: Enable cache for faqs module (MyPrestaModules)",
+        "WEBP: Add an option to enable/disable WEBP compression in /upload directory",
+        "Page Cache: Fix bug with LGComments module (by Línea Gráfica) and other modules using the hook displayProductExtraContent"
+    ],
+    "9.2.3": [
+        "Page Cache: Handle non UTF-8 characters in the request that refreshes dynamic modules",
+        "Page Cache: Fix a bug with MoneticoPaiement module"
+    ],
+    "9.2.2": [
+        "Page Cache: Fix a bug when all timeouts are set to infinity",
+        "Page Cache: Enable cache for hifaq module (HiPresta)"
+    ],
+    "9.2.1": [
+        "Page Cache: Fix a bug in contexts of cache for multistores that don't share customers",
+        "Page Cache: Compatibility with inline javascript minifiers",
+        "WEBP: Fix a bug related to multistores using multiple URLs within the same domain",
+        "Add missing translations"
+    ],
+    "9.2.0": [
+        "Page Cache: Adding filters to the context table",
+        "Page Cache: Enable cache for af_seopages module (Amazzing Filter)"
+    ],
+    "9.1.0": [
+        "SQL Profiler: Possibility to create and delete suggested indexes from the module in one click!",
+        "SQL Profiler: French translations"
+    ],
+    "9.0.9": [
+        "SQL Profiler: Better handle unknown SQL statements like 'OPTIMIZE'",
+        "Page Cache: Fix cart refreshment for some (other) cases"
+    ],
+    "9.0.8": [
+        "Improve logs",
+        "Page Cache: Fix cart refreshment for some cases"
+    ],
+    "9.0.7": [
+        "Page Cache: Fix compatibility with PS1.6"
+    ],
+    "9.0.5": [
+        "Page Cache: Fix warning 'Deprecated: preg_replace(): Passing null to parameter #3'"
+    ],
+    "9.0.4": [
+        "Page Cache: Cache-warmer now ignores redirected pages by module ec_seo by Ether Creation"
+    ],
+    "9.0.3": [
+        "Page Cache: Fix a problem concerning the detection of the protocol when using Cloudflare (now also check HTTP_X_FORWARDED_PROTO)",
+        "SQL Profiler: Ignore comments in SQL queries",
+        "Page Cache: Enable cache for ph_simpleblog module (PrestaHome)"
+    ],
+    "9.0.2": [
+        "Page Cache: Fix default country for generated contexts for the cache-warmer in some cases",
+        "Page Cache: Update bootstrap-slider to 10.6.2 and do not minify it to avoid errors with some security modules",
+        "Page Cache: Compatibility with pkamp module by PromoKit",
+        "Page Cache: Fix a bug when multi-store has been disabled after creating some shops",
+        "DB cleaner: Add logs"
+    ],
+    "9.0.1": [
+        "Page Cache: Compatibility with old version of cURL"
+    ],
+    "9.0.0": [
+        "SQL Profiler (Speed Pack): new great feature added to profile SQL queries and help you find the reason why your shop is slow",
+        "Page Cache: Improve diagnostic by checking the H2/H3 protocols"
+    ],
+    "8.8.61": [
+        "Page Cache: update the static cache context after a customer registration"
+    ],
+    "8.8.59": [
+        "Page Cache: Fix migration script from version 7",
+        "Fix the URL of test mode for PS8 (the parameter 'dbgpagecache' was lost during the redirection)",
+        "Add FAQ buttons in header"
+    ],
+    "8.8.58": [
+        "WEBP: Handle images URLs with parameters when 'Force .webp extension' is enabled"
+    ],
+    "8.8.57": [
+        "Page Cache: Compatibility with LoyaltyRewardPoints module"
+    ],
+    "8.8.56": [
+        "Page Cache: Improve compatibility with iubenda module"
+    ],
+    "8.8.53": [
+        "Page Cache: Fix a bug in the selection of contexts to warmup"
+    ],
+    "8.8.52": [
+        "Page Cache: Fix warnings"
+    ],
+    "8.8.51": [
+        "Page Cache: Display pages faster for bots (search engines)",
+        "Page Cache: Fix an SQL error for new installation"
+    ],
+    "8.8.49": [
+        "Page Cache: Avoid similar contexts to be created",
+        "Page Cache: Improve compatibility with module lgcookieslaw by Línea Gráfica and cache-warmer"
+    ],
+    "8.8.48": [
+        "WEBP: Fix bug with ajax requests (introduced in 8.8.46)"
+    ],
+    "8.8.47": [
+        "Page Cache: Compatibility with module kd_timetoriffconnector by Kadeor",
+        "Page Cache: Improve compatibility with groupinc by Idnovate and Cache-Warmer"
+    ],
+    "8.8.46": [
+        "Page Cache: Fix percentages in contexts table (stats)",
+        "Page Cache: Reduce errors with code 204 with cache-warmer",
+        "Page Cache: Compatibility with app4less module",
+        "WEBP: Do not convert images under directory /upload",
+        "WEBP: Disable conversion of PNG files if GD version is too old (2.1.0) and does not handle transparency"
+    ],
+    "8.8.45": [
+        "Page Cache: Avoid a warning in logs about 'contextKey'"
+    ],
+    "8.8.44": [
+        "Add security constraints",
+        "Prestashop Addons validations",
+        "Page Cache: Add pagination to contexts table (stats)",
+        "Display a notification when a new version is available"
+    ],
+    "8.8.43": [
+        "Page Cache: Don't use a default context for search engines anymore",
+        "Page Cache: Also stores TTFB stats of search engines",
+        "Page Cache: Improve sort by hit/missed in stats",
+        "Page Cache: Display the context in the browser console",
+        "Page Cache: Purge old cache directories when possible",
+        "Page Cache: Improve compatibility with module lgcookieslaw v1 by Línea Gráfica"
+    ],
+    "8.8.42": [
+        "Page Cache: Improve compatibility with Cloudflare"
+    ],
+    "8.8.41": [
+        "Page Cache: Improve compatibility with Security Pro module"
+    ],
+    "8.8.40": [
+        "Page Cache: Fix cart refreshment in some cases (ter)"
+    ],
+    "8.8.39": [
+        "Page Cache: Fix cart refreshment in some cases (bis)"
+    ],
+    "8.8.38": [
+        "Page Cache: Fix compatibility with groupinc module",
+        "Page Cache: Fix cart refreshment in some cases"
+    ],
+    "8.8.37": [
+        "Page Cache: Fix overrides for blog modules (static call error)"
+    ],
+    "8.8.36": [
+        "Page Cache: Fix profiling configuration which is shared accross multi-shops",
+        "Page Cache: Adjust automatic creation of contexts to warmup depending on the number of pages"
+    ],
+    "8.8.35": [
+        "Page Cache: Refresh the shopping cart sooner so the delay is shorter"
+    ],
+    "8.8.33": [
+        "Page Cache: Compatibility with maintenance mode of PS8"
+    ],
+    "8.8.32": [
+        "Page Cache: Improve Cache-Warmer (save bandwidth and time)"
+    ],
+    "8.8.31": [
+        "Page Cache: Fix Cache-Warmer context when using Apple Pay module"
+    ],
+    "8.8.30": [
+        "Page Cache: Fix missing column used_by_cw for some shops"
+    ],
+    "8.8.29": [
+        "Page Cache: Fix missing column day_add for some shops"
+    ],
+    "8.8.28": [
+        "Page Cache: Fix Addons validation warnings"
+    ],
+    "8.8.27": [
+        "Page Cache: Fix problem with used_in_cw column for new install",
+        "Page Cache: Avoid error message in logs about lgseoredirect module"
+    ],
+    "8.8.26": [
+        "Page Cache: Handle the case when Customer Groups are not enabled"
+    ],
+    "8.8.25": [
+        "Page Cache: Add an option to handle the cache refreshment like when a new product is created when a product is back in stock"
+    ],
+    "8.8.24": [
+        "Page Cache: Add module newsellerincategory by Grafics in the list of module to be refreshed when adding a new product"
+    ],
+    "8.8.23": [
+        "Page Cache: Speed up the display of the TTFB stats chart"
+    ],
+    "8.8.22": [
+        "Page Cache: Improvment for customers using the module lgseoredirect with the JPresta-Cache-Warmer"
+    ],
+    "8.8.21": [
+        "Page Cache: Fix the refreshment of the cache in PS < 1.7 when adding or removing a product"
+    ],
+    "8.8.20": [
+        "Page Cache: Compatibility with list/grid view of the Warehouse theme"
+    ],
+    "8.8.19": [
+        "Page Cache: Better compatibility with PS1.6"
+    ],
+    "8.8.18": [
+        "Fix Addons validation warnings"
+    ],
+    "8.8.17": [
+        "Page Cache: Refresh the cache of a product when the option 'Behavior when out of stock' is modified",
+        "Page Cache: Refresh the page that lists the brands (manufacturers) when one of them is modified, deleted or added"
+    ],
+    "8.8.16": [
+        "Page Cache: Avoid error when checking for opcache status"
+    ],
+    "8.8.15": [
+        "Page Cache: Purge fake customers when they are not used anymore"
+    ],
+    "8.8.14": [
+        "Page Cache: Fix stats when using a WEBP converter module"
+    ],
+    "8.8.12": [
+        "Page Cache: Add possibility to clear OP Cache (sometimes needed after upgrading the module)"
+    ],
+    "8.8.11": [
+        "Page Cache: Fix a bug that disturbs statistics introduced in version 8.8.7",
+        "Page Cache: Refresh the context when the browser is resized"
+    ],
+    "8.8.10": [
+        "Page Cache: Do not cache when Creative Element buttons are displayed on the frontend"
+    ],
+    "8.8.9": [
+        "Page Cache: Cache-warmer now ignores redirected pages by module arseopro by Areama"
+    ],
+    "8.8.8": [
+        "Page Cache: Add an option to disable statistics on TTFB",
+        "Page Cache: Improve an SQL query for big shops",
+        "Page Cache: Ignore custom products created by module ndk_advanced_custom_fields when used with JPresta-Cache-Warmer",
+        "Page Cache: Cache-warmer now ignores redirected pages by module lgseoredirect by Línea Gráfica",
+        "Page Cache: Handle cache refreshment for global discount (all products)"
+    ],
+    "8.8.7": [
+        "Page Cache: Improve compatibility with module lgcookieslaw by Línea Gráfica, specifically for search engines",
+        "Page Cache: Compatibility with module whatsappchat by Idnovate"
+    ],
+    "8.8.6": [
+        "Page Cache: Improve compatibility with module lgcookieslaw by Línea Gráfica, specifically the option 'Use $_COOKIE var'",
+        "Page Cache: Improve function arraysAreIdentical() to handle null values",
+        "Page Cache: Make sure that the column used_by_cw has been created"
+    ],
+    "8.8.5": [
+        "Page Cache: Improve JS test for PS1.6",
+        "Page Cache: Avoid a useless Ajax request on not cached pages",
+        "Page Cache: Make sure old tables are deleted before installing the module"
+    ],
+    "8.8.4": [
+        "Page Cache: Add 2 missing indexes to improve performances"
+    ],
+    "8.8.3": [
+        "Page Cache: Fix compatibility with PS1.5"
+    ],
+    "8.8.2": [
+        "Page Cache: Compatibility with module wkexitpopup by Webkul"
+    ],
+    "8.8.1": [
+        "Page Cache: Improve Cache-Warmer efficiency"
+    ],
+    "8.8.0": [
+        "Page Cache: Compatibility with new JPresta-Cache-Warmer subscription plans",
+        "Page Cache: Fix cache-warmer issue when using infinite timeouts",
+        "Page Cache: Improve cache refreshment when enabling orders on products which are out-of-stock",
+        "WEBP: Handle case sensitive servers"
+    ],
+    "8.7.1": [
+        "WEBP: Avoid deleting WEBP images not generated by the module",
+        "Page Cache: Enable cache for SEO pages of pm_advancedsearch4 module (Presta-Module)"
+    ],
+    "8.7.0": [
+        "Page Cache: Improve statistics (do not use cookies 'jpresta_cache_source_xxx' for that anymore)",
+        "Page Cache: Allow modules to handle their specifics contextual datas (hooks actionJPrestaGetSpecificCacheKeyInfos and actionJPrestaRestoreSpecificCacheKeyInfos)"
+    ],
+    "8.6.4": [
+        "WEBP: Compatibility with module smartblog by ClassyDevs"
+    ],
+    "8.6.3": [
+        "Page Cache: Compatibility with module cookiebanner by Prestaddons"
+    ],
+    "8.6.2": [
+        "Page Cache: Fix an SQL error that happens on some configurations (when multiple SQl queries are not allowed in same statement)"
+    ],
+    "8.6.1": [
+        "Page Cache: Do not warmup suppliers, manufacturers and best sellers if they are disabled"
+    ],
+    "8.6.0": [
+        "Page Cache: New menu for JPresta-Cache-Warmer",
+        "Page Cache: TTFB statistics can no longer be disabled, these statistics are very useful and do not consume much space because they are limited in time",
+        "Fix Addons validator warnings",
+        "Page Cache: Enable cache for pages generated by Configurator module created by DMConcept",
+        "Page Cache: Improve compatibility with module deluxecookies by Innovadeluxe",
+        "Page Cache: Compatibility with module eugeneraldatapro by PrestaBucket",
+        "Page Cache: Force the browser cache to be disabled when it is disabled in module configuration",
+        "Page Cache: Improve clone detection"
+    ],
+    "8.5.10": [
+        "Page Cache: Fix the automatic generation of cache-warmer contexts for some user groups"
+    ],
+    "8.5.9": [
+        "Page Cache: Remove duplicated contexts for cache-warmer"
+    ],
+    "8.5.8": [
+        "Page Cache: Do not use cache for SQL queries (bis)"
+    ],
+    "8.5.7": [
+        "Page Cache: Fix the automatic generation of cache-warmer contexts for multistores"
+    ],
+    "8.5.6": [
+        "Page Cache: Do not use cache for SQL queries",
+        "Page Cache: Fix a bug when displaying TTFB datas for a specific controller",
+        "Page Cache: Compatibility with modules that modify the shop context in their constructor (like pohodaconnector)"
+    ],
+    "8.5.5": [
+        "Page Cache: Fix the cart refreshment when the back/forward cache is used"
+    ],
+    "8.5.4": [
+        "WEBP: handle incompatible mime types and serve the original file even if it's not a JPG, PNG or WEBP image"
+    ],
+    "8.5.3": [
+        "Page Cache: Add a primary key on backlinks table for better performances",
+        "Page Cache: Improve UI for 'How to create contexts to warmup?'"
+    ],
+    "8.5.2": [
+        "Page Cache: Refresh the cache content when it is not synchronised with database anymore"
+    ],
+    "8.5.1": [
+        "Page Cache: Possibility to warm only products of some categories with JPresta-Cache-Warmer",
+        "WEBP: Better check when the browser can read WEBP format (even with ajax requests)"
+    ],
+    "8.5.0": [
+        "Page Cache: For your information, the whole cache will be reset with this upgrade",
+        "Page Cache: Contexts to warmup by the JPresta-Cache-Warmer can now be automatically generated and updated (recommended)",
+        "Page Cache: Possibility to warmup pages generated by other modules like blogs with JPresta-Cache-Warmer service",
+        "Page Cache: Pages generated by Prestablog module can now be generated by the JPresta-Cache-Warmer-Service",
+        "Page Cache: Now emit a Prestashop event 'jprestaDynamicContentLoaded' when the dynamic content is loaded and inserted",
+        "Page Cache: Improve compatibility with multistores (TTFB stats and contexts)",
+        "Page Cache: Remove the 'speed analysis' feature because it is now useless with the TTFB statistics diagram",
+        "Page Cache: Add system informations to help for debug",
+        "Page Cache: Improve compatibility with module deluxecookies by Innovadeluxe",
+        "Page Cache: Add possibility to purge the cache with an URL",
+        "Page Cache: Handle the 'delete_linking_pages' parameter in the clearcache controller to not refresh the cache of linking pages if needed",
+        "Page Cache: Improve the cache refreshment when the stock of a product declination is modified",
+        "Page Cache: Fix warnings on setcookie() and explode()",
+        "WEBP: Add explanations/doc",
+        "WEBP: Handle ajax content on category pages when 'Force .webp extension' is enabled (used by infinite scroll and ajax search for exemple)",
+        "WEBP: Do not override Module class if the theme is JPresta Origin (or declination)"
+    ],
+    "8.4.2": [
+        "Add a dependency to JPresta-Easy-Ugrade 1.3.1",
+        "Page Cache: Improve specific prices managment"
+    ],
+    "8.4.1": [
+        "Page Cache: Handle a special case to detect Prestashop clone"
+    ],
+    "8.4.0": [
+        "Page Cache: Detect when you clone Prestashop to avoid issues with JPresta-Cache-Warmer subscriptions",
+        "Add a link to the FAQ"
+    ],
+    "8.3.4": [
+        "Page Cache: Fix a bug introduced in 8.3.3"
+    ],
+    "8.3.3": [
+        "Page Cache: Fix the missing charset for static cache on some shops",
+        "Webp: Improve the regex when 'Force .webp extension' is enabled",
+        "Page Cache: Fix 404 issues with PS 8"
+    ],
+    "8.3.2": [
+        "Page Cache: Improve the cache warmer context restoration for a better hit-rate"
+    ],
+    "8.3.1": [
+        "Page Cache: Fix an SQL error when the cache is reset"
+    ],
+    "8.3.0": [
+        "Page Cache: Create hook actionJPrestaClearCache so external modules being cached can better refresh the cache",
+        "Page Cache: Now stores widget_blocks into the module's directory to avoid them to be deleted",
+        "Page Cache: When using the static cache, check if the shop is a clone to avoid any error",
+        "Page Cache: Disable redirection set by module autolanguagecurrency for the cache-warmer (catalog pages were still getting the redirection)",
+        "Page Cache: Enable cache for stblog module (Panda theme)",
+        "Page Cache: Ignore backlinks after the footer to avoid storing side mobile menu links"
+    ],
+    "8.2.8": [
+        "Page Cache: Disable redirection set by module autolanguagecurrency for the cache-warmer"
+    ],
+    "8.2.7": [
+        "Page Cache: Enable cache for Prestablog module"
+    ],
+    "8.2.6": [
+        "Page Cache: Add the possibility to recompute the ID of the Prestashop instance in advanced mode to solve issues when cloning Prestashop"
+    ],
+    "8.2.5": [
+        "Page Cache: Fix a bug introduced in 8.2.4"
+    ],
+    "8.2.4": [
+        "Page Cache: Change tables engine to InnoDb to be faster on huge shops",
+        "Page Cache: Do not warmup pages that cannot be cached",
+        "Page Cache: Fix a compatibility issue with PS8",
+        "Page Cache: Fix a bug with PS1.6"
+    ],
+    "8.2.3": [
+        "Page Cache : Fix a small bug on multi-store when saving some settings",
+        "Page Cache : Method ModuleManager::setActionParams does not exist anymore in PS8",
+        "Page Cache : Fix a bug with JprestaUtils::copyFiles (since v8.2.0)"
+    ],
+    "8.2.2": [
+        "Page Cache : Remove unused hooks ActionObjectShopUrl*"
+    ],
+    "8.2.1": [
+        "Page Cache: Remove unused hook ActionAdminControllerInitBefore",
+        "Improve the build",
+        "Page Cache: Fix a bug with Cache-Warmer for PS < 1.7.3.0"
+    ],
+    "8.2.0": [
+        "Page Cache: *NEW!* Possibility to cache pages generated by other modules like blogs",
+        "Page Cache: Enable cache for modules ybc_blog, everpsblog and ets_blog"
+    ],
+    "8.1.28": [
+        "Page Cache: Fix a problem with cache-warmer warming up same pages at each warmup"
+    ],
+    "8.1.27": [
+        "Page Cache: Better handle login/logout for static cache"
+    ],
+    "8.1.26": [
+        "Fix an issue when using JPresta Easy Upgrade module",
+        "Page Cache: Fix a small issue with unknown controller in addStatsPerf",
+        "Page Cache: Fix an issue with old cookiesplus module versions (by Idnovate)",
+        "Page Cache: Disable cache for preview"
+    ],
+    "8.1.25": [
+        "Page Cache: Do not delete widget_block pre-treatment when clearing the whole cache",
+        "Page Cache: Compatibility with pm_applepay module by Presta-Module",
+        "Add an archive format for Thirtybees"
+    ],
+    "8.1.24": [
+        "Fix an issue when cloning Prestashop while using JPresta-Cache-Warmer",
+        "Page Cache: Don't use 'use' on the main module file to be compatible with PS1.6",
+        "Page Cache: Don't use relative path in static.config.php",
+        "Page Cache: Fix an issue with canonical URLs"
+    ],
+    "8.1.23": [
+        "Page Cache: Add a column in statistics of contexts to display the percentage of cleared pages"
+    ],
+    "8.1.22": [
+        "Page Cache: Compatibility with modules providing their own TaxManager"
+    ],
+    "8.1.21": [
+        "Page Cache: Add the possibility to filter statistics on contexts",
+        "Page Cache: Compatibility with module 'configb2b' by Artdinamica"
+    ],
+    "8.1.20": [
+        "Page Cache: Do not cache currency change by default",
+        "Page Cache: Fix an issue concerning the validation of the address in some cases"
+    ],
+    "8.1.19": [
+        "Page Cache: Choose default country for 'others' countries to warmup if it is included in it"
+    ],
+    "8.1.18": [
+        "Page Cache: Improve compatibility with module idxcookies by Innovadeluxe"
+    ],
+    "8.1.17": [
+        "Page Cache: Improve the purge of the cache",
+        "Page Cache: Improve estimation of products to warmup",
+        "Page Cache: Warmup customizable products when option 'Cache customizable products' is ON",
+        "Page Cache: add logs when the whole cache is cleared (for debug purpose)"
+    ],
+    "8.1.16": [
+        "Page Cache: Better refresh the cache when the cover of a product is updated"
+    ],
+    "8.1.15": [
+        "Page Cache: 'Max execution time in seconds' can now be less than 30s",
+        "Page Cache: Handle ProductLazyArray object while refreshing dynamic modules in products list"
+    ],
+    "8.1.14": [
+        "Page Cache: Fix and improve the automatic cache refreshment",
+        "Page Cache: Handle URLs larger than 255 chars when index cannot be larger than 255 chars",
+        "Page Cache: Fix an issue with some SEO modules"
+    ],
+    "8.1.12": [
+        "Page Cache: Display context key in stats to make it easier to debug",
+        "Page Cache: Improve connexion to auto-configuration server"
+    ],
+    "8.1.11": [
+        "Page Cache: Compatibility with module nxtalpricetaxswitcher by Nxtal",
+        "Page Cache: Fix a javascript error in test mode",
+        "Page Cache: Fix compatibility with v2.1.2 of module lgcookieslaw by Línea Gráfica"
+    ],
+    "8.1.10": [
+        "Page Cache: Fix the TTFB performances stats for PS1.6"
+    ],
+    "8.1.9": [
+        "Page Cache: Fix the hit count on each URL"
+    ],
+    "8.1.8": [
+        "Page Cache: Fix JprestaUtils::dbColumnExists() used to upgrade the module"
+    ],
+    "8.1.7": [
+        "Page Cache: Make Prestashop static the default cache",
+        "Page Cache: Fix a compatibility issue with PS1.5 and 1.6"
+    ],
+    "8.1.6": [
+        "Page Cache: Fix a regression bug introduced in 8.0.0 (tax manager context)",
+        "Page Cache: Fix an issue when using some webservices"
+    ],
+    "8.1.5": [
+        "Page Cache: Improve TTFB chart when there is no data",
+        "Page Cache: Improve server cache performance"
+    ],
+    "8.1.4": [
+        "Page Cache: Fix a regression bug introduced in 8.0.0 (dynamic modules IDs)",
+        "Page Cache: Improve compatibility with v2.1.2 of module lgcookieslaw by Línea Gráfica"
+    ],
+    "8.1.3": [
+        "Page Cache: Remove dependency to module graphnvd3",
+        "Page Cache: Fix the link to the cache content in statistic table",
+        "Page Cache: Fix an issue when option 'Insert CSS and JS version in cache key' is enabled"
+    ],
+    "8.1.2": [
+        "Page Cache: Compatibility with module softizyconditionalcache version 1.5.0+",
+        "Page Cache: Fix the script for upgrade",
+        "Page Cache: Fix a bug with statistics"
+    ],
+    "8.1.1": [
+        "Page Cache: Keep stats about TTFB for only 14 days"
+    ],
+    "8.1.0": [
+        "Page Cache: Add stats on the real TTFB"
+    ],
+    "8.0.0": [
+        "Compatibility with PS8",
+        "Page Cache: Prestashop Static! A super speed way to deliver the cache content",
+        "Page Cache: Add a pie chart to visualize how different caches are used",
+        "Page Cache: Enable Prestashop Static cache for search engines bots to improve SEO",
+        "Page Cache: Show percentage of visit and page count in the contexts table",
+        "Page Cache: Add browser cache directives even when the server cache was not available",
+        "Page Cache: Display which contexts are used by search engines so you can add them to the Cache-Warmer",
+        "Page Cache: Add a 'no-cache' directive when the page cannot be cached"
+    ],
+    "7.9.40": [
+        "Page Cache: Fix the clearing of the cache with CRON URL when you don't specify any IDs"
+    ],
+    "7.9.39": [
+        "Page Cache: Handle old versions of groupinc module by Idnovate",
+        "Page Cache: Improve compatibility with cookiesplus module by Idnovate"
+    ],
+    "7.9.38": [
+        "Page Cache: Add option to check the cache into the hook 'dispatcher' (not dispatcherBefore) for compatibility with securitypro module"
+    ],
+    "7.9.37": [
+        "WEBP: handle links as image folder",
+        "Page Cache: Fix regression for PS1.5 and PS1.6 introduced in version 7.9.8 (cache refreshment)"
+    ],
+    "7.9.36": [
+        "Page Cache: Fix 'math: illegal characters' error"
+    ],
+    "7.9.35": [
+        "Refactor JprestaApi",
+        "Automatic deployment to release faster",
+        "Page Cache: Handle the case when the address of the cart does not belong to the current user",
+        "WEBP: Handle images added by Creative elements module when 'Force .webp extension' is enabled"
+    ],
+    "7.9.34": [
+        "Page Cache: Fix compatibility with cookiesplus module by Idnovate (For version >= 1.5.2)"
+    ],
+    "7.9.33": [
+        "Page Cache: Improve compatibility with cookiesplus module by Idnovate (avoid warning)"
+    ],
+    "7.9.32": [
+        "Page Cache: Improve compatibility with cookiesplus module by Idnovate",
+        "Page Cache: Compatibility with module XML_import_to"
+    ],
+    "7.9.31": [
+        "Page Cache: Add an option to limit the number of rows into the cache"
+    ],
+    "7.9.30": [
+        "Page Cache: Compatibility with wkadminloginascustomer module by Webkul"
+    ],
+    "7.9.29": [
+        "WEBP: Handle images having spaces in URLs when 'Force .webp extension' is enabled",
+        "Page Cache: Compatibility with module 'ets_affiliatemarketing'",
+        "Page Cache: Add option 'Force no cache at logout' (false by default)"
+    ],
+    "7.9.28": [
+        "Page Cache: Improve the purge",
+        "Page Cache: Optimize the table jm_pagecache_mods (less datas)"
+    ],
+    "7.9.27": [
+        "Page Cache: Add a button to purge the cache"
+    ],
+    "7.9.26": [
+        "Page Cache: Compatibility with module 'smartseo'",
+        "Page Cache: Check for stadvancedcache before installing"
+    ],
+    "7.9.24": [
+        "Page Cache: Display language flag in statistics"
+    ],
+    "7.9.23": [
+        "Page Cache: The cache is now stored in /var/cache directory for PS1.7 to avoid it to be cleared each time a module is enabled/disabled",
+        "WEBP: Fix a bug with some HTTPS shops and option 'Force .webp extension'"
+    ],
+    "7.9.22": [
+        "WEBP: fix RewriteRule path"
+    ],
+    "7.9.20": [
+        "Page Cache: fix the case of hook names if needed (blocked since PS 1.7.8.0)"
+    ],
+    "7.9.19": [
+        "WEBP: Fix a bug with option 'Force .webp extension' for external images"
+    ],
+    "7.9.16": [
+        "Page Cache: Fix a bug in the copy of settings to different shops (for multishop feature)",
+        "Page Cache: Improve hasImpactForUserGroupAsDefault() so backoffice modifications are much less slowed down"
+    ],
+    "7.9.15": [
+        "Page Cache: Fix a bug with the use of Product:resetStaticCache()",
+        "Page Cache: Clear cache of module softizyconditionalcache when clearing cache of Page Cache"
+    ],
+    "7.9.14": [
+        "Page Cache: Improve compatibility with v2.0.0 of module lgcookieslaw by Línea Gráfica (handle browser cache)"
+    ],
+    "7.9.13": [
+        "Page Cache: For multistore, fix compatibility with v2.0.0 of module lgcookieslaw by Línea Gráfica"
+    ],
+    "7.9.12": [
+        "Page Cache: Compatibility with module sthomenew"
+    ],
+    "7.9.11": [
+        "Page Cache: Compatibility with v2.0.0 of module lgcookieslaw by Línea Gráfica"
+    ],
+    "7.9.10": [
+        "Page Cache: Compatibility with module softizyconditionalcache"
+    ],
+    "7.9.9": [
+        "Page Cache: Decrease level of some non-critial errors"
+    ],
+    "7.9.8": [
+        "Page Cache: Fix cache refreshment when modifying only features of products"
+    ],
+    "7.9.7": [
+        "Page Cache: Improve performances when updating products, specific prices, etc. (updateCacheKeyForCountries() and updateCacheKeyForUserGroups())",
+        "Page Cache: Refresh the cart when back/forward cache is used",
+        "Page Cache: Fix bots detection for lgcookieslaw module"
+    ],
+    "7.9.6": [
+        "Page Cache: Fix option to enable/disable the cache for some currencies",
+        "Page Cache: Fix selectable 'specifics' in cache warmer settings",
+        "Page Cache: Compatibility with dm_gdpr module by David Mrózek"
+    ],
+    "7.9.5": [
+        "Page Cache: Option to enable/disable the cache for some currencies",
+        "Page Cache: Improve compatibility with module groupinc by Idnovate"
+    ],
+    "7.9.4": [
+        "WEBP: Serve original file even if it is not a JPG/PNG",
+        "Page Cache: Compatibility with module groupinc by Idnovate"
+    ],
+    "7.9.3": [
+        "WEBP: Enabled PNG files to be compressed even when 'Force .webp extension' is enabled"
+    ],
+    "7.9.2": [
+        "WEBP: Select the fastest available compressor, not the first one"
+    ],
+    "7.9.1": [
+        "Page Cache: Compatibility with dm_cookies module by David Mrózek"
+    ],
+    "7.9.0": [
+        "Page Cache: Avoid fake users to be created each time a category is added or deleted",
+        "Page Cache: Possibility to clear the cache of a list of pages directly from the statistics table",
+        "Page Cache: Display a table with used contexts in statistics",
+        "Page Cache: Improve performances when updating a product",
+        "Page Cache: Possibility to force the cache on customizable products"
+    ],
+    "7.8.7": [
+        "Page Cache: Improve SQL query to initialize specific prices table."
+    ],
+    "7.8.6": [
+        "Page Cache: Add logs on error of the cache-warmer",
+        "Page Cache: Force max exec time for cache-warmer to be set between 30 and 480 seconds."
+    ],
+    "7.8.5": [
+        "Page Cache: Compatibility with module sturls"
+    ],
+    "7.8.4": [
+        "Page Cache: don't call init() on non cached pages",
+        "WEBP: fix a compatibility problem with ets_upgrade module"
+    ],
+    "7.8.3": [
+        "Page Cache: Fix SSL check",
+        "Page Cache: Compatibility with PHP < 5.6"
+    ],
+    "7.8.2": [
+        "Page Cache: Compatibility with JPresta Cache Warmer service"
+    ],
+    "7.7.15": [
+        "Page Cache: Fix home URL for speed analysis tools"
+    ],
+    "7.7.14": [
+        "Page Cache: Fix cache-warmer issue with PS 1.6 and PS 1.5"
+    ],
+    "7.7.13": [
+        "Page Cache: Fix a wrong country detection for visitors"
+    ],
+    "7.7.12": [
+        "WEBP: upgrade rosell-dk library from 2.3.0 to 2.6.0"
+    ],
+    "7.7.11": [
+        "Page Cache: Add a form to copy current shop configuration to other shops (for multistore)"
+    ],
+    "7.7.10": [
+        "Page Cache: Fix Cache-Warmer context with user groups"
+    ],
+    "7.7.9": [
+        "Page Cache: Improve the efficiency of the Cache-Warmer"
+    ],
+    "7.7.8": [
+        "Page Cache: Create 4 indexes to speed up the automatic refreshment"
+    ],
+    "7.7.7": [
+        "Page Cache: Fix a configuration issue for PS 1.6 and PS 1.5"
+    ],
+    "7.7.6": [
+        "Page Cache: Fix cache warmer for visitors"
+    ],
+    "7.7.5": [
+        "Page Cache: Fix connexion state",
+        "Page Cache: Fix the build for standard version"
+    ],
+    "7.7.4": [
+        "Page Cache: Compatibility with Sirv module (don't concatenate HTML anymore for PS>=1.7)",
+        "Page Cache: Improve addNoCacheParam() function",
+        "Page Cache: Don't set the ID of the customer for visitors",
+        "New logo and style for infobox"
+    ],
+    "7.7.3": [
+        "Page Cache: Add posnewproduct as module to be refreshed when a new product is added",
+        "Page Cache: Add on option to consider tablet devices as mobile devices"
+    ],
+    "7.7.2": [
+        "Page Cache: Fix type of currency ID",
+        "Page Cache: Load stock datas for products on dynamic modules request (for mailalerts)",
+        "Fix token of CRON URLs for some shops",
+        "Page Cache: Fix SQL error for PS < 1.6.0.10",
+        "Page Cache: Fix error 'Invalid argument supplied for foreach'"
+    ],
+    "7.7.1": [
+        "Page Cache: Optimization of SQL queries for single shop instances",
+        "Page Cache: Handle aliases for hooks",
+        "Page Cache: Fix an issue with the warmup of countries without specific cache"
+    ],
+    "7.7.0": [
+        "Page Cache: Optimization of the cache key concerning the user groups so it is much more efficient",
+        "Page Cache: Possibility to choose precisely the contexts and pages to be warmed up by the cache-warmer"
+    ],
+    "7.6.4": [
+        "Fix an issue with cart on some shops introduced in version 7.5.0"
+    ],
+    "7.6.3": [
+        "Fix the use of Shop::addSqlAssociation (for PS 1.6)",
+        "Use JprestaUtils::dbGetValue everywhere to avoid errors with buffered queries"
+    ],
+    "7.6.2": [
+        "Page Cache: fix a bug in automatic refreshment",
+        "Fix JprestaUtils::addLog"
+    ],
+    "7.6.1": [
+        "New portuguese translations thanks to Carlos Juchli",
+        "Page Cache: Fix continuous clean up when the cache timeout is set to infinity",
+        "Fix Logger and PrestaShopLogger use",
+        "Page Cache: Fix an issue with displayproductextracontent hook"
+    ],
+    "7.6.0": [
+        "Page Cache: Go back with MyIsam engine which is faster; this will avoid 'lock timeout' errors.",
+        "Page Cache: Fix - Do not warmup specific tax managers anymore (not relevant)"
+    ],
+    "7.5.1": [
+        "Page Cache: Fix issue Country::GEOLOC_ALLOWED with PS1.6 introduced in version 7.5.0",
+        "Page Cache: Do not warmup specific tax managers anymore (not relevant)",
+        "Page Cache: Increase id_object from MEDIUMINT to INT",
+        "Page Cache: Improve default regex to exclude faceted search results from the cache"
+    ],
+    "7.5.0": [
+        "Page Cache: Improve the country contexts (creates different caches only when necessary)",
+        "Page Cache: Fix the warm-up of country contexts by the cache-warmer"
+    ],
+    "7.4.9": [
+        "Page Cache: Fix automatic refreshment when modifying out_of_stock variable"
+    ],
+    "7.4.8": [
+        "Page Cache: Compatibility with module iubenda by iubenda"
+    ],
+    "7.4.7": [
+        "Page Cache: Add possibility to exclude some URLs from the cache with a regular expression. Exclude faceted searches by default."
+    ],
+    "7.4.6": [
+        "Page Cache: Fix 'Warning: array_key_exists(): The first argument should be either a string or an integer'"
+    ],
+    "7.4.5": [
+        "Page Cache: Fix default currency in cache-warmer settings",
+        "Page Cache: Disable / enable Hook and Context override if jprestathemeconfigurator is enabled",
+        "Page Cache: Fix a 'false positive' error in logs"
+    ],
+    "7.4.4": [
+        "Page Cache: Avoid the cache-warmer to warm some already warmed up pages",
+        "Page Cache: Fix a bug with Geolocation",
+        "Page Cache: Fix cache-warmer context for PS 1.6 and PS 1.5"
+    ],
+    "7.4.3": [
+        "Page Cache: Fix a bug in countries/user groups settings for cache-warmer"
+    ],
+    "7.4.2": [
+        "Lazy loading: Improve the display of logs",
+        "Handle vat_view (for shop cinelight.eu)",
+        "Improve installation process",
+        "Page Cache: Fix a bug with Geolocation",
+        "Page Cache: Fix error 'Only variables should be passed by reference in PageCacheCacheMemcache(d).php on line 61'",
+        "Page Cache: Compatibility with module Revolition Slider by Smartdatasoft"
+    ],
+    "7.4.1": [
+        "Page Cache: Fix the Cache-Warmer contexts count",
+        "Page Cache: Handle inactive/deleted taxes rules"
+    ],
+    "7.4.0": [
+        "Page Cache: Handle special caracters in URLs (like for Greek URLs)",
+        "Page Cache: Huge improvment of how taxes are handled by the cache",
+        "Page Cache: Rename the cache folder when it is too long to delete",
+        "Page Cache: CSS and JS number are now removed from the cache key by default",
+        "Page Cache: Fix issue with zero padded cache_key"
+    ],
+    "7.3.11": [
+        "Page Cache: Compatibility with hicookie module"
+    ],
+    "7.3.10": [
+        "Page Cache: Reduce the cache continuously faster (2 rows instead of 1)",
+        "WEBP: Fix regression introduced in 7.3.7"
+    ],
+    "7.3.9": [
+        "Page Cache: Fix the display of 'Country/State/Zipcode used to compute taxes' in statistics table",
+        "Page Cache: Fix an issue with Cache-Warmer to handle different tax rules",
+        "Page Cache: Add a link in statistics to display the cached version of a page"
+    ],
+    "7.3.8": [
+        "Page Cache: Improve SQL queries (use implode everywhere)"
+    ],
+    "7.3.7": [
+        "Page Cache: Compatibility with x13links module and other modules that removes IDs",
+        "WEBP: Fix brand and manufacturer images when using option 'Force .webp extension'",
+        "WEBP: Now compress all images even when using option 'Force .webp extension'",
+        "WEBP: Better handle multistores"
+    ],
+    "7.3.6": [
+        "Page Cache: Small fix for ultimateimagetool",
+        "Page Cache: Optimize and log errors during files deletions",
+        "Page Cache: Add option 'Display nothing in cache' for dynamic widgets",
+        "Page Cache: Handle different case (upper/lower) of hooks",
+        "Page Cache: Reduce cache when CSS or JS are incremented"
+    ],
+    "7.3.5": [
+        "WEBP: fix path",
+        "Page Cache: Fix the error 500 with PS 1.7.7.0 (Check hookmoduleroutes case insensitive)"
+    ],
+    "7.3.4": [
+        "Page Cache: Compatibility with cookiesplus module by Idnovate"
+    ],
+    "7.3.3": [
+        "Page Cache: Fix issue on controller ID"
+    ],
+    "7.3.2": [
+        "Page Cache: Don't use jquery cookie plugin anymore"
+    ],
+    "7.3.1": [
+        "WEBP: remove webp.config.php file to be compliant with Prestashop validator",
+        "Page Cache: Improve directory deletion",
+        "Page Cache: Reduce SQL table size (controller -> id_controller)",
+        "Page Cache: Make configuration page faster"
+    ],
+    "7.3.0": [
+        "Page Cache: Use text/plain format with cache-warmer for better performances",
+        "Page Cache: Add a button to validate all steps",
+        "Page Cache: Add a new cache system 'Zipped Standard file system'",
+        "Page Cache: Increase the number of files to 4096 of the 'Zip Archives' cache system",
+        "Validator issues: Removed HTML from AdminPageCacheDatasController.php and JprestaDbOptimizer.php"
+    ],
+    "7.2.3": [
+        "Page Cache: HTML is not sent to cache-warmer to save bandwidth",
+        "Page Cache: Avoid the cache-warmer to warm the same URL multiple times",
+        "Page Cache: Fix for databases that don't allow indexes larger than 767 bytes"
+    ],
+    "7.2.2": [
+        "Page Cache: Fix maximum duration of cache-warmer script",
+        "Page Cache: Use HTTPS in CRON URLs if available",
+        "Page Cache: Do not add _pcnocache param on empty href and better handle anchors",
+        "Page Cache: Fix other 'Duplicate key' issues",
+        "Page Cache: Fix cache key display",
+        "Page Cache: Hide ID of fake user to Google Analytics"
+    ],
+    "7.2.1": [
+        "Uses HTTPS (not HTTP) everywhere when it is available",
+        "Page Cache: Exclude disabled currencies from Cache-Warmer",
+        "WEBP: fix destination for compatibility mode"
+    ],
+    "7.2.0": [
+        "Page Cache: Improve Cache-Warmer efficiency"
+    ],
+    "7.1.1": [
+        "Page Cache: Fix redirection issue in back office on product variants",
+        "Page Cache: Fix geolocalisation for PS < 1.7"
+    ],
+    "7.1.0": [
+        "Page Cache: Fix 'Duplicate key' issue",
+        "Page Cache: Optimization of SQL queries- Display a warning if the upgrade has not been executed automatically after installing a new version of the module",
+        "DB cleaner: Now delete abandonned carts of registered users ",
+        "DB cleaner: Improvement for multistores",
+        "WEBP: To avoid issues, compression of images is now the same for all shops when multistore is enabled",
+        "Page Cache: Be sure that the cache directive is set on POST requests to improve GTMetrix and PageSpeed Insight scores"
+    ],
+    "7.0.14": [
+        "Page Cache: Sort contexts",
+        "Page Cache: Fix user group combinations count"
+    ],
+    "7.0.13": [
+        "Fix the build"
+    ],
+    "7.0.12": [
+        "Page Cache: Now you can select which context you want to warm-up",
+        "Page Cache: Fix a compatibility with PS < 1.6.1.15"
+    ],
+    "7.0.11": [
+        "Page Cache: Fix a compatibility issue with autolanguagecurrency module"
+    ],
+    "7.0.10": [
+        "Page Cache: Add column details_md5 to avoid issue 'Index column size too large. The maximum column size is 767 bytes'"
+    ],
+    "7.0.9": [
+        "Page Cache: Fix issue for PS 1.5 and 1.6"
+    ],
+    "7.0.8": [
+        "Page Cache: Ignore backlinks in header of pages by defaults (they are used by auto-refresh but those ones are not relevant)",
+        "Page Cache: The cache is now reduced continuously ",
+        "Page Cache: Add permission to AdminPageCacheSpeedAnalysis, AdminPageCacheProfilingDatas, AdminPageCacheDatas, AdminPageCacheMemcacheTest and AdminPageCacheMemcachedTest when there are not present"
+    ],
+    "7.0.7": [
+        "Page Cache: Do not warm for different user groups if the cache is not enabled for logged in users",
+        "Page Cache: Do not warm for mobile devices if the cache is not enabled for mobile devices",
+        "Page Cache: Consider the deleted flag in cache-warmer"
+    ],
+    "7.0.6": [
+        "Page Cache: Add 'x-jpresta-cache-infos' header"
+    ],
+    "7.0.5": [
+        "WEBP: Improve detection of 'Vary: Accept' header",
+        "WEBP: Disable .webp extension if compression is disabled",
+        "Page Cache: Advanced option to ignore first links of a page (mega-menu)"
+    ],
+    "7.0.4": [
+        "Page Cache: Improve SQL request for cache warmer"
+    ],
+    "7.0.3": [
+        "Page Cache: Split the list of URLs to warm if it takes too much time to generate",
+        "Page Cache: Do not run cache-warmer if cache is in test mode"
+    ],
+    "7.0.2": [
+        "Fix version number"
+    ],
+    "7.0.1": [
+        "Page Cache: Improve JPresta Cache Warmer service informations",
+        "Page Cache: Preserve token when resetting the module",
+        "Page Cache: Ignored parameters are now case insensitive"
+    ],
+    "7.0.0": [
+        "Page Cache: Possibility to subscribe to JPresta Cache Warmer service"
+    ],
+    "6.5.4": [
+        "DB cleaner: Fix table optimization"
+    ],
+    "6.5.3": [
+        "Page Cache: Compatibility with autolanguagecurrency module"
+    ],
+    "6.5.2": [
+        "Page Cache: Fix issue in isCustomerWithSpecificPricesOrPermissions()"
+    ],
+    "6.5.1": [
+        "WEBP: Override Module::getCacheId() so modules with internal cache can handle '.webp' extension",
+        "WEBP: Force image ratio in configuration"
+    ],
+    "6.5.0": [
+        "WEBP: New option to make it compatible with Cloudflare and servers that do not handle HTTP header 'Vary: Accept'.",
+        "WEBP: Fix image ratio in configuration",
+        "Page Cache: Fix validator warnings",
+        "Page Cache: Make the dynamic request safer"
+    ],
+    "6.4.6": [
+        "WEBP: Delete WEBP image when it is modified"
+    ],
+    "6.4.5": [
+        "Page Cache: Compatibility with last version of autolanguagecurrency module and PS >= 1.7.4"
+    ],
+    "6.4.4": [
+        "WEBP: Respect image ratio and real size in image quality comparison slider ",
+        "Page Cache: Fix bug 'Undefined index: url_crc32'"
+    ],
+    "6.4.3": [
+        "Fix multiple entries in menu (bis)",
+        "Page Cache: Don't refresh dynamic modules for bots",
+        "Page Cache: Use text/html content-type for dynamic requests so the content is compressed by most configurations",
+        "Page Cache: Compatibility with Amazon Pay module by patworx"
+    ],
+    "6.4.2": [
+        "Fix multiple entries in menu"
+    ],
+    "6.4.1": [
+        "Page Cache: Disable tokens automatically",
+        "Page Cache: Compatibility with apcpopup module by Idnovate"
+    ],
+    "6.4.0": [
+        "Page Cache: New advanced feature to browse the cache",
+        "Page Cache: Add CSS and JS version in cache key"
+    ],
+    "6.3.18": [
+        "Page Cache: Fix (bis) cache refreshment when a product becomes available for order"
+    ],
+    "6.3.17": [
+        "Page Cache: Fix cache refreshment when a product becomes available for order",
+        "Page Cache: Fix an error when uploading images with StoreCommander"
+    ],
+    "6.3.16": [
+        "Fix Addons validator warnings"
+    ],
+    "6.3.15": [
+        "WEBP: Security fix (sanitize image path)"
+    ],
+    "6.3.14": [
+        "Page Cache: Handle array parameters in URLs",
+        "Page Cache: Detect modification of the selected behavior when a product is out of stock "
+    ],
+    "6.3.13": [
+        "Page Cache: add confirmation on auto-conf button when there is already a configuration",
+        "Page Cache: Fix an issue with automatic detection of language",
+        "WEBP: Add vary header for Plesk users (and people using nginx as a proxy)",
+        "Page Cache: Fix pagecache_product_refresh_every_x length name",
+        "Page Cache: Fix a warning in PHP logs"
+    ],
+    "6.3.12": [
+        "Lazy loading: Fix an issue when template contains special chars"
+    ],
+    "6.3.11": [
+        "Page Cache: Compatibility with shaim_gdpr module by Dominik Shaim",
+        "Lazy loading: small fix for URL of loader image"
+    ],
+    "6.3.10": [
+        "Page Cache: Fix cache refreshment when using shared stocks on multistore "
+    ],
+    "6.3.9": [
+        "WEBP: Fix issue with vendor directory for CSS and JS",
+        "Page Cache: Disable cache for customers having specific prices (native and with groupinc module)",
+        "Page Cache: Disable cache for employees so superuser module by MassonVincent can work",
+        "Page Cache: Compatibility with atssuperuser module by ATSinfosystem Sotwares",
+        "WEBP: Make sure permissions are correctly set on binaries",
+        "Lazy loading: Improve installation for multi-store",
+        "Lazy loading: Don't set height of images (conflict with some themes)"
+    ],
+    "6.3.8": [
+        "Page Cache: Fix price reduction for groupinc module developped by Idnovate",
+        "Page Cache: Fix errors occuring for few modules set as dynamic in product list"
+    ],
+    "6.3.7": [
+        "Page Cache: Fix 'logged' redirection"
+    ],
+    "6.3.6": [
+        "WEBP: Enable WEBP for all images when using media servers pointing to same server",
+        "DB cleaner: Add recommentations and forbid 0 day for abandonned carts and logs.",
+        "Page Cache: Fix 'is_logged' state in cache"
+    ],
+    "6.3.5": [
+        "Page Cache: Fix bug with low_stock_threshold for Prestashop < 1.7.3.0",
+        "Page Cache: compatibility with webpgenerator module by PrestaChamps",
+        "Page Cache: Fix case of class JprestaCustomer"
+    ],
+    "6.3.4": [
+        "Page Cache: Fix build 6.3.3",
+        "Page Cache: Cache management for zonehomeblocks module"
+    ],
+    "6.3.3": [
+        "Page Cache: Handle customer with extra required fields",
+        "Page Cache: compatibility with deluxecookies module by innovadeluxe"
+    ],
+    "6.3.2": [
+        "Page Cache: Compatibility with last version of autolanguagecurrency module",
+        "Page Cache: Module key for Addons"
+    ],
+    "6.3.1": [
+        "Page Cache: Improvment of localization to determine taxes and country of the visitor"
+    ],
+    "6.2.2": [
+        "WEBP: Fix htaccess for special chars in URLs of images",
+        "WEBP: Improve 'Vary' header detection",
+        "Page Cache: Fix an issue for some modules set as dynamic using id_product_attribute"
+    ],
+    "6.2.1": [
+        "WEBP: Test if the HTTP header 'Vary' is correctly added",
+        "WEBP: Add cache directive for webp images",
+        "WEBP: Fix double slash // in URL of the converter"
+    ],
+    "6.2.0": [
+        "Page Cache: Fix a bug with HTMLPRO module",
+        "Page Cache: Make automatic refreshment more accurate, specially on stock modifications"
+    ],
+    "6.1.1": [
+        "Forbid modifictions in DEMO mode"
+    ],
+    "6.1.0": [
+        "WEBP: Don't load Prestashop engine when converting images: it's faster and avoid max_user_connections errors when a lot of images are converted.",
+        "WEBP: Fix enable/disable of WEBP feature",
+        "Lazy loading: fix directory creation for child theme",
+        "Page Cache: Fix illimited timeout for memcache and memcached servers",
+        "Page Cache: Catch javascript error in dynamic modules so it does not block the remaining code to execute"
+    ],
+    "6.0.7": [
+        "Page Cache: Optimize specific prices refreshment",
+        "Validation on Addons",
+        "Block install if Page Cache is already installed"
+    ],
+    "6.0.6": [
+        "Lazy loading: new parser for templates, better handle errors, add logs",
+        "Page Cache: Make IDs thread safe"
+    ],
+    "6.0.5": [
+        "Add Prestashop Addons key"
+    ],
+    "6.0.4": [
+        "A new way to anonymize the cache has been developped so it needs less overrides",
+        "The configuration of the module is now available in menu 'Advanced parameters'",
+        "First version of Speed Pack module (that shares this Readme file with Page Cache Ultimate)",
+        "Lazy loading of images",
+        "WEBP compression of images",
+        "Database cleaning and optimisation"
+    ],
+    "5.2.0": [
+        "Add an entry in Prestashop menu for the configuration of the module",
+        "Fix compatibility with authorizedclientsonly module by PrestaHeroes"
+    ],
+    "5.1.19": [
+        "Handle widgets in ProductExtraContent"
+    ],
+    "5.1.18": [
+        "Fix an issue with dynamic modules request",
+        "Improve BR and PT translations"
+    ],
+    "5.1.17": [
+        "Upgrade ajax detection",
+        "Fix compatibility with PS < 1.6.0.4",
+        "Add advanced option 'Executes header hook in dynamic modules request'"
+    ],
+    "5.1.16": [
+        "Fix for compatibility with pm_advancedcookiebanner module by Presta-Module"
+    ],
+    "5.1.15": [
+        "Fix for compatibility with pm_advancedcookiebanner module by Presta-Module"
+    ],
+    "5.1.14": [
+        "Compatibility with pm_advancedcookiebanner module by Presta-Module with option 'Enable module categorization'"
+    ],
+    "5.1.12": [
+        "Update Dispatcher override (resolves some 404 issues)"
+    ],
+    "5.1.11": [
+        "Fix a bug introduced in 5.1.8 (loose language selection and some other cookies) "
+    ],
+    "5.1.10": [
+        "Compatibility with pm_advancedcookiebanner module by Presta-Module "
+    ],
+    "5.1.9": [
+        "Fix upgrade script 5.1.8",
+        "Fix validation warnings"
+    ],
+    "5.1.8": [
+        "Move some ModuleFrontController as ModuleAdminController as they should be",
+        "Improve new products and home featured products refreshment",
+        "Compatibility with ageverifyer module by Simon Agostini (need to uncomment a line)",
+        "Compatibility with autolanguagecurrency module",
+        "Improve PT translations"
+    ],
+    "5.1.7": [
+        "Avoid browser cache to be used in back office during performance analysis"
+    ],
+    "5.1.6": [
+        "Fix dynamic refreshment on pages that display all manufacturers, all suppliers, etc. (listing without filter) on PS 1.7",
+        "Fix HTML in Hook.php for Addons"
+    ],
+    "5.1.5": [
+        "Fix a language selection issue in home page"
+    ],
+    "5.1.4": [
+        "Handle classes inherited from AbstractLazyArray (bug with estimateddelivery module)"
+    ],
+    "5.1.3": [
+        "Fix a bug with Media override (sometimes the parsing was failing)",
+        "Compatibility with module validatevatnumber module by ActiveDesign",
+        "Compatibility with MySQL 5.5"
+    ],
+    "5.1.2": [
+        "Fix Geolocalisation",
+        "Spanish translation",
+        "Fix a bug with isRestrictedCountry()",
+        "Allow hook 'actionproductoutofstock' to be dynamic"
+    ],
+    "5.1.1": [
+        "The profiling feature to detect slow modules is only available from PS1.7",
+        "Improve styles"
+    ],
+    "5.1.0": [
+        "New profiling feature to detect slow modules",
+        "Logo updated",
+        "French translations"
+    ],
+    "5.0.11": [
+        "Don't change value type in execHook",
+        "Instanciate Link in context if not set",
+        "Rename page_cache_dynamics_modules to page_cache_dynamics_mods for compatibility with prettyurls module"
+    ],
+    "5.0.10": [
+        "Fix a bug with PS 1.7.5.0 with Webservices",
+        "Compatibility with new version of 'Deluxe Private Shop' module from Innovadeluxe",
+        "Fix a bug in Page Cache Standard"
+    ],
+    "5.0.9": [
+        "Keep URL parameters in dynamic module request URL",
+        "Fix a bug with Memcached",
+        "Add header Access-Control-Allow-Origin for Speed Analysis tools"
+    ],
+    "5.0.8": [
+        "Fix a bug with PS 1.7.5.0 with ProductListingFrontController"
+    ],
+    "5.0.7": [
+        "Fix getCurrentUrl()"
+    ],
+    "5.0.6": [
+        "Compatibility with jQuery 3",
+        "Upgrade Bootstrap Slider to version 10.6.0",
+        "Do not display HTML comments around hook 'displayoverridetemplate'"
+    ],
+    "5.0.5": [
+        "Fix 5.0.4 released too fast :-("
+    ],
+    "5.0.4": [
+        "Only display HTML comments around hooks starting with 'display'"
+    ],
+    "5.0.3": [
+        "Refresh all ProductExtraContent tabs when set as dynamic",
+        "Add a filter on dynamic modules configuration"
+    ],
+    "5.0.2": [
+        "Report bug fixes from versions 4.58",
+        "Better handle special cases in speed analysis tools"
+    ],
+    "5.0.1": [
+        "Report bug fixes from versions 4.55, 4.56, 4.57",
+        "Disable form fields in dynamic modules tab when the module is in production mode",
+        "Do not add HTML comment in pages that cannot be cached "
+    ],
+    "5.0.0": [
+        "PS1.7 look and feel",
+        "Group dynamic hook by modules, hide action/forbidden hooks ",
+        "Add cache directive to ajax request to avoid PageSpeed warning (Specify a cache validator)",
+        "Add the possibility to use Memcached server",
+        "Fix parameters propagation for URL like mailto:, phone:, skype: etc.",
+        "Add HTML comments in debug mode to identify modules faster",
+        "Do not execute javascript in test mode when cache is disabled",
+        "Disable speed test in maintenance mode",
+        "Remove some overrides replaced by a generic one",
+        "Do not display warning message for autoconf if first time"
+    ],
+    "4.58": [
+        "Call 'displayHeader' hook instead of 'header' in dynamic modules request"
+    ],
+    "4.57": [
+        "Fix a bug in default visitor group definition",
+        "Fix a bug in speed analysis (thousands separator)"
+    ],
+    "4.56": [
+        "Fix a bug in getCache() function for multistores"
+    ],
+    "4.55": [
+        "Fix negative value in speed analysis",
+        "Fix a bug with hook DisplayProductExtraContent added in 4.54"
+    ],
+    "4.54": [
+        "Fix a bug with hok DisplayProductExtraContent when then returned value is not a string (cannot be dynamic)"
+    ],
+    "4.53": [
+        "Fix a bug with 1.7.5.0 (file upload)"
+    ],
+    "4.52": [
+        "Fix a Javascript issue with Internet Explorer",
+        "Compatibility with module 'Deluxe Cookies Warning' by Innovadeluxe",
+        "Fix URL of test mode that was wrong in some cases"
+    ],
+    "4.51": [
+        "Fix a bug in CRON URLs list",
+        "Fix a bug in cache refreshment"
+    ],
+    "4.50": [
+        "Improvement of speed analysis to make it more precise",
+        "Better refresh cache for packs of products"
+    ],
+    "4.49": [
+        "Compatibility with module 'European Union Cookies Law' by MyPresta.eu"
+    ],
+    "4.48": [
+        "Compatibility with module 'Customer Ratings and Reviews Pro + Google Rich Snippets' by Business Tech"
+    ],
+    "4.47": [
+        "Fix a bug introduced in 4.46"
+    ],
+    "4.46": [
+        "Handle DisplayProductExtraContent hook in PS1.7",
+        "Fix for default group"
+    ],
+    "4.45": [
+        "Compatibility with module Knowband GDPR module by Knowband",
+        "Fix Hook.php for a specific case",
+        "Better refresh cache for module 'IQIT Content Creator - Unique Homepage Generator'"
+    ],
+    "4.44": [
+        "Fix version number"
+    ],
+    "4.43": [
+        "Fix validation warnings"
+    ],
+    "4.42": [
+        "Cache management for new modules name",
+        "Compatibility with module Age Verify module by Musaffar Patel"
+    ],
+    "4.41": [
+        "Handle 'false' and 'null' returned values in coreRenderWidget and coreCallHook (PS1.7)"
+    ],
+    "4.40": [
+        "Better compatibility with module GDPR - General Data Protection Regulation (by Active Design)"
+    ],
+    "4.39": [
+        "Fix v4.38 upgrade (for Hook)"
+    ],
+    "4.38": [
+        "Restrict dynamic request treatments to avoid conflicts"
+    ],
+    "4.37": [
+        "Compatibility with module systemina_employeefilter module by Systemina",
+        "Fix returned value in coreRenderWidget (PS1.7)",
+        "Add quantity_all_versions in product properties in dynamic requests"
+    ],
+    "4.36": [
+        "Improve widget_block management",
+        "Fix a bug in dynamic modules refreshment (since 4.33)"
+    ],
+    "4.35": [
+        "Released failed"
+    ],
+    "4.34": [
+        "Handle hook aliases",
+        "Fix dynamic modules refreshment in products list pages (since 4.33)",
+        "Fix a bug when PHP scripts are directly called without controller"
+    ],
+    "4.33": [
+        "Dynamic modules are now refreshed in a POST request"
+    ],
+    "4.32": [
+        "Fix language selection issue (since 4.27)"
+    ],
+    "4.31": [
+        "Fix a mobile detection problem (since 4.21)",
+        "Fix a bug in pcnocache parameter propagation (when cache is disabled for logged in visitors)"
+    ],
+    "4.30": [
+        "Handle old theme"
+    ],
+    "4.29": [
+        "Fix a bug in widget_block management (since 4.24)",
+        "Handle int/string/boolean attributes on hooks for dynamic modules"
+    ],
+    "4.28": [
+        "Fix a bug in upgrade 4.27"
+    ],
+    "4.27": [
+        "Compatibility with module GDPR Compliance Pro (by PrestaChamps) ",
+        "Compatibility with module EU Cookie Advise + Cookies blocker + Iubenda (by Tanzo)",
+        "Compatibility with module GDPR - General Data Protection Regulation (by Active Design)",
+        "Compatibility with module EU Cookie Law (Notification Banner + Cookie Blocker) (by Línea Gráfica)",
+        "Fix a bug for PS 1.7 since 4.25",
+        "Fix a bug in dynamic refreshment for PS 1.7"
+    ],
+    "4.26": [
+        "Fix installation issues since 4.25"
+    ],
+    "4.25": [
+        "Allow dynamic modules on product list"
+    ],
+    "4.24": [
+        "Refresh javascript definition even when there is no dynamic module",
+        "Handle widget_block smarty tag",
+        "Fix translation encoding"
+    ],
+    "4.23": [
+        "Improve cache refreshment for multi-stores",
+        "Complete translations",
+        "Fix a bug (since 4.20) in hookActionProductUpdate"
+    ],
+    "4.22": [
+        "Fix property name 'pagecache_depend_on_device_auto' length"
+    ],
+    "4.21": [
+        "Fix a conflict with module 'Go Reviews (by Lineven)' and maybe other modules using internal cache",
+        "Fix a conflict with module 'Theme editor (by SUNNYTOO.COM)' to display correct number of products per line",
+        "Detects if desktop and mobile site are the same to use the same cache or not",
+        "Clear the cache when CSS and JS cache are cleared "
+    ],
+    "4.20": [
+        "Avoid dynamic modules request to be cached by browser",
+        "Avoid dynamic modules request to be indexed by search engines",
+        "Avoid testing inactive category in speed analysis",
+        "Improve cache refreshment when a product is deleted/disabled"
+    ],
+    "4.19": [
+        "Enable Prestatrust"
+    ],
+    "4.18": [
+        "Improve performance analysis feature",
+        "Fix restricted countries detection with geolocalisation by IP",
+        "Fix 'debug mode' parameter propagation",
+        "Fix 'no cache for logged in users' parameter propagation",
+        "Handle the private shop feature of 'Extended Registration for Prestashop' module by modulesmarket.com",
+        "Handle 'widget' tag in templates for PS 1.7"
+    ],
+    "4.17": [
+        "Little fix on URL of test mode",
+        "Don't cache redirected pages (improve detection)",
+        "Fix a bug in diagnostic tab template (admin)"
+    ],
+    "4.16": [
+        "Improve cache refreshment for suppliers and manufacturers",
+        "Handle bad JSON (skip characters before first '{')"
+    ],
+    "4.15": [
+        "Fix a bug in CRON job that was cleaning the whole cache when using '&index'",
+        "Improve error message during installation",
+        "Improve 'Page timeouts' tab for PS 1.5",
+        "Prepare for widgets management"
+    ],
+    "4.14": [
+        "Use class instead of id to identify dynamic block for PS 1.7 (smarty cache must be cleared)",
+        "Fix a bug with SSL redirect detection",
+        "Fix a bug with AdminTab"
+    ],
+    "4.13": [
+        "Take care of 'prestashop' javascript variable for PS 1.7"
+    ],
+    "4.12": [
+        "Assign smarty variables for dynamic modules for PS 1.7"
+    ],
+    "4.11": [
+        "Fix a bug in automatic refreshment when modifying images of products"
+    ],
+    "4.10": [
+        "Fix a bug in automatic refreshment for multistore",
+        "Fix protocol in speed analysis",
+        "Fix timeout too short for file_get_content in speed analysis"
+    ],
+    "4.09": [
+        "Fix a retro-compatibility issue with old hooks",
+        "Swedish translation improvement"
+    ],
+    "4.08": [
+        "Use base 64 encoded images for front stats to not degrade YSlow or PageSpeed score",
+        "Improve speed analysis",
+        "Fix CRON task"
+    ],
+    "4.07": [
+        "Fix some log trace in ZipArchive cache system"
+    ],
+    "4.06": [
+        "Add details on log when directory cannot be created"
+    ],
+    "4.05": [
+        "Do not add CSS file in production mode",
+        "Update spanish and swedish translations",
+        "Remove Media.php override which is obsolete",
+        "Add possibility to ignore backlinks from HTML parts (specific developpement)"
+    ],
+    "4.04": [
+        "Compatibility with PHP 5.3",
+        "Move all HTML into templates files",
+        "Fix a bug with 1.5",
+        "Improve automatic refreshment"
+    ],
+    "4.02": [
+        "Module key for standard edition"
+    ],
+    "4.01": [
+        "Compatibility with HHVM",
+        "Compatibility with 'Deluxe Private Shop' module from Innovadeluxe",
+        "Fix an issue with translations",
+        "Fix a cache issue in speed analysis",
+        "Update of the swedish translation"
+    ],
+    "4.00": [
+        "Compatibility with Prestashop 1.7",
+        "Add auto-configuration system",
+        "Add speed test on home, product and category pages",
+        "Fix debug URL for multistores",
+        "Add prefix to CSS rules to avoid conflict in infos box",
+        "Reduce directory creations",
+        "Improve algorithms to be faster",
+        "Ultimate edition: add caching system 'ZIP archives'",
+        "Ultimate edition: add diagnosic feature to help you to configure your prestashop for speed",
+        "Media override replaced by hook 'actionAdminPerformanceControllerAfter'",
+        "Add header 'application/json' on Ajax requests to avoid search engines to index it",
+        "Fix: Preserve baseDir and baseUrl on ajax request"
+    ],
+    "3.17": [
+        "Fix cache refreshment when modifying specific prices"
+    ],
+    "3.16": [
+        "Avoid loosing the session when redirected to HTTPS protocole"
+    ],
+    "3.15": [
+        "Fix a conflict with PopExit module"
+    ],
+    "3.14": [
+        "Add hooks for advanced stock management",
+        "Add a workaround for a bug in LiteSpeed server"
+    ],
+    "3.12": [
+        "Fix permissions of files and directories in '/cache/pagecache' directory"
+    ],
+    "3.11": [
+        "Update Media override to avoid the cache to be cleared to many times"
+    ],
+    "3.10": [
+        "Fix images URL in info box",
+        "Update cccCss prototype to latest one"
+    ],
+    "3.09": [
+        "Better check parameters for security reasons (avoid XSS)"
+    ],
+    "3.08": [
+        "Remove module's parameters in production mode to avoid them to be referenced in search engines"
+    ],
+    "3.07": [
+        "Improvement: do not insert DIV around dynamic modules if current page will not be cached",
+        "Fix: native customization is not a module and therefore cannot be refreshed. The workaround is to disable cache for these products."
+    ],
+    "3.06": [
+        "Merge footer and header hook for better compatibility",
+        "Fix an SQL problem in hookActionFeature*"
+    ],
+    "3.05": [
+        "Fix problem with restricted countries",
+        "Fix the issue that was allowing the display of infos box even in production mode"
+    ],
+    "3.04": [
+        "Refresh cache when CSS or JS have been changed"
+    ],
+    "3.03": [
+        "Now PageCache will not fail on PHP command line call"
+    ],
+    "3.02": [
+        "Improve CSS to avoid style problems",
+        "Add workaround in case of bad datas in cart rules"
+    ],
+    "3.01": [
+        "Fix CSS styles for Prestashop 1.5",
+        "Fix cache refreshment for single language stores"
+    ],
+    "3.00": [
+        "Improve infos box",
+        "Redesign of configuration page",
+        "Step by step configuration feature"
+    ],
+    "2.71": [
+        "Fix specific price detection (problem of seconds)"
+    ],
+    "2.70": [
+        "Fix country detection (when detected with browser settings)"
+    ],
+    "2.69": [
+        "Handle countries with multiple names (Array)"
+    ],
+    "2.68": [
+        "Handle modules that have controller named like standard controllers"
+    ],
+    "2.67": [
+        "Fix issue with some overrides with version >= 1.6.1.0"
+    ],
+    "2.66": [
+        "Improve dynamic modules feature to avoid CSS issues",
+        "Fix groups detection with Advanced Top Menu module"
+    ],
+    "2.65": [
+        "Fix default group detection"
+    ],
+    "2.64": [
+        "Fix SQL query in hookActionProductAttributeUpdate()",
+        "Fix the check of overrides activation"
+    ],
+    "2.63": [
+        "Add ';' to fix javascript",
+        "Prepare for Prestashop v1.6.1"
+    ],
+    "2.62": [
+        "Fix ProductController hook call"
+    ],
+    "2.61": [
+        "Update Hook override",
+        "Fix javascript error"
+    ],
+    "2.60": [
+        "Fix 'logged out' after SSL redirection",
+        "Fix CSS in back office"
+    ],
+    "2.59": [
+        "Fix maintenance detection"
+    ],
+    "2.58": [
+        "Drop useless column modules"
+    ],
+    "2.57": [
+        "Fix javascript order."
+    ],
+    "2.56": [
+        "Fix carriage return in front controllers overrides"
+    ],
+    "2.55": [
+        "Fix warning with 1.6.0.1"
+    ],
+    "2.54": [
+        "Fix Workaround for a bug in Prestashop (multiple same JS script when CCC is activated)",
+        "Compatibility with 1.6.0.1",
+        "Fix a problem with 1.6.0.14",
+        "Cast variable for addons validation"
+    ],
+    "2.53": [
+        "Check for Express Cache installation",
+        "Improve speed and robustness of dynamic modules display",
+        "Fix URL with '|' character"
+    ],
+    "2.52": [
+        "Fix clear cache for multistore"
+    ],
+    "2.51": [
+        "Add Readme.md, move js, css and img to views directory",
+        "Avoid bug PSCSX-4773",
+        "Check bug PSCSX-4794"
+    ],
+    "2.50": [
+        "Improve mobile version",
+        "Fix products comparison",
+        "Fix missing modules when clearing cache"
+    ],
+    "2.49": [
+        "Fix PSCSX-4507 (clear cache of null product id)"
+    ],
+    "2.48": [
+        "Remove useless StoresController override",
+        "Avoid 'Invalid argument supplied for foreach()' warning",
+        "It's now possible to delete specific pages with CRON URL (controller=comma separated list of ID)",
+        "Now handle country when it's based on users's address (delivery or invoice)",
+        "Fix a bug when geolocalisation is enabled"
+    ],
+    "2.47": [
+        "Handle maintenance mode",
+        "Fix problem with blockwishlist (and more generally with Media::addJsDef feature)"
+    ],
+    "2.46": [
+        "Fix recursive problem in Hook",
+        "Improve forwarding of dbgpagecache parameter"
+    ],
+    "2.45": [
+        "Handle cookie encryption",
+        "Execute javascript even if there is no dynamic modules (to refresh cart)"
+    ],
+    "2.44": [
+        "New functionnality to let dynamic modules bloc empty in cached pages"
+    ],
+    "2.43": [
+        "Add option to disable cache for logged in users"
+    ],
+    "2.42": [
+        "Handle cookies set by dynamic modules",
+        "Fix jquery-cooki(e)-plugins insertion"
+    ],
+    "2.41": [
+        "Fix CRC32 column value"
+    ],
+    "2.40": [
+        "Workaround for PSCFV-10168 (before 1.5.6.0)",
+        "Fix jquery-cookie insertion"
+    ],
+    "2.39": [
+        "Reduce database size by using CRC32 instead of MD5 hashes",
+        "Reduce database size by storing modules's id instead of modules's name",
+        "Reduce backlinks count",
+        "Forward dbgpagecache parameter so testing is easier, no need to add it on every page",
+        "Controls known compatibility issues",
+        "Improve infos block: real cache type is displayed (no cache, server cache or browser cache)",
+        "Move CSS and JS into pagecache.css and pagecache.js"
+    ],
+    "2.38": [
+        "Fix a bug with advanced configuration (javascript executed after dynamic modules)",
+        "Fix a bug with Prestashop <= 1.6.0.7 (PS_JS_DEFER)"
+    ],
+    "2.37": [
+        "Fix a bug with multi-store",
+        "German translation"
+    ],
+    "2.36": [
+        "Fix Prestashop addons valitator issues",
+        "Optimize isLogged() override",
+        "Handle access denied pages for dynamic modules",
+        "Do not block store if module is not well uninstalled",
+        "Improve uninstallation (removeOverride)"
+    ],
+    "2.35": [
+        "Prevent AJAX requests to be cached"
+    ],
+    "2.34": [
+        "Fix delpagecache feature",
+        "Fix product update refreshment (on price)"
+    ],
+    "2.33": [
+        "Make browser cache private"
+    ],
+    "2.32": [
+        "Replace intval() by cast",
+        "Fix browser cache min value"
+    ],
+    "2.31": [
+        "Add a delpagecache parameter to force the cache be reffreshed",
+        "Add link to documentation",
+        "A workaround in case overrides have not been well uninstalled"
+    ],
+    "2.30": [
+        "Fix country detection"
+    ],
+    "2.29": [
+        "Handle enabled modules per device "
+    ],
+    "2.28": [
+        "Fix cookie problem when changing language (found with ajaxfilter module)"
+    ],
+    "2.27": [
+        "Workaround for a bug in Prestashop (multiple same JS script when CCC is activated)"
+    ],
+    "2.26": [
+        "Now compatible with Duplicate URL Redirect"
+    ],
+    "2.25": [
+        "Fix for $context->link not being initialized"
+    ],
+    "2.24": [
+        "Handle specific price changes (for flash sales modules)"
+    ],
+    "2.23": [
+        "Add 1.6.0.5 compatibility"
+    ],
+    "2.22": [
+        "Fix a problem with Mailalerts"
+    ],
+    "2.21": [
+        "Fix a problem with BlockWishlist",
+        "Avoid javascript error if the user click before the cart is refreshed."
+    ],
+    "2.20": [
+        "Use of Module::isEnabled('pagecache')"
+    ],
+    "2.19": [
+        "Handle specific prices feature",
+        "Handle module restrictions on groups",
+        "Fix problem with URL fragments"
+    ],
+    "2.18": [
+        "Fix for user groups dependency"
+    ],
+    "2.17": [
+        "Replace _GET and _POST by Tools::getValue()",
+        "Fix a bug that will improve cache statistics"
+    ],
+    "2.16": [
+        "Add CRON URL"
+    ],
+    "2.15": [
+        "Add user groups dependency"
+    ],
+    "2.14": [
+        "Add compatibility with ClearURL module",
+        "Add compatibility with 1.4 themes"
+    ],
+    "2.13": [
+        "Fix auto detect language feature in cookie"
+    ],
+    "2.12": [
+        "Multiple shop compatibility"
+    ],
+    "2.11": [
+        "Ignore ad tracking parameters to be more efficient",
+        "Add log levels to debug faster",
+        "Add link to addons forum"
+    ],
+    "2.10": [
+        "Add possibility to add javascript to be called after dynamic module have been displayed (to solve specific theme issues)"
+    ],
+    "2.9": [
+        "Disable pagecache footer in debug mode and when it's not needed"
+    ],
+    "2.8": [
+        "Improve cache refreshment speed"
+    ],
+    "2.7": [
+        "Add browser cache feature",
+        "Add possibility to disable statistics and save some more milliseconds",
+        "Check product quantity to know how we should refresh the cache on order validation",
+        "Fix a bug with _PS_BASE_URL_ which is not defined in some cases"
+    ],
+    "2.6": [
+        "SQL optimisations"
+    ],
+    "2.5": [
+        "Fix random number at bottom of cached pages"
+    ],
+    "2.4": [
+        "Fix HTTPs issue",
+        "Fix mobile version"
+    ],
+    "2.3": [
+        "Add a debug mode to be able to test on production site",
+        "Add logs possibilities",
+        "Fix currency selection"
+    ],
+    "2.2": [
+        "Fix a 'white page' issue when module is disabled"
+    ],
+    "2.1": [
+        "Fix logout feature"
+    ],
+    "2.0": [
+        "Hit statistics to know how the cache is efficient",
+        "Improve cache management by deleting cache files only when necessary (you can modify how cache is refreshed)",
+        "Now compatible with CloudCache (do not override same methods anymore)",
+        "Save cache files in multiple directories to avoid filesystems to slow down",
+        "Enable auto-update so you can update your module from your backoffice",
+        "New logo",
+        "Fix an issue with prices-drop, new-products and best-sales controllers",
+        "Fix an issue with default empty cookie name which is now a random name and expires immediately"
+    ],
+    "1.7": [
+        "Add default configuration for dynamic modules and a button to go back to this default configuration"
+    ],
+    "1.6": [
+        "Hook class updated to merge with version 1.5.4.1",
+        "Disable cache and display an error if tokens are enabled"
+    ],
+    "1.5": [
+        "Keep 'id_lang' cookie to be compatible with some modules"
+    ]
+}

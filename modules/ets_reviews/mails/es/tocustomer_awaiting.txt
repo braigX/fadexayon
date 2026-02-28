@@ -1,0 +1,9 @@
+[{shop_url}]
+
+Hola {customer_name},
+Su {object} en {product_name} se envió correctamente y está esperando aprobación.
+
+{content}
+
+{shop_name} [{shop_url}] impulsado por
+PrestaShop(tm) [http://www.prestashop.com/]

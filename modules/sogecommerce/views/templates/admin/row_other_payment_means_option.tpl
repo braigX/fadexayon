@@ -1,0 +1,119 @@
+{**
+ * Copyright © Lyra Network.
+ * This file is part of Sogecommerce plugin for PrestaShop. See COPYING.md for license details.
+ *
+ * @author    Lyra Network (https://www.lyra.com/)
+ * @copyright Lyra Network
+ * @license   https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
+ *}
+
+<tr id="sogecommerce_other_payment_means_option_{$key|escape:'html':'UTF-8'}">
+  <td>
+  <div style="width: 185px;">
+    {include file="./input_text_lang.tpl"
+      languages=$prestashop_languages
+      current_lang=$prestashop_lang
+      input_name="SOGECOMMERCE_OTHER_PAYMENT_MEANS[{$key|escape:'html':'UTF-8'}][title]"
+      field_id="SOGECOMMERCE_OTHER_PAYMENT_MEANS_{$key|escape:'html':'UTF-8'}_title"
+      input_value=$option.title
+      style="width: 115px;"
+    }
+    </div>
+  </td>
+  <td>
+    <select id="SOGECOMMERCE_OTHER_PAYMENT_MEANS_{$key|escape:'html':'UTF-8'}_code" name="SOGECOMMERCE_OTHER_PAYMENT_MEANS[{$key|escape:'html':'UTF-8'}][code]" style="width: 200px;">
+       {foreach from=$payment_means_cards key="card_key" item="card_name"}
+         {if $card_key != ''}<option value="{$card_key|escape:'html':'UTF-8'}" {if $option.code === $card_key} selected="selected"{/if}>{$card_key|escape:'html':'UTF-8'} - {$card_name|escape:'html':'UTF-8'}</option>{/if}
+       {/foreach}
+    </select>
+  </td>
+  <td>
+    <select id="SOGECOMMERCE_OTHER_PAYMENT_MEANS_{$key|escape:'html':'UTF-8'}_countries"
+        name="SOGECOMMERCE_OTHER_PAYMENT_MEANS[{$key|escape:'html':'UTF-8'}][countries][]"
+        multiple="multiple"
+        size="7"
+        style="display: none;"
+        onblur="sogecommerceDisplayLabel('SOGECOMMERCE_OTHER_PAYMENT_MEANS_{$key|escape:'html':'UTF-8'}_countries', '{l s='Click to edit' mod='sogecommerce'}');">
+
+        {assign var="label_value" value=""}
+
+        {foreach from=$countries_list key="countries_key" item="countries_option"}
+          {if isset($option.countries) && is_array($option.countries) && in_array((string)$countries_key, $option.countries)}
+            {if $label_value === ''}
+              {assign var="label_value" value=$countries_option}
+            {else}
+              {assign var="label_value" value={$label_value|cat:', '|cat:$countries_option|escape:'html':'UTF-8'}}
+            {/if}
+
+            {assign var="selected" value=true}
+          {else}
+            {assign var="selected" value=false}
+          {/if}
+
+          <option value="{$countries_key|escape:'html':'UTF-8'}"{if $selected} selected="selected"{/if}>
+            {$countries_option|escape:'html':'UTF-8'}
+          </option>
+        {/foreach}
+    </select>
+
+    {if $label_value === ''}
+      {assign var="label_value" value="{l s='Click to edit' mod='sogecommerce'}"}
+    {/if}
+
+    <span id="LABEL_SOGECOMMERCE_OTHER_PAYMENT_MEANS_{$key|escape:'html':'UTF-8'}_countries"
+        onclick="javascript:sogecommerceDisplayMultiSelect('SOGECOMMERCE_OTHER_PAYMENT_MEANS_{$key|escape:'html':'UTF-8'}_countries');"
+        style="width: 100%; display: block; cursor: pointer;">
+        {$label_value|escape:'html':'UTF-8'}
+    </span>
+  </td>
+  <td>
+    <input id="SOGECOMMERCE_OTHER_PAYMENT_MEANS_{$key|escape:'html':'UTF-8'}_min_amount"
+        name="SOGECOMMERCE_OTHER_PAYMENT_MEANS[{$key|escape:'html':'UTF-8'}][min_amount]"
+        value="{$option.min_amount|escape:'html':'UTF-8'}"
+        style="width: 70px;"
+        type="text">
+  </td>
+  <td>
+    <input id="SOGECOMMERCE_OTHER_PAYMENT_MEANS_{$key|escape:'html':'UTF-8'}_max_amount"
+        name="SOGECOMMERCE_OTHER_PAYMENT_MEANS[{$key|escape:'html':'UTF-8'}][max_amount]"
+        value="{$option.max_amount|escape:'html':'UTF-8'}"
+        style="width: 70px;"
+        type="text">
+  </td>
+  <td>
+    <input id="SOGECOMMERCE_OTHER_PAYMENT_MEANS_{$key|escape:'html':'UTF-8'}_capture"
+        name="SOGECOMMERCE_OTHER_PAYMENT_MEANS[{$key|escape:'html':'UTF-8'}][capture]"
+        value="{$option.capture|default:''|escape:'html':'UTF-8'}"
+        style="width: 50px;"
+        type="text"
+        {if ($SOGECOMMERCE_STD_CARD_DATA_MODE === '7' || $SOGECOMMERCE_STD_CARD_DATA_MODE === '8' || $SOGECOMMERCE_STD_CARD_DATA_MODE === '9') && isset($option.embedded) && $option.embedded === 'True'} disabled {/if}>
+  </td>
+  <td>
+    <select id="SOGECOMMERCE_OTHER_PAYMENT_MEANS_{$key|escape:'html':'UTF-8'}_validation" name="SOGECOMMERCE_OTHER_PAYMENT_MEANS[{$key|escape:'html':'UTF-8'}][validation]" style="width: 165px;"
+        {if ($SOGECOMMERCE_STD_CARD_DATA_MODE === '7' || $SOGECOMMERCE_STD_CARD_DATA_MODE === '8' || $SOGECOMMERCE_STD_CARD_DATA_MODE === '9') && isset($option.embedded) && $option.embedded === 'True'} disabled {/if}>
+        <option value="-1"{if isset($option.validation) && $option.validation === '-1'} selected="selected"{/if}>{l s='Module general configuration' mod='sogecommerce'}</option>
+        {foreach from=$validation_mode_options key="validation_key" item="validation_option"}
+            <option value="{$validation_key|escape:'html':'UTF-8'}"{if isset($option.validation) && $option.validation === (string)$validation_key} selected="selected"{/if}>{$validation_option|escape:'html':'UTF-8'}</option>
+        {/foreach}
+    </select>
+  </td>
+  <td>
+    <input id="SOGECOMMERCE_OTHER_PAYMENT_MEANS_{$key|escape:'html':'UTF-8'}_cart" name="SOGECOMMERCE_OTHER_PAYMENT_MEANS[{$key|escape:'html':'UTF-8'}][cart]"
+        style="width: 100%;"
+        type="checkbox"
+        {if isset($option.cart) && $option.cart === 'True'}checked{/if}
+        value="True">
+  </td>
+  <td class="SOGECOMMERCE_OTHER_PAYMENT_MEANS_EMBEDDED" {if $SOGECOMMERCE_STD_CARD_DATA_MODE !== '7' && $SOGECOMMERCE_STD_CARD_DATA_MODE !== '8' && $SOGECOMMERCE_STD_CARD_DATA_MODE !== '9'} style="display: none;"{/if}>
+    <input id="SOGECOMMERCE_OTHER_PAYMENT_MEANS_{$key|escape:'html':'UTF-8'}_embedded" name="SOGECOMMERCE_OTHER_PAYMENT_MEANS[{$key|escape:'html':'UTF-8'}][embedded]"
+        style="width: 100%;"
+        type="checkbox"
+        {if isset($option.embedded) && $option.embedded === 'True'}checked{/if}
+        value="True"
+        class="{$key|escape:'html':'UTF-8'}"
+        onchange="javascript: onEmbeddedCheckboxChange(this)">
+  </td>
+  <td>
+    <button type="button" onclick="javascript: sogecommerceDeleteOtherPaymentMeansOption({$key|escape:'html':'UTF-8'});">{l s='Delete' mod='sogecommerce'}</button>
+  </td>
+</tr>

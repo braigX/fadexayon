@@ -1,0 +1,6 @@
+{% extends constant('_PS_VERSION_')|number_format >= 8 ? '@!PrestaShop/Admin/Common/Grid/Blocks/pagination.html.twig':'PrestaShopBundle:Admin/Common/Grid/Blocks:pagination.html.twig' %}
+{% block grid_pagination %}
+    {% if grid.id=="order"%}<!--begin_pagination_list_order!--><div class="pagination_list_order">{%endif%}
+    {{ parent() }}
+    {% if grid.id=="order"%}</div><!--end_pagination_list_order!-->{%endif%}
+{% endblock %}

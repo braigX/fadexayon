@@ -1,0 +1,3 @@
+Hallo {author_name}
+Er is een nieuwe reactie geplaatst op {post_title} en wacht op uw goedkeuring
+Bekijk reactie

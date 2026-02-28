@@ -1,0 +1,85 @@
+{*
+* 2017-2018 PSBlog
+*
+* NOTICE OF LICENSE
+*
+* READ ATTACHED LICENSE.TXT
+*
+*  @author    PSBlog
+*  @copyright 2017-2018 PSBlog
+*  @license   LICENSE.TXT
+*}
+
+{if $activaterich}
+<!-- ProductRich -->
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Product",
+  "url": "{$linkurl|escape:'html':'UTF-8'}",
+  "description": "{if $product->description|is_array}{$product->description[$id_lang]|strip_tags|escape:'html':'UTF-8'}{else}{$product->description|strip_tags|escape:'html':'UTF-8'}{/if}",
+  "name": "{if $product->name|is_array}{$product->name[$id_lang]|escape:'html':'UTF-8'}{else}{$product->name|escape:'html':'UTF-8'}{/if}",
+  "sku": "{$product->reference|escape:'html':'UTF-8'}",
+  "mpn": "{$product->reference|escape:'html':'UTF-8'}",
+  {if isset($product->manufacturer_name)}
+  "brand": {
+    "@type": "Thing",
+    "name": "{$product->manufacturer_name|escape:'html':'UTF-8'}"
+  },
+  {/if}
+  {if count($image) > 1}
+	{foreach from=$image item=image_prod name=image_prod}
+		{if ($smarty.foreach.image_prod.iteration) == 1}
+  "image": [
+     "{$image_prod|escape:'html':'UTF-8'}",
+		{elseif $smarty.foreach.image_prod.iteration == count($image)}
+     "{$image_prod|escape:'html':'UTF-8'}"
+   ],
+		{else}
+     "{$image_prod|escape:'html':'UTF-8'}",
+		{/if}
+	{/foreach}
+  {elseif count($image) > 0}
+  "image": "{$image[0]|escape:'html':'UTF-8'}",
+  {/if}
+  {if isset($average_rating) && $total_ratings > 0}
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{$average_rating|escape:'html':'UTF-8'}",
+    "ratingCount": "{$total_ratings|escape:'html':'UTF-8'}"
+  },  
+  {/if}
+  {if isset($product->manufacturer_name)}
+  "manufacturer": {
+    "@type": "Organization",
+    "name": "{$product->manufacturer_name|escape:'html':'UTF-8'}"
+  },
+  {/if}
+  "offers": {
+    "@type": "Offer",
+	"url": "{$linkurl|escape:'html':'UTF-8'}",
+	{if $product->ean13}
+	"gtin13": "{$product->ean13|escape:'html':'UTF-8'}",
+	{else if $product->upc}
+	"gtin13": "0{$product->upc|escape:'html':'UTF-8'}",
+	{/if}
+	"priceCurrency": "{$currency|escape:'html':'UTF-8'}",
+	"price": "{$product->getPrice(true, $smarty.const.NULL, $decimals)|escape:'html':'UTF-8'}",
+	"sku": "{$product->reference|escape:'html':'UTF-8'}",
+	{if $product->condition == 'new'}"itemCondition": "http://schema.org/NewCondition",{/if}
+	{if $product->condition == 'used'}"itemCondition": "http://schema.org/UsedCondition",{/if}
+	{if $product->condition == 'refurbished'}"itemCondition": "http://schema.org/RefurbishedCondition",{/if}
+	"availability":{if $instock == true} "http://schema.org/InStock" {else} "http://schema.org/OutOfStock"{/if},
+	{if $valid_until != 0}"priceValidUntil": "{$valid_until|escape:'html':'UTF-8'}",{/if}
+	"seller": {
+            "@type": "Organization",
+            "name": "{$shop_name|escape:'html':'UTF-8'}"
+	}
+  }
+}
+</script>
+{/if}
+
+{if $breadcrumb_active && count($breadcrumb_list) > 0} 
+	{include file='./breadcrumb.tpl'}
+{/if}

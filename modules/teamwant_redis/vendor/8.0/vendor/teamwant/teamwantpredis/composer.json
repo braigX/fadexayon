@@ -1,0 +1,15 @@
+{
+    "name": "teamwant/teamwantpredis",
+    "autoload": {
+        "psr-4": {
+            "Teamwant\\Teamwantpredis\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mateusz Szymański",
+            "email": "mateusz.szymanski7462@gmail.com"
+        }
+    ],
+    "require": {}
+}

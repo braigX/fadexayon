@@ -1,0 +1,138 @@
+#module-prestawp-products main > * {
+    display: none;
+}
+#module-prestawp-products main > #wrapper {
+    display: block;
+}
+#module-prestawp-products .container {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+}
+#module-prestawp-products #wrapper {
+    background: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+#module-prestawp-products {
+    height: auto;
+}
+#module-prestawp-products ul.product_list.grid > li.first-item-of-tablet-line {
+    clear: none;
+}
+#module-prestawp-products section.product-miniature {
+    border: none;
+    outline: none;
+}
+#module-prestawp-products .product-miniature .thumbnail-container {
+    max-width: 250px;
+}
+#module-prestawp-products section.product-miniature:hover {
+    outline: none;
+}
+#module-prestawp-products {
+    background: none;
+}
+/* Hide everything except products: */
+#module-prestawp-products * {
+    visibility: hidden;
+}
+#module-prestawp-products .pswp_block,
+#module-prestawp-products .pswp_block * {
+    visibility: visible;
+}
+#module-prestawp-products .pswp_block .product-list-reviews {
+    visibility: hidden;
+}
+#module-prestawp-products #main .page-footer {
+    display: none;
+}
+#module-prestawp-products .highlighted-informations.no-variants {
+    display: none;
+}
+#module-prestawp-products .product-miniature .thumbnail-container:hover .product-description::after {
+    display: none;
+}
+#module-prestawp-products .products,
+#module-prestawp-products .product_list > .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    /*gap: 1rem;*/
+}
+#module-prestawp-products .products .js-product {
+    max-width: 250px;
+}
+#module-prestawp-products .products.row:after {
+    display: none;
+}
+#module-prestawp-products .quickview,
+#module-prestawp-products .quick-view {
+    display: none !important;
+}
+#module-prestawp-products .pswp_block .up {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    #module-prestawp-products .pswp-mobile-limit-1 .product-miniature + .product-miniature {
+        display: none;
+    }
+    #module-prestawp-products .pswp-mobile-limit-2 .product-miniature + .product-miniature + .product-miniature {
+        display: none;
+    }
+    #module-prestawp-products .pswp-mobile-limit-3 .product-miniature + .product-miniature + .product-miniature + .product-miniature {
+        display: none;
+    }
+    #module-prestawp-products .pswp-mobile-limit-4 .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature {
+        display: none;
+    }
+    #module-prestawp-products .pswp-mobile-limit-5 .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature {
+        display: none;
+    }
+    #module-prestawp-products .pswp-mobile-limit-6 .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature {
+        display: none;
+    }
+    #module-prestawp-products .pswp-mobile-limit-7 .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature {
+        display: none;
+    }
+    #module-prestawp-products .pswp-mobile-limit-8 .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature {
+        display: none;
+    }
+    #module-prestawp-products .pswp-mobile-limit-9 .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature {
+        display: none;
+    }
+    #module-prestawp-products .pswp-mobile-limit-10 .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature {
+        display: none;
+    }
+    #module-prestawp-products .pswp-mobile-limit-11 .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature {
+        display: none;
+    }
+    #module-prestawp-products .pswp-mobile-limit-12 .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature {
+        display: none;
+    }
+    #module-prestawp-products .pswp-mobile-limit-13 .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature {
+        display: none;
+    }
+    #module-prestawp-products .pswp-mobile-limit-14 .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature {
+        display: none;
+    }
+    #module-prestawp-products .pswp-mobile-limit-15 .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature {
+        display: none;
+    }
+    #module-prestawp-products .pswp-mobile-limit-16 .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature {
+        display: none;
+    }
+    #module-prestawp-products .pswp-mobile-limit-17 .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature {
+        display: none;
+    }
+    #module-prestawp-products .pswp-mobile-limit-18 .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature {
+        display: none;
+    }
+    #module-prestawp-products .pswp-mobile-limit-19 .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature {
+        display: none;
+    }
+    #module-prestawp-products .pswp-mobile-limit-20 .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature + .product-miniature {
+        display: none;
+    }
+}

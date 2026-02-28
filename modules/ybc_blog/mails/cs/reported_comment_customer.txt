@@ -1,0 +1,4 @@
+Ahoj {reporter}
+Úspěšně jste nahlásili komentáře k {post_title} jako zneužité.
+{comment}
+Děkujeme za váš příspěvek na náš web

@@ -1,0 +1,26 @@
+{
+    "name": "teamwant/teamwant_redis_prestashop",
+    "description": "Teamwant Prestashop Redis for 8+",
+    "license": "Buy to use",
+    "config": {
+        "prepend-autoloader": false,
+        "platform-check": false
+    },
+    "authors": [
+        {
+            "name": "Mateusz Szymański",
+            "email": "mateusz.szymanski7462@gmail.com"
+        }
+    ],
+    "require": {
+        "php" : "7.2.*",
+        "predis/predis": "v2.3.0"
+    },
+    "autoload": {
+        "classmap": [
+          "../../classes",
+          "../../classes/cache",
+          "vendor/teamwant/teamwantpredis"
+        ]
+    }
+}

@@ -1,0 +1,4 @@
+{content}
+
+{shop_name}  powered by
+PrestaShop(tm) [http://www.prestashop.com/]

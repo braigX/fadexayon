@@ -1,0 +1,46 @@
+/**
+ * Copyright since 2007 PrestaShop SA and Contributors
+ * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License version 3.0
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * @author    PrestaShop SA and Contributors <contact@prestashop.com>
+ * @copyright Since 2007 PrestaShop SA and Contributors
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+ */
+.font-green { color: green }
+.font-red { color: red }
+#newbanner label { height: 30px; line-height: 12px; display: flex; align-items: center;}
+#newbanner label.smaller-lineheight { line-height: 15px;}
+#newbanner .prestashop-switch label {justify-content: center;}
+
+.required-r:after {
+    content: "*";
+    color: red;
+    font-size: 14px;
+    position: relative;
+    line-height: 12px;
+}
+
+.bootstrap .form-group.timer_group_wrapper { margin-bottom: 0px; }
+.timer_group:last-child { margin-bottom: 15px; }
+.error { color: red!important; border-color: red!important; font-style: italic; }
+input.error { border-color: red!important; }
+.change-state { cursor: pointer; }
+#modulecontent { min-height: 300px; }
+
+#rateThisModule p{ text-align: right; font-size: 14px; }
+#rateThisModule .material-icons{ font-size: 14px; margin-left:10px; vertical-align: middle; }
+#rateThisModule img{ vertical-align: baseline; }
+#rateThisModule a{ font-weight: 600; }
+
+#topbanner_form .mce-edit-area { min-height: 2.5em; }
+#topbanner_form .mce-flow-layout-item > * { white-space: normal !important; }

@@ -1,0 +1,100 @@
+.sogecommerce_review .small {
+    font-size: 10px;
+}
+
+.sogecommerce_review {
+    border: 1px solid black;
+    font-size: 13px !important;
+    margin-top: 5px;
+    min-width: 380px;
+}
+
+.sogecommerce_review td.amount {
+    text-align: right;
+    font-weight: bold;
+}
+
+.sogecommerce_review thead tr {
+    border-bottom: 1px solid black;
+}
+
+.sogecommerce_review td, .sogecommerce_review th {
+    padding: 3px 6px;
+}
+
+.sogecommerce-pm {
+    display: inline-block;
+    margin-right: 15px;
+    padding-bottom: 15px;
+}
+
+.sogecommerce-pm label {
+    display: inline !important;
+}
+
+.sogecommerce-pm label img {
+    vertical-align: middle;
+    max-width: 90px;
+    max-height: 30px;
+}
+
+.sogecommerce_card_click {
+    margin-right: 20px;
+}
+
+.sogecommerce_card_click input { /* hide radio */
+    display: none !important;
+}
+
+.sogecommerce_card_click img {
+    cursor: pointer;
+    border: 2px solid transparent;
+    opacity: 0.6;
+    max-height: 40px;
+    max-width: 100px;
+}
+
+.sogecommerce_card_click input:checked + img {
+    border: 2px solid black;
+    opacity: 1;
+}
+
+.sogecommerce_card_click img:HOVER, .sogecommerce_card_click img.hover {
+    opacity: 1;
+}
+
+.payment-option label img[src*="sogecommerce"] {
+    max-width: 90px;
+    margin-right: 12px;
+    max-height: 30px;
+    float: left;
+    margin-top: -5px;
+}
+
+button.kr-popin-button {
+    display: none !important;
+    width: 0;
+    height: 0;
+}
+
+.kr-form-error span a {
+    all: inherit !important;
+    text-decoration: underline !important;
+    cursor: pointer !important;
+}
+
+.sogecommerce-show-options {
+    display: block !important;
+}
+
+.sogecommerce-hide-confirmation {
+    display: none !important;
+}
+
+div.kr-smart-form-list-section-name {
+    font-weight: bold !important;
+}
+
+.sogecommerce_hide-wallet-elements {
+    display: none !important;
+}

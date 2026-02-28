@@ -1,0 +1,3 @@
+Hallo {customer_name},
+Je bericht {post_title} is succesvol verzonden naar {shop_name} en wacht op goedkeuring
+Review bericht

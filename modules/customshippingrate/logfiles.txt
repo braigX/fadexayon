@@ -1,0 +1,4633 @@
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+nbProductsCurrent: 12, nbProductsSaved: 12
+totalWeightCurrent: 150, totalWeightSaved: 150
+orderTotalCurrent: 1064.88, orderTotalSaved: 1064.88
+deliveryAddress: 2927, id_address_delivery: 2927
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+nbProductsCurrent: 12, nbProductsSaved: 12
+totalWeightCurrent: 150, totalWeightSaved: 150
+orderTotalCurrent: 1064.88, orderTotalSaved: 1064.88
+deliveryAddress: 2927, id_address_delivery: 2927
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+nbProductsCurrent: 12, nbProductsSaved: 12
+totalWeightCurrent: 150, totalWeightSaved: 150
+orderTotalCurrent: 1064.88, orderTotalSaved: 1064.88
+deliveryAddress: 2927, id_address_delivery: 2927
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+nbProductsCurrent: 12, nbProductsSaved: 12
+totalWeightCurrent: 150, totalWeightSaved: 150
+orderTotalCurrent: 1064.88, orderTotalSaved: 1064.88
+deliveryAddress: 2927, id_address_delivery: 2927
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+nbProductsCurrent: 12, nbProductsSaved: 12
+totalWeightCurrent: 150, totalWeightSaved: 150
+orderTotalCurrent: 1064.88, orderTotalSaved: 1064.88
+deliveryAddress: 2927, id_address_delivery: 2927
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 436
+nbProductsCurrent: 3, nbProductsSaved: 3
+totalWeightCurrent: 16, totalWeightSaved: 16
+orderTotalCurrent: 175.64, orderTotalSaved: 175.64
+deliveryAddress: 2921, id_address_delivery: 2921
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+nbProductsCurrent: 12, nbProductsSaved: 12
+totalWeightCurrent: 150, totalWeightSaved: 150
+orderTotalCurrent: 1064.88, orderTotalSaved: 1064.88
+deliveryAddress: 2927, id_address_delivery: 2927
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 0, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2739
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 0, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2739
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 0, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2739
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 0, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2739
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 0, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2739
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 0, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2739
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 0, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2739
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 0, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2739
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 0, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2739
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 0, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2739
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 0, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2739
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 0, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2739
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 0, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2739
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 433, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 434, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 424
+---- carrier: 433
+---- carrier: 434
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 1, totalWeightSaved: 0
+orderTotalCurrent: 13.72, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 436
+nbProductsCurrent: 3, nbProductsSaved: 3
+totalWeightCurrent: 16, totalWeightSaved: 16
+orderTotalCurrent: 175.64, orderTotalSaved: 175.64
+deliveryAddress: 2921, id_address_delivery: 2921
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 436
+nbProductsCurrent: 3, nbProductsSaved: 3
+totalWeightCurrent: 16, totalWeightSaved: 16
+orderTotalCurrent: 175.64, orderTotalSaved: 175.64
+deliveryAddress: 2921, id_address_delivery: 2921
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 436
+nbProductsCurrent: 3, nbProductsSaved: 3
+totalWeightCurrent: 14, totalWeightSaved: 14
+orderTotalCurrent: 75.17, orderTotalSaved: 75.17
+deliveryAddress: 2922, id_address_delivery: 2922
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 436
+nbProductsCurrent: 3, nbProductsSaved: 3
+totalWeightCurrent: 14, totalWeightSaved: 14
+orderTotalCurrent: 75.17, orderTotalSaved: 75.17
+deliveryAddress: 2922, id_address_delivery: 2922
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 436
+nbProductsCurrent: 3, nbProductsSaved: 3
+totalWeightCurrent: 14, totalWeightSaved: 14
+orderTotalCurrent: 75.17, orderTotalSaved: 75.17
+deliveryAddress: 2922, id_address_delivery: 2922
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 10, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 10, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 10, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 420, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 436
+---- carrier: 420
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 10, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2932
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 420, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 436
+---- carrier: 420
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 10, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2932
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 420, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 436
+---- carrier: 420
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 10, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2932
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 433, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 434, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 424
+---- carrier: 433
+---- carrier: 434
+shippingRateApplied: 0
+nbProductsCurrent: 2, nbProductsSaved: 
+totalWeightCurrent: 1, totalWeightSaved: 0
+orderTotalCurrent: 19.2, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+shippingRateApplied: 0
+nbProductsCurrent: 4, nbProductsSaved: 
+totalWeightCurrent: 50, totalWeightSaved: 0
+orderTotalCurrent: 714.62, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+shippingRateApplied: 0
+nbProductsCurrent: 4, nbProductsSaved: 
+totalWeightCurrent: 50, totalWeightSaved: 0
+orderTotalCurrent: 714.62, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+shippingRateApplied: 0
+nbProductsCurrent: 4, nbProductsSaved: 
+totalWeightCurrent: 50, totalWeightSaved: 0
+orderTotalCurrent: 714.62, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2933
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+nbProductsCurrent: 4, nbProductsSaved: 4
+totalWeightCurrent: 50, totalWeightSaved: 50
+orderTotalCurrent: 714.62, orderTotalSaved: 714.62
+deliveryAddress: 2933, id_address_delivery: 2933
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+nbProductsCurrent: 4, nbProductsSaved: 4
+totalWeightCurrent: 50, totalWeightSaved: 50
+orderTotalCurrent: 714.62, orderTotalSaved: 714.62
+deliveryAddress: 2933, id_address_delivery: 2933
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+nbProductsCurrent: 4, nbProductsSaved: 4
+totalWeightCurrent: 50, totalWeightSaved: 50
+orderTotalCurrent: 714.62, orderTotalSaved: 714.62
+deliveryAddress: 2933, id_address_delivery: 2933
+appended_carrier_name: Le nom du transporteur AFFRETEMENT
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+nbProductsCurrent: 35, nbProductsSaved: 35
+totalWeightCurrent: 113, totalWeightSaved: 113
+orderTotalCurrent: 880.74, orderTotalSaved: 880.74
+deliveryAddress: 569, id_address_delivery: 569
+appended_carrier_name: Le nom du transporteur AFFRETEMENT
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+nbProductsCurrent: 35, nbProductsSaved: 35
+totalWeightCurrent: 113, totalWeightSaved: 113
+orderTotalCurrent: 880.74, orderTotalSaved: 880.74
+deliveryAddress: 569, id_address_delivery: 569
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+nbProductsCurrent: 2, nbProductsSaved: 2
+totalWeightCurrent: 40, totalWeightSaved: 40
+orderTotalCurrent: 286.75, orderTotalSaved: 286.75
+deliveryAddress: 2923, id_address_delivery: 2923
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+shippingRateApplied: 0
+nbProductsCurrent: 9, nbProductsSaved: 
+totalWeightCurrent: 12, totalWeightSaved: 0
+orderTotalCurrent: 122.08, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 3, nbProductsSaved: 
+totalWeightCurrent: 7, totalWeightSaved: 0
+orderTotalCurrent: 195.16, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 10, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 10, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 436
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 10, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2934
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 436
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 10, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2934
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 3, nbProductsSaved: 
+totalWeightCurrent: 7, totalWeightSaved: 0
+orderTotalCurrent: 195.16, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 433, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 434, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 424
+---- carrier: 433
+---- carrier: 434
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 10, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 433, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 434, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 424
+---- carrier: 433
+---- carrier: 434
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 10, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 436
+shippingRateApplied: 0
+nbProductsCurrent: 3, nbProductsSaved: 
+totalWeightCurrent: 7, totalWeightSaved: 0
+orderTotalCurrent: 195.16, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2935
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 433, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 434, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 433
+---- carrier: 434
+---- carrier: 436
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 10, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2936
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 436
+shippingRateApplied: 0
+nbProductsCurrent: 3, nbProductsSaved: 
+totalWeightCurrent: 7, totalWeightSaved: 0
+orderTotalCurrent: 195.16, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2935
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+shippingRateApplied: 0
+nbProductsCurrent: 2, nbProductsSaved: 
+totalWeightCurrent: 2, totalWeightSaved: 0
+orderTotalCurrent: 19.99, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+shippingRateApplied: 0
+nbProductsCurrent: 2, nbProductsSaved: 
+totalWeightCurrent: 2, totalWeightSaved: 0
+orderTotalCurrent: 19.99, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+shippingRateApplied: 0
+nbProductsCurrent: 2, nbProductsSaved: 
+totalWeightCurrent: 2, totalWeightSaved: 0
+orderTotalCurrent: 19.99, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 436
+shippingRateApplied: 0
+nbProductsCurrent: 2, nbProductsSaved: 
+totalWeightCurrent: 2, totalWeightSaved: 0
+orderTotalCurrent: 19.99, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2937
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+shippingRateApplied: 0
+nbProductsCurrent: 9, nbProductsSaved: 
+totalWeightCurrent: 12, totalWeightSaved: 0
+orderTotalCurrent: 122.08, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 436
+shippingRateApplied: 0
+nbProductsCurrent: 9, nbProductsSaved: 
+totalWeightCurrent: 12, totalWeightSaved: 0
+orderTotalCurrent: 122.08, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2938
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 436
+shippingRateApplied: 0
+nbProductsCurrent: 9, nbProductsSaved: 
+totalWeightCurrent: 12, totalWeightSaved: 0
+orderTotalCurrent: 122.08, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2938
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 436
+shippingRateApplied: 0
+nbProductsCurrent: 9, nbProductsSaved: 
+totalWeightCurrent: 12, totalWeightSaved: 0
+orderTotalCurrent: 122.08, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2938
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 436
+nbProductsCurrent: 8, nbProductsSaved: 8
+totalWeightCurrent: 51, totalWeightSaved: 51
+orderTotalCurrent: 606.14, orderTotalSaved: 606.14
+deliveryAddress: 2914, id_address_delivery: 2914
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 436
+nbProductsCurrent: 8, nbProductsSaved: 8
+totalWeightCurrent: 51, totalWeightSaved: 51
+orderTotalCurrent: 606.14, orderTotalSaved: 606.14
+deliveryAddress: 2914, id_address_delivery: 2914
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 436
+shippingRateApplied: 0
+nbProductsCurrent: 14, nbProductsSaved: 
+totalWeightCurrent: 23, totalWeightSaved: 0
+orderTotalCurrent: 341.14, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2565
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 436
+shippingRateApplied: 0
+nbProductsCurrent: 14, nbProductsSaved: 
+totalWeightCurrent: 23, totalWeightSaved: 0
+orderTotalCurrent: 341.14, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2554
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 433, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 434, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 424
+---- carrier: 433
+---- carrier: 434
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 9.6, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 433, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 434, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 424
+---- carrier: 433
+---- carrier: 434
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 10, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 433, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 434, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 424
+---- carrier: 433
+---- carrier: 434
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 10, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 433, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 434, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 420, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 433
+---- carrier: 434
+---- carrier: 436
+---- carrier: 420
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 10, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2940
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 4, totalWeightSaved: 0
+orderTotalCurrent: 49.8, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 4, totalWeightSaved: 0
+orderTotalCurrent: 49.8, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 420, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 436
+---- carrier: 420
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 4, totalWeightSaved: 0
+orderTotalCurrent: 49.8, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2941
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 420, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 436
+---- carrier: 420
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 4, totalWeightSaved: 0
+orderTotalCurrent: 49.8, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2941
+{
+    "id_cart": "32499",
+    "id_address_delivery": 2933,
+    "id_customer2": "",
+    "shipping_price": 255,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 4,
+    "totalWeight": 50.7796,
+    "orderTotal": 714.62,
+    "date_add": "2025-01-15 17:27:27",
+    "id_customer": "3337"
+}
+{
+    "id_cart": "32499",
+    "id_address_delivery": 2933,
+    "id_customer2": "",
+    "shipping_price": 255,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 4,
+    "totalWeight": 50.7796,
+    "orderTotal": 714.62,
+    "date_add": "2025-01-15 17:27:31",
+    "id_customer": "3337"
+}
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 433, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 434, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 424
+---- carrier: 433
+---- carrier: 434
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 9.6, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 433, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 434, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 424
+---- carrier: 433
+---- carrier: 434
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 9.6, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 433, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 434, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 424
+---- carrier: 433
+---- carrier: 434
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 9.6, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 433, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 434, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 433
+---- carrier: 434
+---- carrier: 436
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 9.6, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2942
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 433, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 434, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 433
+---- carrier: 434
+---- carrier: 436
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 9.6, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2942
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 433, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 434, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 433
+---- carrier: 434
+---- carrier: 436
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 9.6, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2942
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 433, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 434, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 433
+---- carrier: 434
+---- carrier: 436
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 9.6, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2942
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 433, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 434, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 436, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 433
+---- carrier: 434
+---- carrier: 436
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 0, totalWeightSaved: 0
+orderTotalCurrent: 9.6, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 2942
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 10, nbProductsSaved: 
+totalWeightCurrent: 2, totalWeightSaved: 0
+orderTotalCurrent: 99.96, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 10, nbProductsSaved: 
+totalWeightCurrent: 2, totalWeightSaved: 0
+orderTotalCurrent: 99.96, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 435, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+nbProductsCurrent: 2, nbProductsSaved: 2
+totalWeightCurrent: 40, totalWeightSaved: 40
+orderTotalCurrent: 286.75, orderTotalSaved: 286.75
+deliveryAddress: 2923, id_address_delivery: 2923
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+shippingRateApplied: 0
+nbProductsCurrent: 8, nbProductsSaved: 
+totalWeightCurrent: 44, totalWeightSaved: 0
+orderTotalCurrent: 579.2, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+appended_carrier_name: Demande de frais de port
+id_carrier: 418, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 423, CUSTOM_SHIPPING_CARRIER_ID: 435
+id_carrier: 424, CUSTOM_SHIPPING_CARRIER_ID: 435
+---- carrier: 418
+---- carrier: 423
+---- carrier: 424
+shippingRateApplied: 0
+nbProductsCurrent: 1, nbProductsSaved: 
+totalWeightCurrent: 1, totalWeightSaved: 0
+orderTotalCurrent: 12.37, orderTotalSaved: 
+deliveryAddress: , id_address_delivery: 0
+{
+    "id_cart": "32817",
+    "id_address_delivery": 2943,
+    "id_customer2": "",
+    "shipping_price": 77,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 12,
+    "totalWeight": 150.0312,
+    "orderTotal": 1064.88,
+    "date_add": "2025-01-16 00:13:12",
+    "id_customer": "2958"
+}
+{
+    "id_cart": "32817",
+    "id_address_delivery": 2943,
+    "id_customer2": "",
+    "shipping_price": 88,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 13,
+    "totalWeight": 162.5338,
+    "orderTotal": 1153.62,
+    "date_add": "2025-01-16 00:15:54",
+    "id_customer": "2958"
+}
+{
+    "id_cart": "32023",
+    "id_address_delivery": 2938,
+    "id_customer2": "",
+    "shipping_price": 45,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 9,
+    "totalWeight": 12.0412,
+    "orderTotal": 122.08,
+    "date_add": "2025-01-17 09:18:25",
+    "id_customer": "3342"
+}
+{
+    "id_cart": "32851",
+    "id_address_delivery": 2947,
+    "id_customer2": "",
+    "shipping_price": 600,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 16.335,
+    "orderTotal": 1010.62,
+    "date_add": "2025-01-17 09:22:03",
+    "id_customer": "3348"
+}
+{
+    "id_cart": "32184",
+    "id_address_delivery": 2955,
+    "id_customer2": "",
+    "shipping_price": 260,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 20,
+    "totalWeight": 260.47,
+    "orderTotal": 1841.28,
+    "date_add": "2025-01-17 10:47:38",
+    "id_customer": "3354"
+}
+{
+    "id_cart": "34427",
+    "id_address_delivery": 3002,
+    "id_customer2": "",
+    "shipping_price": 390,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 6,
+    "totalWeight": 181.5726,
+    "orderTotal": 2215.44,
+    "date_add": "2025-01-21 14:31:19",
+    "id_customer": "3397"
+}
+{
+    "id_cart": "32184",
+    "id_address_delivery": 2955,
+    "id_customer2": "",
+    "shipping_price": 320,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 26,
+    "totalWeight": 203.1666,
+    "orderTotal": 1548.77,
+    "date_add": "2025-01-21 14:56:51",
+    "id_customer": "3354"
+}
+{
+    "id_cart": "35144",
+    "id_address_delivery": 2955,
+    "id_customer2": "",
+    "shipping_price": 350,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 26,
+    "totalWeight": 203.1666,
+    "orderTotal": 1548.77,
+    "date_add": "2025-01-23 16:13:21",
+    "id_customer": "3354"
+}
+{
+    "id_cart": "34598",
+    "id_address_delivery": 3092,
+    "id_customer2": "",
+    "shipping_price": 110,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 16,
+    "totalWeight": 40.6232,
+    "orderTotal": 276.75,
+    "date_add": "2025-01-27 18:08:44",
+    "id_customer": "3475"
+}
+{
+    "id_cart": "34936",
+    "id_address_delivery": 3028,
+    "id_customer2": "",
+    "shipping_price": 120,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 10,
+    "totalWeight": 36.0766,
+    "orderTotal": 261.48,
+    "date_add": "2025-01-27 18:11:01",
+    "id_customer": "3421"
+}
+{
+    "id_cart": "35240",
+    "id_address_delivery": 3037,
+    "id_customer2": "",
+    "shipping_price": 700,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 4,
+    "totalWeight": 53.1646,
+    "orderTotal": 424.04,
+    "date_add": "2025-01-27 18:14:36",
+    "id_customer": "3428"
+}
+{
+    "id_cart": "36332",
+    "id_address_delivery": 3102,
+    "id_customer2": "",
+    "shipping_price": 500,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 75.6552,
+    "orderTotal": 1560.5,
+    "date_add": "2025-01-28 09:36:25",
+    "id_customer": "3480"
+}
+{
+    "id_cart": "36373",
+    "id_address_delivery": 3110,
+    "id_customer2": "",
+    "shipping_price": 66.4,
+    "carrier_name": "Le nom du transporteur",
+    "carrier_delay": "Temps de transport",
+    "nbProducts": 1,
+    "totalWeight": 12.1,
+    "orderTotal": 147.65,
+    "date_add": "2025-01-28 09:36:50",
+    "id_customer": "3484"
+}
+{
+    "id_cart": "36563",
+    "id_address_delivery": 3110,
+    "id_customer2": "",
+    "shipping_price": 55.8,
+    "carrier_name": "GEODIS",
+    "carrier_delay": "Temps de transport",
+    "nbProducts": 2,
+    "totalWeight": 12.1,
+    "orderTotal": 147.67,
+    "date_add": "2025-01-28 10:02:09",
+    "id_customer": "3484"
+}
+{
+    "id_cart": "36374",
+    "id_address_delivery": 3104,
+    "id_customer2": "",
+    "shipping_price": 45,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 4,
+    "totalWeight": 22.5376,
+    "orderTotal": 265.01,
+    "date_add": "2025-01-28 16:12:19",
+    "id_customer": "3483"
+}
+{
+    "id_cart": "31826",
+    "id_address_delivery": 3129,
+    "id_customer2": "",
+    "shipping_price": 250,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 107.1,
+    "orderTotal": 1259.28,
+    "date_add": "2025-01-29 09:54:05",
+    "id_customer": "3502"
+}
+{
+    "id_cart": "38885",
+    "id_address_delivery": 3207,
+    "id_customer2": "",
+    "shipping_price": 100,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 28.9885,
+    "orderTotal": 434.58,
+    "date_add": "2025-02-05 16:53:25",
+    "id_customer": "3562"
+}
+{
+    "id_cart": "39891",
+    "id_address_delivery": 2819,
+    "id_customer2": "",
+    "shipping_price": 50,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 14,
+    "totalWeight": 29.9952,
+    "orderTotal": 225.7,
+    "date_add": "2025-02-07 17:47:57",
+    "id_customer": "3242"
+}
+{
+    "id_cart": "39884",
+    "id_address_delivery": 3298,
+    "id_customer2": "",
+    "shipping_price": 250,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 11.0518,
+    "orderTotal": 252.01,
+    "date_add": "2025-02-12 10:26:43",
+    "id_customer": "3608"
+}
+{
+    "id_cart": "42168",
+    "id_address_delivery": 3361,
+    "id_customer2": "",
+    "shipping_price": 384,
+    "carrier_name": "Le nom du transporteur",
+    "carrier_delay": "Temps de transport",
+    "nbProducts": 1,
+    "totalWeight": 9.9732,
+    "orderTotal": 174.35,
+    "date_add": "2025-02-18 11:12:42",
+    "id_customer": "3692"
+}
+{
+    "id_cart": "43388",
+    "id_address_delivery": 3389,
+    "id_customer2": "",
+    "shipping_price": 660,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 47.6745,
+    "orderTotal": 358.9,
+    "date_add": "2025-02-18 12:36:06",
+    "id_customer": "3714"
+}
+{
+    "id_cart": "35240",
+    "id_address_delivery": 3037,
+    "id_customer2": "",
+    "shipping_price": 432,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 4,
+    "totalWeight": 30.3234,
+    "orderTotal": 337.33,
+    "date_add": "2025-02-18 12:39:07",
+    "id_customer": "3428"
+}
+{
+    "id_cart": "38890",
+    "id_address_delivery": 3362,
+    "id_customer2": "",
+    "shipping_price": 378,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 36.5359,
+    "orderTotal": 484.93,
+    "date_add": "2025-02-18 12:41:20",
+    "id_customer": "3693"
+}
+{
+    "id_cart": "43497",
+    "id_address_delivery": 3453,
+    "id_customer2": "",
+    "shipping_price": 246,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 100.2188,
+    "orderTotal": 1484.96,
+    "date_add": "2025-02-20 08:41:29",
+    "id_customer": "3752"
+}
+{
+    "id_cart": "44447",
+    "id_address_delivery": 3502,
+    "id_customer2": "",
+    "shipping_price": 300,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 27.0447,
+    "orderTotal": 329.93,
+    "date_add": "2025-02-25 11:09:24",
+    "id_customer": "3787"
+}
+{
+    "id_cart": "44778",
+    "id_address_delivery": 3491,
+    "id_customer2": "",
+    "shipping_price": 300,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 40.915,
+    "orderTotal": 289.21,
+    "date_add": "2025-02-25 15:48:43",
+    "id_customer": "3776"
+}
+{
+    "id_cart": "44705",
+    "id_address_delivery": 3486,
+    "id_customer2": "",
+    "shipping_price": 354,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 19.7326,
+    "orderTotal": 240.72,
+    "date_add": "2025-02-26 11:36:47",
+    "id_customer": "3771"
+}
+{
+    "id_cart": "47547",
+    "id_address_delivery": 3626,
+    "id_customer2": "",
+    "shipping_price": 18,
+    "carrier_name": "Le nom du transporteur",
+    "carrier_delay": "Temps de transport",
+    "nbProducts": 1,
+    "totalWeight": 0,
+    "orderTotal": 38.28,
+    "date_add": "2025-03-03 11:28:16",
+    "id_customer": "3720"
+}
+{
+    "id_cart": "47547",
+    "id_address_delivery": 3626,
+    "id_customer2": "",
+    "shipping_price": 18,
+    "carrier_name": "TNT",
+    "carrier_delay": "Temps de transport",
+    "nbProducts": 1,
+    "totalWeight": 0,
+    "orderTotal": 38.28,
+    "date_add": "2025-03-03 11:28:40",
+    "id_customer": "3720"
+}
+{
+    "id_cart": "46658",
+    "id_address_delivery": 3628,
+    "id_customer2": "",
+    "shipping_price": 66.5,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 16,
+    "totalWeight": 61.9263,
+    "orderTotal": 727.63,
+    "date_add": "2025-03-04 14:31:30",
+    "id_customer": "3862"
+}
+{
+    "id_cart": "46658",
+    "id_address_delivery": 3628,
+    "id_customer2": "",
+    "shipping_price": 66.5,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 16,
+    "totalWeight": 61.9263,
+    "orderTotal": 727.63,
+    "date_add": "2025-03-04 14:31:52",
+    "id_customer": "3862"
+}
+{
+    "id_cart": "47303",
+    "id_address_delivery": 3274,
+    "id_customer2": "",
+    "shipping_price": 61,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 11.7983,
+    "orderTotal": 153.37,
+    "date_add": "2025-03-04 14:34:14",
+    "id_customer": "3623"
+}
+{
+    "id_cart": "47164",
+    "id_address_delivery": 3456,
+    "id_customer2": "",
+    "shipping_price": 49,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 8.568,
+    "orderTotal": 139.2,
+    "date_add": "2025-03-04 14:37:07",
+    "id_customer": "3754"
+}
+{
+    "id_cart": "47164",
+    "id_address_delivery": 3456,
+    "id_customer2": "",
+    "shipping_price": 49,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 8.568,
+    "orderTotal": 139.2,
+    "date_add": "2025-03-04 14:37:18",
+    "id_customer": "3754"
+}
+{
+    "id_cart": "48080",
+    "id_address_delivery": 3655,
+    "id_customer2": "",
+    "shipping_price": 82,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 4,
+    "totalWeight": 17.636,
+    "orderTotal": 346.98,
+    "date_add": "2025-03-05 08:11:08",
+    "id_customer": "2924"
+}
+{
+    "id_cart": "49335",
+    "id_address_delivery": 3710,
+    "id_customer2": "",
+    "shipping_price": 41.6,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 9.8496,
+    "orderTotal": 49.51,
+    "date_add": "2025-03-10 08:10:40",
+    "id_customer": "3923"
+}
+{
+    "id_cart": "47290",
+    "id_address_delivery": 3726,
+    "id_customer2": "",
+    "shipping_price": 200,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 141.5187,
+    "orderTotal": 703.96,
+    "date_add": "2025-03-12 08:10:11",
+    "id_customer": "3939"
+}
+{
+    "id_cart": "49335",
+    "id_address_delivery": 3710,
+    "id_customer2": "",
+    "shipping_price": 38,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 10.089,
+    "orderTotal": 51.26,
+    "date_add": "2025-03-12 08:11:33",
+    "id_customer": "3923"
+}
+{
+    "id_cart": "51616",
+    "id_address_delivery": 3792,
+    "id_customer2": "",
+    "shipping_price": 142.6,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 55.2591,
+    "orderTotal": 649.72,
+    "date_add": "2025-03-17 08:11:59",
+    "id_customer": "3976"
+}
+{
+    "id_cart": "52283",
+    "id_address_delivery": 3812,
+    "id_customer2": "",
+    "shipping_price": 85.2,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 7,
+    "totalWeight": 89.2326,
+    "orderTotal": 1088.48,
+    "date_add": "2025-03-17 08:13:02",
+    "id_customer": "3988"
+}
+{
+    "id_cart": "52283",
+    "id_address_delivery": 3812,
+    "id_customer2": "",
+    "shipping_price": 85.2,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 7,
+    "totalWeight": 89.2326,
+    "orderTotal": 1088.48,
+    "date_add": "2025-03-17 08:13:08",
+    "id_customer": "3988"
+}
+{
+    "id_cart": "50833",
+    "id_address_delivery": 3726,
+    "id_customer2": "",
+    "shipping_price": 219,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 6,
+    "totalWeight": 181.8882,
+    "orderTotal": 906.94,
+    "date_add": "2025-03-17 08:15:52",
+    "id_customer": "3939"
+}
+{
+    "id_cart": "53866",
+    "id_address_delivery": 3848,
+    "id_customer2": "",
+    "shipping_price": 18.5,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 5.4756,
+    "orderTotal": 28.97,
+    "date_add": "2025-03-20 08:21:09",
+    "id_customer": "4012"
+}
+{
+    "id_cart": "53866",
+    "id_address_delivery": 3848,
+    "id_customer2": "",
+    "shipping_price": 9,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 5.4756,
+    "orderTotal": 28.97,
+    "date_add": "2025-03-20 08:22:14",
+    "id_customer": "4012"
+}
+{
+    "id_cart": "50833",
+    "id_address_delivery": 3726,
+    "id_customer2": "",
+    "shipping_price": 219,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 8,
+    "totalWeight": 341.4826,
+    "orderTotal": 1709.38,
+    "date_add": "2025-03-24 08:08:07",
+    "id_customer": "3939"
+}
+{
+    "id_cart": "47408",
+    "id_address_delivery": 3891,
+    "id_customer2": "",
+    "shipping_price": 53.1,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 8.5782,
+    "orderTotal": 91.25,
+    "date_add": "2025-03-24 08:10:11",
+    "id_customer": "4045"
+}
+{
+    "id_cart": "55554",
+    "id_address_delivery": 3726,
+    "id_customer2": "",
+    "shipping_price": 420,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 8,
+    "totalWeight": 342.1531,
+    "orderTotal": 1712.65,
+    "date_add": "2025-03-26 10:56:20",
+    "id_customer": "3939"
+}
+{
+    "id_cart": "56314",
+    "id_address_delivery": 3933,
+    "id_customer2": "",
+    "shipping_price": 75,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 16.9196,
+    "orderTotal": 198.92,
+    "date_add": "2025-03-28 10:25:49",
+    "id_customer": "4081"
+}
+{
+    "id_cart": "56159",
+    "id_address_delivery": 3924,
+    "id_customer2": "",
+    "shipping_price": 324,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 28.56,
+    "orderTotal": 324.96,
+    "date_add": "2025-03-28 15:49:36",
+    "id_customer": "4073"
+}
+{
+    "id_cart": "55554",
+    "id_address_delivery": 3929,
+    "id_customer2": "",
+    "shipping_price": 378,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 4,
+    "totalWeight": 156.5966,
+    "orderTotal": 787.23,
+    "date_add": "2025-03-28 15:50:29",
+    "id_customer": "3939"
+}
+{
+    "id_cart": "57006",
+    "id_address_delivery": 3988,
+    "id_customer2": "",
+    "shipping_price": 38.46,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 6,
+    "totalWeight": 10.962,
+    "orderTotal": 65.59,
+    "date_add": "2025-04-03 08:14:17",
+    "id_customer": "4119"
+}
+{
+    "id_cart": "57007",
+    "id_address_delivery": 3929,
+    "id_customer2": "",
+    "shipping_price": 219,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 126.182,
+    "orderTotal": 634.39,
+    "date_add": "2025-04-03 08:15:44",
+    "id_customer": "3939"
+}
+{
+    "id_cart": "56682",
+    "id_address_delivery": 3999,
+    "id_customer2": "",
+    "shipping_price": 53.1,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 5.9829,
+    "orderTotal": 44.83,
+    "date_add": "2025-04-03 08:16:46",
+    "id_customer": "4127"
+}
+{
+    "id_cart": "56682",
+    "id_address_delivery": 3999,
+    "id_customer2": "",
+    "shipping_price": 53.1,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 5.9829,
+    "orderTotal": 44.83,
+    "date_add": "2025-04-03 08:16:55",
+    "id_customer": "4127"
+}
+{
+    "id_cart": "57422",
+    "id_address_delivery": 4011,
+    "id_customer2": "",
+    "shipping_price": 45.28,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 15.4274,
+    "orderTotal": 87.21,
+    "date_add": "2025-04-04 08:04:36",
+    "id_customer": "4140"
+}
+{
+    "id_cart": "56953",
+    "id_address_delivery": 3027,
+    "id_customer2": "",
+    "shipping_price": 67.74,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 14,
+    "totalWeight": 21.31,
+    "orderTotal": 196.17,
+    "date_add": "2025-04-07 08:16:02",
+    "id_customer": "3420"
+}
+{
+    "id_cart": "57608",
+    "id_address_delivery": 4023,
+    "id_customer2": "",
+    "shipping_price": 90,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 20.0146,
+    "orderTotal": 235.36,
+    "date_add": "2025-04-07 08:18:04",
+    "id_customer": "4149"
+}
+{
+    "id_cart": "57503",
+    "id_address_delivery": 4034,
+    "id_customer2": "",
+    "shipping_price": 75.51,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 17.1234,
+    "orderTotal": 279.58,
+    "date_add": "2025-04-07 08:22:08",
+    "id_customer": "4134"
+}
+{
+    "id_cart": "57503",
+    "id_address_delivery": 4034,
+    "id_customer2": "",
+    "shipping_price": 75.51,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 17.1234,
+    "orderTotal": 279.58,
+    "date_add": "2025-04-07 08:22:22",
+    "id_customer": "4134"
+}
+{
+    "id_cart": "57979",
+    "id_address_delivery": 4040,
+    "id_customer2": "",
+    "shipping_price": 62.1,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 10.653,
+    "orderTotal": 114.05,
+    "date_add": "2025-04-07 08:24:03",
+    "id_customer": "4164"
+}
+{
+    "id_cart": "58012",
+    "id_address_delivery": 4043,
+    "id_customer2": "",
+    "shipping_price": 53.52,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 10.8351,
+    "orderTotal": 76.6,
+    "date_add": "2025-04-07 08:26:24",
+    "id_customer": "4167"
+}
+{
+    "id_cart": "58128",
+    "id_address_delivery": 4050,
+    "id_customer2": "",
+    "shipping_price": 385,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 33.915,
+    "orderTotal": 899.53,
+    "date_add": "2025-04-08 10:56:17",
+    "id_customer": "3467"
+}
+{
+    "id_cart": "58406",
+    "id_address_delivery": 3837,
+    "id_customer2": "",
+    "shipping_price": 48.44,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 28,
+    "totalWeight": 115.864,
+    "orderTotal": 1172.3,
+    "date_add": "2025-04-08 15:56:57",
+    "id_customer": "4003"
+}
+{
+    "id_cart": "57290",
+    "id_address_delivery": 4034,
+    "id_customer2": "",
+    "shipping_price": 148.69,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 49.2146,
+    "orderTotal": 809.29,
+    "date_add": "2025-04-09 08:04:39",
+    "id_customer": "4134"
+}
+{
+    "id_cart": "57290",
+    "id_address_delivery": 4060,
+    "id_customer2": "",
+    "shipping_price": 82.38,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 17.037,
+    "orderTotal": 248.1,
+    "date_add": "2025-04-10 16:00:17",
+    "id_customer": "4134"
+}
+{
+    "id_cart": "58646",
+    "id_address_delivery": 4060,
+    "id_customer2": "",
+    "shipping_price": 82.38,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 17.037,
+    "orderTotal": 272.6,
+    "date_add": "2025-04-10 16:01:17",
+    "id_customer": "4134"
+}
+{
+    "id_cart": "58880",
+    "id_address_delivery": 4086,
+    "id_customer2": "",
+    "shipping_price": 544.5,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 48.7001,
+    "orderTotal": 594.11,
+    "date_add": "2025-04-10 16:53:58",
+    "id_customer": "4205"
+}
+{
+    "id_cart": "58889",
+    "id_address_delivery": 4087,
+    "id_customer2": "",
+    "shipping_price": 134.55,
+    "carrier_name": "Le nom du transporteur",
+    "carrier_delay": "Temps de transport",
+    "nbProducts": 18,
+    "totalWeight": 116.6504,
+    "orderTotal": 1423.63,
+    "date_add": "2025-04-11 14:53:22",
+    "id_customer": "4206"
+}
+{
+    "id_cart": "58889",
+    "id_address_delivery": 4087,
+    "id_customer2": "",
+    "shipping_price": 134.55,
+    "carrier_name": "Le nom du transporteur",
+    "carrier_delay": "Temps de transport",
+    "nbProducts": 18,
+    "totalWeight": 116.6504,
+    "orderTotal": 1423.63,
+    "date_add": "2025-04-11 14:53:40",
+    "id_customer": "4206"
+}
+{
+    "id_cart": "47408",
+    "id_address_delivery": 3891,
+    "id_customer2": "",
+    "shipping_price": 64.91,
+    "carrier_name": "Le nom du transporteur",
+    "carrier_delay": "Temps de transport",
+    "nbProducts": 4,
+    "totalWeight": 8.6128,
+    "orderTotal": 91.63,
+    "date_add": "2025-04-11 15:22:01",
+    "id_customer": "4045"
+}
+{
+    "id_cart": "59583",
+    "id_address_delivery": 4100,
+    "id_customer2": "",
+    "shipping_price": 224.25,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 8,
+    "totalWeight": 103.386,
+    "orderTotal": 512.94,
+    "date_add": "2025-04-14 10:30:53",
+    "id_customer": "4219"
+}
+{
+    "id_cart": "59841",
+    "id_address_delivery": 4116,
+    "id_customer2": "",
+    "shipping_price": 483,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 4,
+    "totalWeight": 101.1834,
+    "orderTotal": 535.6600000000001,
+    "date_add": "2025-04-16 07:57:07",
+    "id_customer": "4228"
+}
+{
+    "id_cart": "61585",
+    "id_address_delivery": 4146,
+    "id_customer2": "",
+    "shipping_price": 46.34,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 22.8268,
+    "orderTotal": 383.72,
+    "date_add": "2025-04-18 11:32:49",
+    "id_customer": "4251"
+}
+{
+    "id_cart": "61585",
+    "id_address_delivery": 4146,
+    "id_customer2": "",
+    "shipping_price": 46.34,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 22.8268,
+    "orderTotal": 383.72,
+    "date_add": "2025-04-18 11:33:33",
+    "id_customer": "4251"
+}
+{
+    "id_cart": "61328",
+    "id_address_delivery": 4146,
+    "id_customer2": "",
+    "shipping_price": 46.34,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 22.8268,
+    "orderTotal": 383.72,
+    "date_add": "2025-04-18 11:36:13",
+    "id_customer": "4251"
+}
+{
+    "id_cart": "61328",
+    "id_address_delivery": 4146,
+    "id_customer2": "",
+    "shipping_price": 46.34,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 22.8268,
+    "orderTotal": 383.72,
+    "date_add": "2025-04-18 11:36:17",
+    "id_customer": "4251"
+}
+{
+    "id_cart": "60843",
+    "id_address_delivery": 3307,
+    "id_customer2": "",
+    "shipping_price": 15,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 24,
+    "totalWeight": 63.6612,
+    "orderTotal": 358.68,
+    "date_add": "2025-04-18 11:38:30",
+    "id_customer": "3648"
+}
+{
+    "id_cart": "60843",
+    "id_address_delivery": 3307,
+    "id_customer2": "",
+    "shipping_price": 49,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 24,
+    "totalWeight": 63.6612,
+    "orderTotal": 358.68,
+    "date_add": "2025-04-22 11:50:32",
+    "id_customer": "3648"
+}
+{
+    "id_cart": "60843",
+    "id_address_delivery": 3307,
+    "id_customer2": "",
+    "shipping_price": 49,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 24,
+    "totalWeight": 63.6612,
+    "orderTotal": 358.68,
+    "date_add": "2025-04-22 11:51:39",
+    "id_customer": "3648"
+}
+{
+    "id_cart": "60843",
+    "id_address_delivery": 3307,
+    "id_customer2": "",
+    "shipping_price": 48.68,
+    "carrier_name": "Le nom du transporteur",
+    "carrier_delay": "Temps de transport",
+    "nbProducts": 24,
+    "totalWeight": 63.6612,
+    "orderTotal": 358.68,
+    "date_add": "2025-04-22 11:53:35",
+    "id_customer": "3648"
+}
+{
+    "id_cart": "61675",
+    "id_address_delivery": 4157,
+    "id_customer2": "",
+    "shipping_price": 65.2,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 14.7116,
+    "orderTotal": 189.77,
+    "date_add": "2025-04-22 14:19:39",
+    "id_customer": "4261"
+}
+{
+    "id_cart": "61675",
+    "id_address_delivery": 4194,
+    "id_customer2": "",
+    "shipping_price": 65.2,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 11.6076,
+    "orderTotal": 149.76,
+    "date_add": "2025-04-22 14:59:57",
+    "id_customer": "4261"
+}
+{
+    "id_cart": "61675",
+    "id_address_delivery": 4194,
+    "id_customer2": "",
+    "shipping_price": 65.2,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 11.6076,
+    "orderTotal": 149.76,
+    "date_add": "2025-04-22 15:00:03",
+    "id_customer": "4261"
+}
+{
+    "id_cart": "63227",
+    "id_address_delivery": 4219,
+    "id_customer2": "",
+    "shipping_price": 58.85,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 19.04,
+    "orderTotal": 188.46,
+    "date_add": "2025-04-25 09:00:13",
+    "id_customer": "4319"
+}
+{
+    "id_cart": "63188",
+    "id_address_delivery": 4215,
+    "id_customer2": "",
+    "shipping_price": 97,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 19.1746,
+    "orderTotal": 234,
+    "date_add": "2025-04-25 09:02:07",
+    "id_customer": "4314"
+}
+{
+    "id_cart": "62236",
+    "id_address_delivery": 4187,
+    "id_customer2": "",
+    "shipping_price": 421.8,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 22.7338,
+    "orderTotal": 668.47,
+    "date_add": "2025-04-25 10:58:50",
+    "id_customer": "4283"
+}
+{
+    "id_cart": "63582",
+    "id_address_delivery": 3619,
+    "id_customer2": "",
+    "shipping_price": 98.96,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 27.846,
+    "orderTotal": 327.42,
+    "date_add": "2025-04-28 10:40:53",
+    "id_customer": "3855"
+}
+{
+    "id_cart": "64820",
+    "id_address_delivery": 4235,
+    "id_customer2": "",
+    "shipping_price": 50.56,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 12.1561,
+    "orderTotal": 147.47,
+    "date_add": "2025-04-30 08:03:14",
+    "id_customer": "4337"
+}
+{
+    "id_cart": "65223",
+    "id_address_delivery": 4282,
+    "id_customer2": "",
+    "shipping_price": 64,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 17.7072,
+    "orderTotal": 175.28,
+    "date_add": "2025-05-02 08:27:11",
+    "id_customer": "4388"
+}
+{
+    "id_cart": "66040",
+    "id_address_delivery": 2635,
+    "id_customer2": "",
+    "shipping_price": 48.94,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 10,
+    "totalWeight": 15.5438,
+    "orderTotal": 210.12,
+    "date_add": "2025-05-05 08:14:19",
+    "id_customer": "3087"
+}
+{
+    "id_cart": "66626",
+    "id_address_delivery": 2635,
+    "id_customer2": "",
+    "shipping_price": 20,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 10,
+    "totalWeight": 15.5438,
+    "orderTotal": 210.12,
+    "date_add": "2025-05-05 16:17:54",
+    "id_customer": "3087"
+}
+{
+    "id_cart": "66730",
+    "id_address_delivery": 4326,
+    "id_customer2": "",
+    "shipping_price": 48,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 4,
+    "totalWeight": 33.244,
+    "orderTotal": 329.12,
+    "date_add": "2025-05-06 08:16:01",
+    "id_customer": "4435"
+}
+{
+    "id_cart": "66746",
+    "id_address_delivery": 4327,
+    "id_customer2": "",
+    "shipping_price": 79.52,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 61.9708,
+    "orderTotal": 401.74,
+    "date_add": "2025-05-07 08:16:52",
+    "id_customer": "4436"
+}
+{
+    "id_cart": "68989",
+    "id_address_delivery": 3301,
+    "id_customer2": "",
+    "shipping_price": 430,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 7,
+    "totalWeight": 51.4952,
+    "orderTotal": 719.24,
+    "date_add": "2025-05-15 08:14:16",
+    "id_customer": "3642"
+}
+{
+    "id_cart": "71403",
+    "id_address_delivery": 4489,
+    "id_customer2": "",
+    "shipping_price": 85,
+    "carrier_name": "Le nom du transporteur",
+    "carrier_delay": "Temps de transport",
+    "nbProducts": 2,
+    "totalWeight": 24.15,
+    "orderTotal": 171.42,
+    "date_add": "2025-05-20 09:36:41",
+    "id_customer": "4584"
+}
+{
+    "id_cart": "71784",
+    "id_address_delivery": 3254,
+    "id_customer2": "",
+    "shipping_price": 16.67,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 10,
+    "totalWeight": 11.253,
+    "orderTotal": 155.89999999999998,
+    "date_add": "2025-05-21 12:11:35",
+    "id_customer": "3606"
+}
+{
+    "id_cart": "71861",
+    "id_address_delivery": 4500,
+    "id_customer2": "",
+    "shipping_price": 50.55,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 16,
+    "totalWeight": 26.3436,
+    "orderTotal": 293.09999999999997,
+    "date_add": "2025-05-21 17:08:07",
+    "id_customer": "4593"
+}
+{
+    "id_cart": "71861",
+    "id_address_delivery": 4500,
+    "id_customer2": "",
+    "shipping_price": 19.17,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 16,
+    "totalWeight": 26.3436,
+    "orderTotal": 293.08,
+    "date_add": "2025-05-22 16:17:19",
+    "id_customer": "4593"
+}
+{
+    "id_cart": "72967",
+    "id_address_delivery": 4518,
+    "id_customer2": "",
+    "shipping_price": 10,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 30,
+    "totalWeight": 32.388,
+    "orderTotal": 361.5,
+    "date_add": "2025-05-27 08:28:00",
+    "id_customer": "4613"
+}
+{
+    "id_cart": "73177",
+    "id_address_delivery": 4525,
+    "id_customer2": "",
+    "shipping_price": 85.26,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 30.1468,
+    "orderTotal": 338.95,
+    "date_add": "2025-05-27 08:29:44",
+    "id_customer": "4617"
+}
+{
+    "id_cart": "72252",
+    "id_address_delivery": 4507,
+    "id_customer2": "",
+    "shipping_price": 70,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 29.575,
+    "orderTotal": 209.07999999999998,
+    "date_add": "2025-05-27 08:32:41",
+    "id_customer": "4599"
+}
+{
+    "id_cart": "74027",
+    "id_address_delivery": 4545,
+    "id_customer2": "",
+    "shipping_price": 60,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 14.2416,
+    "orderTotal": 75.38,
+    "date_add": "2025-06-04 08:12:14",
+    "id_customer": "4643"
+}
+{
+    "id_cart": "75798",
+    "id_address_delivery": 4588,
+    "id_customer2": "",
+    "shipping_price": 22,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 14.28,
+    "orderTotal": 88.74,
+    "date_add": "2025-06-04 08:13:22",
+    "id_customer": "4690"
+}
+{
+    "id_cart": "69176",
+    "id_address_delivery": 4555,
+    "id_customer2": "",
+    "shipping_price": 47,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 71.4,
+    "orderTotal": 1004.3399999999998,
+    "date_add": "2025-06-04 08:14:31",
+    "id_customer": "4654"
+}
+{
+    "id_cart": "84771",
+    "id_address_delivery": 4728,
+    "id_customer2": "",
+    "shipping_price": 22,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 5.7656,
+    "orderTotal": 81.05,
+    "date_add": "2025-06-26 08:10:21",
+    "id_customer": "4826"
+}
+{
+    "id_cart": "85576",
+    "id_address_delivery": 4753,
+    "id_customer2": "",
+    "shipping_price": 40,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 6.1952,
+    "orderTotal": 99.73,
+    "date_add": "2025-06-26 08:11:38",
+    "id_customer": "4855"
+}
+{
+    "id_cart": "85779",
+    "id_address_delivery": 4762,
+    "id_customer2": "",
+    "shipping_price": 109,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 30.1725,
+    "orderTotal": 160.03,
+    "date_add": "2025-06-26 08:14:44",
+    "id_customer": "4866"
+}
+{
+    "id_cart": "87331",
+    "id_address_delivery": 4831,
+    "id_customer2": "",
+    "shipping_price": 97.37,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 16,
+    "totalWeight": 38.5387,
+    "orderTotal": 381.32,
+    "date_add": "2025-07-02 07:28:17",
+    "id_customer": "4935"
+}
+{
+    "id_cart": "88064",
+    "id_address_delivery": 4875,
+    "id_customer2": "",
+    "shipping_price": 83,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 23.7858,
+    "orderTotal": 148.93,
+    "date_add": "2025-07-10 10:05:20",
+    "id_customer": "4970"
+}
+{
+    "id_cart": "88624",
+    "id_address_delivery": 4894,
+    "id_customer2": "",
+    "shipping_price": 30,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 10.6877,
+    "orderTotal": 130.46,
+    "date_add": "2025-07-10 10:07:31",
+    "id_customer": "4988"
+}
+{
+    "id_cart": "89129",
+    "id_address_delivery": 4913,
+    "id_customer2": "",
+    "shipping_price": 370,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 15,
+    "totalWeight": 98.9287,
+    "orderTotal": 779.7,
+    "date_add": "2025-07-10 10:12:49",
+    "id_customer": "5005"
+}
+{
+    "id_cart": "88624",
+    "id_address_delivery": 4929,
+    "id_customer2": "",
+    "shipping_price": 60,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 6,
+    "totalWeight": 11.5589,
+    "orderTotal": 141.1,
+    "date_add": "2025-07-16 08:03:12",
+    "id_customer": "4988"
+}
+{
+    "id_cart": "90430",
+    "id_address_delivery": 4966,
+    "id_customer2": "",
+    "shipping_price": 80,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 19,
+    "totalWeight": 30.4128,
+    "orderTotal": 182.86,
+    "date_add": "2025-07-16 08:09:55",
+    "id_customer": "5050"
+}
+{
+    "id_cart": "89944",
+    "id_address_delivery": 4938,
+    "id_customer2": "",
+    "shipping_price": 80,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 26.4618,
+    "orderTotal": 355.76,
+    "date_add": "2025-07-16 08:21:27",
+    "id_customer": "4640"
+}
+{
+    "id_cart": "89836",
+    "id_address_delivery": 4937,
+    "id_customer2": "",
+    "shipping_price": 72,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 9,
+    "totalWeight": 19.5075,
+    "orderTotal": 103.3,
+    "date_add": "2025-07-16 08:25:02",
+    "id_customer": "5026"
+}
+{
+    "id_cart": "90690",
+    "id_address_delivery": 4977,
+    "id_customer2": "",
+    "shipping_price": 22,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 6.9358,
+    "orderTotal": 34.9,
+    "date_add": "2025-07-18 08:46:11",
+    "id_customer": "5058"
+}
+{
+    "id_cart": "90886",
+    "id_address_delivery": 4987,
+    "id_customer2": "",
+    "shipping_price": 38,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 7.4405,
+    "orderTotal": 142.61,
+    "date_add": "2025-07-24 08:22:25",
+    "id_customer": "5068"
+}
+{
+    "id_cart": "91377",
+    "id_address_delivery": 5014,
+    "id_customer2": "",
+    "shipping_price": 67,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 13.1927,
+    "orderTotal": 140.36,
+    "date_add": "2025-07-24 08:23:34",
+    "id_customer": "5088"
+}
+{
+    "id_cart": "91505",
+    "id_address_delivery": 5018,
+    "id_customer2": "",
+    "shipping_price": 53,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 6.9883,
+    "orderTotal": 82.24,
+    "date_add": "2025-07-24 08:24:42",
+    "id_customer": "5095"
+}
+{
+    "id_cart": "90681",
+    "id_address_delivery": 4991,
+    "id_customer2": "",
+    "shipping_price": 310,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 44.6072,
+    "orderTotal": 632.15,
+    "date_add": "2025-07-24 08:31:48",
+    "id_customer": "5072"
+}
+{
+    "id_cart": "91624",
+    "id_address_delivery": 5026,
+    "id_customer2": "",
+    "shipping_price": 350,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 54.7015,
+    "orderTotal": 924,
+    "date_add": "2025-07-24 08:34:00",
+    "id_customer": "5104"
+}
+{
+    "id_cart": "92367",
+    "id_address_delivery": 5071,
+    "id_customer2": "",
+    "shipping_price": 65,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 10.89,
+    "orderTotal": 132.88,
+    "date_add": "2025-07-28 08:07:23",
+    "id_customer": "5150"
+}
+{
+    "id_cart": "92429",
+    "id_address_delivery": 1232,
+    "id_customer2": "",
+    "shipping_price": 74,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 30.5517,
+    "orderTotal": 799.92,
+    "date_add": "2025-07-28 08:08:31",
+    "id_customer": "1622"
+}
+{
+    "id_cart": "92525",
+    "id_address_delivery": 5130,
+    "id_customer2": "",
+    "shipping_price": 97.2,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 4,
+    "totalWeight": 24.1026,
+    "orderTotal": 185.76,
+    "date_add": "2025-08-04 09:03:20",
+    "id_customer": "5152"
+}
+{
+    "id_cart": "93617",
+    "id_address_delivery": 2805,
+    "id_customer2": "",
+    "shipping_price": 41.61,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 5.6,
+    "orderTotal": 44.57,
+    "date_add": "2025-08-05 08:10:58",
+    "id_customer": "3232"
+}
+{
+    "id_cart": "93721",
+    "id_address_delivery": 5144,
+    "id_customer2": "",
+    "shipping_price": 92,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 27.4176,
+    "orderTotal": 356.34,
+    "date_add": "2025-08-05 08:13:26",
+    "id_customer": "3487"
+}
+{
+    "id_cart": "93782",
+    "id_address_delivery": 5160,
+    "id_customer2": "",
+    "shipping_price": 80,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 17.8024,
+    "orderTotal": 194.8,
+    "date_add": "2025-08-05 08:14:27",
+    "id_customer": "3606"
+}
+{
+    "id_cart": "94038",
+    "id_address_delivery": 5160,
+    "id_customer2": "",
+    "shipping_price": 80,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 16.184,
+    "orderTotal": 179.03,
+    "date_add": "2025-08-05 08:16:09",
+    "id_customer": "3606"
+}
+{
+    "id_cart": "92912",
+    "id_address_delivery": 3634,
+    "id_customer2": "",
+    "shipping_price": 19,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 4,
+    "totalWeight": 4.998,
+    "orderTotal": 83.09,
+    "date_add": "2025-08-05 08:17:27",
+    "id_customer": "3868"
+}
+{
+    "id_cart": "92615",
+    "id_address_delivery": 5082,
+    "id_customer2": "",
+    "shipping_price": 43,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 6,
+    "totalWeight": 39.5888,
+    "orderTotal": 516.34,
+    "date_add": "2025-08-05 08:20:34",
+    "id_customer": "5159"
+}
+{
+    "id_cart": "94265",
+    "id_address_delivery": 5171,
+    "id_customer2": "",
+    "shipping_price": 38,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 5.8149,
+    "orderTotal": 44.33,
+    "date_add": "2025-08-27 09:52:25",
+    "id_customer": "5232"
+}
+{
+    "id_cart": "97755",
+    "id_address_delivery": 5306,
+    "id_customer2": "",
+    "shipping_price": 73,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 15.048,
+    "orderTotal": 75.65,
+    "date_add": "2025-08-27 09:55:22",
+    "id_customer": "5363"
+}
+{
+    "id_cart": "98010",
+    "id_address_delivery": 5321,
+    "id_customer2": "",
+    "shipping_price": 30,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 8.892,
+    "orderTotal": 44.7,
+    "date_add": "2025-08-27 09:58:28",
+    "id_customer": "5375"
+}
+{
+    "id_cart": "98010",
+    "id_address_delivery": 5321,
+    "id_customer2": "",
+    "shipping_price": 30,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 8.892,
+    "orderTotal": 44.7,
+    "date_add": "2025-08-27 09:58:38",
+    "id_customer": "5375"
+}
+{
+    "id_cart": "97843",
+    "id_address_delivery": 5307,
+    "id_customer2": "",
+    "shipping_price": 34.8,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 3.3653,
+    "orderTotal": 38.33,
+    "date_add": "2025-08-27 10:02:09",
+    "id_customer": "5365"
+}
+{
+    "id_cart": "97301",
+    "id_address_delivery": 5291,
+    "id_customer2": "",
+    "shipping_price": 36,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 3.2031,
+    "orderTotal": 34.3,
+    "date_add": "2025-08-27 10:06:06",
+    "id_customer": "5350"
+}
+{
+    "id_cart": "94438",
+    "id_address_delivery": 5323,
+    "id_customer2": "",
+    "shipping_price": 220,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 7,
+    "totalWeight": 83.006,
+    "orderTotal": 1012.87,
+    "date_add": "2025-08-27 12:02:23",
+    "id_customer": "5180"
+}
+{
+    "id_cart": "98677",
+    "id_address_delivery": 5344,
+    "id_customer2": "",
+    "shipping_price": 66,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 18.4197,
+    "orderTotal": 239.44,
+    "date_add": "2025-09-01 08:30:15",
+    "id_customer": "5394"
+}
+{
+    "id_cart": "98690",
+    "id_address_delivery": 5345,
+    "id_customer2": "",
+    "shipping_price": 205,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 4,
+    "totalWeight": 70.458,
+    "orderTotal": 437.88,
+    "date_add": "2025-09-01 08:32:32",
+    "id_customer": "5395"
+}
+{
+    "id_cart": "98785",
+    "id_address_delivery": 5120,
+    "id_customer2": "",
+    "shipping_price": 550,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 82.542,
+    "orderTotal": 1137.55,
+    "date_add": "2025-09-01 10:06:40",
+    "id_customer": "5186"
+}
+{
+    "id_cart": "98899",
+    "id_address_delivery": 5354,
+    "id_customer2": "",
+    "shipping_price": 85,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 22.2162,
+    "orderTotal": 343.94,
+    "date_add": "2025-09-02 12:41:34",
+    "id_customer": "5402"
+}
+{
+    "id_cart": "100187",
+    "id_address_delivery": 5185,
+    "id_customer2": "",
+    "shipping_price": 8.08,
+    "carrier_name": "DPD",
+    "carrier_delay": "Temps de transport",
+    "nbProducts": 1,
+    "totalWeight": 0,
+    "orderTotal": 0,
+    "date_add": "2025-09-03 10:40:16",
+    "id_customer": "5247"
+}
+{
+    "id_cart": "100260",
+    "id_address_delivery": 5396,
+    "id_customer2": "",
+    "shipping_price": 33,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 4,
+    "totalWeight": 4.4016,
+    "orderTotal": 46.87,
+    "date_add": "2025-09-04 08:23:27",
+    "id_customer": "5448"
+}
+{
+    "id_cart": "100270",
+    "id_address_delivery": 5397,
+    "id_customer2": "",
+    "shipping_price": 217,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 8,
+    "totalWeight": 83.8831,
+    "orderTotal": 830.18,
+    "date_add": "2025-09-04 08:27:40",
+    "id_customer": "5449"
+}
+{
+    "id_cart": "100619",
+    "id_address_delivery": 5417,
+    "id_customer2": "",
+    "shipping_price": 162,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 7,
+    "totalWeight": 54.4219,
+    "orderTotal": 639.95,
+    "date_add": "2025-09-09 08:09:23",
+    "id_customer": "5467"
+}
+{
+    "id_cart": "100831",
+    "id_address_delivery": 5427,
+    "id_customer2": "",
+    "shipping_price": 73,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 16.4601,
+    "orderTotal": 162.9,
+    "date_add": "2025-09-09 08:19:29",
+    "id_customer": "5473"
+}
+{
+    "id_cart": "101545",
+    "id_address_delivery": 5456,
+    "id_customer2": "",
+    "shipping_price": 400,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 27.225,
+    "orderTotal": 332.28,
+    "date_add": "2025-09-09 08:21:04",
+    "id_customer": "5500"
+}
+{
+    "id_cart": "101306",
+    "id_address_delivery": 5449,
+    "id_customer2": "",
+    "shipping_price": 45,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 4,
+    "totalWeight": 6.5504,
+    "orderTotal": 64.85,
+    "date_add": "2025-09-09 08:22:17",
+    "id_customer": "5492"
+}
+{
+    "id_cart": "101996",
+    "id_address_delivery": 5467,
+    "id_customer2": "",
+    "shipping_price": 70,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 15.6816,
+    "orderTotal": 191.64,
+    "date_add": "2025-09-15 08:58:33",
+    "id_customer": "5514"
+}
+{
+    "id_cart": "100836",
+    "id_address_delivery": 5429,
+    "id_customer2": "",
+    "shipping_price": 90,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 6,
+    "totalWeight": 32.13,
+    "orderTotal": 495.58,
+    "date_add": "2025-09-15 08:59:59",
+    "id_customer": "5202"
+}
+{
+    "id_cart": "101736",
+    "id_address_delivery": 5460,
+    "id_customer2": "",
+    "shipping_price": 84,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 20.111,
+    "orderTotal": 265.86,
+    "date_add": "2025-09-15 09:02:45",
+    "id_customer": "5504"
+}
+{
+    "id_cart": "102724",
+    "id_address_delivery": 5483,
+    "id_customer2": "",
+    "shipping_price": 12,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 2.5682,
+    "orderTotal": 35.58,
+    "date_add": "2025-09-15 09:03:46",
+    "id_customer": "5532"
+}
+{
+    "id_cart": "102842",
+    "id_address_delivery": 5486,
+    "id_customer2": "",
+    "shipping_price": 8,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 2.5192,
+    "orderTotal": 24.92,
+    "date_add": "2025-09-15 09:08:05",
+    "id_customer": "5535"
+}
+{
+    "id_cart": "100215",
+    "id_address_delivery": 5370,
+    "id_customer2": "",
+    "shipping_price": 53,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 7.5624,
+    "orderTotal": 86.14,
+    "date_add": "2025-09-15 09:09:48",
+    "id_customer": "5417"
+}
+{
+    "id_cart": "102955",
+    "id_address_delivery": 5488,
+    "id_customer2": "",
+    "shipping_price": 33,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 2.2326,
+    "orderTotal": 16.72,
+    "date_add": "2025-09-15 09:10:57",
+    "id_customer": "5538"
+}
+{
+    "id_cart": "103222",
+    "id_address_delivery": 5508,
+    "id_customer2": "",
+    "shipping_price": 68,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 28.6292,
+    "orderTotal": 336.65,
+    "date_add": "2025-09-17 16:34:58",
+    "id_customer": "5555"
+}
+{
+    "id_cart": "103149",
+    "id_address_delivery": 5500,
+    "id_customer2": "",
+    "shipping_price": 12,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 2.2687,
+    "orderTotal": 31.43,
+    "date_add": "2025-09-17 16:35:42",
+    "id_customer": "5549"
+}
+{
+    "id_cart": "103402",
+    "id_address_delivery": 5429,
+    "id_customer2": "",
+    "shipping_price": 50,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 6,
+    "totalWeight": 32.13,
+    "orderTotal": 495.58,
+    "date_add": "2025-09-17 16:40:23",
+    "id_customer": "5202"
+}
+{
+    "id_cart": "104078",
+    "id_address_delivery": 5543,
+    "id_customer2": "",
+    "shipping_price": 60,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 10.2982,
+    "orderTotal": 168.29,
+    "date_add": "2025-09-22 08:44:12",
+    "id_customer": "5595"
+}
+{
+    "id_cart": "103735",
+    "id_address_delivery": 5525,
+    "id_customer2": "",
+    "shipping_price": 319,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 52.4535,
+    "orderTotal": 798.06,
+    "date_add": "2025-09-24 08:11:40",
+    "id_customer": "5577"
+}
+{
+    "id_cart": "99805",
+    "id_address_delivery": 4367,
+    "id_customer2": "",
+    "shipping_price": 80,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 6,
+    "totalWeight": 15.708,
+    "orderTotal": 155.46,
+    "date_add": "2025-09-24 08:13:27",
+    "id_customer": "4475"
+}
+{
+    "id_cart": "104843",
+    "id_address_delivery": 5567,
+    "id_customer2": "",
+    "shipping_price": 35,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 5.8159,
+    "orderTotal": 70.99,
+    "date_add": "2025-09-24 08:14:41",
+    "id_customer": "5615"
+}
+{
+    "id_cart": "104855",
+    "id_address_delivery": 5569,
+    "id_customer2": "",
+    "shipping_price": 60,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 9.8,
+    "orderTotal": 104.5,
+    "date_add": "2025-09-24 08:15:50",
+    "id_customer": "5606"
+}
+{
+    "id_cart": "105006",
+    "id_address_delivery": 5573,
+    "id_customer2": "",
+    "shipping_price": 65,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 10.2122,
+    "orderTotal": 63.48,
+    "date_add": "2025-09-24 08:17:35",
+    "id_customer": "1219"
+}
+{
+    "id_cart": "105077",
+    "id_address_delivery": 5576,
+    "id_customer2": "",
+    "shipping_price": 50,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 6,
+    "totalWeight": 32.13,
+    "orderTotal": 495.58,
+    "date_add": "2025-09-24 08:25:47",
+    "id_customer": "5202"
+}
+{
+    "id_cart": "105214",
+    "id_address_delivery": 2400,
+    "id_customer2": "",
+    "shipping_price": 20,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 45,
+    "totalWeight": 20.995,
+    "orderTotal": 327.54,
+    "date_add": "2025-09-24 15:53:41",
+    "id_customer": "2837"
+}
+{
+    "id_cart": "105610",
+    "id_address_delivery": 5601,
+    "id_customer2": "",
+    "shipping_price": 150,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 6,
+    "totalWeight": 55.5492,
+    "orderTotal": 781.22,
+    "date_add": "2025-09-29 17:56:55",
+    "id_customer": "5639"
+}
+{
+    "id_cart": "106122",
+    "id_address_delivery": 5614,
+    "id_customer2": "",
+    "shipping_price": 70,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 22.7559,
+    "orderTotal": 330.12,
+    "date_add": "2025-09-29 17:57:44",
+    "id_customer": "5660"
+}
+{
+    "id_cart": "106057",
+    "id_address_delivery": 5612,
+    "id_customer2": "",
+    "shipping_price": 90,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 23.5126,
+    "orderTotal": 179.24,
+    "date_add": "2025-10-01 16:25:25",
+    "id_customer": "5657"
+}
+{
+    "id_cart": "105576",
+    "id_address_delivery": 5592,
+    "id_customer2": "",
+    "shipping_price": 10,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 4.5501,
+    "orderTotal": 55.51,
+    "date_add": "2025-10-01 16:26:24",
+    "id_customer": "5637"
+}
+{
+    "id_cart": "105871",
+    "id_address_delivery": 5607,
+    "id_customer2": "",
+    "shipping_price": 12,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 6.2475,
+    "orderTotal": 73.5,
+    "date_add": "2025-10-01 16:31:40",
+    "id_customer": "5650"
+}
+{
+    "id_cart": "105871",
+    "id_address_delivery": 5607,
+    "id_customer2": "",
+    "shipping_price": 12,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 6.2475,
+    "orderTotal": 73.5,
+    "date_add": "2025-10-01 16:31:55",
+    "id_customer": "5650"
+}
+{
+    "id_cart": "106918",
+    "id_address_delivery": 5646,
+    "id_customer2": "",
+    "shipping_price": 45,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 10.4188,
+    "orderTotal": 73.66,
+    "date_add": "2025-10-01 16:37:43",
+    "id_customer": "5725"
+}
+{
+    "id_cart": "107418",
+    "id_address_delivery": 1964,
+    "id_customer2": "",
+    "shipping_price": 110,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 19,
+    "totalWeight": 34.5,
+    "orderTotal": 203.8,
+    "date_add": "2025-10-09 08:12:44",
+    "id_customer": "2531"
+}
+{
+    "id_cart": "107418",
+    "id_address_delivery": 1964,
+    "id_customer2": "",
+    "shipping_price": 29,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 19,
+    "totalWeight": 34.5,
+    "orderTotal": 203.8,
+    "date_add": "2025-10-09 08:15:41",
+    "id_customer": "2531"
+}
+{
+    "id_cart": "108068",
+    "id_address_delivery": 5706,
+    "id_customer2": "",
+    "shipping_price": 15,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 8.2677,
+    "orderTotal": 170.53,
+    "date_add": "2025-10-09 08:19:05",
+    "id_customer": "5806"
+}
+{
+    "id_cart": "106122",
+    "id_address_delivery": 5614,
+    "id_customer2": "",
+    "shipping_price": 95,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 4,
+    "totalWeight": 26.0921,
+    "orderTotal": 378.41,
+    "date_add": "2025-10-09 08:26:04",
+    "id_customer": "5660"
+}
+{
+    "id_cart": "108111",
+    "id_address_delivery": 5707,
+    "id_customer2": "",
+    "shipping_price": 12,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 7.2635,
+    "orderTotal": 71.94,
+    "date_add": "2025-10-09 08:32:14",
+    "id_customer": "5808"
+}
+{
+    "id_cart": "108111",
+    "id_address_delivery": 5707,
+    "id_customer2": "",
+    "shipping_price": 15,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 7.2635,
+    "orderTotal": 71.94,
+    "date_add": "2025-10-09 08:32:37",
+    "id_customer": "5808"
+}
+{
+    "id_cart": "108205",
+    "id_address_delivery": 5714,
+    "id_customer2": "",
+    "shipping_price": 52,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 10.5345,
+    "orderTotal": 104.26,
+    "date_add": "2025-10-09 08:33:47",
+    "id_customer": "5814"
+}
+{
+    "id_cart": "108153",
+    "id_address_delivery": 5715,
+    "id_customer2": "",
+    "shipping_price": 70,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 6,
+    "totalWeight": 26.0225,
+    "orderTotal": 183.91,
+    "date_add": "2025-10-09 12:45:36",
+    "id_customer": "5815"
+}
+{
+    "id_cart": "106057",
+    "id_address_delivery": 5612,
+    "id_customer2": "",
+    "shipping_price": 84,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 6,
+    "totalWeight": 28.6043,
+    "orderTotal": 218.08,
+    "date_add": "2025-10-09 15:29:00",
+    "id_customer": "5657"
+}
+{
+    "id_cart": "106122",
+    "id_address_delivery": 5751,
+    "id_customer2": "",
+    "shipping_price": 85,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 4,
+    "totalWeight": 26.5385,
+    "orderTotal": 384.94,
+    "date_add": "2025-10-13 16:01:07",
+    "id_customer": "5660"
+}
+{
+    "id_cart": "111880",
+    "id_address_delivery": 5818,
+    "id_customer2": "",
+    "shipping_price": 45,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 7.9993,
+    "orderTotal": 60.98,
+    "date_add": "2025-10-23 10:14:37",
+    "id_customer": "5900"
+}
+{
+    "id_cart": "111847",
+    "id_address_delivery": 5818,
+    "id_customer2": "",
+    "shipping_price": 45,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 7.9993,
+    "orderTotal": 60.98,
+    "date_add": "2025-10-23 10:15:07",
+    "id_customer": "5900"
+}
+{
+    "id_cart": "111803",
+    "id_address_delivery": 5864,
+    "id_customer2": "",
+    "shipping_price": 42.5,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 9.0157,
+    "orderTotal": 106.09,
+    "date_add": "2025-10-23 10:16:13",
+    "id_customer": "5990"
+}
+{
+    "id_cart": "111141",
+    "id_address_delivery": 5823,
+    "id_customer2": "",
+    "shipping_price": 13,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 2.2005,
+    "orderTotal": 25.87,
+    "date_add": "2025-10-23 10:23:35",
+    "id_customer": "5907"
+}
+{
+    "id_cart": "111141",
+    "id_address_delivery": 5823,
+    "id_customer2": "",
+    "shipping_price": 10,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 2.2005,
+    "orderTotal": 25.87,
+    "date_add": "2025-10-23 10:23:52",
+    "id_customer": "5907"
+}
+{
+    "id_cart": "110019",
+    "id_address_delivery": 5778,
+    "id_customer2": "",
+    "shipping_price": 40,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 6.6388,
+    "orderTotal": 50.62,
+    "date_add": "2025-10-23 10:27:18",
+    "id_customer": "5871"
+}
+{
+    "id_cart": "112338",
+    "id_address_delivery": 5880,
+    "id_customer2": "",
+    "shipping_price": 18,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 7.0686,
+    "orderTotal": 96.22,
+    "date_add": "2025-10-27 08:20:23",
+    "id_customer": "6035"
+}
+{
+    "id_cart": "113020",
+    "id_address_delivery": 5902,
+    "id_customer2": "",
+    "shipping_price": 18,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 5.8922,
+    "orderTotal": 41.63,
+    "date_add": "2025-10-27 08:21:32",
+    "id_customer": "6057"
+}
+{
+    "id_cart": "113157",
+    "id_address_delivery": 5907,
+    "id_customer2": "",
+    "shipping_price": 18,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 17,
+    "totalWeight": 11.9952,
+    "orderTotal": 118.93,
+    "date_add": "2025-10-27 13:57:25",
+    "id_customer": "6063"
+}
+{
+    "id_cart": "113157",
+    "id_address_delivery": 5907,
+    "id_customer2": "",
+    "shipping_price": 50,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 17,
+    "totalWeight": 11.9952,
+    "orderTotal": 118.93,
+    "date_add": "2025-10-27 13:58:48",
+    "id_customer": "6063"
+}
+{
+    "id_cart": "113157",
+    "id_address_delivery": 5907,
+    "id_customer2": "",
+    "shipping_price": 25,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 17,
+    "totalWeight": 11.9952,
+    "orderTotal": 118.93,
+    "date_add": "2025-10-27 13:59:17",
+    "id_customer": "6063"
+}
+{
+    "id_cart": "113243",
+    "id_address_delivery": 5911,
+    "id_customer2": "",
+    "shipping_price": 60,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 14.28,
+    "orderTotal": 168,
+    "date_add": "2025-10-28 09:46:13",
+    "id_customer": "6067"
+}
+{
+    "id_cart": "113243",
+    "id_address_delivery": 5911,
+    "id_customer2": "",
+    "shipping_price": 58,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 14.28,
+    "orderTotal": 168,
+    "date_add": "2025-10-28 09:47:10",
+    "id_customer": "6067"
+}
+{
+    "id_cart": "112866",
+    "id_address_delivery": 5937,
+    "id_customer2": "",
+    "shipping_price": 75,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 9,
+    "totalWeight": 19.1835,
+    "orderTotal": 146.23,
+    "date_add": "2025-11-03 08:19:19",
+    "id_customer": "6088"
+}
+{
+    "id_cart": "114468",
+    "id_address_delivery": 5967,
+    "id_customer2": "",
+    "shipping_price": 150,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 102.117,
+    "orderTotal": 1405.78,
+    "date_add": "2025-11-03 08:20:56",
+    "id_customer": "6121"
+}
+{
+    "id_cart": "114148",
+    "id_address_delivery": 3104,
+    "id_customer2": "",
+    "shipping_price": 126.16,
+    "carrier_name": "Le nom du transporteur",
+    "carrier_delay": "Temps de transport",
+    "nbProducts": 21,
+    "totalWeight": 94.5668,
+    "orderTotal": 1111.66,
+    "date_add": "2025-11-03 16:19:16",
+    "id_customer": "3483"
+}
+{
+    "id_cart": "115268",
+    "id_address_delivery": 6012,
+    "id_customer2": "",
+    "shipping_price": 15,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 10,
+    "totalWeight": 9.075,
+    "orderTotal": 110.64,
+    "date_add": "2025-11-14 08:12:47",
+    "id_customer": "6164"
+}
+{
+    "id_cart": "114005",
+    "id_address_delivery": 5947,
+    "id_customer2": "",
+    "shipping_price": 60,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 36,
+    "totalWeight": 61.6896,
+    "orderTotal": 863.95,
+    "date_add": "2025-11-14 08:14:35",
+    "id_customer": "6101"
+}
+{
+    "id_cart": "114566",
+    "id_address_delivery": 6071,
+    "id_customer2": "",
+    "shipping_price": 42.13,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 11.0518,
+    "orderTotal": 130.03,
+    "date_add": "2025-11-14 08:16:54",
+    "id_customer": "6228"
+}
+{
+    "id_cart": "117185",
+    "id_address_delivery": 6091,
+    "id_customer2": "",
+    "shipping_price": 155,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 6,
+    "totalWeight": 54.8356,
+    "orderTotal": 893.82,
+    "date_add": "2025-11-24 08:23:00",
+    "id_customer": "6257"
+}
+{
+    "id_cart": "117840",
+    "id_address_delivery": 6123,
+    "id_customer2": "",
+    "shipping_price": 92,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 6,
+    "totalWeight": 20.9582,
+    "orderTotal": 257.29,
+    "date_add": "2025-11-24 08:24:41",
+    "id_customer": "6295"
+}
+{
+    "id_cart": "114566",
+    "id_address_delivery": 6071,
+    "id_customer2": "",
+    "shipping_price": 78,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 4,
+    "totalWeight": 38.7802,
+    "orderTotal": 456.24,
+    "date_add": "2025-11-24 08:27:05",
+    "id_customer": "6228"
+}
+{
+    "id_cart": "117441",
+    "id_address_delivery": 6124,
+    "id_customer2": "",
+    "shipping_price": 98,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 37.2232,
+    "orderTotal": 368.48,
+    "date_add": "2025-11-24 08:28:42",
+    "id_customer": "6297"
+}
+{
+    "id_cart": "118653",
+    "id_address_delivery": 6141,
+    "id_customer2": "",
+    "shipping_price": 18,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 15,
+    "totalWeight": 15.6135,
+    "orderTotal": 167.22,
+    "date_add": "2025-11-24 08:30:58",
+    "id_customer": "6315"
+}
+{
+    "id_cart": "116685",
+    "id_address_delivery": 6110,
+    "id_customer2": "",
+    "shipping_price": 47.45,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 3.4272,
+    "orderTotal": 57.25,
+    "date_add": "2025-11-24 08:32:39",
+    "id_customer": "6283"
+}
+{
+    "id_cart": "111430",
+    "id_address_delivery": 2939,
+    "id_customer2": "",
+    "shipping_price": 100,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 24,
+    "totalWeight": 41.0858,
+    "orderTotal": 273.07,
+    "date_add": "2025-11-26 08:13:33",
+    "id_customer": "3342"
+}
+{
+    "id_cart": "114760",
+    "id_address_delivery": 6187,
+    "id_customer2": "",
+    "shipping_price": 125,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 20,
+    "totalWeight": 77.2932,
+    "orderTotal": 487.44,
+    "date_add": "2025-11-26 08:17:22",
+    "id_customer": "6212"
+}
+{
+    "id_cart": "119496",
+    "id_address_delivery": 6188,
+    "id_customer2": "",
+    "shipping_price": 80,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 24.8941,
+    "orderTotal": 275.94,
+    "date_add": "2025-11-26 08:18:17",
+    "id_customer": "6351"
+}
+{
+    "id_cart": "119665",
+    "id_address_delivery": 6197,
+    "id_customer2": "",
+    "shipping_price": 45,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 4.75,
+    "orderTotal": 50.84,
+    "date_add": "2025-11-26 08:19:09",
+    "id_customer": "6357"
+}
+{
+    "id_cart": "119408",
+    "id_address_delivery": 6159,
+    "id_customer2": "",
+    "shipping_price": 12,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 11,
+    "totalWeight": 6.781,
+    "orderTotal": 106.42,
+    "date_add": "2025-11-26 08:21:32",
+    "id_customer": "6329"
+}
+{
+    "id_cart": "120120",
+    "id_address_delivery": 6218,
+    "id_customer2": "",
+    "shipping_price": 31.02,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 3.6297,
+    "orderTotal": 38.6,
+    "date_add": "2025-11-27 09:27:32",
+    "id_customer": "6375"
+}
+{
+    "id_cart": "120257",
+    "id_address_delivery": 6222,
+    "id_customer2": "",
+    "shipping_price": 54,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 11.5668,
+    "orderTotal": 163.22,
+    "date_add": "2025-12-01 08:30:45",
+    "id_customer": "6379"
+}
+{
+    "id_cart": "120008",
+    "id_address_delivery": 6228,
+    "id_customer2": "",
+    "shipping_price": 150,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 12,
+    "totalWeight": 60.48,
+    "orderTotal": 427.54,
+    "date_add": "2025-12-01 08:37:30",
+    "id_customer": "6382"
+}
+{
+    "id_cart": "120484",
+    "id_address_delivery": 6222,
+    "id_customer2": "",
+    "shipping_price": 54,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 11.5668,
+    "orderTotal": 163.22,
+    "date_add": "2025-12-01 08:38:57",
+    "id_customer": "6379"
+}
+{
+    "id_cart": "117441",
+    "id_address_delivery": 6124,
+    "id_customer2": "",
+    "shipping_price": 98,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 38.0162,
+    "orderTotal": 376.3,
+    "date_add": "2025-12-01 09:42:11",
+    "id_customer": "6297"
+}
+{
+    "id_cart": "117515",
+    "id_address_delivery": 6260,
+    "id_customer2": "",
+    "shipping_price": 35,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 32.1183,
+    "orderTotal": 391.93,
+    "date_add": "2025-12-04 09:22:42",
+    "id_customer": "6420"
+}
+{
+    "id_cart": "119438",
+    "id_address_delivery": 4194,
+    "id_customer2": "",
+    "shipping_price": 73,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 25.9658,
+    "orderTotal": 365.3,
+    "date_add": "2025-12-04 10:10:53",
+    "id_customer": "4261"
+}
+{
+    "id_cart": "121178",
+    "id_address_delivery": 6260,
+    "id_customer2": "",
+    "shipping_price": 35,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 32.1183,
+    "orderTotal": 391.93,
+    "date_add": "2025-12-04 10:11:30",
+    "id_customer": "6420"
+}
+{
+    "id_cart": "121190",
+    "id_address_delivery": 6267,
+    "id_customer2": "",
+    "shipping_price": 90,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 30.0436,
+    "orderTotal": 321.6,
+    "date_add": "2025-12-04 10:12:48",
+    "id_customer": "6424"
+}
+{
+    "id_cart": "120677",
+    "id_address_delivery": 6243,
+    "id_customer2": "",
+    "shipping_price": 60,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 13.1162,
+    "orderTotal": 100.01,
+    "date_add": "2025-12-04 10:13:56",
+    "id_customer": "6401"
+}
+{
+    "id_cart": "120677",
+    "id_address_delivery": 6243,
+    "id_customer2": "",
+    "shipping_price": 60,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 13.1162,
+    "orderTotal": 100.01,
+    "date_add": "2025-12-04 10:14:57",
+    "id_customer": "6401"
+}
+{
+    "id_cart": "121475",
+    "id_address_delivery": 6283,
+    "id_customer2": "",
+    "shipping_price": 80,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 24.3262,
+    "orderTotal": 286.27,
+    "date_add": "2025-12-04 10:23:44",
+    "id_customer": "6437"
+}
+{
+    "id_cart": "122233",
+    "id_address_delivery": 6313,
+    "id_customer2": "",
+    "shipping_price": 60,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 12.054,
+    "orderTotal": 91.9,
+    "date_add": "2025-12-08 08:39:33",
+    "id_customer": "6465"
+}
+{
+    "id_cart": "122492",
+    "id_address_delivery": 6327,
+    "id_customer2": "",
+    "shipping_price": 40,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 4,
+    "totalWeight": 12.6,
+    "orderTotal": 96.1,
+    "date_add": "2025-12-11 08:29:08",
+    "id_customer": "6478"
+}
+{
+    "id_cart": "123189",
+    "id_address_delivery": 6352,
+    "id_customer2": "",
+    "shipping_price": 10,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 4.6509,
+    "orderTotal": 64.4,
+    "date_add": "2025-12-12 08:14:07",
+    "id_customer": "6501"
+}
+{
+    "id_cart": "127787",
+    "id_address_delivery": 6525,
+    "id_customer2": "",
+    "shipping_price": 120,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 6,
+    "totalWeight": 41.055,
+    "orderTotal": 483,
+    "date_add": "2026-01-06 17:10:11",
+    "id_customer": "6673"
+}
+{
+    "id_cart": "122723",
+    "id_address_delivery": 6358,
+    "id_customer2": "",
+    "shipping_price": 95,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 25.9182,
+    "orderTotal": 287.62,
+    "date_add": "2026-01-07 12:19:20",
+    "id_customer": "6507"
+}
+{
+    "id_cart": "123684",
+    "id_address_delivery": 6373,
+    "id_customer2": "",
+    "shipping_price": 65,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 5,
+    "totalWeight": 7.4938,
+    "orderTotal": 108.67,
+    "date_add": "2026-01-07 12:20:22",
+    "id_customer": "6233"
+}
+{
+    "id_cart": "123839",
+    "id_address_delivery": 6269,
+    "id_customer2": "",
+    "shipping_price": 13,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 6,
+    "totalWeight": 9.996,
+    "orderTotal": 132.34,
+    "date_add": "2026-01-07 12:21:32",
+    "id_customer": "6415"
+}
+{
+    "id_cart": "124791",
+    "id_address_delivery": 6424,
+    "id_customer2": "",
+    "shipping_price": 15,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 6.1412,
+    "orderTotal": 82.85,
+    "date_add": "2026-01-07 12:22:59",
+    "id_customer": "6571"
+}
+{
+    "id_cart": "125258",
+    "id_address_delivery": 6434,
+    "id_customer2": "",
+    "shipping_price": 72,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 15.8575,
+    "orderTotal": 112.09,
+    "date_add": "2026-01-07 12:24:22",
+    "id_customer": "6587"
+}
+{
+    "id_cart": "125449",
+    "id_address_delivery": 6434,
+    "id_customer2": "",
+    "shipping_price": 72,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 15.8575,
+    "orderTotal": 112.09,
+    "date_add": "2026-01-07 12:24:58",
+    "id_customer": "6587"
+}
+{
+    "id_cart": "125798",
+    "id_address_delivery": 6458,
+    "id_customer2": "",
+    "shipping_price": 10,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 5.2068,
+    "orderTotal": 26.03,
+    "date_add": "2026-01-07 12:26:14",
+    "id_customer": "6605"
+}
+{
+    "id_cart": "127040",
+    "id_address_delivery": 5144,
+    "id_customer2": "",
+    "shipping_price": 102,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 27.4176,
+    "orderTotal": 363.25,
+    "date_add": "2026-01-07 12:28:52",
+    "id_customer": "3487"
+}
+{
+    "id_cart": "127080",
+    "id_address_delivery": 6495,
+    "id_customer2": "",
+    "shipping_price": 15,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 4.6893,
+    "orderTotal": 89.89,
+    "date_add": "2026-01-07 12:29:33",
+    "id_customer": "6645"
+}
+{
+    "id_cart": "127375",
+    "id_address_delivery": 6510,
+    "id_customer2": "",
+    "shipping_price": 45,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 7.14,
+    "orderTotal": 100.43,
+    "date_add": "2026-01-07 12:30:37",
+    "id_customer": "6655"
+}
+{
+    "id_cart": "127564",
+    "id_address_delivery": 6510,
+    "id_customer2": "",
+    "shipping_price": 45,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 7.14,
+    "orderTotal": 100.43,
+    "date_add": "2026-01-07 12:31:24",
+    "id_customer": "6655"
+}
+{
+    "id_cart": "127366",
+    "id_address_delivery": 6511,
+    "id_customer2": "",
+    "shipping_price": 18,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 4.2017,
+    "orderTotal": 32.03,
+    "date_add": "2026-01-07 12:33:09",
+    "id_customer": "6656"
+}
+{
+    "id_cart": "127853",
+    "id_address_delivery": 6522,
+    "id_customer2": "",
+    "shipping_price": 10,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 2.3062,
+    "orderTotal": 26.27,
+    "date_add": "2026-01-07 12:34:02",
+    "id_customer": "6670"
+}
+{
+    "id_cart": "127849",
+    "id_address_delivery": 6526,
+    "id_customer2": "",
+    "shipping_price": 380,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 6,
+    "totalWeight": 148.4376,
+    "orderTotal": 1588.85,
+    "date_add": "2026-01-09 09:04:42",
+    "id_customer": "6675"
+}
+{
+    "id_cart": "128477",
+    "id_address_delivery": 6565,
+    "id_customer2": "",
+    "shipping_price": 125,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 20,
+    "totalWeight": 44.9658,
+    "orderTotal": 493.16,
+    "date_add": "2026-01-13 11:11:31",
+    "id_customer": "6705"
+}
+{
+    "id_cart": "128784",
+    "id_address_delivery": 6583,
+    "id_customer2": "",
+    "shipping_price": 145,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 50,
+    "totalWeight": 57.288,
+    "orderTotal": 609.36,
+    "date_add": "2026-01-13 11:13:58",
+    "id_customer": "6723"
+}
+{
+    "id_cart": "128880",
+    "id_address_delivery": 6585,
+    "id_customer2": "",
+    "shipping_price": 20,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 13.5463,
+    "orderTotal": 165.31,
+    "date_add": "2026-01-13 11:15:10",
+    "id_customer": "6726"
+}
+{
+    "id_cart": "128838",
+    "id_address_delivery": 6586,
+    "id_customer2": "",
+    "shipping_price": 25,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 4,
+    "totalWeight": 20.982,
+    "orderTotal": 207.7,
+    "date_add": "2026-01-13 11:16:52",
+    "id_customer": "6727"
+}
+{
+    "id_cart": "127787",
+    "id_address_delivery": 6525,
+    "id_customer2": "",
+    "shipping_price": 120,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 9,
+    "totalWeight": 40.2611,
+    "orderTotal": 421.26,
+    "date_add": "2026-01-16 14:53:15",
+    "id_customer": "6673"
+}
+{
+    "id_cart": "129750",
+    "id_address_delivery": 3301,
+    "id_customer2": "",
+    "shipping_price": 15,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 2.5678,
+    "orderTotal": 27.48,
+    "date_add": "2026-01-19 16:20:52",
+    "id_customer": "3642"
+}
+{
+    "id_cart": "129873",
+    "id_address_delivery": 6613,
+    "id_customer2": "",
+    "shipping_price": 90,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 18.9486,
+    "orderTotal": 231.19,
+    "date_add": "2026-01-19 16:22:20",
+    "id_customer": "6745"
+}
+{
+    "id_cart": "129987",
+    "id_address_delivery": 6654,
+    "id_customer2": "",
+    "shipping_price": 40,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 5.003,
+    "orderTotal": 49.54,
+    "date_add": "2026-01-19 16:23:13",
+    "id_customer": "6773"
+}
+{
+    "id_cart": "130058",
+    "id_address_delivery": 6352,
+    "id_customer2": "",
+    "shipping_price": 15,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 4,
+    "totalWeight": 6.2012,
+    "orderTotal": 85.87,
+    "date_add": "2026-01-19 16:25:55",
+    "id_customer": "6501"
+}
+{
+    "id_cart": "130243",
+    "id_address_delivery": 6665,
+    "id_customer2": "",
+    "shipping_price": 10,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 2.5,
+    "orderTotal": 28.07,
+    "date_add": "2026-01-19 16:26:49",
+    "id_customer": "6781"
+}
+{
+    "id_cart": "130338",
+    "id_address_delivery": 6525,
+    "id_customer2": "",
+    "shipping_price": 110,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 12,
+    "totalWeight": 41.27,
+    "orderTotal": 503.71,
+    "date_add": "2026-01-19 16:28:36",
+    "id_customer": "6673"
+}
+{
+    "id_cart": "130770",
+    "id_address_delivery": 6686,
+    "id_customer2": "",
+    "shipping_price": 115,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 29.4715,
+    "orderTotal": 390.5,
+    "date_add": "2026-01-19 16:30:17",
+    "id_customer": "6805"
+}
+{
+    "id_cart": "130815",
+    "id_address_delivery": 6687,
+    "id_customer2": "",
+    "shipping_price": 96.7,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 22.4,
+    "orderTotal": 139.2,
+    "date_add": "2026-01-19 16:31:37",
+    "id_customer": "6804"
+}
+{
+    "id_cart": "130933",
+    "id_address_delivery": 6695,
+    "id_customer2": "",
+    "shipping_price": 38,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 8.5119,
+    "orderTotal": 175.14,
+    "date_add": "2026-01-19 16:32:43",
+    "id_customer": "6811"
+}
+{
+    "id_cart": "130933",
+    "id_address_delivery": 6695,
+    "id_customer2": "",
+    "shipping_price": 35,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 8.5119,
+    "orderTotal": 175.14,
+    "date_add": "2026-01-19 16:32:59",
+    "id_customer": "6811"
+}
+{
+    "id_cart": "130933",
+    "id_address_delivery": 6695,
+    "id_customer2": "",
+    "shipping_price": 35,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 8.5119,
+    "orderTotal": 175.14,
+    "date_add": "2026-01-19 16:33:32",
+    "id_customer": "6811"
+}
+{
+    "id_cart": "131893",
+    "id_address_delivery": 6745,
+    "id_customer2": "",
+    "shipping_price": 70,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 14,
+    "totalWeight": 27.167,
+    "orderTotal": 376.3,
+    "date_add": "2026-01-23 09:23:11",
+    "id_customer": "6859"
+}
+{
+    "id_cart": "132017",
+    "id_address_delivery": 6748,
+    "id_customer2": "",
+    "shipping_price": 18,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 10.343,
+    "orderTotal": 126.06,
+    "date_add": "2026-01-23 09:23:53",
+    "id_customer": "6863"
+}
+{
+    "id_cart": "132017",
+    "id_address_delivery": 6748,
+    "id_customer2": "",
+    "shipping_price": 18,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 10.343,
+    "orderTotal": 126.06,
+    "date_add": "2026-01-23 09:24:03",
+    "id_customer": "6863"
+}
+{
+    "id_cart": "131872",
+    "id_address_delivery": 6743,
+    "id_customer2": "",
+    "shipping_price": 49,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 5.9976,
+    "orderTotal": 97.67,
+    "date_add": "2026-01-23 09:25:14",
+    "id_customer": "6857"
+}
+{
+    "id_cart": "132106",
+    "id_address_delivery": 6753,
+    "id_customer2": "",
+    "shipping_price": 52,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 11.9,
+    "orderTotal": 117.8,
+    "date_add": "2026-01-23 09:26:10",
+    "id_customer": "6867"
+}
+{
+    "id_cart": "131745",
+    "id_address_delivery": 6736,
+    "id_customer2": "",
+    "shipping_price": 12,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 2.1599,
+    "orderTotal": 29.87,
+    "date_add": "2026-01-23 09:26:45",
+    "id_customer": "6852"
+}
+{
+    "id_cart": "126532",
+    "id_address_delivery": 6763,
+    "id_customer2": "",
+    "shipping_price": 55,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 3,
+    "totalWeight": 11.8667,
+    "orderTotal": 139.56,
+    "date_add": "2026-01-26 14:15:20",
+    "id_customer": "6878"
+}
+{
+    "id_cart": "132472",
+    "id_address_delivery": 6772,
+    "id_customer2": "",
+    "shipping_price": 30,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 5.04,
+    "orderTotal": 53.62,
+    "date_add": "2026-01-26 14:17:09",
+    "id_customer": "6885"
+}
+{
+    "id_cart": "132563",
+    "id_address_delivery": 6775,
+    "id_customer2": "",
+    "shipping_price": 20,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 13.923,
+    "orderTotal": 163.7,
+    "date_add": "2026-01-26 15:05:12",
+    "id_customer": "6889"
+}
+{
+    "id_cart": "132984",
+    "id_address_delivery": 6800,
+    "id_customer2": "",
+    "shipping_price": 85,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 24.276,
+    "orderTotal": 285.44,
+    "date_add": "2026-01-26 17:07:08",
+    "id_customer": "6916"
+}
+{
+    "id_cart": "132941",
+    "id_address_delivery": 6796,
+    "id_customer2": "",
+    "shipping_price": 20,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 16,
+    "totalWeight": 21.5232,
+    "orderTotal": 262.63,
+    "date_add": "2026-01-26 17:07:43",
+    "id_customer": "6913"
+}
+{
+    "id_cart": "135623",
+    "id_address_delivery": 6102,
+    "id_customer2": "",
+    "shipping_price": 125,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 22,
+    "totalWeight": 65.7789,
+    "orderTotal": 501.65,
+    "date_add": "2026-02-03 16:45:11",
+    "id_customer": "6274"
+}
+{
+    "id_cart": "135649",
+    "id_address_delivery": 6889,
+    "id_customer2": "",
+    "shipping_price": 65,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 28.322,
+    "orderTotal": 598.85,
+    "date_add": "2026-02-09 08:27:37",
+    "id_customer": "6990"
+}
+{
+    "id_cart": "137537",
+    "id_address_delivery": 6326,
+    "id_customer2": "",
+    "shipping_price": 80,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 20.7,
+    "orderTotal": 109.57,
+    "date_add": "2026-02-09 17:04:51",
+    "id_customer": "6477"
+}
+{
+    "id_cart": "137910",
+    "id_address_delivery": 6941,
+    "id_customer2": "",
+    "shipping_price": 42,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 7.5624,
+    "orderTotal": 86.14,
+    "date_add": "2026-02-13 08:29:45",
+    "id_customer": "7044"
+}
+{
+    "id_cart": "137973",
+    "id_address_delivery": 6943,
+    "id_customer2": "",
+    "shipping_price": 18,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 12,
+    "totalWeight": 20.6136,
+    "orderTotal": 219.26,
+    "date_add": "2026-02-13 08:31:42",
+    "id_customer": "7046"
+}
+{
+    "id_cart": "130346",
+    "id_address_delivery": 6949,
+    "id_customer2": "",
+    "shipping_price": 90,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 10.3173,
+    "orderTotal": 314.96,
+    "date_add": "2026-02-13 08:34:58",
+    "id_customer": "6961"
+}
+{
+    "id_cart": "138251",
+    "id_address_delivery": 6652,
+    "id_customer2": "",
+    "shipping_price": 70,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 19.278,
+    "orderTotal": 250.58,
+    "date_add": "2026-02-13 08:39:02",
+    "id_customer": "6774"
+}
+{
+    "id_cart": "138572",
+    "id_address_delivery": 6967,
+    "id_customer2": "",
+    "shipping_price": 58,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 1,
+    "totalWeight": 10.0708,
+    "orderTotal": 122.9,
+    "date_add": "2026-02-13 08:39:58",
+    "id_customer": "7065"
+}
+{
+    "id_cart": "135697",
+    "id_address_delivery": 6890,
+    "id_customer2": "",
+    "shipping_price": 96.7,
+    "carrier_name": "Demande de frais de port",
+    "carrier_delay": "Demander les frais d'exp\u00e9dition pour votre commande",
+    "nbProducts": 2,
+    "totalWeight": 23.4192,
+    "orderTotal": 304.42,
+    "date_add": "2026-02-13 08:45:44",
+    "id_customer": "6992"
+}

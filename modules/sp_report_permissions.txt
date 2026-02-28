@@ -1,0 +1,5 @@
+[750] /var/www/vhosts/plexi-cindar.com/httpdocs/cgi-bin
+[777] /var/www/vhosts/plexi-cindar.com/httpdocs/.htaccess
+[600] /var/www/vhosts/plexi-cindar.com/httpdocs/.php-ini
+[600] /var/www/vhosts/plexi-cindar.com/httpdocs/.php-version
+[777] /var/www/vhosts/plexi-cindar.com/httpdocs/tmp

@@ -1,0 +1,214 @@
+/* generate */
+.spg-subtitle {
+	font-size: 1.2em;
+	font-weight: bold;
+	margin: 0.5em 0 1em 0 ;
+}
+.spg-subtitle .step-num {
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    color: #FFF;
+    background: #BBCDD2;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+#sp-generate.show-params-form .toggleParamsForm,
+#sp-generate .available-params,
+#sp-generate .available-params .show-on-ready,
+#sp-generate .params-summary,
+#sp-generate .step-2 {
+	display: none;
+}
+#sp-generate.show-params-form .available-params,
+#sp-generate .available-params.ready .show-on-ready,
+#sp-generate.show-step-2 .params-summary,
+#sp-generate.show-step-2 .step-2 {
+	display: block;
+}
+#sp-generate .step-2 {
+	padding-top: 15px;
+	border-top: 1px solid #BBCDD2;
+	margin-top: 20px;
+}
+#sp-generate .toggleParamsForm {
+	width: 26px;
+	height: 26px;
+	margin-left: 5px;
+}
+#sp-generate .available-params {
+	padding: 15px 0;
+	border-top: 1px dashed #BBCDD2;
+	border-bottom: 1px dashed #BBCDD2;
+}
+#sp-generate .available-vars {
+	padding: 10px 0;
+	border-top: 1px dashed #BBCDD2;
+	border-bottom: 1px dashed #BBCDD2;
+	color: #6C868E;
+}
+#sp-generate .available-var {
+	font-size: 1.1em;
+	cursor: pointer;
+}
+#sp-generate .addParams {
+	width: 100%;
+	text-align: center;
+	vertical-align: middle;
+}
+#sp-generate .crLvl.has-selection {
+	background: #E7F8FF;
+	border: 1px solid #00AFF0;
+}
+#sp-generate .cr-lvl-3.loading {
+	min-height: 31px;
+}
+#sp-generate .cr-lvl-3.loading:after,
+#sp-generate.processing .runAction:after {
+	content: '';
+	position: absolute;
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	left: 16px;
+	top: 50%;
+	left: 0.7em;
+	margin-top: -7px;
+	border: 2px solid #777E87;
+	border-left-color: transparent;
+	border-radius: 100%;
+	z-index: 2;
+	animation: spinning 0.3s infinite linear;
+}
+#sp-generate.processing .runAction:after {
+	border: 2px solid #FFF;
+	border-left-color: transparent;
+	left: 50%;
+	margin-left: -7px;
+}
+@keyframes spinning {
+	0% {transform:rotate(0deg);}
+	100% {transform:rotate(360deg);}
+}
+#sp-generate .runAction {
+	padding: 0 10px;
+	margin: 0 7px 0 5px;
+	position: relative;
+}
+#sp-generate.processing .runAction .txt {
+	opacity: 0;
+}
+.bulk-generate-params {
+	margin: 30px -5px 10px -5px;
+}
+.bulk-generate-params .params-group {
+	margin: 5px 10px;
+	padding: 5px 10px;
+	border: 1px solid #E50B70;
+	color: #6C868E;
+}
+.bulk-generate-params .var-name {
+	display: inline-block;
+	margin: -5px 10px -5px -10px;
+	padding: 5px 10px;
+	color: #FFF;
+	background: #E50B70;
+	text-align: center;
+}
+.bulk-generate-params .total {
+	float: right;
+}
+.bulk-generate-params .total-num {
+	font-weight: bold;
+}
+.bulk-generate-params .removeGroup {
+	color: #E50B70;
+	float: right;
+	margin-left: 15px;
+}
+.params-summary {
+	padding: 0 15px;
+	color: #E50B70;
+	text-align: right;
+}
+.params-summary .dynamic {
+	font-size: 1.2em;
+}
+.toggleOtherFields {
+	display: block;
+	margin: -10px 0 10px 0;
+}
+.spg-footer {
+	background: #F8FBFC;
+	margin: 10px -25px -30px -25px;
+	padding: 25px 20px;
+	border-top: 1px solid #DBE5E7;
+	border-radius: 0 0 5px 5px;
+}
+.bootstrap .bulk-generate-actions > * {
+	display: inline-block;
+	vertical-align: middle;
+}
+.bootstrap .bulk-generate-actions > select {
+	width: 50%;
+}
+.bootstrap .bulk-generate-actions .thrown-errors {
+	width: 100%;
+}
+.bootstrap .bulk-generate-actions .bulk-update-options {
+	float: left;
+	clear: both;
+	width: 50%;
+}
+.bootstrap .bulk-update-options .basic-item {
+	margin-top: 10px;
+	position: relative;
+}
+#sp-generate .bulk-update-options .basic-item .available-options {
+	left: 0;
+	right: 0;
+}
+#sp-generate .bulk-update-options .basic-item .available-options .opt-level.root {
+	min-height: 60px;
+}
+.bulk-update-options .lang-ids .opt {
+	display: inline-block;
+	text-transform: uppercase;
+}
+.bulk-update-options .lang-ids.has-selection .item-names {
+	text-transform: uppercase;
+}
+.bulk-update-options .lang-ids .qs-container {
+	display: none;
+}
+#sp-generate.complete .process-info {
+	color: #72C279;
+}
+#sp-generate.complete .process-info:after {
+	content: " \F00C";
+	font-family: FontAwesome;
+}
+#sp-generate .skip-info {
+	display: block;
+	width: 50%;
+	padding: 5px 10px;
+	margin-top: 10px;
+	border-radius: 3px;
+}
+.sp-form .form-group.dont-process {
+	opacity: 0.4;
+	pointer-events: none;
+}
+.sp-form .form-group.dont-process label {
+	text-decoration: line-through;
+}
+/* temporary */
+#sp-generate .basic-item .available-options {
+	position: absolute;
+	z-index: 10;
+	right: 5px;
+	left: 5px;
+}
+/* since 1.0.1 */

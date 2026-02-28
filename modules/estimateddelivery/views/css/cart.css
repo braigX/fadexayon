@@ -1,0 +1,151 @@
+.nt_logo_upload {
+    display: none;
+}
+
+.nt_logo_upload_conatiner {
+    cursor: pointer;
+	background: #e84533;
+    display: block;
+    text-align: center;
+    padding: 10px 20px;
+    color: #fff;
+	margin-bottom:10px;
+}
+.nt_logo_upload_conatiner .material-icons{position:relative; top:3px;}
+.page-cart .cart-container{border:none;}
+.cart-header-top{margin-bottom:15px}
+.cart-headtext{color: #034e91; font-weight: 500;}
+.cart-headtext i{font-size: 13px;  font-weight: 600;}
+.page-cart .cart-container .checkout-btn, .cart-header-top .cart-detailed-actions .btn-primary{background:#0a8d64; border-color:#0a8d64; border-radius:0px; position:relative;    padding: 5px 35px;}
+.page-cart .cart-container .checkout-btn:before, .cart-header-top .cart-detailed-actions .btn-primary:before{content:'\f054';font-family:FontAwesome;position:absolute;right: 15px;top: 6px;}
+ .cart-header-top .cart-detailed-actions .text-sm-center{text-align:right !important}
+.page-cart .cart-container .card-header{border:none;background: none;margin-bottom: 10px;padding: 0px;font-size: 20px;font-weight: bold;color: #034e91;}
+.page-cart .cart__card-body{padding:0px;border: 1px solid rgba(0,0,0,.125);}
+.page-cart .cart__card-body .cart-overview .product-line-grid-heading{padding:10px;border-bottom: 2px solid #e2e2e2;  margin-bottom: 15px;font-weight: 600;}
+.page-cart  .cart__card-body .cart-items .product-line__title{    font-weight: bold;color: #034e91; font-size: 18px;}
+.page-cart  .cart__card-body .nt-sample-text{position:relative; color:#ef0000; padding-left:15px;    font-weight: 500;}
+.page-cart  .cart__card-body .nt-sample-text:before{content:'\f05a'; font-family:FontAwesome; position:absolute; left:0px; top:0px; }
+.page-cart  .cart__card-body  .cart-item:not(:last-child){    margin-bottom: 2rem;}
+.page-cart  .cart__card-body .cart-items  .product-line-info .current-price .current-price-display { font-size:16px;font-weight:normal;}
+.page-cart  .cart__card-body .cart-items  .product-price{ font-size:16px;}
+.page-cart  .cart__card-body .cart-items  .product-price strong{font-weight:normal;}
+.page-cart .card.cart-summary  .cart-summary-totals .cart-total{font-size: 17px;color:#0a8d64;font-weight: 600;}
+.page-cart .card.cart-summary .card-footer {background:none;}
+.page-cart .card.cart-summary .card-footer .cart-detailed-actions .text-sm-center{text-align:right !important;}
+.page-cart .card.cart-summary .card-footer .cart-detailed-actions .text-sm-center .btn {background:#0a8d64; border-color:#0a8d64; border-radius:0px; position:relative;    padding: 5px 35px;}
+.page-cart .card.cart-summary .card-footer .cart-detailed-actions .text-sm-center .btn:before{content:'\f054';font-family:FontAwesome;position:absolute;right: 15px;top: 6px;}
+.page-cart .card.cart-summary .nt-cart-summary-tilte{background:#054a87;color:#fff;font-weight: 600;font-size: 16px;padding: 10px 20px;}
+.page-cart .cart-voucher .collapse-button{position:relative;font-size: 14px;font-weight: 600; color: #054a87; padding-left: 20px; padding-left:20px;}
+/*.page-cart .cart-voucher .collapse-button:before{content:'\f067'; font-family:FontAwesome; position:absolute; left:0px; top:0px; } */
+.page-cart .cart-voucher .collapse-button:before, .page-cart .cart-voucher .collapse-button[aria-expanded="false"]::before{content:'\f067'; font-family:FontAwesome; position:absolute; left:0px; top:0px;}
+.page-cart .cart-voucher .collapse-button[aria-expanded="true"]::before{content:'\f068' !important; }
+.page-cart .cart-voucher  .promo-code{margin:0px;}
+.page-cart .cart-voucher  .promo-code .input-group-append .btn-primary{background:#0a8d64; border-color:#0a8d64; border-radius:0px;}
+.page-cart .cart-voucher  .promo-code .input-group-append .btn-primary:hover{color:#fff; border:1px solid #0a8d64;}
+.nt-continue-btn{background: #eeeeee !important;border: #eeeeee !important;border-radius: 0px;color: #000 !important;}
+@media screen and (max-width:767px){
+	.page-cart .cart__card-body .cart-overview .product-line-grid-heading{display:none;}
+	.page-cart .cart__card-body .cart-overview{padding:15px; }
+	.nt-continue-btn{margin-left:15px;}
+}
+
+#nt-delivery-date .estimateddelivery div {
+    border: unset;
+    padding: unset;
+}
+
+
+
+
+
+
+.nt_picker_container i {
+    position: absolute;
+    top: 28px;
+    font-size: 2.2rem;
+    cursor: pointer;
+}
+.nt_picker_container .nt_delivery_date {
+    opacity: 0;
+    width: 28px;
+    cursor: pointer;
+}
+
+
+.ui-state-default {
+    background: #0a8d64 !important;
+    color: white !important;
+    text-align: center !important;
+    font-weight: 600 !important;
+    border-color: #0a8d64 !important;
+    padding: 0px !important;
+}
+
+.ui-state-disabled .ui-state-default {
+    background: #e6e6e6 !important;
+    color: #555 !important;
+    border-color: #e6e6e6 !important;
+}
+
+.ui-state-default.ui-state-active {
+    background: #005092 !important;
+    border-color: #005092 !important;
+}
+
+
+.ui-datepicker-header.ui-widget-header.ui-helper-clearfix.ui-corner-all {
+    background: white !important;
+    border: unset !important;
+}
+
+.ui-datepicker {
+    padding: 0px !important;
+    border-radius: 0px !important;
+    padding-left: 0.4px !important;
+}
+.ui-datepicker table {
+    margin-bottom: 0px !important;
+}
+
+.nt-blue-color {
+    color: #005092;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.nt-mt-1 {
+    margin-top: 1rem;
+}
+
+.ui-datepicker td {
+    padding: 0px !important;
+    border: 0.1px solid white !important;
+}
+
+.ui-datepicker td.ui-state-disabled {
+    border: 0px!important;
+}
+
+.upload-file-link {
+    cursor: pointer;
+}
+
+.nt-image-list {
+    font-size: 10px;
+    border: 1px solid;
+    padding: 0 7px;
+    border-radius: 5px;
+    background: #eee;
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nt-image-list > i {
+    cursor: pointer;
+}
+
+.nt-row-images {
+    margin: 0 -15px;
+}

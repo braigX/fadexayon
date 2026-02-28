@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>wksampleproduct</name>
+    <displayName><![CDATA[&Eacute;chantillon de produit]]></displayName>
+    <version><![CDATA[5.3.2]]></version>
+    <description><![CDATA[Autoriser le client &agrave; acheter un &eacute;chantillon de produit]]></description>
+    <author><![CDATA[Webkul]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+	<confirmUninstall><![CDATA[Es-tu sûr?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+</module>

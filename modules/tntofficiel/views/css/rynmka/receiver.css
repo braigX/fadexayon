@@ -1,0 +1,146 @@
+#extra_address_data {
+    margin-top: 0.825rem;
+    margin-bottom: 0.825rem;
+    padding: 8px 16px;
+    border-left: 3px solid #ff6600;
+    background-color: rgba(255, 255, 255, 0.82);
+    line-height: normal;
+    text-align: left;
+    box-shadow: 0 0.5ex 1ex rgba(0,0,0,0.04);
+    /*max-width: 100%;*/
+}
+
+#extra_address_data .page-subheading {
+    color: #5f5d5d;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-shadow: 0px 0px;
+    font-size: 16px;
+    padding: 0.5ex 0 0.75ex 0;
+    line-height: normal;
+    border-bottom: 0px solid #d6d4d4;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    background: 0 none;
+    margin: 0;
+    border-radius: 0;
+}
+
+#extra_address_data .alert-danger {
+    background-color: transparent;
+    border-color: transparent;
+    border-width: 0;
+    border-style: solid;
+    border-radius: 2px 2px 0 0;
+    color: #f13340;
+    position: relative;
+    display: block;
+    text-align: left;
+    font-size: 13px;
+}
+
+#extra_address_data .form-group {
+    position: relative;
+    margin-bottom: 8px;
+    background-color: transparent;
+}
+
+#extra_address_data .form-error,
+#extra_address_data .form-ok {
+    display: block;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+#extra_address_data .form-group label {
+    display: block;
+    width: auto;
+    margin: 0.5ex 0;
+    font-weight: bold;
+    color: #5f5d5d;
+    padding: 0 0.25ex;
+    font-size: 14px;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#extra_address_data .form-group .form-control {
+    display: block;
+    width: 100%;
+    padding: 3px 5px;
+    height: 2.25em;
+    line-height: 1.42857;
+    font-size: 14px;
+    vertical-align: middle;
+    border-radius: 0px;
+    background-image: none;
+    margin: 0;
+    box-sizing: border-box;
+    /* IE9 */
+    min-width : 100%;
+    max-width: none;
+}
+
+#extra_address_data .form-group .form-text {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 100%;
+    display: block;
+    font-size: 11px;
+    line-height: 1.25em;
+    text-align: right;
+    font-style: italic;
+    margin: 0.75ex 0.5ex 0.25ex 0.75ex;
+    padding: 0 1ex 0 1ex;
+}
+
+#extra_address_data .form-group .alert-danger {
+    text-align: left;
+    font-style: normal;
+    font-weight: bold;
+    color: #f13340;
+}
+
+#extra_address_data .form-group label .form-text {
+    position: static;
+    display: inline;
+}
+
+#extra_address_data .row {
+    margin-left: -1ex;
+    margin-right: -1ex;
+}
+
+#extra_address_data .col-xs-1, #extra_address_data .col-xs-2, #extra_address_data .col-xs-3,
+#extra_address_data .col-xs-4, #extra_address_data .col-xs-5, #extra_address_data .col-xs-6,
+#extra_address_data .col-xs-7, #extra_address_data .col-xs-8, #extra_address_data .col-xs-9,
+#extra_address_data .col-xs-10, #extra_address_data .col-xs-11, #extra_address_data .col-xs-12,
+#extra_address_data .col-sm-1, #extra_address_data .col-sm-2, #extra_address_data .col-sm-3,
+#extra_address_data .col-sm-4, #extra_address_data .col-sm-5, #extra_address_data .col-sm-6,
+#extra_address_data .col-sm-7, #extra_address_data .col-sm-8, #extra_address_data .col-sm-9,
+#extra_address_data .col-sm-10, #extra_address_data .col-sm-11, #extra_address_data .col-sm-12,
+#extra_address_data .col-md-1, #extra_address_data .col-md-2, #extra_address_data .col-md-3,
+#extra_address_data .col-md-4, #extra_address_data .col-md-5, #extra_address_data .col-md-6,
+#extra_address_data .col-md-7, #extra_address_data .col-md-8, #extra_address_data .col-md-9,
+#extra_address_data .col-md-10, #extra_address_data .col-md-11, #extra_address_data .col-md-12,
+#extra_address_data .col-lg-1, #extra_address_data .col-lg-2, #extra_address_data .col-lg-3,
+#extra_address_data .col-lg-4, #extra_address_data .col-lg-5, #extra_address_data .col-lg-6,
+#extra_address_data .col-lg-7, #extra_address_data .col-lg-8, #extra_address_data .col-lg-9,
+#extra_address_data .col-lg-10, #extra_address_data .col-lg-11, #extra_address_data .col-lg-12 {
+    padding-left: 1ex;
+    padding-right: 1ex;
+    padding-top: 0.5ex;
+    margin-bottom: 1.625em !important;
+}
+
+#extra_address_data p {
+    margin-bottom: 0;
+    font-size: 13px;
+    line-height: normal;
+}

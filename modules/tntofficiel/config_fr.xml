@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>tntofficiel</name>
+    <displayName><![CDATA[TNT]]></displayName>
+    <version><![CDATA[1.0.16]]></version>
+    <description><![CDATA[La livraison express 24h partout en France avant 13h]]></description>
+    <author><![CDATA[Inetum]]></author>
+    <tab><![CDATA[shipping_logistics]]></tab>
+	<confirmUninstall><![CDATA[Êtes-vous sûre de vouloir supprimer ce module ?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+</module>

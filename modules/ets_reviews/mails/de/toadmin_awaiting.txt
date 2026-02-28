@@ -1,0 +1,10 @@
+[{shop_url}]
+
+Hallo {admin_name},
+{customer_name} hat {object} eingereicht. Bitte überprüfen Sie den Inhalt und treffen Sie Ihre Entscheidung:
+
+{product}
+{content}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

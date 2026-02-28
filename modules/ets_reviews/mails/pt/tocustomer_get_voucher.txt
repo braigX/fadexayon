@@ -1,0 +1,13 @@
+[{shop_url}]
+
+Olá {customer_name},
+Temos o prazer de informar que você acabou de receber um código de voucher após avaliar seus itens comprados.
+Código: {voucher_code}
+Valor do desconto: {voucher_value}
+Por favor insira este código na sua próxima compra para obter o desconto
+
+Use o cupom agora
+
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

@@ -1,0 +1,214 @@
+.section-rating {
+    margin: 2rem 0;
+    display: block;
+}
+
+.Review__Rating {
+    color: #4285f4;
+    font-size: 64px;
+    font-weight: 700;
+    letter-spacing: -3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Review__Image {
+    background-image: url('../images/circle-review.png');
+    width: 133px;
+    height: 133px;
+    padding: 1.25rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.Review__NB_Rating {
+    color: #2f70e9;
+}
+
+.section-rating .section-star-array {
+    padding-left: 6px;
+    padding-right: 4px;
+    display: -ms-inline-flexbox;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+}
+
+.section-rating .section-star {
+    background-size: 26px 26px;
+    background-image: url('//maps.gstatic.com/consumer/images/icons/2x/ic_star_rate_14.png');
+    vertical-align: top;
+    display: inline-block;
+    width: 26px;
+    height: 24px;
+}
+
+.section-rating .section-star-half {
+    background-image: url('//maps.gstatic.com/consumer/images/icons/2x/ic_star_rate_half_14.png');
+}
+
+.section-rating .section-star-empty {
+    background-image: url('//maps.gstatic.com/consumer/images/icons/2x/ic_star_rate_empty_14.png');
+}
+
+
+/*----------------------------------------------------------------------*/
+/*Slider*/
+
+.Rating__module {
+    display: inline-block;
+    width: 100%;
+}
+
+.Rating__Container {
+    display: flex;
+    width: 100%;
+    margin: 2rem 0;
+}
+
+.Rating__Container .Rating__Item {
+    flex-direction: row;
+    /*flex-basis: 100%;*/
+    margin-right: 10px;
+    width: 300px;
+}
+
+.Rating__Item__Review {
+    font-size: 14px;
+}
+
+.Rating__Item__Stars {
+    text-align: center;
+}
+
+.Rating__Item__Review__author {
+    font-size: 14px;
+}
+
+
+.Rating__Container .Rating__Item__First {
+    text-align: center;
+    /*padding-right: 0px;*/
+}
+
+.Rating__Item__Slider {
+    width: 80%;
+    background: #fbfbfb;
+    padding: 2rem;
+    -webkit-box-shadow: 2px 2px 1px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 2px 2px 1px 0px rgba(0, 0, 0, 0.25);
+}
+
+.Rating__content li.section-star {
+    background-size: 16px 16px;
+    background-image: url('//maps.gstatic.com/consumer/images/icons/2x/ic_star_rate_14.png');
+    vertical-align: top;
+    display: inline-block;
+    width: 16px;
+    height: 15px;
+}
+
+.Rating__Item__Slider .Rating__Item__Stars {
+    text-align: left;
+    padding-right: 0px;
+}
+
+.Rating__content ol.section-star-array {
+    padding: 0px;
+}
+
+/*.widget_full_width > .Rating__Container__Child {*/
+/*    width: 50%;*/
+/*}*/
+
+/*----------------------------------------------------------------------*/
+/*Dots slick*/
+
+.Rating__Item__Slider .slick-dots li button:before {
+    opacity: .5;
+    color: #4285f4;
+    font-size: 10px;
+}
+
+.Rating__Item__Slider .slick-dots {
+    position: absolute;
+    bottom: 1rem;
+}
+
+.Rating__Item__Slider .slick-dots li.slick-active button:before {
+    opacity: 1;
+    color: #4285f4;
+}
+
+.Rating__Item__Slider.slick-dotted.slick-slider {
+    margin-bottom: 0 !important;
+}
+
+.Rating__Author {
+    color: #1973e8;
+    font-size: 16px;
+    padding-bottom: 20px;
+    display: block;
+}
+
+.Rating__Author:before {
+    content: "";
+    background-image: url('../images/profil-review.png');
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 5px;
+}
+
+/*----------------------------------------------------------------------*/
+/*Global*/
+
+.Rating__Container__Child *:focus {
+    outline: none;
+}
+
+.Review__Line {
+    display: flex;
+    justify-content: center;
+}
+
+.Review__Align__Center {
+    text-align: center;
+}
+
+.Review__p-1 {
+    padding: 1rem;
+}
+
+.Review__Bt {
+    background: #1a73e8;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.Review__Bt:hover {
+    color: #fff;
+    opacity: 0.75;
+}
+
+
+/*----------------------------------------------------------------------*/
+/*Responsive*/
+
+@media (max-width: 767px) {
+    .Rating__Container {
+        width: auto;
+        margin: 2rem;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .Rating__Item__Slider {
+        width: 100%;
+    }
+}

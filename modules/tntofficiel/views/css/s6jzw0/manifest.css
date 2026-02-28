@@ -1,0 +1,72 @@
+.title {
+    display: inline-block;
+    text-align: center;
+    text-decoration: underline;
+    font-weight: normal;
+    font-size: 11pt;
+    padding: 8pt;
+}
+
+.body {
+    font-size: 9pt;
+    color: #171717;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.left {
+    text-align: left;
+}
+.right {
+    text-align: right;
+}
+
+table, th, td {
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.table-header {
+    padding-top: 12pt;
+}
+.table-header td {
+    width: 33%;
+}
+
+.hspace {
+    background-color: white;
+    display: block;
+    font-size: 4pt;
+    line-height: 4pt;
+    border: none;
+    margin: 0; padding: 0;
+}
+
+.hrule {
+    color: #474747;
+    background-color: #474747;
+    display: block;
+    font-size: 0.625pt;
+    line-height: 0.625pt;
+    border: none;
+    margin: 0; padding: 0;
+}
+
+.pagination-text {
+    font-size: 9.5pt;
+    line-height: normal;
+    background-color:#F0F0F0;
+}
+
+.legal-text {
+    font-size: 6pt;
+    line-height: normal;
+}

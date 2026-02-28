@@ -1,0 +1,164 @@
+<?php
+/**
+* 2019 PSBlog
+*
+* NOTICE OF LICENSE
+*
+* READ ATTACHED LICENSE.TXT
+*
+*  @author    PSBlog
+*  @copyright 2019 PSBlog
+*  @license   LICENSE.TXT
+*/
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
+//include(dirname(__FILE__).'/../../config/config.inc.php');
+//include(dirname(__FILE__).'/../../init.php');
+include(dirname(__FILE__).'/../vendor/autoload.php');
+
+use Spatie\Regex\Regex;
+use Symfony\Component\Finder\Finder;
+
+class ThemeFixer extends Module
+{
+    private $patterns = array(
+        "/itemprop=\"[^\"]*\"/",
+        "/itemscope(=\"[^\"]*\")?/",
+        "/itemtype=\"[^\"]*\"/",
+        "/<meta.*(?!['\"\/]?>)itemprop=.*['\"\/]?>/",
+    );
+
+    private $ficheros_tpl = array();
+    private $ficheros_afectados = array();
+    private $ficheros_procesados = array();
+    
+    /*
+     * Function that gets TPL with snippets from THEME folder
+     */
+    public function getFilesFromTheme($isbackup = false)
+    {
+        return $this->getSnippetFiles(true, $isbackup);
+    }
+    
+    /*
+     * Function that gets TPL with snippets from MODULES folder
+     */
+
+    public function getFilesFromModules($isbackup = false)
+    {
+        return $this->getSnippetFiles(false, $isbackup);
+    }
+    
+    /*
+     * Function that returns TPL files with some snippet
+     */
+    private function getSnippetFiles($from_theme = true, $isbackup = false)
+    {
+        $this->ficheros_afectados = array();
+        $this->ficheros_tpl = array();
+        $from_where = $from_theme ? _PS_THEME_DIR_ : _PS_MODULE_DIR_;
+        $files_type = $isbackup ? '*.psback.tpl' : '*.tpl';
+        $finder = new Finder();
+        
+        if ($isbackup) {
+            $finder->files()->name($files_type)->in($from_where);
+        } else {
+            $finder->files()->name($files_type)->notName('*.psback.*')->in($from_where);
+        }
+
+        if ($finder->hasResults()) {
+            foreach ($finder as $fichero) {
+                $this->ficheros_tpl[] = $fichero->getRealPath();
+            }
+        }
+
+        if (count($this->ficheros_tpl) > 0) {
+            // Si es backup devolvemos directamente
+            if ($isbackup) {
+                return $this->ficheros_tpl;
+            } else {
+                foreach ($this->ficheros_tpl as $fichero) {
+                    $contenido = Tools::file_get_contents($fichero);
+                    $positivo = false;
+
+                    foreach ($this->patterns as $pattern) {
+                        if (Regex::match($pattern, $contenido)->hasMatch()) {
+                            $positivo = true;
+                        }
+                    }
+
+                    // Encontramos en la plantilla el elemento buscado
+                    if ($positivo) {
+                        $this->ficheros_afectados[] = $fichero;
+                    }
+                }
+                return $this->ficheros_afectados;
+            }
+        }
+        return $this->ficheros_afectados;
+    }
+    
+    /*
+     * Method that makes a backup of the affected files
+     */
+    public function backupOrRestoreFiles($files, $restore = false)
+    {
+        if (!is_array($files)) {
+            return false;
+        }
+        
+        $copied = true;
+        foreach ($files as $file) {
+            $whole_path = pathinfo($file);
+            $extension = $restore ? '.tpl' : '.psback.tpl';
+            $name = $restore ? str_replace('.psback', '', $whole_path['filename']).$extension :
+                $whole_path['filename'].$extension;
+            
+            $path = $whole_path['dirname'];
+            $new_file = $path.'/'.$name;
+            $result = copy($file, $new_file);
+            if ($result === false) {
+                $copied = false;
+            }
+        }
+        return $copied;
+    }
+    
+    /*
+     * Method that removes backups
+     */
+    public function removeBackups($files)
+    {
+        if (!is_array($files)) {
+            return false;
+        }
+        
+        foreach ($files as $file) {
+            if (file_exists($file)) {
+                unlink($file);
+            }
+        }
+        return true;
+    }
+    
+    /*
+     * Method to remove snippets
+     */
+    public function removeSnippets($files)
+    {
+        if (count($files) > 0) {
+            $this->ficheros_procesados = array();
+            foreach ($files as $fichero) {
+                $contenido = Tools::file_get_contents($fichero);
+                $nuevo_contenido = Regex::replace($this->patterns, '', $contenido)->result();
+                file_put_contents($fichero, $nuevo_contenido);
+                $this->ficheros_procesados[] = $fichero;
+            }
+            return $this->ficheros_procesados;
+        }
+        return $this->ficheros_procesados;
+    }
+}

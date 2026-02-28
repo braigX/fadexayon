@@ -1,0 +1,3 @@
+Hallo {customer_name}
+Herzliche Glückwünsche! Ihr Beitrag {post_title} wurde genehmigt.
+Beitrag ansehen

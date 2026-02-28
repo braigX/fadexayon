@@ -1,0 +1,12 @@
+[{shop_url}]
+
+Hallo {person_name},
+{from_person_name} hat Ihr {object} auf {product_name} kommentiert
+“{object_content}”
+
+{content}
+
+[Kommentar anzeigen]
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

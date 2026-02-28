@@ -1,0 +1,1166 @@
+/*All css*/
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+#subtab-AdminEtsSeoGeneralDashboard i:first-child,
+#subtab-AdminEtsSeoUrlAndRemoveId i:first-child,
+#subtab-AdminEtsSeoSearchAppearanceContentType i:first-child,
+#subtab-AdminEtsSeoSearchAppearanceSitemap i:first-child,
+#subtab-AdminEtsSeoSearchAppearanceRSS i:first-child,
+#subtab-AdminEtsSeoFileEditor i:first-child,
+#subtab-AdminEtsSeoSocial i:first-child,
+#subtab-AdminEtsSeoGeneralTool i:first-child,
+#subtab-AdminEtsSeoUrlRedirect i:first-child,
+#subtab-AdminSearchEngines i:first-child,
+#subtab-AdminReferrers i:first-child,
+#subtab-AdminEtsSeoImportExport i:first-child,
+#subtab-AdminEtsSeoTraffic a i:first-child,
+#subtab-AdminEtsSeoSettings a i:first-child,
+#subtab-AdminEtsSeoRatingSnippet a i:first-child,
+#subtab-AdminEtsSeoSearchAppearanceGeneral i:first-child,
+#subtab-AdminEtsSeoGeneralDashboard i:first-child{
+    font-size: 0;
+    color: inherit;
+}
+#subtab-AdminEtsSeoGeneralDashboard i:first-child:before,
+#subtab-AdminEtsSeoUrlAndRemoveId i:first-child:before,
+#subtab-AdminEtsSeoSearchAppearanceContentType i:first-child:before,
+#subtab-AdminEtsSeoSearchAppearanceSitemap i:first-child:before,
+#subtab-AdminEtsSeoSearchAppearanceRSS i:first-child:before,
+#subtab-AdminEtsSeoFileEditor i:first-child:before,
+#subtab-AdminEtsSeoSocial i:first-child:before,
+#subtab-AdminEtsSeoGeneralTool i:first-child:before,
+#subtab-AdminEtsSeoUrlRedirect i:first-child:before,
+#subtab-AdminSearchEngines i:first-child:before,
+#subtab-AdminReferrers i:first-child:before,
+#subtab-AdminEtsSeoTraffic a i:first-child:before,
+#subtab-AdminEtsSeoImportExport i:first-child:before,
+#subtab-AdminEtsSeoRatingSnippet a i:first-child:before,
+#subtab-AdminEtsSeoSettings a i:first-child:before,
+#subtab-AdminEtsSeoSearchAppearanceGeneral i:first-child:before,
+#subtab-AdminEtsSeoGeneralDashboard i:first-child:before{
+    font-size: 16px;
+    font-family: Fontawesome;
+    line-height: 1;
+    vertical-align: middle;
+}
+#subtab-AdminEtsSeoSettings a i:first-child:before {
+    content: "\f085";
+}
+#subtab-AdminEtsSeoGeneralDashboard i:first-child:before{
+    content:"\f0e4";
+}
+#subtab-AdminEtsSeoUrlAndRemoveId i:first-child:before{
+    content:"\f0c1";
+}
+#subtab-AdminEtsSeoSearchAppearanceContentType i:first-child:before{
+    content:"\f108";
+}
+#subtab-AdminEtsSeoSearchAppearanceSitemap i:first-child:before{
+    content:"\f0e8";
+}
+#subtab-AdminEtsSeoRatingSnippet a i:first-child:before {
+    content: "\f27b";
+}
+#subtab-AdminEtsSeoSearchAppearanceRSS i:first-child:before{
+    content:"\f09e";
+}
+#subtab-AdminEtsSeoFileEditor i:first-child:before{
+    content:"\f17b";
+}
+#subtab-AdminEtsSeoSocial i:first-child:before{
+    content:"\f1e0";
+}
+#subtab-AdminEtsSeoGeneralTool i:first-child:before{
+    content:"\f0ad";
+}
+#subtab-AdminEtsSeoTraffic a i:first-child:before {
+    content:"\f080";
+}
+#subtab-AdminEtsSeoUrlRedirect i:first-child:before{
+    content:"\f066";
+}
+#subtab-AdminSearchEngines i:first-child:before{
+    content:"\f002";
+}
+#subtab-AdminReferrers i:first-child:before{
+    content:"\f287";
+}
+#subtab-AdminEtsSeoImportExport i:first-child:before{
+    content:"\f176 \f175";
+}
+#subtab-AdminEtsSeoSearchAppearanceGeneral i:first-child:before{
+    content:"\f085";
+}
+/*-------------------------- Menu Sidebar -------------------------*/
+.mobile li#tab-AdminEtsSeo {
+    display: block;
+    cursor: pointer;
+}
+.mobile #subtab-AdminEtsSeoGeneralDashboard,
+.mobile #subtab-AdminEtsSeoUrlAndRemoveId,
+.mobile #subtab-AdminEtsSeoSearchAppearanceSitemap,
+.mobile #subtab-AdminEtsSeoSearchAppearanceRSS,
+.mobile #subtab-AdminEtsSeoFileEditor,
+.mobile #subtab-AdminEtsSeoRatingSnippet,
+.mobile #subtab-AdminEtsSeoSearchAppearanceContentType,
+.mobile #subtab-AdminEtsSeoSocial,
+.mobile #subtab-AdminEtsSeoTraffic,
+.mobile #subtab-AdminEtsSeoSettings,
+.page-sidebar-closed #subtab-AdminEtsSeoGeneralDashboard,
+.page-sidebar-closed #subtab-AdminEtsSeoUrlAndRemoveId,
+.page-sidebar-closed #subtab-AdminEtsSeoSearchAppearanceSitemap,
+.page-sidebar-closed #subtab-AdminEtsSeoSearchAppearanceRSS,
+.page-sidebar-closed #subtab-AdminEtsSeoFileEditor,
+.page-sidebar-closed #subtab-AdminEtsSeoRatingSnippet,
+.page-sidebar-closed #subtab-AdminEtsSeoSearchAppearanceContentType,
+.page-sidebar-closed #subtab-AdminEtsSeoSocial,
+.page-sidebar-closed #subtab-AdminEtsSeoTraffic,
+.page-sidebar-closed #subtab-AdminEtsSeoSettings{
+    display: none;
+}
+.mobile #subtab-AdminEtsSeoGeneralDashboard.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsSeoUrlAndRemoveId.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsSeoSearchAppearanceSitemap.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsSeoSearchAppearanceRSS.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsSeoFileEditor.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsSeoRatingSnippet.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsSeoSearchAppearanceContentType.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsSeoSocial.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsSeoTraffic.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsSeoSettings.ets_sidebar_menu_show
+{
+    display: block;
+}
+.mobile #subtab-AdminEtsSeoGeneralDashboard i:first-child:before,
+.mobile #subtab-AdminEtsSeoUrlAndRemoveId i:first-child:before,
+.mobile #subtab-AdminEtsSeoSearchAppearanceContentType i:first-child:before,
+.mobile #subtab-AdminEtsSeoSearchAppearanceSitemap i:first-child:before,
+.mobile #subtab-AdminEtsSeoSearchAppearanceRSS i:first-child:before,
+.mobile #subtab-AdminEtsSeoFileEditor i:first-child:before,
+.mobile #subtab-AdminEtsSeoSocial i:first-child:before,
+.mobile #subtab-AdminEtsSeoGeneralTool i:first-child:before,
+.mobile #subtab-AdminEtsSeoUrlRedirect i:first-child:before,
+.mobile #subtab-AdminSearchEngines i:first-child:before,
+.mobile #subtab-AdminReferrers i:first-child:before,
+.mobile #subtab-AdminEtsSeoTraffic a i:first-child:before,
+.mobile #subtab-AdminEtsSeoImportExport i:first-child:before,
+.mobile #subtab-AdminEtsSeoRatingSnippet a i:first-child:before,
+.mobile #subtab-AdminEtsSeoSettings a i:first-child:before,
+.mobile #subtab-AdminEtsSeoSearchAppearanceGeneral i:first-child:before{
+    font-size: 29px;
+    width: 32px;
+    height: 28px;
+}
+.mobile #subtab-AdminEtsSeoGeneralDashboard i:first-child, 
+.mobile #subtab-AdminEtsSeoUrlAndRemoveId i:first-child, 
+.mobile #subtab-AdminEtsSeoSearchAppearanceContentType i:first-child, 
+.mobile #subtab-AdminEtsSeoSearchAppearanceSitemap i:first-child, 
+.mobile #subtab-AdminEtsSeoSearchAppearanceRSS i:first-child, 
+.mobile #subtab-AdminEtsSeoFileEditor i:first-child, 
+.mobile #subtab-AdminEtsSeoSocial i:first-child, 
+.mobile #subtab-AdminEtsSeoGeneralTool i:first-child, 
+.mobile #subtab-AdminEtsSeoUrlRedirect i:first-child, 
+.mobile #subtab-AdminSearchEngines i:first-child, 
+.mobile #subtab-AdminReferrers i:first-child, 
+.mobile #subtab-AdminEtsSeoImportExport i:first-child, 
+.mobile #subtab-AdminEtsSeoTraffic a i:first-child, 
+.mobile #subtab-AdminEtsSeoSettings a i:first-child, 
+.mobile #subtab-AdminEtsSeoRatingSnippet a i:first-child, 
+.mobile #subtab-AdminEtsSeoSearchAppearanceGeneral i:first-child, 
+.mobile #subtab-AdminEtsSeoGeneralDashboard i:first-child{
+    width: 32px;
+}
+.mobile li#tab-AdminEtsSeo.actived > span.title:after {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    margin-top: 3px;
+}
+.mobile li#tab-AdminEtsSeo > span.title:after {
+    content: "";
+    border-top: 2px solid #6c868e;
+    border-right: 2px solid #6c868e;
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    float: right;
+    margin-right: 32px;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+
+
+
+/*-------------------------End Menu sidebar-----------------------*/
+
+
+
+
+/* chatgpt box style */
+
+.chatgpt-button-select-lang .translatable-field-list ul.dropdown-menu a {
+    color: #333;
+    font-size: 12px;
+    padding: 3px 10px;
+    display: block;
+}
+.chatgpt-button-select-lang .translatable-field-list ul.dropdown-menu a:hover {
+    background: #f9f9f9;
+}
+.ets-seo-chatgpt-box.panel {
+    position: fixed !important;
+    background: #fff !important;
+    z-index: 10000;
+    width: 450px;
+    right: 50px;
+    margin-top: 0;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.26) !important;
+}
+.ets-seo-chatgpt-box.panel .panel-heading::before {
+    display: none;
+}
+.ets-seo-chatgpt-box.panel.resize{
+    bottom: 100px;
+    top: auto;
+    overflow: hidden;
+    margin-bottom: 0 !important;
+}
+#chatgpt-bottom-panel {
+    position: absolute;
+    right: 40px;
+    height: 100px;
+    bottom: 0;
+    width:450px;
+    color:#fff;
+}
+#chatgpt-drag {
+    position: absolute;
+    left: 0;
+    top: -4px;
+    right: 0;
+    height: 8px;
+    cursor: n-resize;
+}
+#container-chatgpt.show {
+    pointer-events: auto;
+}
+#container-chatgpt {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    pointer-events: none;
+}
+#chatgpt-left-panel{
+    position: absolute;
+    right: 40px;
+    width: 450px;
+    height:100%;
+}
+#chatgpt-left-drag{
+    position: absolute;
+    left: -4px;
+    width: 8px;
+    cursor: e-resize;
+    height:100%;
+}
+.ets-seo-chatgpt-box .chatgpt-message {
+    list-style: none;
+    border-top: 1px solid #cccc;
+    padding: 20px 0px;
+}
+.ets-seo-chatgpt-box .chatgpt-message.is_customer {
+    text-align: right;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+.ets-seo-chatgpt-box .chatgpt-message.is_chatgpt {
+    text-align: left;
+    background: #f7f7f8;
+    padding: 15px;
+}
+.ets-seo-chatgpt-box .chatgpt-button-append.row {
+    margin-top: 20px;
+    border-top: none;
+    padding-top: 11px;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 13px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.chatgpt-button-append-content {
+    display: flex;
+    max-width: 600px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    align-items: center;
+}
+.ets-seo-chatgpt-box .form-wrapper {
+    max-height: calc(100% - 205px);
+    overflow: auto;
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+.ets-seo-chatgpt-box .chatgpt-box-send {
+    padding-top: 15px;
+}
+.ets-seo-chatgpt-box .chatgpt-box-send textarea {
+    height: 85px;
+    min-height: 85px;
+    width: 100%;
+    outline: none;
+    margin-bottom: 2px;
+    border: 1px solid #bbcdd2;
+    padding: 8px 16px;
+    border-radius: 4px;
+    resize: none;
+}
+.ets-seo-chatgpt-box .chatgpt-error {
+    color: red;
+}
+.ets-seo-chatgpt-box .chatgpt-message .chatgpt-content:last-child {
+    margin-bottom: 0;
+}
+
+.ets-seo-chatgpt-box .chatgpt-button-append .col-lg-7 {
+    display: flex;
+}
+.ets-seo-chatgpt-box .translatable-field-list .btn.btn-default.dropdown-toggle {
+    white-space: nowrap;
+    margin-left: 4px;
+    background: #fff;
+    padding: 6px;
+    height: 38px;
+    font-weight: normal;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    color: #333;
+}
+.ets-seo-chatgpt-box.maximize .panel-heading {
+    cursor: auto !important;
+}
+.ets-seo-chatgpt-box .translatable-field-list .btn.btn-default.dropdown-toggle::after {
+    margin-left: 0;
+}
+.ets-seo-chatgpt-box .btn.btn-default.btn-apply-chatgpt {
+    width: 100%;
+    padding-left: 4px;
+    padding-right: 4px;
+    max-width: 100px;
+    background: #fff;
+    font-size: 13px;
+    min-height: 38px;
+}
+.ets-seo-chatgpt-box .btn.btn-default.btn-apply-chatgpt svg {
+    width: 12px;
+    height: 12px;
+    vertical-align: -1px;
+    fill: currentColor !important;
+}
+.ets-seo-chatgpt-box.panel .close-chatgpt-box {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    font-size: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    cursor: pointer;
+    margin-top: -15px;
+}
+.ets-seo-chatgpt-box.minimize .minimize-chat-gpt{
+    display:none;
+}
+.ets-seo-chatgpt-box.maximize .maximize-chat-gpt{
+    display:none;
+}
+.ets-seo-chatgpt-box .maximize-chat-gpt, .ets-seo-chatgpt-box .minimize-chat-gpt {
+    position: absolute;
+    right: 35px;
+    top: 50%;
+    cursor: pointer;
+    margin-top: -10px;
+    line-height: 29px;
+}
+.ets-seo-chatgpt-box.maximize{
+    width: 100%;
+    height: 100%;
+    right: 0!important;
+    top: 0!important;
+    left: auto!important;
+    bottom: auto!important;
+}
+.ets-seo-chatgpt-box.maximize .ui-resizable-handle{
+    display: none;
+}
+.ets-seo-chatgpt-box .maximize-chat-gpt svg, .ets-seo-chatgpt-box .minimize-chat-gpt svg{
+    width: 15px;
+    height: 15px;
+}
+.ets-seo-chatgpt-box.panel .close-chatgpt-box::before {
+    content: "";
+    width: 16px;
+    height: 2px;
+    background: #999;
+    position: absolute;
+    top: 50%;
+    margin-top: -1px;
+    left: 50%;
+    margin-left: -8px;
+}
+.ets-seo-chatgpt-box .btn-send-gpt {
+    border-radius: 4px;
+    height: 39px;
+    padding: 0 10px;
+    font-size: 13px !important;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+}
+.chatgpt-box-send-footer {
+    text-align: right;
+}
+.ets-seo-chatgpt-box .btn-cancel-gpt {
+    height: 39px;
+    padding: 0 10px;
+    font-size: 13px !important;
+}
+.ets-seo-chatgpt-box .btn-send-gpt:hover {
+    background: #009bbb;
+    border-color: #009bbb;
+    color: #fff;
+}
+.btn-clear-all-message {
+    position: absolute;
+    right: 19px;
+    font-weight: 500;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 0 10px;
+    border-radius: 3px;
+    line-height: 24px;
+    top: 52px;
+    cursor: pointer;
+}
+.btn-clear-all-message:hover {
+    background: #25b9d7;
+    border-color: #25b9d7;
+    color: #fff;
+}
+.no_items {
+    padding: 15px 0;
+    text-align: center;
+    margin-bottom: 0 !important;
+}
+
+.ets-seo-chatgpt-box.panel .close-chatgpt-box::after {
+    content: "";
+    position: absolute;
+    background: #999;
+    height: 16px;
+    margin-left: -1px;
+    left: 50%;
+    width: 2px;
+    top: 50%;
+    margin-top: -8px;
+}
+/* chatgpt box style */
+.ets-seo-chatgpt-box.panel {
+    position: fixed !important;
+    background: #fff !important;
+    z-index: 10000;
+    width: 450px;
+    right: 50px;
+    margin-top: 0;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.26) !important;
+    padding: 20px;
+}
+.ets-seo-chatgpt-box.panel .panel-heading::before {
+    display: none;
+}
+.btn-open-chatgpt {
+    background: #10A37F;
+    border: 1px solid #10A37F;
+    transition: all 0.3s;
+    border-radius: 6px;
+    padding: 6px;
+    color: #fff;
+    height: 34px;
+    width: 34px;
+    display: inline-flex;
+    margin-left: 5px;
+    transform: translateY(2px);
+    -webkit-transform: translateY(2px);
+}
+.chatgpt-message .chatgpt-content {
+    text-align: left;
+    display: flex;
+    display: -webkit-flex;
+}
+.chatgpt-message .chatgpt-content .svg_icon {
+    margin-left: 8px;
+}
+
+.ets-seo-chatgpt-box .form-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ets-seo-chatgpt-box .form-wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.ets-seo-chatgpt-box .form-wrapper::-webkit-scrollbar-thumb {
+    background: #ccc;
+}
+
+.ets-seo-chatgpt-box .form-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.form-control[name="content-apply-chatgpt"] {
+    height: 38px;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 12px;
+    padding-left: 7px;
+    padding-right: 15px;
+    max-width: 90px;
+}
+.chatgpt-message.is_customer .chatgpt-content {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row-reverse;
+    -webkit-flex-direction: row-reverse;
+}
+.col-lg-2.enable_gpt_option {
+    display: inline-flex;
+    align-items: flex-start;
+}
+.chatgpt-button-append-content .translatable-field-list .btn.btn-default.dropdown-toggle {
+    min-height: 38px;
+    font-size: 12px;
+    font-weight: normal;
+}
+.btn-open-chatgpt:hover {
+    background: #008f6c;
+    border: 1px solid #008f6c;
+}
+.chatgpt-button-append .col-lg-7 {
+    display: flex;
+}
+.btn.btn-default.btn-apply-chatgpt {
+    width: 100%;
+    padding-left: 2px;
+    padding-right: 2px;
+    max-width: 100px;
+    font-weight: normal;
+    font-size: 12px;
+}
+.ets-seo-chatgpt-box.panel .close-chatgpt-box {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    font-size: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    cursor: pointer;
+    margin-top: -15px;
+}
+.minimize .minimize-chat-gpt{
+    display:none;
+}
+.maximize .maximize-chat-gpt{
+    display:none;
+}
+.maximize-chat-gpt, .minimize-chat-gpt {
+    position: absolute;
+    right: 35px;
+    top: 50%;
+    cursor: pointer;
+    margin-top: -10px;
+    color: #999;
+}
+.maximize-chat-gpt:hover, .minimize-chat-gpt:hover{
+    color:#000;
+}
+.ets-seo-chatgpt-box.maximize{
+    width: 100% !important;
+    height: 100% !important;
+    right: 0!important;
+    top: 0!important;
+    left: auto!important;
+    bottom: auto!important;
+}
+.ets-seo-chatgpt-box.maximize .ui-resizable-handle{
+    display: none;
+}
+.maximize-chat-gpt svg, .minimize-chat-gpt svg {
+    width: 14px;
+    height: 14px;
+    margin-right: 10px;
+    vertical-align: 2px;
+    fill: currentColor;
+}
+.ets-seo-chatgpt-box.panel .close-chatgpt-box::before {
+    content: "";
+    width: 16px;
+    height: 2px;
+    background: #999;
+    position: absolute;
+    top: 50%;
+    margin-top: -1px;
+    left: 50%;
+    margin-left: -8px;
+}
+
+.ets-seo-chatgpt-box.panel .close-chatgpt-box:hover::before,
+.ets-seo-chatgpt-box.panel .close-chatgpt-box:hover::after {
+    background-color: #000;
+}
+.btn-send-gpt {
+    background: #25b9d7;
+    border: 1px solid #009bbb;
+    border-radius: 4px;
+    height: 39px;
+    padding: 0 10px;
+    font-size: 13px !important;
+    color: #fff;
+    margin-right: 4px;
+    transition: all 0.3s;
+}
+.btn-cancel-gpt {
+    height: 39px;
+    padding: 0 10px;
+    font-size: 13px !important;
+}
+.btn-send-gpt:hover {
+    background: #009bbb;
+}
+.ets-seo-chatgpt-box.panel .close-chatgpt-box::after {
+    content: "";
+    position: absolute;
+    background: #999;
+    height: 16px;
+    margin-left: -1px;
+    left: 50%;
+    width: 2px;
+    top: 50%;
+    margin-top: -8px;
+}
+.col-lg-2.enable_gpt_option .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+.chatgpt_icon {
+    background: #10A37F;
+    color: #fff;
+    padding: 0 2px;
+    display: inline-flex;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    vertical-align: -3px;
+}
+.btn-send-gpt.loading:after,
+.btn.loading:after{
+    content: "";
+    position: absolute;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    border-left: 1px solid transparent !important;
+    border-right: 1px solid transparent !important;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    left: 50%;
+    margin-left: -9px;
+    margin-top: -9px;
+    top: 50%;
+    animation: loading 0.5s infinite linear;
+    -webkit-animation: loading 0.5s infinite linear;
+}
+.ets-seo-chatgpt-box .panel-heading {
+    position: relative;
+    cursor: grab;
+    background-color: #fafbfc;
+    border-bottom: 1px solid #dbe6e9;
+    margin: -20px -20px 40px;
+    height: 45px;
+    line-height: 45px;
+    padding-left: 20px;
+}
+.ets-seo-chatgpt-box.ui-draggable-dragging .panel-heading {
+    cursor: grabbing;
+}
+.box-chatgpt {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.form-chatgpt{
+    display: block;
+    width: 100%;
+}
+.btn-open-chatgpt svg {
+    width: 20px;
+    height: 20px;
+}
+.box-gpt-templates {
+    width: 100%;
+    display: flex;
+    clear: both;
+    flex-wrap: wrap;
+}
+.gpt-list-templates{
+    float:left;
+    padding-left: 0px!important;
+}
+.gpt-item-template {
+    display: block;
+    transition: all 0.3s;
+    float: left;
+    border: 1px solid #ccc;
+    margin: 2px;
+    padding: 3px 6px;
+    border-radius: 5px;
+    background: #fff;
+    color: #999;
+    font-size: 12px;
+    cursor: pointer;
+}
+.box-gpt-templates .gpt-list-templates {
+    display: block;
+    clear: both;
+    margin-bottom: 3px;
+    padding-bottom: 0;
+    margin-top: 0;
+}
+.gpt-item-template:hover {
+    background: #12afce;
+    border-color: #12afce;
+    color: #fff;
+}
+.box-form-chatgpt{
+    display:none;
+}
+body.no_scroll{
+    overflow: hidden;
+}
+.ets-seo-chatgpt-box.panel.resize{
+    bottom: 30px;
+    top: auto;
+    overflow: hidden;
+    margin-bottom: 0 !important;
+    min-height: 250px;
+    min-width: 300px;
+}
+#chatgpt-bottom-panel {
+    position: absolute;
+    right: 40px;
+    height: 100px;
+    bottom: 0;
+    width:450px;
+    color:#fff;
+}
+#chatgpt-drag {
+    position: absolute;
+    left: 0;
+    top: -4px;
+    right: 0;
+    height: 8px;
+    cursor: n-resize;
+}
+#container-chatgpt.show {
+    pointer-events: auto;
+}
+#container-chatgpt {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    pointer-events: none;
+}
+.module_error.alert.alert-danger {
+    position: fixed;
+    z-index: 10000;
+    min-width: 300px;
+    top: 40px;
+    right: 40px;
+}
+.module_error.alert.alert-danger ul {
+    padding-left: 15px;
+}
+#chatgpt-left-panel{
+    position: absolute;
+    right: 40px;
+    width: 450px;
+    height:100%;
+}
+#chatgpt-left-drag{
+    position: absolute;
+    left: -4px;
+    width: 8px;
+    cursor: e-resize;
+    height:100%;
+}
+.chatgpt-message {
+    list-style: none;
+    border-top: 1px solid #cccc;
+    padding: 20px 0px;
+}
+.chatgpt-message.is_customer {
+    text-align: right;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+.chatgpt-message.is_chatgpt {
+    text-align: left;
+    background: #f7f7f8;
+    padding: 15px;
+}
+.chatgpt-button-append.row {
+    margin-top: 20px;
+    border-top: none;
+    margin-left: auto;
+    margin-right: auto;
+    background: #ececf1;
+    border-radius: 5px;
+    padding: 10px 8px;
+    max-width: 600px;
+}
+.chatgpt-button-append.row .form-control-label {
+    margin-bottom: 0;
+    font-weight: normal;
+    padding-left: 15px;
+    font-size: 12px;
+    padding-right: 0;
+}
+.ets-seo-chatgpt-box .chatgpt-button-append.row .col-lg-6 {
+    padding-right: 0;
+    display: flex;
+    display: -webkit-flex;
+}
+.ets-seo-chatgpt-box .form-wrapper {
+    max-height: calc(100% - 175px);
+    overflow: auto;
+    margin-left: -20px;
+    margin-right: -20px;
+}
+.chatgpt-box-send {
+    padding-top: 15px;
+}
+.chatgpt-box-send textarea {
+    height: 85px;
+    min-height: 85px;
+    width: 100%;
+    outline: none;
+    margin-bottom: 2px;
+    border: 1px solid #bbcdd2;
+    padding: 8px 16px;
+    border-radius: 4px;
+    resize: none;
+}
+.ets-seo-chatgpt-box .chatgpt-error {
+    color: red;
+}
+.chatgpt-message .chatgpt-content:last-child {
+    margin-bottom: 0;
+}
+#chatgpt-history-list {
+    display: block;
+    margin-left: 0;
+    max-width: 100%;
+    padding: 0 20px 5px;
+    margin-bottom: 0;
+}
+.js-ets-trans-btn-trans-chatgpt-field-item {
+    background: #10A37F;
+    border: 1px solid #10A37F;
+    transition: all 0.3s;
+    border-radius: 6px;
+    padding: 6px;
+    color: #fff;
+    height: 34px;
+    width: 34px;
+    display: inline-flex;
+    margin-left: 5px;
+    transform: translateY(2px);
+    -webkit-transform: translateY(2px);
+}
+.ets-trans-btn-trans-chatgpt-field-item svg {
+    line-height: 22px;
+    width: 17px;
+    height: 17px;
+}
+.product-page .ets_button_top .ets-trans-field-boundary.form-helper-editor button.ets-trans-button.ets-trans-btn-trans-chatgpt-field-item {
+    margin-right: 35px;
+    background: transparent!important;
+    border: none;
+    color: #6d878f;
+    padding: 5px 0;
+    margin-top: 0;
+    width: auto;
+    height: auto;
+}
+.product-page .ets_button_top .ets-trans-field-boundary.form-helper-editor button.ets-trans-button.ets-trans-btn-trans-chatgpt-field-item:hover {
+    background: transparent !important;
+    color: #25b9d7 !important;
+}
+.product-page .ets_button_top .ets-trans-field-boundary.form-helper-editor button.ets-trans-button.ets-trans-btn-trans-chatgpt-field-item.loading:after {
+    border-top: 1px solid #25b9d7!important;
+    border-bottom: 1px solid #25b9d7!important;
+}
+/* end chatgpt */
+
+/* box add content chat */
+.ets_trans_popup {
+    background-color: rgba(0, 0, 0, 0.8);
+    bottom: 0;
+    font-weight: 500;
+    left: 0;
+    opacity: 0;
+    overflow: auto;
+    position: fixed;
+    top: 0;
+    visibility: hidden;
+    width: 100%;
+}
+.ets_trans_popup.show {
+    opacity: 1;
+    padding: 20px 0;
+    pointer-events: auto;
+    visibility: visible;
+    z-index: 7000;
+}
+.popup_content.table {
+    background: transparent none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 5px;
+    display: table;
+    height: 100%;
+    margin: 0 auto;
+    max-width: 900px;
+    min-height: calc(100vh - 40px);
+    width: 90%;
+}
+.popup_content_tablecell {
+    display: table-cell;
+    vertical-align: middle;
+}
+.ets_trans_popup .popup_content_wrap {
+    background: #fff none repeat scroll 0 0;
+    border-radius: 5px;
+    position: relative;
+}
+body .popup_content_wrap .close_popup, body .popup_content_wrap .close {
+    background: transparent none repeat scroll 0 0;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0;
+    font-weight: normal;
+    height: 14px;
+    line-height: 20px;
+    opacity: 1;
+    position: absolute;
+    right: 15px;
+    text-align: center;
+    top: 15px;
+    transform: rotate(45deg);
+    width: 14px;
+    z-index: 1;
+}
+body .popup_content_wrap .close_popup::before, body .popup_content_wrap .close::before {
+    background-color: #bbbbbb;
+    content: "";
+    height: 100%;
+    left: 50%;
+    position: absolute;
+    top: 1px;
+    width: 2px;
+}
+body .popup_content_wrap .close_popup::after, body .popup_content_wrap .close::after {
+    background-color: #bbb;
+    content: "";
+    height: 2px;
+    left: 1px;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+}
+.bootstrap .form-horizontal .form-wrapper {
+    max-width: 100%;
+    width: 100%;
+    padding: 20px;
+}
+#ets-trans-form-popup .col-lg-8 .form-group {
+    margin-bottom: 10px;
+}
+@keyframes dots-boxshadow {
+    0%, 20% {
+        background-color: rgba(0,0,0,0);
+        box-shadow:
+                .25em 0 0 rgba(0,0,0,0),
+                .5em 0 0 rgba(0,0,0,0);}
+    40% {
+        background-color: #666;
+        box-shadow:
+                .25em 0 0 rgba(0,0,0,0),
+                .5em 0 0 rgba(0,0,0,0);}
+    60% {
+        box-shadow:
+                .25em 0 0 #666,
+                .5em 0 0 rgba(0,0,0,0);}
+    80%, 100% {
+        box-shadow:
+                .25em 0 0 #666,
+                .5em 0 0 #666;}
+}
+@-webkit-keyframes dots-boxshadow {
+    0%, 20% {
+        background-color: rgba(0,0,0,0);
+        box-shadow:
+                .25em 0 0 rgba(0,0,0,0),
+                .5em 0 0 rgba(0,0,0,0);}
+    40% {
+        background-color: #666;
+        box-shadow:
+                .25em 0 0 rgba(0,0,0,0),
+                .5em 0 0 rgba(0,0,0,0);}
+    60% {
+        box-shadow:
+                .25em 0 0 #666,
+                .5em 0 0 rgba(0,0,0,0);}
+    80%, 100% {
+        box-shadow:
+                .25em 0 0 #666,
+                .5em 0 0 #666;}
+}
+.chatgpt-content.chatgpt-loading {
+    font-size: 40px;
+    margin-bottom: 5px !important;
+    margin-top: 5px;
+    margin-left: 5px;
+    animation: dots-boxshadow 1s steps(5, end) infinite;
+    -webkit-animation: dots-boxshadow 1s steps(5, end) infinite;
+    width: 6px;
+    height: 6px;
+    background: #666;
+    border-radius: 50%;
+}
+.chatgpt-button-append-content .chatgpt-button-apply {
+    min-width: 86px;
+}
+.chatgpt-button-append-content .chatgpt-button-select-lang {
+    min-width: 150px;
+    display: flex;
+    display: -webkit-flex;
+}
+.chatgpt-button-append-content .form-control-label {
+    min-width: 60px;
+    padding-left: 10px !important;
+}
+.chatgpt-message.is_chatgpt .chatgpt-content i {
+    margin-right: 8px;
+    margin-left: 0;
+}
+.chatgpt-button-append-content-cell {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 1px 5px;
+}
+
+
+
+/* new style for Seo module */
+label.form-control-label,
+.ets_button_top_chatgpt {
+    position: relative;
+}
+.ets_button_top_chatgpt .btn-open-chatgpt,
+button.ets-seo-open-chatgpt-box.btn-open-chatgpt{
+    transition: all 0.3s;
+    border-radius: 6px;
+    padding: 6px;
+    color: #6d878f;
+    height: 32px;
+    width: 32px;
+    display: inline-flex;
+    margin-left: 5px;
+    transform: translateY(2px);
+    -webkit-transform: translateY(2px);
+    position: absolute;
+    bottom: 100%;
+    background: transparent!important;
+    right: 30px;
+    border: none!important;
+}
+.ets_button_top_chatgpt .btn-open-chatgpt svg,
+button.ets-seo-open-chatgpt-box.btn-open-chatgpt svg{
+    width: 18px;
+    height: 18px;
+}
+.chatgpt-button-select-lang .translatable-field-list {
+    padding-left: 4px;
+}
+.chatgpt-button-select-lang .translatable-field-list select {
+    font-size: 13px;
+    padding-left: 4px;
+    padding-right: 10px;
+    min-width: 50px;
+}
+label.form-control-label button.ets-seo-open-chatgpt-box.btn-open-chatgpt {
+    bottom: 3px;
+}
+button.ets-seo-open-chatgpt-box.btn-open-chatgpt:hover {
+    color: #25b9d7;
+}
+.bootstrap .ets-seo-chatgpt-box.panel .panel-footer {
+    margin-top: 15px;
+    height: 39px;
+}
+.locale-input-group .dropdown button.ets-seo-open-chatgpt-box.btn-open-chatgpt {
+    transform: none;
+    position: static;
+    vertical-align: -4px;
+}
+div#description_short, #description, #product_description_description, #product_description_description_short {
+    position: relative;
+}
+button.ets-seo-open-chatgpt-box.btn-open-chatgpt:last-child {
+    right: 8px;
+}
+.ets-trans-field-boundary button.ets-seo-open-chatgpt-box.btn-open-chatgpt:last-child {
+    right: 60px;
+}
+.ets-trans-field-boundary ~ button.ets-seo-open-chatgpt-box.btn-open-chatgpt {
+    right: 50px;
+}
+fieldset.form-group.ets_button_top > button.ets-seo-open-chatgpt-box.btn-open-chatgpt{
+    top: -5px;
+    bottom: auto;
+    right: 60px;
+}
+fieldset.form-group > button.ets-seo-open-chatgpt-box.btn-open-chatgpt {
+    top: -5px;
+    bottom: auto;
+    right: 10px;
+}
+
+
+
+
+
+
+
+
+

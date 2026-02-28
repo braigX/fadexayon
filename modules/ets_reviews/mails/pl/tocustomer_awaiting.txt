@@ -1,0 +1,9 @@
+[{shop_url}]
+
+Witaj {customer_name},
+Twój {object} w {product_name} został pomyślnie przesłany i oczekuje na zatwierdzenie.
+
+{content}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

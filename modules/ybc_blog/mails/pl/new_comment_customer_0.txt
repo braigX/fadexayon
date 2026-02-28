@@ -1,0 +1,4 @@
+Cześć {customer_name}
+Twój komentarz został pomyślnie przesłany {post_title} i czeka na zatwierdzenie
+Przejrzyj post
+

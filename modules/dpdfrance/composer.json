@@ -1,0 +1,35 @@
+{
+    "name": "dpdfrance/prestashop-module",
+    "description": "Offer DPD's fast and reliable delivery services to your customers",
+    "authors": [
+        {
+            "name": "DPD France S.A.S.",
+            "email": "support.ecommerce@dpd.fr"
+        }
+    ],
+    "type": "prestashop-module",
+    "license": "AFL - Academic Free License (AFL 3.0)",
+    "version": "6.2",
+    "require": {
+        "php": ">=7.0",
+        "setasign/fpdi": "^2.3",
+        "setasign/tfpdf": "1.31.*",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "ext-simplexml": "*",
+        "ext-soap": "*",
+        "ext-xml": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "PrestaShop\\Module\\DPDFrance\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "config": {
+        "preferred-install": "dist",
+        "prepend-autoloader": false,
+        "optimize-autoloader": true
+    }
+}

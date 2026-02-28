@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>ets_crosssell</name>
+    <displayName><![CDATA[Cross Selling Pro - Upsell - Panier et pages]]></displayName>
+    <version><![CDATA[2.2.4]]></version>
+    <description><![CDATA[Suggestions de produits automatis&eacute;es bas&eacute;es sur l&#039;int&eacute;r&ecirc;t du client &agrave; afficher sur le panier, la page produit, la page de commande, etc. Cross-selling Pro (upsell) permet d&#039;augmenter la visibilit&eacute; de tous les produits et d&#039;encourager les clients &agrave; acheter plus !]]></description>
+    <author><![CDATA[ETS-Soft]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+</module>

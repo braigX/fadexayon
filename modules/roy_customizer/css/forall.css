@@ -1,0 +1,19 @@
+/* Rev Slider fix */
+#activation_dw.rs-dash-widget { display:none!important }
+#templates_dw.rs-dash-widget { display:none!important }
+/* #nav-sidebar { overflow-y: scroll; } */
+body .ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix.tp-slider-new-dialog-title { height: auto!important }
+
+/* Customizer Admin Tab Link Icon */
+#subtab-AdminRoyCustomizer a i {
+    display: none;
+}
+/* Customizer Admin Tab Link Icon */
+#subtab-AdminRoyCustomizer a::before {
+    content: '';
+    width: 18px;
+    height: 16px;
+    display: inline-block;
+    background: url('../images/admin/m.png');
+}
+

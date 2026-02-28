@@ -1,0 +1,178 @@
+a.button.button-tntofficiel-medium,
+a.button.button-tntofficiel-small,
+button.button.button-tntofficiel-medium,
+button.button.button-tntofficiel-small {
+    display:inline-block;
+    height: auto;
+    border: 1px solid #FF6600;
+    padding: 0;
+    background-color: #FF6600;
+    background-image: none;
+    font-family: 'TNT', 'Open Sans', Arial, Helvetica, sans-serif;
+    line-height: normal;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-shadow: 0px 0px rgb(0, 0, 0);
+    cursor:pointer;
+    border-radius: 3px;
+}
+
+body.adminorders a.button.button-tntofficiel-medium,
+body.adminorders a.button.button-tntofficiel-small,
+body.adminorders button.button.button-tntofficiel-medium,
+body.adminorders button.button.button-tntofficiel-small {
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+a.button.button-tntofficiel-medium,
+button.button.button-tntofficiel-medium {
+    font-size: 17px;
+    line-height: 21px;
+}
+a.button.button-tntofficiel-small,
+button.button.button-tntofficiel-small {
+    font-size: 13px;
+    line-height: 17px;
+}
+
+a.button.button-tntofficiel-medium *,
+a.button.button-tntofficiel-small *,
+button.button.button-tntofficiel-medium *,
+button.button.button-tntofficiel-small * {
+    color: #FFFFFF;
+    font-size: inherit;
+}
+
+a.button.button-tntofficiel-medium span,
+a.button.button-tntofficiel-small span,
+button.button.button-tntofficiel-medium span,
+button.button.button-tntofficiel-small span {
+    display:block;
+    border: 1px solid #FF6600;
+    background-color: #FF6600;
+    background-image: none;
+    font-family: 'TNT', 'Open Sans', Arial, Helvetica, sans-serif;
+    line-height: normal;
+    color: #FFFFFF;
+    text-shadow: 0px 0px rgb(0, 0, 0);
+    cursor:pointer;
+    border-radius: 3px;
+}
+a.button.button-tntofficiel-medium span,
+button.button.button-tntofficiel-medium span {
+    padding: 8px 16px;
+}
+a.button.button-tntofficiel-small span,
+button.button.button-tntofficiel-small span{
+    padding: 4px 8px;
+}
+
+a.button-tntofficiel-medium:hover,
+a.button-tntofficiel-medium:focus,
+a.button-tntofficiel-medium:active,
+a.button-tntofficiel-medium.active,
+a.button-tntofficiel-small:hover,
+a.button-tntofficiel-small:focus,
+a.button-tntofficiel-small:active,
+a.button-tntofficiel-small.active,
+button.button-tntofficiel-medium:hover,
+button.button-tntofficiel-medium:focus,
+button.button-tntofficiel-medium:active,
+button.button-tntofficiel-medium.active,
+button.button-tntofficiel-small:hover,
+button.button-tntofficiel-small:focus,
+button.button-tntofficiel-small:active,
+button.button-tntofficiel-small.active {
+    font-family: 'TNT', 'Open Sans', Arial, Helvetica, sans-serif;
+    line-height: normal;
+    outline: 0 none;
+    text-decoration: none;
+    border-color: #FF6600;
+    background-color: #FF6600;
+    color: #FFFFFF;
+}
+
+a.button-tntofficiel-medium:hover span,
+a.button-tntofficiel-medium:focus span,
+a.button-tntofficiel-medium:active span,
+a.button-tntofficiel-medium.active span,
+a.button-tntofficiel-small:hover span,
+a.button-tntofficiel-small:focus span,
+a.button-tntofficiel-small:active span,
+a.button-tntofficiel-small.active span,
+button.button-tntofficiel-medium:hover span,
+button.button-tntofficiel-medium:focus span,
+button.button-tntofficiel-medium:active span,
+button.button-tntofficiel-medium.active span,
+button.button-tntofficiel-small:hover span,
+button.button-tntofficiel-small:focus span,
+button.button-tntofficiel-small:active span,
+button.button-tntofficiel-small.active span {
+    font-family: 'TNT', 'Open Sans', Arial, Helvetica, sans-serif;
+    line-height: normal;
+    border-color: #FF6600;
+    background-color: #FF6600;
+    color: #FFFFFF;
+}
+
+
+
+.tntofficiel-box-panel {
+    display: block;
+    white-space: normal;
+    font-size: 13px;
+    line-height: normal;
+    font-weight: bold;
+    color: #444444;
+    text-align: left;
+    vertical-align: baseline;
+    border-radius: 0;
+    background: #ffffff;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 8px 1px;
+    border-left: 3px solid #ff6600;
+    background-color: rgba(255, 255, 255, 0.82);
+    box-shadow: 0 0.5ex 1ex rgba(0,0,0,0.04);
+}
+
+
+
+span.required:after {
+    content: " *";
+    color: red;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+.tntofficiel-delay {
+    line-height: normal;
+}
+.tntofficiel-delivery-option {
+    border-radius: 3px;
+    font-size: 14px;
+    margin: 0.825rem 0;
+    padding: 0px 0.825ex;
+    line-height: normal;
+    text-align: left;
+    max-width: 100%;
+}
+.tntofficiel-description {
+    font-size: 14px;
+    line-height: normal;
+    color: #505050;
+}
+.tntofficiel-description2 {
+    font-size: 13px;
+    line-height: normal;
+    font-style: italic;
+    color: #505050;
+}
+.tntofficiel-edd {
+    font-size: 13px;
+    line-height: normal;
+    font-weight: bold;
+}

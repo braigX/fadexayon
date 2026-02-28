@@ -1,0 +1,9 @@
+[{shop_url}]
+
+Hallo {customer_name},
+Uw {object} op {product_name} is succesvol ingediend en wacht op goedkeuring.
+
+{content}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

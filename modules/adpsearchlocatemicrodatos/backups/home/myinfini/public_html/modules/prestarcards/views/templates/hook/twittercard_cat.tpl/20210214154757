@@ -1,0 +1,20 @@
+{*
+* 2018 PSBlog
+*
+* NOTICE OF LICENSE
+*
+* READ ATTACHED LICENSE.TXT
+*
+*  @author    PSBlog
+*  @copyright 2018 PSBlog
+*  @license   READ ATTACHED README.TXT
+*}
+
+<!-- TwitterCard Category -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{$category->name|escape:'html':'UTF-8'}">
+<meta name="twitter:description" content="{$category->description|strip_tags|strip|trim|escape:'html':'UTF-8'}">
+{if $category->id_image}<meta name="twitter:image" content="{$link->getCatImageLink($category->link_rewrite, $category->id_image, 'category_default')|escape:'html':'UTF-8'}">{/if}
+<meta name="twitter:site" content="{$twitterusername|escape:'html':'UTF-8'}">
+<meta name="twitter:creator" content="{$twitterusername|escape:'html':'UTF-8'}">
+<meta name="twitter:domain" content="{$domain|escape:'html':'UTF-8'}">

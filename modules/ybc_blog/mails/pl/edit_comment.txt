@@ -1,0 +1,4 @@
+Cześć admin,
+Komentarz do artykułu {post_title} został zmodyfikowany przez {customer_name}.
+Poprzednia wersja: {comment_old}
+Nowa wersja: {comment}

@@ -1,0 +1,1618 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8"/>
+
+    <title>Contact Form 7</title>
+
+    <meta name="description" content="PrestaHero product documentation"/>
+
+
+    <link rel="stylesheet" href="../views/css/help.css" media="all"/>
+    <link rel="stylesheet"
+          href="https://demo2.presta-demos.com/docs.etssoft.net/contact-form-7/assets/css/jquery.fancybox.min.css"
+          media="all"/>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://demo2.presta-demos.com/docs.etssoft.net/contact-form-7/assets/js/jquery.fancybox.min.js"></script>
+    <script src="../views/js/help.js"></script>
+    <link href="https://demo2.presta-demos.com/fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"/>
+</head>
+<body class="documenter-project-gentshop-guide">
+<div id="wrapper">
+    <div id="sidebar">
+        <div class="logo">
+            <a class="img_logo" href="https://ibb.co/zbvmDNL">
+                <img style=width:90%;height:auto src="https://i.ibb.co/Y8sNwbK/prestahero-logo-with-tag-line-1.png"
+                     alt="PrestaHero"/>
+            </a>
+        </div>
+        <ul>
+            <li><a href="#start">Introduction</a></li>
+            <li><a href="#welcome">Welcome</a></li>
+            <li><a href="#started">Before getting started</a></li>
+            <li><a href="#install">Install Contact Form 7</a></li>
+            <li><a href="#create">Create your first contact form</a></li>
+            <li><a href="#display">Display contact form on the frontend</a></li>
+            <li><a href="#tags">Form-tags and mail-tags</a></li>
+            <li><a href="#types">List of Form-tag Types</a></li>
+            <li><a href="#messages">Manage messages</a></li>
+            <li><a href="#email">Email template</a></li>
+            <li><a href="#import">Import/Export</a></li>
+            <li><a href="#integration">Integration</a></li>
+            <li><a href="#statistic">Statistics</a></li>
+            <li><a href="#thankyou">Thank you</a></li>
+        </ul>
+        <div class="coppyright">
+            Copyight <span>PrestaHero</span> &copy; 2023<br/>All rights reserved
+        </div>
+    </div>
+    <div id="content">
+        <div class="section" id="start">
+            <h2>Introduction</h2>
+            <h3>CONTACT FORM 7 (Prestashop version) - USER-GUIDE</h3>
+            Created: 11/06/2018<br/>
+            Latest update: 06/04/2023<br/>
+            By: <strong>PrestaHero</strong><br/>
+
+        </div>
+        <div class="section" id="welcome">
+            <h2>Welcome</h2>
+            <p>Thank you for purchasing our module. </p>
+            <p>Within this user-guide document, we'll try guide you on how to install and use <strong>Contact Form 7 -
+                Prestashop version</strong> on your Prestashop website.</p>
+            <p>If you have any questions that are beyond the scope of this documentation, please feel free to contact
+                us.</p>
+        </div>
+        <div class="section" id="started">
+            <h2>Before getting started - Understanding of Contact Form 7</h2>
+            <p>Have you heard about or ever been using <a
+                    href="https://demo2.presta-demos.com/wordpress.org/plugins/contact-form-7/" target="_blank"><strong>Wordpress
+                Contact Form 7</strong></a> – the most famous Wordpress contact form plugin that has reached more than 5
+                million active installations?</p>
+            <p>Wordpress Contact Form 7 is the most successful Wordpress plugin among over 29 thousand Wordpress plugins
+                available on <a href="https://demo2.presta-demos.com/wordpress.org/"><strong>Wordpress.org</strong></a>.
+                Thanks to <strong><a href="https://demo2.presta-demos.com/profiles.wordpress.org/takayukister">Takayuki
+                    Miyoshi</a></strong> (the author of Wordpress Contact Form 7) and his team for developing such great
+                plugin for Wordpress users (I’m one among those) that helps bring amazing contact form feature to
+                millions of Wordpress websites.</p>
+            <p>Most of the code of <strong>Contact Form 7 - Prestashop version</strong> (the Prestashop module you
+                purchased) is gotten from its Wordpresss version (as the Contact Form 7 is an open source plugin). This
+                Prestashop module works completely the same as its Wordpress version, it’s also added with some more
+                helpful features such as capacity of storing customer messages, Contact form page, Simple image CAPTCHA,
+                template editor, live form preview, improved UI (user interface), etc.</p>
+            <p>Because this Prestashop module works much the same as Wordpress Contact Form 7, so some parts of this
+                document are quoted from <a href="https://demo2.presta-demos.com/contactform7.com/" target="_blank">WordPress
+                    Contact Form 7's help website</a>, please refer to <a
+                        href="https://demo2.presta-demos.com/contactform7.com/" target="_blank">contactform7.com</a> for
+                more reference. Reading helpful articles on the website will also help you alot in understanding of
+                Contact Form 7 - Prestashop version. </p>
+        </div>
+        <div class="section" id="install">
+            <h2>Install Contact Form 7</h2>
+            <div class="box">
+                <div class="left width40">
+                    <p><strong>"Contact Form 7"</strong> can be installed in one click as other standard Prestashop
+                        modules.</p>
+                    <p>Follow steps below to install <strong>"Contact Form 7"</strong> on your source website (website
+                        that you want to upgrade to 1.7)</p>
+                    <ul>
+                        <li>1. In your website back office, navigate to <strong>"Modules > Modules & Services"</strong>
+                        </li>
+                        <li>2. Click on <strong>"Upload a module"</strong>, select module installation file (<strong>ets_contactform7.zip</strong>)
+                            then upload the module
+                        </li>
+                        <li>3. On module listing page, Click on <strong>"Install"</strong> button of the module you just
+                            uploaded (<strong>"Contact Form 7"</strong>) and install it
+                        </li>
+                        <li>4. Wait while the theme is being installed</li>
+                        <li>5. You're done! Click on <strong>quick access tabs</strong> to navigate to module working
+                            area (You can also go to the installed moudle list, find <strong>"Contact Form 7"</strong>
+                            and click on its <strong>"Configure"</strong> button to open module working area.
+                        </li>
+                    </ul>
+                </div>
+                <div class="right width50">
+
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="section" id="create">
+            <h2>Create your first contact form</h2>
+            <div class="box">
+                <div class="left width40">
+                    <h3>General form settings</h3>
+                    <p>Navigate to <strong>"Contact > Contact Forms"</strong>, click on <strong>"Add New"</strong> icon
+                        on top right of the panel.</p>
+                    <p>Fill in required fields and select optional settings.</p>
+                    <ul>
+                        <li><strong>Title:</strong> This is form title displayed on the frontend</li>
+                        <li><strong>Form (Form editor):</strong> Use <strong>tag-generator tools</strong> to generate <a
+                                href="#form-tag" class="inline-scroll">Form-tags</a> and compile the form you need, you
+                            can also insert here any HTML tags you want to shape your expected contact form, click on
+                            <strong>"Preview"</strong> to preview the form before publishing the form.
+                        </li>
+                    </ul>
+                    <p>Click <strong>“Save”</strong> button to save your contact form.</p>
+                </div>
+                <div class="right width50">
+                    <a href="https://ibb.co/k0D6KYK" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc"
+                            src="https://i.ibb.co/WFzpnSn/1.png"/></a></br></br>
+                    <a href="https://ibb.co/Np4Mph3" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc"
+                            src="https://i.ibb.co/RP5qPnS/2.png"/></a>
+                    <br/>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="box">
+                <div class="left width40">
+                    <h3>Email configurations</h3>
+                    <p>Click on the <strong>"Mail"</strong> tab to open email configuration area for the contact form.
+                        Below are explainations of the input fields.</p>
+                    <ul>
+                        <li><strong>To:</strong> Enter here receiver's email address which you would like to receive
+                            messages from customers, you can also enter here receiver name in this format <code>"Receiver
+                                name &lt;receiver-email@example.com&gt;"</code></li>
+                        <li><strong>From:</strong> Enter here sender's email address which is used to send emails when
+                            customer contact you via this contact form. You can also enter here sender name in this
+                            format <code>"Sender name &lt;sender-email@example.com&gt;"</code>.
+                            If this field is blank, your website's configured SMTP email will be used as sender email
+                            (in case no SMTP email is available, shop's email will be used instead). To avoid emails are
+                            considered as spam by receiver's email service, you need to enter an authorized email
+                            address, normally it should be your website's configured <strong>SMTP email</strong> nor an
+                            email created with your website domain such as <strong>contact@yourdomain.com</strong></li>
+                        <li><strong>Subject:</strong> Email subject used when an email is sent via the contact form</li>
+                        <li><strong>Reply to:</strong> Email address to be specified as "Reply email" when you click on
+                            "Reply" button of your mail box when a message sent from the contact form to your email
+                            (receiver email). The format of this field is in this format: <code>"[your-name] &lt;[your-email]&gt;"</code>
+                        </li>
+                        <li><strong>Message body:</strong> Email content that is sent to the receiver's email address
+                        </li>
+                    </ul>
+                    <br/>
+                    <div class="note">
+                        You can always use <a href="#mail-tag" class="inline-scroll">mail-tags</a> such as <code>[your-name],
+                        [your-email], [your-subject], [your-message],</code> etc. in the fields above.
+                    </div>
+                    <br/>
+                </div>
+                <div class="right width50">
+                    <a href="https://ibb.co/b67nzVc" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc"
+                            src="https://i.ibb.co/df7yGv8/3.png"/></a>
+                </div>
+                <br/>
+                <div class="clear"></div>
+            </div>
+            <div class="box">
+                <div class="left width40">
+                    <h3>Message customizations</h3>
+                    <p>Contact Form 7 allows you to customize any messages that may appear in certain situations when
+                        customers use the contact form on the frontend.</p>
+                    <p>Messages are filled in with default values which are suitable for most kinds of contact form but
+                        if you would like to changes the messages you can do that
+                        easily by clicking on "Messages" tab, to open message customization area.</p>
+                    <p>Here you can edit any messages you want in each language.</p>
+                </div>
+                <div class="right width50">
+                    <a href="https://ibb.co/TkyWCfJ" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc"
+                            src="https://i.ibb.co/s27WBfc/4.png"/></a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="box">
+                <div class="left width40">
+                    <h3>SEO options</h3>
+                    <ul>
+                        <li>Enable separate form page: Enable this option to create an URL (a separate page) to display
+                            the contact form.
+                        </li>
+                        <li>You can enter SEO settings (meta keywords, meta title, meta description, friendly URL) to
+                            make the page friendly for SEO.
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="right width50">
+                    <a href="https://ibb.co/QkLCTDQ" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc"
+                            src="https://i.ibb.co/9h6V1Zg/5.png"/></a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="box">
+                <div class="left width40">
+                    <h3>General settings</h3>
+                    <ul>
+                        <li><strong>Save message:</strong> Enable this option to save messages sent by customers to
+                            module backoffice
+                        </li>
+                        <li><strong>Save attachments:</strong> Enable this option if you want to save attachments
+                            uploaded by customer via the contact form. (Note that enable this may spend a lot of your
+                            dispace)
+                        </li>
+                        <li><strong>Star message from this contact form:</strong> Automatically star (highlight the
+                            messages sent via this contact form in the message list by a star) all messages sent via
+                            this contact form
+                        </li>
+                        <li><strong>Open form by button:</strong> Enable this option if you want to display a "Contact
+                            button", when customer click on this button the contact form will be displayed via a popup
+                        </li>
+                        <li><strong>Enable separate form page:</strong> Enable this option to create an URL (a separate
+                            page) to display the contact form, enter SEO settings (meta keywords, meta title, meta
+                            description, friendly URL) to make the page friendly for SEO
+                        </li>
+                        <li><strong>Preserved display position:</strong> If you would like display the contact form via
+                            pre-defined Prestashop hooks, just check on the hooks you want
+                        </li>
+                        </br>
+                    </ul>
+
+                </div>
+                <div class="right width50">
+                    <a href="https://ibb.co/jzbG9Lf" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc"
+                            src="https://i.ibb.co/MfZpyRS/5.png"/></a>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+        </div>
+        <div class="section" id="display">
+            <div class="box">
+                <h2>Display contact form on the frontend</h2>
+                <div class="box">
+                    <div class="left width40">
+                        <p>Contact form offers 3 ways to display a contact form on the website's front end:</p>
+                        <p><i>- Display contact form on a separate page (with a friendly URL)</i></p>
+                        <p><i>- Display contact form using shortcode</i></p>
+                        <p><i>- Display contact form using custom hook</i></p>
+                        <p><i>- Display contact form using pre-defined Prestashop hooks</i></p>
+                    </div>
+                    <div class="right width50">
+                        <a href="https://ibb.co/fFGT9Dp" data-fancybox><img
+                                style="width:60%;height:auto;border:1px solid #ccc"
+                                src="https://i.ibb.co/jfZjzJM/6.png"/></a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <br/>
+            <div class="box">
+                <div class="left width40">
+                    <h3>Display contact form on a separate page</h3>
+                    <p>Contact Form 7 allows you to create a separate URL to display a contact form. In order to enable
+                        this feature, on the "Form" tab, set "Enable separate form page" to "Yes" then enter</p>
+                    <p>SEO settings for the page that include meta title, meta description, meta keywords and friendly
+                        URL.</p>
+                    <p>After you successfully save the configuration options, a form page url will be displayed. You can
+                        use that URL in your website menu or anywhere you want customer to see the link to the contact
+                        form.</p>
+                </div>
+                <div class="right width50">
+                    <a href="https://ibb.co/31hjs1x" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc"
+                            src="https://i.ibb.co/PxCPYx2/7.png"/></a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <br/>
+            <div class="box">
+                <div class="left width40">
+                    <h3>Display contact form using shortcode</h3>
+                    <p>Shortcode is available for each contact form, the shortcodes are in this format <code>[contact-form-7
+                        id="CONTACT_FORM_ID"]</code>.</p>
+                    <p>You can also copy the shortcode of each contact form on the contact form list or in the form
+                        editing page. Paste the contact form's shortcode anywhere on your CMS page,</p>
+                    <p>product description, category description, .tpl file, etc. to display the contact form.</p>
+                </div>
+                <div class="right width50">
+                    <a href="https://ibb.co/pftHBkX" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc"
+                            src="https://i.ibb.co/QP2W3xm/8.png"/></a> </br></br>
+                    <a href="https://ibb.co/kDn72dT" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc"
+                            src="https://i.ibb.co/s1Sf9B4/9.png"/></a> </br></br>
+                    <a href="https://ibb.co/t2HrbTp" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc" src="https://i.ibb.co/B6fMg52/10.png"/></a></br></br>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <br/>
+            <div class="box">
+                <div class="left width40">
+                    <h3>Display contact form using custom hook</h3>
+                    <p>Besides using shortcode, you can also use custom hook in this format <code>{hook
+                        h="displayContactForm7" id="CONTACT_FORM_ID"}</code> to display a contact form like how you do
+                        with shortcode.</p>
+                    <p>The only thing different is custom hook can be used in template .tpl files only.</p>
+                </div>
+                <div class="right width50">
+
+                    <a href="https://ibb.co/3hHJWTB" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc" src="https://i.ibb.co/4NxQMFP/11.png"/></a></br></br>
+                    <a href="https://ibb.co/2ywqw3X" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc" src="https://i.ibb.co/mGmJm5Q/12.png"/></a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <br/>
+            <div class="box">
+                <div class="left width40">
+                    <h3>Display contact form using pre-defined Prestashop hooks</h3>
+                    <p>In order to display the contact form in pre-defined Prestashop hooks such as header, footer,
+                        product page, etc.</p>
+                    <p>When you setup the contact form, just check on the positions you want on the "Preserved display
+                        position" option</p>
+                </div>
+                <div class="right width50">
+                    <a href="https://ibb.co/ZJq5kF7" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc" src="https://i.ibb.co/0XHTd6v/13.png"/></a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="section" id="tags">
+            <h2>Form-tags and mail-tags</h2>
+            <p>Contact Form 7 allows you to edit the templates of your contact forms (using form editor) and your mail
+                (mail headers and message body) with various “tags.” In the terminology for Contact Form 7, tag means a
+                tiny formed string of type enclosed in square brackets (<code>[ ]</code>).</p>
+            <p>Tags for forms and tags for mail look different from each other, for example, you can use <code>[text*
+                your-name]</code> in your form and <code>[your-name]</code> in your mail. They each have a different
+                syntax.</p>
+            <h3 id="form-tag">Form-tag Syntax</h3>
+            A tag in a form template (“form-tag”) will be replaced with an HTML element which represents an input field
+            when it is displayed in an actual form. Components of a form tag are able to be separated into four parts:
+            <strong>type, name, options and values</strong>.<br/>
+            <a href="https://ibb.co/p18NrKS" data-fancybox><img style="width:60%;height:auto;border:1px solid #ccc"
+                                                                src="https://i.ibb.co/8mpG4xH/14.png"/></a><br/></br></br>
+            <strong>Type</strong> is the most important factor, as it defines what type of HTML element will replace
+            itself, and what kind of input is expected through it.<br/>
+            <strong>Name</strong> is used for identifying the input field. Most form tags have a name, but there are
+            exceptions.<br/>
+            <strong>Options</strong> specify details of behavior and appearance. Options are optional.<br/>
+            <div class="note">
+                <p>Note that order of those parts is important. Options can’t come before name, and Values can’t come
+                    before Options.</p>
+                <p>Refer to <a href="#types" class="inline-scroll">List of Form-tag Types</a> for more information about
+                    all form-tag types that you can use in Contact Form 7.</p>
+            </div>
+            <br/>
+            <p>You can edit a contact form using its <strong>Form editor</strong> on its "Form" tab panel.
+                <strong>HTML</strong> and <strong>Contact Form 7’s form-tags</strong> can be used in the form editor.
+            </p>
+
+
+            A form-tag works as a <strong>placeholder</strong> for an HTML form control (e.g. a text input field) or a
+            set of form controls (e.g. a group of checkboxes). Form-tags are replaced with HTML when rendering the form.<br/>
+            A form-tag must follow specific syntax rules. Otherwise, the form-tag won’t work correctly. Still, it is not
+            necessary to remember the syntax because you can use the <strong>tag-generator tools</strong> to generate
+            correct form-tags.
+            <br/><br/>
+            <a href="https://ibb.co/rkg6bpF" data-fancybox><img style="width:60%;height:auto;border:1px solid #ccc"
+                                                                src="https://i.ibb.co/y0Dyhkd/15.png"/></a>
+
+            <br/>
+            <div class="note">
+                <p>Note that changes in a form template are not automatically reflected in the mail settings of the
+                    contact form. Therefore, if you have added a form-tag to a form template, you will need to manually
+                    add a corresponding mail-tag in mail settings which are in the Mail tab panel.</p>
+            </div>
+            <h3 id="mail-tag">Mail-tag Syntax</h3>
+            A tag in a mail template (“mail-tag”) is much simpler than form tag. A mail tag has only one word in it. In
+            most cases, the word corresponds to the name of a form tag, and it will be replaced with the form input
+            through it.
+            <br/>
+            <a href="https://ibb.co/YpR5hyF" data-fancybox><img style="width:60%;height:auto;border:1px solid #ccc"
+                                                                src="https://i.ibb.co/pJ0HdRB/16.png"/></a>
+
+
+        </div>
+        <div class="section" id="types">
+            <h2>List of Form-tag Types</h2>
+            <p>Contact Form 7 offers 10 types of Form-tag:</p>
+            <ul class="form-tag-list">
+                <li><a href="#text-field" class="inline-scroll" title="Text Fields">Text Fields</a> (<code>text</code>,
+                    <code>text*</code>, <code>email</code>, <code>email*</code>, <code>tel</code>, <code>tel*</code>,
+                    <code>url</code>, <code>url*</code>, <code>hidden</code>, <code>textarea</code> and
+                    <code>textarea*</code>, <code>password</code> and <code>password*</code>)
+                </li>
+                <li><a href="#number-field" class="inline-scroll" title="Number Fields">Number Fields</a>
+                    (<code>number</code>, <code>number*</code>, <code>range</code> and <code>range*</code>)
+                </li>
+                <li><a href="#date-field" class="inline-scroll" title="Date Field">Date Field</a> (<code>date</code> and
+                    <code>date*</code>)
+                </li>
+                <li><a href="#checkboxes" class="inline-scroll" title="Checkboxes, Radio Buttons and dropdown select">Checkboxes,
+                    Radio Buttons and Dropdown select</a> (<code>checkbox</code>, <code>checkbox*</code>,
+                    <code>radio</code>, <code>select</code> and <code>select*</code>)
+                </li>
+                <li><a href="#file-upload" class="inline-scroll" title="File Uploading and Attachment">File Uploading
+                    Field</a> (<code>file</code> and <code>file*</code>)
+                </li>
+                <li><a href="#recaptcha" class="inline-scroll" title="reCAPTCHA">reCAPTCHA</a> (<code>recaptcha</code>)
+                </li>
+                <li><a href="#captcha" class="inline-scroll" title="Image CAPTCHA">Image CAPTCHA</a>
+                    (<code>captcha</code>)
+                </li>
+                <li><a href="#quiz" class="inline-scroll" title="Quiz">Quiz</a> (<code>quiz</code>)</li>
+                <li><a href="#acceptance" class="inline-scroll" title="Acceptance Checkbox">Acceptance Checkbox</a>
+                    (<code>acceptance</code>)
+                </li>
+                <li><a href="#submit-button" class="inline-scroll" title="Submit Button">Submit Button</a>
+                    (<code>submit</code>)
+                </li>
+            </ul>
+            <br>
+            <h3 id="text-field">1. Text Fields</h3>
+            <p>Text input fields are the most common factors of a contact form. As you may know, HTML has two types of
+                elements for text input fields: <code>&lt;input type="text"&gt;</code> for a single-line input; and
+                <code>&lt;textarea&gt;</code> for multi-line input.</p>
+            <p>Contact Form 7 provides several types of form tags for representing these two types of HTML elements:
+                <strong>text field</strong> (<code>text and text*</code>); <strong>email field</strong> (<code>email and
+                    email*</code>); <strong>telephone number field</strong> (<code>tel and tel*</code>); <strong>URL
+                    field</strong> (<code>url and url*</code>); and <strong>textarea</strong> (<code>textarea and
+                    textarea*</code>). This section will show you detailed information about the usage and semantics of
+                these form tags.</p>
+            <br/>
+            <p>
+                <ins><strong id="fi-text">Text field</strong></ins>
+            </p>
+            <p>Both <code>text</code> and <code>text*</code> are used for single-line input and accept any form of text.
+                The difference between them is that <code>text*</code> connotes a required field. In Contact Form 7’s
+                convention, all types of tags with an asterisk ‘*’ mean that these are required fields.</p>
+            <label>Available options for <strong>text</strong> and <strong>text*</strong></label>
+            <table>
+                <tbody>
+                <tr>
+                    <th>Option</th>
+                    <th>Examples</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>id:<em>(id)</em></td>
+                    <td><code>id:foo</code></td>
+                    <td><code>id</code> attribute value of the <code>input</code> element.</td>
+                </tr>
+                <tr>
+                    <td>class:<em>(class)</em></td>
+                    <td><code>class:bar</code></td>
+                    <td><code>class</code> attribute value of the <code>input</code> element. To set two or more
+                        classes, you can use multiple <code>class:</code> option, like <code>[text your-text class:y2008
+                            class:m01 class:d01]</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>minlength:<em>(num)</em></td>
+                    <td><code>minlength:10</code></td>
+                    <td>The minimum length allowed for this input field.</td>
+                </tr>
+                <tr>
+                    <td>maxlength:<em>(num)</em></td>
+                    <td><code>maxlength:90</code></td>
+                    <td>The maximum length allowed for this input field.</td>
+                </tr>
+                <tr>
+                    <td>size:<em>(num)</em></td>
+                    <td><code>size:50</code></td>
+                    <td>The value of <em>size</em> HTML attribute of this input field.</td>
+                </tr>
+
+                <tr>
+                    <td>placeholder</td>
+                    <td></td>
+                    <td>Use the value as placeholder text</td>
+                </tr>
+                <tr>
+                    <td>
+                        default:user_first_name<br/>
+                        default:user_last_name<br/>
+                        default:user_full_name<br/>
+                        default:user_email
+                    </td>
+                    <td></td>
+                    <td>Options for retrieving logged-in user info as default value of field.</td>
+                </tr>
+                </tbody>
+            </table>
+            <p>These fields can have a zero or one value, and the value will be used as the default value of the input
+                field.</p>
+            <p>Example: <span class="code">[text* your-name class:required "John Smith"]</span></p><br/>
+            <p><strong id="fi-email">
+                <ins>Email field</ins>
+            </strong></p>
+            <p>Both <code>email</code> and <code>email*</code> are for single-line input and accept only e-mail
+                addresses. <code>email*</code> is a required field.</p>
+            <label>Available options for <strong>email</strong> and <strong>email*</strong></label>
+            <table>
+                <tbody>
+                <tr>
+                    <th>Option</th>
+                    <th>Examples</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>id:<em>(id)</em></td>
+                    <td><code>id:foo</code></td>
+                    <td><code>id</code> attribute value of the <code>input</code> element.</td>
+                </tr>
+                <tr>
+                    <td>class:<em>(class)</em></td>
+                    <td><code>class:bar</code></td>
+                    <td><code>class</code> attribute value of the <code>input</code> element. To set two or more
+                        classes, you can use multiple <code>class:</code> option, like <code>[email your-email
+                            class:y2008 class:m01 class:d01]</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>minlength:<em>(num)</em></td>
+                    <td><code>minlength:10</code></td>
+                    <td>The minimum length allowed for this input field.</td>
+                </tr>
+                <tr>
+                    <td>maxlength:<em>(num)</em></td>
+                    <td><code>maxlength:90</code></td>
+                    <td>The maximum length allowed for this input field.</td>
+                </tr>
+                <tr>
+                    <td>size:<em>(num)</em></td>
+                    <td><code>size:50</code></td>
+                    <td>The value of <em>size</em> HTML attribute of this input field.</td>
+                </tr>
+
+                <tr>
+                    <td>placeholder</td>
+                    <td></td>
+                    <td>Use the value as placeholder text</td>
+                </tr>
+                <tr>
+                    <td>default:user_email</td>
+                    <td></td>
+                    <td>Options for retrieving logged-in user info as default value of field.</td>
+                </tr>
+                </tbody>
+            </table>
+            <p>Example: <span class="code">[email your-email "example@example.com"]</span></p><br>
+            <p>
+                <ins><strong id="fi-url">URL field</strong></ins>
+            </p>
+            <p>Both <code>url</code> and <code>url*</code> are for single-line input and accept only URL.
+                <code>url*</code> is a required field.</p>
+            <label>Available options for <strong>url</strong> and <strong>url*</strong></label>
+            <table>
+                <tbody>
+                <tr>
+                    <th>Option</th>
+                    <th>Examples</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>id:<em>(id)</em></td>
+                    <td><code>id:foo</code></td>
+                    <td><code>id</code> attribute value of the <code>input</code> element.</td>
+                </tr>
+                <tr>
+                    <td>class:<em>(class)</em></td>
+                    <td><code>class:bar</code></td>
+                    <td><code>class</code> attribute value of the <code>input</code> element. To set two or more
+                        classes, you can use multiple <code>class:</code> option, like <code>[url your-url class:y2008
+                            class:m01 class:d01]</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>minlength:<em>(num)</em></td>
+                    <td><code>minlength:10</code></td>
+                    <td>The minimum length allowed for this input field.</td>
+                </tr>
+                <tr>
+                    <td>maxlength:<em>(num)</em></td>
+                    <td><code>maxlength:90</code></td>
+                    <td>The maximum length allowed for this input field.</td>
+                </tr>
+                <tr>
+                    <td>size:<em>(num)</em></td>
+                    <td><code>size:50</code></td>
+                    <td>The value of <em>size</em> HTML attribute of this input field.</td>
+                </tr>
+                <tr>
+                    <td>placeholder</td>
+                    <td></td>
+                    <td>Use the value as placeholder text</td>
+                </tr>
+                </tbody>
+            </table>
+            <p>Example: <span class="code">[url your-url "http://example.com"]</span></p><br>
+            <p>
+                <ins><strong id="fi-hidden-field">Hidden field</strong></ins>
+            </p>
+            <p><code>hidden</code> field - a special type of input field, has a value that is included in the form
+                submission along with other visible fields, but the field itself remains invisible and is not displayed
+                on the front end. <b>Contact Form 7</b> supports the hidden form-tag type to represent hidden fields.
+            </p>
+            <label>Available options for <strong>hidden</strong></label>
+            <table>
+                <tbody>
+                <tr>
+                    <th>Option</th>
+                    <th>Examples</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>id:<em>(id)</em></td>
+                    <td><code>id:foo</code></td>
+                    <td><code>id</code> attribute value of the <code>input</code> element.</td>
+                </tr>
+                <tr>
+                    <td>class:<em>(class)</em></td>
+                    <td><code>class:bar</code></td>
+                    <td><code>class</code> attribute value of the <code>input</code> element. To set two or more
+                        classes, you can use multiple <code>class:</code> option, like <code>[hidden your-text
+                            class:y2008 class:m01 class:d01]</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>default:<em>(source)</em></td>
+                    <td></td>
+                    <td>• Getting default values from the context<br/>
+                        • Setting default values to the logged-in user<br/>
+                        • Getting default values from shortcode attributes
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p>
+                <ins><strong id="fi-password-field">Password fields</strong></ins>
+            </p>
+            <p>Both <code>password</code> and <code>password*</code> are used for single-line input and accept only
+                password. The difference between them is that <code>password*</code> connotes a required field.</p>
+            <label>Available options for <strong>password</strong> and <strong>password*</strong></label>
+            <table>
+                <tbody>
+                <tr>
+                    <th>Option</th>
+                    <th>Examples</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>id:<em>(id)</em></td>
+                    <td><code>id:foo</code></td>
+                    <td><code>id</code> attribute value of the <code>input</code> element.</td>
+                </tr>
+                <tr>
+                    <td>class:<em>(class)</em></td>
+                    <td><code>class:bar</code></td>
+                    <td><code>class</code> attribute value of the <code>input</code> element. To set two or more
+                        classes, you can use multiple <code>class:</code> option, like <code>[password your-password
+                            class:y2008 class:m01 class:d01]</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>minlength:<em>(num)</em></td>
+                    <td><code>minlength:10</code></td>
+                    <td>The minimum length allowed for this input field.</td>
+                </tr>
+                <tr>
+                    <td>maxlength:<em>(num)</em></td>
+                    <td><code>maxlength:90</code></td>
+                    <td>The maximum length allowed for this input field.</td>
+                </tr>
+                <tr>
+                    <td>size:<em>(num)</em></td>
+                    <td><code>size:50</code></td>
+                    <td>The value of <em>size</em> HTML attribute of this input field.</td>
+                </tr>
+
+                <tr>
+                    <td>placeholder</td>
+                    <td></td>
+                    <td>Use the value as placeholder text</td>
+                </tr>
+                </tbody>
+            </table>
+            <p>Example: <span class="code">[password your-password "12345678"]</span></p><br/>
+
+            <p>
+                <ins><strong id="fi-phone">Telephone number field</strong></ins>
+            </p>
+            <p>Both <code>tel</code> and <code>tel*</code> are for single-line input and accept only telephone number.
+                <code>tel*</code> is a required field.</p>
+            <label>Available options for <strong>tel</strong> and <strong>tel*</strong></label>
+            <table>
+                <tbody>
+                <tr>
+                    <th>Option</th>
+                    <th>Examples</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>id:<em>(id)</em></td>
+                    <td><code>id:foo</code></td>
+                    <td><code>id</code> attribute value of the <code>input</code> element.</td>
+                </tr>
+                <tr>
+                    <td>class:<em>(class)</em></td>
+                    <td><code>class:bar</code></td>
+                    <td><code>class</code> attribute value of the <code>input</code> element. To set two or more
+                        classes, you can use multiple <code>class:</code> option, like <code>[url your-url class:y2008
+                            class:m01 class:d01]</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>minlength:<em>(num)</em></td>
+                    <td><code>minlength:10</code></td>
+                    <td>The minimum length allowed for this input field.</td>
+                </tr>
+                <tr>
+                    <td>maxlength:<em>(num)</em></td>
+                    <td><code>maxlength:90</code></td>
+                    <td>The maximum length allowed for this input field.</td>
+                </tr>
+                <tr>
+                    <td>size:<em>(num)</em></td>
+                    <td><code>size:50</code></td>
+                    <td>The value of <em>size</em> HTML attribute of this input field.</td>
+                </tr>
+                <tr>
+                    <td>placeholder</td>
+                    <td></td>
+                    <td>Use the value as placeholder text</td>
+                </tr>
+                </tbody>
+            </table>
+            <p>Example: <span class="code">[tel your-tel "123-456-7890"]</span></p><br>
+            <p>
+                <ins><strong id="fi-textarea">Textarea</strong></ins>
+            </p>
+            <p>Both <code>textarea</code> and <code>textarea*</code> are for a multi-line input and accept any form of
+                text. <code>textarea*</code> is a required field.</p>
+            <label>Available options for <strong>textarea</strong> and <strong>textarea*</strong></label>
+            <table>
+
+                <tbody>
+                <tr>
+                    <th>Option</th>
+                    <th>Examples</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>id:<em>(id)</em></td>
+                    <td><code>id:foo</code></td>
+                    <td><code>id</code> attribute value of the <code>textarea</code> element.</td>
+                </tr>
+                <tr>
+                    <td>class:<em>(class)</em></td>
+                    <td><code>class:bar</code></td>
+                    <td><code>class</code> attribute value of the <code>textarea</code> element. To set two or more
+                        classes, you can use multiple <code>class:</code> option, like <code>[textarea your-text
+                            class:y2008 class:m01 class:d01]</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>minlength:<em>(num)</em></td>
+                    <td><code>minlength:10</code></td>
+                    <td>The minimum length allowed for this input field.</td>
+                </tr>
+                <tr>
+                    <td>maxlength:<em>(num)</em></td>
+                    <td><code>maxlength:90</code></td>
+                    <td>The maximum length allowed for this input field.</td>
+                </tr>
+                <tr>
+                    <td><em>(cols)</em>x<em>(rows)</em></td>
+                    <td><code>40x10</code><br><code>80x</code><br><code>x4</code></td>
+                    <td>Columns (width) and rows (height) of text area. You can omit one of them.</td>
+                </tr>
+                <tr>
+                    <td>placeholder</td>
+                    <td></td>
+                    <td>Use the value as placeholder text</td>
+                </tr>
+                </tbody>
+            </table>
+            <p>Example: <span class="code">[textarea your-message 40x10 "your message here ..."]</span></p>
+            <p>In addition to this, below is another way to set the default value:</p>
+            <div class="code">
+                [textarea your-message] foo bar [/textarea]
+            </div>
+            <p>In this manner, you can set a mutli-line default value.</p><br/>
+            <h3 id="number-field">2. Number Fields</h3>
+            <p>A number field is a field for numeric value input. Contact Form provides two types of form-tag for number
+                fields: <code>number</code> and <code>range</code>. These work the same except that they provide
+                different types of user interface.</p>
+            <p>The new form-tag types, <code>number</code> and <code>range</code>, correspond with the HTML5 input types
+                <code>number</code> and <code>range</code>, respectively. Currently, only some modern browsers support
+                these input types.</p>
+            <p>Even among modern browsers, there may be differences in how those input fields are rendered on screen. In
+                most cases, a number input is rendered as a spinner control while a range input is rendered as a slider
+                control.</p>
+            <p>Older browsers and some modern browsers don’t support these input types and just render them as
+                traditional text input fields.</p><br/>
+            <p><strong>
+                <ins id="fi-number">Number field</ins>
+            </strong></p>
+            <p>Both <code>number</code> and <code>number*</code> are used for number input and accept numeric value.
+                <code>number*</code> is a required field.</p>
+            <label>Available options for number and number*</label>
+            <table>
+                <tbody>
+                <tr>
+                    <th>Option</th>
+                    <th>Examples</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>min:<em>(num)</em></td>
+                    <td><code>min:10</code></td>
+                    <td><code>min</code> attribute value of the <code>input</code> element. Allowed minimum value for
+                        this field.
+                    </td>
+                </tr>
+                <tr>
+                    <td>max:<em>(num)</em></td>
+                    <td><code>max:99</code></td>
+                    <td><code>max</code> attribute value of the <code>input</code> element. Allowed maximum value for
+                        this field.
+                    </td>
+                </tr>
+                <tr>
+                    <td>id:<em>(id)</em></td>
+                    <td><code>id:foo</code></td>
+                    <td><code>id</code> attribute value of the <code>input</code> element.</td>
+                </tr>
+                <tr>
+                    <td>class:<em>(class)</em></td>
+                    <td><code>class:bar</code></td>
+                    <td><code>class</code> attribute value of the <code>input</code> element. To set two or more
+                        classes, you can use multiple <code>class:</code> option, like <code>[number your-text
+                            class:y2008 class:m01 class:d01]</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>placeholder</td>
+                    <td></td>
+                    <td>Use the value as placeholder text</td>
+                </tr>
+                </tbody>
+            </table>
+            <p>Example: <span class="code">[number* your-number min:10 max:99 step:3 class:required "40"]</span></p>
+            <br/>
+            <p><strong id="fi-range">
+                <ins>Range field</ins>
+            </strong></p>
+            <label>Available options for <strong>range</strong> and <strong>range*</strong></label>
+            <table>
+                <tbody>
+                <tr>
+                    <th>Option</th>
+                    <th>Examples</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>min:<em>(num)</em></td>
+                    <td><code>min:10</code></td>
+                    <td><code>min</code> attribute value of the <code>input</code> element. Allowed minimum value for
+                        this field.
+                    </td>
+                </tr>
+                <tr>
+                    <td>max:<em>(num)</em></td>
+                    <td><code>max:99</code></td>
+                    <td><code>max</code> attribute value of the <code>input</code> element. Allowed maximum value for
+                        this field.
+                    </td>
+                </tr>
+                <tr>
+                    <td>step:<em>(num)</em></td>
+                    <td><code>step:3</code></td>
+                    <td><code>step</code> attribute value of the <code>input</code> element. When minimum number is 10
+                        and step is 3, acceptable inputs are 10, 13, 16, 19, …
+                    </td>
+                </tr>
+                <tr>
+                    <td>id:<em>(id)</em></td>
+                    <td><code>id:foo</code></td>
+                    <td><code>id</code> attribute value of the <code>input</code> element.</td>
+                </tr>
+                <tr>
+                    <td>class:<em>(class)</em></td>
+                    <td><code>class:bar</code></td>
+                    <td><code>class</code> attribute value of the <code>input</code> element. To set two or more
+                        classes, you can use multiple <code>class:</code> option, like <code>[number your-text
+                            class:y2008 class:m01 class:d01]</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>placeholder</td>
+                    <td></td>
+                    <td>Use the value as placeholder text</td>
+                </tr>
+                </tbody>
+            </table>
+            <p>These fields can have a zero or one value, and the value will be used as the default value of the input
+                field.</p>
+            <p>Example: <span class="code">[range* your-range min:10 max:99 step:3 class:required "40"]</span></p><br/>
+            <h3 id="date-field">3. Date Field</h3>
+            <p>HTML5 has introduced date input type. Browsers supporting this input type render a date field as a
+                calendar-style date picker UI that you choose a date from. Contact Form 7 supports date and date* types
+                of form-tag that correspond with date input type.</p>
+            <p>Currently, only some modern browsers support this date input type. Older browsers and some modern
+                browsers including Firefox don’t support this input type and just render it as a traditional text input
+                field. Fortunately, Contact Form 7 can provide a fallback for those browsers.</p>
+            <p>If a value is specified in a date field, the value must be in <code>YYYY-MM-DD format</code> (e.g. <code>2013-04-08</code>)
+                according to the HTML5 specification. This is in most cases you don’t need to care about because
+                browser’s date picker UI will set a value in the correct format.</p>
+            <p><label>Available options for <strong>date</strong> and <strong>date*</strong></label></p>
+            <table>
+                <tbody>
+                <tr>
+                    <th>Option</th>
+                    <th>Examples</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>min:<em>(date)</em></td>
+                    <td><code>min:2013-01-01</code></td>
+                    <td><code>min</code> attribute value of the <code>input</code> element. Allowed minimum value for
+                        this field. You can use a relative date format (e.g., ‘today+10days’, ‘today-2weeks’) as well.
+                    </td>
+                </tr>
+                <tr>
+                    <td>max:<em>(date)</em></td>
+                    <td><code>max:2013-12-31</code></td>
+                    <td><code>max</code> attribute value of the <code>input</code> element. Allowed maximum value for
+                        this field. You can use a relative date format (e.g., ‘today+10days’, ‘today-2weeks’) as well.
+                    </td>
+                </tr>
+                <tr>
+                    <td>step:<em>(num)</em></td>
+                    <td><code>step:3</code></td>
+                    <td><code>step</code> attribute value of the <code>input</code> element. When minimum date is
+                        2013-01-01 and step is 3, acceptable inputs are 2013-01-01, 2013-01-04, 2013-01-07, …
+                    </td>
+                </tr>
+                <tr>
+                    <td>id:<em>(id)</em></td>
+                    <td><code>id:foo</code></td>
+                    <td><code>id</code> attribute value of the <code>input</code> element.</td>
+                </tr>
+                <tr>
+                    <td>class:<em>(class)</em></td>
+                    <td><code>class:bar</code></td>
+                    <td><code>class</code> attribute value of the <code>input</code> element. To set two or more
+                        classes, you can use multiple <code>class:</code> option, like <code>[date your-date class:y2008
+                            class:m01 class:d01]</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>placeholder</td>
+                    <td></td>
+                    <td>Use the value as placeholder text</td>
+                </tr>
+                </tbody>
+            </table>
+            <p>Example: <span class="code">[date* your-date min:2013-01-01 max:2013-12-31 step:7 class:required "2013-04-01"]</span>
+            </p><br/>
+            <p><strong>
+                <ins>Format Date Value in Mail</ins>
+            </strong></p>
+            <p>As previously explained, if a value is specified in a date field, the value must be in
+                <code>YYYY-MM-DD</code> format (e.g. <code>2013-04-08</code>). When the value is inserted into mail
+                template, the date format keeps by default. To change the format in mail, you can use a variant of
+                mail-tag notation <code>[_format_{field name} "{date format}"]</code>.</p>
+            <p>Example: <span class="code">[_format_your-date "D, d M y"]</span></p>
+            <p><code>D, d, M,</code> and <code>y</code> in the above example are date format character described in the
+                manual page of PHP date function. <code>"D, d M y"</code> will format <code>2013-04-08</code> as <code>Mon,
+                    08 Apr 13</code>.</p>
+            <br/>
+            <h3 id="checkboxes">4. Checkboxes, Radio Buttons and dropdown select</h3>
+            <p>Contact Form 7 provides several types of form tags for representing checkboxes, radio buttons and
+                drop-down menus. In this article, I will show you detailed information about the usage and semantics of
+                these form tags.</p><br/>
+            <p><strong id="fi-checkbox">
+                <ins>Checkbox, Checkbox* and Radio</ins>
+            </strong></p>
+            <p>Both <code>checkbox</code> and <code>checkbox*</code> represent a group of checkboxes <strong>(&lt;input
+                type="checkbox"&gt; in HTML)</strong>. <code>checkbox*</code> requires the user to check at least one of
+                the boxes.</p>
+            <p><strong>Radio</strong> represents a group of radio buttons <code>(&lt;input type="radio"&gt;</code> in
+                HTML). Note that there is no required version of radio (“radio*”). The reason Contact Form 7 doesn’t
+                provide “radio*” is because a radio button is a required field by nature. <a
+                        href="http://www.w3.org/TR/html401/interact/forms.html#radio" target="_blank">The HTML spec
+                    document</a> explains it more in detail.</p>
+            <label>Available options for <strong>checkbox</strong>, <strong>checkbox*</strong> and
+                <strong>radio</strong></label>
+            <table>
+
+                <tbody>
+                <tr>
+                    <th>Option</th>
+                    <th>Examples</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>id:<em>(id)</em></td>
+                    <td><code>id:foo</code></td>
+                    <td><code>id</code> attribute value of the wrapper element.</td>
+                </tr>
+                <tr>
+                    <td>class:<em>(class)</em></td>
+                    <td><code>class:bar</code></td>
+                    <td><code>class</code> attribute value of the wrapper element. To set two or more classes, you can
+                        use multiple <code>class:</code> option.
+                    </td>
+                </tr>
+                <tr>
+                    <td>default:<em>(num)</em></td>
+                    <td><code>default:2</code><br><code>default:1_2_3</code></td>
+                    <td>Pre-checked options. The integer following <code>default:</code> is the position in the order of
+                        items. 1 is the first one. If you want to make two or more items selected, joint integers with
+                        underbar (_), as <code>default:1_2_3</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>label_first</td>
+                    <td></td>
+                    <td>By default, a checkbox or a radio button are put first, and a label last. By adding <code>label_first</code>
+                        option, you can reverse them.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p>These types of tags have one or more values, and the values will be used as the values and labels of the
+                checkboxes or radio buttons.</p>
+            <p>Example: <span class="code">[checkbox your-country "China" "India" "San Marino"]</span></p><br/>
+            <p><strong id="fi-select">
+                <ins>Dropdown select (select and select*)</ins>
+            </strong></p>
+            <p>Both <code>select</code> and <code>select*</code> represent a drop-down menu (<code>&lt;select&gt;</code>
+                in HTML). <code>select*</code> requires the user to select at least one option from the menu.</p>
+            <label>Available options for <strong>select</strong> and <strong>select*</strong></label>
+            <table>
+                <tbody>
+                <tr>
+                    <th>Option</th>
+                    <th>Examples</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>id:<em>(id)</em></td>
+                    <td><code>id:foo</code></td>
+                    <td><code>id</code> attribute value of the <code>select</code> element.</td>
+                </tr>
+                <tr>
+                    <td>class:<em>(class)</em></td>
+                    <td><code>class:bar</code></td>
+                    <td><code>class</code> attribute value of the <code>select</code> element. To set two or more
+                        classes, you can use multiple <code>class:</code> option.
+                    </td>
+                </tr>
+                <tr>
+                    <td>default:<em>(num)</em></td>
+                    <td><code>default:2</code><br/><code>default:1_2_3</code></td>
+                    <td>Pre-selected options. The integer following <code>default:</code> is the position in the order
+                        of items. 1 is the first one. If you want to make two or more items selected, joint integers
+                        with underbar (_), as <code>default:1_2_3</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>multiple</td>
+                    <td></td>
+                    <td>Make drop-down menu multi-selectable.</td>
+                </tr>
+                <tr>
+                    <td>include_blank</td>
+                    <td></td>
+                    <td>Insert a blank item into the top of options of this drop-down menu.</td>
+                </tr>
+                </tbody>
+            </table>
+            <p>These types of tags have one or more values, and the values will be used as options in the drop-down
+                menu.</p>
+            <p>Example: <span class="code">[select your-country "China" "India" "San Marino"]</span></p><br/>
+            <h3 id="file-upload">5. File Uploading and Attachment</h3>
+            <p>You can allow your users to upload their files via your form, and then an email with attachments of the
+                files is sent to you.</p>
+            <p>To set up, two steps are needed: </p>
+            <p>1) Add file uploading fields in your form</p>
+            <p>2) Set up your mail settings to attach the uploaded files.</p><br/>
+            <p><strong>
+                <ins>Adding file uploading fields in your form</ins>
+            </strong></p>
+            <p>Like for other types of form fields, Contact Form 7 provides form tags for file uploading fields (<code>&lt;input
+                type="file"&gt;</code> in HTML): file and file*. file* is a required field and requires the user to
+                upload a file.</p>
+            <label>Available options for <strong>file</strong> and <strong>file*</strong></label>
+            <table>
+                <tbody>
+                <tr>
+                    <th>Option</th>
+                    <th>Examples</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>id:<em>(id)</em></td>
+                    <td><code>id:foo</code></td>
+                    <td><code>id</code> attribute value of the <code>input</code> element.</td>
+                </tr>
+                <tr>
+                    <td>class:<em>(class)</em></td>
+                    <td><code>class:bar</code></td>
+                    <td><code>class</code> attribute value of the <code>input</code> element. To set two or more
+                        classes, you can use multiple <code>class:</code> option, like <code>[file your-file class:y2008
+                            class:m01 class:d01]</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>filetypes:<em>(filetypes)</em></td>
+                    <td><code>filetypes:gif|png|jpg|jpeg</code></td>
+                    <td>Acceptable file types. List the file extensions after <code>filetypes:</code>, and separate them
+                        with ‘|’ (pipe) character when you set multiple file types.
+                    </td>
+                </tr>
+                <tr>
+                    <td>limit:<em>(num)</em></td>
+                    <td><code>limit:1048576</code><br><code>limit:1024kb</code><br><code>limit:1mb</code></td>
+                    <td>Limit the max file size acceptable. You can use <code>kb</code> (kilo byte) or <code>mb</code>
+                        (mega byte) suffix optionally. If you omit suffix, the number means bytes. Note that you can’t
+                        use a decimal point in it (i.e., like this: <code>[file your-file limit:1.5mb]</code>) and it
+                        will be ignored if it exists.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <p>Example: <span class="code">[file your-file filetypes:pdf|txt limit:2mb]</span></p>
+            <p>Contact Form 7 applies default restrictions for file type and file size when you do not set the <code>filetypes:</code>
+                and <code>limit:</code> (file size) options explicitly.</p>
+            <p>Default acceptable file types (extensions) are: jpg, jpeg, png, gif, pdf, doc, docx, ppt, pptx, odt, avi,
+                ogg, m4a, mov, mp3, mp4, mpg, wav, and wmv. Default acceptable file size is 1 MB (1048576 bytes).</p>
+            <br/>
+            <strong id="fi-setting-file">
+                <ins>Setting up file attachments with a mail</ins>
+            </strong><br/>
+
+            <p>To attach the uploaded files to the mail, put mail tags corresponding to form tags for file uploading
+                fields into ‘File attachments’ field as shown below.</p>
+            <a href="https://ibb.co/Wybgr2F" data-fancybox><img style="width:60%;height:auto;border:1px solid #ccc"
+                                                                src="https://i.ibb.co/C7khjHv/17.png"/></a>
+            <br/>
+            <p>In this example, the form tag for the file uploading field is: <span class="code">[file your-file filetypes:pdf]</span>
+            </p>
+
+            <p>Therefore, the corresponding mail tag to this is: <span class="code">[your-file]</span></p>
+
+            <p>Note that what you’re required to put in the ‘File attachments’ field is [your-file], not [file your-file
+                filetypes:pdf].</p>
+            <p>If you have multiple files uploaded and want to attach them into an email, simply line them up in the
+                ‘File attachments’ field like this: <span class="code">[your-file][your-another-file]</span></p>
+            <br/>
+            <h3 id="recaptcha">6. reCAPTCHA</h3>
+            <p>To get started with reCAPTCHA, you need a Google account and to register your site for an API key
+                pair.</p>
+            <p>1. Go to <a href="https://demo2.presta-demos.com/www.google.com/recaptcha/admin" target="_blank">Google’s
+                reCAPTCHA admin page</a>.</p>
+            <p>2. Register your site.</p>
+            <p>3. Get a site key and secret key.</p>
+            <br/>
+            <p> Copy the key pair into the WordPress admin screen of the site you registered.</p>
+            <p>1. Go to the admin menu Contact > Integration.</p>
+            <p>2. Find RECAPTCHA panel and set "Enable reCAPTCHA" to "Yes".</p>
+            <p>3. Copy the site key and secret key into the respective fields and save them.</p><br/>
+            <p>Lastly, put a placeholder for a reCAPTCHA widget <strong>([recaptcha])</strong> into your contact form
+                content.</p>
+            <p>A [recaptcha] placeholder is a form-tag, and like other form-tags, it supports several options.</p>
+            <table>
+                <caption>Available options for <strong>recaptcha</strong></caption>
+                <tbody>
+                <tr>
+                    <th>Option</th>
+                    <th>Examples</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>theme:<em>(theme)</em></td>
+                    <td><code>theme:dark</code></td>
+                    <td>The color theme of the widget. Available values are <em>dark</em> and <em>light</em>. The
+                        default value is <em>light</em>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>size:<em>(size)</em></td>
+                    <td><code>size:compact</code></td>
+                    <td>The size of the widget. Available values are <em>compact</em> and <em>normal</em>. The default
+                        value is <em>normal</em>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>id:<em>(id)</em></td>
+                    <td><code>id:foo</code></td>
+                    <td><code>id</code> attribute value of the widget.</td>
+                </tr>
+                <tr>
+                    <td>class:<em>(class)</em></td>
+                    <td><code>class:bar</code></td>
+                    <td><code>class</code> attribute value of the widget. To set two or more classes, you can use
+                        multiple <code>class:</code> option, like <code>[recaptcha class:y2008 class:m01
+                            class:d01]</code>.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p>Example: <span class="code">[recaptcha size:compact]</span></p><br>
+            <h3 id="captcha">7. Image Captcha</h3>
+            <p>This is a simple contact form CAPTCHA which generates a simple image with a security code required for
+                customer to enter via a input text field to verify their submission.</p>
+            <p>Your server is required to be installed with <a href="http://php.net/manual/en/book.image.php"
+                                                               target="_blank">GD and FreeType PHP libraries</a> in
+                order to use image captcha.</p>
+            <label>Available options for <strong>image captcha</strong></label>
+            <table>
+                <tbody>
+                <tr>
+                    <th>Option</th>
+                    <th>Examples</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>theme:<em>(theme)</em></td>
+                    <td><code>theme:colorful</code></td>
+                    <td>The color theme of the widget. Available values are <em>basic</em> and <em>colorful</em>. The
+                        default value is <em>basic</em>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>id:<em>(id)</em></td>
+                    <td><code>id:foo</code></td>
+                    <td><code>id</code> attribute value of the widget.</td>
+                </tr>
+                <tr>
+                    <td>class:<em>(class)</em></td>
+                    <td><code>class:bar</code></td>
+                    <td><code>class</code> attribute value of the widget. To set two or more classes, you can use
+                        multiple <code>class:</code> option, like <code>[recaptcha class:y2008 class:m01
+                            class:d01]</code>.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p>Example: <span class="code">[captcha theme:colorful]</span></p><br/>
+            <h3 id="quiz">8. Quiz</h3>
+            <p>In order to distinguish a form submission by a computer program versus one from a human, and also to
+                block them, you’ve been able to use CAPTCHAs with Contact Form 7.
+                However, CAPTCHAs are hard to use in some cases. Some people have difficulty in answering CAPCHA, or
+                simply dislike answering them.
+                Managing CAPTCHA needs graphic libraries installed on the server, which are not always provided.</p>
+            <p>In some cases, a simpler approach is more suitable. With this quiz feature, you can do it by using
+                question/answer testing with simple text that you have the flexibility to create.</p>
+            <p>For example, when you insert this tag into your form: <span class="code">[quiz capital-quiz "The capital of Japan?|Tokyo"]</span>
+            </p>
+            <p>The content before the pipe (‘|’) character (The capital of Japan?) will be used as the question. The
+                content after the pipe (Tokyo) will be used as the expected answer.</p>
+            <a href="https://ibb.co/K58W9QH" data-fancybox><img style="width:60%;height:auto;border:1px solid #ccc"
+                                                                src="https://i.ibb.co/b6GXryn/18.png"/></a><br/>
+            <p>If your senders prefer math, change the tag to look something like: <span class="code">[quiz math-quiz "12+48=?|60"]</span>
+            </p>
+            <p>You can use any question and answer. To submit the form, the sender has to input the correct answer.</p>
+            <p>When you put multiple question/answer pairs in a tag, one of the pairs will be selected at random.</p>
+            <div class="code">
+                <p> [quiz random-capital-quiz "The capital of Japan?|Tokyo"
+                    "The capital of France?|Paris"
+                    "The capital of Madagascar?|Antananarivo"] </p>
+            </div>
+            </br>
+            <label>Available options for <strong>quiz</strong></label>
+            <table>
+
+                <tbody>
+                <tr>
+                    <th>Option</th>
+                    <th>Examples</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>id:<em>(id)</em></td>
+                    <td><code>id:foo</code></td>
+                    <td><code>id</code> attribute value of the <code>input</code> element.</td>
+                </tr>
+                <tr>
+                    <td>class:<em>(class)</em></td>
+                    <td><code>class:bar</code></td>
+                    <td><code>class</code> attribute value of the <code>input</code> element. To set two or more
+                        classes, you can use multiple <code>class:</code> option, like <code>[quiz capital-quiz
+                            class:y2008 class:m01 class:d01 "The capital of Japan?|Tokyo"]</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>minlength:<em>(num)</em></td>
+                    <td><code>minlength:10</code></td>
+                    <td>The minimum length allowed for this input field.</td>
+                </tr>
+                <tr>
+                    <td>maxlength:<em>(num)</em></td>
+                    <td><code>maxlength:90</code></td>
+                    <td>The maximum length allowed for this input field.</td>
+                </tr>
+                <tr>
+                    <td>size:<em>(num)</em></td>
+                    <td><code>size:50</code></td>
+                    <td>The value of <em>size</em> HTML attribute of this input field.</td>
+                </tr>
+                </tbody>
+            </table>
+            <h3 id="acceptance">9. Acceptance Checkbox</h3>
+            <p>An acceptance checkbox is a simple checkbox dedicated to confirming the submitter’s consent for a
+                specific condition. Contact Form 7 provides the acceptance form-tag type to represent acceptance
+                checkboxes.</p>
+            <p>To use an acceptance checkbox in your contact form, simply insert an [acceptance] form-tag into the Form
+                tab panel field like this:<br/>
+                <span class="code">[acceptance your-consent] I consent to the conditions. [/acceptance]</span></p>
+            <p>Notice that, unlike other form-tag types, the <strong>[acceptance]</strong> tag has a closing tag
+                <strong>([/acceptance])</strong> at the tail. The part between the opening and closing tags is the
+                content of the form-tag. When you set content to an acceptance checkbox form-tag, it is interpreted as
+                the condition for consent.
+                By default, an acceptance checkbox works as a required field, so you can’t submit the form without
+                selecting the checkbox. If you set the optional option explicitly, the checkbox works as an optional
+                field. If you set the invert option, it will invert the behavior so, in this case, you can’t submit the
+                form without clearing the checkbox.</p>
+            <label>Available options for <strong>acceptance</strong></label>
+
+            <table>
+                <tbody>
+                <tr>
+                    <th>Option</th>
+                    <th>Examples</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>id:<em>(id)</em></td>
+                    <td><code>id:foo</code></td>
+                    <td><code>id</code> attribute value of the <code>input</code> element.</td>
+                </tr>
+                <tr>
+                    <td>class:<em>(class)</em></td>
+                    <td><code>class:bar</code></td>
+                    <td><code>class</code> attribute value of the <code>input</code> element. To set two or more
+                        classes, you can use multiple <code>class:</code> option, like <code>[acceptance accept-this
+                            class:y2008 class:m01 class:d01]</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>optional</td>
+                    <td></td>
+                    <td>The acceptance checkbox works as an optional field.</td>
+                </tr>
+                <tr>
+                    <td>invert</td>
+                    <td></td>
+                    <td>Allow users to submit only if they clear the checkbox.</td>
+                </tr>
+                <tr>
+                    <td>default:on</td>
+                    <td></td>
+                    <td>The checkbox is selected by default.</td>
+                </tr>
+                </tbody>
+            </table>
+            <br/>
+            <h3 id="submit-button">10. Submit Button</h3>
+            <p>A submit button is an essential component of a form. As you may know, HTML represents a submit button as
+                an input element with submit type: <code>&lt;input type="submit"&gt;</code>. You can use this HTML tag
+                in a contact form of Contact Form 7, but you should use Contact Form 7’s own submit form tag
+                instead.<br/>
+                This is the simplest form of submit tag: <span class="code">[submit]</span></p>
+            <p>You can add a value like this: <span class="code">[submit "Send Mail"]</span></p>
+            <p>Did you notice that the submit tag’s syntax is bit different than other form tags? The submit tag does
+                not have name part, which other form tags have.
+                In addition to this, you can add several options to submit tag.</p>
+            <caption>Available options for <strong>submit</strong></caption>
+            <table>
+
+                <tbody>
+                <tr>
+                    <th>Option</th>
+                    <th>Examples</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>id:<em>(id)</em></td>
+                    <td><code>id:foo</code></td>
+                    <td><code>id</code> attribute value of the <code>input</code> element.</td>
+                </tr>
+                <tr>
+                    <td>class:<em>(class)</em></td>
+                    <td><code>class:bar</code></td>
+                    <td><code>class</code> attribute value of the <code>input</code> element. To set two or more
+                        classes, you can use multiple <code>class:</code> option, like <code>[submit class:y2008
+                            class:m01 class:d01]</code>.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p>Example: <span class="code">[submit class:button id:form-submit "Send Mail"]</span></p>
+        </div>
+        <div class="section" id="messages">
+            <h2>Manage messages</h2>
+            <div class="box">
+                <div class="left width40">
+                    <p>Along with sending messages via email, Contact Form 7 - Prestashop version also allows you to
+                        save messages sent via contact forms to your website back office.</p>
+                    <p>In order to save messages sent by customers via a contact form, in the form's configuration
+                        section set <strong>"Save message"</strong> to <strong>"Yes"</strong>, you can also enable
+                        <strong>"Save attachments"</strong> if you would like to save attached files on your server.</p>
+                    <div class="note">
+                        <p>Save attachments on server may cost lot of your hosting storage. Attached files sent by
+                            customers will be sent to you via email, so if it's not necessary, don't save
+                            attachments</p>
+                    </div>
+                    <p>To view messages sent by your customers, navigate to <strong>"Contact > Messages"</strong>. In
+                        the back office, you can view and manage the messages easily with a professional message
+                        management tool which provides a lot of helpful
+                        features such as message filter, mark messages as <strong>"Read"</strong> or
+                        <strong>"Unread"</strong>, star a message, bulk actions, reply a message, export messages to
+                        .csv file, etc.</p>
+                    <p>You can also see the number of message received by each contact form in the <strong>“Contact
+                        forms”</strong> tab.</p>
+                </div>
+                <div class="right width50">
+                    <a href="https://ibb.co/yfhg3MD" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc" src="https://i.ibb.co/f18rcKb/19.png"/></a></br></br>
+                    <a href="https://ibb.co/DMPMqJS" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc" src="https://i.ibb.co/09p9w7d/20.png"/></a></br></br>
+                    <a href="https://ibb.co/jzxwDZR" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc" src="https://i.ibb.co/Lrqg1h5/21.png"/></a></br></br>
+                    <a href="https://ibb.co/QcT1XqH" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc" src="https://i.ibb.co/YW1qbKd/22.png"/></a></br></br>
+                    <a href="https://ibb.co/7GR4N2V" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc" src="https://i.ibb.co/FB0VqgJ/23.png"/></a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="section" id="email">
+            <h2>Email template</h2>
+
+            <div class="box">
+                <div class="left width40">
+                    <p>Contact Form 7 (Prestashop version) allows you to customize main email template, Mail 2's
+                        template and Reply email template in the way you want.</p>
+                </div>
+                <div class="right width50">
+                    <a href="https://ibb.co/rsddpw1" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc" src="https://i.ibb.co/hfYYdmt/24.png"/></a>
+                    <br/>
+
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="section" id="import">
+            <h2>Import/Export</h2>
+            <div class="box">
+                <div class="left width40">
+                    <p>This feature allows you to back up all contact forms' configuration and restore the contact forms
+                        anytime you want.</p>
+                    <p>This also helps you copy contact forms quickly from website to website.</p>
+                </div>
+                <div class="right width50">
+                    <a href="https://ibb.co/zm7gcjk" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc" src="https://i.ibb.co/b62Vhqf/25.png"/></a>
+                    <br/>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="section" id="integration">
+            <h2>Integration</h2>
+            <div class="box">
+                <p>In the integration section, you can setup contact forms' general settings, RECAPTCHA, Email template
+                    and import or export all contact forms. In your website back office, navigate to <strong>"Contact >
+                        Integration"</strong></p>
+                <div class="box">
+                    <div class="left width40">
+                        <h3>Global settings</h3>
+                        <p>On the "Global settings" you can setup general SEO rules for all contact form pages (contact
+                            page alias, enable URL subfix) and the number of messages displayed per page in back
+                            office.</p>
+                    </div>
+                    <div class="right width50">
+                        <a href="https://ibb.co/6HmDGzw" data-fancybox><img
+                                style="width:60%;height:auto;border:1px solid #ccc"
+                                src="https://i.ibb.co/X7bF61L/26.png"/></a>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="left width40">
+                        <h3>TinyMCE editor</h3>
+                        <p>Turn on this option to display rich text editor for text area fields when compiling contact
+                            forms.</p>
+                    </div>
+                    <div class="right width50">
+                        <a href="https://ibb.co/80DS2yc" data-fancybox><img
+                                style="width:60%;height:auto;border:1px solid #ccc"
+                                src="https://i.ibb.co/BtVSjhN/27.png"/></a><br></br>
+                        <a href="https://ibb.co/fGGxM0g" data-fancybox><img
+                                style="width:60%;height:auto;border:1px solid #ccc"
+                                src="https://i.ibb.co/HppH7gS/28.png"/></a><br></br>
+                        <a href="https://ibb.co/PNf32df" data-fancybox><img
+                                style="width:60%;height:auto;border:1px solid #ccc"
+                                src="https://i.ibb.co/SP9Wkz9/29.png"/></a><br></br>
+                        <a href="https://ibb.co/cx7DSq6" data-fancybox><img
+                                style="width:60%;height:auto;border:1px solid #ccc"
+                                src="https://i.ibb.co/9GCskPb/30.png"/></a>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="left width40">
+                        <h3>ReCAPTCHA</h3>
+                        <p>Here you can configure your Google reCAPTCHA site key and secret key to enable Google
+                            reCAPTCHA form-tag.</p>
+                    </div>
+                    <div class="right width50">
+                        <a href="https://ibb.co/Jzq87Q4" data-fancybox><img
+                                style="width:60%;height:auto;border:1px solid #ccc"
+                                src="https://i.ibb.co/nDB4cCv/31.png"/></a>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="left width40">
+                        <h3>IP Blacklist</h3>
+                        <p>You can enter each IP on a line to block these IP from submitting contact forms.</p>
+                    </div>
+                    <div class="right width50">
+                        <a href="https://ibb.co/mJ8YZsD" data-fancybox><img
+                                style="width:60%;height:auto;border:1px solid #ccc"
+                                src="https://i.ibb.co/5TFzpDM/32.png"/></a>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <div class="section" id="statistic">
+            <h2>Statistic</h2>
+
+            <div class="box">
+                <div class="left width40">
+                    <p>In this tab, you can see a statistic chart of messages, views and replies received through your
+                        contact forms.</p>
+                    <p>At the bottom of <strong>“Chart”</strong> tab, you can select some conditions to filter the chart
+                        like: contact form name, month and year.</p>
+                    <p>From <strong>“Views log”</strong> tab, you can see the information of the customers who sent
+                        messages via contact forms.</p>
+                    <p>You can add any customer’s IP address into IP blacklist by clicking “Add to blacklist”
+                        button.</p>
+                    <p>“View location” button will navigate you to an info page with your customer correct location.</p>
+                </div>
+                <div class="right width50">
+                    <a href="https://ibb.co/zFCbcvp" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc" src="https://i.ibb.co/7QBVcmP/33.png"/></a><br></br>
+                    <a href="https://ibb.co/JrJNMjm" data-fancybox><img
+                            style="width:60%;height:auto;border:1px solid #ccc" src="https://i.ibb.co/Dw2NSfz/34.png"/></a>
+                    <br/>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="section" id="thankyou">
+            <h2>Thank you</h2>
+            <p>Thank you again for purchasing our module and going through this documentation. We hope this
+                documentation has provided all necessary information to help you successfully setup the module and
+                create professional contact forms that you need for your website.</p>
+            <p>If you do have any questions for which the answer is not available on this documentation, please feel
+                free to contact us.</p>
+            <p>We're happy to help you.</p>
+            <p>Enjoy Contact Form 7 - We hope you love it!</p>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,176 @@
+/**
+*
+*
+*    Social Meta Data
+*    Copyright 2018  Inno-mods.io
+*
+*    @author    Inno-mods.io
+*    @copyright Inno-mods.io
+*    @version   1.2.0
+*    Visit us at http://www.inno-mods.io
+*
+*
+**/
+#socialmetadata iframe{
+	max-height: auto !important;
+	min-height:400px;
+}
+
+/*
+* .socialmetadata-nav
+*/
+#socialmetadata .socialmetadata-nav
+{
+	font-size:22px;
+	color:#fff;
+	font: 300 20px/1em "Open Sans",Helvetica,Arial,sans-serif ;
+	width: 100%;
+    height: 55px;
+    padding: 17px 0 0 20px;
+    margin: 0;
+    border-bottom: 4px solid #555;;
+	background-color: #3f3f3f;
+	-webkit-box-shadow: rgba(0,0,0,0.15) 0 7px 0;
+	box-shadow: rgba(0,0,0,0.15) 0 7px 0;
+	position: relative;
+}
+
+#socialmetadata .socialmetadata-nav i{
+	font-size:30px;
+}
+
+#socialmetadata .socialmetadata-menu img{
+	width:45px;
+	margin: -8px 0 0 0;
+}
+
+#socialmetadata .socialmetadata-nav .version-info{
+	font-size:16px;
+	font-style: italic;
+}
+
+#socialmetadata .socialmetadata-nav .mod-title{
+	margin:0 20px 0 30px;
+}
+
+#socialmetadata .socialmetadata-nav a{
+	color: #ddd;
+}
+#socialmetadata .socialmetadata-nav a:hover{
+	color: #fff;
+	text-decoration: none;
+}
+
+#socialmetadata .socialmetadata-nav .logo
+{
+	width: 34px;
+	position: absolute;
+	top: 8px;
+	left: 10px;
+}
+
+#socialmetadata .socialmetadata-menu{
+	margin: -6px 20px 0 0;
+}
+/* end nav */
+
+/*
+* socialmetadata current store title
+*/
+.socialmetadata-current-store-title{
+	font-size: 20px;
+	margin:0px 20px 10px 20px;
+}
+
+/*
+* socialmetadata panel heading titles
+*/
+#socialmetadata .panel-heading{
+	font-size: 18px !important;
+	height: 40px !important;
+}
+#socialmetadata .panel-heading i{
+	font-size:18px !important;
+}
+/* end titles */
+
+
+
+
+
+/* footer */
+#socialmetadata .socialmetadata-footer
+{
+	font-size:15px;
+	color:#fff;
+	font:  "Open Sans",Helvetica,Arial,sans-serif ;
+	width: 100%;
+    height: 35px;
+    padding: 7px 10px 0 10px;
+    margin: 0 0 20px 0;
+    border-bottom: 4px solid #555;;
+	background-color: #3f3f3f;
+	-webkit-box-shadow: rgba(0,0,0,0.15) 0 7px 0;
+	box-shadow: rgba(0,0,0,0.15) 0 7px 0;
+	position: relative;
+}
+
+#socialmetadata .socialmetadata-footer a
+{
+	color:#ddd;
+	text-decoration: none;
+}
+
+#socialmetadata .socialmetadata-footer a:hover
+{
+	color:#fff;
+	text-decoration: none;
+}
+/* end footer */
+
+
+
+/* additional tab at product edit page */
+#product-socialmetadata h3{
+	padding: 15px;
+    background: #fafafa;
+}
+
+#product-socialmetadata .form-group{
+	margin:0;
+}
+
+#product-socialmetadata .switch{
+	padding: 0 0 0 25px;
+}
+
+#product-socialmetadata .switch label{
+	padding: 0 10px 0 15px;
+}
+
+#product-socialmetadata .dropdown-menu li{
+	padding:3px 8px;
+}
+
+#product-socialmetadata iframe{
+	max-height:none !important;
+}
+
+#product-socialmetadata .clear{
+	clear:both;
+	height: 25px;
+}
+
+#product-socialmetadata .padding{
+	padding:15px;
+}
+
+/*
+* alerts
+*/
+#product-socialmetadata .alert.alert-success{
+	position: relative;
+    border: none;
+    padding-left: 20px;
+    border-left: solid 3px #92d097;
+}

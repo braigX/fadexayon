@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>lgcookieslaw</name>
+    <displayName><![CDATA[Directive Europ&eacute;enne des Cookies (Bandeau + Bloqueur)]]></displayName>
+    <version><![CDATA[2.1.11]]></version>
+    <description><![CDATA[Affichez un bandeau de cookies et bloquer les cookies jusqu&#039;&agrave; l&#039;obtention du consentement des visiteurs.]]></description>
+    <author><![CDATA[L&iacute;nea Gr&aacute;fica]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+	<confirmUninstall><![CDATA[Voulez-vous désinstaller ce module ?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+</module>

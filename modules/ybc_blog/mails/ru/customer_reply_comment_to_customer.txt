@@ -1,0 +1,5 @@
+Привет {customer_name},
+{commented_customer_name} только что ответила на ваш комментарий к {post_title}
+{comment_reply}
+Посмотреть ответ
+

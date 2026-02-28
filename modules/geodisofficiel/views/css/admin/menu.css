@@ -1,0 +1,57 @@
+/**
+ * 2024 Novatis Agency - www.novatis-paris.fr.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to info@novatis-paris.fr so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ *  @author    NOVATIS <info@novatis-paris.fr>
+ *  @copyright 2024 NOVATIS
+ *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+#content.bootstrap {
+    padding-top: 175px;
+}
+@media screen and (max-width: 1525px) {
+    #content.bootstrap {
+        padding-top: 225px;
+    }
+}
+.bootstrap .geodis-nav {
+    padding: 0 0 0 210px;
+    list-style: none;
+    background-color: #fff;
+    top: 140px;
+    height: auto;
+}
+.bootstrap .page-head .geodis-nav__item {
+    display: inline-block;
+}
+.bootstrap .page-head .geodis-nav__item a {
+    display: inline-block;
+    font-size: 14px;
+    color: #6c868e;
+    padding: 15px 15px;
+    cursor: pointer;
+}
+.bootstrap .page-head .geodis-nav__item a:hover {
+    color: #25b9d7;
+}
+.bootstrap .page-head .geodis-nav__item--selected a {
+    border-bottom: 3px solid #25b9d7;
+    background-color: #f4f9fb;
+    color: #363a41;
+}

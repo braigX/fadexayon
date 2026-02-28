@@ -1,0 +1,4 @@
+Olá {reporter}
+Você denunciou comentários em {post_title} como abusados.
+{comment}
+Obrigado pela sua contribuição para o nosso site

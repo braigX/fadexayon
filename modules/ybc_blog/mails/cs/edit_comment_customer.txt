@@ -1,0 +1,6 @@
+Ahoj {customer},
+Váš komentář byl aktualizován
+Předmět: {subject}
+Komentář: {comment}
+Hodnocení: {rating}
+Zobrazit příspěvek

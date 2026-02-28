@@ -1,0 +1,14 @@
+Atraso no envio aviso
+
+Pedido {order_id} com ref {order_Reference}
+Deve ser despachado hoje
+
+Pedido {order_name} - Atrasado
+
+O pedido {order_name}
+Com ID {order_id}
+Deve ser enviado imediatamente ou não será entregue na data estimada
+
+Você pode revisar seu pedido e baixar sua fatura na seção "Histórico de pedidos" da sua conta de cliente clicando em "Minha conta" na nossa loja.
+
+{shop_name}

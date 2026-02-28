@@ -1,0 +1,13 @@
+[{shop_url}]
+
+Здравствуйте {customer_name},
+Мы надеемся, что вы сможете сэкономить время, чтобы оценить свои недавно купленные товары:
+
+{product_list}
+
+Спасибо за доверие и покупку в нашем магазине
+
+Оценить сейчас
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

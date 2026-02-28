@@ -1,0 +1,3 @@
+Olá {customer_name}
+Parabéns! Sua postagem {post_title} foi aprovada.
+Ver postagem

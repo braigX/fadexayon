@@ -1,0 +1,219 @@
+{**
+ * 2007-2017 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ * @author    PrestaShop SA <contact@prestashop.com>
+ * @copyright 2007-2017 PrestaShop SA
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
+ * International Registered Trademark & Property of PrestaShop SA
+ *}
+{block name='product_miniature_item'}
+  <article class="{if isset($smarty.cookies.show_list)}product_show_list {/if}product-item product-miniature js-product-miniature col-lg-4 col-md-6 col-sm-6 col-xs-12" data-id-product="{$product.id_product}" data-id-product-attribute="{$product.id_product_attribute}"  >
+    <div class="thumbnail-container">
+      <div class="product-image">
+        {block name='product_thumbnail'}
+          {if $product.cover}
+          <a href="{$product.canonical_url}" class="thumbnail product-thumbnail">
+            <img 
+              src = "{$product.cover.bySize.home_default.url}"
+              alt = "{if !empty($product.cover.legend)}{$product.cover.legend}{else}{$product.name|truncate:30:'...'}{/if}"
+              data-full-size-image-url = "{$product.cover.large.url}"
+            >
+            {if isset($roythemes.nc_second_img) && $roythemes.nc_second_img == "1"}
+              {if isset($product.images[1])}
+                {assign var=royurl0 value={$product.images[0].bySize.home_default.url}}
+                {assign var=royurl1 value={$product.images[1].bySize.home_default.url}}
+                {assign var=royurlc value={$product.cover.bySize.home_default.url}}
+                {if $royurl1 == $royurlc}{assign var=royurlsec value={$royurl0}}{else}{assign var=royurlsec value={$royurl1}}{/if}
+                <img class="roy_secondimg" src="{$royurlsec}"
+                  alt="{if !empty($product.cover.legend)}{$product.cover.legend}{else}{$product.name|truncate:30:'...'}{/if}"
+                >
+              {/if}
+            {/if}
+          </a>
+        {else}
+          <a href="{$product.canonical_url}" class="thumbnail product-thumbnail">
+            <img src="{$urls.no_picture_image.bySize.home_default.url}" />
+          </a>
+        {/if}
+        {/block}
+       {* <div class="action-block highlighted-informations{if !$product.main_variants} no-variants{/if} hidden-sm-down">
+        {if isset($roythemes.nc_show_q) && $roythemes.nc_show_q == "1"}
+        {block name='quick_view'}
+        <a class="quick-view action-btn tip_inside" href="#" data-link-action="quickview">
+            <i class="rts" data-size="24" data-color="#000000">{if isset($roythemes.nc_i_qv)}{$roythemes.nc_i_qv}{else}search1{/if}</i>
+            <span class="tip">{l s='Quick view' d='Shop.Theme.Actions'}</span>
+        </a>
+        {/block}
+        {/if}
+
+        {if isset($roythemes.nc_show_s) && $roythemes.nc_show_s == "1"}
+        <a class="discover action-btn tip_inside" href="{$product.url}" data-view-type="modez" data-link-action="fastview">
+            <i class="rts" data-size="24" data-color="#000000">{if isset($roythemes.nc_i_discover)}{$roythemes.nc_i_discover}{else}discover1{/if}</i>
+            <span class="tip">{l s='Discover' d='Shop.Theme.Actions'}</span>
+        </a>
+        {/if}
+
+        </div>*}
+        {if isset($product.specific_prices.to) && isset($product.specific_prices.from)}
+          {if ($smarty.now|date_format:'%Y-%m-%d %H:%M:%S' <= $product.specific_prices.to && $smarty.now|date_format:'%Y-%m-%d %H:%M:%S' >= $product.specific_prices.from) && ($product.specific_prices.to != '0000-00-00 00:00:00')}
+            <div class="countcontainer">
+              <div class="roycountdown">
+                <div class="roycount" style="display: none;" data-specific-price-to="{$product.specific_prices.to}" data-days={l s='Days' d='Shop.Theme.Catalog'} data-hours={l s='Hours' d='Shop.Theme.Catalog'} data-minutes={l s='Mins' d='Shop.Theme.Catalog'} data-seconds={l s='Secs' d='Shop.Theme.Catalog'}></div>
+              </div>
+            </div>
+            <div class="count_icon">
+              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+              	 viewBox="0 0 162 162" style="enable-background:new 0 0 162 162;" xml:space="preserve">
+              <g>
+              	<path class="hand hand-min" d="M126,87.5H81c-3.6,0-6.5-2.9-6.5-6.5s2.9-6.5,6.5-6.5h45c3.6,0,6.5,2.9,6.5,6.5S129.6,87.5,126,87.5z"/>
+              </g>
+              <g>
+              	<path class="hand hand-hour" d="M81,87.5c-3.6,0-6.5-2.9-6.5-6.5V36c0-3.6,2.9-6.5,6.5-6.5s6.5,2.9,6.5,6.5v45C87.5,84.6,84.6,87.5,81,87.5z"/>
+              </g>
+              <path d="M81,13c37.5,0,68,30.5,68,68s-30.5,68-68,68s-68-30.5-68-68S43.5,13,81,13 M81,0C36.3,0,0,36.3,0,81s36.3,81,81,81
+              	s81-36.3,81-81S125.7,0,81,0L81,0z"/>
+              </svg>
+            </div>
+          {/if}
+        {/if}
+      </div>
+      <div class="action-block highlighted-informations{if !$product.main_variants} no-variants{/if} hidden-sm-down">
+        {if isset($roythemes.nc_show_q) && $roythemes.nc_show_q == "1"}
+        {block name='quick_view'}
+        <a class="quick-view action-btn tip_inside" href="#" data-link-action="quickview">
+            <i class="rts" data-size="24" data-color="#000000">{if isset($roythemes.nc_i_qv)}{$roythemes.nc_i_qv}{else}search1{/if}</i>
+            <span class="tip">{l s='Quick view' d='Shop.Theme.Actions'}</span>
+        </a>
+        {/block}
+        {/if}
+
+        {if isset($roythemes.nc_show_s) && $roythemes.nc_show_s == "1"}
+        <a class="discover action-btn tip_inside" href="{$product.url}" data-view-type="modez" data-link-action="fastview">
+            <i class="rts" data-size="24" data-color="#000000">{if isset($roythemes.nc_i_discover)}{$roythemes.nc_i_discover}{else}discover1{/if}</i>
+            <span class="tip">{l s='Discover' d='Shop.Theme.Actions'}</span>
+        </a>
+        {/if}
+        </div>
+      <div class="product-description">
+        {block name='product_name'}
+          <div class="h3 product-title" ><a href="{$product.canonical_url}">{$product.name}</a></div>
+        {/block}
+        {*<div class="prod-short-desc" >{$product.description_short nofilter}</div>*}
+
+        {block name='product_price_and_shipping'}
+          {if $product.show_price}
+            <div class="product-price-and-shipping" 
+                 
+                 >
+                <link  href="https://schema.org/InStock"/>
+                <meta  content="{$currency.iso_code}">
+                <meta  content="{$product.url}" >
+              {if $product.has_discount}
+                {hook h='displayProductPriceBlock' product=$product type="old_price"}
+
+                <span class="sr-only">{l s='Regular price' d='Shop.Theme.Catalog'}</span>
+                <span class="regular-price">{$product.regular_price}</span>
+                {if $product.discount_type === 'percentage'}
+                  <span class="discount-percentage discount-product">{$product.discount_percentage}</span>
+                {elseif $product.discount_type === 'amount'}
+                  <span class="discount-amount discount-product">{$product.discount_amount_to_display}</span>
+                {/if}
+              {/if}
+
+              {hook h='displayProductPriceBlock' product=$product type="before_price"}
+
+              <span class="sr-only">{l s='Price' d='Shop.Theme.Catalog'}</span>
+              <span  class="price" content="{$product.price_amount}">{$product.price}</span>
+
+              {hook h='displayProductPriceBlock' product=$product type='unit_price'}
+
+              {hook h='displayProductPriceBlock' product=$product type='weight'}
+
+              {block name='product_variants'}
+                {if $product.main_variants}
+                  {include file='catalog/_partials/variant-links.tpl' variants=$product.main_variants}
+                {/if}
+              {/block}
+
+              {if !$configuration.is_catalog}
+                <div class="add_wrap">
+                  {if ($product.allow_oosp || (!$product.main_variants && $product.quantity > 0) || $product.quantity_all_versions > 0)}
+                    {if isset($roythemes.nc_ai) && $roythemes.nc_ai == "1"}
+                      {if $product.id_product_attribute > 0}
+                            <input type="hidden" name="token" value="{$static_token}">
+                            <input type="hidden" value="{$product.id_product}" name="id_product">
+                    		<input type="hidden" name="id_customization" value="0">
+                                    <a href="{$product.url}" class="">
+                					<button class="btn btn-primary add_to_cart">
+                						<span>{l s='Select Options' d='Shop.Theme.Actions'}</span>
+                					</button>
+                            </a>
+              				{else}
+                                <form action="{$urls.pages.cart}" method="post" class="add-to-cart-or-refresh">	
+                                    <input type="hidden" name="token" value="{$static_token}">
+                                    <input type="hidden" name="id_product" value="{$product.id}" class="product_page_product_id">
+                                    <input type="hidden" name="id_customization" value="0">
+                                    <button data-button-action="add-to-cart" class="btn btn-primary add_to_cart" type="submit">
+                                        <span>{l s='Add to cart' d='Shop.Theme.Actions'}</span>
+                                    </button>
+              					</form>
+                      {/if}
+            				{else}
+ 
+                            <form action="{$urls.pages.cart}" method="post" class="add-to-cart-or-refresh">	
+                                    <input type="hidden" name="token" value="{$static_token}">
+                                    <input type="hidden" name="id_product" value="{$product.id}" class="product_page_product_id">
+                                    <input type="hidden" name="id_customization" value="0">
+                                    <button data-button-action="add-to-cart" class="btn btn-primary add_to_cart" type="submit">
+                                        <span>{l s='Add to cart' d='Shop.Theme.Actions'}</span>
+                                    </button>
+              					</form>
+                    {/if}
+          				{else}
+          					<form action="{$urls.pages.cart}" method="post" class="add-to-cart-or-refresh">	
+                                <input type="hidden" name="token" value="{$static_token}">
+                                <input type="hidden" name="id_product" value="{$product.id}" class="product_page_product_id">
+                                <button data-button-action="add-to-cart" class="btn btn-primary disabled" disabled>
+                                    <i class="fa fa-times" aria-hidden="true"></i><span>{l s='Out of stock' d='Shop.Theme.Actions'}</span>
+                                </button>
+          					</form>
+          				{/if}
+                </div>
+      				{/if}
+
+            </div>
+          {/if}
+        {/block}
+
+        {block name='product_reviews'}
+          {hook h='displayProductListReviews' product=$product}
+        {/block}
+      </div>
+
+      {*block name='product_flags'}
+        <ul class="product-flags">
+          {foreach from=$product.flags item=flag}
+            <li class="product-flag {$flag.type}">{$flag.label}</li>
+          {/foreach}
+        </ul>
+      {/block*}
+
+    </div>
+  </article>
+{/block}

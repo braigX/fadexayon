@@ -1,0 +1,5 @@
+Ahoji {customer_name},
+{replier} právě odpověděla na váš komentář k {post_title}
+{comment_reply}
+Zobrazit odpověď
+

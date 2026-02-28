@@ -1,0 +1,53 @@
+#menu{
+    float : left;
+    font-size : 14px;
+    height: 2000px;
+}
+#menu .list-group-item:focus {
+    outline: 0;
+}
+#menu .material-icons {
+    font-size: 20px;
+    vertical-align: bottom;
+    margin-right: 5px;
+}
+#echelp_form h3 .material-icons{
+    font-size: 20px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+#ec_logo, #ec_logo div {
+    display: flex;
+}
+#ec_logo img {
+    height: 80px;
+    width: auto;
+    margin-right: 25px;
+}
+.logo-right-partner.logo-ranking i {
+    height: 80px;
+    width: 80px;
+    display: block;
+}
+#echelp_form p {
+    font-size: 13px;
+}
+#ec_logo_seo {
+    border-left: 1px solid gray;
+    margin-left: 25px;
+    padding-left: 20px;
+}
+#ec_logo_seo img{
+    margin-right: 0px;
+}
+#ec_logo_seo span{
+    font-size: 16px;
+    margin-left: 10px;
+}
+#menu img {
+    height: 25px;
+    margin-right: 5px;
+}
+.bootstrap.panel{
+    overflow: hidden;
+}

@@ -1,0 +1,14 @@
+[{shop_url}]
+
+Olá {customer_name},
+Esperamos que você possa reservar seu tempo para avaliar seus itens comprados recentemente:
+
+{product_list}
+
+Como presente de agradecimento, após a aprovação da revisão, forneceremos a você um código de cupom com {voucher_value} de desconto para seu próximo pedido.
+Obrigado pela confiança e compra em nossa loja
+
+Avalie agora
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

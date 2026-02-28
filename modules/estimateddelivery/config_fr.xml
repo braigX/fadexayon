@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>estimateddelivery</name>
+    <displayName><![CDATA[Estimation de livraison]]></displayName>
+    <version><![CDATA[3.9.8]]></version>
+    <description><![CDATA[Informez vos clients de la date de livraison de leur commande]]></description>
+    <author><![CDATA[Smart Modules]]></author>
+    <tab><![CDATA[shipping_logistics]]></tab>
+	<confirmUninstall><![CDATA[Êtes-vous certain de vouloir désinstaller le module ?  Toutes les données seront perdues]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+</module>

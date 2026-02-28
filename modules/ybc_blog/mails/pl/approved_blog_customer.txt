@@ -1,0 +1,3 @@
+Cześć {customer_name}
+Gratulacje! Twój post {post_title} został zatwierdzony.
+Zobacz post

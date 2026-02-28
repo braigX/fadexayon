@@ -1,0 +1,9 @@
+{
+    "author": "PrestaShop",
+    "name": "topbanner",
+    "homepage": "https://github.com/PrestaShopCorp/yopbanner",
+    "version": "1.0.0",
+    "dependencies": {},
+    "license": "AFL-3.0",
+    "private": true
+}

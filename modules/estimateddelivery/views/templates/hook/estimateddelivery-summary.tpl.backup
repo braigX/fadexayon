@@ -1,0 +1,139 @@
+{** * Estimated Delivery - Front Office Feature
+ *
+ * NOTICE OF LICENSE
+ *
+ * @author    Pol Rué
+ * @copyright Smart Modules 2015
+ * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category Transport & Logistics
+ * Registered Trademark & Property of smart-modules.com
+ *
+ * ***************************************************
+ * *               Estimated Delivery                *
+ * *          http://www.smart-modules.com           *
+ * *                                                  *
+ * ***************************************************
+*}
+
+{if !isset($ed_tooltip)}
+    {assign var='ed_tooltip' value=0}
+{/if}
+{function showEdPrice price=''}
+           <span class="carrier_price">{$ed_price_prefix|escape:'htmlall':'UTF-8'}{$price|escape:'htmlall':'UTF-8'}{$ed_price_suffix|escape:'htmlall':'UTF-8'}</span>
+{/function}
+{function printEstimatedDeliveryCart delivery=''}
+    {assign var=c value=$c++}
+    <p{if $c > 0} class="hideMe"{/if}>
+        {if $delivery->delay != ''}
+            <span{if $ed_tooltip} class="ed_tooltip"{/if}title="{$delivery->delay|escape:'htmlall':'UTF-8'}">
+        {/if}
+         <span class="ed_carrier_name"><strong>{$delivery->name|escape:'htmlall':'UTF-8'}: </strong></span>
+    {if $delivery->delivery_min|escape:'htmlall':'UTF-8' == $delivery->delivery_max|escape:'htmlall':'UTF-8'}
+        <span title="{$delivery->name|escape:'htmlall':'UTF-8'}">{if !isset($delivery->tot)}{l s='on' mod='estimateddelivery'} {/if}<span><strong class="date_green">{$delivery->delivery_min|escape:'htmlall':'UTF-8'}</strong></span>
+    {else}
+        <span title="{$delivery->name|escape:'htmlall':'UTF-8'}">{l s='between' mod='estimateddelivery'} <span><strong class="date_green">{$delivery->delivery_min|escape:'htmlall':'UTF-8'}</strong></span> {l s='and' mod='estimateddelivery'} <span><strong class="date_green">{$delivery->delivery_max|escape:'htmlall':'UTF-8'}</strong></span>
+    {/if}
+        </span></span>{if $delivery->delay != ''}</span>{/if}
+    </p>
+{/function}
+{function printReleaseAvailable item = ''}
+   {* Needs more testing *}
+    <p>
+    {if $hasDeliveries}
+        ✔ <strong>{$item.name|escape:'htmlall':'UTF-8'}</strong>: {$item.preorder_msg|escape:'htmlall':'UTF-8'|replace:'{date}':$item.ed_release_date}
+    {else}
+        {$item.preorder_msg|escape:'htmlall':'UTF-8'|replace:'{date}':$item.ed_release_date}
+    {/if}
+    </p>
+{/function}
+{function printEstimatedMessage message='' date=''}
+    <p class="ed_orderbefore">
+        <span><strong class="date_green">{$message|escape:'htmlall':'UTF-8'|replace:'{date}':$date}</strong></span>
+    </p>
+{/function}
+{assign var=c value=0}
+<div id="ed_shopping_footer">
+    {if (isset($ed_cart) && count($ed_cart) > 0)}
+        <div id="estimateddelivery" class="estimateddelivery ed-summary{if $edclass != '' } {$edclass|escape:'htmlall':'UTF-8'}{/if}">
+            <div>
+            <p class="ed_header">
+                <span class="ed_orderbefore ed_summary_title">{l s='Estimated delivery' mod='estimateddelivery'}: </span>
+                {*l s='Estimated Delivery options:' mod='estimateddelivery'}
+                {if !$ed_logged}(<small>{l s='will be more accurate once you register an address' mod='estimateddelivery'}</small>){/if*}
+            </p>
+            {foreach from=$ed_cart item=deliveries key=k name="ed_cart"}
+                {if is_object($deliveries)}
+                    {assign var="delivery" value=$deliveries}
+                    {if isset($delivery->dc) && isset($delivery->dc->id_carrier)}
+                        <div class="ed-item" id="ed-cart-{$delivery->dc->id_carrier|intval}" {if $ed_selected == $delivery->dc->id_carrier}class="ed_selected_delivery"{/if}>
+                            {printEstimatedDeliveryCart delivery = $delivery}
+                            {if $enable_custom_days}
+                                {if ($which_module && $is_customize_cart) || !$which_module}
+                                    {if $delivery->dp->is_custom && (int)$delivery->dp->add_custom_days > 0 && $delivery->dp->msg != ''}
+                                        {printEstimatedMessage message=$delivery->dp->msg date=$delivery->dp->add_custom_days}
+                                    {/if}
+                                {/if}
+                            {/if}
+                            {if isset($ed_relandavail) && count($ed_relandavail) > 0}
+                                {foreach from=$ed_relandavail item=item}
+                                    {printReleaseAvailable item = $item}
+                                {/foreach}
+                            {/if}
+                        </div>
+                    {elseif isset($ed_relandavail) && count($ed_relandavail) > 0}
+                        <div class="ed-item" id="ed-cart-{$k|intval}" class="ed-cart-option" style="display:none">
+                            {foreach from=$ed_relandavail item=item}
+                                {printReleaseAvailable item = $item}
+                            {/foreach}
+                        </div>
+                    {/if}
+                {else}
+                    {foreach from=$deliveries item=delivery}
+                        {if isset($delivery->dc) && isset($delivery->dc->id_carrier)}
+                            <div class="ed-item" id="ed-cart-{$delivery->dc->id_carrier|intval}">
+                                {printEstimatedDeliveryCart delivery = $delivery}
+                                {if isset($ed_relandavail) && count($ed_relandavail) > 0}
+                                    {foreach from=$ed_relandavail item=item}
+                                        {printReleaseAvailable item = $item}
+                                    {/foreach}
+                                {/if}
+                            </div>
+                        {elseif isset($ed_relandavail) && count($ed_relandavail) > 0}
+                            <div class="ed-item" id="ed-cart-{$k|intval}" class="ed-cart-option" style="display:none">
+                                {foreach from=$ed_relandavail item=item}
+                                    {printReleaseAvailable item = $item}
+                                {/foreach}
+                            </div>
+                        {/if}
+                    {/foreach}
+                {/if}
+            {/foreach}
+                {if !$ed_logged}<div class="small-text">({l s='dates and carriers will be more accurate once you register' mod='estimateddelivery'})</div>{/if}
+                {if $c > 1}
+                    <div class="expand_delivery_options">{l s='Show [1]%d more[/1] options' mod='estimateddelivery' tags=['<span class="more_less_options">'] sprintf=[$c-1]}</div>
+                {/if}
+            </div>
+        </div>
+    {/if}
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        $(document).on('click', '.expand_delivery_options', function() {
+            showHideOptions(!$(this).hasClass('expanded'));
+        });
+        function showHideOptions(show)
+        {
+            let e = $('#ed_shopping_footer .hideMe');
+            if (show) {
+                e.slideDown();
+                let c = $('.more_less_options').text().match(/\d+/)[0];
+                $('.more_less_options').data('count', c);
+                $('.more_less_options').text('{l s='less' mod='estimateddelivery'}');
+            } else {
+                e.slideUp();
+                $('.more_less_options').text($('.more_less_options').data('count')+' '+'{l s='more' mod='estimateddelivery'}');
+            }
+            $('.expand_delivery_options').toggleClass('expanded');
+        }
+    });
+</script>

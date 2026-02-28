@@ -1,0 +1,48 @@
+/**
+ * FAQ Pages with SEO Schema Markup module
+ *
+ * @author    Opossum Dev
+ * @copyright Opossum Dev
+ * @license   You are just allowed to modify this copy for your own use. You are not allowed
+ * to redistribute it. License is permitted for one Prestashop instance only, except for test
+ * instances.
+ */
+
+.bootstrap .nav-pills.op_tabs li a:focus {
+    color: white !important
+}
+
+.bootstrap .module-info-description-wrap-op .learn-more,
+.bootstrap .op-faq-instructions a {
+    text-decoration: underline;
+}
+
+.bootstrap .module-info-description-wrap-op .learn-more:hover,
+.bootstrap .op-faq-instructions a:hover,
+.bootstrap .op-faq-instructions .op-hello-buttons a {
+    text-decoration: none;
+}
+
+.bootstrap input[type="text"].op-filter-search-input {
+    border-color: #333 !important;
+    height: 32px !important;
+    padding: 4px 8px !important;
+}
+.btn.btn-primary.op-filter-search-button {
+    height: 32px !important;
+    padding: 4px 8px !important;
+}
+.bootstrap .op-select,
+.bootstrap input[type=text].textfield-custom,
+.bootstrap input[type=number].textfield-custom {
+    padding: 4px 8px !important;
+}
+
+.bootstrap .panel .panel-footer {
+    border: none !important;
+    padding-top: 15px !important;
+}
+
+.bootstrap .defaultForm .panel .panel-footer {
+    padding-top: 0 !important;
+}

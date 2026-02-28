@@ -1,0 +1,1007 @@
+/**
+ * 2024 Novatis Agency - www.novatis-paris.fr.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to info@novatis-paris.fr so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ *  @author    NOVATIS <info@novatis-paris.fr>
+ *  @copyright 2024 NOVATIS
+ *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/****** Other *******/
+.intl-tel-input.iti-container {
+    z-index: 100000!important; /* Override inline CSS */
+}
+
+/****** Popin *******/
+.geodisPopin .fancybox-content {
+    border-radius: 0;
+    border: 1px solid #e6e0fc;
+    padding: 0!important; /* Override inline CSS */
+    background: #fbf9ff;
+    max-height: 80vh;
+}
+.geodisPopin * {
+    box-sizing: border-box;
+}
+
+.geodisPopin {
+    position: fixed;
+    background: #fbf9ff;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    top: 10vh;
+    left: 10vw;
+    width: 80vw;
+    max-height: 80vh;
+    overflow: hidden;
+    z-index: 9999999999;
+    font-family: sans-serif;
+}
+
+.geodisPopinOverlay {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: black;
+    opacity: 0.5;
+    overflow: hidden;
+    z-index: 9999999999;
+}
+@media (max-width: 800px) {
+    .geodisPopin {
+        left: 3vw;
+        width: 94vw;
+    }
+}
+
+@media (max-width: 640px) {
+    .geodisPopin {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+        overflow: auto;
+    }
+    .geodisPopin .fancybox-content {
+        height: 100% !important;
+    }
+    .geodisPopin .fancybox-slide {
+        padding: 0;
+    }
+    .geodisPopin .fancybox-inner {
+        width: 100% !important;
+        height: 100% !important;
+        padding-bottom: 75px;
+    }
+}
+
+/****** Input *******/
+.geodisInput {
+    position: relative;
+}
+.geodisInput__input.geodisError {
+    border: 1px solid red;
+
+}
+.geodisOptionRow--selected .geodisOptionRow__inputContainer[data-values=livEtage].geodisError[data-error]::after,
+.geodisError[data-error]::after {
+    content: attr(data-error);
+    position: absolute;
+    top: -18px;
+    color: red;
+    font-size: 12px;
+    width: 300px;
+}
+
+/****** Header *******/
+.geodisPopinHeader {
+    padding: 25px 160px 25px 190px;
+    position: relative;
+    border-bottom: 1px solid #f5f5f0;
+    position: absolute;
+    top: 0;
+    height: 100px;
+    width: 100%;
+    z-index: 1;
+    box-sizing: border-box;
+}
+.geodisPopin--geodisofficiel .geodisPopinHeader {
+    background: url('../img/css/popin/logo-geodis.png') no-repeat 25px center white;
+    background-size: 116px 45px;
+    color: #3200e6;
+}
+.geodisPopin--franceexpress .geodisPopinHeader {
+    background: url('../img/css/popin/logo-franceexpress.png') no-repeat 40px center white;
+    color: #008a99;
+}
+@media (max-width: 640px) {
+    .geodisPopin--geodisofficiel  .geodisPopinHeader {
+        background-size: 93px 36px;
+        background-position: 15px 15px;
+        padding: 45px 70px 5px 56px;
+        height: auto;
+        position: relative;
+    }
+    .geodisPopin--franceexpress .geodisPopinHeader {
+        background-size: 74px 40px;
+        background-position: 15px 15px;
+        padding: 65px 30px 8px 30px;
+        height: auto;
+        position: relative;
+    }
+}
+
+/* Separator */
+.geodisPopinHeader::after {
+    border-left: 1px solid #f5f5f0;
+    position: absolute;
+    left: 165px;
+    top: 20%;
+    height: 60%;
+    content: '';
+}
+@media (max-width: 640px) {
+    .geodisPopinHeader::after {
+        display: none;
+    }
+}
+.geodisPopinHeader__close {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    margin-top: -10px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+.geodisPopin--geodisofficiel .geodisPopinHeader__close {
+    background: url('../img/css/popin/cross-geodis.png') no-repeat center center;
+    background-size: cover;
+}
+.geodisPopin--franceexpress .geodisPopinHeader__close {
+    background: url('../img/css/popin/cross-franceexpress.png') no-repeat center center;
+    background-size: cover;
+}
+@media (max-width: 640px) {
+    .geodisPopinHeader__close {
+        top: 25px;
+        right: 25px;
+    }
+}
+.geodisPopinHeader__title {
+    color: #3200e6;
+    text-transform: uppercase;
+    font-weight : bold;
+    font-size: 17px;
+}
+.geodisPopin--franceexpress .geodisPopinHeader__title {
+    color: #008a99;
+}
+@media (max-width: 640px) {
+    .geodisPopinHeader__title {
+        color: black;
+        font-size: 14px;
+    }
+}
+.geodisPopinHeader__subtitle {
+    color: black;
+    font-size: 14px;
+}
+@media (max-width: 640px) {
+    .geodisPopinHeader__subtitle {
+        font-size: 12px;
+    }
+}
+.geodisPopinHeader__price {
+    position: absolute;
+    right: 67px;
+    top: 36px;
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+}
+@media (max-width: 640px) {
+    .geodisPopinHeader__price {
+        right: 25px;
+        top: 45px;
+        font-size: 15px;
+    }
+}
+
+/****** Content *******/
+.geodisPopinContent {
+    overflow: auto;
+    margin-top: 100px;
+    margin-bottom: 65px;
+    max-height: 50vh;
+}
+@media (max-width: 640px) {
+    .geodisPopinContent {
+        max-height: none;
+        margin-top: 0;
+        margin-bottom: 60px;
+    }
+}
+
+
+/****** Prestation *******/
+.geodisPrestation {
+    margin : 20px;
+    background-color: white;
+    box-shadow: 0 2px 3px 0 rgba(50, 0, 230, 0.12);
+    position: relative;
+    border: solid 3px white;
+}
+.geodisPrestation--selected {
+    border: solid 3px rgba(0, 189, 255, 0.24);
+    outline: solid 1px rgba(0, 189, 255, 0.56);
+}
+.geodisPrestationHeader {
+    background-repeat: no-repeat;
+    background-color: white;
+    background-image: url('../img/css/popin/radio.png');
+    background-size: 27px;
+    background-position: 25px center;
+    padding-left: 70px;
+    height: 108px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    position: relative;
+    cursor: pointer;
+}
+@media (max-width: 640px) {
+    .geodisPrestationHeader {
+        height: auto;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: 60px;
+        background-position: 17px 23px;
+    }
+}
+.geodisPrestationHeader::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 20px;
+    height: 100%;
+    width: 16px;
+    background-image: url('../img/css/popin/arrow-up.png');
+    background-position: 0 center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.geodisPrestation--selected .geodisPrestationHeader::after {
+    background-image: url('../img/css/popin/arrow-down.png');
+}
+@media (max-width: 640px) {
+    .geodisPrestationHeader::after {
+        display: none;
+    }
+}
+.geodisPrestation--selected .geodisPrestationHeader {
+    background-image: url('../img/css/popin/radio-selected.png');
+    border-bottom: 1px solid  #f5f5f0;
+}
+.geodisPrestationHeader__name {
+    display: inline-block;
+    color: black;
+    font-weight: bold;
+    width: 70%;
+    font-size: 16px;
+}
+@media (max-width: 640px) {
+    .geodisPrestationHeader__name {
+        font-size: 15px;
+    }
+}
+.geodisPrestationHeader__desc {
+    display: inline-block;
+    font-size: 14px;
+    width: 70%;
+}
+@media (max-width: 640px) {
+    .geodisPrestationHeader__desc {
+        font-size: 13px;
+    }
+}
+.geodisPrestationHeader__price {
+    float: right;
+    margin-top: -5px;
+    margin-right: 60px;
+    font-weight: bold;
+    font-size: 18px;
+}
+@media (max-width: 640px) {
+    .geodisPrestationHeader__price {
+        margin-top: 5px;
+        margin-right: 10px;
+        font-size: 16px;
+        float: none;
+        text-align: right;
+    }
+}
+.geodisPrestationContent {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.2s ease;
+    background-color: white;
+    margin-bottom : 16px;
+}
+.geodisPrestation--selected .geodisPrestationContent {
+    max-height: 10000px;
+}
+.geodisPrestationContent__container {
+    padding: 20px;
+    padding-left: 80px;
+}
+.geodisPrestationContent__container--relay {
+    padding-left: 20px;
+}
+@media (max-width: 640px) {
+    .geodisPrestationContent__container {
+        padding: 20px 0;
+    }
+    .geodisPrestationContent__container--relay {
+        padding-left: 0px;
+    }
+}
+.geodisPrestationContent__title {
+    text-transform: uppercase;
+    color: #3200e6;
+}
+.geodisPopin--franceexpress .geodisPrestationContent__title {
+    color: #008a99;
+}
+.geodisPrestationContent__subTitle {
+    color: #3200e6;
+    font-weight : bold;
+    font-size : 0.9em;
+}
+.geodisPopin--franceexpress .geodisPrestationContent__subTitle {
+    color: #008a99;
+}
+@media (max-width: 640px) {
+    .geodisPrestationContent__subTitle {
+        padding: 0 20px;
+    }
+}
+.geodisPrestationContent__description {
+    font-size: 13px;
+    line-height: 28px;
+    color: black;
+    margin-bottom: 18px;
+}
+@media (max-width: 640px) {
+    .geodisPrestationContent__description {
+        padding: 0 20px;
+    }
+}
+
+
+/****** Option *******/
+.geodisOption {
+    list-style: none;
+}
+.geodisOptionRow {
+    margin-right : 20px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-color: white;
+    background-image: url('../img/css/popin/radio.png');
+    background-size: 20px;
+    background-position: left 0 top 20px;
+    padding-left: 50px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    border-bottom: 1px solid  #f5f5f0;
+}
+@media (max-width: 640px) {
+    .geodisOptionRow {
+        padding-right: 0;
+        margin-right: 10px;
+        background-position: left 10px top 20px;
+    }
+}
+.geodisOptionRow:last-child {
+    margin-bottom: 20px;
+}
+.geodisOptionRow--selected {
+    background-image: url('../img/css/popin/radio-selected.png');
+}
+.geodisOptionRow__desc {
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.23;
+    letter-spacing: normal;
+    color: #717171;
+    margin: 5px 0;
+}
+.geodisOptionRow__name {
+    font-size: 14px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.20;
+    letter-spacing: normal;
+    color: #000000;
+}
+.geodisOptionRow__price {
+    display: inline-block;
+    text-align: right;
+    width : 14%;
+    font-size: 14px;
+    font-weight: bold;
+    float: right;
+    line-height: 40px;
+}
+@media (max-width: 640px) {
+    .geodisOptionRow__price {
+        width: 35%;
+    }
+}
+.geodisOptionRow__price::before {
+    content: '+ ';
+}
+.geodisOptionRow__label{
+    display: inline-block;
+    width : 60%;
+    padding-right: 1%;
+}
+.geodisOptionRow__additionnal {
+    display: inline-block;
+    width : 24%;
+    max-width: 200px;
+    vertical-align: top;
+}
+@media (max-width: 920px) {
+    .geodisOptionRow__additionnal {
+        display: block;
+        width: 200px;
+    }
+    .geodisOptionRow__label {
+        width: 64%;
+    }
+}
+.geodisOptionRow__inputContainer {
+    width: 100%;
+    display: inline-block;
+    position: relative;
+}
+.geodisOptionRow__input {
+    width: 100%;
+    background: #fbf9ff;
+    color: #bdadf7;
+    border: 1px solid #e6e0fc;
+    border-radius: 2px;
+    outline: none;
+    padding: 7px;
+    margin-top: 5px;
+}
+.geodisOptionRow__input::placeholder,
+.geodisOptionRow__input:active::placeholder {
+    color: #bdadf7;
+    font-weight: normal;
+}
+.geodisOptionRow--selected .geodisOptionRow__input {
+    background: white;
+    color: black;
+    font-weight: bold;
+}
+.geodisOptionRow--selected .geodisOptionRow__inputContainer[data-values=livEtage]::after {
+    content: attr(data-required-text);
+    font-size: 11px;
+    line-height: 9px;
+    position: absolute;
+    top: -14px;
+    left: 0px;
+    color: #c2b3f5;
+    font-style: italic;
+}
+.geodisOptionRow--selected .geodisOptionRow__input::placeholder {
+}
+
+
+/****** Info *******/
+.geodisInfo {
+    position: relative;
+    height: 110px;
+}
+.geodisInfo--relay {
+    height: 36px;
+    margin-top: 10px;
+}
+@media (max-width: 640px) {
+    .geodisInfo {
+        padding: 0 20px;
+    }
+}
+.geodisInfo__inputContainer {
+    position: absolute;
+    display: inline-block;
+    margin-bottom: 20px;
+    width: 200px;
+}
+.geodisInfo__input {
+    padding: 7px;
+    color: black;
+    border: 1px solid #e6e0fc;
+    border-radius: 2px;
+    outline: none;
+    width: 100%;
+    max-width: none; // Override Magento default theme
+}
+.geodisInfo__input::placeholder,
+.geodisInfo__input:active::placeholder {
+    color: #bdadf7;
+    font-weight: normal;
+}
+.geodisInfo__inputContainer--mobilephone{
+    top: 0;
+    left: 50%;
+    margin-left: -100px;
+}
+.geodisInfo__inputContainer--required::after {
+    content: attr(data-required-text);
+    font-size: 11px;
+    line-height: 9px;
+    position: absolute;
+    top: -14px;
+    left: 0px;
+    color: #c2b3f5;
+    font-style: italic;
+}
+.geodisInfo__inputContainer--telephone {
+    top: 0;
+    left: 0;
+    margin-left: 0;
+}
+.geodisInfo__inputContainer--email {
+    top: 0;
+    right: 0;
+}
+.geodisInfo__input--email {
+    background-image: url('../img/css/popin/email.png');
+    background-size: 116px 45px;
+    background-color: white;
+    background-repeat: no-repeat;
+    background-size: 32px;
+    background-position: right 5px center;
+    padding-right: 35px;
+}
+.geodisInfo__inputContainer--digicode {
+    top: 55px;
+    left: 0;
+}
+.geodisInfo__inputContainer--instruction {
+    top: 55px;
+    left: 50%;
+    margin-left: -100px;
+    right: 0;
+    width: auto;
+}
+.geodisInfo__input--instruction {
+    position: relative;
+    width: 100%;
+}
+.geodisInfo__inputContainer .intl-tel-input {
+    width: 100%;
+}
+@media (max-width: 920px) {
+    .geodisInfo__inputContainer--instruction {
+        width: 400px;
+    }
+}
+@media (max-width: 830px) {
+    .geodisInfo {
+        height: auto;
+        width: auto;
+    }
+    .geodisInfo__inputContainer .intl-tel-input {
+        width: 100%;
+    }
+    .geodisInfo__inputContainer {
+        position: relative;
+        width: 100%;
+        top: 0;
+        left: 0;
+        margin-left: 0;
+        margin-bottom: 15px;
+    }
+    .geodisInfo__input {
+        width: 100%;
+    }
+}
+
+
+/****** Map *******/
+.geodisRelayPicker {
+    font-size: 0;
+}
+.geodisRelayPicker__column {
+    display: inline-block;
+    width: 50%;
+    height: 40vh;
+    overflow: auto;
+    font-size: 14px;
+}
+.geodisRelayPicker__1column {
+    display: inline-block;
+    width: 100%;
+    height: 40vh;
+    overflow: auto;
+    font-size: 14px;
+}
+.geodisRelayPicker__switch {
+    display: none;
+}
+.geodisRelayPicker__map {
+    width: 100%;
+    height: 100%;
+}
+.geodisRelayPicker__form {
+    width: 100%;
+    padding-right: 20px;
+    position: relative;
+    margin-bottom: 10px;
+}
+@media (max-width: 640px) {
+    .geodisRelayPicker__form {
+        padding-right: 0;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+.geodisRelayPicker__list {
+    width: 100%;
+    list-style: none;
+    padding-left: 0;
+}
+.geodisRelayAddress__input {
+    border: 1px solid #e6e0fc;
+    border-radius: 3px;
+    padding: 7px;
+    width: 100%;
+    padding-right: 40px;
+    font-size: 14px;
+    font-weight: bold;
+    outline: none;
+}
+button:not(.primary).geodisRelayAddress__action, /* For magento 2 */
+.geodisRelayAddress__action {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    border-radius: 3px;
+    border: solid 2px rgba(50, 0, 230, 0.08);
+    background-color: #00bdff;
+    padding: 6px 9px;
+    color: white;
+    cursor: pointer;
+    box-shadow: none;
+}
+@media (max-width: 640px) {
+    .geodisRelayAddress__action {
+        right: 20px;
+    }
+}
+
+.geodisRelayShortAddress__input {
+    border: 1px solid #e6e0fc;
+    border-radius: 3px;
+    padding: 7px;
+    height: 36px;
+    width: 100px;
+    padding-right: 40px;
+    font-size: 14px;
+    font-weight: bold;
+    outline: none;
+    vertical-align: top;
+}
+@media (max-width: 640px) {
+    .geodisRelayShortAddress__input {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+}
+.geodisRelayShortAddress__country {
+    border: 1px solid #e6e0fc;
+    background: white;
+    outline: none;
+    height: 36px;
+    width: auto;
+    padding: 0 5px;
+    border-radius: 3px;
+    height: 36px;
+    -webkit-appearance: menulist-button;
+    vertical-align: top;
+}
+@media (max-width: 640px) {
+    .geodisRelayShortAddress__country {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+}
+button:not(.primary).geodisRelayShortAddress__action, /* For magento 2 */
+.geodisRelayShortAddress__action {
+    border-radius: 3px;
+    border: solid 2px rgba(50, 0, 230, 0.08);
+    background-color: #00bdff;
+    padding: 6px 9px;
+    color: white;
+    cursor: pointer;
+    box-shadow: none;
+    vertical-align: top;
+    height: 36px;
+}
+@media (max-width: 640px) {
+    .geodisRelayShortAddress__action {
+        width: 100%;
+    }
+}
+
+.geodisSwitch {
+    display: inline-block;
+    width: 50%;
+    padding: 9px 6px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    text-align: center;
+
+    font-weight: bold;
+    background: #F6FCFF;
+    border: solid 1px rgba(0, 189, 255, 0.56);
+    border-top-width: 0;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    color: black;
+}
+.geodisSwitch--active {
+    background: white;
+    border-bottom-width: 0;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    color: #00bdff;
+}
+.geodisSwitch--active:last-child {
+    border-right-width: 0;
+    border-left-width: 1px;
+}
+.geodisSwitch:last-child {
+    float: right;
+    border-right: none;
+}
+.geodisRelay {
+    border-bottom: 1px solid rgba(101, 215, 255, 0.56);
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+@media (max-width: 640px) {
+    .geodisRelay {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+.geodisRelay__distance {
+    float: right;
+    margin-right: 10px;
+    color: #00bdff;
+    font-size: 14px;
+    font-weight: bold;
+}
+.geodisRelay__name {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+button:not(.primary).geodisRelay__action, /* For magento 2 */
+.geodisRelay__action {
+    float: right;
+    margin-top: 10px;
+    margin-right: 10px;
+    font-size: 14px;
+    border-radius: 3px;
+    padding: 6px 9px;
+    font-weight: bold;
+    border: solid 1px #8ddaf5;
+    color: #00bdff;
+    background: white;
+    box-shadow: none;
+}
+.geodisRelay--selected .geodisRelay__action {
+    border: solid 2px rgba(50, 0, 230, 0.08);
+    background-color: #00bdff;
+    color: white;
+}
+.geodisRelay__address1 {
+    display: block;
+    font-size: 13px;
+    line-height: 1.1;
+}
+.geodisRelay__address2 {
+    display: block;
+    font-size: 13px;
+    line-height: 1.1;
+}
+.geodisRelay__zipcode {
+    font-size: 13px;
+    line-height: 1.1;
+}
+.geodisRelay__zipcode::after {
+    content: ',';
+}
+.geodisRelay__city {
+    font-size: 13px;
+    line-height: 1.1;
+}
+.geodisRelay__actionSeeTimetable {
+    display: block;
+    font-size: 13px;
+    color: #9b9b9b;
+    text-decoration: underline;
+    margin-top: 5px;
+    position: relative;
+    margin-bottom: 5px;
+}
+.geodisRelay__actionSeeTimetable::after {
+    content: '';
+    border: solid 1px #9b9b9b;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    position: absolute;
+    margin-left: 5px;
+    top: 7px;
+}
+
+.geodisRelay__actionSeeTimetable--active::after {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    top: 10px;
+}
+
+.geodisRelay__actionSeeTimetable ~ .geodisTimetable {
+    display: none;
+}
+.geodisRelay__actionSeeTimetable--active ~ .geodisTimetable {
+    display: block;
+}
+.geodisTimetable {
+    padding-top: 5px;
+}
+.geodisTimetable__line {
+    font-size: 13px;
+    color: #9b9b9b;
+}
+.geodisTimetable__title {
+    display: inline-block;
+    width: 80px;
+}
+.geodisTimetable__value {
+}
+
+.geodisRelay__actionSelected {
+    display: none;
+}
+.geodisRelay--selected .geodisRelay__actionSelect {
+    display: none;
+}
+.geodisRelay--selected .geodisRelay__actionSelected {
+    display: inline;
+}
+
+@media (max-width: 640px) {
+    .geodisRelayPicker__column {
+        width: 100%;
+        height: auto;
+    }
+    .geodisRelayPicker__switch {
+        display: block;
+    }
+    .geodisRelayPicker__map {
+        width: 0;
+        height: 0;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .geodisRelayPicker__map--active {
+        width: 100%;
+        height: 50vh;
+    }
+    .geodisRelayPicker__list {
+        display: none;
+    }
+    .geodisRelayPicker__list--active {
+        display: inline-block;
+    }
+}
+
+.infoPrestation {
+    position : relative;
+    float: left;
+    width: 90%;
+}
+
+.geodisOption__input {
+    width: 100%;
+    text-align: right;
+}
+
+.geodisPopinFooter {
+    text-align: right;
+    background-color: white;
+    border-top: 1px solid  #f5f5f0;
+    width: 100%;
+    height: 65px;
+    position: absolute;
+    bottom: 0;
+}
+@media (max-width: 640px) {
+    .geodisPopinFooter {
+        height: auto;
+        position: fixed;
+    }
+}
+
+button:not(.primary).geodisPopinFooter__submit, /* For magento 2 */
+.geodisPopinFooter__submit {
+    margin: 8px;
+    width: 200px;
+    height: 50px;
+    border-radius: 3px;
+    background-color: #00bdff;
+    border: solid 2px rgba(50, 0, 230, 0.08);
+    cursor: pointer;
+    box-shadow: none;
+}
+@media (max-width: 640px) {
+    .geodisPopinFooter__submit {
+
+    }
+}
+
+.geodisPopinFooter__submit--inactive {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.geodisPopinFooter__submit-button-text {
+  width: 56px;
+  height: 18px;
+  font-size: 15px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.2;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.geodisCarrierlist {
+    margin-bottom: 0;
+    list-style: none;
+    padding-left: 0;
+}

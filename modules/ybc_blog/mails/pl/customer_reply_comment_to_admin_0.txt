@@ -1,0 +1,4 @@
+Cześć {author_name}
+{replier} właśnie odpowiedział na komentarz w {post_title} i czeka na Twoją zgodę
+{comment_reply}
+Zobacz odpowiedź

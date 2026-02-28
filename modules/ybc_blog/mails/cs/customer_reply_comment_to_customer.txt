@@ -1,0 +1,5 @@
+Ahoj {customer_name},
+{commented_customer_name} právě odpověděla na váš komentář k {post_title}
+{comment_reply}
+Zobrazit odpověď
+

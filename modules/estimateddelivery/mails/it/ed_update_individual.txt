@@ -1,0 +1,15 @@
+Modifica della data di consegna per il tuo ordine {order_name}
+
+Ciao {firstname} {lastname},
+
+Ordine {order_name} - Data di consegna aggiornata
+
+La data stimata di consegna per il tuo ordine con la riferimento {order_name} è stata aggiornata. La nuova data prevista è:
+
+{deliveries}
+
+Puoi consultare il tuo ordine e scaricare la tua fattura nella sezione "Storico ordini" del tuo account cliente cliccando su "Il mio account" nel nostro negozio.
+
+Se hai un account ospite, puoi seguire il tuo ordine nella sezione "Tracciamento ospite" nel nostro negozio.
+
+{shop_name} powered by PrestaShop™

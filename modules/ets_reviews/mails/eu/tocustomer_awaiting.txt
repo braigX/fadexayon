@@ -1,0 +1,9 @@
+[{shop_url}]
+
+Hello {customer_name},
+Your {object} on {product_name} has been submitted successfully and is waiting for approval.
+
+{content}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

@@ -1,0 +1,114 @@
+/**
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file.
+ * You are not authorized to modify, copy or redistribute this file.
+ * Permissions are reserved by FME Modules.
+ *
+ *  @author    FMM Modules
+ *  @copyright FME Modules 2024
+ *  @license   Single domain
+ */
+ #pquote_category_list {
+    max-height: 600px;
+    overflow-y: scroll
+}
+#rel_holder ul {
+    position: absolute;
+    left: 12px;
+    border-radius: 4px;
+    top: 40px;
+    margin: 0px 0 20%;
+    padding: 0;
+    background: #fff;
+    border: 1px solid #BBCDD2;
+    z-index: 999
+}
+#rel_holder ul li {
+    list-style: none;
+    padding: 5px 10px;
+    display: block;
+    margin: 0px
+}
+#rel_holder ul li:hover {
+    cursor: pointer;
+    background: #25B9D7
+}
+#rel_holder ul li.rel_breaker {
+    padding: 0px;
+    margin: -1px -22px 0 0;
+    background: #fff;
+    float: right;
+    border: 1px solid #BBCDD2;
+    border-left: 0px;
+    height: 24px;
+}
+#rel_holder ul li.rel_breaker:hover {
+    background: #fff;
+}
+.rel_breaker i {
+    font-size: 22px;
+    color: #E50B70;
+    cursor: pointer
+}
+#rel_holder_temp {
+    clear: both;
+    padding: 10px 0
+}
+#rel_holder_temp ul {
+    padding: 0;
+    margin: 0
+}
+#rel_holder_temp ul li {
+    list-style: none;
+    padding: 3px 5px;
+    border-radius: 5px;
+    margin: 6px 0;
+    border: 1px solid #E5E5E5;
+    display: block
+}
+#rel_holder_temp ul li div {
+    display: inline-block;
+    vertical-align: middle
+}
+#rel_holder_temp ul li .media-left {
+    width: 8%
+}
+#rel_holder_temp ul li .media-left img {
+    max-width: 100%
+}
+#rel_holder_temp ul li .media-body {
+    width: 86%;
+    margin-left: 5%
+}
+#rel_holder_temp ul li .media-body span {
+    float: left;
+    font-size: 13px;
+    color: #6c868e;
+    font-weight: normal;
+    white-space: normal !important;
+    text-align: left;
+    width: 92%
+}
+#rel_holder_temp ul li .media-body i {
+    float: right;
+    cursor: pointer
+}
+.placeholder_holder {
+    position: relative
+}
+.ps_16_specific .material-icons {
+    font-size: 1px;
+    color: #fff;
+}
+.ps_16_specific .material-icons::before {
+    content: "\f00d";
+    font-family: "FontAwesome";
+    font-size: 25px;
+    text-align: center;
+    color: red;
+    font-style: normal;
+    text-indent: -9999px;
+    font-weight: normal;
+    line-height: 20px;
+}

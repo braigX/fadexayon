@@ -1,0 +1,8 @@
+[{shop_url}] 
+
+Witaj {firstname} {lastname}, 
+
+Szacowany czas dostawy dla Twojego zamówienie {order_name} został zaktualizowany. Zamówienie dotrze do Ciebie:
+
+Od: {delivery_min}
+Do: {delivery_max}

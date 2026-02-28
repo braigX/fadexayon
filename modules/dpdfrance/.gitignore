@@ -1,0 +1,15 @@
+/config_fr.xml
+/config/defines_custom.inc.php
+/config/private_key.php
+/pdf/
+!/pdf/index.php
+!/pdf/.htaccess
+/session.txt
+!/vendor/*
+/vendor/setasign/tfpdf/font/unifont/*
+!/vendor/setasign/tfpdf/font/unifont/index.php
+!/vendor/setasign/tfpdf/font/unifont/ttfonts.php
+
+# Dev
+/.php-cs-fixer.cache
+/test/

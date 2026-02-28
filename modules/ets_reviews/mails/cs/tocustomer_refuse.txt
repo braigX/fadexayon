@@ -1,0 +1,13 @@
+[{shop_url}]
+
+Dobrý den, {customer_name}
+Vaše recenze na {product_name} byla zamítnuta.
+
+{title}
+
+{content}
+
+{reason}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

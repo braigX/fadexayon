@@ -1,0 +1,12 @@
+[{shop_url}]
+
+Здравствуйте {person_name},
+{from_person_name} ответил на ваш {object} в {product_name}
+“{object_content}”
+
+{content}
+
+[Посмотреть ответ]
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

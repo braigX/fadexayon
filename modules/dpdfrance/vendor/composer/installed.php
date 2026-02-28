@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'name' => 'dpdfrance/prestashop-module',
+        'pretty_version' => '6.2',
+        'version' => '6.2',
+        'reference' => NULL,
+        'type' => 'prestashop-module',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => false,
+    ),
+    'versions' => array(
+        'dpdfrance/prestashop-module' => array(
+            'pretty_version' => '6.2',
+            'version' => '6.2',
+            'reference' => NULL,
+            'type' => 'prestashop-module',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'setasign/fpdi' => array(
+            'pretty_version' => 'v2.3.7',
+            'version' => '2.3.7.0',
+            'reference' => 'bccc892d5fa1f48c43f8ba7db5ed4ba6f30c8c05',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../setasign/fpdi',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'setasign/tfpdf' => array(
+            'pretty_version' => '1.31.1',
+            'version' => '1.31.1.0',
+            'reference' => 'a55066212cce37a7246b7d4e332c4294ee46b257',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../setasign/tfpdf',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+    ),
+);

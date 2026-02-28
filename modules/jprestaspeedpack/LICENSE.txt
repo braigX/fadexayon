@@ -1,0 +1,6 @@
+The module is under a commercial license:
+------------------------------------------
+Buying the module gives you the right to a unique, non-exclusive, and eternal license valid on a
+single Prestashop instance (with or without the multi-store mode) in production and a single test instance.
+
+More informations at https://jpresta.com/content/6-licenses

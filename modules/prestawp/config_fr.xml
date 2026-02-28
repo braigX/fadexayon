@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>prestawp</name>
+    <displayName><![CDATA[Int&eacute;gration bidirectionnelle PrestaShop-WordPress]]></displayName>
+    <version><![CDATA[1.9.1]]></version>
+    <description><![CDATA[Un module d&#039;int&eacute;gration avec WordPress: articles, cat&eacute;gories, commentaires, panier d&#039;achat, etc.]]></description>
+    <author><![CDATA[PrestaSite]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+	<confirmUninstall><![CDATA[Are you sure? All module data will be PERMANENTLY DELETED.]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+</module>

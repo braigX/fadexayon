@@ -1,0 +1,15 @@
+Aktualizacja daty dostawy zamówienia {order_name}
+
+Cześć {firstname} {lastname},
+
+Zamówienie {order_name} - Zaktualizowana data dostawy
+
+Przewidywana data dostawy dla Twojego zamówienia o numerze {order_name} została zaktualizowana. Nowa przewidywana data to:
+
+{deliveries}
+
+Możesz sprawdzić swoje zamówienie i pobrać fakturę w sekcji "Historia zamówień" swojego konta, klikając "Moje konto" w naszym sklepie.
+
+Jeśli masz konto gościa, możesz śledzić swoje zamówienie w sekcji "Śledzenie gościa" w naszym sklepie.
+
+{shop_name} powered by PrestaShop™

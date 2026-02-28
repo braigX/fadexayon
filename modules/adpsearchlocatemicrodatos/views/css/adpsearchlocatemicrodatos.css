@@ -1,0 +1,249 @@
+/**
+* 2007-2022 PrestaShop
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+* @author    Ádalop <contact@prestashop.com>
+* @copyright 2022 Ádalop
+* @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*
+*/
+
+.not-active {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  color: black;
+  display: none !important;
+}
+
+#tab_help span.faq-h1 {
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+#tab_help span.faq-h2 {
+    font-size: 14px;
+    display: block;
+    cursor: pointer;
+}
+
+#tab_help span.faq-h2:hover {
+    color: #25B9D7;
+}
+
+#tab_help span.faq-h2.faq-open {
+    color: #25B9D7;
+    font-weight: bold;
+}
+
+#tab_help span.faq-h2 i {
+    font-size: 13px;
+    margin-right: 2px;
+}
+
+#tab_help > ul {
+    list-style: none;
+}
+
+#tab_help > ul > li {
+    list-style: none;
+    padding: 5px
+}
+
+#tab_help .faq-text {
+    padding: 15px 15px;
+    background: #f7f7f7;
+    margin: 10px 0;
+}
+
+#tab_search caption,
+#tab_search .alert-caption{
+  text-align: left;
+  /* color: #00aff0; */
+  font-size: 18px;
+  letter-spacing: 1px;
+  background: gray;
+  color: white;
+  padding: 3px 7px;
+}
+
+#tab_search caption.clean,
+#tab_search .alert-caption.clean{
+    background: #00aff0;
+    color: white;
+}
+
+#tab_search caption.analyzed,
+#tab_search .alert-caption.analyzed{
+    background: #ff0000;
+    color: white;
+}
+
+#tab_search caption.partial-fixed,
+#tab_search .alert-caption.partial-fixed{
+    background: #fbbd05;
+    color: white;
+}
+
+#tab_search caption.fixed,
+#tab_search .alert-caption.fixed{
+    background: #55a759;
+    color: white;
+}
+
+#tab_search caption span{
+    vertical-align: middle;
+}
+
+.adpsearchlocate-results {
+    /* word-break: break-all; */
+    table-layout: fixed;
+}
+
+.adpsearchlocate-results .result-content {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap;
+}
+
+.diff-inserted{
+    color: green;
+}
+.diff-deleted{
+    color: red;
+}
+
+#tab_modules_related  .block_related_modules ul li:nth-child(odd) {
+    background: #eff1f2;
+}
+
+#tab_modules_related  .block_related_modules ul {
+    list-style: none;
+    max-width: 1300px;
+    min-width: 800px;
+    margin: 0 auto;
+    padding-right: 50px;
+    margin-top: 30px;
+}
+
+#tab_modules_related .block_related_modules ul li {
+    width: 100%;
+    display: block;
+    height: 120px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+#tab_modules_related  .block_related_modules ul li .logo_module {
+    float: left;
+    width: 57px;
+    margin-top: 27px;
+}
+
+#tab_modules_related .block_related_modules ul li .module_title {
+    float: left;
+    width: calc( 40% - 180px);
+    height: 120px;
+    font-weight: bolder;
+    color: #55595c;
+    font-size: .9rem;
+    font-family: Open Sans,sans-serif;
+}
+
+#tab_modules_related  .block_related_modules ul li .module_description {
+    float: left;
+    width: calc( 60% - 40px);
+    height: 120px;
+}
+
+#tab_modules_related  .block_related_modules ul li .module_description span, #tab_modules_related  .block_related_modules ul li .module_title span {
+    width: 100%;
+    height: 120px;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0px 10px;
+    font-family: Open Sans,sans-serif;
+    font-size: .9rem;
+    color: #363a41;
+    line-height: 22px;
+}
+
+#tab_modules_related .block_related_modules ul li .module_button {
+    float: left;
+    width: 144px;
+    margin-top: 43px;
+}
+
+#tab_modules_related .block_related_modules ul li .module_href {
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    font-size: .75em;
+    display: block;
+    border-radius: 3px;
+    height: 35px;
+    width: 135px;
+    font-weight: 600;
+    color: #00aff0;
+    text-align: center;
+    padding-top: 9px;
+    background-image: none;
+    background-color: transparent;
+    border-color: #00aff0;
+    border: 2px solid #00aff0;
+    text-decoration: none;
+    box-sizing: border-box;
+    float: left;
+    margin-right: 15px;
+    font-family: Open Sans,sans-serif;
+}
+
+#titulo_admin_adpsearchlocatemicrodatos{
+    margin-top: 0px;
+    margin-left: 5px;
+    margin-bottom: 10px;
+}
+
+.adpsearchlocatemicrodatos-admin #tab_analyzes .help-block{
+   font-size: 14px;
+   color: #00aff0; 
+}
+
+.adpsearchlocatemicrodatos-admin #tab_analyzes form h3{
+   font-size: 17px !important; 
+}
+
+[data-role="search-section"] table>caption{
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+[data-role="search-section"] table>caption>img{
+    max-width: 24px;
+    max-height: 24px;
+    padding: 2px;
+    background-color: white;
+    border-radius: 3px;
+}
+
+table.table-break-words{
+    word-break: break-word;
+}
+
+#adpsearchlocatemicrodatos_filedetailsmodal .modal-body {
+    max-height: 500px;
+    padding: 0;
+    overflow-y: auto;
+}
+
+#adpsearchlocatemicrodatos_filedetailsmodal table {
+    margin: 0;
+    border: 0;
+}

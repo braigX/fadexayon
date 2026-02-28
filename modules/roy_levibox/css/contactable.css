@@ -1,0 +1,51 @@
+form#contactable-contactForm input,
+form#contactable-contactForm textarea,
+form#contactable-contactForm select {
+	width:100%;
+	margin-bottom:6px;
+}
+
+form#contactable-contactForm p {
+	font-size:1rem;
+  margin-bottom:5px;
+}
+
+form#contactable-contactForm .contactable-header {
+}
+
+#contactable-contactForm .contactable-green {
+	color:#fafafa;
+}
+
+.contactable-invalid { background-color: #fafafa; }
+#contactable-name.contactable-invalid { background-color: #fafafa; }
+#contactable-email.contactable-invalid { background-color: #fafafa; }
+#contactable-message.contactable-invalid { background-color: #fafafa; }
+
+form#contactable-contactForm label{
+	line-height:1.1em;
+}
+
+form#contactable-contactForm #contactable-loading {
+	background: url(../images/ajax-loader.gif) no-repeat;
+	width:66px;
+	height:66px;
+	margin: 80px auto;
+	display:none;
+}
+
+#contactable-callback {
+	display:none;
+}
+
+.contactable-holder {
+	margin:0;
+	padding:0;
+}
+
+/* Submit button */
+form#contactable-contactForm .contactable-submit { 	
+	margin-bottom:22px;
+}
+form#contactable-contactForm .contactable-submit:hover { }
+button.contactable-cupid-green:active { }

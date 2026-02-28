@@ -1,0 +1,5 @@
+Hallo {author_name}
+Er is een nieuwe reactie geplaatst op {post_title} en deze is automatisch goedgekeurd
+Bekijk reactie
+
+

@@ -1,0 +1,13 @@
+[{shop_url}]
+
+Hallo {customer_name},
+Uw recensie over {product_name} is afgewezen.
+
+{title}
+
+{content}
+
+{reason}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

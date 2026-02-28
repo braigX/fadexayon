@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>quantityupdate</name>
+    <displayName><![CDATA[Mass Product Quantity And Price Update]]></displayName>
+    <version><![CDATA[3.1.4]]></version>
+    <description><![CDATA[Mass product quantity and price update is a convenient module especially designed to perform import and export operations with the PrestaShop products and change their mass quantity and price.]]></description>
+    <author><![CDATA[MyPrestaModules]]></author>
+    <tab><![CDATA[quick_bulk_update]]></tab>
+	<confirmUninstall><![CDATA[Are you sure you want to uninstall?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+</module>

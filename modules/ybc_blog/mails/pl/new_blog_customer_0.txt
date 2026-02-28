@@ -1,0 +1,3 @@
+Cześć {customer_name},
+Twój post {post_title} został pomyślnie przesłany do {shop_name} i czeka na zatwierdzenie
+Przejrzyj post

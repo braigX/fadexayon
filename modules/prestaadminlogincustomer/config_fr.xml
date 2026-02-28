@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>prestaadminlogincustomer</name>
+    <displayName><![CDATA[Customer Login]]></displayName>
+    <version><![CDATA[8.0.2]]></version>
+    <description><![CDATA[Admin can login to customer account without password]]></description>
+    <author><![CDATA[presta_world]]></author>
+    <tab><![CDATA[administration]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+</module>

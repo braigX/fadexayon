@@ -1,0 +1,10 @@
+[{shop_url}]
+
+Dobrý den {admin_name},
+{customer_name} odeslal {object}. Přečtěte si prosím jeho obsah a udělejte své rozhodnutí:
+
+{product}
+{content}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

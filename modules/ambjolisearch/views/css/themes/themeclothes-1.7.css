@@ -1,0 +1,17 @@
+/*
+ *
+ *	@module     	Advanced search (AmbJoliSearch)
+ *	@file 			universal-1.7.css
+ *	@subject		Add support for ThemeClothes theme from PrestaCrea
+ *	@copyright  	Copyright (c) 2013-2020 Ambris Informatique SARL (http://www.ambris.com/)
+ *	@author     	Richard Stefan (@RicoStefan)
+ *	@license    	Licensed under the EUPL-1.2-or-later
+ *	Support by mail: support@ambris.com
+ *
+ *	suggest (autocomplete) list style
+*/
+
+body .ui-autocomplete.ui-jolisearch {
+    display: inherit !important;
+    width: inherit !important;
+}

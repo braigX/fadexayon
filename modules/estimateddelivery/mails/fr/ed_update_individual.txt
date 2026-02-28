@@ -1,0 +1,15 @@
+Mise à jour de la date de livraison pour votre commande {order_name}
+
+Bonjour {firstname} {lastname},
+
+Commande {order_name} - Date de livraison mise à jour
+
+La date de livraison estimée pour votre commande avec la référence {order_name} a été mise à jour. La nouvelle date prévue est :
+
+{deliveries}
+
+Vous pouvez consulter votre commande et télécharger votre facture dans la section "Historique des commandes" de votre compte client en cliquant sur "Mon compte" dans notre boutique.
+
+Si vous avez un compte invité, vous pouvez suivre votre commande via la section "Suivi Invité" sur notre boutique.
+
+{shop_name} powered by PrestaShop™

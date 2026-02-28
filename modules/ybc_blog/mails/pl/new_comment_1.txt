@@ -1,0 +1,5 @@
+Cześć {author_name}
+Nowy komentarz został opublikowany w {post_title} i został automatycznie zatwierdzony
+Zobacz komentarz
+
+

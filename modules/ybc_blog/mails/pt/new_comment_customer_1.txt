@@ -1,0 +1,4 @@
+Olá {customer_name}
+Seu comentário foi enviado com sucesso em {post_title} e foi aprovado
+Revisar postagem
+

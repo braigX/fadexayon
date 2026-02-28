@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>newsletterpro</name>
+    <displayName><![CDATA[Newsletter Pro]]></displayName>
+    <version><![CDATA[5.0.7]]></version>
+    <description><![CDATA[Annoncer, par lettre, des produits s&eacute;lectionn&eacute;s de votre magasin.]]></description>
+    <author><![CDATA[ProQuality]]></author>
+    <tab><![CDATA[advertising_marketing]]></tab>
+	<confirmUninstall><![CDATA[Etes-vous sûr de vouloir désinstaller ce module? Toutes les données seront perdues. Si vous le désirez vous pouvez créer une sauvegarde de l'onglet module &quot;Paramètres&quot;.]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+</module>

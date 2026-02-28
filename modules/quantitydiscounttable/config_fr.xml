@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>quantitydiscounttable</name>
+    <displayName><![CDATA[Quantity Discount Table]]></displayName>
+    <version><![CDATA[2.0.1]]></version>
+    <description><![CDATA[Display quantity discount table on product detail in a more visible place. ]]></description>
+    <author><![CDATA[FMM Modules]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+</module>

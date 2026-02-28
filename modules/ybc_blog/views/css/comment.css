@@ -1,0 +1,228 @@
+.ybc-blog #content-wrapper .ybc-blog-wrapper, #content-wrapper .ybc-blog-wrapper {
+    background-color: #fff;
+    margin: 0;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+#ybc_blog_page a {
+    outline: none!important;
+    -webkit-outline: none!important;
+}
+.ybc-blog-comment-info .ybc-blog-latest-toolbar {
+    margin-top: 0;
+}
+
+.links a#author-blog-comment-link, .links a#author-blog-info-link {
+    padding: 0!important;
+    width: 100%;
+}
+
+.blogcomment {
+    word-break: break-word;
+    clear: both;
+    display: block;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+.float-xs-right {
+    float: right;
+}
+.page_blog .slick-slide {
+    height: auto;
+}
+.comment-time {
+    color: #9f9f9f;
+    margin-bottom: 5px;
+    font-size: 14px;
+    margin-right: 15px;
+}
+.ss_icon_group {
+    position: relative;
+    display: flex;
+    display: -webkit-flex;
+}
+.content_block li {
+    position: relative;
+}
+
+.ybc_block_categories a {
+    color: #414141;
+}
+.ybc_item_img {
+    float: left;
+    overflow: hidden;
+    position: relative;
+    background-color: #eee;
+    width: 100%;
+}
+.ybc_item_img img {
+    transition: all 0.7s ease 0s;
+    -webkit-transition: all 0.7s ease 0s;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+}
+
+.ybc-blog-comment-content span.subject-comment {
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+    font-size: 14px;
+}
+
+.ybc-blog-latest-toolbar > span:not(:last-child) {
+    float: left;
+    margin-right: 10px;
+}
+
+.block img {
+    max-width: 100%;
+    height: auto;
+}
+
+.ybc_block_gallery ul > li {
+    padding: 0 15px 30px;
+    width: 16.6667%;
+}
+
+.ybc_block_categories .tree {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+.year-item > a {
+    font-weight: 600;
+}
+
+#block_myaccount_infos .ss_icon_group {
+    display: none;
+}
+
+.year-item a {
+    color: #333;
+}
+
+.ybc_block_slider ul, .ybc-blog-related-posts-list {
+    float: left;
+    position: relative;
+    width: 100%;
+    margin-left: 0;
+}
+.ybc_block_archive .year-item {
+    font-size: 14px;
+    line-height: 26px;
+    margin-bottom: 5px;
+}
+
+.ybc_block_archive .month-item {
+    font-size: 13px;
+}
+
+.ybc_block_archive .title_blog, .ybc_block_archive .title_blog a {
+    margin-bottom: 20px;
+}
+
+.month-item > a::before {
+    content: "--";
+    letter-spacing: -2px;
+    margin-right: 5px;
+}
+
+.view_post {
+    color: #2fb5d2;
+    font-size: 14px;
+    font-weight: normal;
+    margin-top: 0;
+    display: block;
+    position: relative;
+}
+
+.ybc_author_post_count {
+    margin-bottom: 5px;
+    display: block;
+    font-size: 14px;
+    clear: both;
+}
+.blog-paggination {
+    float: none;
+    font-size: 13px;
+    margin-bottom: 15px;
+    text-align: center;
+    width: 100%;
+}
+.ybc-blog-wrapper.loadmore .blog-paggination {
+    display: none;
+}
+.ybc-blog-wrapper .page-heading {
+    clear: both;
+    font-size: 20px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+.ets_blog_loading {
+    clear: both;
+    display: none;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 30px;
+}
+.ybc-blog-list li {
+    float: left;
+    padding: 0 15px;
+    width: 100%;
+    margin-bottom: 30px;
+}
+li.list_post_item.list_all_comments .post-wrapper {
+    display: flex;
+}
+
+li.list_post_item.list_all_comments .post-wrapper .author_avata_show {
+    margin-right: 15px;
+}
+.blog-paggination .links {
+    display: inline-flex;
+    display: -webkit-inline-flex;
+    float: none;
+    text-align: center;
+}
+.blog-paggination .links > b {
+    background: #2fb5d2 none repeat scroll 0 0;
+    border: 1px solid #2fb5d2;
+    color: #fff;
+    display: inline-block;
+    float: left;
+    font-size: 14px;
+    height: 31px;
+    line-height: 31px;
+    margin: 0 0 0 -1px;
+    padding: 0;
+    font-weight: normal;
+    width: 33px;
+}
+.blog-paggination .links a {
+    border: 1px solid #E4E4E4;
+    display: inline-block;
+    float: left;
+    font-size: 14px;
+    height: 31px;
+    color: #414141;
+    line-height: 31px;
+    margin: 0 0 0 -1px;
+    overflow: hidden;
+    padding: 0;
+    width: 33px;
+}
+.blog-paggination {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+span.ybc-blog-rating-value {
+    color: #bfbfbf;
+    font-size: 13px;
+    margin-left: 4px;
+    margin-top: 1px;
+}

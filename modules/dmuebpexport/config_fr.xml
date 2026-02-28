@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>dmuebpexport</name>
+    <displayName><![CDATA[Export Comptable CSV ou EBP]]></displayName>
+    <version><![CDATA[3.1.2]]></version>
+    <description><![CDATA[Exportez vos factures et vos avoirs vers votre logiciel de comptabilit&eacute; (format CSV ou EBP)]]></description>
+    <author><![CDATA[Dream me up]]></author>
+    <tab><![CDATA[administration]]></tab>
+	<confirmUninstall><![CDATA[Etes-vous sûr de vouloir le désinstaller ?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+</module>

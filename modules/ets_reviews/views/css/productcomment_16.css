@@ -1,0 +1,38 @@
+#ets-rv-post-product-question-modal .ets_rv_purchase_product {
+    padding: 0 15px;
+}
+.page-product-box button {
+    outline: none!important;
+    box-shadow: none!important;
+}
+.ets-rv-product-comment-list-item.question .ets-rv-comment-infos .ets-rv-product-comment-title-html {
+    margin-top: 0;
+}
+.ets_rv_reviews {
+    background: #fff;
+    padding: 10px 0px 20px;
+    position: relative;
+    margin-top: 20px;
+    clear: both;
+    margin-bottom: 15px;
+    box-shadow: none;
+}
+.panel-heading {
+    font-size: 16px;
+}
+.ets-rv-modal_product_info div[itemprop="description"] {
+    padding-left: 0;
+    padding-right: 0;
+}
+.col-md-6.ets_rv_profile_image {
+    width: 100%;
+    padding: 0;
+}
+.ets_rv_profile_image button#avatar-selectbutton {
+    min-height: 32px;
+}
+.ets_rv_profile_image .input-group-addon {
+    height: 32px;
+    min-height: 32px;
+}
+

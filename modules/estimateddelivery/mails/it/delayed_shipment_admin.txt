@@ -1,0 +1,14 @@
+Ritardo nella spedizione avviso
+
+Ordine {order_id} con rif {order_Reference}
+Deve essere spedito oggi
+
+Ordine {order_name} - Ritardato
+
+L'ordine {order_name}
+Con ID {order_id}
+Deve essere spedito immediatamente o non sarà consegnato entro la data prevista
+
+Puoi rivedere il tuo ordine e scaricare la tua fattura dalla sezione "Storico ordini" del tuo account cliente cliccando su "Il mio account" sul nostro negozio.
+
+{shop_name}

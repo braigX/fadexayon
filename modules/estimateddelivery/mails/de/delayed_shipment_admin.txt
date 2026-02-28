@@ -1,0 +1,14 @@
+Verspätung bei der Lieferung Warnung
+
+Bestellung {order_id} mit Ref {order_Reference}
+Sollte heute verschickt werden
+
+Bestellung {order_name} - Verzögert
+
+Die Bestellung {order_name}
+Mit ID {order_id}
+Muss sofort verschickt werden, sonst wird es nicht bis zum geschätzten Datum geliefert
+
+Sie können Ihre Bestellung überprüfen und Ihre Rechnung aus dem Abschnitt "Bestellhistorie" Ihres Kundenkontos herunterladen, indem Sie auf "Mein Konto" in unserem Geschäft klicken.
+
+{shop_name}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>wkvoicesystem</name>
+    <displayName><![CDATA[Recherche vocale Prestashop]]></displayName>
+    <version><![CDATA[4.0.3]]></version>
+    <description><![CDATA[Ce module propose un syst&egrave;me de reconnaissance vocale sur la barre de recherche et les champs du formulaire d&#039;inscription]]></description>
+    <author><![CDATA[Webkul]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+	<confirmUninstall><![CDATA[Êtes-vous sûr de désinstaller ?]]></confirmUninstall>
+    <is_configurable>0</is_configurable>
+    <need_instance>1</need_instance>
+</module>

@@ -1,0 +1,8 @@
+New undefined delivery order has been created
+
+Order #{order_name} ({id_order})&nbsp;-&nbsp; has an undefined delivery date
+
+A definitive date should be generated before {days_limit} days
+
+- ID: {id_order}
+- REF: {order_name}

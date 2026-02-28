@@ -1,0 +1,169 @@
+.ets_rv_grade_stars {
+    letter-spacing: 0!important;
+    font-size: 20px;
+    color: #ee9a00;
+    fill: #ee9a00;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    vertical-align: middle;
+    font-family: "sans-serif", Arial !important;
+}
+.ets_rv_grade_stars:after {
+    content: attr(data-rate-full);
+    position: absolute;
+    left: 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.ets_rv_grade_stars:before {
+    content: attr(data-rate-empty);
+    overflow: hidden;
+    white-space: nowrap;
+    display: block;
+}
+.ets_rv_grade_stars .ets-rv-comments-nb {
+    color: #666;
+    font-size: 13px;
+    height: 15px;
+    margin-left: 5px;
+    vertical-align: 0;
+    line-height: 16px;
+}
+
+.ets_rv_grade_stars[data-grade="0.0"]:after,
+.ets_rv_grade_stars[data-grade="0"]:after{
+    display: none;
+}
+.ets_rv_grade_stars[data-grade="1.0"]:after,
+.ets_rv_grade_stars[data-grade="1"]:after{
+    width: 16px;
+}
+.ets_rv_grade_stars[data-grade="1.1"]:after,
+.ets_rv_grade_stars[data-grade="1.2"]:after,
+.ets_rv_grade_stars[data-grade="1.3"]:after,
+.ets_rv_grade_stars[data-grade="1.4"]:after,
+.ets_rv_grade_stars[data-grade="1.5"]:after{
+    width: 24.5px;
+}
+.ets_rv_grade_stars[data-grade="1.6"]:after,
+.ets_rv_grade_stars[data-grade="1.7"]:after,
+.ets_rv_grade_stars[data-grade="1.8"]:after,
+.ets_rv_grade_stars[data-grade="1.9"]:after,
+.ets_rv_grade_stars[data-grade="2.0"]:after,
+.ets_rv_grade_stars[data-grade="2"]:after{
+    width: 32px;
+}
+.ets_rv_grade_stars[data-grade="2.1"]:after,
+.ets_rv_grade_stars[data-grade="2.2"]:after,
+.ets_rv_grade_stars[data-grade="2.3"]:after,
+.ets_rv_grade_stars[data-grade="2.4"]:after,
+.ets_rv_grade_stars[data-grade="2.5"]:after{
+    width: 41.5px;
+}
+.ets_rv_grade_stars[data-grade="2.6"]:after,
+.ets_rv_grade_stars[data-grade="2.7"]:after,
+.ets_rv_grade_stars[data-grade="2.8"]:after,
+.ets_rv_grade_stars[data-grade="2.9"]:after,
+.ets_rv_grade_stars[data-grade="3"]:after,
+.ets_rv_grade_stars[data-grade="3.0"]:after{
+    width: 50px;
+}
+.ets_rv_grade_stars[data-grade="3.1"]:after,
+.ets_rv_grade_stars[data-grade="3.2"]:after,
+.ets_rv_grade_stars[data-grade="3.3"]:after,
+.ets_rv_grade_stars[data-grade="3.4"]:after,
+.ets_rv_grade_stars[data-grade="3.5"]:after {
+    width: 58px;
+}
+.ets_rv_grade_stars[data-grade="3.6"]:after,
+.ets_rv_grade_stars[data-grade="3.7"]:after,
+.ets_rv_grade_stars[data-grade="3.8"]:after,
+.ets_rv_grade_stars[data-grade="3.9"]:after,
+.ets_rv_grade_stars[data-grade="4.0"]:after,
+.ets_rv_grade_stars[data-grade="4"]:after {
+    width: 67px;
+}
+.ets_rv_grade_stars[data-grade="4.1"]:after,
+.ets_rv_grade_stars[data-grade="4.2"]:after,
+.ets_rv_grade_stars[data-grade="4.3"]:after,
+.ets_rv_grade_stars[data-grade="4.4"]:after,
+.ets_rv_grade_stars[data-grade="4.5"]:after{
+    width: 74.5px;
+}
+.ets-rv-grade-stars {
+    position: relative;
+    height: 17px;
+    min-width: 120px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.ets-rv-grade-stars.ets-rv-small-stars {
+    min-width: 90px;
+}
+.ets-rv-grade-stars .ets-rv-star-content {
+    position: absolute;
+    top: 3px;
+    left: 0;
+}
+i.ets_svg_icon {
+    height: 16px;
+    font-style: normal;
+}
+.product-miniature .product-list-reviews ~ .product-list-reviews {
+    top: -54px;
+}
+.product-list-reviews .ets-rv-comments-nb {
+    margin-left: 4px;
+    font-size: 13px;
+    line-height: 16px;
+    vertical-align: middle;
+    color: #333;
+    letter-spacing: 0;
+}
+.product-list-reviews .comments-note > span {
+    display: none;
+}
+
+.product-list-reviews .ets-rv-grade-stars .ets-rv-star-content {
+    top: 1px;
+}
+.product-list-reviews {
+    /*position: absolute;
+    top: -26px;*/
+    margin-bottom: 5px;
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
+    justify-content: center;
+    -webkit-justify-content: center;
+    width: 100%;
+    left: 0;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 4px 0;
+    visibility: visible;
+}
+.ets_pc_profile_image #ets_pc_avatar_thumbnail img {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.ets_pc_profile_image + .form-control-comment {
+    display: none;
+}
+.ets_pc_profile_image input#avatar-name {
+    height: 38px;
+    border: 1px solid #bbb;
+}
+.ets_pc_profile_image .input-group-addon {
+    border: 1px solid #bbb;
+    border-right: none;
+    height: 38px;
+}
+
+@media (max-width: 479px){
+    .ets-rv-grade-stars {
+        min-width: 100px;
+    }
+}

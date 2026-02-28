@@ -1,0 +1,16 @@
+# Product List
+admin_product_catalog:
+    path: /{offset}/{limit}/{orderBy}/{sortOrder}
+    methods:  [GET, POST]
+    defaults:
+        _controller: PrestaShopBundle:Admin/Product:catalog
+        _legacy_controller: AdminProducts
+        limit: last
+        offset: 0
+        orderBy: last
+        sortOrder: last
+    requirements:
+        limit: _limit|last|\d+
+        orderBy: last|id_product|name|reference|name_category|price|sav_quantity|position|active|position_ordering|score
+        offset: last|\d+
+        sortOrder: last|asc|desc

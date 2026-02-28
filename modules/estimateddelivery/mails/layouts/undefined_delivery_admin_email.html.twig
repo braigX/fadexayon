@@ -1,0 +1,26 @@
+{# modules/demoemail/mails/layout/undefined_delivery_admin_email.html.twig #}
+{% extends '@MailThemes/modern/components/layout.html.twig' %}
+
+{% block content %}
+    <table width="100%">
+        <tr>
+            <td align="center" class="titleblock">
+                <font size="2" face="{{ languageDefaultFont }}Open-sans, sans-serif" color="#555454">
+                    <span class="title">{{ 'A new order with an undefined delivery date has been created'|trans({}, 'EmailsBody', locale)|raw }}</span>
+                    <br>
+                    <span class="title">{{ 'A definitive date should be generated before %days_limit% days'|trans({'%days_limit%': days_limit}, 'EmailsBody', locale)|raw }}</span>
+                    <br>
+                    <span class="title">{{ 'Order details:'|trans({}, 'EmailsBody', locale)|raw }}</span>
+                    <ul>
+                        <li>{{ 'Order ID:'|trans({}, 'EmailsBody', locale)|raw }} {{ id_order }}</li>
+                        <li>{{ 'Order REF:'|trans({}, 'EmailsBody', locale)|raw }} {{ order_name }}</li>
+                    </ul>
+                </font>
+            </td>
+
+        </tr>
+        <tr>
+            <td class="space_footer">&nbsp;</td>
+        </tr>
+    </table>
+{% endblock %}

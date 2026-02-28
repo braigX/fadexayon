@@ -1,0 +1,200 @@
+/**
+* 2007-2017 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* @author    Innova Deluxe SL
+* @copyright 2017 Innova Deluxe SL
+* @license   INNOVADELUXE
+*/
+
+.sel_min_img_block a {
+    text-decoration: none;
+}
+
+.dropdown-menu .inner{
+    list-style: none !important;
+}
+.bootstrap-select.btn-group .dropdown-menu li a{
+	text-decoration: none !important;
+}
+
+.step_title {
+    display: block;
+    border-bottom: 1px solid #353230;
+    width: 100%;
+    text-align: left !important;
+    padding: 10px 0px 10px 0px;
+    font-weight: bold;
+	font-size: 16px;
+}
+
+.step_title img {
+    width: 30px;
+}
+/*  */
+.sel_min_block a {
+    text-decoration: none;
+    display: block;
+    margin: 5px 0px;
+}
+
+
+.sel_min_block a:hover {
+    background:#f7f7f7;
+}
+
+.minified_sel{
+	width:100% !important;
+}
+
+.minified_sel button{
+	background: #2fb5d2;
+	color:#ffffff !important;
+	border-radius: 5px;
+}
+
+.minified_sel .dropdown-menu.inner{
+	padding:0px 20px !important;
+}
+
+/*  */
+
+
+.img-minified{
+	height: 50px;
+	width:50px;
+}
+
+.sel_min_img_block a {
+    text-decoration: none;
+    display: block;
+}
+
+
+.sel_min_img_block a:hover {
+    background:#f7f7f7;
+}
+
+.minified_sel_img{
+	width:100% !important;
+}
+
+.minified_sel_img button{
+	background: #2fb5d2;
+	color:#ffffff !important;
+	border-radius: 5px;
+}
+
+.minified_sel_img .dropdown-menu.inner{
+	padding:0px 20px !important;
+}
+
+
+/*   */
+
+#component_step_last {
+    margin-top: 20px;
+
+}
+#component_step_last .card-header{
+    color:#ffffff !important;
+}
+
+#component_step_last .card{
+	border-radius: 5px;
+}
+
+/*   */
+
+.input-container {
+    padding: 10px;
+    background: #2fb5d2;
+    border-radius: 5px;
+}
+
+.input-container input{
+   
+    background: #ffffff;
+}
+/* */
+#component_steps_container .dropdown-menu a{
+    color:#0e0e0e;
+
+}
+
+.min-desc{
+    font-style: italic;
+    color:#8e8e8e;
+    font-size:14px;
+
+}
+
+.component_step .panel{
+    border-radius:5px;
+}
+.panel .panel-heading h4{
+    color:#ffffff;
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus{
+    background-color:#f7f7f7 !important;
+}
+
+/*  */
+
+.dropdown-toggle::after {
+   display: none;
+}
+
+.bootstrap-select.btn-group .dropdown-toggle .caret{
+    border-top: 0.5em solid !important;
+    border-right: .5em solid transparent !important;
+    border-left: .5em solid transparent !important;
+}
+
+#component_steps .dropdown-menu li {
+    float: left;
+    width: 100%;
+}
+
+#component_steps .dropdown-menu.open li:hover {
+    background: #f7f7f7;
+.btn-minified .minified_qty_block {
+    display: none;
+}
+
+#component_step_last .minified_qty_block {
+    display: none;
+}
+
+.dropdown-menu.open {
+    max-height: none !important;
+   }
+
+.dropdown-menu.inner {
+    max-height: none !important;
+}
+
+.dropdown-menu[aria-expanded="true"]{
+    display: block !important;
+}
+.btn-minified .minified_qty_block {
+    display: none;
+}
+
+#component_step_last .minified_qty_block {
+    display: none;
+}
+
+.dropdown-menu.open {
+    max-height: none !important;
+   }
+
+.dropdown-menu.inner {
+    max-height: none !important;
+}
+
+.dropdown-menu[aria-expanded="true"]{
+    display: block !important;
+}

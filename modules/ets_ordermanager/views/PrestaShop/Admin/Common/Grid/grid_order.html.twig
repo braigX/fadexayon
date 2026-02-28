@@ -1,0 +1,8 @@
+{% extends constant('_PS_VERSION_')|number_format >= 8 ? '@!PrestaShop/Admin/Common/Grid/grid.html.twig':'PrestaShopBundle:Admin/Common/Grid:grid.html.twig' %}
+{% block grid_table_row %}
+  <div class="row">
+    <div class="col-sm">
+      {{ include('@PrestaShop/Admin/Common/Grid/Blocks/table_order.html.twig', {'grid': grid}) }}
+    </div>
+  </div>
+{% endblock %}

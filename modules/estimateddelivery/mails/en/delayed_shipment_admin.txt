@@ -1,0 +1,7 @@
+[{shop_url}] 
+
+{shop_logo}
+{shop_name}
+{order_id}
+{order_name}
+{order_reference}

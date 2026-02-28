@@ -1,0 +1,17 @@
+User-agent: *
+Disallow: /racine/
+# Autoriser tout le reste
+Allow: /
+
+# Sitemap PrestaShop
+Sitemap: Sitemap: https://www.plexi-cindar.com/sitemap-1.xml
+Sitemap: https://decoupe-plexiglass.fr/module/ets_seo/sitemap
+Sitemap: https://panneau-polycarbonate.fr/module/ets_seo/sitemap
+Sitemap: https://pannellipolicarbonato.it/module/ets_seo/sitemap
+Sitemap: https://placaspolicarbonato.es/module/ets_seo/sitemap
+Sitemap: https://www.plexi-cindar.com/module/ets_seo/sitemap
+Sitemap: https://plexiglassmedida.es/module/ets_seo/sitemap
+Sitemap: https://plexiglassmisura.it/module/ets_seo/sitemap
+Sitemap: https://plexiglasszuschnitt.de/module/ets_seo/sitemap
+Sitemap: https://polycarbonat-zuschnitt.de/module/ets_seo/sitemap
+Sitemap: https://vitrine-plexiglass.fr/module/ets_seo/sitemap

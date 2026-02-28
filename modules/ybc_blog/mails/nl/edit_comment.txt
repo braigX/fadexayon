@@ -1,0 +1,4 @@
+Hallo admin,
+Een reactie op het artikel {post_title} is gewijzigd door {customer_name}.
+Vorige versie: {comment_old}
+Nieuwe versie: {comment}

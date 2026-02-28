@@ -1,0 +1,133 @@
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+i.material-icons.mi-icon.icon-envelope-o,
+i.material-icons.mi-icon.icon-comments,
+i.material-icons.mi-icon.icon-exchange,
+i.material-icons.mi-icon.icon-file-text-o,
+i.material-icons.mi-icon.icon-cogs,
+i.material-icons.mi-icon.icon-line-chart,
+i.material-icons.mi-icon.icon-question-circle{
+    width: 19px;
+    font-size: 0;
+    height: 16px;
+}
+i.icon-AdminContactForm:before {
+    content: "\f003";
+    display: inline-block;
+    font-family: Fontawesome;
+}
+i.material-icons.mi-icon.icon-line-chart:before{
+    content:"\f201";
+    font-size: 17px;
+    font-family: Fontawesome;
+    line-height: 16px;
+    vertical-align: top;
+}
+.count_messages.hide {
+    display: none!important;
+}
+i.material-icons.mi-icon.icon-envelope-o:before{
+    content:"\f003";
+    font-size: 17px;
+    font-family: Fontawesome;
+    line-height: 16px;
+    vertical-align: top;
+}
+i.material-icons.mi-icon.icon-comments:before{
+    content:"\f086";
+    font-size: 17px;
+    font-family: Fontawesome;
+    line-height: 16px;
+    vertical-align: top;
+}
+#subtab-AdminContactFormMessage .count_messages,
+#content .ctf7-left-block .count_messages,
+#content .count_messages{
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+    font-size: 11px;
+    height: 18px;
+    padding: 0!important;
+    line-height: 18px;
+    margin-left: 3px;
+    padding-left: 0;
+    text-align: center;
+    vertical-align: middle;
+    color: #fff;
+    width: 18px;
+}
+i.material-icons.mi-icon.icon-cogs:before{
+    content:"\f085";
+    font-size: 17px;
+    font-family: Fontawesome;
+    line-height: 16px;
+    vertical-align: top;
+}
+i.material-icons.mi-icon.icon-question-circle:before{
+    content:"\f059";
+    font-size: 17px;
+    line-height: 16px;
+    vertical-align: top;
+    font-family: Fontawesome;
+}
+i.material-icons.mi-icon.icon-exchange:before{
+    content:"\f0ec";
+    line-height: 16px;
+    vertical-align: top;
+    font-size: 17px;
+    font-family: Fontawesome;
+}
+i.material-icons.mi-icon.icon-file-text-o:before{
+    content:"\f0f6";
+    line-height: 16px;
+    vertical-align: top;
+    font-size: 17px;
+    font-family: Fontawesome;
+}
+.count_messages.hide{
+    display:none;
+}
+
+
+
+
+
+
+.mobile li#tab-AdminContactForm {
+    display: block;
+}
+.mobile li#tab-AdminContactForm.actived > span.title:after {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    margin-top: 3px;
+}
+.mobile li#tab-AdminContactForm > span.title:after {
+    content: "";
+    border-top: 2px solid #6c868e;
+    border-right: 2px solid #6c868e;
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    float: right;
+    margin-right: 32px;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+.mobile li[id*=subtab-AdminContactForm]{
+    display:none;
+}
+.mobile li[id*=subtab-AdminContactForm].ets_sidebar_menu_show{
+    display: block;
+}
+.mobile li[id*=subtab-AdminContactForm] a.link i:first-child {
+    width: 22px;
+    height: auto;
+    line-height: 12px!important;
+}
+.mobile li[id*=subtab-AdminContactForm] a.link i:first-child:before{
+    font-size: 20px;
+}
+.mobile li[id*=subtab-AdminContactForm] .sub-tabs-arrow {
+    font-size: 2.1rem!important;
+}
+

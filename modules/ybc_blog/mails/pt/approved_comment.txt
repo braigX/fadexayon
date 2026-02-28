@@ -1,0 +1,4 @@
+Olá {customer_name},
+Seu comentário em {post_title} foi aprovado.
+Ver postagem
+

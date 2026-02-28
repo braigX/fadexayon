@@ -1,0 +1,269 @@
+/**
+ * Copyright 2024 LÍNEA GRÁFICA E.C.E S.L.
+ *
+ * @author    Línea Gráfica E.C.E. S.L.
+ * @copyright Lineagrafica.es - Línea Gráfica E.C.E. S.L. all rights reserved.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Style the navigation menu */
+.lgmodule_menu {
+    width: 100%;
+    background-color: #363a41;
+    overflow: auto;
+    padding: 0px;
+    list-style-type: none;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    margin-bottom: 12.5px !important;
+}
+
+/* Navigation links */
+.lgmodule_menu li {
+    float: left;
+    padding: 0px;
+}
+.lgmodule_menu li a {
+    display: block;
+    text-decoration: none!important;
+    padding: 15px 30px;
+    cursor: pointer;
+    color: #fff;
+}
+.lgmodule_menu li a:hover, .lgmodule_menu li a:focus {
+    background-color: #202226;    
+    color: #fff;
+}
+.lgmodule_menu li a.active {
+    background-color: #61a60e;
+}
+@media only screen and (max-width: 600px) {
+    .lgmodule_menu li {
+        float: none;
+    }
+}
+
+/* Help tabs */
+
+/* Tabs Name Container */
+.lgmodule-container-help .tabs-container {
+    position: relative;
+    background: #fff;
+    width: 220px;
+    height: 100%;
+    float: left;
+    z-index: 20;
+    font-size: 1.3em;
+}
+
+/* Tabs Names Label */
+.lgmodule-container-help .tabs-container label {
+    color: #61a60e!important;
+    position: relative;
+    padding: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    display: block;
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 0px;
+}
+
+/* Hover effect on tabs names */
+.lgmodule-container-help .tabs-container label:hover,
+.lgmodule-container-help .tabs-container label.active-tab {
+    background: #eee;
+}
+
+/* Content area for tabs */
+.lgmodule-container-help .tab-content {
+    position: relative;
+    width: calc(100% - 220px);
+    min-height: 100vh;
+    padding: 30px;
+    float: left;
+    box-sizing: border-box;
+    z-index: 19;
+    display: none;
+    font-size: 1.3em;
+    padding-top: 0px;
+}
+.lgmodule-container-help .tab-content h2 {
+    color: #61a60e!important;
+    font-size: 1.3em;
+    margin-top: 0px;
+}
+.lgmodule-container-help .tab-content h3 {
+    font-size: 1.2em!important;
+    margin: 0px!important;
+    padding: 0px!important;
+    text-transform: none!important;
+    margin-bottom: 15px!important;
+}
+.lgmodule-container-help .tab-content ul,
+.lgmodule-container-help .tab-content ol {
+    list-style: none;
+    margin: 15px 0px;
+}
+.lgmodule-container-help .tab-content ol {
+    counter-reset: li;
+}
+.lgmodule-container-help .tab-content ul li::before {
+    content: "\25AA";
+    color: #61a60e;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+.lgmodule-container-help .tab-content ol li::before {
+    content: counter(li);
+    color: #61a60e;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em
+}
+.lgmodule-container-help .tab-content ol li:nth-child(n+10)::before {
+    width: 1.5em;
+    margin-left: -1.5em
+}
+.lgmodule-container-help .tab-content ol li {
+    counter-increment: li
+}
+.lgmodule-container-help .tab-content ul li,
+.lgmodule-container-help .tab-content ol li {
+    margin-bottom: 15px;
+    max-width: 80%;
+    color: #555;
+}
+.lgmodule-container-help .tab-content:after {
+    content: "";
+    clear: both;
+}
+.lgmodule-container-help img {
+    max-width: 100%;
+    border: 1px solid #202226;
+    margin: 15px 0px;
+}
+.lgmodule-container-help .tab-content p {}
+.lgmodule-container-help .tab-content a {
+    color:  #41681a !important;
+    font-weight: bold;
+}
+
+/* Hide input radio from users */
+.lgmodule-container-help input[name="tab"] {
+    display: none;
+}
+
+/* Show tab when input checked */
+.lgmodule-container-help input[name="tab"]:checked + .tab-content {
+    display: block;
+    animation: slide 0.5s forwards;
+}
+
+.lgtooltip {
+  position: relative;
+}
+.lgtooltip-desc {
+    position: absolute;
+    background: rgba(37,185,215, 0.8);
+    color: #000;
+    height: 65px;
+    width: 230px;
+    visibility: hidden;
+    opacity: 1;
+    border-radius: 5px;
+    padding: 10px 15px;
+    z-index: 99;
+}
+.lgtooltip:hover .lgtooltip-desc {
+    visibility: visible;
+    opacity: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: flex-start;
+}
+.lgvars {
+    border: solid 1px #c5e9f3;
+    background-color: #f8fcfe;
+    border-radius:5px;
+}
+.bootstrap .table.lgtable tbody > tr:hover > td {
+    background-color: transparent;
+}
+.bootstrap .table.lgtable tbody > tr > td {
+    padding: 3px 0;
+    border-bottom: none;
+}
+.bootstrap textarea.lgtextarea {
+    min-height: 167px;
+}
+.lgbanner-image {
+    border: 1px solid #d3d8db;
+    display: none;
+}
+.lgbanner-image.lgbanner-image-selected {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .lgtable, .lgtable td,
+    .lgtable tr { 
+        display: block;
+    }
+    .lgvars { 
+        display: none;
+    }
+}
+
+/* Numbering settings in listings and sub-listings */
+.lgmodule-container-help .tab-content.troubleshooting ol {
+    counter-reset: item;
+}
+.lgmodule-container-help .tab-content.troubleshooting ol li::before {
+    content: counters(item, ".") " ";
+    counter-increment: item;
+}
+.lgmodule-container-help .tab-content.troubleshooting ol li ol {
+    counter-reset: item;
+}
+.lgmodule-container-help .tab-content.troubleshooting ol li ol li::before {
+    width: 2em;
+    margin-left: -2em;
+}
+
+/* LGCOOKIESLAW */
+
+.lgcookieslaw-locked-modules .table-locked-modules {
+    margin-bottom: 15px;
+}
+.lgcookieslaw-locked-modules .table-locked-modules .table-locked-modules-item {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 0;
+}
+.lgcookieslaw-locked-modules .table-locked-modules .table-locked-modules-item img,
+.lgcookieslaw-locked-modules .table-locked-modules .table-locked-modules-item input {
+    margin-right: 5px;
+}
+.lgcookieslaw-locked-modules .table-locked-modules .table-locked-modules-item label {
+    margin-bottom: 0;
+}
+

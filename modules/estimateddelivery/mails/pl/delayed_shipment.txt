@@ -1,0 +1,13 @@
+Witaj {firstname} {lastname},
+
+Wysyłka Twojego zamówienia została opóźniona
+
+Zamówienie {order_name} - Opóźnione
+
+Wysyłka Twojego zamówienia {order_name} została opóźniona z powodu nieprzewidzianych okoliczności.
+Dołożymy wszelkich starań, aby wysłać je tak szybko, jak to możliwe.
+Jeśli masz jakieś pytania lub potrzebujesz dodatkowych informacji, skontaktuj się z działem obsługi klienta lub odpowiedz na tę wiadomość.
+
+Możesz przejrzeć swoje zamówienie i pobrać fakturę w sekcji "Historia zamówień" swojego konta klienta, klikając na "Moje konto" w naszym sklepie.
+
+{shop_name}

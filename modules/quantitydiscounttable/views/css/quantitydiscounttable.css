@@ -1,0 +1,100 @@
+/**
+* Quantitydiscounttable
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+*
+*  @category  FMM Modules
+*  @package   Quantitydiscounttable
+*  @author    FME Modules
+*  @copyright 2023 FME Modules All right reserved
+*  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*/
+
+.qdt-clicked {
+  outline:  rgb(130, 180, 255) 3px solid;
+}
+
+.qdp-active {
+    outline:  rgb(130, 180, 255) 3px solid;
+}
+
+.qdp-btn-padding {
+    margin: 6px;
+}
+.qdp-btn-padding input[type=checkbox]:checked {
+    display: none;
+}
+.qdp-icon{
+    display: inline-block;
+    min-width: 150px;
+    max-width: 150px;
+    min-height: 150px;
+    max-height: 150px;
+}
+
+.qdt-display-none {
+    display: none;
+}
+
+.qdt-displayed {
+    display: block !important;
+}
+
+
+#quantity-disount-table h2.page-product-heading {
+    color: #555454;
+    text-transform: uppercase;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 20px;
+    padding: 14px 20px 17px;
+    margin: 0 0 20px;
+    position: relative;
+    border: 1px solid #d6d4d4;
+    border-bottom: none;
+    background: #fbfbfb;
+}
+
+.qdt-btn {
+    width: 100%;
+    background: #FFA07A;
+    text-transform: uppercase;
+    padding: 3px;
+    font-size: 14px;
+  }
+
+  .qdt-btn:hover {
+    background:  	#FA8072;
+  }
+
+  .qdt-btn:visited {
+    background:  	#FA8072;
+  }
+
+  .qdt-btn:active {
+    background:  	#FA8072;
+  }
+
+  .qdt-btn:link {
+    background:  	#FA8072;
+  }
+
+
+  .qdt-btn-6 {
+    width: 100%;
+    background:  	#FFA07A;
+    text-transform: uppercase;
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .qdt_cus_heading {
+    float: left;
+  }

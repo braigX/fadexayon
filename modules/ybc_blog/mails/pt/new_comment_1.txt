@@ -1,0 +1,5 @@
+Olá {author_name}
+Um novo comentário foi postado em {post_title} e foi aprovado automaticamente
+Ver comentário
+
+

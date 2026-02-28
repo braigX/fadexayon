@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>lpstextbanner</name>
+    <displayName><![CDATA[LPS Top Banni&egrave;re PRO]]></displayName>
+    <version><![CDATA[8.0.1]]></version>
+    <description><![CDATA[Ajoutez une banni&egrave;re avec texte d&eacute;filant dans l&#039;en-t&ecirc;te de votre boutique]]></description>
+    <author><![CDATA[Loulou66]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+</module>

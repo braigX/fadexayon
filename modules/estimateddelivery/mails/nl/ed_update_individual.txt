@@ -1,0 +1,15 @@
+Gewijzigde leverdatum voor bestelling {order_name}
+
+Hallo {firstname} {lastname},
+
+Bestelling {order_name} - Gewijzigde leverdatum
+
+De geschatte leverdatum voor uw bestelling met referentie {order_name} is bijgewerkt. De nieuwe verwachte datum is:
+
+{deliveries}
+
+U kunt uw bestelling bekijken en uw factuur downloaden in de sectie "Bestelgeschiedenis" van uw klantenaccount door op "Mijn account" te klikken in onze winkel.
+
+Als u een gastaccount heeft, kunt u uw bestelling volgen in de sectie "Gasttracking" in onze winkel.
+
+{shop_name} powered by PrestaShop™

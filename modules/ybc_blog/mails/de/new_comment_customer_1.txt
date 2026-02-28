@@ -1,0 +1,4 @@
+Hallo {customer_name}
+Ihr Kommentar wurde erfolgreich an {post_title} gesendet und genehmigt
+Beitrag überprüfen
+

@@ -1,0 +1,13 @@
+[{shop_url}]
+
+Hello {customer_name},
+Your {object} on {product_name} has been approved and published.
+
+{title}
+
+{content}
+
+{refuse}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

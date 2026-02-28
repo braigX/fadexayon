@@ -1,0 +1,13 @@
+Olá {firstname} {lastname},
+
+O envio do seu pedido foi atrasado
+
+Pedido {order_name} - Atrasado
+
+O envio do seu pedido {order_name} foi atrasado devido a circunstâncias imprevistas.
+Faremos todos os esforços para enviá-lo o mais rápido possível.
+Se você tiver alguma dúvida ou precisar de informações adicionais, entre em contato com o suporte ao cliente ou responda a esta mensagem.
+
+Você pode revisar seu pedido e baixar sua fatura na seção "Histórico de pedidos" da sua conta de cliente, clicando em "Minha conta" na nossa loja.
+
+{shop_name}

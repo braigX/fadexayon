@@ -1,0 +1,4 @@
+Hallo admin,
+Ein Kommentar zum Artikel {post_title} wurde von {customer_name} geändert.
+Vorherige Version: {comment_old}
+Neue Version: {comment}

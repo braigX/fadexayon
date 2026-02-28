@@ -1,0 +1,8 @@
+[{shop_url}] 
+
+Ciao {firstname} {lastname}, 
+
+La data stimata di consegna per il tuo ordine con riferimento {order_name} è stata aggiornata. La nuova data data prevista è
+
+Consegna minima: {delivery_min}
+Consegna massima: {delivery_max}

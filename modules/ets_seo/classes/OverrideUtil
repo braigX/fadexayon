@@ -1,0 +1,85 @@
+<?php
+/**
+ * Copyright ETS Software Technology Co., Ltd
+ *
+ * NOTICE OF LICENSE
+ *
+ * This file is not open source! Each license that you purchased is only available for 1 website only.
+ * If you want to use this file on more websites (or projects), you need to purchase additional licenses.
+ * You are not allowed to redistribute, resell, lease, license, sub-license or offer our resources to any third party.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future.
+ *
+ * @author ETS Software Technology Co., Ltd
+ * @copyright  ETS Software Technology Co., Ltd
+ * @license    Valid for 1 website (or project) for each purchase of license
+ */
+
+if (!defined('_PS_VERSION_'))
+    exit;
+use PrestaShop\PrestaShop\Core\Grid\Column\Type\DataColumn;
+use PrestaShop\PrestaShop\Core\Grid\Filter\Filter;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+class Ets_Seo_OverrideUtil
+{
+    public static function _actionGridDefinitionModifier($params, $trans)
+    {
+        $colAfter = 'actions';
+        if (isset($params['definition']) && $params['definition']) {
+            $defination = &$params['definition'];
+            $columnCollection = $defination->getColumns();
+            $columnCollection->addBefore(
+                $colAfter,
+                (new DataColumn('seo_score'))
+                    ->setName($trans['seo_score'])
+                    ->setOptions([
+                        'field' => 'seo_score',
+                        'sortable' => false,
+                    ])
+            );
+            $columnCollection->addAfter(
+                'seo_score',
+                (new DataColumn('readability_score'))
+                    ->setName($trans['readability_score'])
+                    ->setOptions([
+                        'field' => 'readability_score',
+                        'sortable' => false,
+                    ])
+            );
+
+            $defination->setColumns($columnCollection);
+            $filterCollection = $defination->getFilters();
+            $filterCollection->add(
+                (new Filter('seo_score', ChoiceType::class))
+                    ->setTypeOptions([
+                        'required' => false,
+                        'choices' => [
+                            $trans['seo_score_ok'] => 'ok',
+                            $trans['seo_score_good'] => 'good',
+                            $trans['seo_score_na'] => 'na',
+                            $trans['seo_score_noindex'] => 'noindex',
+                        ],
+                        'placeholder' => $trans['seo_score_placeholder'],
+                    ])
+                    ->setAssociatedColumn('seo_score')
+            );
+
+            $filterCollection->add(
+                (new Filter('readability_score', ChoiceType::class))
+                    ->setTypeOptions([
+                        'required' => false,
+                        'choices' => [
+                            $trans['readability_score_bad'] => 'bad',
+                            $trans['readability_score_ok'] => 'ok',
+                            $trans['readability_score_good'] => 'good',
+                        ],
+                        'placeholder' => $trans['readability_score_placeholder'],
+                    ])
+                    ->setAssociatedColumn('readability_score')
+            );
+        }
+    }
+}

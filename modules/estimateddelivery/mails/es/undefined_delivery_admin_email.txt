@@ -1,0 +1,8 @@
+Nuevo pedido sin fecha definida!
+
+El pedido #{order_name} ({id_order})&nbsp;-&nbsp; tiene una fecha de entrega no definida
+
+Es necesario concretar una fecha definitiva en un máximo de {days_limit} días
+
+- ID del Pedido: {id_order}
+- Referencia del pedido: {order_name}

@@ -1,0 +1,13 @@
+Hola {firstname} {lastname},
+
+El envío de su pedido se ha retrasado
+
+Pedido {order_name} - Retrasado
+
+El envío de su pedido {order_name} se ha retrasado debido a circunstancias imprevistas.
+Haremos todo lo posible para enviarlo lo antes posible.
+Si tiene alguna pregunta o necesita información adicional, póngase en contacto con el servicio de atención al cliente o responda a este mensaje.
+
+Puede revisar su pedido y descargar su factura desde la sección "Historial de pedidos" de su cuenta de cliente haciendo clic en "Mi cuenta" en nuestra tienda.
+
+{shop_name}

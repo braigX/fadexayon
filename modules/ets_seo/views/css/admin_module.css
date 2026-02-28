@@ -1,0 +1,44 @@
+/**/
+.form-group .translatable-field {
+    display: flex;
+    display: -webkit-flex;
+}
+@media (max-width: 1350px){
+    .mobile .ets_seo_menu {
+        padding-left: 0;
+        margin-top: -15px;
+    }
+    .ets_seo_menu ul.submenu li.show-on-md {
+        display: block;
+    }
+}
+.hide {
+    display: none!important;
+}
+.box-seo-inner .form-group {
+    display: flex;
+    flex-wrap: wrap;
+}
+#conf_id_ETS_SEO_CRON_SECURE_HTML {
+    font-size: 13px;
+}
+
+.ets-mp-text-strong {
+    font-weight: 600;
+}
+
+span.ets-mp-text-bg-light-gray {
+    background: #f2f2f2;
+    padding: 6px 13px;
+    display: inline-block;
+    margin-bottom: 10px;
+    font-style: italic;
+    font-weight: normal;
+}
+.form[name="meta_settings_url_schema_form"] .card-block {
+    padding: 15px 35px 15px 15px;
+}
+
+
+
+

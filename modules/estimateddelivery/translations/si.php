@@ -1,0 +1,33 @@
+<?php
+
+global $_MODULE;
+$_MODULE = [];
+$_MODULE['<{estimateddelivery}modez>estimateddelivery_6f8522e0610541f1ef215a22ffa66ff6'] = 'ponedeljek';
+$_MODULE['<{estimateddelivery}modez>estimateddelivery_5792315f09a5d54fb7e3d066672b507f'] = 'torek';
+$_MODULE['<{estimateddelivery}modez>estimateddelivery_796c163589f295373e171842f37265d5'] = 'sreda';
+$_MODULE['<{estimateddelivery}modez>estimateddelivery_78ae6f0cd191d25147e252dc54768238'] = 'četrtek';
+$_MODULE['<{estimateddelivery}modez>estimateddelivery_c33b138a163847cdb6caeeb7c9a126b4'] = 'petek';
+$_MODULE['<{estimateddelivery}modez>estimateddelivery_8b7051187b9191cdcdae6ed5a10e5adc'] = 'sobota';
+$_MODULE['<{estimateddelivery}modez>estimateddelivery_9d1a0949c39e66a0cd65240bc0ac9177'] = 'nedelja';
+$_MODULE['<{estimateddelivery}modez>estimateddelivery_c5e7dfaf771d423ecf59b008369021e8'] = 'danes';
+$_MODULE['<{estimateddelivery}modez>estimateddelivery_c23946c050885b2de6860f47f2bf6787'] = 'jutri';
+$_MODULE['<{estimateddelivery}modez>estimateddelivery_2c970fb376035afdeed74786da023fb2'] = 'Naročite zdaj in prejmite';
+$_MODULE['<{estimateddelivery}modez>estimateddelivery_5ccb72b3b258508dc7918070eaeb214c'] = 'med';
+$_MODULE['<{estimateddelivery}modez>estimateddelivery_be5d5d37542d75f93a87094459f76678'] = 'in';
+$_MODULE['<{estimateddelivery}modez>estimateddelivery_23a58bf9274bedb19375e527a0744fa9'] = 'z';
+$_MODULE['<{estimateddelivery}modez>estimateddelivery_4d8579b7a80c0606a3e749c0d8bc6127'] = 'dostavno službo';
+$_MODULE['<{estimateddelivery}modez>estimateddelivery_8565d4c8b2e413ecc6032901e5131e68'] = 'Naročite v';
+$_MODULE['<{estimateddelivery}modez>estimateddelivery_73cdddd7730abfc13a55efb9f5685a3b'] = 'urah';
+$_MODULE['<{estimateddelivery}modez>estimateddelivery_640fd0cc0ffa0316ae087652871f4486'] = 'minutah';
+$_MODULE['<{estimateddelivery}modez>estimateddelivery_bfaa5c966d1e8451e190267e61cec90f'] = 'in prejmite';
+$_MODULE['<{estimateddelivery}modez>estimateddelivery_9323e8ac450cc620b2d0ee9c2c978a2d'] = 'Predvideni čas dostave';
+$_MODULE['<{estimateddelivery}modez>js-1.5_73cdddd7730abfc13a55efb9f5685a3b'] = 'urah';
+$_MODULE['<{estimateddelivery}modez>js-1.5_640fd0cc0ffa0316ae087652871f4486'] = 'minutah';
+$_MODULE['<{estimateddelivery}modez>js-1.5_be5d5d37542d75f93a87094459f76678'] = 'in';
+$_MODULE['<{estimateddelivery}modez>js-1.5_6d0452552ffc812e8100fe2ea26d6b1a'] = 'Časovna omejitev je potekla. Da bi dobili točen čas, prosimo, da osvežite stran. ';
+$_MODULE['<{estimateddelivery}modez>js-1.6_73cdddd7730abfc13a55efb9f5685a3b'] = 'urah';
+$_MODULE['<{estimateddelivery}modez>js-1.6_640fd0cc0ffa0316ae087652871f4486'] = 'minutah';
+$_MODULE['<{estimateddelivery}modez>js-1.6_be5d5d37542d75f93a87094459f76678'] = 'in ';
+$_MODULE['<{estimateddelivery}modez>js-1.6_6d0452552ffc812e8100fe2ea26d6b1a'] = 'Časovna omejitev je potekla. Da bi dobili točen čas, prosimo, da osvežite stran. ';
+$_MODULE['<{estimateddelivery}modez>estimateddelivery_d5d7ff2f9cc187484918eec5b18a9fde'] = 'Naročite zdaj in prejmite...';
+$_MODULE['<{estimateddelivery}modez>estimateddelivery_2942c466ae985c4fe2d8cc9d0c801501'] = 'med';

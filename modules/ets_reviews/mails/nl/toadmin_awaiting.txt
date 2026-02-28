@@ -1,0 +1,10 @@
+[{shop_url}]
+
+Hallo {admin_name},
+{customer_name} heeft {object} ingediend. Bekijk de inhoud en neem uw beslissing:
+
+{product}
+{content}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

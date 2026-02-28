@@ -1,0 +1,14 @@
+[{shop_url}]
+
+Hallo {customer_name},
+We hopen dat u de tijd kunt nemen om uw recent gekochte artikelen te beoordelen:
+
+{product_list}
+
+Als bedankje geven we je, nadat de beoordeling is goedgekeurd, een vouchercode waarmee je {voucher_value} korting krijgt voor je volgende bestelling.
+Bedankt voor het vertrouwen en winkelen in onze winkel
+
+Beoordeel nu
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

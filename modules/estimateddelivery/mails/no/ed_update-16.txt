@@ -1,0 +1,8 @@
+[{shop_url}] 
+
+Hei {firstname} {lastname}, 
+
+Den forventede leveringsdatoen for bestillingen din med referansen {order_name} har blitt oppdatert. Den nye forventede datoen er
+
+Levering min: {delivery_min}
+Levering maks: {delivery_max}

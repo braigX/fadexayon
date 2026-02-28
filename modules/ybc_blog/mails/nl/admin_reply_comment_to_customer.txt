@@ -1,0 +1,5 @@
+Hallo {customer_name},
+{replier} heeft zojuist gereageerd op je reactie op {post_title}
+{comment_reply}
+Bekijk antwoord
+

@@ -1,0 +1,8 @@
+.custom_choosefile div.uploader span.filename {
+    width: 100%;
+}
+.custom_choosefile div.uploader span.action {
+    display: none!important;
+}
+
+

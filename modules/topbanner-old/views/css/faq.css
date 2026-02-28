@@ -1,0 +1,59 @@
+/**
+ * Copyright since 2007 PrestaShop SA and Contributors
+ * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License version 3.0
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * @author    PrestaShop SA and Contributors <contact@prestashop.com>
+ * @copyright Since 2007 PrestaShop SA and Contributors
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+ */
+#faq span.faq-h1 {
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+#faq span.faq-h2 {
+    font-size: 14px;
+    display: block;
+    cursor: pointer;
+}
+
+#faq span.faq-h2:hover {
+    color: #25B9D7;
+}
+
+#faq span.faq-h2.faq-open {
+    color: #25B9D7;
+    font-weight: bold;
+}
+
+#faq span.faq-h2 i {
+    font-size: 13px;
+    margin-right: 2px;
+}
+
+#faq > ul {
+    list-style: none;
+}
+
+#faq > ul > li {
+    list-style: none;
+    padding: 5px
+}
+
+#faq .faq-text {
+    padding: 15px 15px;
+    background: #f7f7f7;
+    margin: 10px 0;
+}

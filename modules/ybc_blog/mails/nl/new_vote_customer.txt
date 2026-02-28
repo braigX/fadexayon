@@ -1,0 +1,5 @@
+Hallo {customer_name},
+Bedankt voor je feedback op onze blogbericht: {post_title}
+Met deze e-mail bevestigen we dat we uw waardevolle feedback hebben ontvangen.
+Uw feedback: {feedback}
+Was de blogbericht nuttig: {polls_helpful}

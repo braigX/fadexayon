@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>leveragebrowsercache</name>
+    <displayName><![CDATA[Cache warmer Regenerate &amp; Leverage Cache - - Speed up website]]></displayName>
+    <version><![CDATA[4.1.9]]></version>
+    <description><![CDATA[Increase your page loading speed be building the cache before your customers access it .]]></description>
+    <author><![CDATA[]]></author>
+    <tab><![CDATA[administration]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+</module>

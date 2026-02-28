@@ -1,0 +1,13 @@
+[{shop_url}]
+
+Witaj {customer_name},
+Z przyjemnością informujemy, że właśnie otrzymałeś kod kuponu po ocenie zakupionych przedmiotów.
+Kod: {voucher_code}
+Wartość rabatu: {voucher_value}
+Wprowadź ten kod przy następnym zakupie, aby uzyskać zniżkę
+
+Skorzystaj z kuponu już teraz
+
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

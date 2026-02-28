@@ -1,0 +1,244 @@
+# Changelog
+
+
+## [1.9.1] - 2024-01-17
+### Added
+- New option "The category page URL"
+### Improved
+- Smarty cache management
+### Fixed
+- Missing button "Write a comment" if the post doesn't have comments yet
+- Missing loading of masonry.pkgd.min.js due to specific settings configuration
+- Disabled the search engine indexation of the product list pages
+
+
+## [1.9.0] - 2023-11-04
+### Added
+- Category pages
+- Options for loading blocks of posts by Ajax ("Dynamically load the block")
+- New option "Maximum number of posts" for product posts
+- Notification about outdated WP plugin version
+- New option "HTML classes"
+- A search form on the post list page
+### Improved
+- Minor improvements in post selection for products
+- Minor settings appearance changes
+- Now option "Maximum length of displayed content, characters" in custom blocks also works when showing featured images
+- Comment links in the comments block now lead to the PrestaShop post page (when enabled)
+- Minor style improvements
+- Updated the module code to comply PrestaShop coding standards
+### Fixed
+- Invalid post preview text when post content starts from the style tag
+
+
+## [1.8.4] - 2023-08-15
+### Added
+- An option to avoid duplication of content
+- An option for removing duplicate title from the post content
+### Improved
+- Now the method PrestaWPProductsModuleFrontController::smartyOutputContent() is public
+- Now the canonical link on the post page is different depending on the "Disable search engine indexation ..." option
+- Removed the alternative language links from the post page (link rel="alternate")
+### Fixed
+- Incorrect display of comment author name in certain cases
+- Selection of WP categories on the product edit page
+
+
+## [1.8.3] - 2023-08-01
+### Added
+- New options for HTTP basic authentication
+### Fixed
+- Displaying empty post list in the module settings when no WP category selected
+- Smarty warning on the module configuration page in PS 8.1
+### Improved
+- Minor style improvements for PS 8.1
+
+
+## [1.8.2] - 2023-05-23
+### Added
+- Information about using custom blocks with custom hooks
+- New option for hiding the title of the home page posts
+- Links to the next and previous posts on the post page in PS
+### Improved
+- Now the module displays the home page post list when using the widget without specifying the hook name or when calling without params in Leo Page Builder
+- Minor style changes in product list iframe display
+### Fixed
+- Pagination on the post list page when using not all posts
+- Minor bug fixes for PS 1.6
+
+
+## [1.8.1] - 2023-05-09
+### Fixed
+- Deprecated hook "header" changed to "displayHeader"
+- Smarty warning in the custom block list in back office when using PHP8+
+### Improved
+- Renamed the WordPress plugin archive to avoid confusion
+
+
+## [1.8.0] - 2023-04-21
+### Added
+- CSS/JS URL versioning (for CSS - only in PS 8.0+)
+- Support for Guttenberg blocks in WordPress - blocks "Cart" and "Search"
+### Improved
+- Reworked the post selection
+- Changed the template and styles of the product list displayed using the iframe method
+- Minor style improvements
+- Now the WP cache for API products is deleted on the WP plugin settings saving
+- Added info about minimum purchase quantity (if necessary) when showing products by API
+- Post preview images now have "width" and "height" attributes
+### Fixed
+- Pagination on the post list page when using not all posts
+- Adding product to the cart in API mode when they have minimal quantity requirement
+
+
+## [1.7.0] - 2023-03-26
+### Added
+- Sitemap and RSS feed
+- Options for displaying and writing comments on the post pages
+### Improved
+- Minor style improvements on post pages
+- Updated the module code to comply PrestaShop coding standards
+
+
+## [1.6.4] - 2023-01-04
+### Improved
+- Compatibility with image lazyloading when using carousels
+
+
+## [1.6.3] - 2022-10-09
+### Added
+- Support for PrestaShop 8
+### Fixed
+- Compatibility issues with PHP 8+
+- Minor style issues
+
+
+## [1.6.2] - 2022-06-16
+### Improved
+- Removed unnecessary incomplete structured data for products in API display mode
+
+
+## [1.6.1] - 2022-06-03
+### Improved
+- Now the module uses user-agent "Mozilla/5.0" when connecting to WordPress
+- Disabled loading of extra data when loading the module settings
+
+
+## [1.6.0] - 2022-04-01
+### Added
+- New themes and option "Theme for the post list" correspondingly
+- Option for disabling indexation of posts when viewing directly in PrestaShop
+### Improved
+- Now in the post list the module displays post excerpts instead of truncated post content (when possible)
+- Processing of the list page URL
+- Settings initialization on module installation
+- Settings appearance
+- Loading speed of the product shortcodes
+### Fixed
+- Potential JS error at the product page in BO
+
+
+## [1.5.5] - 2022-02-21
+### Improved
+- Displaying WordPress posts in PrestaShop with enabled option "View posts in PrestaShop"
+
+
+## [1.5.4] - 2022-01-14
+### Added
+- Possibility to connect to multiple stores in WP plugin
+### Improved
+- Compatibility with third-party themes for iframe products
+### Fixed
+- Error on saving on page "SEO & URLs" in PS 1.7.8
+
+
+## [1.5.3] - 2021-11-05
+### Added
+- New option "Use raw WP content"
+### Improved
+- Now the module automatically skips certain service post types
+- Compatibility with PS 1.7.8
+
+
+## [1.5.2] - 2021-08-27
+### Improved
+- Now category shortcodes also show products from all subcategories if module "Faceted search" configured that way
+- Added possibility to override API products template "api_products.tpl" in the PS theme directory
+### Fixed
+- Using option "Skip SSL verification" in some instances
+
+
+## [1.5.1] - 2021-08-10
+### Improved
+- Minor JS improvements in WP admin
+- Behavior when cache lifetime set to 0
+### Fixed
+- Displaying of unapproved comments
+- Displaying of password-protected posts
+
+
+## [1.5.0] - 2021-06-10
+### Added
+- Option for fixing connection problems automatically
+- Slider/carousel of posts
+- Options for shopping cart widget appearance customization in WP
+- Options for limiting max product count in shortcodes on mobile
+### Improved
+- WordPress URL detection
+- Product displaying in iframe mode
+- Appearance of products in API mode in WP
+- Minor style improvements
+### Fixed
+- PHP warning when entering specific incorrect blog address
+- Added "action=show" to the cart link
+
+
+## [1.4.1] - 2021-06-09
+### Added
+- New option for customizing product list wrapper when using iframe mode
+- New option for caching images from WordPress
+### Improved
+- "Add to cart" form detection when displaying products via iframe
+### Fixed
+- Processing WordPress data when using incorrect encoding
+
+
+## [1.4.0] - 2021-03-27
+### Added
+- A separate page for displaying list of WordPress posts directly in PrestaShop
+- An option for viewing full WordPress posts directly in PrestaShop
+- An option for truncating post content in custom blocks in PrestaShop
+- New WP shortcode "Products of brand"
+- New sorting option in product shortcodes: random
+- Auto cache clearing of the module data during global cache clearing (PS 1.7.1+)
+- Trimming external errors during getting data from WP
+### Fixed
+- Using "Skip SSL verification" option in the WP plugin
+- Applying custom text color to articles without featured image
+- Better displaying of errors in Back Office
+### Improved
+- Selection of product images for displaying in API mode
+- Translations
+
+
+## [1.3.9] - 2021-03-15
+### Fixed
+- Checking for category restriction of blocks of posts
+- Loader issue in the posts select box
+- Compatibility issue with PrestaShop 1.7.4.0 during template rendering
+
+
+## [1.3.8] - 2021-03-03
+### Added
+- Option to disable SSL verification
+
+
+## [1.3.7] - 2021-02-19
+### Added
+- Possibility to override template of custom blocks
+- Option to select post preview image size
+### Changed
+- "file_get_contents" to "curl" function for fetching PrestaShop data from WP plugin
+- Block cart link in WordPress changed to the "cart" page instead of "checkout"
+### Fixed
+- Custom hook "PSWPposts" now doesn't depend on option "Display WordPress posts at the home page"

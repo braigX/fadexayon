@@ -1,0 +1,16 @@
+{% extends constant('_PS_VERSION_')|number_format >= 8 ? '@!PrestaShop/Admin/Common/Grid/grid_panel.html.twig' : 'PrestaShopBundle:Admin/Common/Grid:grid_panel.html.twig' %}
+{% block grid_panel_header %}
+<div class="card-header js-grid-header">
+    <!--begin_header_list_order!--><h3 class="d-inline-block card-header-title" data-title="{% if ets_omd_is_viewtrash is defined and ets_omd_is_viewtrash %}{{Trash_orders_text}}{%else%}{{ grid.name }}{%endif%}" >
+    {% if ets_omd_is_viewtrash is defined and ets_omd_is_viewtrash %}{{Trash_orders_text}}{%else%}{{ grid.name }}{%endif%} ({{ grid.data.records_total }})
+  </h3><!--end_header_list_order!-->
+  {% block grid_actions_block %}
+    <div class="d-inline-block float-right">
+      {{ include('@PrestaShop/Admin/Common/Grid/Blocks/grid_actions.html.twig', {'grid': grid}) }}
+    </div>
+  {% endblock %}
+</div>
+{% endblock %}
+{% block grid_view_block %}
+        {{ include('@PrestaShop/Admin/Common/Grid/grid_order.html.twig', {'grid': grid }) }}
+{% endblock %}

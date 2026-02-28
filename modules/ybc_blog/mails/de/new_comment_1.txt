@@ -1,0 +1,5 @@
+Hallo {author_name}
+Ein neuer Kommentar wurde auf {post_title} gepostet und automatisch genehmigt
+Kommentar ansehen
+
+

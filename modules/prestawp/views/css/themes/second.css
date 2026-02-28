@@ -1,0 +1,87 @@
+.prestawpblock .posts_container-fi .pswp-post-fi-title {
+    position: static;
+    background-color: transparent !important;
+    padding: 0;
+    display: flex;
+    flex-wrap: nowrap;
+}
+.prestawpblock .posts_container-fi .pswp-post-fi-title::after {
+    content: '→';
+    position: relative;
+    font-size: 1.5rem;
+    padding-left: 0.5rem;
+    padding-top: 6px;
+}
+.prestawpblock .posts_container-fi .pswp-post-image-link {
+    border-radius: 12px;
+    overflow: hidden;
+}
+.prestawpblock .pswp-post-wrp-1:hover {
+    box-shadow: none;
+}
+.prestawpblock .posts_container-fi .pswp-post-fi-title .pswp-post-title {
+    font-family: Manrope, Noto Sans, Tahoma, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+    line-height: 1.3;
+    color: #000;
+    text-align: left;
+}
+.prestawpblock .posts_container-fi .pswp-post-wrp-1::after {
+    content: '';
+    display: block;
+    width: 5rem;
+    height: 0;
+    border-bottom: 3px solid;
+    border-bottom-color: inherit;
+    position: absolute;
+    bottom: -2px;
+    transition: width 0.3s;
+}
+.prestawpblock .pswp-post-wrp-1:hover::after {
+    width: 100%;
+}
+.prestawpblock .posts_container-fi .pswp-post-fi-title .pswp-post-preview {
+    display: none;
+}
+.prestawpblock .posts_container-fi .pswp-post-wrp-1 {
+    margin-bottom: 15px;
+    border-bottom-color: #F91628;
+}
+.prestawpblock .pswp-post-wrp-1 .pswp-post-image-desc {
+    opacity: 0;
+    visibility: hidden;
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.5;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.8rem;
+    top: 0;
+    background: rgba(255,255,255,0.7);
+    transition: opacity 0.3s, visibility 0.3s;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+.prestawpblock .pswp-post-wrp-1:hover .pswp-post-image-desc {
+    opacity: 1;
+    visibility: visible;
+}
+.prestawpblock .posts_container-fi .pswp-post-image-link {
+    position: relative;
+}
+.prestawpblock .pswp-post-fi-title .entry-footer {
+    color: transparent;
+    padding-top: 12px;
+    padding-left: 10px;
+}
+.prestawpblock .pswp-post-fi-title .entry-footer a {
+    color: #888;
+}
+.prestawpblock .pswp-post-fi-title .entry-footer .comments-link {
+    display: block;
+}

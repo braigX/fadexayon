@@ -1,0 +1,5 @@
+Cześć {customer_name},
+Dziękujemy za opinię na temat naszego posta na blogu: {post_title}
+Ta wiadomość e-mail ma na celu potwierdzenie, że otrzymaliśmy Twoją cenną opinię.
+Twoja opinia: {feedback}
+Czy post na blogu był pomocny: {polls_helpful}

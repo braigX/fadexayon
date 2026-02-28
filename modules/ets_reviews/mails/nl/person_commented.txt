@@ -1,0 +1,12 @@
+[{shop_url}]
+
+Hallo {person_name},
+{from_person_name} heeft gereageerd op je {object} op {product_name}
+“{object_content}”
+
+{content}
+
+[Bekijk commentaar]
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

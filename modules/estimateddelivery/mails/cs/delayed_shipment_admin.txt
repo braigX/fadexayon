@@ -1,0 +1,14 @@
+Zpoždění odeslání upozornění
+
+Objednávka {order_id} s ref {order_Reference}
+Měla by být odeslána dnes
+
+Objednávka {order_name} - Zpožděna
+
+Objednávka {order_name}
+S ID {order_id}
+Musí být odeslána ihned, jinak nebude doručena v odhadovaném termínu
+
+Můžete zkontrolovat svou objednávku a stáhnout fakturu v sekci "Historie objednávek" svého zákaznického účtu kliknutím na "Můj účet" v našem obchodě.
+
+{shop_name}

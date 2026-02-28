@@ -1,0 +1,13 @@
+[{shop_url}]
+
+Hello {customer_name},
+We are happy to inform that you just got a voucher code after rating your purchased items.
+Code: {voucher_code}
+Discount value: {voucher_value}
+Please enter this code on your next purchase to get the discount
+
+Use voucher now
+
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

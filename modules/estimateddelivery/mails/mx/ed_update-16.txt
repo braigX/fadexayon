@@ -1,0 +1,9 @@
+
+[{shop_url}] 
+
+Hi {firstname} {lastname}, 
+
+The estimated delivery date for your order with the reference {order_name} has been updated. The new expected date is
+
+Delivery min: {delivery_min}
+Delivery max: {delivery_max}

@@ -1,0 +1,30 @@
+.ets_rv_my_review .link-item i svg {
+    width: 40px!important;
+    min-width: 40px!important;
+    max-width: 40px!important;
+    height: 40px!important;
+}
+.ets_rv_my_review .link-item:hover i {
+    color: #2fb5d2;
+}
+.ets_rv_my_review .link-item i {
+    height: 51px;
+    min-height: 51px;
+    line-height: 50px;
+    font-style: normal!important;
+}
+.links .col-lg-4.ets_rv_my_review #my-review-link {
+    width: 100%;
+    padding: 0;
+}
+li.ets_rv_my_review {
+    list-style: none;
+}
+.ets_rv_my_review .link-item svg{
+    color: currentColor;
+    fill: currentColor;
+}
+.page-content .links li {
+    list-style: outside none none;
+    display: inline-flex;
+}

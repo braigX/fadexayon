@@ -1,0 +1,41 @@
+<?php
+if (!defined('_PS_VERSION_')) { exit; }
+class Context extends  ContextCore
+{
+    /*
+    * module: teamwant_redis
+    * date: 2024-05-06 15:42:21
+    * version: 3.1.0
+    */
+    public $twredis_disable_webservice_initialized = false;
+    /*
+    * module: teamwant_redis
+    * date: 2024-05-06 15:42:21
+    * version: 3.1.0
+    */
+    public $twredis_disable_webservice = false;
+    /*
+    * module: teamwant_redis
+    * date: 2024-05-14 16:40:09
+    * version: 2.1.1
+    */
+    public $disableCacheForOrderPage_initialized = false;
+    /*
+    * module: teamwant_redis
+    * date: 2024-05-14 16:40:09
+    * version: 2.1.1
+    */
+    public $disableCacheForOrderPage = false;
+    /*
+    * module: teamwant_redis
+    * date: 2024-05-14 16:40:09
+    * version: 2.1.1
+    */
+    public $disableCacheForAddressPaymentAndCarrier_initialized = false;
+    /*
+    * module: teamwant_redis
+    * date: 2024-05-14 16:40:09
+    * version: 2.1.1
+    */
+    public $disableCacheForAddressPaymentAndCarrier = false;
+}

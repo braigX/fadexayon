@@ -1,0 +1,215 @@
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+#subtab-AdminEtsRVReviews a >i:first-child:before,
+#subtab-AdminEtsRVUsers a >i:first-child:before,
+#subtab-AdminEtsRVReviewCriteria a >i:first-child:before,
+#subtab-AdminEtsRVSettings a >i:first-child:before,
+#subtab-AdminEtsRVActivity > a.link > i:first-child:before,
+#ellipsistab #ellipsis_submenu i.icon-AdminEtsRV:before,
+#subtab-AdminEtsRVQuestions a.link i.material-icons:first-child:before,
+#subtab-AdminEtsRVDiscounts a.link i:first-child:before,
+#subtab-AdminEtsRVImportExport a.link i:first-child:before,
+#subtab-AdminEtsRVAutomation a.link i:first-child:before,
+#subtab-AdminEtsRVStaffs a.link i:first-child:before,
+#subtab-AdminEtsRVQuestionsAnswers > a.link > i:first-child:before,
+#maintab-AdminEtsRV i.icon-AdminEtsRV:before,
+#subtab-AdminEtsRVEmail > a.link > i:first-child:before{
+    font-family: Fontawesome, sans-serif;
+    font-size: 16px;
+    line-height: 1;
+    vertical-align: middle;
+    float: left;
+    margin-right:1px;
+    width: 16px;
+    height: 16px;
+    color: inherit;
+}
+.product-comment-content-html svg,.review_content svg{
+    width: 20px;
+}
+#ellipsistab #ellipsis_submenu i.icon-AdminEtsRV:before{
+    color: inherit!important;
+    vertical-align: -2px;
+}
+#subtab-AdminEtsRVReviews a >i:first-child,
+#subtab-AdminEtsRVUsers a >i:first-child,
+#maintab-AdminEtsRV i.icon-AdminEtsRV,
+#subtab-AdminEtsRVAutomation a.link i:first-child,
+#subtab-AdminEtsRVDiscounts a.link i:first-child,
+#subtab-AdminEtsRVQuestions a.link i.material-icons:first-child,
+#subtab-AdminEtsRVDiscounts a.link i:first-child,
+#subtab-AdminEtsRVReviewCriteria a >i:first-child,
+#subtab-AdminEtsRVImportExport a.link i:first-child,
+#ellipsistab #ellipsis_submenu i.icon-AdminEtsRV,
+#subtab-AdminEtsRVActivity > a.link > i:first-child,
+#subtab-AdminEtsRVQuestionsAnswers > a.link > i:first-child,
+#subtab-AdminEtsRVStaffs > a.link > i:first-child,
+#subtab-AdminEtsRVSettings a >i:first-child,
+#subtab-AdminEtsRVEmail > a.link > i:first-child{
+    font-size: 0;
+    min-width: 16px;
+    color: inherit!important;
+}
+li#subtab-AdminEtsRVReviews a,
+#subtab-AdminEtsRVQuestionsAnswers a{
+    text-transform: capitalize;
+}
+
+#subtab-AdminEtsRVQuestions a {
+    align-items: flex-start;
+    -webkit-align-items: flex-start;
+}
+#subtab-AdminEtsRVActivity > a.link > i:first-child:before{
+    content:"\f108";
+}
+#subtab-AdminEtsRVStaffs > a.link > i:first-child:before{
+    content:"\f0c0";
+}
+#subtab-AdminEtsRVImportExport a.link i:first-child:before {
+    content: "\f021";
+}
+#subtab-AdminEtsRVDiscounts a.link i:first-child:before {
+    content: "\f02c";
+}
+#subtab-AdminEtsRVAutomation a.link i:first-child:before {
+    content: "\f013";
+    border: 1px solid;
+    padding: 0;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    line-height: 15px;
+}
+#subtab-AdminEtsRVReviews a >i:first-child:before,
+#maintab-AdminEtsRV i.icon-AdminEtsRV:before,
+#ellipsistab #ellipsis_submenu i.icon-AdminEtsRV:before{
+    content:"\f005";
+}
+#subtab-AdminEtsRVQuestions a.link i.material-icons:before {
+    content: "\f29c";
+}
+#maintab-AdminEtsRV i.icon-AdminEtsRV:before {
+    color: inherit;
+}
+#subtab-AdminEtsRVReviewCriteria a >i:first-child:before {
+    content:"\f046";
+}
+#subtab-AdminEtsRVSettings a >i:first-child:before {
+    content:"\f013";
+}
+#subtab-AdminEtsRVUsers a >i:first-child:before {
+    content:"\f007";
+}
+#subtab-AdminEtsRVQuestionsAnswers > a.link > i:first-child:before{
+    content:"\f29c";
+}
+#subtab-AdminEtsRVEmail > a.link > i:first-child:before{
+    content:"\f0e0";
+}
+.ets_rv_my_review .link-item i {
+    height: 51px;
+    min-height: 51px;
+    font-style: normal!important;
+}
+.link-levelone .submenu a.link {
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+    padding-right: 9px;
+    display: flex;
+    display: -webkit-flex;
+}
+span.badge.badge-danger.ets_rv_reviews_not_approve,
+span.badge.badge-danger.ets_rv_questions_not_approve,
+span.badge.badge-danger.ets_rv_questionsanswers_not_approve,
+span.badge.badge-danger.ets_rv_reviewsratings_not_approve,
+#subtab-AdminEtsRVQuestionsAnswers span.badge.badge-danger,
+span.badge.badge-danger.ets_rv_activity,
+#subtab-AdminEtsRVReviews span.badge.badge-danger{
+    font-size: 12px;
+    width: auto!important;
+    min-width: 18px!important;
+    background: #ff0000!important;
+    color: #fff!important;
+    text-align: center;
+    display: inline-block;
+    border-radius: 50px;
+    margin-left: 3px;
+    line-height: 18px;
+    letter-spacing: 0;
+    padding: 0 2px!important;
+    box-sizing: border-box;
+}
+.link-levelone > a.link > span {
+    max-width: calc(100% - 36px);
+    display: inline-flex;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+    align-items: flex-start;
+    -webkit-align-items: flex-start;
+}
+#subtab-AdminEtsRVActivity a > span.badge {
+    float: right;
+    margin-top: 4px;
+}
+@media (max-width: 767px){
+    #subtab-AdminEtsRVSettings,
+    #subtab-AdminEtsRVEmail,
+    #subtab-AdminEtsRVImportExport,
+    #subtab-AdminEtsRVReviewCriteria,
+    #subtab-AdminEtsRVDiscounts,
+    #subtab-AdminEtsRVUsers,
+    #subtab-AdminEtsRVActivity,
+    #subtab-AdminEtsRVStaffs,
+    #subtab-AdminEtsRVQuestionsAnswers,
+    #subtab-AdminEtsRVReviews{
+        display:none;
+    }
+    #subtab-AdminEtsRVSettings.show_mobile,
+    #subtab-AdminEtsRVEmail.show_mobile,
+    #subtab-AdminEtsRVImportExport.show_mobile,
+    #subtab-AdminEtsRVReviewCriteria.show_mobile,
+    #subtab-AdminEtsRVDiscounts.show_mobile,
+    #subtab-AdminEtsRVUsers.show_mobile,
+    #subtab-AdminEtsRVActivity.show_mobile,
+    #subtab-AdminEtsRVStaffs.show_mobile,
+    #subtab-AdminEtsRVQuestionsAnswers.show_mobile,
+    #subtab-AdminEtsRVReviews.show_mobile{
+        display:block;
+    }
+    li#tab-AdminEtsRV{
+        position: relative;
+    }
+    li#tab-AdminEtsRV:before {
+        content: "";
+        position: absolute;
+        top: 16px;
+        right: 1.2rem;
+        border-left: 2px solid #fff;
+        border-bottom: 2px solid #fff;
+        width: 8px;
+        height: 8px;
+        transform: rotate(-45deg);
+        cursor: pointer;
+        margin-right: 11px;
+    }
+    li#tab-AdminEtsRV.show_mobile:before {
+        transform: rotate(135deg);
+        -webkit-transform: rotate(135deg);
+        top: 20px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,72 @@
+{*
+ * Copyright since 2007 PrestaShop SA and Contributors
+ * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License version 3.0
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * @author    PrestaShop SA and Contributors <contact@prestashop.com>
+ * @copyright Since 2007 PrestaShop SA and Contributors
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+*}
+
+{if $bon_markup_type == 'Organization'}
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type" : "{$bon_markup_type|escape:'htmlall':'UTF-8'}",
+            "legalName" : "{$bon_markup_name|escape:'htmlall':'UTF-8'}",
+            "description" : "{$bon_markup_description|escape:'htmlall':'UTF-8'}",
+            "url" : "{$bon_markup_url|escape:'htmlall':'UTF-8'}",
+            "logo" : "{$bon_markup_logo|escape:'htmlall':'UTF-8'}",
+            "email" : "{$bon_markup_email|escape:'htmlall':'UTF-8'}",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress" : "{$bon_markup_address_street|escape:'htmlall':'UTF-8'}",
+                "addressLocality" : "{$bon_markup_address_locality|escape:'htmlall':'UTF-8'}",
+                "addressRegion" : "{$bon_markup_address_region|escape:'htmlall':'UTF-8'}",
+                "addressCountry" : "{$bon_markup_address_country|escape:'htmlall':'UTF-8'}",
+                "postalCode" : "{$bon_markup_address_code|escape:'htmlall':'UTF-8'}"
+            },
+            "contactPoint": [{
+                "@type": "ContactPoint",
+                "telephone" : "{$bon_markup_telephone|escape:'htmlall':'UTF-8'}",
+                "contactType": "customer service"
+            }],
+            "sameAs": [
+                {if isset($bon_markup_facebook) && $bon_markup_facebook}"http://www.facebook.com/{$bon_markup_facebook|escape:'htmlall':'UTF-8'}",{/if}
+                {if isset($bon_markup_twitter) && $bon_markup_twitter}"http://www.twitter.com/{$bon_markup_twitter|escape:'htmlall':'UTF-8'}",{/if}
+                {if isset($bon_markup_google) && $bon_markup_google}"http://plus.google.com/{$bon_markup_google|escape:'htmlall':'UTF-8'}",{/if}
+                {if isset($bon_markup_youtube) && $bon_markup_youtube}"https://www.youtube.com/{$bon_markup_youtube|escape:'htmlall':'UTF-8'}",{/if}
+                {if isset($bon_markup_likedin) && $bon_markup_likedin}"http://www.linkedin.com/company/{$bon_markup_likedin|escape:'htmlall':'UTF-8'}",{/if}
+                {if isset($bon_markup_instagram) && $bon_markup_instagram}"https://www.instagram.com/{$bon_markup_instagram|escape:'htmlall':'UTF-8'}"{/if}
+            ]
+        }
+    </script>
+{/if}
+
+{if $bon_markup_type == 'WebSite'}
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "WebSite",
+            "url" : "{$bon_markup_url|escape:'htmlall':'UTF-8'}",
+            "image": {
+                "@type": "ImageObject",
+                "url":"{$bon_markup_logo|escape:'htmlall':'UTF-8'}"
+            },
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "{'--search_term_string--'|str_replace:'{search_term_string}':$link->getPageLink('search',true,null,['search_query'=>'--search_term_string--'])|escape:'htmlall':'UTF-8'}",
+                "query-input": "required name=search_term_string"
+            }
+        }
+    </script>
+{/if}

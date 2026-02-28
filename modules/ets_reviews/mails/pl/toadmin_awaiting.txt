@@ -1,0 +1,10 @@
+[{shop_url}]
+
+Witaj {admin_name},
+{customer_name} przesłał {obiekt}. Zapoznaj się z jego treścią i podejmij decyzję:
+
+{product}
+{content}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

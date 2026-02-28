@@ -1,0 +1,1461 @@
+Array
+(
+    [id_product] => 14
+    [product] => Product Object
+        (
+            [id] => 14
+            [id_lang:protected] => 1
+            [lang_associated:protected] => 
+            [id_shop:protected] => 1
+            [id_shop_list] => Array
+                (
+                )
+
+            [get_shop_from_context:protected] => 
+            [table:protected] => product
+            [identifier:protected] => id_product
+            [fieldsRequired:protected] => Array
+                (
+                    [0] => price
+                )
+
+            [fieldsSize:protected] => Array
+                (
+                    [reference] => 64
+                    [supplier_reference] => 64
+                    [location] => 255
+                    [ean13] => 13
+                    [isbn] => 32
+                    [upc] => 12
+                    [mpn] => 40
+                )
+
+            [fieldsValidate:protected] => Array
+                (
+                    [id_shop_default] => isUnsignedId
+                    [id_manufacturer] => isUnsignedId
+                    [id_supplier] => isUnsignedId
+                    [reference] => isReference
+                    [supplier_reference] => isReference
+                    [location] => isString
+                    [width] => isUnsignedFloat
+                    [height] => isUnsignedFloat
+                    [depth] => isUnsignedFloat
+                    [weight] => isUnsignedFloat
+                    [quantity_discount] => isBool
+                    [ean13] => isEan13
+                    [isbn] => isIsbn
+                    [upc] => isUpc
+                    [mpn] => isMpn
+                    [cache_is_pack] => isBool
+                    [cache_has_attachments] => isBool
+                    [is_virtual] => isBool
+                    [state] => isUnsignedId
+                    [additional_delivery_times] => isUnsignedId
+                    [product_type] => isGenericName
+                    [id_category_default] => isUnsignedId
+                    [id_tax_rules_group] => isUnsignedId
+                    [on_sale] => isBool
+                    [online_only] => isBool
+                    [ecotax] => isPrice
+                    [minimal_quantity] => isUnsignedInt
+                    [low_stock_threshold] => isInt
+                    [low_stock_alert] => isBool
+                    [price] => isPrice
+                    [wholesale_price] => isPrice
+                    [unity] => isString
+                    [unit_price] => isPrice
+                    [additional_shipping_cost] => isPrice
+                    [customizable] => isUnsignedInt
+                    [text_fields] => isUnsignedInt
+                    [uploadable_files] => isUnsignedInt
+                    [active] => isBool
+                    [redirect_type] => isString
+                    [id_type_redirected] => isUnsignedId
+                    [available_for_order] => isBool
+                    [available_date] => isDateFormat
+                    [show_condition] => isBool
+                    [condition] => isGenericName
+                    [show_price] => isBool
+                    [indexed] => isBool
+                    [visibility] => isProductVisibility
+                    [advanced_stock_management] => isBool
+                    [date_add] => isDate
+                    [date_upd] => isDate
+                    [pack_stock_type] => isUnsignedInt
+                )
+
+            [fieldsRequiredLang:protected] => Array
+                (
+                )
+
+            [fieldsSizeLang:protected] => Array
+                (
+                    [delivery_in_stock] => 255
+                    [delivery_out_stock] => 255
+                    [meta_description] => 512
+                    [meta_keywords] => 255
+                    [meta_title] => 255
+                    [link_rewrite] => 128
+                    [name] => 128
+                    [available_now] => 255
+                    [available_later] => 255
+                )
+
+            [fieldsValidateLang:protected] => Array
+                (
+                    [delivery_in_stock] => isGenericName
+                    [delivery_out_stock] => isGenericName
+                    [meta_description] => isGenericName
+                    [meta_keywords] => isGenericName
+                    [meta_title] => isGenericName
+                    [link_rewrite] => isLinkRewrite
+                    [name] => isCatalogName
+                    [description] => isCleanHtml
+                    [description_short] => isCleanHtml
+                    [available_now] => isGenericName
+                    [available_later] => IsGenericName
+                )
+
+            [tables:protected] => Array
+                (
+                )
+
+            [webserviceParameters:protected] => Array
+                (
+                    [objectMethods] => Array
+                        (
+                            [add] => addWs
+                            [update] => updateWs
+                        )
+
+                    [objectNodeNames] => products
+                    [fields] => Array
+                        (
+                            [id_manufacturer] => Array
+                                (
+                                    [xlink_resource] => manufacturers
+                                )
+
+                            [id_supplier] => Array
+                                (
+                                    [xlink_resource] => suppliers
+                                )
+
+                            [id_category_default] => Array
+                                (
+                                    [xlink_resource] => categories
+                                )
+
+                            [new] => Array
+                                (
+                                )
+
+                            [cache_default_attribute] => Array
+                                (
+                                )
+
+                            [id_default_image] => Array
+                                (
+                                    [getter] => getCoverWs
+                                    [setter] => setCoverWs
+                                    [xlink_resource] => Array
+                                        (
+                                            [resourceName] => images
+                                            [subResourceName] => products
+                                        )
+
+                                )
+
+                            [id_default_combination] => Array
+                                (
+                                    [getter] => getWsDefaultCombination
+                                    [setter] => setWsDefaultCombination
+                                    [xlink_resource] => Array
+                                        (
+                                            [resourceName] => combinations
+                                        )
+
+                                )
+
+                            [id_tax_rules_group] => Array
+                                (
+                                    [xlink_resource] => Array
+                                        (
+                                            [resourceName] => tax_rule_groups
+                                        )
+
+                                )
+
+                            [position_in_category] => Array
+                                (
+                                    [getter] => getWsPositionInCategory
+                                    [setter] => setWsPositionInCategory
+                                )
+
+                            [manufacturer_name] => Array
+                                (
+                                    [getter] => getWsManufacturerName
+                                    [setter] => 
+                                )
+
+                            [quantity] => Array
+                                (
+                                    [getter] => 
+                                    [setter] => 
+                                )
+
+                            [type] => Array
+                                (
+                                    [getter] => getWsType
+                                    [setter] => setWsType
+                                )
+
+                        )
+
+                    [associations] => Array
+                        (
+                            [categories] => Array
+                                (
+                                    [resource] => category
+                                    [fields] => Array
+                                        (
+                                            [id] => Array
+                                                (
+                                                    [required] => 1
+                                                )
+
+                                        )
+
+                                )
+
+                            [images] => Array
+                                (
+                                    [resource] => image
+                                    [fields] => Array
+                                        (
+                                            [id] => Array
+                                                (
+                                                )
+
+                                        )
+
+                                )
+
+                            [combinations] => Array
+                                (
+                                    [resource] => combination
+                                    [fields] => Array
+                                        (
+                                            [id] => Array
+                                                (
+                                                    [required] => 1
+                                                )
+
+                                        )
+
+                                )
+
+                            [product_option_values] => Array
+                                (
+                                    [resource] => product_option_value
+                                    [fields] => Array
+                                        (
+                                            [id] => Array
+                                                (
+                                                    [required] => 1
+                                                )
+
+                                        )
+
+                                )
+
+                            [product_features] => Array
+                                (
+                                    [resource] => product_feature
+                                    [fields] => Array
+                                        (
+                                            [id] => Array
+                                                (
+                                                    [required] => 1
+                                                )
+
+                                            [id_feature_value] => Array
+                                                (
+                                                    [required] => 1
+                                                    [xlink_resource] => product_feature_values
+                                                )
+
+                                        )
+
+                                )
+
+                            [tags] => Array
+                                (
+                                    [resource] => tag
+                                    [fields] => Array
+                                        (
+                                            [id] => Array
+                                                (
+                                                    [required] => 1
+                                                )
+
+                                        )
+
+                                )
+
+                            [stock_availables] => Array
+                                (
+                                    [resource] => stock_available
+                                    [fields] => Array
+                                        (
+                                            [id] => Array
+                                                (
+                                                    [required] => 1
+                                                )
+
+                                            [id_product_attribute] => Array
+                                                (
+                                                    [required] => 1
+                                                )
+
+                                        )
+
+                                    [setter] => 
+                                )
+
+                            [attachments] => Array
+                                (
+                                    [resource] => attachment
+                                    [api] => attachments
+                                    [fields] => Array
+                                        (
+                                            [id] => Array
+                                                (
+                                                    [required] => 1
+                                                )
+
+                                        )
+
+                                )
+
+                            [accessories] => Array
+                                (
+                                    [resource] => product
+                                    [api] => products
+                                    [fields] => Array
+                                        (
+                                            [id] => Array
+                                                (
+                                                    [required] => 1
+                                                    [xlink_resource] => products
+                                                )
+
+                                        )
+
+                                )
+
+                            [product_bundle] => Array
+                                (
+                                    [resource] => product
+                                    [api] => products
+                                    [fields] => Array
+                                        (
+                                            [id] => Array
+                                                (
+                                                    [required] => 1
+                                                )
+
+                                            [id_product_attribute] => Array
+                                                (
+                                                )
+
+                                            [quantity] => Array
+                                                (
+                                                )
+
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [image_dir:protected] => 
+            [image_format:protected] => jpg
+            [translator:protected] => 
+            [def:protected] => Array
+                (
+                    [table] => product
+                    [primary] => id_product
+                    [multilang] => 1
+                    [multilang_shop] => 1
+                    [fields] => Array
+                        (
+                            [id_shop_default] => Array
+                                (
+                                    [type] => 1
+                                    [validate] => isUnsignedId
+                                )
+
+                            [id_manufacturer] => Array
+                                (
+                                    [type] => 1
+                                    [validate] => isUnsignedId
+                                )
+
+                            [id_supplier] => Array
+                                (
+                                    [type] => 1
+                                    [validate] => isUnsignedId
+                                )
+
+                            [reference] => Array
+                                (
+                                    [type] => 3
+                                    [validate] => isReference
+                                    [size] => 64
+                                )
+
+                            [supplier_reference] => Array
+                                (
+                                    [type] => 3
+                                    [validate] => isReference
+                                    [size] => 64
+                                )
+
+                            [location] => Array
+                                (
+                                    [type] => 3
+                                    [validate] => isString
+                                    [size] => 255
+                                )
+
+                            [width] => Array
+                                (
+                                    [type] => 4
+                                    [validate] => isUnsignedFloat
+                                )
+
+                            [height] => Array
+                                (
+                                    [type] => 4
+                                    [validate] => isUnsignedFloat
+                                )
+
+                            [depth] => Array
+                                (
+                                    [type] => 4
+                                    [validate] => isUnsignedFloat
+                                )
+
+                            [weight] => Array
+                                (
+                                    [type] => 4
+                                    [validate] => isUnsignedFloat
+                                )
+
+                            [quantity_discount] => Array
+                                (
+                                    [type] => 2
+                                    [validate] => isBool
+                                )
+
+                            [ean13] => Array
+                                (
+                                    [type] => 3
+                                    [validate] => isEan13
+                                    [size] => 13
+                                )
+
+                            [isbn] => Array
+                                (
+                                    [type] => 3
+                                    [validate] => isIsbn
+                                    [size] => 32
+                                )
+
+                            [upc] => Array
+                                (
+                                    [type] => 3
+                                    [validate] => isUpc
+                                    [size] => 12
+                                )
+
+                            [mpn] => Array
+                                (
+                                    [type] => 3
+                                    [validate] => isMpn
+                                    [size] => 40
+                                )
+
+                            [cache_is_pack] => Array
+                                (
+                                    [type] => 2
+                                    [validate] => isBool
+                                )
+
+                            [cache_has_attachments] => Array
+                                (
+                                    [type] => 2
+                                    [validate] => isBool
+                                )
+
+                            [is_virtual] => Array
+                                (
+                                    [type] => 2
+                                    [validate] => isBool
+                                )
+
+                            [state] => Array
+                                (
+                                    [type] => 1
+                                    [validate] => isUnsignedId
+                                )
+
+                            [additional_delivery_times] => Array
+                                (
+                                    [type] => 1
+                                    [validate] => isUnsignedId
+                                )
+
+                            [delivery_in_stock] => Array
+                                (
+                                    [type] => 3
+                                    [lang] => 1
+                                    [validate] => isGenericName
+                                    [size] => 255
+                                )
+
+                            [delivery_out_stock] => Array
+                                (
+                                    [type] => 3
+                                    [lang] => 1
+                                    [validate] => isGenericName
+                                    [size] => 255
+                                )
+
+                            [product_type] => Array
+                                (
+                                    [type] => 3
+                                    [validate] => isGenericName
+                                    [values] => Array
+                                        (
+                                            [0] => standard
+                                            [1] => pack
+                                            [2] => virtual
+                                            [3] => combinations
+                                            [4] => 
+                                        )
+
+                                    [default] => 
+                                )
+
+                            [id_category_default] => Array
+                                (
+                                    [type] => 1
+                                    [shop] => 1
+                                    [validate] => isUnsignedId
+                                )
+
+                            [id_tax_rules_group] => Array
+                                (
+                                    [type] => 1
+                                    [shop] => 1
+                                    [validate] => isUnsignedId
+                                )
+
+                            [on_sale] => Array
+                                (
+                                    [type] => 2
+                                    [shop] => 1
+                                    [validate] => isBool
+                                )
+
+                            [online_only] => Array
+                                (
+                                    [type] => 2
+                                    [shop] => 1
+                                    [validate] => isBool
+                                )
+
+                            [ecotax] => Array
+                                (
+                                    [type] => 4
+                                    [shop] => 1
+                                    [validate] => isPrice
+                                )
+
+                            [minimal_quantity] => Array
+                                (
+                                    [type] => 1
+                                    [shop] => 1
+                                    [validate] => isUnsignedInt
+                                )
+
+                            [low_stock_threshold] => Array
+                                (
+                                    [type] => 1
+                                    [shop] => 1
+                                    [allow_null] => 1
+                                    [validate] => isInt
+                                )
+
+                            [low_stock_alert] => Array
+                                (
+                                    [type] => 2
+                                    [shop] => 1
+                                    [validate] => isBool
+                                )
+
+                            [price] => Array
+                                (
+                                    [type] => 4
+                                    [shop] => 1
+                                    [validate] => isPrice
+                                    [required] => 1
+                                )
+
+                            [wholesale_price] => Array
+                                (
+                                    [type] => 4
+                                    [shop] => 1
+                                    [validate] => isPrice
+                                )
+
+                            [unity] => Array
+                                (
+                                    [type] => 3
+                                    [shop] => 1
+                                    [validate] => isString
+                                )
+
+                            [unit_price] => Array
+                                (
+                                    [type] => 4
+                                    [shop] => 1
+                                    [validate] => isPrice
+                                )
+
+                            [unit_price_ratio] => Array
+                                (
+                                    [type] => 4
+                                    [shop] => 1
+                                )
+
+                            [additional_shipping_cost] => Array
+                                (
+                                    [type] => 4
+                                    [shop] => 1
+                                    [validate] => isPrice
+                                )
+
+                            [customizable] => Array
+                                (
+                                    [type] => 1
+                                    [shop] => 1
+                                    [validate] => isUnsignedInt
+                                )
+
+                            [text_fields] => Array
+                                (
+                                    [type] => 1
+                                    [shop] => 1
+                                    [validate] => isUnsignedInt
+                                )
+
+                            [uploadable_files] => Array
+                                (
+                                    [type] => 1
+                                    [shop] => 1
+                                    [validate] => isUnsignedInt
+                                )
+
+                            [active] => Array
+                                (
+                                    [type] => 2
+                                    [shop] => 1
+                                    [validate] => isBool
+                                )
+
+                            [redirect_type] => Array
+                                (
+                                    [type] => 3
+                                    [shop] => 1
+                                    [validate] => isString
+                                )
+
+                            [id_type_redirected] => Array
+                                (
+                                    [type] => 1
+                                    [shop] => 1
+                                    [validate] => isUnsignedId
+                                )
+
+                            [available_for_order] => Array
+                                (
+                                    [type] => 2
+                                    [shop] => 1
+                                    [validate] => isBool
+                                )
+
+                            [available_date] => Array
+                                (
+                                    [type] => 5
+                                    [shop] => 1
+                                    [validate] => isDateFormat
+                                )
+
+                            [show_condition] => Array
+                                (
+                                    [type] => 2
+                                    [shop] => 1
+                                    [validate] => isBool
+                                )
+
+                            [condition] => Array
+                                (
+                                    [type] => 3
+                                    [shop] => 1
+                                    [validate] => isGenericName
+                                    [values] => Array
+                                        (
+                                            [0] => new
+                                            [1] => used
+                                            [2] => refurbished
+                                        )
+
+                                    [default] => new
+                                )
+
+                            [show_price] => Array
+                                (
+                                    [type] => 2
+                                    [shop] => 1
+                                    [validate] => isBool
+                                )
+
+                            [indexed] => Array
+                                (
+                                    [type] => 2
+                                    [shop] => 1
+                                    [validate] => isBool
+                                )
+
+                            [visibility] => Array
+                                (
+                                    [type] => 3
+                                    [shop] => 1
+                                    [validate] => isProductVisibility
+                                    [values] => Array
+                                        (
+                                            [0] => both
+                                            [1] => catalog
+                                            [2] => search
+                                            [3] => none
+                                        )
+
+                                    [default] => both
+                                )
+
+                            [cache_default_attribute] => Array
+                                (
+                                    [type] => 1
+                                    [shop] => 1
+                                )
+
+                            [advanced_stock_management] => Array
+                                (
+                                    [type] => 2
+                                    [shop] => 1
+                                    [validate] => isBool
+                                )
+
+                            [date_add] => Array
+                                (
+                                    [type] => 5
+                                    [shop] => 1
+                                    [validate] => isDate
+                                )
+
+                            [date_upd] => Array
+                                (
+                                    [type] => 5
+                                    [shop] => 1
+                                    [validate] => isDate
+                                )
+
+                            [pack_stock_type] => Array
+                                (
+                                    [type] => 1
+                                    [shop] => 1
+                                    [validate] => isUnsignedInt
+                                )
+
+                            [meta_description] => Array
+                                (
+                                    [type] => 3
+                                    [lang] => 1
+                                    [validate] => isGenericName
+                                    [size] => 512
+                                )
+
+                            [meta_keywords] => Array
+                                (
+                                    [type] => 3
+                                    [lang] => 1
+                                    [validate] => isGenericName
+                                    [size] => 255
+                                )
+
+                            [meta_title] => Array
+                                (
+                                    [type] => 3
+                                    [lang] => 1
+                                    [validate] => isGenericName
+                                    [size] => 255
+                                )
+
+                            [link_rewrite] => Array
+                                (
+                                    [type] => 3
+                                    [lang] => 1
+                                    [validate] => isLinkRewrite
+                                    [required] => 
+                                    [size] => 128
+                                    [ws_modifier] => Array
+                                        (
+                                            [http_method] => 2
+                                            [modifier] => modifierWsLinkRewrite
+                                        )
+
+                                )
+
+                            [name] => Array
+                                (
+                                    [type] => 3
+                                    [lang] => 1
+                                    [validate] => isCatalogName
+                                    [required] => 
+                                    [size] => 128
+                                )
+
+                            [description] => Array
+                                (
+                                    [type] => 6
+                                    [lang] => 1
+                                    [validate] => isCleanHtml
+                                )
+
+                            [description_short] => Array
+                                (
+                                    [type] => 6
+                                    [lang] => 1
+                                    [validate] => isCleanHtml
+                                    [size] => 800
+                                )
+
+                            [available_now] => Array
+                                (
+                                    [type] => 3
+                                    [lang] => 1
+                                    [validate] => isGenericName
+                                    [size] => 255
+                                )
+
+                            [available_later] => Array
+                                (
+                                    [type] => 3
+                                    [lang] => 1
+                                    [validate] => IsGenericName
+                                    [size] => 255
+                                )
+
+                        )
+
+                    [associations] => Array
+                        (
+                            [manufacturer] => Array
+                                (
+                                    [type] => 1
+                                )
+
+                            [supplier] => Array
+                                (
+                                    [type] => 1
+                                )
+
+                            [default_category] => Array
+                                (
+                                    [type] => 1
+                                    [field] => id_category_default
+                                    [object] => Category
+                                )
+
+                            [tax_rules_group] => Array
+                                (
+                                    [type] => 1
+                                )
+
+                            [categories] => Array
+                                (
+                                    [type] => 2
+                                    [field] => id_category
+                                    [object] => Category
+                                    [association] => category_product
+                                )
+
+                            [stock_availables] => Array
+                                (
+                                    [type] => 2
+                                    [field] => id_stock_available
+                                    [object] => StockAvailable
+                                    [association] => stock_availables
+                                )
+
+                            [attachments] => Array
+                                (
+                                    [type] => 2
+                                    [field] => id_attachment
+                                    [object] => Attachment
+                                    [association] => product_attachment
+                                )
+
+                            [l] => Array
+                                (
+                                    [type] => 2
+                                    [field] => id_product
+                                    [foreign_field] => id_product
+                                )
+
+                        )
+
+                    [classname] => Product
+                )
+
+            [update_fields:protected] => 
+            [force_id] => 
+            [tax_name] => deprecated
+            [tax_rate] => 0
+            [id_manufacturer] => 2
+            [id_supplier] => 2
+            [id_category_default] => 9
+            [id_shop_default] => 1
+            [manufacturer_name] => Graphic Corner
+            [supplier_name] => Accessories supplier
+            [name] => Hummingbird - Vector graphics
+            [description] => <p>You have a custom printing creative project? The vector graphic Mountain fox illustration can be used for printing purpose on any support, without size limitation.</p>
+            [description_short] => <p>Vector graphic, format: svg. Download for personal, private and non-commercial use.</p>
+            [quantity] => 300
+            [minimal_quantity] => 1
+            [low_stock_threshold] => 0
+            [low_stock_alert] => 0
+            [available_now] => 
+            [available_later] => 
+            [price] => 18.000000
+            [specificPrice] => Array
+                (
+                )
+
+            [additional_shipping_cost] => 0.000000
+            [wholesale_price] => 5.490000
+            [on_sale] => 0
+            [online_only] => 0
+            [unity] => 
+            [unit_price] => 0.000000
+            [unit_price_ratio] => 0.000000
+            [ecotax] => 0.000000
+            [reference] => demo_20
+            [supplier_reference] => demo_20
+            [location] => 
+            [width] => 0.000000
+            [height] => 0.000000
+            [depth] => 0.000000
+            [weight] => 0.300000
+            [ean13] => 
+            [isbn] => 
+            [upc] => 
+            [mpn] => 
+            [link_rewrite] => hummingbird-vector-graphics
+            [meta_description] => 
+            [meta_keywords] => 
+            [meta_title] => 
+            [quantity_discount] => 0
+            [customizable] => 0
+            [new] => 
+            [uploadable_files] => 0
+            [text_fields] => 0
+            [active] => 1
+            [redirect_type] => 301-category
+            [id_type_redirected] => 0
+            [available_for_order] => 1
+            [available_date] => 0000-00-00
+            [show_condition] => 0
+            [condition] => new
+            [show_price] => 1
+            [indexed] => 1
+            [visibility] => none
+            [date_add] => 2023-07-31 06:40:35
+            [date_upd] => 2023-12-19 15:35:53
+            [tags] => 
+            [state] => 1
+            [base_price] => 18.000000
+            [id_tax_rules_group] => 1
+            [id_color_default] => 0
+            [advanced_stock_management] => 0
+            [out_of_stock] => 1
+            [depends_on_stock] => 
+            [isFullyLoaded] => 1
+            [cache_is_pack] => 0
+            [cache_has_attachments] => 0
+            [is_virtual] => 1
+            [id_pack_product_attribute] => 
+            [cache_default_attribute] => 0
+            [category] => art
+            [pack_stock_type] => 3
+            [additional_delivery_times] => 1
+            [delivery_in_stock] => 
+            [delivery_out_stock] => 
+            [product_type] => virtual
+        )
+
+    [cookie] => Cookie Object
+        (
+            [_content:protected] => Array
+                (
+                    [date_add] => 2023-12-14 05:46:24
+                    [id_lang] => 1
+                    [detect_language] => 1
+                    [shopContext] => s-1
+                    [id_employee] => 1
+                    [email] => magrabota@gmail.com
+                    [profile] => 1
+                    [passwd] => $2y$10$VDqSeCCMI7kEVSlRpuKL3.zaU2GEl1vauFJy7x/d6vOrQJBax4Ccy
+                    [remote_addr] => 2130706433
+                    [session_id] => 9
+                    [session_token] => d6ad00775043727660604c1ab6b37f541f52191f
+                    [checksum] => fec0e5e0ab847da56ea447e5d706b5361676382fdae7a32a768a4311eb253136
+                )
+
+            [_name:protected] => PrestaShop-402cb2e06a92f598df364ccd7eb38046
+            [_expire:protected] => 1704724552
+            [_domain:protected] => smartmart.com
+            [_sameSite:protected] => Lax
+            [_path:protected] => /prestashop810/
+            [cipherTool:protected] => PhpEncryption Object
+                (
+                )
+
+            [_modified:protected] => 
+            [_allow_writing:protected] => 1
+            [_salt:protected] => hcqfEtaULAz2oMxppsxtvR2tEt62Em96
+            [_standalone:protected] => 
+            [_secure:protected] => 
+            [session:protected] => EmployeeSession Object
+                (
+                    [id] => 9
+                    [id_lang:protected] => 
+                    [lang_associated:protected] => 
+                    [id_shop:protected] => 
+                    [id_shop_list] => Array
+                        (
+                        )
+
+                    [get_shop_from_context:protected] => 1
+                    [table:protected] => employee_session
+                    [identifier:protected] => id_employee_session
+                    [fieldsRequired:protected] => Array
+                        (
+                            [0] => id_employee
+                        )
+
+                    [fieldsSize:protected] => Array
+                        (
+                            [token] => 40
+                        )
+
+                    [fieldsValidate:protected] => Array
+                        (
+                            [id_employee] => isUnsignedId
+                            [token] => isSha1
+                            [date_upd] => isDate
+                            [date_add] => isDate
+                        )
+
+                    [fieldsRequiredLang:protected] => Array
+                        (
+                        )
+
+                    [fieldsSizeLang:protected] => Array
+                        (
+                        )
+
+                    [fieldsValidateLang:protected] => Array
+                        (
+                        )
+
+                    [tables:protected] => Array
+                        (
+                        )
+
+                    [webserviceParameters:protected] => Array
+                        (
+                        )
+
+                    [image_dir:protected] => 
+                    [image_format:protected] => jpg
+                    [translator:protected] => 
+                    [def:protected] => Array
+                        (
+                            [table] => employee_session
+                            [primary] => id_employee_session
+                            [fields] => Array
+                                (
+                                    [id_employee] => Array
+                                        (
+                                            [type] => 1
+                                            [validate] => isUnsignedId
+                                            [required] => 1
+                                        )
+
+                                    [token] => Array
+                                        (
+                                            [type] => 3
+                                            [validate] => isSha1
+                                            [size] => 40
+                                            [copy_post] => 
+                                        )
+
+                                    [date_upd] => Array
+                                        (
+                                            [type] => 5
+                                            [validate] => isDate
+                                            [copy_post] => 
+                                        )
+
+                                    [date_add] => Array
+                                        (
+                                            [type] => 5
+                                            [validate] => isDate
+                                            [copy_post] => 
+                                        )
+
+                                )
+
+                            [classname] => EmployeeSession
+                        )
+
+                    [update_fields:protected] => 
+                    [force_id] => 
+                    [id_employee] => 1
+                    [token] => d6ad00775043727660604c1ab6b37f541f52191f
+                    [date_upd] => 2023-12-19 15:35:53
+                    [date_add] => 2023-12-14 05:46:36
+                )
+
+        )
+
+    [cart] => Cart Object
+        (
+            [id] => 
+            [id_lang] => 
+            [lang_associated:protected] => 
+            [id_shop] => 
+            [id_shop_list] => Array
+                (
+                )
+
+            [get_shop_from_context:protected] => 1
+            [table:protected] => cart
+            [identifier:protected] => id_cart
+            [fieldsRequired:protected] => Array
+                (
+                    [0] => id_currency
+                    [1] => id_lang
+                )
+
+            [fieldsSize:protected] => Array
+                (
+                    [secure_key] => 32
+                )
+
+            [fieldsValidate:protected] => Array
+                (
+                    [id_shop_group] => isUnsignedId
+                    [id_shop] => isUnsignedId
+                    [id_address_delivery] => isUnsignedId
+                    [id_address_invoice] => isUnsignedId
+                    [id_carrier] => isUnsignedId
+                    [id_currency] => isUnsignedId
+                    [id_customer] => isUnsignedId
+                    [id_guest] => isUnsignedId
+                    [id_lang] => isUnsignedId
+                    [recyclable] => isBool
+                    [gift] => isBool
+                    [gift_message] => isMessage
+                    [mobile_theme] => isBool
+                    [allow_seperated_package] => isBool
+                    [date_add] => isDate
+                    [date_upd] => isDate
+                )
+
+            [fieldsRequiredLang:protected] => Array
+                (
+                )
+
+            [fieldsSizeLang:protected] => Array
+                (
+                )
+
+            [fieldsValidateLang:protected] => Array
+                (
+                )
+
+            [tables:protected] => Array
+                (
+                )
+
+            [webserviceParameters:protected] => Array
+                (
+                    [fields] => Array
+                        (
+                            [id_address_delivery] => Array
+                                (
+                                    [xlink_resource] => addresses
+                                )
+
+                            [id_address_invoice] => Array
+                                (
+                                    [xlink_resource] => addresses
+                                )
+
+                            [id_currency] => Array
+                                (
+                                    [xlink_resource] => currencies
+                                )
+
+                            [id_customer] => Array
+                                (
+                                    [xlink_resource] => customers
+                                )
+
+                            [id_guest] => Array
+                                (
+                                    [xlink_resource] => guests
+                                )
+
+                            [id_lang] => Array
+                                (
+                                    [xlink_resource] => languages
+                                )
+
+                        )
+
+                    [associations] => Array
+                        (
+                            [cart_rows] => Array
+                                (
+                                    [resource] => cart_row
+                                    [virtual_entity] => 1
+                                    [fields] => Array
+                                        (
+                                            [id_product] => Array
+                                                (
+                                                    [required] => 1
+                                                    [xlink_resource] => products
+                                                )
+
+                                            [id_product_attribute] => Array
+                                                (
+                                                    [required] => 1
+                                                    [xlink_resource] => combinations
+                                                )
+
+                                            [id_address_delivery] => Array
+                                                (
+                                                    [required] => 1
+                                                    [xlink_resource] => addresses
+                                                )
+
+                                            [id_customization] => Array
+                                                (
+                                                    [required] => 
+                                                    [xlink_resource] => customizations
+                                                )
+
+                                            [quantity] => Array
+                                                (
+                                                    [required] => 1
+                                                )
+
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [image_dir:protected] => 
+            [image_format:protected] => jpg
+            [translator:protected] => 
+            [def:protected] => Array
+                (
+                    [table] => cart
+                    [primary] => id_cart
+                    [fields] => Array
+                        (
+                            [id_shop_group] => Array
+                                (
+                                    [type] => 1
+                                    [validate] => isUnsignedId
+                                )
+
+                            [id_shop] => Array
+                                (
+                                    [type] => 1
+                                    [validate] => isUnsignedId
+                                )
+
+                            [id_address_delivery] => Array
+                                (
+                                    [type] => 1
+                                    [validate] => isUnsignedId
+                                )
+
+                            [id_address_invoice] => Array
+                                (
+                                    [type] => 1
+                                    [validate] => isUnsignedId
+                                )
+
+                            [id_carrier] => Array
+                                (
+                                    [type] => 1
+                                    [validate] => isUnsignedId
+                                )
+
+                            [id_currency] => Array
+                                (
+                                    [type] => 1
+                                    [validate] => isUnsignedId
+                                    [required] => 1
+                                )
+
+                            [id_customer] => Array
+                                (
+                                    [type] => 1
+                                    [validate] => isUnsignedId
+                                )
+
+                            [id_guest] => Array
+                                (
+                                    [type] => 1
+                                    [validate] => isUnsignedId
+                                )
+
+                            [id_lang] => Array
+                                (
+                                    [type] => 1
+                                    [validate] => isUnsignedId
+                                    [required] => 1
+                                )
+
+                            [recyclable] => Array
+                                (
+                                    [type] => 2
+                                    [validate] => isBool
+                                )
+
+                            [gift] => Array
+                                (
+                                    [type] => 2
+                                    [validate] => isBool
+                                )
+
+                            [gift_message] => Array
+                                (
+                                    [type] => 3
+                                    [validate] => isMessage
+                                )
+
+                            [mobile_theme] => Array
+                                (
+                                    [type] => 2
+                                    [validate] => isBool
+                                )
+
+                            [delivery_option] => Array
+                                (
+                                    [type] => 3
+                                )
+
+                            [secure_key] => Array
+                                (
+                                    [type] => 3
+                                    [size] => 32
+                                )
+
+                            [allow_seperated_package] => Array
+                                (
+                                    [type] => 2
+                                    [validate] => isBool
+                                )
+
+                            [date_add] => Array
+                                (
+                                    [type] => 5
+                                    [validate] => isDate
+                                )
+
+                            [date_upd] => Array
+                                (
+                                    [type] => 5
+                                    [validate] => isDate
+                                )
+
+                        )
+
+                    [classname] => Cart
+                )
+
+            [update_fields:protected] => 
+            [force_id] => 
+            [id_shop_group] => 
+            [id_address_delivery] => 
+            [id_address_invoice] => 
+            [id_currency] => 
+            [id_customer] => 
+            [id_guest] => 
+            [recyclable] => 
+            [gift] => 
+            [gift_message] => 
+            [mobile_theme] => 
+            [date_add] => 
+            [secure_key] => 
+            [id_carrier] => 0
+            [date_upd] => 
+            [checkedTos] => 
+            [pictures] => 
+            [textFields] => 
+            [delivery_option] => 
+            [allow_seperated_package] => 
+            [_products:protected] => 
+            [_taxCalculationMethod:protected] => 0
+            [configuration:protected] => PrestaShop\PrestaShop\Adapter\Configuration Object
+                (
+                    [parameters:protected] => 
+                    [shop:PrestaShop\PrestaShop\Adapter\Configuration:private] => 
+                )
+
+            [addressFactory:protected] => PrestaShop\PrestaShop\Adapter\AddressFactory Object
+                (
+                )
+
+            [shouldSplitGiftProductsQuantity:protected] => 
+            [shouldExcludeGiftsDiscount:protected] => 
+        )
+
+    [altern] => 2
+)

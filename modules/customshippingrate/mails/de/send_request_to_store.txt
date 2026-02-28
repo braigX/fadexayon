@@ -1,0 +1,6 @@
+
+[/{shop_url}] {customer} hat ein Versandangebot angefordert. E-Mail-Adresse des Kunden: {email} Botschaft: {message} 
+
+{shop_name} [/{shop_url}] powered by PrestaShop(tm)
+[http://www.prestashop.com/] 
+

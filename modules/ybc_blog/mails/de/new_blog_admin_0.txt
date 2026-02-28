@@ -1,0 +1,4 @@
+Ein neuer Beitrag wurde an {shop_name} gesendet und wartet auf Ihre Genehmigung
+Autor: {customer_name}
+Beitragstitel: {post_title}
+Beitrag ansehen

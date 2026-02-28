@@ -1,0 +1,3 @@
+Hallo {author_name}
+Ein neuer Kommentar wurde auf {post_title} gepostet und wartet auf Ihre Genehmigung
+Kommentar ansehen

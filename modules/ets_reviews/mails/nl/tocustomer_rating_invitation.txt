@@ -1,0 +1,13 @@
+[{shop_url}]
+
+Hallo {customer_name},
+We hopen dat u de tijd kunt nemen om uw recent gekochte artikelen te beoordelen:
+
+{product_list}
+
+Bedankt voor het vertrouwen en winkelen in onze winkel
+
+Beoordeel nu
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

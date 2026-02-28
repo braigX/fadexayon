@@ -1,0 +1,149 @@
+Date;Journal;ID Commande;Ref Commande;Pays;ID Client;Client;Société;Compte;Facture;Libelle;Type de paiement;Montant;Debit;Credit;ID de transaction
+01/07/2025;1;2525;TAYNSYITN;France;4937;roberto scanu;croustiglace international;411;#FA022351;commande 002525 par roberto scanu;Paiement CB;391.42;391.42;;1-025080
+01/07/2025;1;2525;TAYNSYITN;France;4937;roberto scanu;croustiglace international;702;#FA022351;produits ht [fr taux standard (20%)];;0.00;;0.00;1-025080
+01/07/2025;1;2525;TAYNSYITN;France;4937;roberto scanu;croustiglace international;706;#FA022351;transporteur ht livraison geodis sans rendez-vous - france;;97.00;;97.00;1-025080
+01/07/2025;1;2525;TAYNSYITN;France;4937;roberto scanu;croustiglace international;;#FA022351;tva produits;;45.84;;45.84;1-025080
+01/07/2025;1;2525;TAYNSYITN;France;4937;roberto scanu;croustiglace international;;#FA022351;tva transporteur fr taux standard (20%);;19.40;;19.40;1-025080
+01/07/2025;1;2525;TAYNSYITN;France;4937;roberto scanu;croustiglace international;;#FA022351;tva autres taxes;;0.01;;0.01;1-025080
+01/07/2025;1;2517;SWCGFEOQF;France;4921;jean ramos;;411;#FA022352;commande 002517 par jean ramos;PayPal;19.44;19.44;;8CF59529YS489990S
+01/07/2025;1;2517;SWCGFEOQF;France;4921;jean ramos;;702;#FA022352;produits ht [fr taux standard (20%)];;0.00;;0.00;8CF59529YS489990S
+01/07/2025;1;2517;SWCGFEOQF;France;4921;jean ramos;;706;#FA022352;transporteur ht livraison dpd à domicile predict sur créneau horaire - france;;8.20;;8.20;8CF59529YS489990S
+01/07/2025;1;2517;SWCGFEOQF;France;4921;jean ramos;;;#FA022352;tva produits;;1.60;;1.60;8CF59529YS489990S
+01/07/2025;1;2517;SWCGFEOQF;France;4921;jean ramos;;;#FA022352;tva transporteur fr taux standard (20%);;1.64;;1.64;8CF59529YS489990S
+01/07/2025;1;2526;XCYMIKZJN;France;4939;pascal denis;;411;#FA022353;commande 002526 par pascal denis;PayPal;8.95;8.95;;7PD55280W80085251
+01/07/2025;1;2526;XCYMIKZJN;France;4939;pascal denis;;702;#FA022353;produits ht [fr taux standard (20%)];;0.00;;0.00;7PD55280W80085251
+01/07/2025;1;2526;XCYMIKZJN;France;4939;pascal denis;;;#FA022353;tva produits;;1.49;;1.49;7PD55280W80085251
+01/07/2025;1;2527;QEGYVLQOI;France;4940;helene roger;ware id;411;#FA022354;commande 002527 par helene roger;PayPal;19.28;19.28;;62457568YM8653930
+01/07/2025;1;2527;QEGYVLQOI;France;4940;helene roger;ware id;702;#FA022354;produits ht [fr taux standard (20%)];;0.00;;0.00;62457568YM8653930
+01/07/2025;1;2527;QEGYVLQOI;France;4940;helene roger;ware id;706;#FA022354;transporteur ht livraison dpd sur lieu de travail - france;;7.73;;7.73;62457568YM8653930
+01/07/2025;1;2527;QEGYVLQOI;France;4940;helene roger;ware id;;#FA022354;tva produits;;1.67;;1.67;62457568YM8653930
+01/07/2025;1;2527;QEGYVLQOI;France;4940;helene roger;ware id;;#FA022354;tva transporteur fr taux standard (20%);;1.55;;1.55;62457568YM8653930
+01/07/2025;1;2524;EBNGDSQUC;France;3807;marius fouilland;compagnie inéluctable;411;#FA022355;commande 002524 par marius fouilland;Transfert bancaire;39.00;39.00;;
+01/07/2025;1;2524;EBNGDSQUC;France;3807;marius fouilland;compagnie inéluctable;702;#FA022355;produits ht [fr taux standard (20%)];;0.00;;0.00;
+01/07/2025;1;2524;EBNGDSQUC;France;3807;marius fouilland;compagnie inéluctable;706;#FA022355;transporteur ht express tnt en entreprise - france;;20.00;;20.00;
+01/07/2025;1;2524;EBNGDSQUC;France;3807;marius fouilland;compagnie inéluctable;;#FA022355;tva produits;;2.43;;2.43;
+01/07/2025;1;2524;EBNGDSQUC;France;3807;marius fouilland;compagnie inéluctable;;#FA022355;tva transporteur fr taux standard (20%);;4.00;;4.00;
+01/07/2025;1;2528;ZSTBHUXXS;France;4931;alexis bouquet;;411;#FA022356;commande 002528 par alexis bouquet;Paiement CB;539.56;539.56;;1-476526
+01/07/2025;1;2528;ZSTBHUXXS;France;4931;alexis bouquet;;702;#FA022356;produits ht [fr taux standard (20%)];;0.00;;0.00;1-476526
+01/07/2025;1;2528;ZSTBHUXXS;France;4931;alexis bouquet;;706;#FA022356;transporteur ht livraison geodis sans rendez-vous - france;;104.00;;104.00;1-476526
+01/07/2025;1;2528;ZSTBHUXXS;France;4931;alexis bouquet;;;#FA022356;tva produits;;69.13;;69.13;1-476526
+01/07/2025;1;2528;ZSTBHUXXS;France;4931;alexis bouquet;;;#FA022356;tva transporteur fr taux standard (20%);;20.80;;20.80;1-476526
+01/07/2025;1;2529;DGAAPEYVN;France;2479;guy terrier;;411;#FA022357;commande 002529 par guy terrier;PayPal;114.83;114.83;;8NE37097B69566711
+01/07/2025;1;2529;DGAAPEYVN;France;2479;guy terrier;;702;#FA022357;produits ht [fr taux standard (20%)];;0.00;;0.00;8NE37097B69566711
+01/07/2025;1;2529;DGAAPEYVN;France;2479;guy terrier;;706;#FA022357;transporteur ht express tnt à domicile - france;;24.00;;24.00;8NE37097B69566711
+01/07/2025;1;2529;DGAAPEYVN;France;2479;guy terrier;;;#FA022357;tva produits;;14.34;;14.34;8NE37097B69566711
+01/07/2025;1;2529;DGAAPEYVN;France;2479;guy terrier;;;#FA022357;tva transporteur fr taux standard (20%);;4.80;;4.80;8NE37097B69566711
+01/07/2025;1;2530;CCNDKTBND;France;4942;françois lintignac;;411;#FA022358;commande 002530 par françois lintignac;PayPal;158.80;158.80;;6NH89950NW921210B
+01/07/2025;1;2530;CCNDKTBND;France;4942;françois lintignac;;702;#FA022358;produits ht [fr taux standard (20%)];;0.00;;0.00;6NH89950NW921210B
+01/07/2025;1;2530;CCNDKTBND;France;4942;françois lintignac;;706;#FA022358;transporteur ht livraison geodis sans rendez-vous - france;;49.00;;49.00;6NH89950NW921210B
+01/07/2025;1;2530;CCNDKTBND;France;4942;françois lintignac;;;#FA022358;tva produits;;16.68;;16.68;6NH89950NW921210B
+01/07/2025;1;2530;CCNDKTBND;France;4942;françois lintignac;;;#FA022358;tva transporteur fr taux standard (20%);;9.80;;9.80;6NH89950NW921210B
+01/07/2025;1;2531;CGBVALOFY;France;567;thomas mokowicz;agv miroiterie;411;#FA022359;commande 002531 par thomas mokowicz;Paiement CB;24.70;24.70;;1-627007
+01/07/2025;1;2531;CGBVALOFY;France;567;thomas mokowicz;agv miroiterie;702;#FA022359;produits ht [fr taux standard (20%)];;0.00;;0.00;1-627007
+01/07/2025;1;2531;CGBVALOFY;France;567;thomas mokowicz;agv miroiterie;706;#FA022359;transporteur ht livraison dpd sur lieu de travail - france;;8.08;;8.08;1-627007
+01/07/2025;1;2531;CGBVALOFY;France;567;thomas mokowicz;agv miroiterie;;#FA022359;tva produits;;2.23;;2.23;1-627007
+01/07/2025;1;2531;CGBVALOFY;France;567;thomas mokowicz;agv miroiterie;;#FA022359;tva transporteur fr taux standard (20%);;1.62;;1.62;1-627007
+01/07/2025;1;2532;XWSFIJLBV;France;1871;maxime ribeiro;;411;#FA022360;commande 002532 par maxime ribeiro;PayPal;160.39;160.39;;01055074KX517544V
+01/07/2025;1;2532;XWSFIJLBV;France;1871;maxime ribeiro;;702;#FA022360;produits ht [fr taux standard (20%)];;0.00;;0.00;01055074KX517544V
+01/07/2025;1;2532;XWSFIJLBV;France;1871;maxime ribeiro;;;#FA022360;tva produits;;26.73;;26.73;01055074KX517544V
+01/07/2025;1;2533;IPDAEFZPT;France;4944;antoine maurice;acuitis;411;#FA022361;commande 002533 par antoine maurice;PayPal;24.28;24.28;;39R396303G853505D
+01/07/2025;1;2533;IPDAEFZPT;France;4944;antoine maurice;acuitis;702;#FA022361;produits ht [fr taux standard (20%)];;0.00;;0.00;39R396303G853505D
+01/07/2025;1;2533;IPDAEFZPT;France;4944;antoine maurice;acuitis;706;#FA022361;transporteur ht livraison dpd sur lieu de travail - france;;7.73;;7.73;39R396303G853505D
+01/07/2025;1;2533;IPDAEFZPT;France;4944;antoine maurice;acuitis;;#FA022361;tva produits;;2.50;;2.50;39R396303G853505D
+01/07/2025;1;2533;IPDAEFZPT;France;4944;antoine maurice;acuitis;;#FA022361;tva transporteur fr taux standard (20%);;1.55;;1.55;39R396303G853505D
+02/07/2025;1;2534;JJDPASADT;France;4935;tanguy huguet;;411;#FA022362;commande 002534 par tanguy huguet;Paiement CB;498.16;498.16;;1-366483
+02/07/2025;1;2534;JJDPASADT;France;4935;tanguy huguet;;702;#FA022362;produits ht [fr taux standard (20%)];;0.00;;0.00;1-366483
+02/07/2025;1;2534;JJDPASADT;France;4935;tanguy huguet;;706;#FA022362;transporteur ht taux d'expédition personnalisé - france;;97.37;;97.37;1-366483
+02/07/2025;1;2534;JJDPASADT;France;4935;tanguy huguet;;;#FA022362;tva produits;;63.55;;63.55;1-366483
+02/07/2025;1;2534;JJDPASADT;France;4935;tanguy huguet;;;#FA022362;tva transporteur fr taux standard (20%);;19.47;;19.47;1-366483
+02/07/2025;1;2535;YSEILWUBE;France;4556;jean-marie raclet;noalia;411;#FA022363;commande 002535 par jean-marie raclet;Paiement CB;75.74;75.74;;1-406688
+02/07/2025;1;2535;YSEILWUBE;France;4556;jean-marie raclet;noalia;702;#FA022363;produits ht [fr taux standard (20%)];;0.00;;0.00;1-406688
+02/07/2025;1;2535;YSEILWUBE;France;4556;jean-marie raclet;noalia;;#FA022363;tva produits;;12.62;;12.62;1-406688
+02/07/2025;1;2536;ZWRDBRSBK;France;4947;younes imed;;411;#FA022364;commande 002536 par younes imed;Paiement CB;58.07;58.07;;1-483704
+02/07/2025;1;2536;ZWRDBRSBK;France;4947;younes imed;;702;#FA022364;produits ht [fr taux standard (20%)];;0.00;;0.00;1-483704
+02/07/2025;1;2536;ZWRDBRSBK;France;4947;younes imed;;;#FA022364;tva produits;;9.68;;9.68;1-483704
+02/07/2025;1;2537;ELQMKLQUL;France;4948;romain theetten;;411;#FA022365;commande 002537 par romain theetten;Paiement CB;142.14;142.14;;1-497338
+02/07/2025;1;2537;ELQMKLQUL;France;4948;romain theetten;;702;#FA022365;produits ht [fr taux standard (20%)];;0.00;;0.00;1-497338
+02/07/2025;1;2537;ELQMKLQUL;France;4948;romain theetten;;;#FA022365;tva produits;;23.69;;23.69;1-497338
+02/07/2025;1;2538;VJXRJIWRO;France;4879;nicolas clezardin;;411;#FA022366;commande 002538 par nicolas clezardin;Paiement CB;84.34;84.34;;1-557978
+02/07/2025;1;2538;VJXRJIWRO;France;4879;nicolas clezardin;;702;#FA022366;produits ht [fr taux standard (20%)];;0.00;;0.00;1-557978
+02/07/2025;1;2538;VJXRJIWRO;France;4879;nicolas clezardin;;706;#FA022366;transporteur ht livraison dpd sur lieu de travail - france;;7.73;;7.73;1-557978
+02/07/2025;1;2538;VJXRJIWRO;France;4879;nicolas clezardin;;;#FA022366;tva produits;;12.51;;12.51;1-557978
+02/07/2025;1;2538;VJXRJIWRO;France;4879;nicolas clezardin;;;#FA022366;tva transporteur fr taux standard (20%);;1.55;;1.55;1-557978
+02/07/2025;1;2539;BVECSDUJQ;France;4949;benjamin volpi;;411;#FA022367;commande 002539 par benjamin volpi;PayPal;74.22;74.22;;4H084532MH672260N
+02/07/2025;1;2539;BVECSDUJQ;France;4949;benjamin volpi;;702;#FA022367;produits ht [fr taux standard (20%)];;0.00;;0.00;4H084532MH672260N
+02/07/2025;1;2539;BVECSDUJQ;France;4949;benjamin volpi;;706;#FA022367;transporteur ht express tnt à domicile - france;;22.00;;22.00;4H084532MH672260N
+02/07/2025;1;2539;BVECSDUJQ;France;4949;benjamin volpi;;;#FA022367;tva produits;;7.97;;7.97;4H084532MH672260N
+02/07/2025;1;2539;BVECSDUJQ;France;4949;benjamin volpi;;;#FA022367;tva transporteur fr taux standard (20%);;4.40;;4.40;4H084532MH672260N
+02/07/2025;1;2540;CQHBYXHAC;France;4945;laurent faye - societe stae;stae;411;#FA022368;commande 002540 par laurent faye - societe stae;Paiement VISA;201.65;201.65;;1-644289
+02/07/2025;1;2540;CQHBYXHAC;France;4945;laurent faye - societe stae;stae;702;#FA022368;produits ht [fr taux standard (20%)];;0.00;;0.00;1-644289
+02/07/2025;1;2540;CQHBYXHAC;France;4945;laurent faye - societe stae;stae;706;#FA022368;transporteur ht coursier idf - france;;70.00;;70.00;1-644289
+02/07/2025;1;2540;CQHBYXHAC;France;4945;laurent faye - societe stae;stae;;#FA022368;tva produits;;19.61;;19.61;1-644289
+02/07/2025;1;2540;CQHBYXHAC;France;4945;laurent faye - societe stae;stae;;#FA022368;tva transporteur fr taux standard (20%);;14.00;;14.00;1-644289
+02/07/2025;1;2541;MADFIJALE;France;4954;behrem yildirim;sas cetp;411;#FA022369;commande 002541 par behrem yildirim;Paiement CB;80.06;80.06;;1-660859
+02/07/2025;1;2541;MADFIJALE;France;4954;behrem yildirim;sas cetp;702;#FA022369;produits ht [fr taux standard (20%)];;0.00;;0.00;1-660859
+02/07/2025;1;2541;MADFIJALE;France;4954;behrem yildirim;sas cetp;;#FA022369;tva produits;;13.34;;13.34;1-660859
+03/07/2025;1;2542;EWVLVKAJN;France;4956;stephanie didier;newcoyachting;411;#FA022370;commande 002542 par stephanie didier;Paiement VISA;35.20;35.20;;1-342800
+03/07/2025;1;2542;EWVLVKAJN;France;4956;stephanie didier;newcoyachting;702;#FA022370;produits ht [fr taux standard (20%)];;0.00;;0.00;1-342800
+03/07/2025;1;2542;EWVLVKAJN;France;4956;stephanie didier;newcoyachting;706;#FA022370;transporteur ht livraison dpd sur lieu de travail - france;;8.08;;8.08;1-342800
+03/07/2025;1;2542;EWVLVKAJN;France;4956;stephanie didier;newcoyachting;;#FA022370;tva produits;;4.25;;4.25;1-342800
+03/07/2025;1;2542;EWVLVKAJN;France;4956;stephanie didier;newcoyachting;;#FA022370;tva transporteur fr taux standard (20%);;1.62;;1.62;1-342800
+03/07/2025;1;2543;PBBQSDQTR;France;4957;ninon roblin;world plus;411;#FA022371;commande 002543 par ninon roblin;Paiement CB;84.76;84.76;;1-423470
+03/07/2025;1;2543;PBBQSDQTR;France;4957;ninon roblin;world plus;702;#FA022371;produits ht [fr taux standard (20%)];;0.00;;0.00;1-423470
+03/07/2025;1;2543;PBBQSDQTR;France;4957;ninon roblin;world plus;706;#FA022371;transporteur ht livraison dpd sur lieu de travail - france;;8.08;;8.08;1-423470
+03/07/2025;1;2543;PBBQSDQTR;France;4957;ninon roblin;world plus;;#FA022371;tva produits;;12.51;;12.51;1-423470
+03/07/2025;1;2543;PBBQSDQTR;France;4957;ninon roblin;world plus;;#FA022371;tva transporteur fr taux standard (20%);;1.62;;1.62;1-423470
+03/07/2025;1;2544;EZKIJDEAX;France;4958;anita steun;;411;#FA022372;commande 002544 par anita steun;Paiement MASTERCARD;24.84;24.84;;1-443525
+03/07/2025;1;2544;EZKIJDEAX;France;4958;anita steun;;702;#FA022372;produits ht [fr taux standard (20%)];;0.00;;0.00;1-443525
+03/07/2025;1;2544;EZKIJDEAX;France;4958;anita steun;;706;#FA022372;transporteur ht livraison dpd à domicile predict sur créneau horaire - france;;8.20;;8.20;1-443525
+03/07/2025;1;2544;EZKIJDEAX;France;4958;anita steun;;;#FA022372;tva produits;;0.83;;0.83;1-443525
+03/07/2025;1;2544;EZKIJDEAX;France;4958;anita steun;;;#FA022372;tva transporteur fr taux standard (20%);;1.64;;1.64;1-443525
+03/07/2025;1;2545;URZHMRXSZ;France;4960;christian leroy;;411;#FA022373;commande 002545 par christian leroy;Paiement E-CARTEBLEUE;59.18;59.18;;1-495180
+03/07/2025;1;2545;URZHMRXSZ;France;4960;christian leroy;;702;#FA022373;produits ht [fr taux standard (20%)];;0.00;;0.00;1-495180
+03/07/2025;1;2545;URZHMRXSZ;France;4960;christian leroy;;706;#FA022373;transporteur ht livraison geodis sans rendez-vous - france;;32.60;;32.60;1-495180
+03/07/2025;1;2545;URZHMRXSZ;France;4960;christian leroy;;;#FA022373;tva produits;;3.34;;3.34;1-495180
+03/07/2025;1;2545;URZHMRXSZ;France;4960;christian leroy;;;#FA022373;tva transporteur fr taux standard (20%);;6.52;;6.52;1-495180
+03/07/2025;1;2546;BSXYKHKYF;France;4845;louis regnier;caps me;411;#FA022374;commande 002546 par louis regnier;Paiement MASTERCARD;24.28;24.28;;1-502471
+03/07/2025;1;2546;BSXYKHKYF;France;4845;louis regnier;caps me;702;#FA022374;produits ht [fr taux standard (20%)];;0.00;;0.00;1-502471
+03/07/2025;1;2546;BSXYKHKYF;France;4845;louis regnier;caps me;706;#FA022374;transporteur ht livraison dpd sur lieu de travail - france;;7.73;;7.73;1-502471
+03/07/2025;1;2546;BSXYKHKYF;France;4845;louis regnier;caps me;;#FA022374;tva produits;;0.83;;0.83;1-502471
+03/07/2025;1;2546;BSXYKHKYF;France;4845;louis regnier;caps me;;#FA022374;tva transporteur fr taux standard (20%);;1.55;;1.55;1-502471
+03/07/2025;1;2547;EXIWEOOOC;France;4908;jessy moritz;;411;#FA022375;commande 002547 par jessy moritz;Paiement VISA;24.84;24.84;;1-518830
+03/07/2025;1;2547;EXIWEOOOC;France;4908;jessy moritz;;702;#FA022375;produits ht [fr taux standard (20%)];;0.00;;0.00;1-518830
+03/07/2025;1;2547;EXIWEOOOC;France;4908;jessy moritz;;706;#FA022375;transporteur ht livraison dpd à domicile predict sur créneau horaire - france;;8.20;;8.20;1-518830
+03/07/2025;1;2547;EXIWEOOOC;France;4908;jessy moritz;;;#FA022375;tva produits;;1.30;;1.30;1-518830
+03/07/2025;1;2547;EXIWEOOOC;France;4908;jessy moritz;;;#FA022375;tva transporteur fr taux standard (20%);;1.64;;1.64;1-518830
+03/07/2025;1;2548;AWFVAMCTS;France;4965;christine lebraud;;411;#FA022376;commande 002548 par christine lebraud;Paiement CB;140.28;140.28;;1-646943
+03/07/2025;1;2548;AWFVAMCTS;France;4965;christine lebraud;;702;#FA022376;produits ht [fr taux standard (20%)];;0.00;;0.00;1-646943
+03/07/2025;1;2548;AWFVAMCTS;France;4965;christine lebraud;;706;#FA022376;transporteur ht livraison geodis sans rendez-vous - france;;45.30;;45.30;1-646943
+03/07/2025;1;2548;AWFVAMCTS;France;4965;christine lebraud;;;#FA022376;tva produits;;14.32;;14.32;1-646943
+03/07/2025;1;2548;AWFVAMCTS;France;4965;christine lebraud;;;#FA022376;tva transporteur fr taux standard (20%);;9.06;;9.06;1-646943
+03/07/2025;1;2549;MWVDZTYCX;France;1156;anthony clabaut;;411;#FA022377;commande 002549 par anthony clabaut;PayPal;36.21;36.21;;4W968298U4784463K
+03/07/2025;1;2549;MWVDZTYCX;France;1156;anthony clabaut;;702;#FA022377;produits ht [fr taux standard (20%)];;0.00;;0.00;4W968298U4784463K
+03/07/2025;1;2549;MWVDZTYCX;France;1156;anthony clabaut;;706;#FA022377;transporteur ht livraison dpd à domicile predict sur créneau horaire - france;;8.20;;8.20;4W968298U4784463K
+03/07/2025;1;2549;MWVDZTYCX;France;1156;anthony clabaut;;;#FA022377;tva produits;;4.39;;4.39;4W968298U4784463K
+03/07/2025;1;2549;MWVDZTYCX;France;1156;anthony clabaut;;;#FA022377;tva transporteur fr taux standard (20%);;1.64;;1.64;4W968298U4784463K
+04/07/2025;1;2550;DNAZFIANR;France;4768;simon edery;;411;#FA022378;commande 002550 par simon edery;Paiement CB;60.00;60.00;;1-322117
+04/07/2025;1;2550;DNAZFIANR;France;4768;simon edery;;702;#FA022378;produits ht [fr taux standard (20%)];;0.00;;0.00;1-322117
+04/07/2025;1;2550;DNAZFIANR;France;4768;simon edery;;;#FA022378;tva produits;;10.00;;10.00;1-322117
+04/07/2025;1;2551;FPZHDNRIT;France;647;aaaaa aaaaa;;411;#FA022379;commande 002551 par aaaaa aaaaa;Paiement CB;15.00;15.00;;1-344306
+04/07/2025;1;2551;FPZHDNRIT;France;647;aaaaa aaaaa;;702;#FA022379;produits ht [fr taux standard (20%)];;0.00;;0.00;1-344306
+04/07/2025;1;2551;FPZHDNRIT;France;647;aaaaa aaaaa;;;#FA022379;tva produits;;0.83;;0.83;1-344306
+04/07/2025;1;2552;ANBMJGHIJ;France;4952;david fleischer;sci hianerstahl;411;#FA022380;commande 002552 par david fleischer;Sogecommerce;394.88;394.88;;
+04/07/2025;1;2552;ANBMJGHIJ;France;4952;david fleischer;sci hianerstahl;702;#FA022380;produits ht [fr taux standard (20%)];;0.00;;0.00;
+04/07/2025;1;2552;ANBMJGHIJ;France;4952;david fleischer;sci hianerstahl;706;#FA022380;transporteur ht livraison geodis sans rendez-vous - france;;73.10;;73.10;
+04/07/2025;1;2552;ANBMJGHIJ;France;4952;david fleischer;sci hianerstahl;;#FA022380;tva produits;;51.19;;51.19;
+04/07/2025;1;2552;ANBMJGHIJ;France;4952;david fleischer;sci hianerstahl;;#FA022380;tva transporteur fr taux standard (20%);;14.62;;14.62;
+04/07/2025;1;2553;RMXAFIPFR;France;4941;florian menguy;;411;#FA022381;commande 002553 par florian menguy;Sogecommerce;123.34;123.34;;
+04/07/2025;1;2553;RMXAFIPFR;France;4941;florian menguy;;702;#FA022381;produits ht [fr taux standard (20%)];;0.00;;0.00;
+04/07/2025;1;2553;RMXAFIPFR;France;4941;florian menguy;;706;#FA022381;transporteur ht express tnt à domicile - france;;24.00;;24.00;
+04/07/2025;1;2553;RMXAFIPFR;France;4941;florian menguy;;;#FA022381;tva produits;;15.76;;15.76;
+04/07/2025;1;2553;RMXAFIPFR;France;4941;florian menguy;;;#FA022381;tva transporteur fr taux standard (20%);;4.80;;4.80;
+04/07/2025;1;2554;POMKKSHJH;France;647;aaaaa aaaaa;;411;#FA022382;commande 002554 par aaaaa aaaaa;Paiement CB;15.00;15.00;;1-369824
+04/07/2025;1;2554;POMKKSHJH;France;647;aaaaa aaaaa;;702;#FA022382;produits ht [fr taux standard (20%)];;0.00;;0.00;1-369824
+04/07/2025;1;2554;POMKKSHJH;France;647;aaaaa aaaaa;;;#FA022382;tva produits;;0.83;;0.83;1-369824
+04/07/2025;1;2555;UIQFNWSIB;France;4969;martin van boxsom;sas digital brain industries;411;#FA022383;commande 002555 par martin van boxsom;Paiement VISA;112.14;112.14;;1-414352
+04/07/2025;1;2555;UIQFNWSIB;France;4969;martin van boxsom;sas digital brain industries;702;#FA022383;produits ht [fr taux standard (20%)];;0.00;;0.00;1-414352
+04/07/2025;1;2555;UIQFNWSIB;France;4969;martin van boxsom;sas digital brain industries;706;#FA022383;transporteur ht express tnt en entreprise - france;;24.00;;24.00;1-414352
+04/07/2025;1;2555;UIQFNWSIB;France;4969;martin van boxsom;sas digital brain industries;;#FA022383;tva produits;;13.89;;13.89;1-414352
+04/07/2025;1;2555;UIQFNWSIB;France;4969;martin van boxsom;sas digital brain industries;;#FA022383;tva transporteur fr taux standard (20%);;4.80;;4.80;1-414352

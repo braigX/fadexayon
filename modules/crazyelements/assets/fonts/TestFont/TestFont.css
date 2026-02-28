@@ -1,0 +1,8 @@
+@font-face {
+                font-family: 'TestFont';
+                src: url('caleader.ttf') format('truetype'),url('caleader.woff') format('woff'),url('caleader.svg') format('svg'),url('caleader.eot') format('embedded-opentype');
+                font-display: auto;
+                font-weight: 600;
+                font_style: family;
+            }
+            .TestFont{font-family: 'TestFont' !important;}

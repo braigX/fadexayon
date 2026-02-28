@@ -1,0 +1,3 @@
+Ahoj {customer_name},
+Váš příspěvek {post_title} byl úspěšně odeslán do {shop_name} a čeká na schválení
+Zkontrolovat příspěvek

@@ -1,0 +1,146 @@
+.title {
+	text-align : center;
+}
+
+.select {
+	width : 150px !important;
+}
+
+.form--package_content-table {
+	width : 100%;
+	border : 1px solid blue;
+	margin-top : 20px;
+	border-spacing : 10px;
+	border-collapse : separate;
+}
+
+.form--package_infos-input {
+	width : 100px !important;
+	position : relative;
+	float : left;
+	display : inline-block;
+	margin-right : 10px;
+}
+
+label {
+	margin-right : 30px;
+}
+
+.form--button {
+	height : 30px;
+}
+
+.form--div_button {
+	width : 100%;
+    min_height : 50px;
+}
+
+.form--carrier {
+	width : 100%;
+}
+
+.form--shipment_infos {
+	border-spacing : 10px;
+	border-collapse : separate;
+}
+
+.form--table {
+    position : relative;
+    float : right;
+    text-align : right;
+ 	border-spacing : 20px;
+	border-collapse : separate;
+}
+
+.form--div_error-error {
+    color : red;
+}
+
+.popin-wl {
+    display: none;
+    width: 900px;
+    max-width : 100%;
+    min-height: 200px;
+}
+
+.popin-no-wl {
+    display: none;
+    width: 800px;
+    max-width : 100%;
+    min-height: 200px;
+}
+
+.wl-status {
+    font-family: FontAwesome;
+    cursor: pointer;
+
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 14px;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-transform: translate(0);
+    transform: translate(0);
+}
+.wl-status.icon-remove {
+    color: #e08f95;
+}
+.wl-status.icon-check {
+    color: #72c279;
+}
+.wl-status:hover {
+    color: #25b9d7;
+}
+
+.popin-wl .error {
+    color: #e08f95;
+}
+.popin-wl .error .form-control {
+    border: 1px solid #e08f95;
+}
+
+.required label:after {
+    content: ' *';
+}
+
+#datepicker {
+    z-index:10;
+}
+
+.help-box {
+    display:inline-block;
+    box-sizing:border-box;
+    color:#25b9d7;
+    background-color:#dff5f9;
+    height:16px;
+    height:1rem;
+    width:16px;
+    width:1rem;
+    font-weight:700;
+    font-size:10px;
+    line-height:12px;
+    vertical-align:middle;
+    text-align:center;
+    border:2px solid #25b9d7;
+    cursor:pointer;
+    padding:0;
+    margin:5px 5px 2px;
+}
+.help-box:after{
+    content:"?";
+}.help-box:focus{
+    outline:none;
+}
+.bootstrap .popover {
+    border: 1px solid #bbcdd2;
+    border-radius: 0;
+    box-shadow: none;
+}
+.bootstrap .popover.left>.arrow {
+    border-left-color: #bbcdd2;
+}
+
+.popin-button {
+    margin: 8px;
+}

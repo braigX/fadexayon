@@ -1,0 +1,45 @@
+######################################################################
+Change Log : 4.0.2 To 4.0.3 || Compatible with PS 1.7.x.x and PS8.x.x
+######################################################################
+## Update Policy:
+    - Update only zip file of module new version
+
+## Bug fixed:
+    - Fixed the disappearing voice on change of country on the address page.
+    - Fixed the other minor bugs.
+
+## Improvements:
+    - Enhanced the module performance.
+
+######################################################################
+Change Log : 4.0.1 To 4.0.2 || Compatible with PS 1.7.x.x and PS8.x.x
+######################################################################
+
+## Improvements:
+- Compatible with PS8.x.x
+
+## Bug Fix:
+- Design issue fixed on home page registration page and indentity page.
+- Voice mic is not showing on registration page issue fixed.
+- AFL License updated.
+- Translation added ES and IT.
+
+########################################################
+Change Log : 4.0.0 To 4.0.1 || Compatible with PrestaShop 1.7.x.x
+########################################################
+
+New Feature:
+- Customer will able to input the guest checkout  fields through voice.
+
+Bug Fix:
+- Validation issue resolved.
+- Design related issue resolved at front end.
+
+########################################################
+Change Log : 4.0.0 || Compatible with PrestaShop 1.7.x.x
+########################################################
+
+New Feature:
+
+- Customer will able to search the product through voice on your site
+- Customer will able to input the registration form fields through voice.

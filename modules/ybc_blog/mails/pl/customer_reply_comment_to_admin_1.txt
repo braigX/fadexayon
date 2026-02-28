@@ -1,0 +1,4 @@
+Cześć {author_name}
+{replier} właśnie odpowiedział na komentarz do {post_title} i został automatycznie zatwierdzony
+{comment_reply}
+Zobacz odpowiedź

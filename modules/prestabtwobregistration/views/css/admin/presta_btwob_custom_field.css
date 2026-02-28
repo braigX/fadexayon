@@ -1,0 +1,77 @@
+/**
+ * 2008-2024 Prestaworld
+ *
+ * NOTICE OF LICENSE
+ *
+ * The source code of this module is under a commercial license.
+ * Each license is unique and can be installed and used on only one website.
+ * Any reproduction or representation total or partial of the module, one or more of its components,
+ * by any means whatsoever, without express permission from us is prohibited.
+ *
+ * DISCLAIMER
+ *
+ * Do not alter or add/update to this file if you wish to upgrade this module to newer
+ * versions in the future.
+ *
+ * @author    prestaworld
+ * @copyright 2008-2024 Prestaworld
+ * @license https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+ * International Registered Trademark & Property of prestaworld
+ */
+#presta_custom_field label.col-md-3.control-label {
+    text-align: right;
+}
+
+#presta_custom_field label.col-md-3.control-label.presta-label {
+    margin-left: 0px;
+}
+
+#presta_custom_field .presta-label {
+    text-align: center;
+    margin-left: 40px;
+}
+
+.presta_input_fields {
+    width: 67%;
+    margin-left: 42px;
+}
+
+#presta_custom_field .presta_label_fields {
+    text-align: center;
+    margin-left: 43px;
+}
+
+#presta_custom_field button.btn.btn-danger.multiple_deleted {
+    margin-right: 405px;
+    /* margin-left: 12px; */
+    /* margin-bottom: 20px; */
+    margin-top: -15px;
+}
+
+input.presta_radio_multi_select_default {
+    position: absolute;
+    margin-top: 10px !important;
+}
+
+input.presta_radio_multi_select_defaulted {
+    margin-left: 340px !important;
+}
+
+#presta_custom_field label.form-control.container {
+    font-size: 14px;
+    margin-left: 25px;
+    border: none;
+    display: inline-block;
+    margin-left: 410px;
+}
+
+#presta_custom_field input.form-controller {
+    position: absolute;
+    width: 13px;
+    height: 28px;
+    margin-left: 394px !important;
+}
+
+#presta_custom_field label.col-md-3.control-label.presta-dependant {
+    position: absolute;
+}

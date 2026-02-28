@@ -1,0 +1,42 @@
+.hi-gc-button-container.hi-gc-displayNav1 {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 5px;
+}
+.hi-gc-button-container.hi-gc-displayNav2 {
+    margin-top: 5px;
+}
+.hi-gc-button-container.hi-gc-displayCustomerLoginFormAfter,
+.hi-gc-button-container.hi-gc-displayCustomerAccountFormTop {
+    text-align: center;
+}
+.hi-gc-button-container.hi-gc-displayCustomerLoginFormAfter .g_id_signin,
+.hi-gc-button-container.hi-gc-displayCustomerAccountFormTop .g_id_signin {
+    display: inline-block;
+}
+
+.hi-gc-loader {
+    width: 100%;
+    height: 100%;
+    background: url("../img/ajax-loader.gif") no-repeat center center rgba(255, 255, 255, 0.8);
+    z-index: 99991;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-size: 80px;
+}
+
+.hi-gc-overflow {
+    overflow: hidden;
+}
+
+.hi-gc-message {
+    position: fixed;
+    top: 50px;
+    right: 20px;
+    z-index: 99992;
+}
+.hi-gc-displayTop {
+    margin: 0 10px;
+    float: right;
+}

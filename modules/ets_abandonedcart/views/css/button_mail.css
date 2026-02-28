@@ -1,0 +1,8 @@
+#btn_mail > span,
+#btn_mail:hover #ets_abancart_hover{
+    display:inline-block!important;
+}
+#btn_mail #ets_abancart_hover,
+#btn_mail:hover #ets_abancart_standard{
+    display:none!important;
+}

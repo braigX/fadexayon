@@ -1,0 +1,2 @@
+<?php 
+ $json_1_3_0 = '{"_servers":[{"host":"127.0.0.1","port":"6379","alias":"RDS_68e422c75ab56","scheme":"tcp"}],"_config":{"prefix":"default","defalut_ttl":null,"redis_engine":"phpredis","use_multistore":true,"use_cache_admin":false,"use_prefix":false,"limit_data_size":false}}';

@@ -1,0 +1,13 @@
+Ciao {firstname} {lastname},
+
+La spedizione del tuo ordine è stata ritardata
+
+Ordine {order_name} - Ritardato
+
+La spedizione del tuo ordine {order_name} è stata ritardata a causa di circostanze impreviste.
+Faremo tutto il possibile per spedirlo il prima possibile.
+Se hai domande o hai bisogno di ulteriori informazioni, contatta il servizio clienti o rispondi a questo messaggio.
+
+Puoi rivedere il tuo ordine e scaricare la tua fattura dalla sezione "Storico ordini" del tuo account cliente cliccando su "Il mio account" sul nostro negozio.
+
+{shop_name}

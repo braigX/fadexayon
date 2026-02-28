@@ -1,0 +1,13 @@
+[{shop_url}]
+
+Hallo {customer_name},
+Wir freuen uns, Ihnen mitteilen zu können, dass Sie gerade nach der Bewertung Ihrer gekauften Artikel einen Gutscheincode erhalten haben.
+Code: {voucher_code}
+Rabattwert: {voucher_value}
+Bitte geben Sie diesen Code bei Ihrem nächsten Einkauf ein, um den Rabatt zu erhalten.
+
+Gutschein jetzt nutzen
+
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

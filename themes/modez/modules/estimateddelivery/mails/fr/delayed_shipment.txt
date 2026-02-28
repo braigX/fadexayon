@@ -1,0 +1,13 @@
+Bonjour {firstname} {lastname},
+
+L'expédition de votre commande a été retardée
+
+Commande {order_name} - Retardée
+
+L'expédition de votre commande {order_name} a été retardée en raison de circonstances imprévues.
+Nous ferons tout notre possible pour l'expédier dès que possible.
+Si vous avez des questions ou avez besoin d'informations supplémentaires, veuillez contacter le service client ou répondre à ce message.
+
+Vous pouvez revoir votre commande et télécharger votre facture depuis la section "Historique des commandes" de votre compte client en cliquant sur "Mon compte" sur notre boutique.
+
+{shop_name}

@@ -1,0 +1,27 @@
+/*
+ *  @module         Advanced search (AmbJoliSearch)
+ *  @file           sp_medisine-1.7.css
+ *  @subject        Add support for SP Medisine theme
+ *  @copyright      Copyright (c) 2013-2023 Ambris Informatique SARL (http://www.ambris.com/)
+ *  @author         Richard Stefan (@RicoStefan)
+ *  @license        Licensed under the EUPL-1.2-or-later
+ *  Support by mail: support@ambris.com
+ *
+ *  suggest (autocomplete) list style
+*/
+
+body.jolisearch-on .ui-corner-all,
+body.jolisearch-on .ui-corner-bottom,
+body.jolisearch-on .ui-corner-br,
+body.jolisearch-on .ui-corner-right {
+    display: inherit !important;
+}
+
+@media (min-width: 576px) {
+    body.jolisearch-on .ui-corner-all,
+    body.jolisearch-on .ui-corner-bottom,
+    body.jolisearch-on .ui-corner-br,
+    body.jolisearch-on .ui-corner-right {
+        width: auto !important;
+    }
+}

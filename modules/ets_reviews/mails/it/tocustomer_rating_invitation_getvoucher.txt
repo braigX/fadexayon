@@ -1,0 +1,14 @@
+[{shop_url}]
+
+Ciao {customer_name},
+Ci auguriamo che tu possa risparmiare tempo per valutare i tuoi articoli acquistati di recente:
+
+{product_list}
+
+Come regalo di ringraziamento, dopo l'approvazione della recensione, ti forniremo un codice voucher con uno sconto di {voucher_value} per il tuo prossimo ordine.
+Grazie per la fiducia e lo shopping nel nostro negozio
+
+Valuta adesso
+
+{shop_name} [{shop_url}] realizzato da
+PrestaShop(tm) [http://www.prestashop.com/]

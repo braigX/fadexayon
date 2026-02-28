@@ -1,0 +1,12 @@
+.badge.badge-warning.dpdfrance-dev-twinkling {
+    animation-duration: 3s;
+    animation-name: dpdfrance-dev-twinkling;
+    animation-iteration-count: infinite;
+    transition: none;
+}
+
+@keyframes dpdfrance-dev-twinkling {
+    0%   { opacity:1; }
+    40%   {opacity:0.5; }
+    100% { opacity:1; }
+}

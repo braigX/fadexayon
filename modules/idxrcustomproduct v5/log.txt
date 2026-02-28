@@ -1,0 +1,4353 @@
+
+[2025-04-27 21:54:50] === Cart ID: 64202 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-27 21:55:11] === Cart ID: 64203 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-27 22:00:58] === Cart ID: 64204 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-27 22:01:54] === Cart ID: 64205 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-27 22:03:22] === Cart ID: 64206 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-27 22:06:54] === Cart ID: 64207 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-27 22:07:27] === Cart ID: 64208 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-27 22:09:03] === Cart ID: 64209 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-27 22:11:47] === Cart ID: 64210 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-27 22:30:13] === Cart ID: 64211 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-27 22:36:58] === Cart ID: 64212 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-27 22:39:31] === Cart ID: 64213 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-27 22:48:49] === Cart ID: 64214 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-27 22:55:29] === Cart ID: 64215 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-27 22:58:54] === Cart ID: 64216 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-27 22:59:26] === Cart ID: 64217 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-27 22:59:28] === Cart ID: 64218 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-27 22:59:33] === Cart ID: 64219 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-27 22:59:33] === Cart ID: 64219 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (1):
+  • [1189] TUBE PMMA INCOLORE XT 300/292 lg 2000mm ×1 @ 351,00 €
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 351,00 €
+----------------------------------------
+[2025-04-27 23:00:38] === Cart ID: 64220 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-27 23:02:14] === Cart ID: 64221 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-27 23:05:49] === Cart ID: 64222 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-27 23:06:20] === Cart ID: 64223 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 00:30:02] === Cart ID: 64224 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 00:30:30] === Cart ID: 64225 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 00:51:10] === Cart ID: 64226 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 00:55:40] === Cart ID: 64227 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 01:02:18] === Cart ID: 64228 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 01:38:59] === Cart ID: 64229 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 01:45:07] === Cart ID: 64230 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 01:52:03] === Cart ID: 64231 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 02:57:50] === Cart ID: 64232 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 02:58:23] === Cart ID: 64233 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 02:59:00] === Cart ID: 64234 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 03:09:02] === Cart ID: 64235 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 05:24:48] === Cart ID: 64236 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 06:30:46] === Cart ID: 64237 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 06:50:00] === Cart ID: 64238 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 07:04:07] === Cart ID: 64239 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 07:10:03] === Cart ID: 64240 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 07:49:55] === Cart ID: 64241 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 08:06:56] === Cart ID: 64242 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 08:07:55] === Cart ID: 64243 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 08:08:07] === Cart ID: 64244 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 08:09:03] === Cart ID: 64245 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 08:13:25] === Cart ID: 64246 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 08:15:16] === Cart ID: 64247 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 08:24:31] === Cart ID: 64248 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 08:25:48] === Cart ID: 64249 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 08:32:38] === Cart ID: 64250 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 08:36:37] === Cart ID: 64251 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 08:47:30] === Cart ID: 64252 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 08:55:09] === Cart ID: 64253 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 08:57:12] === Cart ID: 64254 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:00:47] === Cart ID: 64255 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:04:42] === Cart ID: 64256 ===
+Customer ID: 4251
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:04:42] === Cart ID: 64256 ===
+Customer ID: 4251
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:04:42] === Cart ID: 64256 ===
+Customer ID: 4251
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:07:18] === Cart ID: 64257 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:08:57] === Cart ID: 64258 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:12:07] === Cart ID: 64259 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:13:01] === Cart ID: 64260 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:16:44] === Cart ID: 64261 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:40:17] === Cart ID: 64262 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:42:21] === Cart ID: 64263 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:42:21] === Cart ID: 64264 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:42:30] === Cart ID: 64265 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:42:40] === Cart ID: 64266 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:42:46] === Cart ID: 64267 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:42:49] === Cart ID: 64268 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:42:55] === Cart ID: 64269 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:43:03] === Cart ID: 64270 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:43:08] === Cart ID: 64271 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:43:12] === Cart ID: 64272 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:43:19] === Cart ID: 64273 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:43:21] === Cart ID: 64274 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:43:31] === Cart ID: 64275 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:43:34] === Cart ID: 64276 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:43:40] === Cart ID: 64277 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:43:41] === Cart ID: 64278 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:43:41] === Cart ID: 64278 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (1):
+  • [1045] Tube plexiglas INCOLORE XT 8/4 lg 2000mm ×1 @ 6,30 €
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 6,30 €
+----------------------------------------
+[2025-04-28 09:43:51] === Cart ID: 64279 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:43:51] === Cart ID: 64280 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:44:00] === Cart ID: 64281 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:44:02] === Cart ID: 64282 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:44:06] === Cart ID: 64283 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:44:11] === Cart ID: 64284 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:44:12] === Cart ID: 64285 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:44:15] === Cart ID: 64286 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:44:21] === Cart ID: 64287 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:44:21] === Cart ID: 64288 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:44:25] === Cart ID: 64289 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:44:58] === Cart ID: 64290 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:44:59] === Cart ID: 64291 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:45:00] === Cart ID: 64292 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:45:08] === Cart ID: 64293 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:45:09] === Cart ID: 64294 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:45:10] === Cart ID: 64295 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:45:21] === Cart ID: 64296 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:45:23] === Cart ID: 64297 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:45:30] === Cart ID: 64298 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:45:37] === Cart ID: 64299 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:45:38] === Cart ID: 64300 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:45:47] === Cart ID: 64301 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:45:48] === Cart ID: 64302 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:45:59] === Cart ID: 64303 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:46:09] === Cart ID: 64304 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:46:19] === Cart ID: 64305 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:47:03] === Cart ID: 64306 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:47:12] === Cart ID: 64307 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:47:23] === Cart ID: 64308 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:47:27] === Cart ID: 64309 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:47:36] === Cart ID: 64310 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:47:39] === Cart ID: 64311 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:47:40] === Cart ID: 64312 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:47:49] === Cart ID: 64313 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:47:58] === Cart ID: 64314 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:48:08] === Cart ID: 64315 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:48:09] === Cart ID: 64316 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:48:19] === Cart ID: 64317 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:48:28] === Cart ID: 64318 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:48:38] === Cart ID: 64319 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:49:05] === Cart ID: 64320 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:49:14] === Cart ID: 64321 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:49:26] === Cart ID: 64322 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:49:52] === Cart ID: 64323 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:50:08] === Cart ID: 64324 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:50:24] === Cart ID: 64325 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:50:33] === Cart ID: 64326 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:50:40] === Cart ID: 64327 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:50:49] === Cart ID: 64328 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:50:58] === Cart ID: 64329 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:51:06] === Cart ID: 64330 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:51:14] === Cart ID: 64331 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:51:22] === Cart ID: 64332 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:51:30] === Cart ID: 64333 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:51:38] === Cart ID: 64334 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:51:47] === Cart ID: 64335 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:52:20] === Cart ID: 64336 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:52:29] === Cart ID: 64337 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:52:38] === Cart ID: 64338 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:52:47] === Cart ID: 64339 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:52:55] === Cart ID: 64340 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:53:04] === Cart ID: 64341 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:53:13] === Cart ID: 64342 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:53:22] === Cart ID: 64343 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:54:03] === Cart ID: 64344 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:54:48] === Cart ID: 64345 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:54:51] === Cart ID: 64346 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:54:58] === Cart ID: 64347 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:55:12] === Cart ID: 64348 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:55:34] === Cart ID: 64349 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:55:42] === Cart ID: 64350 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:55:50] === Cart ID: 64351 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:56:27] === Cart ID: 64352 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:56:44] === Cart ID: 64353 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:56:54] === Cart ID: 64354 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:57:05] === Cart ID: 64355 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:58:29] === Cart ID: 64356 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:58:39] === Cart ID: 64357 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:58:48] === Cart ID: 64358 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:58:56] === Cart ID: 64359 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:59:05] === Cart ID: 64360 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:59:12] === Cart ID: 64361 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 09:59:46] === Cart ID: 64362 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:01:05] === Cart ID: 64363 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:01:55] === Cart ID: 64364 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:13:39] === Cart ID: 64365 ===
+Customer ID: 4111
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:16:18] === Cart ID: 64366 ===
+Customer ID: 4337
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:16:57] === Cart ID: 64367 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:17:50] === Cart ID: 64368 ===
+Customer ID: 4337
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:21:31] === Cart ID: 64369 ===
+Customer ID: 4337
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:22:13] === Cart ID: 64370 ===
+Customer ID: 4337
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:23:50] === Cart ID: 64371 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:25:12] === Cart ID: 64372 ===
+Customer ID: 4337
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:25:40] === Cart ID: 64373 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:25:51] === Cart ID: 64374 ===
+Customer ID: 4337
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:26:01] === Cart ID: 64375 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:26:54] === Cart ID: 64376 ===
+Customer ID: 4337
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:27:26] === Cart ID: 64377 ===
+Customer ID: 4337
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:29:55] === Cart ID: 64378 ===
+Customer ID: 4337
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:30:22] === Cart ID: 64379 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:30:29] === Cart ID: 64380 ===
+Customer ID: 4337
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:35:26] === Cart ID: 64381 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:36:38] === Cart ID: 64382 ===
+Customer ID: 4360
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:36:57] === Cart ID: 64383 ===
+Customer ID: 4360
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:37:28] === Cart ID: 64384 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:37:56] === Cart ID: 64385 ===
+Customer ID: 4360
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:38:25] === Cart ID: 64386 ===
+Customer ID: 4360
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:39:02] === Cart ID: 64387 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:39:33] === Cart ID: 64388 ===
+Customer ID: 4360
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:40:58] === Cart ID: 64389 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:41:08] === Cart ID: 64390 ===
+Customer ID: 4360
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:41:14] === Cart ID: 64391 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:41:36] === Cart ID: 64392 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:42:44] === Cart ID: 64393 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:42:57] === Cart ID: 64394 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:43:19] === Cart ID: 64395 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:45:00] === Cart ID: 64396 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:45:15] === Cart ID: 64397 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:45:34] === Cart ID: 64398 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:49:54] === Cart ID: 64399 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:50:24] === Cart ID: 64400 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:53:02] === Cart ID: 64401 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 10:55:14] === Cart ID: 64402 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 11:00:08] === Cart ID: 64403 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 11:00:17] === Cart ID: 64404 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 11:04:17] === Cart ID: 64405 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 11:17:46] === Cart ID: 64406 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 11:26:02] === Cart ID: 64407 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 11:29:30] === Cart ID: 64408 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 11:35:48] === Cart ID: 64409 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 11:36:58] === Cart ID: 64410 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 11:37:50] === Cart ID: 64411 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 11:38:44] === Cart ID: 64412 ===
+Customer ID: 5
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 11:46:50] === Cart ID: 64413 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 11:58:30] === Cart ID: 64414 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 11:59:07] === Cart ID: 64415 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 11:59:08] === Cart ID: 64416 ===
+Customer ID: 4337
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 11:59:16] === Cart ID: 64417 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 11:59:45] === Cart ID: 64418 ===
+Customer ID: 4337
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 12:00:42] === Cart ID: 64419 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 12:11:06] === Cart ID: 64420 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 12:11:12] === Cart ID: 64421 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 12:11:53] === Cart ID: 64422 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 12:14:55] === Cart ID: 64423 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 12:20:31] === Cart ID: 64424 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 12:24:23] === Cart ID: 64425 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 12:33:15] === Cart ID: 64426 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 12:40:40] === Cart ID: 64427 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 12:40:46] === Cart ID: 64428 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 12:48:31] === Cart ID: 64429 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 12:48:56] === Cart ID: 64430 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 12:50:35] === Cart ID: 64431 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 12:51:39] === Cart ID: 64432 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 12:52:26] === Cart ID: 64433 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 13:07:42] === Cart ID: 64434 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 13:12:08] === Cart ID: 64435 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 13:21:31] === Cart ID: 64436 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 13:23:36] === Cart ID: 64437 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 13:23:48] === Cart ID: 64438 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 13:26:15] === Cart ID: 64439 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 13:26:30] === Cart ID: 64440 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 13:34:28] === Cart ID: 64441 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 13:37:41] === Cart ID: 64442 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 13:38:17] === Cart ID: 64443 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 13:41:11] === Cart ID: 64444 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 13:55:11] === Cart ID: 64445 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 13:56:17] === Cart ID: 64446 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 13:56:30] === Cart ID: 64447 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:05:26] === Cart ID: 64448 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:07:36] === Cart ID: 64449 ===
+Customer ID: 4242
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:09:47] === Cart ID: 64450 ===
+Customer ID: 4242
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:10:45] === Cart ID: 64451 ===
+Customer ID: 4242
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:11:25] === Cart ID: 64452 ===
+Customer ID: 4242
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:11:58] === Cart ID: 64453 ===
+Customer ID: 4242
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:12:21] === Cart ID: 64454 ===
+Customer ID: 4242
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:13:20] === Cart ID: 64455 ===
+Customer ID: 4242
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:13:30] === Cart ID: 64456 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:13:34] === Cart ID: 64457 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:14:11] === Cart ID: 64458 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:14:14] === Cart ID: 64459 ===
+Customer ID: 4242
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:15:02] === Cart ID: 64460 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:15:14] === Cart ID: 64461 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:15:23] === Cart ID: 64462 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:20:38] === Cart ID: 64463 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:21:39] === Cart ID: 64464 ===
+Customer ID: 4258
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:21:39] === Cart ID: 64464 ===
+Customer ID: 4258
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:21:39] === Cart ID: 64464 ===
+Customer ID: 4258
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:44:36] === Cart ID: 64465 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:44:41] === Cart ID: 64466 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:53:01] === Cart ID: 64467 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 14:58:31] === Cart ID: 64468 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:00:32] === Cart ID: 64469 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:01:00] === Cart ID: 64470 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:01:09] === Cart ID: 64471 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:02:58] === Cart ID: 64472 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:05:09] === Cart ID: 64473 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:05:41] === Cart ID: 64474 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:06:24] === Cart ID: 64475 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:12:43] === Cart ID: 64476 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:14:12] === Cart ID: 64477 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:31:29] === Cart ID: 64478 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:33:42] === Cart ID: 64479 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:33:50] === Cart ID: 64480 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:34:03] === Cart ID: 64481 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:34:15] === Cart ID: 64482 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:34:27] === Cart ID: 64483 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:34:42] === Cart ID: 64484 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:34:53] === Cart ID: 64485 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:35:07] === Cart ID: 64486 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:35:46] === Cart ID: 64487 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:36:04] === Cart ID: 64488 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:36:15] === Cart ID: 64489 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:36:20] === Cart ID: 64490 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:36:28] === Cart ID: 64491 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:38:09] === Cart ID: 64492 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:38:18] === Cart ID: 64493 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:38:31] === Cart ID: 64494 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:38:45] === Cart ID: 64495 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:38:58] === Cart ID: 64496 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:39:12] === Cart ID: 64497 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:40:12] === Cart ID: 64498 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:40:25] === Cart ID: 64499 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:40:40] === Cart ID: 64500 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:40:57] === Cart ID: 64501 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:41:27] === Cart ID: 64502 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:42:06] === Cart ID: 64503 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:42:54] === Cart ID: 64504 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:43:08] === Cart ID: 64505 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:43:32] === Cart ID: 64506 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:43:45] === Cart ID: 64507 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:43:59] === Cart ID: 64508 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:45:02] === Cart ID: 64509 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:45:24] === Cart ID: 64510 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:45:37] === Cart ID: 64511 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:45:51] === Cart ID: 64512 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:46:06] === Cart ID: 64513 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:46:36] === Cart ID: 64514 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:46:46] === Cart ID: 64515 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:47:00] === Cart ID: 64516 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:47:16] === Cart ID: 64517 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:47:17] === Cart ID: 64518 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:47:29] === Cart ID: 64519 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:47:43] === Cart ID: 64520 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:48:11] === Cart ID: 64521 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:48:24] === Cart ID: 64522 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:48:39] === Cart ID: 64523 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:48:52] === Cart ID: 64524 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:48:56] === Cart ID: 64525 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:49:10] === Cart ID: 64526 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:49:12] === Cart ID: 64527 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:49:28] === Cart ID: 64528 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:49:30] === Cart ID: 64529 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:49:48] === Cart ID: 64530 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:50:20] === Cart ID: 64531 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:50:22] === Cart ID: 64532 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:50:45] === Cart ID: 64533 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:50:46] === Cart ID: 64534 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:50:59] === Cart ID: 64535 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:51:09] === Cart ID: 64536 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:51:18] === Cart ID: 64537 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:51:25] === Cart ID: 64538 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:51:32] === Cart ID: 64539 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:51:52] === Cart ID: 64540 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:52:09] === Cart ID: 64541 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:52:19] === Cart ID: 64542 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:52:25] === Cart ID: 64543 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:52:34] === Cart ID: 64544 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:52:39] === Cart ID: 64545 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:52:49] === Cart ID: 64546 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:52:54] === Cart ID: 64547 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:53:02] === Cart ID: 64548 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:53:10] === Cart ID: 64549 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:53:17] === Cart ID: 64550 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:53:25] === Cart ID: 64551 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:53:31] === Cart ID: 64552 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:53:39] === Cart ID: 64553 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:53:53] === Cart ID: 64554 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:54:07] === Cart ID: 64555 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:54:39] === Cart ID: 64556 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:54:54] === Cart ID: 64557 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:55:10] === Cart ID: 64558 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:56:15] === Cart ID: 64559 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:56:36] === Cart ID: 64560 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:56:53] === Cart ID: 64561 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:57:07] === Cart ID: 64562 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:57:21] === Cart ID: 64563 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:57:35] === Cart ID: 64564 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:57:48] === Cart ID: 64565 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:58:03] === Cart ID: 64566 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:58:19] === Cart ID: 64567 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:58:33] === Cart ID: 64568 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:58:47] === Cart ID: 64569 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:59:01] === Cart ID: 64570 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:59:15] === Cart ID: 64571 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:59:29] === Cart ID: 64572 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:59:43] === Cart ID: 64573 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 15:59:59] === Cart ID: 64574 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:00:17] === Cart ID: 64575 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:00:35] === Cart ID: 64576 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:00:53] === Cart ID: 64577 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:01:08] === Cart ID: 64578 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:01:24] === Cart ID: 64579 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:01:36] === Cart ID: 64580 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:01:37] === Cart ID: 64581 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:01:49] === Cart ID: 64582 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:01:51] === Cart ID: 64583 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:02:04] === Cart ID: 64584 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:02:23] === Cart ID: 64585 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:02:41] === Cart ID: 64586 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:02:47] === Cart ID: 64587 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:02:56] === Cart ID: 64588 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:03:09] === Cart ID: 64589 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:03:24] === Cart ID: 64590 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:03:39] === Cart ID: 64591 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:03:51] === Cart ID: 64592 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:04:06] === Cart ID: 64593 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:04:47] === Cart ID: 64594 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:04:53] === Cart ID: 64595 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:05:23] === Cart ID: 64596 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:05:36] === Cart ID: 64597 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:05:50] === Cart ID: 64598 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:06:04] === Cart ID: 64599 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:06:19] === Cart ID: 64600 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:06:38] === Cart ID: 64601 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:06:55] === Cart ID: 64602 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:07:08] === Cart ID: 64603 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:07:21] === Cart ID: 64604 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:07:35] === Cart ID: 64605 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:07:48] === Cart ID: 64606 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:08:14] === Cart ID: 64607 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:08:27] === Cart ID: 64608 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:08:40] === Cart ID: 64609 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:08:54] === Cart ID: 64610 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:09:08] === Cart ID: 64611 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:09:21] === Cart ID: 64612 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:09:35] === Cart ID: 64613 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:09:49] === Cart ID: 64614 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:10:02] === Cart ID: 64615 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:10:15] === Cart ID: 64616 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:10:29] === Cart ID: 64617 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:10:42] === Cart ID: 64618 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:10:56] === Cart ID: 64619 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:11:38] === Cart ID: 64620 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:11:54] === Cart ID: 64621 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:12:08] === Cart ID: 64622 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:12:22] === Cart ID: 64623 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:12:36] === Cart ID: 64624 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:12:49] === Cart ID: 64625 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:13:02] === Cart ID: 64626 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:13:15] === Cart ID: 64627 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:20:18] === Cart ID: 64628 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:20:38] === Cart ID: 64629 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------
+[2025-04-28 16:22:45] === Cart ID: 64630 ===
+Customer ID: 
+Shop ID: 1
+Currency ID: 1
+Products (0):
+Totals:
+  Subtotal (excl. shipping): 
+  Shipping: 
+  Grand Total: 0,00 €
+----------------------------------------

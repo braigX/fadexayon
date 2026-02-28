@@ -1,0 +1,16424 @@
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// identity function for calling harmony imports with the correct context
+/******/ 	__webpack_require__.i = function(value) { return value; };
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 35);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports) {
+
+module.exports = jQuery;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+module.exports = prestashop;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/**
+ * 2007-2017 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ * @author    PrestaShop SA <contact@prestashop.com>
+ * @copyright 2007-2017 PrestaShop SA
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
+ * International Registered Trademark & Property of PrestaShop SA
+ */
+
+
+class DropDown {
+  constructor(el) {
+    this.el = el;
+  }
+  init() {
+    this.el.on('show.bs.dropdown', function (e, el) {
+      if (el) {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(`#${el}`).find('.dropdown-menu').first().stop(true, true).slideDown();
+      } else {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(e.target).find('.dropdown-menu').first().stop(true, true).slideDown();
+      }
+    });
+
+    this.el.on('hide.bs.dropdown', function (e, el) {
+      if (el) {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(`#${el}`).find('.dropdown-menu').first().stop(true, true).slideUp();
+      } else {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(e.target).find('.dropdown-menu').first().stop(true, true).slideUp();
+      }
+    });
+
+    this.el.find('select.link').each(function (idx, el) {
+      __WEBPACK_IMPORTED_MODULE_0_jquery___default()(el).on('change', function (event) {
+        window.location = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).val();
+      });
+    });
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = DropDown;
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/**
+ * 2007-2017 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ * @author    PrestaShop SA <contact@prestashop.com>
+ * @copyright 2007-2017 PrestaShop SA
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
+ * International Registered Trademark & Property of PrestaShop SA
+ */
+
+
+class ProductMinitature {
+  init() {
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-product-miniature').each((index, element) => {
+      const FLAG_MARGIN = 10;
+      let $discount = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(element).find('.discount-product');
+      let $onsale = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(element).find('.on-sale');
+      let $new = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(element).find('.new');
+      // if($onsale.length){
+      //   $new.css('top', ($onsale.height() * 2 + 12));
+      // }
+      if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()(element).find('.color').length > 5) {
+        let count = 0;
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(element).find('.color').each((index, element) => {
+          if (index > 4) {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(element).hide();
+            count++;
+          }
+        });
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(element).find('.js-count').append(`+${count}`);
+      }
+    });
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = ProductMinitature;
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+/**
+ * Owl Carousel v2.2.0
+ * Copyright 2013-2016 David Deutsch
+ * Licensed under MIT (https://github.com/OwlCarousel2/OwlCarousel2/blob/master/LICENSE)
+ */
+/**
+ * Owl carousel
+ * @version 2.1.6
+ * @author Bartosz Wojciechowski
+ * @author David Deutsch
+ * @license The MIT License (MIT)
+ * @todo Lazy Load Icon
+ * @todo prevent animationend bubling
+ * @todo itemsScaleUp
+ * @todo Test Zepto
+ * @todo stagePadding calculate wrong active classes
+ */
+;(function ($, window, document, undefined) {
+
+	/**
+  * Creates a carousel.
+  * @class The Owl Carousel.
+  * @public
+  * @param {HTMLElement|jQuery} element - The element to create the carousel for.
+  * @param {Object} [options] - The options
+  */
+	function Owl(element, options) {
+
+		/**
+   * Current settings for the carousel.
+   * @public
+   */
+		this.settings = null;
+
+		/**
+   * Current options set by the caller including defaults.
+   * @public
+   */
+		this.options = $.extend({}, Owl.Defaults, options);
+
+		/**
+   * Plugin element.
+   * @public
+   */
+		this.$element = $(element);
+
+		/**
+   * Proxied event handlers.
+   * @protected
+   */
+		this._handlers = {};
+
+		/**
+   * References to the running plugins of this carousel.
+   * @protected
+   */
+		this._plugins = {};
+
+		/**
+   * Currently suppressed events to prevent them from beeing retriggered.
+   * @protected
+   */
+		this._supress = {};
+
+		/**
+   * Absolute current position.
+   * @protected
+   */
+		this._current = null;
+
+		/**
+   * Animation speed in milliseconds.
+   * @protected
+   */
+		this._speed = null;
+
+		/**
+   * Coordinates of all items in pixel.
+   * @todo The name of this member is missleading.
+   * @protected
+   */
+		this._coordinates = [];
+
+		/**
+   * Current breakpoint.
+   * @todo Real media queries would be nice.
+   * @protected
+   */
+		this._breakpoint = null;
+
+		/**
+   * Current width of the plugin element.
+   */
+		this._width = null;
+
+		/**
+   * All real items.
+   * @protected
+   */
+		this._items = [];
+
+		/**
+   * All cloned items.
+   * @protected
+   */
+		this._clones = [];
+
+		/**
+   * Merge values of all items.
+   * @todo Maybe this could be part of a plugin.
+   * @protected
+   */
+		this._mergers = [];
+
+		/**
+   * Widths of all items.
+   */
+		this._widths = [];
+
+		/**
+   * Invalidated parts within the update process.
+   * @protected
+   */
+		this._invalidated = {};
+
+		/**
+   * Ordered list of workers for the update process.
+   * @protected
+   */
+		this._pipe = [];
+
+		/**
+   * Current state information for the drag operation.
+   * @todo #261
+   * @protected
+   */
+		this._drag = {
+			time: null,
+			target: null,
+			pointer: null,
+			stage: {
+				start: null,
+				current: null
+			},
+			direction: null
+		};
+
+		/**
+   * Current state information and their tags.
+   * @type {Object}
+   * @protected
+   */
+		this._states = {
+			current: {},
+			tags: {
+				'initializing': ['busy'],
+				'animating': ['busy'],
+				'dragging': ['interacting']
+			}
+		};
+
+		$.each(['onResize', 'onThrottledResize'], $.proxy(function (i, handler) {
+			this._handlers[handler] = $.proxy(this[handler], this);
+		}, this));
+
+		$.each(Owl.Plugins, $.proxy(function (key, plugin) {
+			this._plugins[key.charAt(0).toLowerCase() + key.slice(1)] = new plugin(this);
+		}, this));
+
+		$.each(Owl.Workers, $.proxy(function (priority, worker) {
+			this._pipe.push({
+				'filter': worker.filter,
+				'run': $.proxy(worker.run, this)
+			});
+		}, this));
+
+		this.setup();
+		this.initialize();
+	}
+
+	/**
+  * Default options for the carousel.
+  * @public
+  */
+	Owl.Defaults = {
+		items: 3,
+		loop: false,
+		center: false,
+		rewind: false,
+
+		mouseDrag: true,
+		touchDrag: true,
+		pullDrag: true,
+		freeDrag: false,
+
+		margin: 0,
+		stagePadding: 0,
+
+		merge: false,
+		mergeFit: true,
+		autoWidth: false,
+
+		startPosition: 0,
+		rtl: false,
+
+		smartSpeed: 250,
+		fluidSpeed: false,
+		dragEndSpeed: false,
+
+		responsive: {},
+		responsiveRefreshRate: 200,
+		responsiveBaseElement: window,
+
+		fallbackEasing: 'swing',
+
+		info: false,
+
+		nestedItemSelector: false,
+		itemElement: 'div',
+		stageElement: 'div',
+
+		refreshClass: 'owl-refresh',
+		loadedClass: 'owl-loaded',
+		loadingClass: 'owl-loading',
+		rtlClass: 'owl-rtl',
+		responsiveClass: 'owl-responsive',
+		dragClass: 'owl-drag',
+		itemClass: 'owl-item',
+		stageClass: 'owl-stage',
+		stageOuterClass: 'owl-stage-outer',
+		grabClass: 'owl-grab'
+	};
+
+	/**
+  * Enumeration for width.
+  * @public
+  * @readonly
+  * @enum {String}
+  */
+	Owl.Width = {
+		Default: 'default',
+		Inner: 'inner',
+		Outer: 'outer'
+	};
+
+	/**
+  * Enumeration for types.
+  * @public
+  * @readonly
+  * @enum {String}
+  */
+	Owl.Type = {
+		Event: 'event',
+		State: 'state'
+	};
+
+	/**
+  * Contains all registered plugins.
+  * @public
+  */
+	Owl.Plugins = {};
+
+	/**
+  * List of workers involved in the update process.
+  */
+	Owl.Workers = [{
+		filter: ['width', 'settings'],
+		run: function () {
+			this._width = this.$element.width();
+		}
+	}, {
+		filter: ['width', 'items', 'settings'],
+		run: function (cache) {
+			cache.current = this._items && this._items[this.relative(this._current)];
+		}
+	}, {
+		filter: ['items', 'settings'],
+		run: function () {
+			this.$stage.children('.cloned').remove();
+		}
+	}, {
+		filter: ['width', 'items', 'settings'],
+		run: function (cache) {
+			var margin = this.settings.margin || '',
+			    grid = !this.settings.autoWidth,
+			    rtl = this.settings.rtl,
+			    css = {
+				'width': 'auto',
+				'margin-left': rtl ? margin : '',
+				'margin-right': rtl ? '' : margin
+			};
+
+			!grid && this.$stage.children().css(css);
+
+			cache.css = css;
+		}
+	}, {
+		filter: ['width', 'items', 'settings'],
+		run: function (cache) {
+			var width = (this.width() / this.settings.items).toFixed(3) - this.settings.margin,
+			    merge = null,
+			    iterator = this._items.length,
+			    grid = !this.settings.autoWidth,
+			    widths = [];
+
+			cache.items = {
+				merge: false,
+				width: width
+			};
+
+			while (iterator--) {
+				merge = this._mergers[iterator];
+				merge = this.settings.mergeFit && Math.min(merge, this.settings.items) || merge;
+
+				cache.items.merge = merge > 1 || cache.items.merge;
+
+				widths[iterator] = !grid ? this._items[iterator].width() : width * merge;
+			}
+
+			this._widths = widths;
+		}
+	}, {
+		filter: ['items', 'settings'],
+		run: function () {
+			var clones = [],
+			    items = this._items,
+			    settings = this.settings,
+			    view = Math.max(settings.items * 2, 4),
+			    size = Math.ceil(items.length / 2) * 2,
+			    repeat = settings.loop && items.length ? settings.rewind ? view : Math.max(view, size) : 0,
+			    append = '',
+			    prepend = '';
+
+			repeat /= 2;
+
+			while (repeat--) {
+				clones.push(this.normalize(clones.length / 2, true));
+				append = append + items[clones[clones.length - 1]][0].outerHTML;
+				clones.push(this.normalize(items.length - 1 - (clones.length - 1) / 2, true));
+				prepend = items[clones[clones.length - 1]][0].outerHTML + prepend;
+			}
+
+			this._clones = clones;
+
+			$(append).addClass('cloned').appendTo(this.$stage);
+			$(prepend).addClass('cloned').prependTo(this.$stage);
+		}
+	}, {
+		filter: ['width', 'items', 'settings'],
+		run: function () {
+			var rtl = this.settings.rtl ? 1 : -1,
+			    size = this._clones.length + this._items.length,
+			    iterator = -1,
+			    previous = 0,
+			    current = 0,
+			    coordinates = [];
+
+			while (++iterator < size) {
+				previous = coordinates[iterator - 1] || 0;
+				current = this._widths[this.relative(iterator)] + this.settings.margin;
+				coordinates.push(previous + current * rtl);
+			}
+
+			this._coordinates = coordinates;
+		}
+	}, {
+		filter: ['width', 'items', 'settings'],
+		run: function () {
+			var padding = this.settings.stagePadding,
+			    coordinates = this._coordinates,
+			    css = {
+				'width': Math.ceil(Math.abs(coordinates[coordinates.length - 1])) + padding * 2,
+				'padding-left': padding || '',
+				'padding-right': padding || ''
+			};
+
+			this.$stage.css(css);
+		}
+	}, {
+		filter: ['width', 'items', 'settings'],
+		run: function (cache) {
+			var iterator = this._coordinates.length,
+			    grid = !this.settings.autoWidth,
+			    items = this.$stage.children();
+
+			if (grid && cache.items.merge) {
+				while (iterator--) {
+					cache.css.width = this._widths[this.relative(iterator)];
+					items.eq(iterator).css(cache.css);
+				}
+			} else if (grid) {
+				cache.css.width = cache.items.width;
+				items.css(cache.css);
+			}
+		}
+	}, {
+		filter: ['items'],
+		run: function () {
+			this._coordinates.length < 1 && this.$stage.removeAttr('style');
+		}
+	}, {
+		filter: ['width', 'items', 'settings'],
+		run: function (cache) {
+			cache.current = cache.current ? this.$stage.children().index(cache.current) : 0;
+			cache.current = Math.max(this.minimum(), Math.min(this.maximum(), cache.current));
+			this.reset(cache.current);
+		}
+	}, {
+		filter: ['position'],
+		run: function () {
+			this.animate(this.coordinates(this._current));
+		}
+	}, {
+		filter: ['width', 'position', 'items', 'settings'],
+		run: function () {
+			var rtl = this.settings.rtl ? 1 : -1,
+			    padding = this.settings.stagePadding * 2,
+			    begin = this.coordinates(this.current()) + padding,
+			    end = begin + this.width() * rtl,
+			    inner,
+			    outer,
+			    matches = [],
+			    i,
+			    n;
+
+			for (i = 0, n = this._coordinates.length; i < n; i++) {
+				inner = this._coordinates[i - 1] || 0;
+				outer = Math.abs(this._coordinates[i]) + padding * rtl;
+
+				if (this.op(inner, '<=', begin) && this.op(inner, '>', end) || this.op(outer, '<', begin) && this.op(outer, '>', end)) {
+					matches.push(i);
+				}
+			}
+
+			this.$stage.children('.active').removeClass('active');
+			this.$stage.children(':eq(' + matches.join('), :eq(') + ')').addClass('active');
+
+			if (this.settings.center) {
+				this.$stage.children('.center').removeClass('center');
+				this.$stage.children().eq(this.current()).addClass('center');
+			}
+		}
+	}];
+
+	/**
+  * Initializes the carousel.
+  * @protected
+  */
+	Owl.prototype.initialize = function () {
+		this.enter('initializing');
+		this.trigger('initialize');
+
+		this.$element.toggleClass(this.settings.rtlClass, this.settings.rtl);
+
+		if (this.settings.autoWidth && !this.is('pre-loading')) {
+			var imgs, nestedSelector, width;
+			imgs = this.$element.find('img');
+			nestedSelector = this.settings.nestedItemSelector ? '.' + this.settings.nestedItemSelector : undefined;
+			width = this.$element.children(nestedSelector).width();
+
+			if (imgs.length && width <= 0) {
+				this.preloadAutoWidthImages(imgs);
+			}
+		}
+
+		this.$element.addClass(this.options.loadingClass);
+
+		// create stage
+		this.$stage = $('<' + this.settings.stageElement + ' class="' + this.settings.stageClass + '"/>').wrap('<div class="' + this.settings.stageOuterClass + '"/>');
+
+		// append stage
+		this.$element.append(this.$stage.parent());
+
+		// append content
+		this.replace(this.$element.children().not(this.$stage.parent()));
+
+		// check visibility
+		if (this.$element.is(':visible')) {
+			// update view
+			this.refresh();
+		} else {
+			// invalidate width
+			this.invalidate('width');
+		}
+
+		this.$element.removeClass(this.options.loadingClass).addClass(this.options.loadedClass);
+
+		// register event handlers
+		this.registerEventHandlers();
+
+		this.leave('initializing');
+		this.trigger('initialized');
+	};
+
+	/**
+  * Setups the current settings.
+  * @todo Remove responsive classes. Why should adaptive designs be brought into IE8?
+  * @todo Support for media queries by using `matchMedia` would be nice.
+  * @public
+  */
+	Owl.prototype.setup = function () {
+		var viewport = this.viewport(),
+		    overwrites = this.options.responsive,
+		    match = -1,
+		    settings = null;
+
+		if (!overwrites) {
+			settings = $.extend({}, this.options);
+		} else {
+			$.each(overwrites, function (breakpoint) {
+				if (breakpoint <= viewport && breakpoint > match) {
+					match = Number(breakpoint);
+				}
+			});
+
+			settings = $.extend({}, this.options, overwrites[match]);
+			if (typeof settings.stagePadding === 'function') {
+				settings.stagePadding = settings.stagePadding();
+			}
+			delete settings.responsive;
+
+			// responsive class
+			if (settings.responsiveClass) {
+				this.$element.attr('class', this.$element.attr('class').replace(new RegExp('(' + this.options.responsiveClass + '-)\\S+\\s', 'g'), '$1' + match));
+			}
+		}
+
+		this.trigger('change', { property: { name: 'settings', value: settings } });
+		this._breakpoint = match;
+		this.settings = settings;
+		this.invalidate('settings');
+		this.trigger('changed', { property: { name: 'settings', value: this.settings } });
+	};
+
+	/**
+  * Updates option logic if necessery.
+  * @protected
+  */
+	Owl.prototype.optionsLogic = function () {
+		if (this.settings.autoWidth) {
+			this.settings.stagePadding = false;
+			this.settings.merge = false;
+		}
+	};
+
+	/**
+  * Prepares an item before add.
+  * @todo Rename event parameter `content` to `item`.
+  * @protected
+  * @returns {jQuery|HTMLElement} - The item container.
+  */
+	Owl.prototype.prepare = function (item) {
+		var event = this.trigger('prepare', { content: item });
+
+		if (!event.data) {
+			event.data = $('<' + this.settings.itemElement + '/>').addClass(this.options.itemClass).append(item);
+		}
+
+		this.trigger('prepared', { content: event.data });
+
+		return event.data;
+	};
+
+	/**
+  * Updates the view.
+  * @public
+  */
+	Owl.prototype.update = function () {
+		var i = 0,
+		    n = this._pipe.length,
+		    filter = $.proxy(function (p) {
+			return this[p];
+		}, this._invalidated),
+		    cache = {};
+
+		while (i < n) {
+			if (this._invalidated.all || $.grep(this._pipe[i].filter, filter).length > 0) {
+				this._pipe[i].run(cache);
+			}
+			i++;
+		}
+
+		this._invalidated = {};
+
+		!this.is('valid') && this.enter('valid');
+	};
+
+	/**
+  * Gets the width of the view.
+  * @public
+  * @param {Owl.Width} [dimension=Owl.Width.Default] - The dimension to return.
+  * @returns {Number} - The width of the view in pixel.
+  */
+	Owl.prototype.width = function (dimension) {
+		dimension = dimension || Owl.Width.Default;
+		switch (dimension) {
+			case Owl.Width.Inner:
+			case Owl.Width.Outer:
+				return this._width;
+			default:
+				return this._width - this.settings.stagePadding * 2 + this.settings.margin;
+		}
+	};
+
+	/**
+  * Refreshes the carousel primarily for adaptive purposes.
+  * @public
+  */
+	Owl.prototype.refresh = function () {
+		this.enter('refreshing');
+		this.trigger('refresh');
+
+		this.setup();
+
+		this.optionsLogic();
+
+		this.$element.addClass(this.options.refreshClass);
+
+		this.update();
+
+		this.$element.removeClass(this.options.refreshClass);
+
+		this.leave('refreshing');
+		this.trigger('refreshed');
+	};
+
+	/**
+  * Checks window `resize` event.
+  * @protected
+  */
+	Owl.prototype.onThrottledResize = function () {
+		window.clearTimeout(this.resizeTimer);
+		this.resizeTimer = window.setTimeout(this._handlers.onResize, this.settings.responsiveRefreshRate);
+	};
+
+	/**
+  * Checks window `resize` event.
+  * @protected
+  */
+	Owl.prototype.onResize = function () {
+		if (!this._items.length) {
+			return false;
+		}
+
+		if (this._width === this.$element.width()) {
+			return false;
+		}
+
+		if (!this.$element.is(':visible')) {
+			return false;
+		}
+
+		this.enter('resizing');
+
+		if (this.trigger('resize').isDefaultPrevented()) {
+			this.leave('resizing');
+			return false;
+		}
+
+		this.invalidate('width');
+
+		this.refresh();
+
+		this.leave('resizing');
+		this.trigger('resized');
+	};
+
+	/**
+  * Registers event handlers.
+  * @todo Check `msPointerEnabled`
+  * @todo #261
+  * @protected
+  */
+	Owl.prototype.registerEventHandlers = function () {
+		if ($.support.transition) {
+			this.$stage.on($.support.transition.end + '.owl.core', $.proxy(this.onTransitionEnd, this));
+		}
+
+		if (this.settings.responsive !== false) {
+			this.on(window, 'resize', this._handlers.onThrottledResize);
+		}
+
+		if (this.settings.mouseDrag) {
+			this.$element.addClass(this.options.dragClass);
+			this.$stage.on('mousedown.owl.core', $.proxy(this.onDragStart, this));
+			this.$stage.on('dragstart.owl.core selectstart.owl.core', function () {
+				return false;
+			});
+		}
+
+		if (this.settings.touchDrag) {
+			this.$stage.on('touchstart.owl.core', $.proxy(this.onDragStart, this));
+			this.$stage.on('touchcancel.owl.core', $.proxy(this.onDragEnd, this));
+		}
+	};
+
+	/**
+  * Handles `touchstart` and `mousedown` events.
+  * @todo Horizontal swipe threshold as option
+  * @todo #261
+  * @protected
+  * @param {Event} event - The event arguments.
+  */
+	Owl.prototype.onDragStart = function (event) {
+		var stage = null;
+
+		if (event.which === 3) {
+			return;
+		}
+
+		if ($.support.transform) {
+			stage = this.$stage.css('transform').replace(/.*\(|\)| /g, '').split(',');
+			stage = {
+				x: stage[stage.length === 16 ? 12 : 4],
+				y: stage[stage.length === 16 ? 13 : 5]
+			};
+		} else {
+			stage = this.$stage.position();
+			stage = {
+				x: this.settings.rtl ? stage.left + this.$stage.width() - this.width() + this.settings.margin : stage.left,
+				y: stage.top
+			};
+		}
+
+		if (this.is('animating')) {
+			$.support.transform ? this.animate(stage.x) : this.$stage.stop();
+			this.invalidate('position');
+		}
+
+		this.$element.toggleClass(this.options.grabClass, event.type === 'mousedown');
+
+		this.speed(0);
+
+		this._drag.time = new Date().getTime();
+		this._drag.target = $(event.target);
+		this._drag.stage.start = stage;
+		this._drag.stage.current = stage;
+		this._drag.pointer = this.pointer(event);
+
+		$(document).on('mouseup.owl.core touchend.owl.core', $.proxy(this.onDragEnd, this));
+
+		$(document).one('mousemove.owl.core touchmove.owl.core', $.proxy(function (event) {
+			var delta = this.difference(this._drag.pointer, this.pointer(event));
+
+			$(document).on('mousemove.owl.core touchmove.owl.core', $.proxy(this.onDragMove, this));
+
+			if (Math.abs(delta.x) < Math.abs(delta.y) && this.is('valid')) {
+				return;
+			}
+
+			event.preventDefault();
+
+			this.enter('dragging');
+			this.trigger('drag');
+		}, this));
+	};
+
+	/**
+  * Handles the `touchmove` and `mousemove` events.
+  * @todo #261
+  * @protected
+  * @param {Event} event - The event arguments.
+  */
+	Owl.prototype.onDragMove = function (event) {
+		var minimum = null,
+		    maximum = null,
+		    pull = null,
+		    delta = this.difference(this._drag.pointer, this.pointer(event)),
+		    stage = this.difference(this._drag.stage.start, delta);
+
+		if (!this.is('dragging')) {
+			return;
+		}
+
+		event.preventDefault();
+
+		if (this.settings.loop) {
+			minimum = this.coordinates(this.minimum());
+			maximum = this.coordinates(this.maximum() + 1) - minimum;
+			stage.x = ((stage.x - minimum) % maximum + maximum) % maximum + minimum;
+		} else {
+			minimum = this.settings.rtl ? this.coordinates(this.maximum()) : this.coordinates(this.minimum());
+			maximum = this.settings.rtl ? this.coordinates(this.minimum()) : this.coordinates(this.maximum());
+			pull = this.settings.pullDrag ? -1 * delta.x / 5 : 0;
+			stage.x = Math.max(Math.min(stage.x, minimum + pull), maximum + pull);
+		}
+
+		this._drag.stage.current = stage;
+
+		this.animate(stage.x);
+	};
+
+	/**
+  * Handles the `touchend` and `mouseup` events.
+  * @todo #261
+  * @todo Threshold for click event
+  * @protected
+  * @param {Event} event - The event arguments.
+  */
+	Owl.prototype.onDragEnd = function (event) {
+		var delta = this.difference(this._drag.pointer, this.pointer(event)),
+		    stage = this._drag.stage.current,
+		    direction = delta.x > 0 ^ this.settings.rtl ? 'left' : 'right';
+
+		$(document).off('.owl.core');
+
+		this.$element.removeClass(this.options.grabClass);
+
+		if (delta.x !== 0 && this.is('dragging') || !this.is('valid')) {
+			this.speed(this.settings.dragEndSpeed || this.settings.smartSpeed);
+			this.current(this.closest(stage.x, delta.x !== 0 ? direction : this._drag.direction));
+			this.invalidate('position');
+			this.update();
+
+			this._drag.direction = direction;
+
+			if (Math.abs(delta.x) > 3 || new Date().getTime() - this._drag.time > 300) {
+				this._drag.target.one('click.owl.core', function () {
+					return false;
+				});
+			}
+		}
+
+		if (!this.is('dragging')) {
+			return;
+		}
+
+		this.leave('dragging');
+		this.trigger('dragged');
+	};
+
+	/**
+  * Gets absolute position of the closest item for a coordinate.
+  * @todo Setting `freeDrag` makes `closest` not reusable. See #165.
+  * @protected
+  * @param {Number} coordinate - The coordinate in pixel.
+  * @param {String} direction - The direction to check for the closest item. Ether `left` or `right`.
+  * @return {Number} - The absolute position of the closest item.
+  */
+	Owl.prototype.closest = function (coordinate, direction) {
+		var position = -1,
+		    pull = 30,
+		    width = this.width(),
+		    coordinates = this.coordinates();
+
+		if (!this.settings.freeDrag) {
+			// check closest item
+			$.each(coordinates, $.proxy(function (index, value) {
+				// on a left pull, check on current index
+				if (direction === 'left' && coordinate > value - pull && coordinate < value + pull) {
+					position = index;
+					// on a right pull, check on previous index
+					// to do so, subtract width from value and set position = index + 1
+				} else if (direction === 'right' && coordinate > value - width - pull && coordinate < value - width + pull) {
+					position = index + 1;
+				} else if (this.op(coordinate, '<', value) && this.op(coordinate, '>', coordinates[index + 1] || value - width)) {
+					position = direction === 'left' ? index + 1 : index;
+				}
+				return position === -1;
+			}, this));
+		}
+
+		if (!this.settings.loop) {
+			// non loop boundries
+			if (this.op(coordinate, '>', coordinates[this.minimum()])) {
+				position = coordinate = this.minimum();
+			} else if (this.op(coordinate, '<', coordinates[this.maximum()])) {
+				position = coordinate = this.maximum();
+			}
+		}
+
+		return position;
+	};
+
+	/**
+  * Animates the stage.
+  * @todo #270
+  * @public
+  * @param {Number} coordinate - The coordinate in pixels.
+  */
+	Owl.prototype.animate = function (coordinate) {
+		var animate = this.speed() > 0;
+
+		this.is('animating') && this.onTransitionEnd();
+
+		if (animate) {
+			this.enter('animating');
+			this.trigger('translate');
+		}
+
+		if ($.support.transform3d && $.support.transition) {
+			this.$stage.css({
+				transform: 'translate3d(' + coordinate + 'px,0px,0px)',
+				transition: this.speed() / 1000 + 's'
+			});
+		} else if (animate) {
+			this.$stage.animate({
+				left: coordinate + 'px'
+			}, this.speed(), this.settings.fallbackEasing, $.proxy(this.onTransitionEnd, this));
+		} else {
+			this.$stage.css({
+				left: coordinate + 'px'
+			});
+		}
+	};
+
+	/**
+  * Checks whether the carousel is in a specific state or not.
+  * @param {String} state - The state to check.
+  * @returns {Boolean} - The flag which indicates if the carousel is busy.
+  */
+	Owl.prototype.is = function (state) {
+		return this._states.current[state] && this._states.current[state] > 0;
+	};
+
+	/**
+  * Sets the absolute position of the current item.
+  * @public
+  * @param {Number} [position] - The new absolute position or nothing to leave it unchanged.
+  * @returns {Number} - The absolute position of the current item.
+  */
+	Owl.prototype.current = function (position) {
+		if (position === undefined) {
+			return this._current;
+		}
+
+		if (this._items.length === 0) {
+			return undefined;
+		}
+
+		position = this.normalize(position);
+
+		if (this._current !== position) {
+			var event = this.trigger('change', { property: { name: 'position', value: position } });
+
+			if (event.data !== undefined) {
+				position = this.normalize(event.data);
+			}
+
+			this._current = position;
+
+			this.invalidate('position');
+
+			this.trigger('changed', { property: { name: 'position', value: this._current } });
+		}
+
+		return this._current;
+	};
+
+	/**
+  * Invalidates the given part of the update routine.
+  * @param {String} [part] - The part to invalidate.
+  * @returns {Array.<String>} - The invalidated parts.
+  */
+	Owl.prototype.invalidate = function (part) {
+		if ($.type(part) === 'string') {
+			this._invalidated[part] = true;
+			this.is('valid') && this.leave('valid');
+		}
+		return $.map(this._invalidated, function (v, i) {
+			return i;
+		});
+	};
+
+	/**
+  * Resets the absolute position of the current item.
+  * @public
+  * @param {Number} position - The absolute position of the new item.
+  */
+	Owl.prototype.reset = function (position) {
+		position = this.normalize(position);
+
+		if (position === undefined) {
+			return;
+		}
+
+		this._speed = 0;
+		this._current = position;
+
+		this.suppress(['translate', 'translated']);
+
+		this.animate(this.coordinates(position));
+
+		this.release(['translate', 'translated']);
+	};
+
+	/**
+  * Normalizes an absolute or a relative position of an item.
+  * @public
+  * @param {Number} position - The absolute or relative position to normalize.
+  * @param {Boolean} [relative=false] - Whether the given position is relative or not.
+  * @returns {Number} - The normalized position.
+  */
+	Owl.prototype.normalize = function (position, relative) {
+		var n = this._items.length,
+		    m = relative ? 0 : this._clones.length;
+
+		if (!this.isNumeric(position) || n < 1) {
+			position = undefined;
+		} else if (position < 0 || position >= n + m) {
+			position = ((position - m / 2) % n + n) % n + m / 2;
+		}
+
+		return position;
+	};
+
+	/**
+  * Converts an absolute position of an item into a relative one.
+  * @public
+  * @param {Number} position - The absolute position to convert.
+  * @returns {Number} - The converted position.
+  */
+	Owl.prototype.relative = function (position) {
+		position -= this._clones.length / 2;
+		return this.normalize(position, true);
+	};
+
+	/**
+  * Gets the maximum position for the current item.
+  * @public
+  * @param {Boolean} [relative=false] - Whether to return an absolute position or a relative position.
+  * @returns {Number}
+  */
+	Owl.prototype.maximum = function (relative) {
+		var settings = this.settings,
+		    maximum = this._coordinates.length,
+		    iterator,
+		    reciprocalItemsWidth,
+		    elementWidth;
+
+		if (settings.loop) {
+			maximum = this._clones.length / 2 + this._items.length - 1;
+		} else if (settings.autoWidth || settings.merge) {
+			iterator = this._items.length;
+			reciprocalItemsWidth = this._items[--iterator].width();
+			elementWidth = this.$element.width();
+			while (iterator--) {
+				reciprocalItemsWidth += this._items[iterator].width() + this.settings.margin;
+				if (reciprocalItemsWidth > elementWidth) {
+					break;
+				}
+			}
+			maximum = iterator + 1;
+		} else if (settings.center) {
+			maximum = this._items.length - 1;
+		} else {
+			maximum = this._items.length - settings.items;
+		}
+
+		if (relative) {
+			maximum -= this._clones.length / 2;
+		}
+
+		return Math.max(maximum, 0);
+	};
+
+	/**
+  * Gets the minimum position for the current item.
+  * @public
+  * @param {Boolean} [relative=false] - Whether to return an absolute position or a relative position.
+  * @returns {Number}
+  */
+	Owl.prototype.minimum = function (relative) {
+		return relative ? 0 : this._clones.length / 2;
+	};
+
+	/**
+  * Gets an item at the specified relative position.
+  * @public
+  * @param {Number} [position] - The relative position of the item.
+  * @return {jQuery|Array.<jQuery>} - The item at the given position or all items if no position was given.
+  */
+	Owl.prototype.items = function (position) {
+		if (position === undefined) {
+			return this._items.slice();
+		}
+
+		position = this.normalize(position, true);
+		return this._items[position];
+	};
+
+	/**
+  * Gets an item at the specified relative position.
+  * @public
+  * @param {Number} [position] - The relative position of the item.
+  * @return {jQuery|Array.<jQuery>} - The item at the given position or all items if no position was given.
+  */
+	Owl.prototype.mergers = function (position) {
+		if (position === undefined) {
+			return this._mergers.slice();
+		}
+
+		position = this.normalize(position, true);
+		return this._mergers[position];
+	};
+
+	/**
+  * Gets the absolute positions of clones for an item.
+  * @public
+  * @param {Number} [position] - The relative position of the item.
+  * @returns {Array.<Number>} - The absolute positions of clones for the item or all if no position was given.
+  */
+	Owl.prototype.clones = function (position) {
+		var odd = this._clones.length / 2,
+		    even = odd + this._items.length,
+		    map = function (index) {
+			return index % 2 === 0 ? even + index / 2 : odd - (index + 1) / 2;
+		};
+
+		if (position === undefined) {
+			return $.map(this._clones, function (v, i) {
+				return map(i);
+			});
+		}
+
+		return $.map(this._clones, function (v, i) {
+			return v === position ? map(i) : null;
+		});
+	};
+
+	/**
+  * Sets the current animation speed.
+  * @public
+  * @param {Number} [speed] - The animation speed in milliseconds or nothing to leave it unchanged.
+  * @returns {Number} - The current animation speed in milliseconds.
+  */
+	Owl.prototype.speed = function (speed) {
+		if (speed !== undefined) {
+			this._speed = speed;
+		}
+
+		return this._speed;
+	};
+
+	/**
+  * Gets the coordinate of an item.
+  * @todo The name of this method is missleanding.
+  * @public
+  * @param {Number} position - The absolute position of the item within `minimum()` and `maximum()`.
+  * @returns {Number|Array.<Number>} - The coordinate of the item in pixel or all coordinates.
+  */
+	Owl.prototype.coordinates = function (position) {
+		var multiplier = 1,
+		    newPosition = position - 1,
+		    coordinate;
+
+		if (position === undefined) {
+			return $.map(this._coordinates, $.proxy(function (coordinate, index) {
+				return this.coordinates(index);
+			}, this));
+		}
+
+		if (this.settings.center) {
+			if (this.settings.rtl) {
+				multiplier = -1;
+				newPosition = position + 1;
+			}
+
+			coordinate = this._coordinates[position];
+			coordinate += (this.width() - coordinate + (this._coordinates[newPosition] || 0)) / 2 * multiplier;
+		} else {
+			coordinate = this._coordinates[newPosition] || 0;
+		}
+
+		coordinate = Math.ceil(coordinate);
+
+		return coordinate;
+	};
+
+	/**
+  * Calculates the speed for a translation.
+  * @protected
+  * @param {Number} from - The absolute position of the start item.
+  * @param {Number} to - The absolute position of the target item.
+  * @param {Number} [factor=undefined] - The time factor in milliseconds.
+  * @returns {Number} - The time in milliseconds for the translation.
+  */
+	Owl.prototype.duration = function (from, to, factor) {
+		if (factor === 0) {
+			return 0;
+		}
+
+		return Math.min(Math.max(Math.abs(to - from), 1), 6) * Math.abs(factor || this.settings.smartSpeed);
+	};
+
+	/**
+  * Slides to the specified item.
+  * @public
+  * @param {Number} position - The position of the item.
+  * @param {Number} [speed] - The time in milliseconds for the transition.
+  */
+	Owl.prototype.to = function (position, speed) {
+		var current = this.current(),
+		    revert = null,
+		    distance = position - this.relative(current),
+		    direction = (distance > 0) - (distance < 0),
+		    items = this._items.length,
+		    minimum = this.minimum(),
+		    maximum = this.maximum();
+
+		if (this.settings.loop) {
+			if (!this.settings.rewind && Math.abs(distance) > items / 2) {
+				distance += direction * -1 * items;
+			}
+
+			position = current + distance;
+			revert = ((position - minimum) % items + items) % items + minimum;
+
+			if (revert !== position && revert - distance <= maximum && revert - distance > 0) {
+				current = revert - distance;
+				position = revert;
+				this.reset(current);
+			}
+		} else if (this.settings.rewind) {
+			maximum += 1;
+			position = (position % maximum + maximum) % maximum;
+		} else {
+			position = Math.max(minimum, Math.min(maximum, position));
+		}
+
+		this.speed(this.duration(current, position, speed));
+		this.current(position);
+
+		if (this.$element.is(':visible')) {
+			this.update();
+		}
+	};
+
+	/**
+  * Slides to the next item.
+  * @public
+  * @param {Number} [speed] - The time in milliseconds for the transition.
+  */
+	Owl.prototype.next = function (speed) {
+		speed = speed || false;
+		this.to(this.relative(this.current()) + 1, speed);
+	};
+
+	/**
+  * Slides to the previous item.
+  * @public
+  * @param {Number} [speed] - The time in milliseconds for the transition.
+  */
+	Owl.prototype.prev = function (speed) {
+		speed = speed || false;
+		this.to(this.relative(this.current()) - 1, speed);
+	};
+
+	/**
+  * Handles the end of an animation.
+  * @protected
+  * @param {Event} event - The event arguments.
+  */
+	Owl.prototype.onTransitionEnd = function (event) {
+
+		// if css2 animation then event object is undefined
+		if (event !== undefined) {
+			event.stopPropagation();
+
+			// Catch only owl-stage transitionEnd event
+			if ((event.target || event.srcElement || event.originalTarget) !== this.$stage.get(0)) {
+				return false;
+			}
+		}
+
+		this.leave('animating');
+		this.trigger('translated');
+	};
+
+	/**
+  * Gets viewport width.
+  * @protected
+  * @return {Number} - The width in pixel.
+  */
+	Owl.prototype.viewport = function () {
+		var width;
+		if (this.options.responsiveBaseElement !== window) {
+			width = $(this.options.responsiveBaseElement).width();
+		} else if (window.innerWidth) {
+			width = window.innerWidth;
+		} else if (document.documentElement && document.documentElement.clientWidth) {
+			width = document.documentElement.clientWidth;
+		} else {
+			throw 'Can not detect viewport width.';
+		}
+		return width;
+	};
+
+	/**
+  * Replaces the current content.
+  * @public
+  * @param {HTMLElement|jQuery|String} content - The new content.
+  */
+	Owl.prototype.replace = function (content) {
+		this.$stage.empty();
+		this._items = [];
+
+		if (content) {
+			content = content instanceof jQuery ? content : $(content);
+		}
+
+		if (this.settings.nestedItemSelector) {
+			content = content.find('.' + this.settings.nestedItemSelector);
+		}
+
+		content.filter(function () {
+			return this.nodeType === 1;
+		}).each($.proxy(function (index, item) {
+			item = this.prepare(item);
+			this.$stage.append(item);
+			this._items.push(item);
+			this._mergers.push(item.find('[data-merge]').addBack('[data-merge]').attr('data-merge') * 1 || 1);
+		}, this));
+
+		this.reset(this.isNumeric(this.settings.startPosition) ? this.settings.startPosition : 0);
+
+		this.invalidate('items');
+	};
+
+	/**
+  * Adds an item.
+  * @todo Use `item` instead of `content` for the event arguments.
+  * @public
+  * @param {HTMLElement|jQuery|String} content - The item content to add.
+  * @param {Number} [position] - The relative position at which to insert the item otherwise the item will be added to the end.
+  */
+	Owl.prototype.add = function (content, position) {
+		var current = this.relative(this._current);
+
+		position = position === undefined ? this._items.length : this.normalize(position, true);
+		content = content instanceof jQuery ? content : $(content);
+
+		this.trigger('add', { content: content, position: position });
+
+		content = this.prepare(content);
+
+		if (this._items.length === 0 || position === this._items.length) {
+			this._items.length === 0 && this.$stage.append(content);
+			this._items.length !== 0 && this._items[position - 1].after(content);
+			this._items.push(content);
+			this._mergers.push(content.find('[data-merge]').addBack('[data-merge]').attr('data-merge') * 1 || 1);
+		} else {
+			this._items[position].before(content);
+			this._items.splice(position, 0, content);
+			this._mergers.splice(position, 0, content.find('[data-merge]').addBack('[data-merge]').attr('data-merge') * 1 || 1);
+		}
+
+		this._items[current] && this.reset(this._items[current].index());
+
+		this.invalidate('items');
+
+		this.trigger('added', { content: content, position: position });
+	};
+
+	/**
+  * Removes an item by its position.
+  * @todo Use `item` instead of `content` for the event arguments.
+  * @public
+  * @param {Number} position - The relative position of the item to remove.
+  */
+	Owl.prototype.remove = function (position) {
+		position = this.normalize(position, true);
+
+		if (position === undefined) {
+			return;
+		}
+
+		this.trigger('remove', { content: this._items[position], position: position });
+
+		this._items[position].remove();
+		this._items.splice(position, 1);
+		this._mergers.splice(position, 1);
+
+		this.invalidate('items');
+
+		this.trigger('removed', { content: null, position: position });
+	};
+
+	/**
+  * Preloads images with auto width.
+  * @todo Replace by a more generic approach
+  * @protected
+  */
+	Owl.prototype.preloadAutoWidthImages = function (images) {
+		images.each($.proxy(function (i, element) {
+			this.enter('pre-loading');
+			element = $(element);
+			$(new Image()).one('load', $.proxy(function (e) {
+				element.attr('src', e.target.src);
+				element.css('opacity', 1);
+				this.leave('pre-loading');
+				!this.is('pre-loading') && !this.is('initializing') && this.refresh();
+			}, this)).attr('src', element.attr('src') || element.attr('data-src') || element.attr('data-src-retina'));
+		}, this));
+	};
+
+	/**
+  * Destroys the carousel.
+  * @public
+  */
+	Owl.prototype.destroy = function () {
+
+		this.$element.off('.owl.core');
+		this.$stage.off('.owl.core');
+		$(document).off('.owl.core');
+
+		if (this.settings.responsive !== false) {
+			window.clearTimeout(this.resizeTimer);
+			this.off(window, 'resize', this._handlers.onThrottledResize);
+		}
+
+		for (var i in this._plugins) {
+			this._plugins[i].destroy();
+		}
+
+		this.$stage.children('.cloned').remove();
+
+		this.$stage.unwrap();
+		this.$stage.children().contents().unwrap();
+		this.$stage.children().unwrap();
+
+		this.$element.removeClass(this.options.refreshClass).removeClass(this.options.loadingClass).removeClass(this.options.loadedClass).removeClass(this.options.rtlClass).removeClass(this.options.dragClass).removeClass(this.options.grabClass).attr('class', this.$element.attr('class').replace(new RegExp(this.options.responsiveClass + '-\\S+\\s', 'g'), '')).removeData('owl.carousel');
+	};
+
+	/**
+  * Operators to calculate right-to-left and left-to-right.
+  * @protected
+  * @param {Number} [a] - The left side operand.
+  * @param {String} [o] - The operator.
+  * @param {Number} [b] - The right side operand.
+  */
+	Owl.prototype.op = function (a, o, b) {
+		var rtl = this.settings.rtl;
+		switch (o) {
+			case '<':
+				return rtl ? a > b : a < b;
+			case '>':
+				return rtl ? a < b : a > b;
+			case '>=':
+				return rtl ? a <= b : a >= b;
+			case '<=':
+				return rtl ? a >= b : a <= b;
+			default:
+				break;
+		}
+	};
+
+	/**
+  * Attaches to an internal event.
+  * @protected
+  * @param {HTMLElement} element - The event source.
+  * @param {String} event - The event name.
+  * @param {Function} listener - The event handler to attach.
+  * @param {Boolean} capture - Wether the event should be handled at the capturing phase or not.
+  */
+	Owl.prototype.on = function (element, event, listener, capture) {
+		if (element.addEventListener) {
+			element.addEventListener(event, listener, capture);
+		} else if (element.attachEvent) {
+			element.attachEvent('on' + event, listener);
+		}
+	};
+
+	/**
+  * Detaches from an internal event.
+  * @protected
+  * @param {HTMLElement} element - The event source.
+  * @param {String} event - The event name.
+  * @param {Function} listener - The attached event handler to detach.
+  * @param {Boolean} capture - Wether the attached event handler was registered as a capturing listener or not.
+  */
+	Owl.prototype.off = function (element, event, listener, capture) {
+		if (element.removeEventListener) {
+			element.removeEventListener(event, listener, capture);
+		} else if (element.detachEvent) {
+			element.detachEvent('on' + event, listener);
+		}
+	};
+
+	/**
+  * Triggers a public event.
+  * @todo Remove `status`, `relatedTarget` should be used instead.
+  * @protected
+  * @param {String} name - The event name.
+  * @param {*} [data=null] - The event data.
+  * @param {String} [namespace=carousel] - The event namespace.
+  * @param {String} [state] - The state which is associated with the event.
+  * @param {Boolean} [enter=false] - Indicates if the call enters the specified state or not.
+  * @returns {Event} - The event arguments.
+  */
+	Owl.prototype.trigger = function (name, data, namespace, state, enter) {
+		var status = {
+			item: { count: this._items.length, index: this.current() }
+		},
+		    handler = $.camelCase($.grep(['on', name, namespace], function (v) {
+			return v;
+		}).join('-').toLowerCase()),
+		    event = $.Event([name, 'owl', namespace || 'carousel'].join('.').toLowerCase(), $.extend({ relatedTarget: this }, status, data));
+
+		if (!this._supress[name]) {
+			$.each(this._plugins, function (name, plugin) {
+				if (plugin.onTrigger) {
+					plugin.onTrigger(event);
+				}
+			});
+
+			this.register({ type: Owl.Type.Event, name: name });
+			this.$element.trigger(event);
+
+			if (this.settings && typeof this.settings[handler] === 'function') {
+				this.settings[handler].call(this, event);
+			}
+		}
+
+		return event;
+	};
+
+	/**
+  * Enters a state.
+  * @param name - The state name.
+  */
+	Owl.prototype.enter = function (name) {
+		$.each([name].concat(this._states.tags[name] || []), $.proxy(function (i, name) {
+			if (this._states.current[name] === undefined) {
+				this._states.current[name] = 0;
+			}
+
+			this._states.current[name]++;
+		}, this));
+	};
+
+	/**
+  * Leaves a state.
+  * @param name - The state name.
+  */
+	Owl.prototype.leave = function (name) {
+		$.each([name].concat(this._states.tags[name] || []), $.proxy(function (i, name) {
+			this._states.current[name]--;
+		}, this));
+	};
+
+	/**
+  * Registers an event or state.
+  * @public
+  * @param {Object} object - The event or state to register.
+  */
+	Owl.prototype.register = function (object) {
+		if (object.type === Owl.Type.Event) {
+			if (!$.event.special[object.name]) {
+				$.event.special[object.name] = {};
+			}
+
+			if (!$.event.special[object.name].owl) {
+				var _default = $.event.special[object.name]._default;
+				$.event.special[object.name]._default = function (e) {
+					if (_default && _default.apply && (!e.namespace || e.namespace.indexOf('owl') === -1)) {
+						return _default.apply(this, arguments);
+					}
+					return e.namespace && e.namespace.indexOf('owl') > -1;
+				};
+				$.event.special[object.name].owl = true;
+			}
+		} else if (object.type === Owl.Type.State) {
+			if (!this._states.tags[object.name]) {
+				this._states.tags[object.name] = object.tags;
+			} else {
+				this._states.tags[object.name] = this._states.tags[object.name].concat(object.tags);
+			}
+
+			this._states.tags[object.name] = $.grep(this._states.tags[object.name], $.proxy(function (tag, i) {
+				return $.inArray(tag, this._states.tags[object.name]) === i;
+			}, this));
+		}
+	};
+
+	/**
+  * Suppresses events.
+  * @protected
+  * @param {Array.<String>} events - The events to suppress.
+  */
+	Owl.prototype.suppress = function (events) {
+		$.each(events, $.proxy(function (index, event) {
+			this._supress[event] = true;
+		}, this));
+	};
+
+	/**
+  * Releases suppressed events.
+  * @protected
+  * @param {Array.<String>} events - The events to release.
+  */
+	Owl.prototype.release = function (events) {
+		$.each(events, $.proxy(function (index, event) {
+			delete this._supress[event];
+		}, this));
+	};
+
+	/**
+  * Gets unified pointer coordinates from event.
+  * @todo #261
+  * @protected
+  * @param {Event} - The `mousedown` or `touchstart` event.
+  * @returns {Object} - Contains `x` and `y` coordinates of current pointer position.
+  */
+	Owl.prototype.pointer = function (event) {
+		var result = { x: null, y: null };
+
+		event = event.originalEvent || event || window.event;
+
+		event = event.touches && event.touches.length ? event.touches[0] : event.changedTouches && event.changedTouches.length ? event.changedTouches[0] : event;
+
+		if (event.pageX) {
+			result.x = event.pageX;
+			result.y = event.pageY;
+		} else {
+			result.x = event.clientX;
+			result.y = event.clientY;
+		}
+
+		return result;
+	};
+
+	/**
+  * Determines if the input is a Number or something that can be coerced to a Number
+  * @protected
+  * @param {Number|String|Object|Array|Boolean|RegExp|Function|Symbol} - The input to be tested
+  * @returns {Boolean} - An indication if the input is a Number or can be coerced to a Number
+  */
+	Owl.prototype.isNumeric = function (number) {
+		return !isNaN(parseFloat(number));
+	};
+
+	/**
+  * Gets the difference of two vectors.
+  * @todo #261
+  * @protected
+  * @param {Object} - The first vector.
+  * @param {Object} - The second vector.
+  * @returns {Object} - The difference.
+  */
+	Owl.prototype.difference = function (first, second) {
+		return {
+			x: first.x - second.x,
+			y: first.y - second.y
+		};
+	};
+
+	/**
+  * The jQuery Plugin for the Owl Carousel
+  * @todo Navigation plugin `next` and `prev`
+  * @public
+  */
+	$.fn.owlCarousel = function (option) {
+		var args = Array.prototype.slice.call(arguments, 1);
+
+		return this.each(function () {
+			var $this = $(this),
+			    data = $this.data('owl.carousel');
+
+			if (!data) {
+				data = new Owl(this, typeof option == 'object' && option);
+				$this.data('owl.carousel', data);
+
+				$.each(['next', 'prev', 'to', 'destroy', 'refresh', 'replace', 'add', 'remove'], function (i, event) {
+					data.register({ type: Owl.Type.Event, name: event });
+					data.$element.on(event + '.owl.carousel.core', $.proxy(function (e) {
+						if (e.namespace && e.relatedTarget !== this) {
+							this.suppress([event]);
+							data[event].apply(this, [].slice.call(arguments, 1));
+							this.release([event]);
+						}
+					}, data));
+				});
+			}
+
+			if (typeof option == 'string' && option.charAt(0) !== '_') {
+				data[option].apply(data, args);
+			}
+		});
+	};
+
+	/**
+  * The constructor for the jQuery Plugin
+  * @public
+  */
+	$.fn.owlCarousel.Constructor = Owl;
+})(window.Zepto || window.jQuery, window, document);
+
+/**
+ * AutoRefresh Plugin
+ * @version 2.1.0
+ * @author Artus Kolanowski
+ * @author David Deutsch
+ * @license The MIT License (MIT)
+ */
+;(function ($, window, document, undefined) {
+
+	/**
+  * Creates the auto refresh plugin.
+  * @class The Auto Refresh Plugin
+  * @param {Owl} carousel - The Owl Carousel
+  */
+	var AutoRefresh = function (carousel) {
+		/**
+   * Reference to the core.
+   * @protected
+   * @type {Owl}
+   */
+		this._core = carousel;
+
+		/**
+   * Refresh interval.
+   * @protected
+   * @type {number}
+   */
+		this._interval = null;
+
+		/**
+   * Whether the element is currently visible or not.
+   * @protected
+   * @type {Boolean}
+   */
+		this._visible = null;
+
+		/**
+   * All event handlers.
+   * @protected
+   * @type {Object}
+   */
+		this._handlers = {
+			'initialized.owl.carousel': $.proxy(function (e) {
+				if (e.namespace && this._core.settings.autoRefresh) {
+					this.watch();
+				}
+			}, this)
+		};
+
+		// set default options
+		this._core.options = $.extend({}, AutoRefresh.Defaults, this._core.options);
+
+		// register event handlers
+		this._core.$element.on(this._handlers);
+	};
+
+	/**
+  * Default options.
+  * @public
+  */
+	AutoRefresh.Defaults = {
+		autoRefresh: true,
+		autoRefreshInterval: 500
+	};
+
+	/**
+  * Watches the element.
+  */
+	AutoRefresh.prototype.watch = function () {
+		if (this._interval) {
+			return;
+		}
+
+		this._visible = this._core.$element.is(':visible');
+		this._interval = window.setInterval($.proxy(this.refresh, this), this._core.settings.autoRefreshInterval);
+	};
+
+	/**
+  * Refreshes the element.
+  */
+	AutoRefresh.prototype.refresh = function () {
+		if (this._core.$element.is(':visible') === this._visible) {
+			return;
+		}
+
+		this._visible = !this._visible;
+
+		this._core.$element.toggleClass('owl-hidden', !this._visible);
+
+		this._visible && this._core.invalidate('width') && this._core.refresh();
+	};
+
+	/**
+  * Destroys the plugin.
+  */
+	AutoRefresh.prototype.destroy = function () {
+		var handler, property;
+
+		window.clearInterval(this._interval);
+
+		for (handler in this._handlers) {
+			this._core.$element.off(handler, this._handlers[handler]);
+		}
+		for (property in Object.getOwnPropertyNames(this)) {
+			typeof this[property] != 'function' && (this[property] = null);
+		}
+	};
+
+	$.fn.owlCarousel.Constructor.Plugins.AutoRefresh = AutoRefresh;
+})(window.Zepto || window.jQuery, window, document);
+
+/**
+ * Lazy Plugin
+ * @version 2.1.0
+ * @author Bartosz Wojciechowski
+ * @author David Deutsch
+ * @license The MIT License (MIT)
+ */
+;(function ($, window, document, undefined) {
+
+	/**
+  * Creates the lazy plugin.
+  * @class The Lazy Plugin
+  * @param {Owl} carousel - The Owl Carousel
+  */
+	var Lazy = function (carousel) {
+
+		/**
+   * Reference to the core.
+   * @protected
+   * @type {Owl}
+   */
+		this._core = carousel;
+
+		/**
+   * Already loaded items.
+   * @protected
+   * @type {Array.<jQuery>}
+   */
+		this._loaded = [];
+
+		/**
+   * Event handlers.
+   * @protected
+   * @type {Object}
+   */
+		this._handlers = {
+			'initialized.owl.carousel change.owl.carousel resized.owl.carousel': $.proxy(function (e) {
+				if (!e.namespace) {
+					return;
+				}
+
+				if (!this._core.settings || !this._core.settings.lazyLoad) {
+					return;
+				}
+
+				if (e.property && e.property.name == 'position' || e.type == 'initialized') {
+					var settings = this._core.settings,
+					    n = settings.center && Math.ceil(settings.items / 2) || settings.items,
+					    i = settings.center && n * -1 || 0,
+					    position = (e.property && e.property.value !== undefined ? e.property.value : this._core.current()) + i,
+					    clones = this._core.clones().length,
+					    load = $.proxy(function (i, v) {
+						this.load(v);
+					}, this);
+
+					while (i++ < n) {
+						this.load(clones / 2 + this._core.relative(position));
+						clones && $.each(this._core.clones(this._core.relative(position)), load);
+						position++;
+					}
+				}
+			}, this)
+		};
+
+		// set the default options
+		this._core.options = $.extend({}, Lazy.Defaults, this._core.options);
+
+		// register event handler
+		this._core.$element.on(this._handlers);
+	};
+
+	/**
+  * Default options.
+  * @public
+  */
+	Lazy.Defaults = {
+		lazyLoad: false
+	};
+
+	/**
+  * Loads all resources of an item at the specified position.
+  * @param {Number} position - The absolute position of the item.
+  * @protected
+  */
+	Lazy.prototype.load = function (position) {
+		var $item = this._core.$stage.children().eq(position),
+		    $elements = $item && $item.find('.owl-lazy');
+
+		if (!$elements || $.inArray($item.get(0), this._loaded) > -1) {
+			return;
+		}
+
+		$elements.each($.proxy(function (index, element) {
+			var $element = $(element),
+			    image,
+			    url = window.devicePixelRatio > 1 && $element.attr('data-src-retina') || $element.attr('data-src');
+
+			this._core.trigger('load', { element: $element, url: url }, 'lazy');
+
+			if ($element.is('img')) {
+				$element.one('load.owl.lazy', $.proxy(function () {
+					$element.css('opacity', 1);
+					this._core.trigger('loaded', { element: $element, url: url }, 'lazy');
+				}, this)).attr('src', url);
+			} else {
+				image = new Image();
+				image.onload = $.proxy(function () {
+					$element.css({
+						'background-image': 'url(' + url + ')',
+						'opacity': '1'
+					});
+					this._core.trigger('loaded', { element: $element, url: url }, 'lazy');
+				}, this);
+				image.src = url;
+			}
+		}, this));
+
+		this._loaded.push($item.get(0));
+	};
+
+	/**
+  * Destroys the plugin.
+  * @public
+  */
+	Lazy.prototype.destroy = function () {
+		var handler, property;
+
+		for (handler in this.handlers) {
+			this._core.$element.off(handler, this.handlers[handler]);
+		}
+		for (property in Object.getOwnPropertyNames(this)) {
+			typeof this[property] != 'function' && (this[property] = null);
+		}
+	};
+
+	$.fn.owlCarousel.Constructor.Plugins.Lazy = Lazy;
+})(window.Zepto || window.jQuery, window, document);
+
+/**
+ * AutoHeight Plugin
+ * @version 2.1.0
+ * @author Bartosz Wojciechowski
+ * @author David Deutsch
+ * @license The MIT License (MIT)
+ */
+;(function ($, window, document, undefined) {
+
+	/**
+  * Creates the auto height plugin.
+  * @class The Auto Height Plugin
+  * @param {Owl} carousel - The Owl Carousel
+  */
+	var AutoHeight = function (carousel) {
+		/**
+   * Reference to the core.
+   * @protected
+   * @type {Owl}
+   */
+		this._core = carousel;
+
+		/**
+   * All event handlers.
+   * @protected
+   * @type {Object}
+   */
+		this._handlers = {
+			'initialized.owl.carousel refreshed.owl.carousel': $.proxy(function (e) {
+				if (e.namespace && this._core.settings.autoHeight) {
+					this.update();
+				}
+			}, this),
+			'changed.owl.carousel': $.proxy(function (e) {
+				if (e.namespace && this._core.settings.autoHeight && e.property.name == 'position') {
+					this.update();
+				}
+			}, this),
+			'loaded.owl.lazy': $.proxy(function (e) {
+				if (e.namespace && this._core.settings.autoHeight && e.element.closest('.' + this._core.settings.itemClass).index() === this._core.current()) {
+					this.update();
+				}
+			}, this)
+		};
+
+		// set default options
+		this._core.options = $.extend({}, AutoHeight.Defaults, this._core.options);
+
+		// register event handlers
+		this._core.$element.on(this._handlers);
+	};
+
+	/**
+  * Default options.
+  * @public
+  */
+	AutoHeight.Defaults = {
+		autoHeight: false,
+		autoHeightClass: 'owl-height'
+	};
+
+	/**
+  * Updates the view.
+  */
+	AutoHeight.prototype.update = function () {
+		var start = this._core._current,
+		    end = start + this._core.settings.items,
+		    visible = this._core.$stage.children().toArray().slice(start, end),
+		    heights = [],
+		    maxheight = 0;
+
+		$.each(visible, function (index, item) {
+			heights.push($(item).height());
+		});
+
+		maxheight = Math.max.apply(null, heights);
+
+		this._core.$stage.parent().height(maxheight).addClass(this._core.settings.autoHeightClass);
+	};
+
+	AutoHeight.prototype.destroy = function () {
+		var handler, property;
+
+		for (handler in this._handlers) {
+			this._core.$element.off(handler, this._handlers[handler]);
+		}
+		for (property in Object.getOwnPropertyNames(this)) {
+			typeof this[property] != 'function' && (this[property] = null);
+		}
+	};
+
+	$.fn.owlCarousel.Constructor.Plugins.AutoHeight = AutoHeight;
+})(window.Zepto || window.jQuery, window, document);
+
+/**
+ * Video Plugin
+ * @version 2.1.0
+ * @author Bartosz Wojciechowski
+ * @author David Deutsch
+ * @license The MIT License (MIT)
+ */
+;(function ($, window, document, undefined) {
+
+	/**
+  * Creates the video plugin.
+  * @class The Video Plugin
+  * @param {Owl} carousel - The Owl Carousel
+  */
+	var Video = function (carousel) {
+		/**
+   * Reference to the core.
+   * @protected
+   * @type {Owl}
+   */
+		this._core = carousel;
+
+		/**
+   * Cache all video URLs.
+   * @protected
+   * @type {Object}
+   */
+		this._videos = {};
+
+		/**
+   * Current playing item.
+   * @protected
+   * @type {jQuery}
+   */
+		this._playing = null;
+
+		/**
+   * All event handlers.
+   * @todo The cloned content removale is too late
+   * @protected
+   * @type {Object}
+   */
+		this._handlers = {
+			'initialized.owl.carousel': $.proxy(function (e) {
+				if (e.namespace) {
+					this._core.register({ type: 'state', name: 'playing', tags: ['interacting'] });
+				}
+			}, this),
+			'resize.owl.carousel': $.proxy(function (e) {
+				if (e.namespace && this._core.settings.video && this.isInFullScreen()) {
+					e.preventDefault();
+				}
+			}, this),
+			'refreshed.owl.carousel': $.proxy(function (e) {
+				if (e.namespace && this._core.is('resizing')) {
+					this._core.$stage.find('.cloned .owl-video-frame').remove();
+				}
+			}, this),
+			'changed.owl.carousel': $.proxy(function (e) {
+				if (e.namespace && e.property.name === 'position' && this._playing) {
+					this.stop();
+				}
+			}, this),
+			'prepared.owl.carousel': $.proxy(function (e) {
+				if (!e.namespace) {
+					return;
+				}
+
+				var $element = $(e.content).find('.owl-video');
+
+				if ($element.length) {
+					$element.css('display', 'none');
+					this.fetch($element, $(e.content));
+				}
+			}, this)
+		};
+
+		// set default options
+		this._core.options = $.extend({}, Video.Defaults, this._core.options);
+
+		// register event handlers
+		this._core.$element.on(this._handlers);
+
+		this._core.$element.on('click.owl.video', '.owl-video-play-icon', $.proxy(function (e) {
+			this.play(e);
+		}, this));
+	};
+
+	/**
+  * Default options.
+  * @public
+  */
+	Video.Defaults = {
+		video: false,
+		videoHeight: false,
+		videoWidth: false
+	};
+
+	/**
+  * Gets the video ID and the type (YouTube/Vimeo/vzaar only).
+  * @protected
+  * @param {jQuery} target - The target containing the video data.
+  * @param {jQuery} item - The item containing the video.
+  */
+	Video.prototype.fetch = function (target, item) {
+		var type = function () {
+			if (target.attr('data-vimeo-id')) {
+				return 'vimeo';
+			} else if (target.attr('data-vzaar-id')) {
+				return 'vzaar';
+			} else {
+				return 'youtube';
+			}
+		}(),
+		    id = target.attr('data-vimeo-id') || target.attr('data-youtube-id') || target.attr('data-vzaar-id'),
+		    width = target.attr('data-width') || this._core.settings.videoWidth,
+		    height = target.attr('data-height') || this._core.settings.videoHeight,
+		    url = target.attr('href');
+
+		if (url) {
+
+			/*
+   		Parses the id's out of the following urls (and probably more):
+   		https://www.youtube.com/watch?v=:id
+   		https://youtu.be/:id
+   		https://vimeo.com/:id
+   		https://vimeo.com/channels/:channel/:id
+   		https://vimeo.com/groups/:group/videos/:id
+   		https://app.vzaar.com/videos/:id
+   			Visual example: https://regexper.com/#(http%3A%7Chttps%3A%7C)%5C%2F%5C%2F(player.%7Cwww.%7Capp.)%3F(vimeo%5C.com%7Cyoutu(be%5C.com%7C%5C.be%7Cbe%5C.googleapis%5C.com)%7Cvzaar%5C.com)%5C%2F(video%5C%2F%7Cvideos%5C%2F%7Cembed%5C%2F%7Cchannels%5C%2F.%2B%5C%2F%7Cgroups%5C%2F.%2B%5C%2F%7Cwatch%5C%3Fv%3D%7Cv%5C%2F)%3F(%5BA-Za-z0-9._%25-%5D*)(%5C%26%5CS%2B)%3F
+   */
+
+			id = url.match(/(http:|https:|)\/\/(player.|www.|app.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com)|vzaar\.com)\/(video\/|videos\/|embed\/|channels\/.+\/|groups\/.+\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(\&\S+)?/);
+
+			if (id[3].indexOf('youtu') > -1) {
+				type = 'youtube';
+			} else if (id[3].indexOf('vimeo') > -1) {
+				type = 'vimeo';
+			} else if (id[3].indexOf('vzaar') > -1) {
+				type = 'vzaar';
+			} else {
+				throw new Error('Video URL not supported.');
+			}
+			id = id[6];
+		} else {
+			throw new Error('Missing video URL.');
+		}
+
+		this._videos[url] = {
+			type: type,
+			id: id,
+			width: width,
+			height: height
+		};
+
+		item.attr('data-video', url);
+
+		this.thumbnail(target, this._videos[url]);
+	};
+
+	/**
+  * Creates video thumbnail.
+  * @protected
+  * @param {jQuery} target - The target containing the video data.
+  * @param {Object} info - The video info object.
+  * @see `fetch`
+  */
+	Video.prototype.thumbnail = function (target, video) {
+		var tnLink,
+		    icon,
+		    path,
+		    dimensions = video.width && video.height ? 'style="width:' + video.width + 'px;height:' + video.height + 'px;"' : '',
+		    customTn = target.find('img'),
+		    srcType = 'src',
+		    lazyClass = '',
+		    settings = this._core.settings,
+		    create = function (path) {
+			icon = '<div class="owl-video-play-icon"></div>';
+
+			if (settings.lazyLoad) {
+				tnLink = '<div class="owl-video-tn ' + lazyClass + '" ' + srcType + '="' + path + '"></div>';
+			} else {
+				tnLink = '<div class="owl-video-tn" style="opacity:1;background-image:url(' + path + ')"></div>';
+			}
+			target.after(tnLink);
+			target.after(icon);
+		};
+
+		// wrap video content into owl-video-wrapper div
+		target.wrap('<div class="owl-video-wrapper"' + dimensions + '></div>');
+
+		if (this._core.settings.lazyLoad) {
+			srcType = 'data-src';
+			lazyClass = 'owl-lazy';
+		}
+
+		// custom thumbnail
+		if (customTn.length) {
+			create(customTn.attr(srcType));
+			customTn.remove();
+			return false;
+		}
+
+		if (video.type === 'youtube') {
+			path = "//img.youtube.com/vi/" + video.id + "/hqdefault.jpg";
+			create(path);
+		} else if (video.type === 'vimeo') {
+			$.ajax({
+				type: 'GET',
+				url: '//vimeo.com/api/v2/video/' + video.id + '.json',
+				jsonp: 'callback',
+				dataType: 'jsonp',
+				success: function (data) {
+					path = data[0].thumbnail_large;
+					create(path);
+				}
+			});
+		} else if (video.type === 'vzaar') {
+			$.ajax({
+				type: 'GET',
+				url: '//vzaar.com/api/videos/' + video.id + '.json',
+				jsonp: 'callback',
+				dataType: 'jsonp',
+				success: function (data) {
+					path = data.framegrab_url;
+					create(path);
+				}
+			});
+		}
+	};
+
+	/**
+  * Stops the current video.
+  * @public
+  */
+	Video.prototype.stop = function () {
+		this._core.trigger('stop', null, 'video');
+		this._playing.find('.owl-video-frame').remove();
+		this._playing.removeClass('owl-video-playing');
+		this._playing = null;
+		this._core.leave('playing');
+		this._core.trigger('stopped', null, 'video');
+	};
+
+	/**
+  * Starts the current video.
+  * @public
+  * @param {Event} event - The event arguments.
+  */
+	Video.prototype.play = function (event) {
+		var target = $(event.target),
+		    item = target.closest('.' + this._core.settings.itemClass),
+		    video = this._videos[item.attr('data-video')],
+		    width = video.width || '100%',
+		    height = video.height || this._core.$stage.height(),
+		    html;
+
+		if (this._playing) {
+			return;
+		}
+
+		this._core.enter('playing');
+		this._core.trigger('play', null, 'video');
+
+		item = this._core.items(this._core.relative(item.index()));
+
+		this._core.reset(item.index());
+
+		if (video.type === 'youtube') {
+			html = '<iframe width="' + width + '" height="' + height + '" src="//www.youtube.com/embed/' + video.id + '?autoplay=1&v=' + video.id + '" frameborder="0" allowfullscreen></iframe>';
+		} else if (video.type === 'vimeo') {
+			html = '<iframe src="//player.vimeo.com/video/' + video.id + '?autoplay=1" width="' + width + '" height="' + height + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+		} else if (video.type === 'vzaar') {
+			html = '<iframe frameborder="0"' + 'height="' + height + '"' + 'width="' + width + '" allowfullscreen mozallowfullscreen webkitAllowFullScreen ' + 'src="//view.vzaar.com/' + video.id + '/player?autoplay=true"></iframe>';
+		}
+
+		$('<div class="owl-video-frame">' + html + '</div>').insertAfter(item.find('.owl-video'));
+
+		this._playing = item.addClass('owl-video-playing');
+	};
+
+	/**
+  * Checks whether an video is currently in full screen mode or not.
+  * @todo Bad style because looks like a readonly method but changes members.
+  * @protected
+  * @returns {Boolean}
+  */
+	Video.prototype.isInFullScreen = function () {
+		var element = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
+
+		return element && $(element).parent().hasClass('owl-video-frame');
+	};
+
+	/**
+  * Destroys the plugin.
+  */
+	Video.prototype.destroy = function () {
+		var handler, property;
+
+		this._core.$element.off('click.owl.video');
+
+		for (handler in this._handlers) {
+			this._core.$element.off(handler, this._handlers[handler]);
+		}
+		for (property in Object.getOwnPropertyNames(this)) {
+			typeof this[property] != 'function' && (this[property] = null);
+		}
+	};
+
+	$.fn.owlCarousel.Constructor.Plugins.Video = Video;
+})(window.Zepto || window.jQuery, window, document);
+
+/**
+ * Animate Plugin
+ * @version 2.1.0
+ * @author Bartosz Wojciechowski
+ * @author David Deutsch
+ * @license The MIT License (MIT)
+ */
+;(function ($, window, document, undefined) {
+
+	/**
+  * Creates the animate plugin.
+  * @class The Navigation Plugin
+  * @param {Owl} scope - The Owl Carousel
+  */
+	var Animate = function (scope) {
+		this.core = scope;
+		this.core.options = $.extend({}, Animate.Defaults, this.core.options);
+		this.swapping = true;
+		this.previous = undefined;
+		this.next = undefined;
+
+		this.handlers = {
+			'change.owl.carousel': $.proxy(function (e) {
+				if (e.namespace && e.property.name == 'position') {
+					this.previous = this.core.current();
+					this.next = e.property.value;
+				}
+			}, this),
+			'drag.owl.carousel dragged.owl.carousel translated.owl.carousel': $.proxy(function (e) {
+				if (e.namespace) {
+					this.swapping = e.type == 'translated';
+				}
+			}, this),
+			'translate.owl.carousel': $.proxy(function (e) {
+				if (e.namespace && this.swapping && (this.core.options.animateOut || this.core.options.animateIn)) {
+					this.swap();
+				}
+			}, this)
+		};
+
+		this.core.$element.on(this.handlers);
+	};
+
+	/**
+  * Default options.
+  * @public
+  */
+	Animate.Defaults = {
+		animateOut: false,
+		animateIn: false
+	};
+
+	/**
+  * Toggles the animation classes whenever an translations starts.
+  * @protected
+  * @returns {Boolean|undefined}
+  */
+	Animate.prototype.swap = function () {
+
+		if (this.core.settings.items !== 1) {
+			return;
+		}
+
+		if (!$.support.animation || !$.support.transition) {
+			return;
+		}
+
+		this.core.speed(0);
+
+		var left,
+		    clear = $.proxy(this.clear, this),
+		    previous = this.core.$stage.children().eq(this.previous),
+		    next = this.core.$stage.children().eq(this.next),
+		    incoming = this.core.settings.animateIn,
+		    outgoing = this.core.settings.animateOut;
+
+		if (this.core.current() === this.previous) {
+			return;
+		}
+
+		if (outgoing) {
+			left = this.core.coordinates(this.previous) - this.core.coordinates(this.next);
+			previous.one($.support.animation.end, clear).css({ 'left': left + 'px' }).addClass('animated owl-animated-out').addClass(outgoing);
+		}
+
+		if (incoming) {
+			next.one($.support.animation.end, clear).addClass('animated owl-animated-in').addClass(incoming);
+		}
+	};
+
+	Animate.prototype.clear = function (e) {
+		$(e.target).css({ 'left': '' }).removeClass('animated owl-animated-out owl-animated-in').removeClass(this.core.settings.animateIn).removeClass(this.core.settings.animateOut);
+		this.core.onTransitionEnd();
+	};
+
+	/**
+  * Destroys the plugin.
+  * @public
+  */
+	Animate.prototype.destroy = function () {
+		var handler, property;
+
+		for (handler in this.handlers) {
+			this.core.$element.off(handler, this.handlers[handler]);
+		}
+		for (property in Object.getOwnPropertyNames(this)) {
+			typeof this[property] != 'function' && (this[property] = null);
+		}
+	};
+
+	$.fn.owlCarousel.Constructor.Plugins.Animate = Animate;
+})(window.Zepto || window.jQuery, window, document);
+
+/**
+ * Autoplay Plugin
+ * @version 2.1.0
+ * @author Bartosz Wojciechowski
+ * @author Artus Kolanowski
+ * @author David Deutsch
+ * @license The MIT License (MIT)
+ */
+;(function ($, window, document, undefined) {
+
+	/**
+  * Creates the autoplay plugin.
+  * @class The Autoplay Plugin
+  * @param {Owl} scope - The Owl Carousel
+  */
+	var Autoplay = function (carousel) {
+		/**
+   * Reference to the core.
+   * @protected
+   * @type {Owl}
+   */
+		this._core = carousel;
+
+		/**
+   * The autoplay timeout.
+   * @type {Timeout}
+   */
+		this._timeout = null;
+
+		/**
+   * Indicates whenever the autoplay is paused.
+   * @type {Boolean}
+   */
+		this._paused = false;
+
+		/**
+   * All event handlers.
+   * @protected
+   * @type {Object}
+   */
+		this._handlers = {
+			'changed.owl.carousel': $.proxy(function (e) {
+				if (e.namespace && e.property.name === 'settings') {
+					if (this._core.settings.autoplay) {
+						this.play();
+					} else {
+						this.stop();
+					}
+				} else if (e.namespace && e.property.name === 'position') {
+					//console.log('play?', e);
+					if (this._core.settings.autoplay) {
+						this._setAutoPlayInterval();
+					}
+				}
+			}, this),
+			'initialized.owl.carousel': $.proxy(function (e) {
+				if (e.namespace && this._core.settings.autoplay) {
+					this.play();
+				}
+			}, this),
+			'play.owl.autoplay': $.proxy(function (e, t, s) {
+				if (e.namespace) {
+					this.play(t, s);
+				}
+			}, this),
+			'stop.owl.autoplay': $.proxy(function (e) {
+				if (e.namespace) {
+					this.stop();
+				}
+			}, this),
+			'mouseover.owl.autoplay': $.proxy(function () {
+				if (this._core.settings.autoplayHoverPause && this._core.is('rotating')) {
+					this.pause();
+				}
+			}, this),
+			'mouseleave.owl.autoplay': $.proxy(function () {
+				if (this._core.settings.autoplayHoverPause && this._core.is('rotating')) {
+					this.play();
+				}
+			}, this),
+			'touchstart.owl.core': $.proxy(function () {
+				if (this._core.settings.autoplayHoverPause && this._core.is('rotating')) {
+					this.pause();
+				}
+			}, this),
+			'touchend.owl.core': $.proxy(function () {
+				if (this._core.settings.autoplayHoverPause) {
+					this.play();
+				}
+			}, this)
+		};
+
+		// register event handlers
+		this._core.$element.on(this._handlers);
+
+		// set default options
+		this._core.options = $.extend({}, Autoplay.Defaults, this._core.options);
+	};
+
+	/**
+  * Default options.
+  * @public
+  */
+	Autoplay.Defaults = {
+		autoplay: false,
+		autoplayTimeout: 5000,
+		autoplayHoverPause: false,
+		autoplaySpeed: false
+	};
+
+	/**
+  * Starts the autoplay.
+  * @public
+  * @param {Number} [timeout] - The interval before the next animation starts.
+  * @param {Number} [speed] - The animation speed for the animations.
+  */
+	Autoplay.prototype.play = function (timeout, speed) {
+		this._paused = false;
+
+		if (this._core.is('rotating')) {
+			return;
+		}
+
+		this._core.enter('rotating');
+
+		this._setAutoPlayInterval();
+	};
+
+	/**
+  * Gets a new timeout
+  * @private
+  * @param {Number} [timeout] - The interval before the next animation starts.
+  * @param {Number} [speed] - The animation speed for the animations.
+  * @return {Timeout}
+  */
+	Autoplay.prototype._getNextTimeout = function (timeout, speed) {
+		if (this._timeout) {
+			window.clearTimeout(this._timeout);
+		}
+		return window.setTimeout($.proxy(function () {
+			if (this._paused || this._core.is('busy') || this._core.is('interacting') || document.hidden) {
+				return;
+			}
+			this._core.next(speed || this._core.settings.autoplaySpeed);
+		}, this), timeout || this._core.settings.autoplayTimeout);
+	};
+
+	/**
+  * Sets autoplay in motion.
+  * @private
+  */
+	Autoplay.prototype._setAutoPlayInterval = function () {
+		this._timeout = this._getNextTimeout();
+	};
+
+	/**
+  * Stops the autoplay.
+  * @public
+  */
+	Autoplay.prototype.stop = function () {
+		if (!this._core.is('rotating')) {
+			return;
+		}
+
+		window.clearTimeout(this._timeout);
+		this._core.leave('rotating');
+	};
+
+	/**
+  * Stops the autoplay.
+  * @public
+  */
+	Autoplay.prototype.pause = function () {
+		if (!this._core.is('rotating')) {
+			return;
+		}
+
+		this._paused = true;
+	};
+
+	/**
+  * Destroys the plugin.
+  */
+	Autoplay.prototype.destroy = function () {
+		var handler, property;
+
+		this.stop();
+
+		for (handler in this._handlers) {
+			this._core.$element.off(handler, this._handlers[handler]);
+		}
+		for (property in Object.getOwnPropertyNames(this)) {
+			typeof this[property] != 'function' && (this[property] = null);
+		}
+	};
+
+	$.fn.owlCarousel.Constructor.Plugins.autoplay = Autoplay;
+})(window.Zepto || window.jQuery, window, document);
+
+/**
+ * Navigation Plugin
+ * @version 2.1.0
+ * @author Artus Kolanowski
+ * @author David Deutsch
+ * @license The MIT License (MIT)
+ */
+;(function ($, window, document, undefined) {
+	'use strict';
+
+	/**
+  * Creates the navigation plugin.
+  * @class The Navigation Plugin
+  * @param {Owl} carousel - The Owl Carousel.
+  */
+
+	var Navigation = function (carousel) {
+		/**
+   * Reference to the core.
+   * @protected
+   * @type {Owl}
+   */
+		this._core = carousel;
+
+		/**
+   * Indicates whether the plugin is initialized or not.
+   * @protected
+   * @type {Boolean}
+   */
+		this._initialized = false;
+
+		/**
+   * The current paging indexes.
+   * @protected
+   * @type {Array}
+   */
+		this._pages = [];
+
+		/**
+   * All DOM elements of the user interface.
+   * @protected
+   * @type {Object}
+   */
+		this._controls = {};
+
+		/**
+   * Markup for an indicator.
+   * @protected
+   * @type {Array.<String>}
+   */
+		this._templates = [];
+
+		/**
+   * The carousel element.
+   * @type {jQuery}
+   */
+		this.$element = this._core.$element;
+
+		/**
+   * Overridden methods of the carousel.
+   * @protected
+   * @type {Object}
+   */
+		this._overrides = {
+			next: this._core.next,
+			prev: this._core.prev,
+			to: this._core.to
+		};
+
+		/**
+   * All event handlers.
+   * @protected
+   * @type {Object}
+   */
+		this._handlers = {
+			'prepared.owl.carousel': $.proxy(function (e) {
+				if (e.namespace && this._core.settings.dotsData) {
+					this._templates.push('<div class="' + this._core.settings.dotClass + '">' + $(e.content).find('[data-dot]').addBack('[data-dot]').attr('data-dot') + '</div>');
+				}
+			}, this),
+			'added.owl.carousel': $.proxy(function (e) {
+				if (e.namespace && this._core.settings.dotsData) {
+					this._templates.splice(e.position, 0, this._templates.pop());
+				}
+			}, this),
+			'remove.owl.carousel': $.proxy(function (e) {
+				if (e.namespace && this._core.settings.dotsData) {
+					this._templates.splice(e.position, 1);
+				}
+			}, this),
+			'changed.owl.carousel': $.proxy(function (e) {
+				if (e.namespace && e.property.name == 'position') {
+					this.draw();
+				}
+			}, this),
+			'initialized.owl.carousel': $.proxy(function (e) {
+				if (e.namespace && !this._initialized) {
+					this._core.trigger('initialize', null, 'navigation');
+					this.initialize();
+					this.update();
+					this.draw();
+					this._initialized = true;
+					this._core.trigger('initialized', null, 'navigation');
+				}
+			}, this),
+			'refreshed.owl.carousel': $.proxy(function (e) {
+				if (e.namespace && this._initialized) {
+					this._core.trigger('refresh', null, 'navigation');
+					this.update();
+					this.draw();
+					this._core.trigger('refreshed', null, 'navigation');
+				}
+			}, this)
+		};
+
+		// set default options
+		this._core.options = $.extend({}, Navigation.Defaults, this._core.options);
+
+		// register event handlers
+		this.$element.on(this._handlers);
+	};
+
+	/**
+  * Default options.
+  * @public
+  * @todo Rename `slideBy` to `navBy`
+  */
+	Navigation.Defaults = {
+		nav: false,
+		navText: ['prev', 'next'],
+		navSpeed: false,
+		navElement: 'div',
+		navContainer: false,
+		navContainerClass: 'owl-nav',
+		navClass: ['owl-prev', 'owl-next'],
+		slideBy: 1,
+		dotClass: 'owl-dot',
+		dotsClass: 'owl-dots',
+		dots: true,
+		dotsEach: false,
+		dotsData: false,
+		dotsSpeed: false,
+		dotsContainer: false
+	};
+
+	/**
+  * Initializes the layout of the plugin and extends the carousel.
+  * @protected
+  */
+	Navigation.prototype.initialize = function () {
+		var override,
+		    settings = this._core.settings;
+
+		// create DOM structure for relative navigation
+		this._controls.$relative = (settings.navContainer ? $(settings.navContainer) : $('<div>').addClass(settings.navContainerClass).appendTo(this.$element)).addClass('disabled');
+
+		this._controls.$previous = $('<' + settings.navElement + '>').addClass(settings.navClass[0]).html(settings.navText[0]).prependTo(this._controls.$relative).on('click', $.proxy(function (e) {
+			this.prev(settings.navSpeed);
+		}, this));
+		this._controls.$next = $('<' + settings.navElement + '>').addClass(settings.navClass[1]).html(settings.navText[1]).appendTo(this._controls.$relative).on('click', $.proxy(function (e) {
+			this.next(settings.navSpeed);
+		}, this));
+
+		// create DOM structure for absolute navigation
+		if (!settings.dotsData) {
+			this._templates = [$('<div>').addClass(settings.dotClass).append($('<span>')).prop('outerHTML')];
+		}
+
+		this._controls.$absolute = (settings.dotsContainer ? $(settings.dotsContainer) : $('<div>').addClass(settings.dotsClass).appendTo(this.$element)).addClass('disabled');
+
+		this._controls.$absolute.on('click', 'div', $.proxy(function (e) {
+			var index = $(e.target).parent().is(this._controls.$absolute) ? $(e.target).index() : $(e.target).parent().index();
+
+			e.preventDefault();
+
+			this.to(index, settings.dotsSpeed);
+		}, this));
+
+		// override public methods of the carousel
+		for (override in this._overrides) {
+			this._core[override] = $.proxy(this[override], this);
+		}
+	};
+
+	/**
+  * Destroys the plugin.
+  * @protected
+  */
+	Navigation.prototype.destroy = function () {
+		var handler, control, property, override;
+
+		for (handler in this._handlers) {
+			this.$element.off(handler, this._handlers[handler]);
+		}
+		for (control in this._controls) {
+			this._controls[control].remove();
+		}
+		for (override in this.overides) {
+			this._core[override] = this._overrides[override];
+		}
+		for (property in Object.getOwnPropertyNames(this)) {
+			typeof this[property] != 'function' && (this[property] = null);
+		}
+	};
+
+	/**
+  * Updates the internal state.
+  * @protected
+  */
+	Navigation.prototype.update = function () {
+		var i,
+		    j,
+		    k,
+		    lower = this._core.clones().length / 2,
+		    upper = lower + this._core.items().length,
+		    maximum = this._core.maximum(true),
+		    settings = this._core.settings,
+		    size = settings.center || settings.autoWidth || settings.dotsData ? 1 : settings.dotsEach || settings.items;
+
+		if (settings.slideBy !== 'page') {
+			settings.slideBy = Math.min(settings.slideBy, settings.items);
+		}
+
+		if (settings.dots || settings.slideBy == 'page') {
+			this._pages = [];
+
+			for (i = lower, j = 0, k = 0; i < upper; i++) {
+				if (j >= size || j === 0) {
+					this._pages.push({
+						start: Math.min(maximum, i - lower),
+						end: i - lower + size - 1
+					});
+					if (Math.min(maximum, i - lower) === maximum) {
+						break;
+					}
+					j = 0, ++k;
+				}
+				j += this._core.mergers(this._core.relative(i));
+			}
+		}
+	};
+
+	/**
+  * Draws the user interface.
+  * @todo The option `dotsData` wont work.
+  * @protected
+  */
+	Navigation.prototype.draw = function () {
+		var difference,
+		    settings = this._core.settings,
+		    disabled = this._core.items().length <= settings.items,
+		    index = this._core.relative(this._core.current()),
+		    loop = settings.loop || settings.rewind;
+
+		this._controls.$relative.toggleClass('disabled', !settings.nav || disabled);
+
+		if (settings.nav) {
+			this._controls.$previous.toggleClass('disabled', !loop && index <= this._core.minimum(true));
+			this._controls.$next.toggleClass('disabled', !loop && index >= this._core.maximum(true));
+		}
+
+		this._controls.$absolute.toggleClass('disabled', !settings.dots || disabled);
+
+		if (settings.dots) {
+			difference = this._pages.length - this._controls.$absolute.children().length;
+
+			if (settings.dotsData && difference !== 0) {
+				this._controls.$absolute.html(this._templates.join(''));
+			} else if (difference > 0) {
+				this._controls.$absolute.append(new Array(difference + 1).join(this._templates[0]));
+			} else if (difference < 0) {
+				this._controls.$absolute.children().slice(difference).remove();
+			}
+
+			this._controls.$absolute.find('.active').removeClass('active');
+			this._controls.$absolute.children().eq($.inArray(this.current(), this._pages)).addClass('active');
+		}
+	};
+
+	/**
+  * Extends event data.
+  * @protected
+  * @param {Event} event - The event object which gets thrown.
+  */
+	Navigation.prototype.onTrigger = function (event) {
+		var settings = this._core.settings;
+
+		event.page = {
+			index: $.inArray(this.current(), this._pages),
+			count: this._pages.length,
+			size: settings && (settings.center || settings.autoWidth || settings.dotsData ? 1 : settings.dotsEach || settings.items)
+		};
+	};
+
+	/**
+  * Gets the current page position of the carousel.
+  * @protected
+  * @returns {Number}
+  */
+	Navigation.prototype.current = function () {
+		var current = this._core.relative(this._core.current());
+		return $.grep(this._pages, $.proxy(function (page, index) {
+			return page.start <= current && page.end >= current;
+		}, this)).pop();
+	};
+
+	/**
+  * Gets the current succesor/predecessor position.
+  * @protected
+  * @returns {Number}
+  */
+	Navigation.prototype.getPosition = function (successor) {
+		var position,
+		    length,
+		    settings = this._core.settings;
+
+		if (settings.slideBy == 'page') {
+			position = $.inArray(this.current(), this._pages);
+			length = this._pages.length;
+			successor ? ++position : --position;
+			position = this._pages[(position % length + length) % length].start;
+		} else {
+			position = this._core.relative(this._core.current());
+			length = this._core.items().length;
+			successor ? position += settings.slideBy : position -= settings.slideBy;
+		}
+
+		return position;
+	};
+
+	/**
+  * Slides to the next item or page.
+  * @public
+  * @param {Number} [speed=false] - The time in milliseconds for the transition.
+  */
+	Navigation.prototype.next = function (speed) {
+		$.proxy(this._overrides.to, this._core)(this.getPosition(true), speed);
+	};
+
+	/**
+  * Slides to the previous item or page.
+  * @public
+  * @param {Number} [speed=false] - The time in milliseconds for the transition.
+  */
+	Navigation.prototype.prev = function (speed) {
+		$.proxy(this._overrides.to, this._core)(this.getPosition(false), speed);
+	};
+
+	/**
+  * Slides to the specified item or page.
+  * @public
+  * @param {Number} position - The position of the item or page.
+  * @param {Number} [speed] - The time in milliseconds for the transition.
+  * @param {Boolean} [standard=false] - Whether to use the standard behaviour or not.
+  */
+	Navigation.prototype.to = function (position, speed, standard) {
+		var length;
+
+		if (!standard && this._pages.length) {
+			length = this._pages.length;
+			$.proxy(this._overrides.to, this._core)(this._pages[(position % length + length) % length].start, speed);
+		} else {
+			$.proxy(this._overrides.to, this._core)(position, speed);
+		}
+	};
+
+	$.fn.owlCarousel.Constructor.Plugins.Navigation = Navigation;
+})(window.Zepto || window.jQuery, window, document);
+
+/**
+ * Hash Plugin
+ * @version 2.1.0
+ * @author Artus Kolanowski
+ * @author David Deutsch
+ * @license The MIT License (MIT)
+ */
+;(function ($, window, document, undefined) {
+	'use strict';
+
+	/**
+  * Creates the hash plugin.
+  * @class The Hash Plugin
+  * @param {Owl} carousel - The Owl Carousel
+  */
+
+	var Hash = function (carousel) {
+		/**
+   * Reference to the core.
+   * @protected
+   * @type {Owl}
+   */
+		this._core = carousel;
+
+		/**
+   * Hash index for the items.
+   * @protected
+   * @type {Object}
+   */
+		this._hashes = {};
+
+		/**
+   * The carousel element.
+   * @type {jQuery}
+   */
+		this.$element = this._core.$element;
+
+		/**
+   * All event handlers.
+   * @protected
+   * @type {Object}
+   */
+		this._handlers = {
+			'initialized.owl.carousel': $.proxy(function (e) {
+				if (e.namespace && this._core.settings.startPosition === 'URLHash') {
+					$(window).trigger('hashchange.owl.navigation');
+				}
+			}, this),
+			'prepared.owl.carousel': $.proxy(function (e) {
+				if (e.namespace) {
+					var hash = $(e.content).find('[data-hash]').addBack('[data-hash]').attr('data-hash');
+
+					if (!hash) {
+						return;
+					}
+
+					this._hashes[hash] = e.content;
+				}
+			}, this),
+			'changed.owl.carousel': $.proxy(function (e) {
+				if (e.namespace && e.property.name === 'position') {
+					var current = this._core.items(this._core.relative(this._core.current())),
+					    hash = $.map(this._hashes, function (item, hash) {
+						return item === current ? hash : null;
+					}).join();
+
+					if (!hash || window.location.hash.slice(1) === hash) {
+						return;
+					}
+
+					window.location.hash = hash;
+				}
+			}, this)
+		};
+
+		// set default options
+		this._core.options = $.extend({}, Hash.Defaults, this._core.options);
+
+		// register the event handlers
+		this.$element.on(this._handlers);
+
+		// register event listener for hash navigation
+		$(window).on('hashchange.owl.navigation', $.proxy(function (e) {
+			var hash = window.location.hash.substring(1),
+			    items = this._core.$stage.children(),
+			    position = this._hashes[hash] && items.index(this._hashes[hash]);
+
+			if (position === undefined || position === this._core.current()) {
+				return;
+			}
+
+			this._core.to(this._core.relative(position), false, true);
+		}, this));
+	};
+
+	/**
+  * Default options.
+  * @public
+  */
+	Hash.Defaults = {
+		URLhashListener: false
+	};
+
+	/**
+  * Destroys the plugin.
+  * @public
+  */
+	Hash.prototype.destroy = function () {
+		var handler, property;
+
+		$(window).off('hashchange.owl.navigation');
+
+		for (handler in this._handlers) {
+			this._core.$element.off(handler, this._handlers[handler]);
+		}
+		for (property in Object.getOwnPropertyNames(this)) {
+			typeof this[property] != 'function' && (this[property] = null);
+		}
+	};
+
+	$.fn.owlCarousel.Constructor.Plugins.Hash = Hash;
+})(window.Zepto || window.jQuery, window, document);
+
+/**
+ * Support Plugin
+ *
+ * @version 2.1.0
+ * @author Vivid Planet Software GmbH
+ * @author Artus Kolanowski
+ * @author David Deutsch
+ * @license The MIT License (MIT)
+ */
+;(function ($, window, document, undefined) {
+
+	var style = $('<support>').get(0).style,
+	    prefixes = 'Webkit Moz O ms'.split(' '),
+	    events = {
+		transition: {
+			end: {
+				WebkitTransition: 'webkitTransitionEnd',
+				MozTransition: 'transitionend',
+				OTransition: 'oTransitionEnd',
+				transition: 'transitionend'
+			}
+		},
+		animation: {
+			end: {
+				WebkitAnimation: 'webkitAnimationEnd',
+				MozAnimation: 'animationend',
+				OAnimation: 'oAnimationEnd',
+				animation: 'animationend'
+			}
+		}
+	},
+	    tests = {
+		csstransforms: function () {
+			return !!test('transform');
+		},
+		csstransforms3d: function () {
+			return !!test('perspective');
+		},
+		csstransitions: function () {
+			return !!test('transition');
+		},
+		cssanimations: function () {
+			return !!test('animation');
+		}
+	};
+
+	function test(property, prefixed) {
+		var result = false,
+		    upper = property.charAt(0).toUpperCase() + property.slice(1);
+
+		$.each((property + ' ' + prefixes.join(upper + ' ') + upper).split(' '), function (i, property) {
+			if (style[property] !== undefined) {
+				result = prefixed ? property : true;
+				return false;
+			}
+		});
+
+		return result;
+	}
+
+	function prefixed(property) {
+		return test(property, true);
+	}
+
+	if (tests.csstransitions()) {
+		/* jshint -W053 */
+		$.support.transition = new String(prefixed('transition'));
+		$.support.transition.end = events.transition.end[$.support.transition];
+	}
+
+	if (tests.cssanimations()) {
+		/* jshint -W053 */
+		$.support.animation = new String(prefixed('animation'));
+		$.support.animation.end = events.animation.end[$.support.animation];
+	}
+
+	if (tests.csstransforms()) {
+		/* jshint -W053 */
+		$.support.transform = new String(prefixed('transform'));
+		$.support.transform3d = tests.csstransforms3d();
+	}
+})(window.Zepto || window.jQuery, window, document);
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! VelocityJS.org (1.5.0). (C) 2014 Julian Shapiro. MIT @license: en.wikipedia.org/wiki/MIT_License */
+
+/*************************
+ Velocity jQuery Shim
+ *************************/
+
+/*! VelocityJS.org jQuery Shim (1.0.1). (C) 2014 The jQuery Foundation. MIT @license: en.wikipedia.org/wiki/MIT_License. */
+
+/* This file contains the jQuery functions that Velocity relies on, thereby removing Velocity's dependency on a full copy of jQuery, and allowing it to work in any environment. */
+/* These shimmed functions are only used if jQuery isn't present. If both this shim and jQuery are loaded, Velocity defaults to jQuery proper. */
+/* Browser support: Using this shim instead of jQuery proper removes support for IE8. */
+
+(function (window) {
+	"use strict";
+	/***************
+  Setup
+  ***************/
+
+	/* If jQuery is already loaded, there's no point in loading this shim. */
+
+	if (window.jQuery) {
+		return;
+	}
+
+	/* jQuery base. */
+	var $ = function (selector, context) {
+		return new $.fn.init(selector, context);
+	};
+
+	/********************
+  Private Methods
+  ********************/
+
+	/* jQuery */
+	$.isWindow = function (obj) {
+		/* jshint eqeqeq: false */
+		return obj && obj === obj.window;
+	};
+
+	/* jQuery */
+	$.type = function (obj) {
+		if (!obj) {
+			return obj + "";
+		}
+
+		return typeof obj === "object" || typeof obj === "function" ? class2type[toString.call(obj)] || "object" : typeof obj;
+	};
+
+	/* jQuery */
+	$.isArray = Array.isArray || function (obj) {
+		return $.type(obj) === "array";
+	};
+
+	/* jQuery */
+	function isArraylike(obj) {
+		var length = obj.length,
+		    type = $.type(obj);
+
+		if (type === "function" || $.isWindow(obj)) {
+			return false;
+		}
+
+		if (obj.nodeType === 1 && length) {
+			return true;
+		}
+
+		return type === "array" || length === 0 || typeof length === "number" && length > 0 && length - 1 in obj;
+	}
+
+	/***************
+  $ Methods
+  ***************/
+
+	/* jQuery: Support removed for IE<9. */
+	$.isPlainObject = function (obj) {
+		var key;
+
+		if (!obj || $.type(obj) !== "object" || obj.nodeType || $.isWindow(obj)) {
+			return false;
+		}
+
+		try {
+			if (obj.constructor && !hasOwn.call(obj, "constructor") && !hasOwn.call(obj.constructor.prototype, "isPrototypeOf")) {
+				return false;
+			}
+		} catch (e) {
+			return false;
+		}
+
+		for (key in obj) {}
+
+		return key === undefined || hasOwn.call(obj, key);
+	};
+
+	/* jQuery */
+	$.each = function (obj, callback, args) {
+		var value,
+		    i = 0,
+		    length = obj.length,
+		    isArray = isArraylike(obj);
+
+		if (args) {
+			if (isArray) {
+				for (; i < length; i++) {
+					value = callback.apply(obj[i], args);
+
+					if (value === false) {
+						break;
+					}
+				}
+			} else {
+				for (i in obj) {
+					if (!obj.hasOwnProperty(i)) {
+						continue;
+					}
+					value = callback.apply(obj[i], args);
+
+					if (value === false) {
+						break;
+					}
+				}
+			}
+		} else {
+			if (isArray) {
+				for (; i < length; i++) {
+					value = callback.call(obj[i], i, obj[i]);
+
+					if (value === false) {
+						break;
+					}
+				}
+			} else {
+				for (i in obj) {
+					if (!obj.hasOwnProperty(i)) {
+						continue;
+					}
+					value = callback.call(obj[i], i, obj[i]);
+
+					if (value === false) {
+						break;
+					}
+				}
+			}
+		}
+
+		return obj;
+	};
+
+	/* Custom */
+	$.data = function (node, key, value) {
+		/* $.getData() */
+		if (value === undefined) {
+			var getId = node[$.expando],
+			    store = getId && cache[getId];
+
+			if (key === undefined) {
+				return store;
+			} else if (store) {
+				if (key in store) {
+					return store[key];
+				}
+			}
+			/* $.setData() */
+		} else if (key !== undefined) {
+			var setId = node[$.expando] || (node[$.expando] = ++$.uuid);
+
+			cache[setId] = cache[setId] || {};
+			cache[setId][key] = value;
+
+			return value;
+		}
+	};
+
+	/* Custom */
+	$.removeData = function (node, keys) {
+		var id = node[$.expando],
+		    store = id && cache[id];
+
+		if (store) {
+			// Cleanup the entire store if no keys are provided.
+			if (!keys) {
+				delete cache[id];
+			} else {
+				$.each(keys, function (_, key) {
+					delete store[key];
+				});
+			}
+		}
+	};
+
+	/* jQuery */
+	$.extend = function () {
+		var src,
+		    copyIsArray,
+		    copy,
+		    name,
+		    options,
+		    clone,
+		    target = arguments[0] || {},
+		    i = 1,
+		    length = arguments.length,
+		    deep = false;
+
+		if (typeof target === "boolean") {
+			deep = target;
+
+			target = arguments[i] || {};
+			i++;
+		}
+
+		if (typeof target !== "object" && $.type(target) !== "function") {
+			target = {};
+		}
+
+		if (i === length) {
+			target = this;
+			i--;
+		}
+
+		for (; i < length; i++) {
+			if (options = arguments[i]) {
+				for (name in options) {
+					if (!options.hasOwnProperty(name)) {
+						continue;
+					}
+					src = target[name];
+					copy = options[name];
+
+					if (target === copy) {
+						continue;
+					}
+
+					if (deep && copy && ($.isPlainObject(copy) || (copyIsArray = $.isArray(copy)))) {
+						if (copyIsArray) {
+							copyIsArray = false;
+							clone = src && $.isArray(src) ? src : [];
+						} else {
+							clone = src && $.isPlainObject(src) ? src : {};
+						}
+
+						target[name] = $.extend(deep, clone, copy);
+					} else if (copy !== undefined) {
+						target[name] = copy;
+					}
+				}
+			}
+		}
+
+		return target;
+	};
+
+	/* jQuery 1.4.3 */
+	$.queue = function (elem, type, data) {
+		function $makeArray(arr, results) {
+			var ret = results || [];
+
+			if (arr) {
+				if (isArraylike(Object(arr))) {
+					/* $.merge */
+					(function (first, second) {
+						var len = +second.length,
+						    j = 0,
+						    i = first.length;
+
+						while (j < len) {
+							first[i++] = second[j++];
+						}
+
+						if (len !== len) {
+							while (second[j] !== undefined) {
+								first[i++] = second[j++];
+							}
+						}
+
+						first.length = i;
+
+						return first;
+					})(ret, typeof arr === "string" ? [arr] : arr);
+				} else {
+					[].push.call(ret, arr);
+				}
+			}
+
+			return ret;
+		}
+
+		if (!elem) {
+			return;
+		}
+
+		type = (type || "fx") + "queue";
+
+		var q = $.data(elem, type);
+
+		if (!data) {
+			return q || [];
+		}
+
+		if (!q || $.isArray(data)) {
+			q = $.data(elem, type, $makeArray(data));
+		} else {
+			q.push(data);
+		}
+
+		return q;
+	};
+
+	/* jQuery 1.4.3 */
+	$.dequeue = function (elems, type) {
+		/* Custom: Embed element iteration. */
+		$.each(elems.nodeType ? [elems] : elems, function (i, elem) {
+			type = type || "fx";
+
+			var queue = $.queue(elem, type),
+			    fn = queue.shift();
+
+			if (fn === "inprogress") {
+				fn = queue.shift();
+			}
+
+			if (fn) {
+				if (type === "fx") {
+					queue.unshift("inprogress");
+				}
+
+				fn.call(elem, function () {
+					$.dequeue(elem, type);
+				});
+			}
+		});
+	};
+
+	/******************
+  $.fn Methods
+  ******************/
+
+	/* jQuery */
+	$.fn = $.prototype = {
+		init: function (selector) {
+			/* Just return the element wrapped inside an array; don't proceed with the actual jQuery node wrapping process. */
+			if (selector.nodeType) {
+				this[0] = selector;
+
+				return this;
+			} else {
+				throw new Error("Not a DOM node.");
+			}
+		},
+		offset: function () {
+			/* jQuery altered code: Dropped disconnected DOM node checking. */
+			var box = this[0].getBoundingClientRect ? this[0].getBoundingClientRect() : { top: 0, left: 0 };
+
+			return {
+				top: box.top + (window.pageYOffset || document.scrollTop || 0) - (document.clientTop || 0),
+				left: box.left + (window.pageXOffset || document.scrollLeft || 0) - (document.clientLeft || 0)
+			};
+		},
+		position: function () {
+			/* jQuery */
+			function offsetParentFn(elem) {
+				var offsetParent = elem.offsetParent;
+
+				while (offsetParent && offsetParent.nodeName.toLowerCase() !== "html" && offsetParent.style && offsetParent.style.position === "static") {
+					offsetParent = offsetParent.offsetParent;
+				}
+
+				return offsetParent || document;
+			}
+
+			/* Zepto */
+			var elem = this[0],
+			    offsetParent = offsetParentFn(elem),
+			    offset = this.offset(),
+			    parentOffset = /^(?:body|html)$/i.test(offsetParent.nodeName) ? { top: 0, left: 0 } : $(offsetParent).offset();
+
+			offset.top -= parseFloat(elem.style.marginTop) || 0;
+			offset.left -= parseFloat(elem.style.marginLeft) || 0;
+
+			if (offsetParent.style) {
+				parentOffset.top += parseFloat(offsetParent.style.borderTopWidth) || 0;
+				parentOffset.left += parseFloat(offsetParent.style.borderLeftWidth) || 0;
+			}
+
+			return {
+				top: offset.top - parentOffset.top,
+				left: offset.left - parentOffset.left
+			};
+		}
+	};
+
+	/**********************
+  Private Variables
+  **********************/
+
+	/* For $.data() */
+	var cache = {};
+	$.expando = "velocity" + new Date().getTime();
+	$.uuid = 0;
+
+	/* For $.queue() */
+	var class2type = {},
+	    hasOwn = class2type.hasOwnProperty,
+	    toString = class2type.toString;
+
+	var types = "Boolean Number String Function Array Date RegExp Object Error".split(" ");
+	for (var i = 0; i < types.length; i++) {
+		class2type["[object " + types[i] + "]"] = types[i].toLowerCase();
+	}
+
+	/* Makes $(node) possible, without having to call init. */
+	$.fn.init.prototype = $.fn;
+
+	/* Globalize Velocity onto the window, and assign its Utilities property. */
+	window.Velocity = { Utilities: $ };
+})(window);
+
+/******************
+ Velocity.js
+ ******************/
+
+(function (factory) {
+	"use strict";
+	/* CommonJS module. */
+
+	if (typeof module === "object" && typeof module.exports === "object") {
+		module.exports = factory();
+		/* AMD module. */
+	} else if (true) {
+		!(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+				__WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		/* Browser globals. */
+	} else {
+		factory();
+	}
+})(function () {
+	"use strict";
+
+	return function (global, window, document, undefined) {
+
+		/***************
+   Summary
+   ***************/
+
+		/*
+   - CSS: CSS stack that works independently from the rest of Velocity.
+   - animate(): Core animation method that iterates over the targeted elements and queues the incoming call onto each element individually.
+   - Pre-Queueing: Prepare the element for animation by instantiating its data cache and processing the call's options.
+   - Queueing: The logic that runs once the call has reached its point of execution in the element's $.queue() stack.
+   Most logic is placed here to avoid risking it becoming stale (if the element's properties have changed).
+   - Pushing: Consolidation of the tween data followed by its push onto the global in-progress calls container.
+   - tick(): The single requestAnimationFrame loop responsible for tweening all in-progress calls.
+   - completeCall(): Handles the cleanup process for each Velocity call.
+   */
+
+		/*********************
+   Helper Functions
+   *********************/
+
+		/* IE detection. Gist: https://gist.github.com/julianshapiro/9098609 */
+		var IE = function () {
+			if (document.documentMode) {
+				return document.documentMode;
+			} else {
+				for (var i = 7; i > 4; i--) {
+					var div = document.createElement("div");
+
+					div.innerHTML = "<!--[if IE " + i + "]><span></span><![endif]-->";
+
+					if (div.getElementsByTagName("span").length) {
+						div = null;
+
+						return i;
+					}
+				}
+			}
+
+			return undefined;
+		}();
+
+		/* rAF shim. Gist: https://gist.github.com/julianshapiro/9497513 */
+		var rAFShim = function () {
+			var timeLast = 0;
+
+			return window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
+				var timeCurrent = new Date().getTime(),
+				    timeDelta;
+
+				/* Dynamically set delay on a per-tick basis to match 60fps. */
+				/* Technique by Erik Moller. MIT license: https://gist.github.com/paulirish/1579671 */
+				timeDelta = Math.max(0, 16 - (timeCurrent - timeLast));
+				timeLast = timeCurrent + timeDelta;
+
+				return setTimeout(function () {
+					callback(timeCurrent + timeDelta);
+				}, timeDelta);
+			};
+		}();
+
+		var performance = function () {
+			var perf = window.performance || {};
+
+			if (typeof perf.now !== "function") {
+				var nowOffset = perf.timing && perf.timing.navigationStart ? perf.timing.navigationStart : new Date().getTime();
+
+				perf.now = function () {
+					return new Date().getTime() - nowOffset;
+				};
+			}
+			return perf;
+		}();
+
+		/* Array compacting. Copyright Lo-Dash. MIT License: https://github.com/lodash/lodash/blob/master/LICENSE.txt */
+		function compactSparseArray(array) {
+			var index = -1,
+			    length = array ? array.length : 0,
+			    result = [];
+
+			while (++index < length) {
+				var value = array[index];
+
+				if (value) {
+					result.push(value);
+				}
+			}
+
+			return result;
+		}
+
+		/**
+   * Shim for "fixing" IE's lack of support (IE < 9) for applying slice
+   * on host objects like NamedNodeMap, NodeList, and HTMLCollection
+   * (technically, since host objects have been implementation-dependent,
+   * at least before ES2015, IE hasn't needed to work this way).
+   * Also works on strings, fixes IE < 9 to allow an explicit undefined
+   * for the 2nd argument (as in Firefox), and prevents errors when
+   * called on other DOM objects.
+   */
+		var _slice = function () {
+			var slice = Array.prototype.slice;
+
+			try {
+				// Can't be used with DOM elements in IE < 9
+				slice.call(document.documentElement);
+				return slice;
+			} catch (e) {
+				// Fails in IE < 9
+
+				// This will work for genuine arrays, array-like objects, 
+				// NamedNodeMap (attributes, entities, notations),
+				// NodeList (e.g., getElementsByTagName), HTMLCollection (e.g., childNodes),
+				// and will not fail on other DOM objects (as do DOM elements in IE < 9)
+				return function (begin, end) {
+					var len = this.length;
+
+					if (typeof begin !== "number") {
+						begin = 0;
+					}
+					// IE < 9 gets unhappy with an undefined end argument
+					if (typeof end !== "number") {
+						end = len;
+					}
+					// For native Array objects, we use the native slice function
+					if (this.slice) {
+						return slice.call(this, begin, end);
+					}
+					// For array like object we handle it ourselves.
+					var i,
+					    cloned = [],
+
+					// Handle negative value for "begin"
+					start = begin >= 0 ? begin : Math.max(0, len + begin),
+
+					// Handle negative value for "end"
+					upTo = end < 0 ? len + end : Math.min(end, len),
+
+					// Actual expected size of the slice
+					size = upTo - start;
+
+					if (size > 0) {
+						cloned = new Array(size);
+						if (this.charAt) {
+							for (i = 0; i < size; i++) {
+								cloned[i] = this.charAt(start + i);
+							}
+						} else {
+							for (i = 0; i < size; i++) {
+								cloned[i] = this[start + i];
+							}
+						}
+					}
+					return cloned;
+				};
+			}
+		}();
+
+		/* .indexOf doesn't exist in IE<9 */
+		var _inArray = function () {
+			if (Array.prototype.includes) {
+				return function (arr, val) {
+					return arr.includes(val);
+				};
+			}
+			if (Array.prototype.indexOf) {
+				return function (arr, val) {
+					return arr.indexOf(val) >= 0;
+				};
+			}
+			return function (arr, val) {
+				for (var i = 0; i < arr.length; i++) {
+					if (arr[i] === val) {
+						return true;
+					}
+				}
+				return false;
+			};
+		};
+
+		function sanitizeElements(elements) {
+			/* Unwrap jQuery/Zepto objects. */
+			if (Type.isWrapped(elements)) {
+				elements = _slice.call(elements);
+				/* Wrap a single element in an array so that $.each() can iterate with the element instead of its node's children. */
+			} else if (Type.isNode(elements)) {
+				elements = [elements];
+			}
+
+			return elements;
+		}
+
+		var Type = {
+			isNumber: function (variable) {
+				return typeof variable === "number";
+			},
+			isString: function (variable) {
+				return typeof variable === "string";
+			},
+			isArray: Array.isArray || function (variable) {
+				return Object.prototype.toString.call(variable) === "[object Array]";
+			},
+			isFunction: function (variable) {
+				return Object.prototype.toString.call(variable) === "[object Function]";
+			},
+			isNode: function (variable) {
+				return variable && variable.nodeType;
+			},
+			/* Determine if variable is an array-like wrapped jQuery, Zepto or similar element, or even a NodeList etc. */
+			/* NOTE: HTMLFormElements also have a length. */
+			isWrapped: function (variable) {
+				return variable && variable !== window && Type.isNumber(variable.length) && !Type.isString(variable) && !Type.isFunction(variable) && !Type.isNode(variable) && (variable.length === 0 || Type.isNode(variable[0]));
+			},
+			isSVG: function (variable) {
+				return window.SVGElement && variable instanceof window.SVGElement;
+			},
+			isEmptyObject: function (variable) {
+				for (var name in variable) {
+					if (variable.hasOwnProperty(name)) {
+						return false;
+					}
+				}
+
+				return true;
+			}
+		};
+
+		/*****************
+   Dependencies
+   *****************/
+
+		var $,
+		    isJQuery = false;
+
+		if (global.fn && global.fn.jquery) {
+			$ = global;
+			isJQuery = true;
+		} else {
+			$ = window.Velocity.Utilities;
+		}
+
+		if (IE <= 8 && !isJQuery) {
+			throw new Error("Velocity: IE8 and below require jQuery to be loaded before Velocity.");
+		} else if (IE <= 7) {
+			/* Revert to jQuery's $.animate(), and lose Velocity's extra features. */
+			jQuery.fn.velocity = jQuery.fn.animate;
+
+			/* Now that $.fn.velocity is aliased, abort this Velocity declaration. */
+			return;
+		}
+
+		/*****************
+   Constants
+   *****************/
+
+		var DURATION_DEFAULT = 400,
+		    EASING_DEFAULT = "swing";
+
+		/*************
+   State
+   *************/
+
+		var Velocity = {
+			/* Container for page-wide Velocity state data. */
+			State: {
+				/* Detect mobile devices to determine if mobileHA should be turned on. */
+				isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+				/* The mobileHA option's behavior changes on older Android devices (Gingerbread, versions 2.3.3-2.3.7). */
+				isAndroid: /Android/i.test(navigator.userAgent),
+				isGingerbread: /Android 2\.3\.[3-7]/i.test(navigator.userAgent),
+				isChrome: window.chrome,
+				isFirefox: /Firefox/i.test(navigator.userAgent),
+				/* Create a cached element for re-use when checking for CSS property prefixes. */
+				prefixElement: document.createElement("div"),
+				/* Cache every prefix match to avoid repeating lookups. */
+				prefixMatches: {},
+				/* Cache the anchor used for animating window scrolling. */
+				scrollAnchor: null,
+				/* Cache the browser-specific property names associated with the scroll anchor. */
+				scrollPropertyLeft: null,
+				scrollPropertyTop: null,
+				/* Keep track of whether our RAF tick is running. */
+				isTicking: false,
+				/* Container for every in-progress call to Velocity. */
+				calls: [],
+				delayedElements: {
+					count: 0
+				}
+			},
+			/* Velocity's custom CSS stack. Made global for unit testing. */
+			CSS: {/* Defined below. */},
+			/* A shim of the jQuery utility functions used by Velocity -- provided by Velocity's optional jQuery shim. */
+			Utilities: $,
+			/* Container for the user's custom animation redirects that are referenced by name in place of the properties map argument. */
+			Redirects: {/* Manually registered by the user. */},
+			Easings: {/* Defined below. */},
+			/* Attempt to use ES6 Promises by default. Users can override this with a third-party promises library. */
+			Promise: window.Promise,
+			/* Velocity option defaults, which can be overriden by the user. */
+			defaults: {
+				queue: "",
+				duration: DURATION_DEFAULT,
+				easing: EASING_DEFAULT,
+				begin: undefined,
+				complete: undefined,
+				progress: undefined,
+				display: undefined,
+				visibility: undefined,
+				loop: false,
+				delay: false,
+				mobileHA: true,
+				/* Advanced: Set to false to prevent property values from being cached between consecutive Velocity-initiated chain calls. */
+				_cacheValues: true,
+				/* Advanced: Set to false if the promise should always resolve on empty element lists. */
+				promiseRejectEmpty: true
+			},
+			/* A design goal of Velocity is to cache data wherever possible in order to avoid DOM requerying. Accordingly, each element has a data cache. */
+			init: function (element) {
+				$.data(element, "velocity", {
+					/* Store whether this is an SVG element, since its properties are retrieved and updated differently than standard HTML elements. */
+					isSVG: Type.isSVG(element),
+					/* Keep track of whether the element is currently being animated by Velocity.
+      This is used to ensure that property values are not transferred between non-consecutive (stale) calls. */
+					isAnimating: false,
+					/* A reference to the element's live computedStyle object. Learn more here: https://developer.mozilla.org/en/docs/Web/API/window.getComputedStyle */
+					computedStyle: null,
+					/* Tween data is cached for each animation on the element so that data can be passed across calls --
+      in particular, end values are used as subsequent start values in consecutive Velocity calls. */
+					tweensContainer: null,
+					/* The full root property values of each CSS hook being animated on this element are cached so that:
+      1) Concurrently-animating hooks sharing the same root can have their root values' merged into one while tweening.
+      2) Post-hook-injection root values can be transferred over to consecutively chained Velocity calls as starting root values. */
+					rootPropertyValueCache: {},
+					/* A cache for transform updates, which must be manually flushed via CSS.flushTransformCache(). */
+					transformCache: {}
+				});
+			},
+			/* A parallel to jQuery's $.css(), used for getting/setting Velocity's hooked CSS properties. */
+			hook: null, /* Defined below. */
+			/* Velocity-wide animation time remapping for testing purposes. */
+			mock: false,
+			version: { major: 1, minor: 5, patch: 0 },
+			/* Set to 1 or 2 (most verbose) to output debug info to console. */
+			debug: false,
+			/* Use rAF high resolution timestamp when available */
+			timestamp: true,
+			/* Pause all animations */
+			pauseAll: function (queueName) {
+				var currentTime = new Date().getTime();
+
+				$.each(Velocity.State.calls, function (i, activeCall) {
+
+					if (activeCall) {
+
+						/* If we have a queueName and this call is not on that queue, skip */
+						if (queueName !== undefined && (activeCall[2].queue !== queueName || activeCall[2].queue === false)) {
+							return true;
+						}
+
+						/* Set call to paused */
+						activeCall[5] = {
+							resume: false
+						};
+					}
+				});
+
+				/* Pause timers on any currently delayed calls */
+				$.each(Velocity.State.delayedElements, function (k, element) {
+					if (!element) {
+						return;
+					}
+					pauseDelayOnElement(element, currentTime);
+				});
+			},
+			/* Resume all animations */
+			resumeAll: function (queueName) {
+				var currentTime = new Date().getTime();
+
+				$.each(Velocity.State.calls, function (i, activeCall) {
+
+					if (activeCall) {
+
+						/* If we have a queueName and this call is not on that queue, skip */
+						if (queueName !== undefined && (activeCall[2].queue !== queueName || activeCall[2].queue === false)) {
+							return true;
+						}
+
+						/* Set call to resumed if it was paused */
+						if (activeCall[5]) {
+							activeCall[5].resume = true;
+						}
+					}
+				});
+				/* Resume timers on any currently delayed calls */
+				$.each(Velocity.State.delayedElements, function (k, element) {
+					if (!element) {
+						return;
+					}
+					resumeDelayOnElement(element, currentTime);
+				});
+			}
+		};
+
+		/* Retrieve the appropriate scroll anchor and property name for the browser: https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollY */
+		if (window.pageYOffset !== undefined) {
+			Velocity.State.scrollAnchor = window;
+			Velocity.State.scrollPropertyLeft = "pageXOffset";
+			Velocity.State.scrollPropertyTop = "pageYOffset";
+		} else {
+			Velocity.State.scrollAnchor = document.documentElement || document.body.parentNode || document.body;
+			Velocity.State.scrollPropertyLeft = "scrollLeft";
+			Velocity.State.scrollPropertyTop = "scrollTop";
+		}
+
+		/* Shorthand alias for jQuery's $.data() utility. */
+		function Data(element) {
+			/* Hardcode a reference to the plugin name. */
+			var response = $.data(element, "velocity");
+
+			/* jQuery <=1.4.2 returns null instead of undefined when no match is found. We normalize this behavior. */
+			return response === null ? undefined : response;
+		}
+
+		/**************
+   Delay Timer
+   **************/
+
+		function pauseDelayOnElement(element, currentTime) {
+			/* Check for any delay timers, and pause the set timeouts (while preserving time data)
+    to be resumed when the "resume" command is issued */
+			var data = Data(element);
+			if (data && data.delayTimer && !data.delayPaused) {
+				data.delayRemaining = data.delay - currentTime + data.delayBegin;
+				data.delayPaused = true;
+				clearTimeout(data.delayTimer.setTimeout);
+			}
+		}
+
+		function resumeDelayOnElement(element, currentTime) {
+			/* Check for any paused timers and resume */
+			var data = Data(element);
+			if (data && data.delayTimer && data.delayPaused) {
+				/* If the element was mid-delay, re initiate the timeout with the remaining delay */
+				data.delayPaused = false;
+				data.delayTimer.setTimeout = setTimeout(data.delayTimer.next, data.delayRemaining);
+			}
+		}
+
+		/**************
+   Easing
+   **************/
+
+		/* Step easing generator. */
+		function generateStep(steps) {
+			return function (p) {
+				return Math.round(p * steps) * (1 / steps);
+			};
+		}
+
+		/* Bezier curve function generator. Copyright Gaetan Renaudeau. MIT License: http://en.wikipedia.org/wiki/MIT_License */
+		function generateBezier(mX1, mY1, mX2, mY2) {
+			var NEWTON_ITERATIONS = 4,
+			    NEWTON_MIN_SLOPE = 0.001,
+			    SUBDIVISION_PRECISION = 0.0000001,
+			    SUBDIVISION_MAX_ITERATIONS = 10,
+			    kSplineTableSize = 11,
+			    kSampleStepSize = 1.0 / (kSplineTableSize - 1.0),
+			    float32ArraySupported = "Float32Array" in window;
+
+			/* Must contain four arguments. */
+			if (arguments.length !== 4) {
+				return false;
+			}
+
+			/* Arguments must be numbers. */
+			for (var i = 0; i < 4; ++i) {
+				if (typeof arguments[i] !== "number" || isNaN(arguments[i]) || !isFinite(arguments[i])) {
+					return false;
+				}
+			}
+
+			/* X values must be in the [0, 1] range. */
+			mX1 = Math.min(mX1, 1);
+			mX2 = Math.min(mX2, 1);
+			mX1 = Math.max(mX1, 0);
+			mX2 = Math.max(mX2, 0);
+
+			var mSampleValues = float32ArraySupported ? new Float32Array(kSplineTableSize) : new Array(kSplineTableSize);
+
+			function A(aA1, aA2) {
+				return 1.0 - 3.0 * aA2 + 3.0 * aA1;
+			}
+			function B(aA1, aA2) {
+				return 3.0 * aA2 - 6.0 * aA1;
+			}
+			function C(aA1) {
+				return 3.0 * aA1;
+			}
+
+			function calcBezier(aT, aA1, aA2) {
+				return ((A(aA1, aA2) * aT + B(aA1, aA2)) * aT + C(aA1)) * aT;
+			}
+
+			function getSlope(aT, aA1, aA2) {
+				return 3.0 * A(aA1, aA2) * aT * aT + 2.0 * B(aA1, aA2) * aT + C(aA1);
+			}
+
+			function newtonRaphsonIterate(aX, aGuessT) {
+				for (var i = 0; i < NEWTON_ITERATIONS; ++i) {
+					var currentSlope = getSlope(aGuessT, mX1, mX2);
+
+					if (currentSlope === 0.0) {
+						return aGuessT;
+					}
+
+					var currentX = calcBezier(aGuessT, mX1, mX2) - aX;
+					aGuessT -= currentX / currentSlope;
+				}
+
+				return aGuessT;
+			}
+
+			function calcSampleValues() {
+				for (var i = 0; i < kSplineTableSize; ++i) {
+					mSampleValues[i] = calcBezier(i * kSampleStepSize, mX1, mX2);
+				}
+			}
+
+			function binarySubdivide(aX, aA, aB) {
+				var currentX,
+				    currentT,
+				    i = 0;
+
+				do {
+					currentT = aA + (aB - aA) / 2.0;
+					currentX = calcBezier(currentT, mX1, mX2) - aX;
+					if (currentX > 0.0) {
+						aB = currentT;
+					} else {
+						aA = currentT;
+					}
+				} while (Math.abs(currentX) > SUBDIVISION_PRECISION && ++i < SUBDIVISION_MAX_ITERATIONS);
+
+				return currentT;
+			}
+
+			function getTForX(aX) {
+				var intervalStart = 0.0,
+				    currentSample = 1,
+				    lastSample = kSplineTableSize - 1;
+
+				for (; currentSample !== lastSample && mSampleValues[currentSample] <= aX; ++currentSample) {
+					intervalStart += kSampleStepSize;
+				}
+
+				--currentSample;
+
+				var dist = (aX - mSampleValues[currentSample]) / (mSampleValues[currentSample + 1] - mSampleValues[currentSample]),
+				    guessForT = intervalStart + dist * kSampleStepSize,
+				    initialSlope = getSlope(guessForT, mX1, mX2);
+
+				if (initialSlope >= NEWTON_MIN_SLOPE) {
+					return newtonRaphsonIterate(aX, guessForT);
+				} else if (initialSlope === 0.0) {
+					return guessForT;
+				} else {
+					return binarySubdivide(aX, intervalStart, intervalStart + kSampleStepSize);
+				}
+			}
+
+			var _precomputed = false;
+
+			function precompute() {
+				_precomputed = true;
+				if (mX1 !== mY1 || mX2 !== mY2) {
+					calcSampleValues();
+				}
+			}
+
+			var f = function (aX) {
+				if (!_precomputed) {
+					precompute();
+				}
+				if (mX1 === mY1 && mX2 === mY2) {
+					return aX;
+				}
+				if (aX === 0) {
+					return 0;
+				}
+				if (aX === 1) {
+					return 1;
+				}
+
+				return calcBezier(getTForX(aX), mY1, mY2);
+			};
+
+			f.getControlPoints = function () {
+				return [{ x: mX1, y: mY1 }, { x: mX2, y: mY2 }];
+			};
+
+			var str = "generateBezier(" + [mX1, mY1, mX2, mY2] + ")";
+			f.toString = function () {
+				return str;
+			};
+
+			return f;
+		}
+
+		/* Runge-Kutta spring physics function generator. Adapted from Framer.js, copyright Koen Bok. MIT License: http://en.wikipedia.org/wiki/MIT_License */
+		/* Given a tension, friction, and duration, a simulation at 60FPS will first run without a defined duration in order to calculate the full path. A second pass
+   then adjusts the time delta -- using the relation between actual time and duration -- to calculate the path for the duration-constrained animation. */
+		var generateSpringRK4 = function () {
+			function springAccelerationForState(state) {
+				return -state.tension * state.x - state.friction * state.v;
+			}
+
+			function springEvaluateStateWithDerivative(initialState, dt, derivative) {
+				var state = {
+					x: initialState.x + derivative.dx * dt,
+					v: initialState.v + derivative.dv * dt,
+					tension: initialState.tension,
+					friction: initialState.friction
+				};
+
+				return { dx: state.v, dv: springAccelerationForState(state) };
+			}
+
+			function springIntegrateState(state, dt) {
+				var a = {
+					dx: state.v,
+					dv: springAccelerationForState(state)
+				},
+				    b = springEvaluateStateWithDerivative(state, dt * 0.5, a),
+				    c = springEvaluateStateWithDerivative(state, dt * 0.5, b),
+				    d = springEvaluateStateWithDerivative(state, dt, c),
+				    dxdt = 1.0 / 6.0 * (a.dx + 2.0 * (b.dx + c.dx) + d.dx),
+				    dvdt = 1.0 / 6.0 * (a.dv + 2.0 * (b.dv + c.dv) + d.dv);
+
+				state.x = state.x + dxdt * dt;
+				state.v = state.v + dvdt * dt;
+
+				return state;
+			}
+
+			return function springRK4Factory(tension, friction, duration) {
+
+				var initState = {
+					x: -1,
+					v: 0,
+					tension: null,
+					friction: null
+				},
+				    path = [0],
+				    time_lapsed = 0,
+				    tolerance = 1 / 10000,
+				    DT = 16 / 1000,
+				    have_duration,
+				    dt,
+				    last_state;
+
+				tension = parseFloat(tension) || 500;
+				friction = parseFloat(friction) || 20;
+				duration = duration || null;
+
+				initState.tension = tension;
+				initState.friction = friction;
+
+				have_duration = duration !== null;
+
+				/* Calculate the actual time it takes for this animation to complete with the provided conditions. */
+				if (have_duration) {
+					/* Run the simulation without a duration. */
+					time_lapsed = springRK4Factory(tension, friction);
+					/* Compute the adjusted time delta. */
+					dt = time_lapsed / duration * DT;
+				} else {
+					dt = DT;
+				}
+
+				while (true) {
+					/* Next/step function .*/
+					last_state = springIntegrateState(last_state || initState, dt);
+					/* Store the position. */
+					path.push(1 + last_state.x);
+					time_lapsed += 16;
+					/* If the change threshold is reached, break. */
+					if (!(Math.abs(last_state.x) > tolerance && Math.abs(last_state.v) > tolerance)) {
+						break;
+					}
+				}
+
+				/* If duration is not defined, return the actual time required for completing this animation. Otherwise, return a closure that holds the
+     computed path and returns a snapshot of the position according to a given percentComplete. */
+				return !have_duration ? time_lapsed : function (percentComplete) {
+					return path[percentComplete * (path.length - 1) | 0];
+				};
+			};
+		}();
+
+		/* jQuery easings. */
+		Velocity.Easings = {
+			linear: function (p) {
+				return p;
+			},
+			swing: function (p) {
+				return 0.5 - Math.cos(p * Math.PI) / 2;
+			},
+			/* Bonus "spring" easing, which is a less exaggerated version of easeInOutElastic. */
+			spring: function (p) {
+				return 1 - Math.cos(p * 4.5 * Math.PI) * Math.exp(-p * 6);
+			}
+		};
+
+		/* CSS3 and Robert Penner easings. */
+		$.each([["ease", [0.25, 0.1, 0.25, 1.0]], ["ease-in", [0.42, 0.0, 1.00, 1.0]], ["ease-out", [0.00, 0.0, 0.58, 1.0]], ["ease-in-out", [0.42, 0.0, 0.58, 1.0]], ["easeInSine", [0.47, 0, 0.745, 0.715]], ["easeOutSine", [0.39, 0.575, 0.565, 1]], ["easeInOutSine", [0.445, 0.05, 0.55, 0.95]], ["easeInQuad", [0.55, 0.085, 0.68, 0.53]], ["easeOutQuad", [0.25, 0.46, 0.45, 0.94]], ["easeInOutQuad", [0.455, 0.03, 0.515, 0.955]], ["easeInCubic", [0.55, 0.055, 0.675, 0.19]], ["easeOutCubic", [0.215, 0.61, 0.355, 1]], ["easeInOutCubic", [0.645, 0.045, 0.355, 1]], ["easeInQuart", [0.895, 0.03, 0.685, 0.22]], ["easeOutQuart", [0.165, 0.84, 0.44, 1]], ["easeInOutQuart", [0.77, 0, 0.175, 1]], ["easeInQuint", [0.755, 0.05, 0.855, 0.06]], ["easeOutQuint", [0.23, 1, 0.32, 1]], ["easeInOutQuint", [0.86, 0, 0.07, 1]], ["easeInExpo", [0.95, 0.05, 0.795, 0.035]], ["easeOutExpo", [0.19, 1, 0.22, 1]], ["easeInOutExpo", [1, 0, 0, 1]], ["easeInCirc", [0.6, 0.04, 0.98, 0.335]], ["easeOutCirc", [0.075, 0.82, 0.165, 1]], ["easeInOutCirc", [0.785, 0.135, 0.15, 0.86]]], function (i, easingArray) {
+			Velocity.Easings[easingArray[0]] = generateBezier.apply(null, easingArray[1]);
+		});
+
+		/* Determine the appropriate easing type given an easing input. */
+		function getEasing(value, duration) {
+			var easing = value;
+
+			/* The easing option can either be a string that references a pre-registered easing,
+    or it can be a two-/four-item array of integers to be converted into a bezier/spring function. */
+			if (Type.isString(value)) {
+				/* Ensure that the easing has been assigned to jQuery's Velocity.Easings object. */
+				if (!Velocity.Easings[value]) {
+					easing = false;
+				}
+			} else if (Type.isArray(value) && value.length === 1) {
+				easing = generateStep.apply(null, value);
+			} else if (Type.isArray(value) && value.length === 2) {
+				/* springRK4 must be passed the animation's duration. */
+				/* Note: If the springRK4 array contains non-numbers, generateSpringRK4() returns an easing
+     function generated with default tension and friction values. */
+				easing = generateSpringRK4.apply(null, value.concat([duration]));
+			} else if (Type.isArray(value) && value.length === 4) {
+				/* Note: If the bezier array contains non-numbers, generateBezier() returns false. */
+				easing = generateBezier.apply(null, value);
+			} else {
+				easing = false;
+			}
+
+			/* Revert to the Velocity-wide default easing type, or fall back to "swing" (which is also jQuery's default)
+    if the Velocity-wide default has been incorrectly modified. */
+			if (easing === false) {
+				if (Velocity.Easings[Velocity.defaults.easing]) {
+					easing = Velocity.defaults.easing;
+				} else {
+					easing = EASING_DEFAULT;
+				}
+			}
+
+			return easing;
+		}
+
+		/*****************
+   CSS Stack
+   *****************/
+
+		/* The CSS object is a highly condensed and performant CSS stack that fully replaces jQuery's.
+   It handles the validation, getting, and setting of both standard CSS properties and CSS property hooks. */
+		/* Note: A "CSS" shorthand is aliased so that our code is easier to read. */
+		var CSS = Velocity.CSS = {
+			/*************
+    RegEx
+    *************/
+
+			RegEx: {
+				isHex: /^#([A-f\d]{3}){1,2}$/i,
+				/* Unwrap a property value's surrounding text, e.g. "rgba(4, 3, 2, 1)" ==> "4, 3, 2, 1" and "rect(4px 3px 2px 1px)" ==> "4px 3px 2px 1px". */
+				valueUnwrap: /^[A-z]+\((.*)\)$/i,
+				wrappedValueAlreadyExtracted: /[0-9.]+ [0-9.]+ [0-9.]+( [0-9.]+)?/,
+				/* Split a multi-value property into an array of subvalues, e.g. "rgba(4, 3, 2, 1) 4px 3px 2px 1px" ==> [ "rgba(4, 3, 2, 1)", "4px", "3px", "2px", "1px" ]. */
+				valueSplit: /([A-z]+\(.+\))|(([A-z0-9#-.]+?)(?=\s|$))/ig
+			},
+			/************
+    Lists
+    ************/
+
+			Lists: {
+				colors: ["fill", "stroke", "stopColor", "color", "backgroundColor", "borderColor", "borderTopColor", "borderRightColor", "borderBottomColor", "borderLeftColor", "outlineColor"],
+				transformsBase: ["translateX", "translateY", "scale", "scaleX", "scaleY", "skewX", "skewY", "rotateZ"],
+				transforms3D: ["transformPerspective", "translateZ", "scaleZ", "rotateX", "rotateY"],
+				units: ["%", // relative
+				"em", "ex", "ch", "rem", // font relative
+				"vw", "vh", "vmin", "vmax", // viewport relative
+				"cm", "mm", "Q", "in", "pc", "pt", "px", // absolute lengths
+				"deg", "grad", "rad", "turn", // angles
+				"s", "ms" // time
+				],
+				colorNames: {
+					"aliceblue": "240,248,255",
+					"antiquewhite": "250,235,215",
+					"aquamarine": "127,255,212",
+					"aqua": "0,255,255",
+					"azure": "240,255,255",
+					"beige": "245,245,220",
+					"bisque": "255,228,196",
+					"black": "0,0,0",
+					"blanchedalmond": "255,235,205",
+					"blueviolet": "138,43,226",
+					"blue": "0,0,255",
+					"brown": "165,42,42",
+					"burlywood": "222,184,135",
+					"cadetblue": "95,158,160",
+					"chartreuse": "127,255,0",
+					"chocolate": "210,105,30",
+					"coral": "255,127,80",
+					"cornflowerblue": "100,149,237",
+					"cornsilk": "255,248,220",
+					"crimson": "220,20,60",
+					"cyan": "0,255,255",
+					"darkblue": "0,0,139",
+					"darkcyan": "0,139,139",
+					"darkgoldenrod": "184,134,11",
+					"darkgray": "169,169,169",
+					"darkgrey": "169,169,169",
+					"darkgreen": "0,100,0",
+					"darkkhaki": "189,183,107",
+					"darkmagenta": "139,0,139",
+					"darkolivegreen": "85,107,47",
+					"darkorange": "255,140,0",
+					"darkorchid": "153,50,204",
+					"darkred": "139,0,0",
+					"darksalmon": "233,150,122",
+					"darkseagreen": "143,188,143",
+					"darkslateblue": "72,61,139",
+					"darkslategray": "47,79,79",
+					"darkturquoise": "0,206,209",
+					"darkviolet": "148,0,211",
+					"deeppink": "255,20,147",
+					"deepskyblue": "0,191,255",
+					"dimgray": "105,105,105",
+					"dimgrey": "105,105,105",
+					"dodgerblue": "30,144,255",
+					"firebrick": "178,34,34",
+					"floralwhite": "255,250,240",
+					"forestgreen": "34,139,34",
+					"fuchsia": "255,0,255",
+					"gainsboro": "220,220,220",
+					"ghostwhite": "248,248,255",
+					"gold": "255,215,0",
+					"goldenrod": "218,165,32",
+					"gray": "128,128,128",
+					"grey": "128,128,128",
+					"greenyellow": "173,255,47",
+					"green": "0,128,0",
+					"honeydew": "240,255,240",
+					"hotpink": "255,105,180",
+					"indianred": "205,92,92",
+					"indigo": "75,0,130",
+					"ivory": "255,255,240",
+					"khaki": "240,230,140",
+					"lavenderblush": "255,240,245",
+					"lavender": "230,230,250",
+					"lawngreen": "124,252,0",
+					"lemonchiffon": "255,250,205",
+					"lightblue": "173,216,230",
+					"lightcoral": "240,128,128",
+					"lightcyan": "224,255,255",
+					"lightgoldenrodyellow": "250,250,210",
+					"lightgray": "211,211,211",
+					"lightgrey": "211,211,211",
+					"lightgreen": "144,238,144",
+					"lightpink": "255,182,193",
+					"lightsalmon": "255,160,122",
+					"lightseagreen": "32,178,170",
+					"lightskyblue": "135,206,250",
+					"lightslategray": "119,136,153",
+					"lightsteelblue": "176,196,222",
+					"lightyellow": "255,255,224",
+					"limegreen": "50,205,50",
+					"lime": "0,255,0",
+					"linen": "250,240,230",
+					"magenta": "255,0,255",
+					"maroon": "128,0,0",
+					"mediumaquamarine": "102,205,170",
+					"mediumblue": "0,0,205",
+					"mediumorchid": "186,85,211",
+					"mediumpurple": "147,112,219",
+					"mediumseagreen": "60,179,113",
+					"mediumslateblue": "123,104,238",
+					"mediumspringgreen": "0,250,154",
+					"mediumturquoise": "72,209,204",
+					"mediumvioletred": "199,21,133",
+					"midnightblue": "25,25,112",
+					"mintcream": "245,255,250",
+					"mistyrose": "255,228,225",
+					"moccasin": "255,228,181",
+					"navajowhite": "255,222,173",
+					"navy": "0,0,128",
+					"oldlace": "253,245,230",
+					"olivedrab": "107,142,35",
+					"olive": "128,128,0",
+					"orangered": "255,69,0",
+					"orange": "255,165,0",
+					"orchid": "218,112,214",
+					"palegoldenrod": "238,232,170",
+					"palegreen": "152,251,152",
+					"paleturquoise": "175,238,238",
+					"palevioletred": "219,112,147",
+					"papayawhip": "255,239,213",
+					"peachpuff": "255,218,185",
+					"peru": "205,133,63",
+					"pink": "255,192,203",
+					"plum": "221,160,221",
+					"powderblue": "176,224,230",
+					"purple": "128,0,128",
+					"red": "255,0,0",
+					"rosybrown": "188,143,143",
+					"royalblue": "65,105,225",
+					"saddlebrown": "139,69,19",
+					"salmon": "250,128,114",
+					"sandybrown": "244,164,96",
+					"seagreen": "46,139,87",
+					"seashell": "255,245,238",
+					"sienna": "160,82,45",
+					"silver": "192,192,192",
+					"skyblue": "135,206,235",
+					"slateblue": "106,90,205",
+					"slategray": "112,128,144",
+					"snow": "255,250,250",
+					"springgreen": "0,255,127",
+					"steelblue": "70,130,180",
+					"tan": "210,180,140",
+					"teal": "0,128,128",
+					"thistle": "216,191,216",
+					"tomato": "255,99,71",
+					"turquoise": "64,224,208",
+					"violet": "238,130,238",
+					"wheat": "245,222,179",
+					"whitesmoke": "245,245,245",
+					"white": "255,255,255",
+					"yellowgreen": "154,205,50",
+					"yellow": "255,255,0"
+				}
+			},
+			/************
+    Hooks
+    ************/
+
+			/* Hooks allow a subproperty (e.g. "boxShadowBlur") of a compound-value CSS property
+    (e.g. "boxShadow: X Y Blur Spread Color") to be animated as if it were a discrete property. */
+			/* Note: Beyond enabling fine-grained property animation, hooking is necessary since Velocity only
+    tweens properties with single numeric values; unlike CSS transitions, Velocity does not interpolate compound-values. */
+			Hooks: {
+				/********************
+     Registration
+     ********************/
+
+				/* Templates are a concise way of indicating which subproperties must be individually registered for each compound-value CSS property. */
+				/* Each template consists of the compound-value's base name, its constituent subproperty names, and those subproperties' default values. */
+				templates: {
+					"textShadow": ["Color X Y Blur", "black 0px 0px 0px"],
+					"boxShadow": ["Color X Y Blur Spread", "black 0px 0px 0px 0px"],
+					"clip": ["Top Right Bottom Left", "0px 0px 0px 0px"],
+					"backgroundPosition": ["X Y", "0% 0%"],
+					"transformOrigin": ["X Y Z", "50% 50% 0px"],
+					"perspectiveOrigin": ["X Y", "50% 50%"]
+				},
+				/* A "registered" hook is one that has been converted from its template form into a live,
+     tweenable property. It contains data to associate it with its root property. */
+				registered: {
+					/* Note: A registered hook looks like this ==> textShadowBlur: [ "textShadow", 3 ],
+      which consists of the subproperty's name, the associated root property's name,
+      and the subproperty's position in the root's value. */
+				},
+				/* Convert the templates into individual hooks then append them to the registered object above. */
+				register: function () {
+					/* Color hooks registration: Colors are defaulted to white -- as opposed to black -- since colors that are
+      currently set to "transparent" default to their respective template below when color-animated,
+      and white is typically a closer match to transparent than black is. An exception is made for text ("color"),
+      which is almost always set closer to black than white. */
+					for (var i = 0; i < CSS.Lists.colors.length; i++) {
+						var rgbComponents = CSS.Lists.colors[i] === "color" ? "0 0 0 1" : "255 255 255 1";
+						CSS.Hooks.templates[CSS.Lists.colors[i]] = ["Red Green Blue Alpha", rgbComponents];
+					}
+
+					var rootProperty, hookTemplate, hookNames;
+
+					/* In IE, color values inside compound-value properties are positioned at the end the value instead of at the beginning.
+      Thus, we re-arrange the templates accordingly. */
+					if (IE) {
+						for (rootProperty in CSS.Hooks.templates) {
+							if (!CSS.Hooks.templates.hasOwnProperty(rootProperty)) {
+								continue;
+							}
+							hookTemplate = CSS.Hooks.templates[rootProperty];
+							hookNames = hookTemplate[0].split(" ");
+
+							var defaultValues = hookTemplate[1].match(CSS.RegEx.valueSplit);
+
+							if (hookNames[0] === "Color") {
+								/* Reposition both the hook's name and its default value to the end of their respective strings. */
+								hookNames.push(hookNames.shift());
+								defaultValues.push(defaultValues.shift());
+
+								/* Replace the existing template for the hook's root property. */
+								CSS.Hooks.templates[rootProperty] = [hookNames.join(" "), defaultValues.join(" ")];
+							}
+						}
+					}
+
+					/* Hook registration. */
+					for (rootProperty in CSS.Hooks.templates) {
+						if (!CSS.Hooks.templates.hasOwnProperty(rootProperty)) {
+							continue;
+						}
+						hookTemplate = CSS.Hooks.templates[rootProperty];
+						hookNames = hookTemplate[0].split(" ");
+
+						for (var j in hookNames) {
+							if (!hookNames.hasOwnProperty(j)) {
+								continue;
+							}
+							var fullHookName = rootProperty + hookNames[j],
+							    hookPosition = j;
+
+							/* For each hook, register its full name (e.g. textShadowBlur) with its root property (e.g. textShadow)
+        and the hook's position in its template's default value string. */
+							CSS.Hooks.registered[fullHookName] = [rootProperty, hookPosition];
+						}
+					}
+				},
+				/*****************************
+     Injection and Extraction
+     *****************************/
+
+				/* Look up the root property associated with the hook (e.g. return "textShadow" for "textShadowBlur"). */
+				/* Since a hook cannot be set directly (the browser won't recognize it), style updating for hooks is routed through the hook's root property. */
+				getRoot: function (property) {
+					var hookData = CSS.Hooks.registered[property];
+
+					if (hookData) {
+						return hookData[0];
+					} else {
+						/* If there was no hook match, return the property name untouched. */
+						return property;
+					}
+				},
+				getUnit: function (str, start) {
+					var unit = (str.substr(start || 0, 5).match(/^[a-z%]+/) || [])[0] || "";
+
+					if (unit && _inArray(CSS.Lists.units, unit)) {
+						return unit;
+					}
+					return "";
+				},
+				fixColors: function (str) {
+					return str.replace(/(rgba?\(\s*)?(\b[a-z]+\b)/g, function ($0, $1, $2) {
+						if (CSS.Lists.colorNames.hasOwnProperty($2)) {
+							return ($1 ? $1 : "rgba(") + CSS.Lists.colorNames[$2] + ($1 ? "" : ",1)");
+						}
+						return $1 + $2;
+					});
+				},
+				/* Convert any rootPropertyValue, null or otherwise, into a space-delimited list of hook values so that
+     the targeted hook can be injected or extracted at its standard position. */
+				cleanRootPropertyValue: function (rootProperty, rootPropertyValue) {
+					/* If the rootPropertyValue is wrapped with "rgb()", "clip()", etc., remove the wrapping to normalize the value before manipulation. */
+					if (CSS.RegEx.valueUnwrap.test(rootPropertyValue)) {
+						rootPropertyValue = rootPropertyValue.match(CSS.RegEx.valueUnwrap)[1];
+					}
+
+					/* If rootPropertyValue is a CSS null-value (from which there's inherently no hook value to extract),
+      default to the root's default value as defined in CSS.Hooks.templates. */
+					/* Note: CSS null-values include "none", "auto", and "transparent". They must be converted into their
+      zero-values (e.g. textShadow: "none" ==> textShadow: "0px 0px 0px black") for hook manipulation to proceed. */
+					if (CSS.Values.isCSSNullValue(rootPropertyValue)) {
+						rootPropertyValue = CSS.Hooks.templates[rootProperty][1];
+					}
+
+					return rootPropertyValue;
+				},
+				/* Extracted the hook's value from its root property's value. This is used to get the starting value of an animating hook. */
+				extractValue: function (fullHookName, rootPropertyValue) {
+					var hookData = CSS.Hooks.registered[fullHookName];
+
+					if (hookData) {
+						var hookRoot = hookData[0],
+						    hookPosition = hookData[1];
+
+						rootPropertyValue = CSS.Hooks.cleanRootPropertyValue(hookRoot, rootPropertyValue);
+
+						/* Split rootPropertyValue into its constituent hook values then grab the desired hook at its standard position. */
+						return rootPropertyValue.toString().match(CSS.RegEx.valueSplit)[hookPosition];
+					} else {
+						/* If the provided fullHookName isn't a registered hook, return the rootPropertyValue that was passed in. */
+						return rootPropertyValue;
+					}
+				},
+				/* Inject the hook's value into its root property's value. This is used to piece back together the root property
+     once Velocity has updated one of its individually hooked values through tweening. */
+				injectValue: function (fullHookName, hookValue, rootPropertyValue) {
+					var hookData = CSS.Hooks.registered[fullHookName];
+
+					if (hookData) {
+						var hookRoot = hookData[0],
+						    hookPosition = hookData[1],
+						    rootPropertyValueParts,
+						    rootPropertyValueUpdated;
+
+						rootPropertyValue = CSS.Hooks.cleanRootPropertyValue(hookRoot, rootPropertyValue);
+
+						/* Split rootPropertyValue into its individual hook values, replace the targeted value with hookValue,
+       then reconstruct the rootPropertyValue string. */
+						rootPropertyValueParts = rootPropertyValue.toString().match(CSS.RegEx.valueSplit);
+						rootPropertyValueParts[hookPosition] = hookValue;
+						rootPropertyValueUpdated = rootPropertyValueParts.join(" ");
+
+						return rootPropertyValueUpdated;
+					} else {
+						/* If the provided fullHookName isn't a registered hook, return the rootPropertyValue that was passed in. */
+						return rootPropertyValue;
+					}
+				}
+			},
+			/*******************
+    Normalizations
+    *******************/
+
+			/* Normalizations standardize CSS property manipulation by pollyfilling browser-specific implementations (e.g. opacity)
+    and reformatting special properties (e.g. clip, rgba) to look like standard ones. */
+			Normalizations: {
+				/* Normalizations are passed a normalization target (either the property's name, its extracted value, or its injected value),
+     the targeted element (which may need to be queried), and the targeted property value. */
+				registered: {
+					clip: function (type, element, propertyValue) {
+						switch (type) {
+							case "name":
+								return "clip";
+							/* Clip needs to be unwrapped and stripped of its commas during extraction. */
+							case "extract":
+								var extracted;
+
+								/* If Velocity also extracted this value, skip extraction. */
+								if (CSS.RegEx.wrappedValueAlreadyExtracted.test(propertyValue)) {
+									extracted = propertyValue;
+								} else {
+									/* Remove the "rect()" wrapper. */
+									extracted = propertyValue.toString().match(CSS.RegEx.valueUnwrap);
+
+									/* Strip off commas. */
+									extracted = extracted ? extracted[1].replace(/,(\s+)?/g, " ") : propertyValue;
+								}
+
+								return extracted;
+							/* Clip needs to be re-wrapped during injection. */
+							case "inject":
+								return "rect(" + propertyValue + ")";
+						}
+					},
+					blur: function (type, element, propertyValue) {
+						switch (type) {
+							case "name":
+								return Velocity.State.isFirefox ? "filter" : "-webkit-filter";
+							case "extract":
+								var extracted = parseFloat(propertyValue);
+
+								/* If extracted is NaN, meaning the value isn't already extracted. */
+								if (!(extracted || extracted === 0)) {
+									var blurComponent = propertyValue.toString().match(/blur\(([0-9]+[A-z]+)\)/i);
+
+									/* If the filter string had a blur component, return just the blur value and unit type. */
+									if (blurComponent) {
+										extracted = blurComponent[1];
+										/* If the component doesn't exist, default blur to 0. */
+									} else {
+										extracted = 0;
+									}
+								}
+
+								return extracted;
+							/* Blur needs to be re-wrapped during injection. */
+							case "inject":
+								/* For the blur effect to be fully de-applied, it needs to be set to "none" instead of 0. */
+								if (!parseFloat(propertyValue)) {
+									return "none";
+								} else {
+									return "blur(" + propertyValue + ")";
+								}
+						}
+					},
+					/* <=IE8 do not support the standard opacity property. They use filter:alpha(opacity=INT) instead. */
+					opacity: function (type, element, propertyValue) {
+						if (IE <= 8) {
+							switch (type) {
+								case "name":
+									return "filter";
+								case "extract":
+									/* <=IE8 return a "filter" value of "alpha(opacity=\d{1,3})".
+          Extract the value and convert it to a decimal value to match the standard CSS opacity property's formatting. */
+									var extracted = propertyValue.toString().match(/alpha\(opacity=(.*)\)/i);
+
+									if (extracted) {
+										/* Convert to decimal value. */
+										propertyValue = extracted[1] / 100;
+									} else {
+										/* When extracting opacity, default to 1 since a null value means opacity hasn't been set. */
+										propertyValue = 1;
+									}
+
+									return propertyValue;
+								case "inject":
+									/* Opacified elements are required to have their zoom property set to a non-zero value. */
+									element.style.zoom = 1;
+
+									/* Setting the filter property on elements with certain font property combinations can result in a
+          highly unappealing ultra-bolding effect. There's no way to remedy this throughout a tween, but dropping the
+          value altogether (when opacity hits 1) at leasts ensures that the glitch is gone post-tweening. */
+									if (parseFloat(propertyValue) >= 1) {
+										return "";
+									} else {
+										/* As per the filter property's spec, convert the decimal value to a whole number and wrap the value. */
+										return "alpha(opacity=" + parseInt(parseFloat(propertyValue) * 100, 10) + ")";
+									}
+							}
+							/* With all other browsers, normalization is not required; return the same values that were passed in. */
+						} else {
+							switch (type) {
+								case "name":
+									return "opacity";
+								case "extract":
+									return propertyValue;
+								case "inject":
+									return propertyValue;
+							}
+						}
+					}
+				},
+				/*****************************
+     Batched Registrations
+     *****************************/
+
+				/* Note: Batched normalizations extend the CSS.Normalizations.registered object. */
+				register: function () {
+
+					/*****************
+      Transforms
+      *****************/
+
+					/* Transforms are the subproperties contained by the CSS "transform" property. Transforms must undergo normalization
+      so that they can be referenced in a properties map by their individual names. */
+					/* Note: When transforms are "set", they are actually assigned to a per-element transformCache. When all transform
+      setting is complete complete, CSS.flushTransformCache() must be manually called to flush the values to the DOM.
+      Transform setting is batched in this way to improve performance: the transform style only needs to be updated
+      once when multiple transform subproperties are being animated simultaneously. */
+					/* Note: IE9 and Android Gingerbread have support for 2D -- but not 3D -- transforms. Since animating unsupported
+      transform properties results in the browser ignoring the *entire* transform string, we prevent these 3D values
+      from being normalized for these browsers so that tweening skips these properties altogether
+      (since it will ignore them as being unsupported by the browser.) */
+					if ((!IE || IE > 9) && !Velocity.State.isGingerbread) {
+						/* Note: Since the standalone CSS "perspective" property and the CSS transform "perspective" subproperty
+       share the same name, the latter is given a unique token within Velocity: "transformPerspective". */
+						CSS.Lists.transformsBase = CSS.Lists.transformsBase.concat(CSS.Lists.transforms3D);
+					}
+
+					for (var i = 0; i < CSS.Lists.transformsBase.length; i++) {
+						/* Wrap the dynamically generated normalization function in a new scope so that transformName's value is
+       paired with its respective function. (Otherwise, all functions would take the final for loop's transformName.) */
+						(function () {
+							var transformName = CSS.Lists.transformsBase[i];
+
+							CSS.Normalizations.registered[transformName] = function (type, element, propertyValue) {
+								switch (type) {
+									/* The normalized property name is the parent "transform" property -- the property that is actually set in CSS. */
+									case "name":
+										return "transform";
+									/* Transform values are cached onto a per-element transformCache object. */
+									case "extract":
+										/* If this transform has yet to be assigned a value, return its null value. */
+										if (Data(element) === undefined || Data(element).transformCache[transformName] === undefined) {
+											/* Scale CSS.Lists.transformsBase default to 1 whereas all other transform properties default to 0. */
+											return (/^scale/i.test(transformName) ? 1 : 0
+											);
+											/* When transform values are set, they are wrapped in parentheses as per the CSS spec.
+            Thus, when extracting their values (for tween calculations), we strip off the parentheses. */
+										}
+										return Data(element).transformCache[transformName].replace(/[()]/g, "");
+									case "inject":
+										var invalid = false;
+
+										/* If an individual transform property contains an unsupported unit type, the browser ignores the *entire* transform property.
+           Thus, protect users from themselves by skipping setting for transform values supplied with invalid unit types. */
+										/* Switch on the base transform type; ignore the axis by removing the last letter from the transform's name. */
+										switch (transformName.substr(0, transformName.length - 1)) {
+											/* Whitelist unit types for each transform. */
+											case "translate":
+												invalid = !/(%|px|em|rem|vw|vh|\d)$/i.test(propertyValue);
+												break;
+											/* Since an axis-free "scale" property is supported as well, a little hack is used here to detect it by chopping off its last letter. */
+											case "scal":
+											case "scale":
+												/* Chrome on Android has a bug in which scaled elements blur if their initial scale
+             value is below 1 (which can happen with forcefeeding). Thus, we detect a yet-unset scale property
+             and ensure that its first value is always 1. More info: http://stackoverflow.com/questions/10417890/css3-animations-with-transform-causes-blurred-elements-on-webkit/10417962#10417962 */
+												if (Velocity.State.isAndroid && Data(element).transformCache[transformName] === undefined && propertyValue < 1) {
+													propertyValue = 1;
+												}
+
+												invalid = !/(\d)$/i.test(propertyValue);
+												break;
+											case "skew":
+												invalid = !/(deg|\d)$/i.test(propertyValue);
+												break;
+											case "rotate":
+												invalid = !/(deg|\d)$/i.test(propertyValue);
+												break;
+										}
+
+										if (!invalid) {
+											/* As per the CSS spec, wrap the value in parentheses. */
+											Data(element).transformCache[transformName] = "(" + propertyValue + ")";
+										}
+
+										/* Although the value is set on the transformCache object, return the newly-updated value for the calling code to process as normal. */
+										return Data(element).transformCache[transformName];
+								}
+							};
+						})();
+					}
+
+					/*************
+      Colors
+      *************/
+
+					/* Since Velocity only animates a single numeric value per property, color animation is achieved by hooking the individual RGBA components of CSS color properties.
+      Accordingly, color values must be normalized (e.g. "#ff0000", "red", and "rgb(255, 0, 0)" ==> "255 0 0 1") so that their components can be injected/extracted by CSS.Hooks logic. */
+					for (var j = 0; j < CSS.Lists.colors.length; j++) {
+						/* Wrap the dynamically generated normalization function in a new scope so that colorName's value is paired with its respective function.
+       (Otherwise, all functions would take the final for loop's colorName.) */
+						(function () {
+							var colorName = CSS.Lists.colors[j];
+
+							/* Note: In IE<=8, which support rgb but not rgba, color properties are reverted to rgb by stripping off the alpha component. */
+							CSS.Normalizations.registered[colorName] = function (type, element, propertyValue) {
+								switch (type) {
+									case "name":
+										return colorName;
+									/* Convert all color values into the rgb format. (Old IE can return hex values and color names instead of rgb/rgba.) */
+									case "extract":
+										var extracted;
+
+										/* If the color is already in its hookable form (e.g. "255 255 255 1") due to having been previously extracted, skip extraction. */
+										if (CSS.RegEx.wrappedValueAlreadyExtracted.test(propertyValue)) {
+											extracted = propertyValue;
+										} else {
+											var converted,
+											    colorNames = {
+												black: "rgb(0, 0, 0)",
+												blue: "rgb(0, 0, 255)",
+												gray: "rgb(128, 128, 128)",
+												green: "rgb(0, 128, 0)",
+												red: "rgb(255, 0, 0)",
+												white: "rgb(255, 255, 255)"
+											};
+
+											/* Convert color names to rgb. */
+											if (/^[A-z]+$/i.test(propertyValue)) {
+												if (colorNames[propertyValue] !== undefined) {
+													converted = colorNames[propertyValue];
+												} else {
+													/* If an unmatched color name is provided, default to black. */
+													converted = colorNames.black;
+												}
+												/* Convert hex values to rgb. */
+											} else if (CSS.RegEx.isHex.test(propertyValue)) {
+												converted = "rgb(" + CSS.Values.hexToRgb(propertyValue).join(" ") + ")";
+												/* If the provided color doesn't match any of the accepted color formats, default to black. */
+											} else if (!/^rgba?\(/i.test(propertyValue)) {
+												converted = colorNames.black;
+											}
+
+											/* Remove the surrounding "rgb/rgba()" string then replace commas with spaces and strip
+            repeated spaces (in case the value included spaces to begin with). */
+											extracted = (converted || propertyValue).toString().match(CSS.RegEx.valueUnwrap)[1].replace(/,(\s+)?/g, " ");
+										}
+
+										/* So long as this isn't <=IE8, add a fourth (alpha) component if it's missing and default it to 1 (visible). */
+										if ((!IE || IE > 8) && extracted.split(" ").length === 3) {
+											extracted += " 1";
+										}
+
+										return extracted;
+									case "inject":
+										/* If we have a pattern then it might already have the right values */
+										if (/^rgb/.test(propertyValue)) {
+											return propertyValue;
+										}
+
+										/* If this is IE<=8 and an alpha component exists, strip it off. */
+										if (IE <= 8) {
+											if (propertyValue.split(" ").length === 4) {
+												propertyValue = propertyValue.split(/\s+/).slice(0, 3).join(" ");
+											}
+											/* Otherwise, add a fourth (alpha) component if it's missing and default it to 1 (visible). */
+										} else if (propertyValue.split(" ").length === 3) {
+											propertyValue += " 1";
+										}
+
+										/* Re-insert the browser-appropriate wrapper("rgb/rgba()"), insert commas, and strip off decimal units
+           on all values but the fourth (R, G, and B only accept whole numbers). */
+										return (IE <= 8 ? "rgb" : "rgba") + "(" + propertyValue.replace(/\s+/g, ",").replace(/\.(\d)+(?=,)/g, "") + ")";
+								}
+							};
+						})();
+					}
+
+					/**************
+      Dimensions
+      **************/
+					function augmentDimension(name, element, wantInner) {
+						var isBorderBox = CSS.getPropertyValue(element, "boxSizing").toString().toLowerCase() === "border-box";
+
+						if (isBorderBox === (wantInner || false)) {
+							/* in box-sizing mode, the CSS width / height accessors already give the outerWidth / outerHeight. */
+							var i,
+							    value,
+							    augment = 0,
+							    sides = name === "width" ? ["Left", "Right"] : ["Top", "Bottom"],
+							    fields = ["padding" + sides[0], "padding" + sides[1], "border" + sides[0] + "Width", "border" + sides[1] + "Width"];
+
+							for (i = 0; i < fields.length; i++) {
+								value = parseFloat(CSS.getPropertyValue(element, fields[i]));
+								if (!isNaN(value)) {
+									augment += value;
+								}
+							}
+							return wantInner ? -augment : augment;
+						}
+						return 0;
+					}
+					function getDimension(name, wantInner) {
+						return function (type, element, propertyValue) {
+							switch (type) {
+								case "name":
+									return name;
+								case "extract":
+									return parseFloat(propertyValue) + augmentDimension(name, element, wantInner);
+								case "inject":
+									return parseFloat(propertyValue) - augmentDimension(name, element, wantInner) + "px";
+							}
+						};
+					}
+					CSS.Normalizations.registered.innerWidth = getDimension("width", true);
+					CSS.Normalizations.registered.innerHeight = getDimension("height", true);
+					CSS.Normalizations.registered.outerWidth = getDimension("width");
+					CSS.Normalizations.registered.outerHeight = getDimension("height");
+				}
+			},
+			/************************
+    CSS Property Names
+    ************************/
+
+			Names: {
+				/* Camelcase a property name into its JavaScript notation (e.g. "background-color" ==> "backgroundColor").
+     Camelcasing is used to normalize property names between and across calls. */
+				camelCase: function (property) {
+					return property.replace(/-(\w)/g, function (match, subMatch) {
+						return subMatch.toUpperCase();
+					});
+				},
+				/* For SVG elements, some properties (namely, dimensional ones) are GET/SET via the element's HTML attributes (instead of via CSS styles). */
+				SVGAttribute: function (property) {
+					var SVGAttributes = "width|height|x|y|cx|cy|r|rx|ry|x1|x2|y1|y2";
+
+					/* Certain browsers require an SVG transform to be applied as an attribute. (Otherwise, application via CSS is preferable due to 3D support.) */
+					if (IE || Velocity.State.isAndroid && !Velocity.State.isChrome) {
+						SVGAttributes += "|transform";
+					}
+
+					return new RegExp("^(" + SVGAttributes + ")$", "i").test(property);
+				},
+				/* Determine whether a property should be set with a vendor prefix. */
+				/* If a prefixed version of the property exists, return it. Otherwise, return the original property name.
+     If the property is not at all supported by the browser, return a false flag. */
+				prefixCheck: function (property) {
+					/* If this property has already been checked, return the cached value. */
+					if (Velocity.State.prefixMatches[property]) {
+						return [Velocity.State.prefixMatches[property], true];
+					} else {
+						var vendors = ["", "Webkit", "Moz", "ms", "O"];
+
+						for (var i = 0, vendorsLength = vendors.length; i < vendorsLength; i++) {
+							var propertyPrefixed;
+
+							if (i === 0) {
+								propertyPrefixed = property;
+							} else {
+								/* Capitalize the first letter of the property to conform to JavaScript vendor prefix notation (e.g. webkitFilter). */
+								propertyPrefixed = vendors[i] + property.replace(/^\w/, function (match) {
+									return match.toUpperCase();
+								});
+							}
+
+							/* Check if the browser supports this property as prefixed. */
+							if (Type.isString(Velocity.State.prefixElement.style[propertyPrefixed])) {
+								/* Cache the match. */
+								Velocity.State.prefixMatches[property] = propertyPrefixed;
+
+								return [propertyPrefixed, true];
+							}
+						}
+
+						/* If the browser doesn't support this property in any form, include a false flag so that the caller can decide how to proceed. */
+						return [property, false];
+					}
+				}
+			},
+			/************************
+    CSS Property Values
+    ************************/
+
+			Values: {
+				/* Hex to RGB conversion. Copyright Tim Down: http://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb */
+				hexToRgb: function (hex) {
+					var shortformRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i,
+					    longformRegex = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i,
+					    rgbParts;
+
+					hex = hex.replace(shortformRegex, function (m, r, g, b) {
+						return r + r + g + g + b + b;
+					});
+
+					rgbParts = longformRegex.exec(hex);
+
+					return rgbParts ? [parseInt(rgbParts[1], 16), parseInt(rgbParts[2], 16), parseInt(rgbParts[3], 16)] : [0, 0, 0];
+				},
+				isCSSNullValue: function (value) {
+					/* The browser defaults CSS values that have not been set to either 0 or one of several possible null-value strings.
+      Thus, we check for both falsiness and these special strings. */
+					/* Null-value checking is performed to default the special strings to 0 (for the sake of tweening) or their hook
+      templates as defined as CSS.Hooks (for the sake of hook injection/extraction). */
+					/* Note: Chrome returns "rgba(0, 0, 0, 0)" for an undefined color whereas IE returns "transparent". */
+					return !value || /^(none|auto|transparent|(rgba\(0, ?0, ?0, ?0\)))$/i.test(value);
+				},
+				/* Retrieve a property's default unit type. Used for assigning a unit type when one is not supplied by the user. */
+				getUnitType: function (property) {
+					if (/^(rotate|skew)/i.test(property)) {
+						return "deg";
+					} else if (/(^(scale|scaleX|scaleY|scaleZ|alpha|flexGrow|flexHeight|zIndex|fontWeight)$)|((opacity|red|green|blue|alpha)$)/i.test(property)) {
+						/* The above properties are unitless. */
+						return "";
+					} else {
+						/* Default to px for all other properties. */
+						return "px";
+					}
+				},
+				/* HTML elements default to an associated display type when they're not set to display:none. */
+				/* Note: This function is used for correctly setting the non-"none" display value in certain Velocity redirects, such as fadeIn/Out. */
+				getDisplayType: function (element) {
+					var tagName = element && element.tagName.toString().toLowerCase();
+
+					if (/^(b|big|i|small|tt|abbr|acronym|cite|code|dfn|em|kbd|strong|samp|var|a|bdo|br|img|map|object|q|script|span|sub|sup|button|input|label|select|textarea)$/i.test(tagName)) {
+						return "inline";
+					} else if (/^(li)$/i.test(tagName)) {
+						return "list-item";
+					} else if (/^(tr)$/i.test(tagName)) {
+						return "table-row";
+					} else if (/^(table)$/i.test(tagName)) {
+						return "table";
+					} else if (/^(tbody)$/i.test(tagName)) {
+						return "table-row-group";
+						/* Default to "block" when no match is found. */
+					} else {
+						return "block";
+					}
+				},
+				/* The class add/remove functions are used to temporarily apply a "velocity-animating" class to elements while they're animating. */
+				addClass: function (element, className) {
+					if (element) {
+						if (element.classList) {
+							element.classList.add(className);
+						} else if (Type.isString(element.className)) {
+							// Element.className is around 15% faster then set/getAttribute
+							element.className += (element.className.length ? " " : "") + className;
+						} else {
+							// Work around for IE strict mode animating SVG - and anything else that doesn't behave correctly - the same way jQuery does it
+							var currentClass = element.getAttribute(IE <= 7 ? "className" : "class") || "";
+
+							element.setAttribute("class", currentClass + (currentClass ? " " : "") + className);
+						}
+					}
+				},
+				removeClass: function (element, className) {
+					if (element) {
+						if (element.classList) {
+							element.classList.remove(className);
+						} else if (Type.isString(element.className)) {
+							// Element.className is around 15% faster then set/getAttribute
+							// TODO: Need some jsperf tests on performance - can we get rid of the regex and maybe use split / array manipulation?
+							element.className = element.className.toString().replace(new RegExp("(^|\\s)" + className.split(" ").join("|") + "(\\s|$)", "gi"), " ");
+						} else {
+							// Work around for IE strict mode animating SVG - and anything else that doesn't behave correctly - the same way jQuery does it
+							var currentClass = element.getAttribute(IE <= 7 ? "className" : "class") || "";
+
+							element.setAttribute("class", currentClass.replace(new RegExp("(^|\s)" + className.split(" ").join("|") + "(\s|$)", "gi"), " "));
+						}
+					}
+				}
+			},
+			/****************************
+    Style Getting & Setting
+    ****************************/
+
+			/* The singular getPropertyValue, which routes the logic for all normalizations, hooks, and standard CSS properties. */
+			getPropertyValue: function (element, property, rootPropertyValue, forceStyleLookup) {
+				/* Get an element's computed property value. */
+				/* Note: Retrieving the value of a CSS property cannot simply be performed by checking an element's
+     style attribute (which only reflects user-defined values). Instead, the browser must be queried for a property's
+     *computed* value. You can read more about getComputedStyle here: https://developer.mozilla.org/en/docs/Web/API/window.getComputedStyle */
+				function computePropertyValue(element, property) {
+					/* When box-sizing isn't set to border-box, height and width style values are incorrectly computed when an
+      element's scrollbars are visible (which expands the element's dimensions). Thus, we defer to the more accurate
+      offsetHeight/Width property, which includes the total dimensions for interior, border, padding, and scrollbar.
+      We subtract border and padding to get the sum of interior + scrollbar. */
+					var computedValue = 0;
+
+					/* IE<=8 doesn't support window.getComputedStyle, thus we defer to jQuery, which has an extensive array
+      of hacks to accurately retrieve IE8 property values. Re-implementing that logic here is not worth bloating the
+      codebase for a dying browser. The performance repercussions of using jQuery here are minimal since
+      Velocity is optimized to rarely (and sometimes never) query the DOM. Further, the $.css() codepath isn't that slow. */
+					if (IE <= 8) {
+						computedValue = $.css(element, property); /* GET */
+						/* All other browsers support getComputedStyle. The returned live object reference is cached onto its
+       associated element so that it does not need to be refetched upon every GET. */
+					} else {
+						/* Browsers do not return height and width values for elements that are set to display:"none". Thus, we temporarily
+       toggle display to the element type's default value. */
+						var toggleDisplay = false;
+
+						if (/^(width|height)$/.test(property) && CSS.getPropertyValue(element, "display") === 0) {
+							toggleDisplay = true;
+							CSS.setPropertyValue(element, "display", CSS.Values.getDisplayType(element));
+						}
+
+						var revertDisplay = function () {
+							if (toggleDisplay) {
+								CSS.setPropertyValue(element, "display", "none");
+							}
+						};
+
+						if (!forceStyleLookup) {
+							if (property === "height" && CSS.getPropertyValue(element, "boxSizing").toString().toLowerCase() !== "border-box") {
+								var contentBoxHeight = element.offsetHeight - (parseFloat(CSS.getPropertyValue(element, "borderTopWidth")) || 0) - (parseFloat(CSS.getPropertyValue(element, "borderBottomWidth")) || 0) - (parseFloat(CSS.getPropertyValue(element, "paddingTop")) || 0) - (parseFloat(CSS.getPropertyValue(element, "paddingBottom")) || 0);
+								revertDisplay();
+
+								return contentBoxHeight;
+							} else if (property === "width" && CSS.getPropertyValue(element, "boxSizing").toString().toLowerCase() !== "border-box") {
+								var contentBoxWidth = element.offsetWidth - (parseFloat(CSS.getPropertyValue(element, "borderLeftWidth")) || 0) - (parseFloat(CSS.getPropertyValue(element, "borderRightWidth")) || 0) - (parseFloat(CSS.getPropertyValue(element, "paddingLeft")) || 0) - (parseFloat(CSS.getPropertyValue(element, "paddingRight")) || 0);
+								revertDisplay();
+
+								return contentBoxWidth;
+							}
+						}
+
+						var computedStyle;
+
+						/* For elements that Velocity hasn't been called on directly (e.g. when Velocity queries the DOM on behalf
+       of a parent of an element its animating), perform a direct getComputedStyle lookup since the object isn't cached. */
+						if (Data(element) === undefined) {
+							computedStyle = window.getComputedStyle(element, null); /* GET */
+							/* If the computedStyle object has yet to be cached, do so now. */
+						} else if (!Data(element).computedStyle) {
+							computedStyle = Data(element).computedStyle = window.getComputedStyle(element, null); /* GET */
+							/* If computedStyle is cached, use it. */
+						} else {
+							computedStyle = Data(element).computedStyle;
+						}
+
+						/* IE and Firefox do not return a value for the generic borderColor -- they only return individual values for each border side's color.
+       Also, in all browsers, when border colors aren't all the same, a compound value is returned that Velocity isn't setup to parse.
+       So, as a polyfill for querying individual border side colors, we just return the top border's color and animate all borders from that value. */
+						if (property === "borderColor") {
+							property = "borderTopColor";
+						}
+
+						/* IE9 has a bug in which the "filter" property must be accessed from computedStyle using the getPropertyValue method
+       instead of a direct property lookup. The getPropertyValue method is slower than a direct lookup, which is why we avoid it by default. */
+						if (IE === 9 && property === "filter") {
+							computedValue = computedStyle.getPropertyValue(property); /* GET */
+						} else {
+							computedValue = computedStyle[property];
+						}
+
+						/* Fall back to the property's style value (if defined) when computedValue returns nothing,
+       which can happen when the element hasn't been painted. */
+						if (computedValue === "" || computedValue === null) {
+							computedValue = element.style[property];
+						}
+
+						revertDisplay();
+					}
+
+					/* For top, right, bottom, and left (TRBL) values that are set to "auto" on elements of "fixed" or "absolute" position,
+      defer to jQuery for converting "auto" to a numeric value. (For elements with a "static" or "relative" position, "auto" has the same
+      effect as being set to 0, so no conversion is necessary.) */
+					/* An example of why numeric conversion is necessary: When an element with "position:absolute" has an untouched "left"
+      property, which reverts to "auto", left's value is 0 relative to its parent element, but is often non-zero relative
+      to its *containing* (not parent) element, which is the nearest "position:relative" ancestor or the viewport (and always the viewport in the case of "position:fixed"). */
+					if (computedValue === "auto" && /^(top|right|bottom|left)$/i.test(property)) {
+						var position = computePropertyValue(element, "position"); /* GET */
+
+						/* For absolute positioning, jQuery's $.position() only returns values for top and left;
+       right and bottom will have their "auto" value reverted to 0. */
+						/* Note: A jQuery object must be created here since jQuery doesn't have a low-level alias for $.position().
+       Not a big deal since we're currently in a GET batch anyway. */
+						if (position === "fixed" || position === "absolute" && /top|left/i.test(property)) {
+							/* Note: jQuery strips the pixel unit from its returned values; we re-add it here to conform with computePropertyValue's behavior. */
+							computedValue = $(element).position()[property] + "px"; /* GET */
+						}
+					}
+
+					return computedValue;
+				}
+
+				var propertyValue;
+
+				/* If this is a hooked property (e.g. "clipLeft" instead of the root property of "clip"),
+     extract the hook's value from a normalized rootPropertyValue using CSS.Hooks.extractValue(). */
+				if (CSS.Hooks.registered[property]) {
+					var hook = property,
+					    hookRoot = CSS.Hooks.getRoot(hook);
+
+					/* If a cached rootPropertyValue wasn't passed in (which Velocity always attempts to do in order to avoid requerying the DOM),
+      query the DOM for the root property's value. */
+					if (rootPropertyValue === undefined) {
+						/* Since the browser is now being directly queried, use the official post-prefixing property name for this lookup. */
+						rootPropertyValue = CSS.getPropertyValue(element, CSS.Names.prefixCheck(hookRoot)[0]); /* GET */
+					}
+
+					/* If this root has a normalization registered, peform the associated normalization extraction. */
+					if (CSS.Normalizations.registered[hookRoot]) {
+						rootPropertyValue = CSS.Normalizations.registered[hookRoot]("extract", element, rootPropertyValue);
+					}
+
+					/* Extract the hook's value. */
+					propertyValue = CSS.Hooks.extractValue(hook, rootPropertyValue);
+
+					/* If this is a normalized property (e.g. "opacity" becomes "filter" in <=IE8) or "translateX" becomes "transform"),
+      normalize the property's name and value, and handle the special case of transforms. */
+					/* Note: Normalizing a property is mutually exclusive from hooking a property since hook-extracted values are strictly
+      numerical and therefore do not require normalization extraction. */
+				} else if (CSS.Normalizations.registered[property]) {
+					var normalizedPropertyName, normalizedPropertyValue;
+
+					normalizedPropertyName = CSS.Normalizations.registered[property]("name", element);
+
+					/* Transform values are calculated via normalization extraction (see below), which checks against the element's transformCache.
+      At no point do transform GETs ever actually query the DOM; initial stylesheet values are never processed.
+      This is because parsing 3D transform matrices is not always accurate and would bloat our codebase;
+      thus, normalization extraction defaults initial transform values to their zero-values (e.g. 1 for scaleX and 0 for translateX). */
+					if (normalizedPropertyName !== "transform") {
+						normalizedPropertyValue = computePropertyValue(element, CSS.Names.prefixCheck(normalizedPropertyName)[0]); /* GET */
+
+						/* If the value is a CSS null-value and this property has a hook template, use that zero-value template so that hooks can be extracted from it. */
+						if (CSS.Values.isCSSNullValue(normalizedPropertyValue) && CSS.Hooks.templates[property]) {
+							normalizedPropertyValue = CSS.Hooks.templates[property][1];
+						}
+					}
+
+					propertyValue = CSS.Normalizations.registered[property]("extract", element, normalizedPropertyValue);
+				}
+
+				/* If a (numeric) value wasn't produced via hook extraction or normalization, query the DOM. */
+				if (!/^[\d-]/.test(propertyValue)) {
+					/* For SVG elements, dimensional properties (which SVGAttribute() detects) are tweened via
+      their HTML attribute values instead of their CSS style values. */
+					var data = Data(element);
+
+					if (data && data.isSVG && CSS.Names.SVGAttribute(property)) {
+						/* Since the height/width attribute values must be set manually, they don't reflect computed values.
+       Thus, we use use getBBox() to ensure we always get values for elements with undefined height/width attributes. */
+						if (/^(height|width)$/i.test(property)) {
+							/* Firefox throws an error if .getBBox() is called on an SVG that isn't attached to the DOM. */
+							try {
+								propertyValue = element.getBBox()[property];
+							} catch (error) {
+								propertyValue = 0;
+							}
+							/* Otherwise, access the attribute value directly. */
+						} else {
+							propertyValue = element.getAttribute(property);
+						}
+					} else {
+						propertyValue = computePropertyValue(element, CSS.Names.prefixCheck(property)[0]); /* GET */
+					}
+				}
+
+				/* Since property lookups are for animation purposes (which entails computing the numeric delta between start and end values),
+     convert CSS null-values to an integer of value 0. */
+				if (CSS.Values.isCSSNullValue(propertyValue)) {
+					propertyValue = 0;
+				}
+
+				if (Velocity.debug >= 2) {
+					console.log("Get " + property + ": " + propertyValue);
+				}
+
+				return propertyValue;
+			},
+			/* The singular setPropertyValue, which routes the logic for all normalizations, hooks, and standard CSS properties. */
+			setPropertyValue: function (element, property, propertyValue, rootPropertyValue, scrollData) {
+				var propertyName = property;
+
+				/* In order to be subjected to call options and element queueing, scroll animation is routed through Velocity as if it were a standard CSS property. */
+				if (property === "scroll") {
+					/* If a container option is present, scroll the container instead of the browser window. */
+					if (scrollData.container) {
+						scrollData.container["scroll" + scrollData.direction] = propertyValue;
+						/* Otherwise, Velocity defaults to scrolling the browser window. */
+					} else {
+						if (scrollData.direction === "Left") {
+							window.scrollTo(propertyValue, scrollData.alternateValue);
+						} else {
+							window.scrollTo(scrollData.alternateValue, propertyValue);
+						}
+					}
+				} else {
+					/* Transforms (translateX, rotateZ, etc.) are applied to a per-element transformCache object, which is manually flushed via flushTransformCache().
+      Thus, for now, we merely cache transforms being SET. */
+					if (CSS.Normalizations.registered[property] && CSS.Normalizations.registered[property]("name", element) === "transform") {
+						/* Perform a normalization injection. */
+						/* Note: The normalization logic handles the transformCache updating. */
+						CSS.Normalizations.registered[property]("inject", element, propertyValue);
+
+						propertyName = "transform";
+						propertyValue = Data(element).transformCache[property];
+					} else {
+						/* Inject hooks. */
+						if (CSS.Hooks.registered[property]) {
+							var hookName = property,
+							    hookRoot = CSS.Hooks.getRoot(property);
+
+							/* If a cached rootPropertyValue was not provided, query the DOM for the hookRoot's current value. */
+							rootPropertyValue = rootPropertyValue || CSS.getPropertyValue(element, hookRoot); /* GET */
+
+							propertyValue = CSS.Hooks.injectValue(hookName, propertyValue, rootPropertyValue);
+							property = hookRoot;
+						}
+
+						/* Normalize names and values. */
+						if (CSS.Normalizations.registered[property]) {
+							propertyValue = CSS.Normalizations.registered[property]("inject", element, propertyValue);
+							property = CSS.Normalizations.registered[property]("name", element);
+						}
+
+						/* Assign the appropriate vendor prefix before performing an official style update. */
+						propertyName = CSS.Names.prefixCheck(property)[0];
+
+						/* A try/catch is used for IE<=8, which throws an error when "invalid" CSS values are set, e.g. a negative width.
+       Try/catch is avoided for other browsers since it incurs a performance overhead. */
+						if (IE <= 8) {
+							try {
+								element.style[propertyName] = propertyValue;
+							} catch (error) {
+								if (Velocity.debug) {
+									console.log("Browser does not support [" + propertyValue + "] for [" + propertyName + "]");
+								}
+							}
+							/* SVG elements have their dimensional properties (width, height, x, y, cx, etc.) applied directly as attributes instead of as styles. */
+							/* Note: IE8 does not support SVG elements, so it's okay that we skip it for SVG animation. */
+						} else {
+							var data = Data(element);
+
+							if (data && data.isSVG && CSS.Names.SVGAttribute(property)) {
+								/* Note: For SVG attributes, vendor-prefixed property names are never used. */
+								/* Note: Not all CSS properties can be animated via attributes, but the browser won't throw an error for unsupported properties. */
+								element.setAttribute(property, propertyValue);
+							} else {
+								element.style[propertyName] = propertyValue;
+							}
+						}
+
+						if (Velocity.debug >= 2) {
+							console.log("Set " + property + " (" + propertyName + "): " + propertyValue);
+						}
+					}
+				}
+
+				/* Return the normalized property name and value in case the caller wants to know how these values were modified before being applied to the DOM. */
+				return [propertyName, propertyValue];
+			},
+			/* To increase performance by batching transform updates into a single SET, transforms are not directly applied to an element until flushTransformCache() is called. */
+			/* Note: Velocity applies transform properties in the same order that they are chronogically introduced to the element's CSS styles. */
+			flushTransformCache: function (element) {
+				var transformString = "",
+				    data = Data(element);
+
+				/* Certain browsers require that SVG transforms be applied as an attribute. However, the SVG transform attribute takes a modified version of CSS's transform string
+     (units are dropped and, except for skewX/Y, subproperties are merged into their master property -- e.g. scaleX and scaleY are merged into scale(X Y). */
+				if ((IE || Velocity.State.isAndroid && !Velocity.State.isChrome) && data && data.isSVG) {
+					/* Since transform values are stored in their parentheses-wrapped form, we use a helper function to strip out their numeric values.
+      Further, SVG transform properties only take unitless (representing pixels) values, so it's okay that parseFloat() strips the unit suffixed to the float value. */
+					var getTransformFloat = function (transformProperty) {
+						return parseFloat(CSS.getPropertyValue(element, transformProperty));
+					};
+
+					/* Create an object to organize all the transforms that we'll apply to the SVG element. To keep the logic simple,
+      we process *all* transform properties -- even those that may not be explicitly applied (since they default to their zero-values anyway). */
+					var SVGTransforms = {
+						translate: [getTransformFloat("translateX"), getTransformFloat("translateY")],
+						skewX: [getTransformFloat("skewX")], skewY: [getTransformFloat("skewY")],
+						/* If the scale property is set (non-1), use that value for the scaleX and scaleY values
+       (this behavior mimics the result of animating all these properties at once on HTML elements). */
+						scale: getTransformFloat("scale") !== 1 ? [getTransformFloat("scale"), getTransformFloat("scale")] : [getTransformFloat("scaleX"), getTransformFloat("scaleY")],
+						/* Note: SVG's rotate transform takes three values: rotation degrees followed by the X and Y values
+       defining the rotation's origin point. We ignore the origin values (default them to 0). */
+						rotate: [getTransformFloat("rotateZ"), 0, 0]
+					};
+
+					/* Iterate through the transform properties in the user-defined property map order.
+      (This mimics the behavior of non-SVG transform animation.) */
+					$.each(Data(element).transformCache, function (transformName) {
+						/* Except for with skewX/Y, revert the axis-specific transform subproperties to their axis-free master
+       properties so that they match up with SVG's accepted transform properties. */
+						if (/^translate/i.test(transformName)) {
+							transformName = "translate";
+						} else if (/^scale/i.test(transformName)) {
+							transformName = "scale";
+						} else if (/^rotate/i.test(transformName)) {
+							transformName = "rotate";
+						}
+
+						/* Check that we haven't yet deleted the property from the SVGTransforms container. */
+						if (SVGTransforms[transformName]) {
+							/* Append the transform property in the SVG-supported transform format. As per the spec, surround the space-delimited values in parentheses. */
+							transformString += transformName + "(" + SVGTransforms[transformName].join(" ") + ")" + " ";
+
+							/* After processing an SVG transform property, delete it from the SVGTransforms container so we don't
+        re-insert the same master property if we encounter another one of its axis-specific properties. */
+							delete SVGTransforms[transformName];
+						}
+					});
+				} else {
+					var transformValue, perspective;
+
+					/* Transform properties are stored as members of the transformCache object. Concatenate all the members into a string. */
+					$.each(Data(element).transformCache, function (transformName) {
+						transformValue = Data(element).transformCache[transformName];
+
+						/* Transform's perspective subproperty must be set first in order to take effect. Store it temporarily. */
+						if (transformName === "transformPerspective") {
+							perspective = transformValue;
+							return true;
+						}
+
+						/* IE9 only supports one rotation type, rotateZ, which it refers to as "rotate". */
+						if (IE === 9 && transformName === "rotateZ") {
+							transformName = "rotate";
+						}
+
+						transformString += transformName + transformValue + " ";
+					});
+
+					/* If present, set the perspective subproperty first. */
+					if (perspective) {
+						transformString = "perspective" + perspective + " " + transformString;
+					}
+				}
+
+				CSS.setPropertyValue(element, "transform", transformString);
+			}
+		};
+
+		/* Register hooks and normalizations. */
+		CSS.Hooks.register();
+		CSS.Normalizations.register();
+
+		/* Allow hook setting in the same fashion as jQuery's $.css(). */
+		Velocity.hook = function (elements, arg2, arg3) {
+			var value;
+
+			elements = sanitizeElements(elements);
+
+			$.each(elements, function (i, element) {
+				/* Initialize Velocity's per-element data cache if this element hasn't previously been animated. */
+				if (Data(element) === undefined) {
+					Velocity.init(element);
+				}
+
+				/* Get property value. If an element set was passed in, only return the value for the first element. */
+				if (arg3 === undefined) {
+					if (value === undefined) {
+						value = CSS.getPropertyValue(element, arg2);
+					}
+					/* Set property value. */
+				} else {
+					/* sPV returns an array of the normalized propertyName/propertyValue pair used to update the DOM. */
+					var adjustedSet = CSS.setPropertyValue(element, arg2, arg3);
+
+					/* Transform properties don't automatically set. They have to be flushed to the DOM. */
+					if (adjustedSet[0] === "transform") {
+						Velocity.CSS.flushTransformCache(element);
+					}
+
+					value = adjustedSet;
+				}
+			});
+
+			return value;
+		};
+
+		/*****************
+   Animation
+   *****************/
+
+		var animate = function () {
+			var opts;
+
+			/******************
+    Call Chain
+    ******************/
+
+			/* Logic for determining what to return to the call stack when exiting out of Velocity. */
+			function getChain() {
+				/* If we are using the utility function, attempt to return this call's promise. If no promise library was detected,
+     default to null instead of returning the targeted elements so that utility function's return value is standardized. */
+				if (isUtility) {
+					return promiseData.promise || null;
+					/* Otherwise, if we're using $.fn, return the jQuery-/Zepto-wrapped element set. */
+				} else {
+					return elementsWrapped;
+				}
+			}
+
+			/*************************
+    Arguments Assignment
+    *************************/
+
+			/* To allow for expressive CoffeeScript code, Velocity supports an alternative syntax in which "elements" (or "e"), "properties" (or "p"), and "options" (or "o")
+    objects are defined on a container object that's passed in as Velocity's sole argument. */
+			/* Note: Some browsers automatically populate arguments with a "properties" object. We detect it by checking for its default "names" property. */
+			var syntacticSugar = arguments[0] && (arguments[0].p || $.isPlainObject(arguments[0].properties) && !arguments[0].properties.names || Type.isString(arguments[0].properties)),
+
+			/* Whether Velocity was called via the utility function (as opposed to on a jQuery/Zepto object). */
+			isUtility,
+
+			/* When Velocity is called via the utility function ($.Velocity()/Velocity()), elements are explicitly
+    passed in as the first parameter. Thus, argument positioning varies. We normalize them here. */
+			elementsWrapped,
+			    argumentIndex;
+
+			var elements, propertiesMap, options;
+
+			/* Detect jQuery/Zepto elements being animated via the $.fn method. */
+			if (Type.isWrapped(this)) {
+				isUtility = false;
+
+				argumentIndex = 0;
+				elements = this;
+				elementsWrapped = this;
+				/* Otherwise, raw elements are being animated via the utility function. */
+			} else {
+				isUtility = true;
+
+				argumentIndex = 1;
+				elements = syntacticSugar ? arguments[0].elements || arguments[0].e : arguments[0];
+			}
+
+			/***************
+    Promises
+    ***************/
+
+			var promiseData = {
+				promise: null,
+				resolver: null,
+				rejecter: null
+			};
+
+			/* If this call was made via the utility function (which is the default method of invocation when jQuery/Zepto are not being used), and if
+    promise support was detected, create a promise object for this call and store references to its resolver and rejecter methods. The resolve
+    method is used when a call completes naturally or is prematurely stopped by the user. In both cases, completeCall() handles the associated
+    call cleanup and promise resolving logic. The reject method is used when an invalid set of arguments is passed into a Velocity call. */
+			/* Note: Velocity employs a call-based queueing architecture, which means that stopping an animating element actually stops the full call that
+    triggered it -- not that one element exclusively. Similarly, there is one promise per call, and all elements targeted by a Velocity call are
+    grouped together for the purposes of resolving and rejecting a promise. */
+			if (isUtility && Velocity.Promise) {
+				promiseData.promise = new Velocity.Promise(function (resolve, reject) {
+					promiseData.resolver = resolve;
+					promiseData.rejecter = reject;
+				});
+			}
+
+			if (syntacticSugar) {
+				propertiesMap = arguments[0].properties || arguments[0].p;
+				options = arguments[0].options || arguments[0].o;
+			} else {
+				propertiesMap = arguments[argumentIndex];
+				options = arguments[argumentIndex + 1];
+			}
+
+			elements = sanitizeElements(elements);
+
+			if (!elements) {
+				if (promiseData.promise) {
+					if (!propertiesMap || !options || options.promiseRejectEmpty !== false) {
+						promiseData.rejecter();
+					} else {
+						promiseData.resolver();
+					}
+				}
+				return;
+			}
+
+			/* The length of the element set (in the form of a nodeList or an array of elements) is defaulted to 1 in case a
+    single raw DOM element is passed in (which doesn't contain a length property). */
+			var elementsLength = elements.length,
+			    elementsIndex = 0;
+
+			/***************************
+    Argument Overloading
+    ***************************/
+
+			/* Support is included for jQuery's argument overloading: $.animate(propertyMap [, duration] [, easing] [, complete]).
+    Overloading is detected by checking for the absence of an object being passed into options. */
+			/* Note: The stop/finish/pause/resume actions do not accept animation options, and are therefore excluded from this check. */
+			if (!/^(stop|finish|finishAll|pause|resume)$/i.test(propertiesMap) && !$.isPlainObject(options)) {
+				/* The utility function shifts all arguments one position to the right, so we adjust for that offset. */
+				var startingArgumentPosition = argumentIndex + 1;
+
+				options = {};
+
+				/* Iterate through all options arguments */
+				for (var i = startingArgumentPosition; i < arguments.length; i++) {
+					/* Treat a number as a duration. Parse it out. */
+					/* Note: The following RegEx will return true if passed an array with a number as its first item.
+      Thus, arrays are skipped from this check. */
+					if (!Type.isArray(arguments[i]) && (/^(fast|normal|slow)$/i.test(arguments[i]) || /^\d/.test(arguments[i]))) {
+						options.duration = arguments[i];
+						/* Treat strings and arrays as easings. */
+					} else if (Type.isString(arguments[i]) || Type.isArray(arguments[i])) {
+						options.easing = arguments[i];
+						/* Treat a function as a complete callback. */
+					} else if (Type.isFunction(arguments[i])) {
+						options.complete = arguments[i];
+					}
+				}
+			}
+
+			/*********************
+    Action Detection
+    *********************/
+
+			/* Velocity's behavior is categorized into "actions": Elements can either be specially scrolled into view,
+    or they can be started, stopped, paused, resumed, or reversed . If a literal or referenced properties map is passed in as Velocity's
+    first argument, the associated action is "start". Alternatively, "scroll", "reverse", "pause", "resume" or "stop" can be passed in 
+    instead of a properties map. */
+			var action;
+
+			switch (propertiesMap) {
+				case "scroll":
+					action = "scroll";
+					break;
+
+				case "reverse":
+					action = "reverse";
+					break;
+
+				case "pause":
+
+					/*******************
+      Action: Pause
+      *******************/
+
+					var currentTime = new Date().getTime();
+
+					/* Handle delay timers */
+					$.each(elements, function (i, element) {
+						pauseDelayOnElement(element, currentTime);
+					});
+
+					/* Pause and Resume are call-wide (not on a per element basis). Thus, calling pause or resume on a 
+      single element will cause any calls that containt tweens for that element to be paused/resumed
+      as well. */
+
+					/* Iterate through all calls and pause any that contain any of our elements */
+					$.each(Velocity.State.calls, function (i, activeCall) {
+
+						var found = false;
+						/* Inactive calls are set to false by the logic inside completeCall(). Skip them. */
+						if (activeCall) {
+							/* Iterate through the active call's targeted elements. */
+							$.each(activeCall[1], function (k, activeElement) {
+								var queueName = options === undefined ? "" : options;
+
+								if (queueName !== true && activeCall[2].queue !== queueName && !(options === undefined && activeCall[2].queue === false)) {
+									return true;
+								}
+
+								/* Iterate through the calls targeted by the stop command. */
+								$.each(elements, function (l, element) {
+									/* Check that this call was applied to the target element. */
+									if (element === activeElement) {
+
+										/* Set call to paused */
+										activeCall[5] = {
+											resume: false
+										};
+
+										/* Once we match an element, we can bounce out to the next call entirely */
+										found = true;
+										return false;
+									}
+								});
+
+								/* Proceed to check next call if we have already matched */
+								if (found) {
+									return false;
+								}
+							});
+						}
+					});
+
+					/* Since pause creates no new tweens, exit out of Velocity. */
+					return getChain();
+
+				case "resume":
+
+					/*******************
+      Action: Resume
+      *******************/
+
+					/* Handle delay timers */
+					$.each(elements, function (i, element) {
+						resumeDelayOnElement(element, currentTime);
+					});
+
+					/* Pause and Resume are call-wide (not on a per elemnt basis). Thus, calling pause or resume on a 
+      single element will cause any calls that containt tweens for that element to be paused/resumed
+      as well. */
+
+					/* Iterate through all calls and pause any that contain any of our elements */
+					$.each(Velocity.State.calls, function (i, activeCall) {
+						var found = false;
+						/* Inactive calls are set to false by the logic inside completeCall(). Skip them. */
+						if (activeCall) {
+							/* Iterate through the active call's targeted elements. */
+							$.each(activeCall[1], function (k, activeElement) {
+								var queueName = options === undefined ? "" : options;
+
+								if (queueName !== true && activeCall[2].queue !== queueName && !(options === undefined && activeCall[2].queue === false)) {
+									return true;
+								}
+
+								/* Skip any calls that have never been paused */
+								if (!activeCall[5]) {
+									return true;
+								}
+
+								/* Iterate through the calls targeted by the stop command. */
+								$.each(elements, function (l, element) {
+									/* Check that this call was applied to the target element. */
+									if (element === activeElement) {
+
+										/* Flag a pause object to be resumed, which will occur during the next tick. In
+           addition, the pause object will at that time be deleted */
+										activeCall[5].resume = true;
+
+										/* Once we match an element, we can bounce out to the next call entirely */
+										found = true;
+										return false;
+									}
+								});
+
+								/* Proceed to check next call if we have already matched */
+								if (found) {
+									return false;
+								}
+							});
+						}
+					});
+
+					/* Since resume creates no new tweens, exit out of Velocity. */
+					return getChain();
+
+				case "finish":
+				case "finishAll":
+				case "stop":
+					/*******************
+      Action: Stop
+      *******************/
+
+					/* Clear the currently-active delay on each targeted element. */
+					$.each(elements, function (i, element) {
+						if (Data(element) && Data(element).delayTimer) {
+							/* Stop the timer from triggering its cached next() function. */
+							clearTimeout(Data(element).delayTimer.setTimeout);
+
+							/* Manually call the next() function so that the subsequent queue items can progress. */
+							if (Data(element).delayTimer.next) {
+								Data(element).delayTimer.next();
+							}
+
+							delete Data(element).delayTimer;
+						}
+
+						/* If we want to finish everything in the queue, we have to iterate through it
+       and call each function. This will make them active calls below, which will
+       cause them to be applied via the duration setting. */
+						if (propertiesMap === "finishAll" && (options === true || Type.isString(options))) {
+							/* Iterate through the items in the element's queue. */
+							$.each($.queue(element, Type.isString(options) ? options : ""), function (_, item) {
+								/* The queue array can contain an "inprogress" string, which we skip. */
+								if (Type.isFunction(item)) {
+									item();
+								}
+							});
+
+							/* Clearing the $.queue() array is achieved by resetting it to []. */
+							$.queue(element, Type.isString(options) ? options : "", []);
+						}
+					});
+
+					var callsToStop = [];
+
+					/* When the stop action is triggered, the elements' currently active call is immediately stopped. The active call might have
+      been applied to multiple elements, in which case all of the call's elements will be stopped. When an element
+      is stopped, the next item in its animation queue is immediately triggered. */
+					/* An additional argument may be passed in to clear an element's remaining queued calls. Either true (which defaults to the "fx" queue)
+      or a custom queue string can be passed in. */
+					/* Note: The stop command runs prior to Velocity's Queueing phase since its behavior is intended to take effect *immediately*,
+      regardless of the element's current queue state. */
+
+					/* Iterate through every active call. */
+					$.each(Velocity.State.calls, function (i, activeCall) {
+						/* Inactive calls are set to false by the logic inside completeCall(). Skip them. */
+						if (activeCall) {
+							/* Iterate through the active call's targeted elements. */
+							$.each(activeCall[1], function (k, activeElement) {
+								/* If true was passed in as a secondary argument, clear absolutely all calls on this element. Otherwise, only
+         clear calls associated with the relevant queue. */
+								/* Call stopping logic works as follows:
+         - options === true --> stop current default queue calls (and queue:false calls), including remaining queued ones.
+         - options === undefined --> stop current queue:"" call and all queue:false calls.
+         - options === false --> stop only queue:false calls.
+         - options === "custom" --> stop current queue:"custom" call, including remaining queued ones (there is no functionality to only clear the currently-running queue:"custom" call). */
+								var queueName = options === undefined ? "" : options;
+
+								if (queueName !== true && activeCall[2].queue !== queueName && !(options === undefined && activeCall[2].queue === false)) {
+									return true;
+								}
+
+								/* Iterate through the calls targeted by the stop command. */
+								$.each(elements, function (l, element) {
+									/* Check that this call was applied to the target element. */
+									if (element === activeElement) {
+										/* Optionally clear the remaining queued calls. If we're doing "finishAll" this won't find anything,
+           due to the queue-clearing above. */
+										if (options === true || Type.isString(options)) {
+											/* Iterate through the items in the element's queue. */
+											$.each($.queue(element, Type.isString(options) ? options : ""), function (_, item) {
+												/* The queue array can contain an "inprogress" string, which we skip. */
+												if (Type.isFunction(item)) {
+													/* Pass the item's callback a flag indicating that we want to abort from the queue call.
+              (Specifically, the queue will resolve the call's associated promise then abort.)  */
+													item(null, true);
+												}
+											});
+
+											/* Clearing the $.queue() array is achieved by resetting it to []. */
+											$.queue(element, Type.isString(options) ? options : "", []);
+										}
+
+										if (propertiesMap === "stop") {
+											/* Since "reverse" uses cached start values (the previous call's endValues), these values must be
+            changed to reflect the final value that the elements were actually tweened to. */
+											/* Note: If only queue:false animations are currently running on an element, it won't have a tweensContainer
+            object. Also, queue:false animations can't be reversed. */
+											var data = Data(element);
+											if (data && data.tweensContainer && queueName !== false) {
+												$.each(data.tweensContainer, function (m, activeTween) {
+													activeTween.endValue = activeTween.currentValue;
+												});
+											}
+
+											callsToStop.push(i);
+										} else if (propertiesMap === "finish" || propertiesMap === "finishAll") {
+											/* To get active tweens to finish immediately, we forcefully shorten their durations to 1ms so that
+            they finish upon the next rAf tick then proceed with normal call completion logic. */
+											activeCall[2].duration = 1;
+										}
+									}
+								});
+							});
+						}
+					});
+
+					/* Prematurely call completeCall() on each matched active call. Pass an additional flag for "stop" to indicate
+      that the complete callback and display:none setting should be skipped since we're completing prematurely. */
+					if (propertiesMap === "stop") {
+						$.each(callsToStop, function (i, j) {
+							completeCall(j, true);
+						});
+
+						if (promiseData.promise) {
+							/* Immediately resolve the promise associated with this stop call since stop runs synchronously. */
+							promiseData.resolver(elements);
+						}
+					}
+
+					/* Since we're stopping, and not proceeding with queueing, exit out of Velocity. */
+					return getChain();
+
+				default:
+					/* Treat a non-empty plain object as a literal properties map. */
+					if ($.isPlainObject(propertiesMap) && !Type.isEmptyObject(propertiesMap)) {
+						action = "start";
+
+						/****************
+       Redirects
+       ****************/
+
+						/* Check if a string matches a registered redirect (see Redirects above). */
+					} else if (Type.isString(propertiesMap) && Velocity.Redirects[propertiesMap]) {
+						opts = $.extend({}, options);
+
+						var durationOriginal = opts.duration,
+						    delayOriginal = opts.delay || 0;
+
+						/* If the backwards option was passed in, reverse the element set so that elements animate from the last to the first. */
+						if (opts.backwards === true) {
+							elements = $.extend(true, [], elements).reverse();
+						}
+
+						/* Individually trigger the redirect for each element in the set to prevent users from having to handle iteration logic in their redirect. */
+						$.each(elements, function (elementIndex, element) {
+							/* If the stagger option was passed in, successively delay each element by the stagger value (in ms). Retain the original delay value. */
+							if (parseFloat(opts.stagger)) {
+								opts.delay = delayOriginal + parseFloat(opts.stagger) * elementIndex;
+							} else if (Type.isFunction(opts.stagger)) {
+								opts.delay = delayOriginal + opts.stagger.call(element, elementIndex, elementsLength);
+							}
+
+							/* If the drag option was passed in, successively increase/decrease (depending on the presense of opts.backwards)
+        the duration of each element's animation, using floors to prevent producing very short durations. */
+							if (opts.drag) {
+								/* Default the duration of UI pack effects (callouts and transitions) to 1000ms instead of the usual default duration of 400ms. */
+								opts.duration = parseFloat(durationOriginal) || (/^(callout|transition)/.test(propertiesMap) ? 1000 : DURATION_DEFAULT);
+
+								/* For each element, take the greater duration of: A) animation completion percentage relative to the original duration,
+         B) 75% of the original duration, or C) a 200ms fallback (in case duration is already set to a low value).
+         The end result is a baseline of 75% of the redirect's duration that increases/decreases as the end of the element set is approached. */
+								opts.duration = Math.max(opts.duration * (opts.backwards ? 1 - elementIndex / elementsLength : (elementIndex + 1) / elementsLength), opts.duration * 0.75, 200);
+							}
+
+							/* Pass in the call's opts object so that the redirect can optionally extend it. It defaults to an empty object instead of null to
+        reduce the opts checking logic required inside the redirect. */
+							Velocity.Redirects[propertiesMap].call(element, element, opts || {}, elementIndex, elementsLength, elements, promiseData.promise ? promiseData : undefined);
+						});
+
+						/* Since the animation logic resides within the redirect's own code, abort the remainder of this call.
+       (The performance overhead up to this point is virtually non-existant.) */
+						/* Note: The jQuery call chain is kept intact by returning the complete element set. */
+						return getChain();
+					} else {
+						var abortError = "Velocity: First argument (" + propertiesMap + ") was not a property map, a known action, or a registered redirect. Aborting.";
+
+						if (promiseData.promise) {
+							promiseData.rejecter(new Error(abortError));
+						} else if (window.console) {
+							console.log(abortError);
+						}
+
+						return getChain();
+					}
+			}
+
+			/**************************
+    Call-Wide Variables
+    **************************/
+
+			/* A container for CSS unit conversion ratios (e.g. %, rem, and em ==> px) that is used to cache ratios across all elements
+    being animated in a single Velocity call. Calculating unit ratios necessitates DOM querying and updating, and is therefore
+    avoided (via caching) wherever possible. This container is call-wide instead of page-wide to avoid the risk of using stale
+    conversion metrics across Velocity animations that are not immediately consecutively chained. */
+			var callUnitConversionData = {
+				lastParent: null,
+				lastPosition: null,
+				lastFontSize: null,
+				lastPercentToPxWidth: null,
+				lastPercentToPxHeight: null,
+				lastEmToPx: null,
+				remToPx: null,
+				vwToPx: null,
+				vhToPx: null
+			};
+
+			/* A container for all the ensuing tween data and metadata associated with this call. This container gets pushed to the page-wide
+    Velocity.State.calls array that is processed during animation ticking. */
+			var call = [];
+
+			/************************
+    Element Processing
+    ************************/
+
+			/* Element processing consists of three parts -- data processing that cannot go stale and data processing that *can* go stale (i.e. third-party style modifications):
+    1) Pre-Queueing: Element-wide variables, including the element's data storage, are instantiated. Call options are prepared. If triggered, the Stop action is executed.
+    2) Queueing: The logic that runs once this call has reached its point of execution in the element's $.queue() stack. Most logic is placed here to avoid risking it becoming stale.
+    3) Pushing: Consolidation of the tween data followed by its push onto the global in-progress calls container.
+    `elementArrayIndex` allows passing index of the element in the original array to value functions.
+    If `elementsIndex` were used instead the index would be determined by the elements' per-element queue.
+    */
+			function processElement(element, elementArrayIndex) {
+
+				/*************************
+     Part I: Pre-Queueing
+     *************************/
+
+				/***************************
+     Element-Wide Variables
+     ***************************/
+
+				var /* The runtime opts object is the extension of the current call's options and Velocity's page-wide option defaults. */
+				opts = $.extend({}, Velocity.defaults, options),
+
+				/* A container for the processed data associated with each property in the propertyMap.
+     (Each property in the map produces its own "tween".) */
+				tweensContainer = {},
+				    elementUnitConversionData;
+
+				/******************
+     Element Init
+     ******************/
+
+				if (Data(element) === undefined) {
+					Velocity.init(element);
+				}
+
+				/******************
+     Option: Delay
+     ******************/
+
+				/* Since queue:false doesn't respect the item's existing queue, we avoid injecting its delay here (it's set later on). */
+				/* Note: Velocity rolls its own delay function since jQuery doesn't have a utility alias for $.fn.delay()
+     (and thus requires jQuery element creation, which we avoid since its overhead includes DOM querying). */
+				if (parseFloat(opts.delay) && opts.queue !== false) {
+					$.queue(element, opts.queue, function (next) {
+						/* This is a flag used to indicate to the upcoming completeCall() function that this queue entry was initiated by Velocity. See completeCall() for further details. */
+						Velocity.velocityQueueEntryFlag = true;
+
+						/* The ensuing queue item (which is assigned to the "next" argument that $.queue() automatically passes in) will be triggered after a setTimeout delay.
+       The setTimeout is stored so that it can be subjected to clearTimeout() if this animation is prematurely stopped via Velocity's "stop" command, and
+       delayBegin/delayTime is used to ensure we can "pause" and "resume" a tween that is still mid-delay. */
+
+						/* Temporarily store delayed elements to facilite access for global pause/resume */
+						var callIndex = Velocity.State.delayedElements.count++;
+						Velocity.State.delayedElements[callIndex] = element;
+
+						var delayComplete = function (index) {
+							return function () {
+								/* Clear the temporary element */
+								Velocity.State.delayedElements[index] = false;
+
+								/* Finally, issue the call */
+								next();
+							};
+						}(callIndex);
+
+						Data(element).delayBegin = new Date().getTime();
+						Data(element).delay = parseFloat(opts.delay);
+						Data(element).delayTimer = {
+							setTimeout: setTimeout(next, parseFloat(opts.delay)),
+							next: delayComplete
+						};
+					});
+				}
+
+				/*********************
+     Option: Duration
+     *********************/
+
+				/* Support for jQuery's named durations. */
+				switch (opts.duration.toString().toLowerCase()) {
+					case "fast":
+						opts.duration = 200;
+						break;
+
+					case "normal":
+						opts.duration = DURATION_DEFAULT;
+						break;
+
+					case "slow":
+						opts.duration = 600;
+						break;
+
+					default:
+						/* Remove the potential "ms" suffix and default to 1 if the user is attempting to set a duration of 0 (in order to produce an immediate style change). */
+						opts.duration = parseFloat(opts.duration) || 1;
+				}
+
+				/************************
+     Global Option: Mock
+     ************************/
+
+				if (Velocity.mock !== false) {
+					/* In mock mode, all animations are forced to 1ms so that they occur immediately upon the next rAF tick.
+      Alternatively, a multiplier can be passed in to time remap all delays and durations. */
+					if (Velocity.mock === true) {
+						opts.duration = opts.delay = 1;
+					} else {
+						opts.duration *= parseFloat(Velocity.mock) || 1;
+						opts.delay *= parseFloat(Velocity.mock) || 1;
+					}
+				}
+
+				/*******************
+     Option: Easing
+     *******************/
+
+				opts.easing = getEasing(opts.easing, opts.duration);
+
+				/**********************
+     Option: Callbacks
+     **********************/
+
+				/* Callbacks must functions. Otherwise, default to null. */
+				if (opts.begin && !Type.isFunction(opts.begin)) {
+					opts.begin = null;
+				}
+
+				if (opts.progress && !Type.isFunction(opts.progress)) {
+					opts.progress = null;
+				}
+
+				if (opts.complete && !Type.isFunction(opts.complete)) {
+					opts.complete = null;
+				}
+
+				/*********************************
+     Option: Display & Visibility
+     *********************************/
+
+				/* Refer to Velocity's documentation (VelocityJS.org/#displayAndVisibility) for a description of the display and visibility options' behavior. */
+				/* Note: We strictly check for undefined instead of falsiness because display accepts an empty string value. */
+				if (opts.display !== undefined && opts.display !== null) {
+					opts.display = opts.display.toString().toLowerCase();
+
+					/* Users can pass in a special "auto" value to instruct Velocity to set the element to its default display value. */
+					if (opts.display === "auto") {
+						opts.display = Velocity.CSS.Values.getDisplayType(element);
+					}
+				}
+
+				if (opts.visibility !== undefined && opts.visibility !== null) {
+					opts.visibility = opts.visibility.toString().toLowerCase();
+				}
+
+				/**********************
+     Option: mobileHA
+     **********************/
+
+				/* When set to true, and if this is a mobile device, mobileHA automatically enables hardware acceleration (via a null transform hack)
+     on animating elements. HA is removed from the element at the completion of its animation. */
+				/* Note: Android Gingerbread doesn't support HA. If a null transform hack (mobileHA) is in fact set, it will prevent other tranform subproperties from taking effect. */
+				/* Note: You can read more about the use of mobileHA in Velocity's documentation: VelocityJS.org/#mobileHA. */
+				opts.mobileHA = opts.mobileHA && Velocity.State.isMobile && !Velocity.State.isGingerbread;
+
+				/***********************
+     Part II: Queueing
+     ***********************/
+
+				/* When a set of elements is targeted by a Velocity call, the set is broken up and each element has the current Velocity call individually queued onto it.
+     In this way, each element's existing queue is respected; some elements may already be animating and accordingly should not have this current Velocity call triggered immediately. */
+				/* In each queue, tween data is processed for each animating property then pushed onto the call-wide calls array. When the last element in the set has had its tweens processed,
+     the call array is pushed to Velocity.State.calls for live processing by the requestAnimationFrame tick. */
+				function buildQueue(next) {
+					var data, lastTweensContainer;
+
+					/*******************
+      Option: Begin
+      *******************/
+
+					/* The begin callback is fired once per call -- not once per elemenet -- and is passed the full raw DOM element set as both its context and its first argument. */
+					if (opts.begin && elementsIndex === 0) {
+						/* We throw callbacks in a setTimeout so that thrown errors don't halt the execution of Velocity itself. */
+						try {
+							opts.begin.call(elements, elements);
+						} catch (error) {
+							setTimeout(function () {
+								throw error;
+							}, 1);
+						}
+					}
+
+					/*****************************************
+      Tween Data Construction (for Scroll)
+      *****************************************/
+
+					/* Note: In order to be subjected to chaining and animation options, scroll's tweening is routed through Velocity as if it were a standard CSS property animation. */
+					if (action === "scroll") {
+						/* The scroll action uniquely takes an optional "offset" option -- specified in pixels -- that offsets the targeted scroll position. */
+						var scrollDirection = /^x$/i.test(opts.axis) ? "Left" : "Top",
+						    scrollOffset = parseFloat(opts.offset) || 0,
+						    scrollPositionCurrent,
+						    scrollPositionCurrentAlternate,
+						    scrollPositionEnd;
+
+						/* Scroll also uniquely takes an optional "container" option, which indicates the parent element that should be scrolled --
+       as opposed to the browser window itself. This is useful for scrolling toward an element that's inside an overflowing parent element. */
+						if (opts.container) {
+							/* Ensure that either a jQuery object or a raw DOM element was passed in. */
+							if (Type.isWrapped(opts.container) || Type.isNode(opts.container)) {
+								/* Extract the raw DOM element from the jQuery wrapper. */
+								opts.container = opts.container[0] || opts.container;
+								/* Note: Unlike other properties in Velocity, the browser's scroll position is never cached since it so frequently changes
+         (due to the user's natural interaction with the page). */
+								scrollPositionCurrent = opts.container["scroll" + scrollDirection]; /* GET */
+
+								/* $.position() values are relative to the container's currently viewable area (without taking into account the container's true dimensions
+         -- say, for example, if the container was not overflowing). Thus, the scroll end value is the sum of the child element's position *and*
+         the scroll container's current scroll position. */
+								scrollPositionEnd = scrollPositionCurrent + $(element).position()[scrollDirection.toLowerCase()] + scrollOffset; /* GET */
+								/* If a value other than a jQuery object or a raw DOM element was passed in, default to null so that this option is ignored. */
+							} else {
+								opts.container = null;
+							}
+						} else {
+							/* If the window itself is being scrolled -- not a containing element -- perform a live scroll position lookup using
+        the appropriate cached property names (which differ based on browser type). */
+							scrollPositionCurrent = Velocity.State.scrollAnchor[Velocity.State["scrollProperty" + scrollDirection]]; /* GET */
+							/* When scrolling the browser window, cache the alternate axis's current value since window.scrollTo() doesn't let us change only one value at a time. */
+							scrollPositionCurrentAlternate = Velocity.State.scrollAnchor[Velocity.State["scrollProperty" + (scrollDirection === "Left" ? "Top" : "Left")]]; /* GET */
+
+							/* Unlike $.position(), $.offset() values are relative to the browser window's true dimensions -- not merely its currently viewable area --
+        and therefore end values do not need to be compounded onto current values. */
+							scrollPositionEnd = $(element).offset()[scrollDirection.toLowerCase()] + scrollOffset; /* GET */
+						}
+
+						/* Since there's only one format that scroll's associated tweensContainer can take, we create it manually. */
+						tweensContainer = {
+							scroll: {
+								rootPropertyValue: false,
+								startValue: scrollPositionCurrent,
+								currentValue: scrollPositionCurrent,
+								endValue: scrollPositionEnd,
+								unitType: "",
+								easing: opts.easing,
+								scrollData: {
+									container: opts.container,
+									direction: scrollDirection,
+									alternateValue: scrollPositionCurrentAlternate
+								}
+							},
+							element: element
+						};
+
+						if (Velocity.debug) {
+							console.log("tweensContainer (scroll): ", tweensContainer.scroll, element);
+						}
+
+						/******************************************
+       Tween Data Construction (for Reverse)
+       ******************************************/
+
+						/* Reverse acts like a "start" action in that a property map is animated toward. The only difference is
+       that the property map used for reverse is the inverse of the map used in the previous call. Thus, we manipulate
+       the previous call to construct our new map: use the previous map's end values as our new map's start values. Copy over all other data. */
+						/* Note: Reverse can be directly called via the "reverse" parameter, or it can be indirectly triggered via the loop option. (Loops are composed of multiple reverses.) */
+						/* Note: Reverse calls do not need to be consecutively chained onto a currently-animating element in order to operate on cached values;
+       there is no harm to reverse being called on a potentially stale data cache since reverse's behavior is simply defined
+       as reverting to the element's values as they were prior to the previous *Velocity* call. */
+					} else if (action === "reverse") {
+						data = Data(element);
+
+						/* Abort if there is no prior animation data to reverse to. */
+						if (!data) {
+							return;
+						}
+
+						if (!data.tweensContainer) {
+							/* Dequeue the element so that this queue entry releases itself immediately, allowing subsequent queue entries to run. */
+							$.dequeue(element, opts.queue);
+
+							return;
+						} else {
+							/*********************
+        Options Parsing
+        *********************/
+
+							/* If the element was hidden via the display option in the previous call,
+        revert display to "auto" prior to reversal so that the element is visible again. */
+							if (data.opts.display === "none") {
+								data.opts.display = "auto";
+							}
+
+							if (data.opts.visibility === "hidden") {
+								data.opts.visibility = "visible";
+							}
+
+							/* If the loop option was set in the previous call, disable it so that "reverse" calls aren't recursively generated.
+        Further, remove the previous call's callback options; typically, users do not want these to be refired. */
+							data.opts.loop = false;
+							data.opts.begin = null;
+							data.opts.complete = null;
+
+							/* Since we're extending an opts object that has already been extended with the defaults options object,
+        we remove non-explicitly-defined properties that are auto-assigned values. */
+							if (!options.easing) {
+								delete opts.easing;
+							}
+
+							if (!options.duration) {
+								delete opts.duration;
+							}
+
+							/* The opts object used for reversal is an extension of the options object optionally passed into this
+        reverse call plus the options used in the previous Velocity call. */
+							opts = $.extend({}, data.opts, opts);
+
+							/*************************************
+        Tweens Container Reconstruction
+        *************************************/
+
+							/* Create a deepy copy (indicated via the true flag) of the previous call's tweensContainer. */
+							lastTweensContainer = $.extend(true, {}, data ? data.tweensContainer : null);
+
+							/* Manipulate the previous tweensContainer by replacing its end values and currentValues with its start values. */
+							for (var lastTween in lastTweensContainer) {
+								/* In addition to tween data, tweensContainers contain an element property that we ignore here. */
+								if (lastTweensContainer.hasOwnProperty(lastTween) && lastTween !== "element") {
+									var lastStartValue = lastTweensContainer[lastTween].startValue;
+
+									lastTweensContainer[lastTween].startValue = lastTweensContainer[lastTween].currentValue = lastTweensContainer[lastTween].endValue;
+									lastTweensContainer[lastTween].endValue = lastStartValue;
+
+									/* Easing is the only option that embeds into the individual tween data (since it can be defined on a per-property basis).
+          Accordingly, every property's easing value must be updated when an options object is passed in with a reverse call.
+          The side effect of this extensibility is that all per-property easing values are forcefully reset to the new value. */
+									if (!Type.isEmptyObject(options)) {
+										lastTweensContainer[lastTween].easing = opts.easing;
+									}
+
+									if (Velocity.debug) {
+										console.log("reverse tweensContainer (" + lastTween + "): " + JSON.stringify(lastTweensContainer[lastTween]), element);
+									}
+								}
+							}
+
+							tweensContainer = lastTweensContainer;
+						}
+
+						/*****************************************
+       Tween Data Construction (for Start)
+       *****************************************/
+					} else if (action === "start") {
+
+						/*************************
+       Value Transferring
+       *************************/
+
+						/* If this queue entry follows a previous Velocity-initiated queue entry *and* if this entry was created
+       while the element was in the process of being animated by Velocity, then this current call is safe to use
+       the end values from the prior call as its start values. Velocity attempts to perform this value transfer
+       process whenever possible in order to avoid requerying the DOM. */
+						/* If values aren't transferred from a prior call and start values were not forcefed by the user (more on this below),
+       then the DOM is queried for the element's current values as a last resort. */
+						/* Note: Conversely, animation reversal (and looping) *always* perform inter-call value transfers; they never requery the DOM. */
+
+						data = Data(element);
+
+						/* The per-element isAnimating flag is used to indicate whether it's safe (i.e. the data isn't stale)
+       to transfer over end values to use as start values. If it's set to true and there is a previous
+       Velocity call to pull values from, do so. */
+						if (data && data.tweensContainer && data.isAnimating === true) {
+							lastTweensContainer = data.tweensContainer;
+						}
+
+						/***************************
+       Tween Data Calculation
+       ***************************/
+
+						/* This function parses property data and defaults endValue, easing, and startValue as appropriate. */
+						/* Property map values can either take the form of 1) a single value representing the end value,
+       or 2) an array in the form of [ endValue, [, easing] [, startValue] ].
+       The optional third parameter is a forcefed startValue to be used instead of querying the DOM for
+       the element's current value. Read Velocity's docmentation to learn more about forcefeeding: VelocityJS.org/#forcefeeding */
+						var parsePropertyValue = function (valueData, skipResolvingEasing) {
+							var endValue, easing, startValue;
+
+							/* If we have a function as the main argument then resolve it first, in case it returns an array that needs to be split */
+							if (Type.isFunction(valueData)) {
+								valueData = valueData.call(element, elementArrayIndex, elementsLength);
+							}
+
+							/* Handle the array format, which can be structured as one of three potential overloads:
+        A) [ endValue, easing, startValue ], B) [ endValue, easing ], or C) [ endValue, startValue ] */
+							if (Type.isArray(valueData)) {
+								/* endValue is always the first item in the array. Don't bother validating endValue's value now
+         since the ensuing property cycling logic does that. */
+								endValue = valueData[0];
+
+								/* Two-item array format: If the second item is a number, function, or hex string, treat it as a
+         start value since easings can only be non-hex strings or arrays. */
+								if (!Type.isArray(valueData[1]) && /^[\d-]/.test(valueData[1]) || Type.isFunction(valueData[1]) || CSS.RegEx.isHex.test(valueData[1])) {
+									startValue = valueData[1];
+									/* Two or three-item array: If the second item is a non-hex string easing name or an array, treat it as an easing. */
+								} else if (Type.isString(valueData[1]) && !CSS.RegEx.isHex.test(valueData[1]) && Velocity.Easings[valueData[1]] || Type.isArray(valueData[1])) {
+									easing = skipResolvingEasing ? valueData[1] : getEasing(valueData[1], opts.duration);
+
+									/* Don't bother validating startValue's value now since the ensuing property cycling logic inherently does that. */
+									startValue = valueData[2];
+								} else {
+									startValue = valueData[1] || valueData[2];
+								}
+								/* Handle the single-value format. */
+							} else {
+								endValue = valueData;
+							}
+
+							/* Default to the call's easing if a per-property easing type was not defined. */
+							if (!skipResolvingEasing) {
+								easing = easing || opts.easing;
+							}
+
+							/* If functions were passed in as values, pass the function the current element as its context,
+        plus the element's index and the element set's size as arguments. Then, assign the returned value. */
+							if (Type.isFunction(endValue)) {
+								endValue = endValue.call(element, elementArrayIndex, elementsLength);
+							}
+
+							if (Type.isFunction(startValue)) {
+								startValue = startValue.call(element, elementArrayIndex, elementsLength);
+							}
+
+							/* Allow startValue to be left as undefined to indicate to the ensuing code that its value was not forcefed. */
+							return [endValue || 0, easing, startValue];
+						};
+
+						var fixPropertyValue = function (property, valueData) {
+							/* In case this property is a hook, there are circumstances where we will intend to work on the hook's root property and not the hooked subproperty. */
+							var rootProperty = CSS.Hooks.getRoot(property),
+							    rootPropertyValue = false,
+
+							/* Parse out endValue, easing, and startValue from the property's data. */
+							endValue = valueData[0],
+							    easing = valueData[1],
+							    startValue = valueData[2],
+							    pattern;
+
+							/**************************
+        Start Value Sourcing
+        **************************/
+
+							/* Other than for the dummy tween property, properties that are not supported by the browser (and do not have an associated normalization) will
+        inherently produce no style changes when set, so they are skipped in order to decrease animation tick overhead.
+        Property support is determined via prefixCheck(), which returns a false flag when no supported is detected. */
+							/* Note: Since SVG elements have some of their properties directly applied as HTML attributes,
+        there is no way to check for their explicit browser support, and so we skip skip this check for them. */
+							if ((!data || !data.isSVG) && rootProperty !== "tween" && CSS.Names.prefixCheck(rootProperty)[1] === false && CSS.Normalizations.registered[rootProperty] === undefined) {
+								if (Velocity.debug) {
+									console.log("Skipping [" + rootProperty + "] due to a lack of browser support.");
+								}
+								return;
+							}
+
+							/* If the display option is being set to a non-"none" (e.g. "block") and opacity (filter on IE<=8) is being
+        animated to an endValue of non-zero, the user's intention is to fade in from invisible, thus we forcefeed opacity
+        a startValue of 0 if its startValue hasn't already been sourced by value transferring or prior forcefeeding. */
+							if ((opts.display !== undefined && opts.display !== null && opts.display !== "none" || opts.visibility !== undefined && opts.visibility !== "hidden") && /opacity|filter/.test(property) && !startValue && endValue !== 0) {
+								startValue = 0;
+							}
+
+							/* If values have been transferred from the previous Velocity call, extract the endValue and rootPropertyValue
+        for all of the current call's properties that were *also* animated in the previous call. */
+							/* Note: Value transferring can optionally be disabled by the user via the _cacheValues option. */
+							if (opts._cacheValues && lastTweensContainer && lastTweensContainer[property]) {
+								if (startValue === undefined) {
+									startValue = lastTweensContainer[property].endValue + lastTweensContainer[property].unitType;
+								}
+
+								/* The previous call's rootPropertyValue is extracted from the element's data cache since that's the
+         instance of rootPropertyValue that gets freshly updated by the tweening process, whereas the rootPropertyValue
+         attached to the incoming lastTweensContainer is equal to the root property's value prior to any tweening. */
+								rootPropertyValue = data.rootPropertyValueCache[rootProperty];
+								/* If values were not transferred from a previous Velocity call, query the DOM as needed. */
+							} else {
+								/* Handle hooked properties. */
+								if (CSS.Hooks.registered[property]) {
+									if (startValue === undefined) {
+										rootPropertyValue = CSS.getPropertyValue(element, rootProperty); /* GET */
+										/* Note: The following getPropertyValue() call does not actually trigger a DOM query;
+           getPropertyValue() will extract the hook from rootPropertyValue. */
+										startValue = CSS.getPropertyValue(element, property, rootPropertyValue);
+										/* If startValue is already defined via forcefeeding, do not query the DOM for the root property's value;
+           just grab rootProperty's zero-value template from CSS.Hooks. This overwrites the element's actual
+           root property value (if one is set), but this is acceptable since the primary reason users forcefeed is
+           to avoid DOM queries, and thus we likewise avoid querying the DOM for the root property's value. */
+									} else {
+										/* Grab this hook's zero-value template, e.g. "0px 0px 0px black". */
+										rootPropertyValue = CSS.Hooks.templates[rootProperty][1];
+									}
+									/* Handle non-hooked properties that haven't already been defined via forcefeeding. */
+								} else if (startValue === undefined) {
+									startValue = CSS.getPropertyValue(element, property); /* GET */
+								}
+							}
+
+							/**************************
+        Value Data Extraction
+        **************************/
+
+							var separatedValue,
+							    endValueUnitType,
+							    startValueUnitType,
+							    operator = false;
+
+							/* Separates a property value into its numeric value and its unit type. */
+							var separateValue = function (property, value) {
+								var unitType, numericValue;
+
+								numericValue = (value || "0").toString().toLowerCase()
+								/* Match the unit type at the end of the value. */
+								.replace(/[%A-z]+$/, function (match) {
+									/* Grab the unit type. */
+									unitType = match;
+
+									/* Strip the unit type off of value. */
+									return "";
+								});
+
+								/* If no unit type was supplied, assign one that is appropriate for this property (e.g. "deg" for rotateZ or "px" for width). */
+								if (!unitType) {
+									unitType = CSS.Values.getUnitType(property);
+								}
+
+								return [numericValue, unitType];
+							};
+
+							if (startValue !== endValue && Type.isString(startValue) && Type.isString(endValue)) {
+								pattern = "";
+								var iStart = 0,
+								    // index in startValue
+								iEnd = 0,
+								    // index in endValue
+								aStart = [],
+								    // array of startValue numbers
+								aEnd = [],
+								    // array of endValue numbers
+								inCalc = 0,
+								    // Keep track of being inside a "calc()" so we don't duplicate it
+								inRGB = 0,
+								    // Keep track of being inside an RGB as we can't use fractional values
+								inRGBA = 0; // Keep track of being inside an RGBA as we must pass fractional for the alpha channel
+
+								startValue = CSS.Hooks.fixColors(startValue);
+								endValue = CSS.Hooks.fixColors(endValue);
+								while (iStart < startValue.length && iEnd < endValue.length) {
+									var cStart = startValue[iStart],
+									    cEnd = endValue[iEnd];
+
+									if (/[\d\.-]/.test(cStart) && /[\d\.-]/.test(cEnd)) {
+										var tStart = cStart,
+										    // temporary character buffer
+										tEnd = cEnd,
+										    // temporary character buffer
+										dotStart = ".",
+										    // Make sure we can only ever match a single dot in a decimal
+										dotEnd = "."; // Make sure we can only ever match a single dot in a decimal
+
+										while (++iStart < startValue.length) {
+											cStart = startValue[iStart];
+											if (cStart === dotStart) {
+												dotStart = ".."; // Can never match two characters
+											} else if (!/\d/.test(cStart)) {
+												break;
+											}
+											tStart += cStart;
+										}
+										while (++iEnd < endValue.length) {
+											cEnd = endValue[iEnd];
+											if (cEnd === dotEnd) {
+												dotEnd = ".."; // Can never match two characters
+											} else if (!/\d/.test(cEnd)) {
+												break;
+											}
+											tEnd += cEnd;
+										}
+										var uStart = CSS.Hooks.getUnit(startValue, iStart),
+										    // temporary unit type
+										uEnd = CSS.Hooks.getUnit(endValue, iEnd); // temporary unit type
+
+										iStart += uStart.length;
+										iEnd += uEnd.length;
+										if (uStart === uEnd) {
+											// Same units
+											if (tStart === tEnd) {
+												// Same numbers, so just copy over
+												pattern += tStart + uStart;
+											} else {
+												// Different numbers, so store them
+												pattern += "{" + aStart.length + (inRGB ? "!" : "") + "}" + uStart;
+												aStart.push(parseFloat(tStart));
+												aEnd.push(parseFloat(tEnd));
+											}
+										} else {
+											// Different units, so put into a "calc(from + to)" and animate each side to/from zero
+											var nStart = parseFloat(tStart),
+											    nEnd = parseFloat(tEnd);
+
+											pattern += (inCalc < 5 ? "calc" : "") + "(" + (nStart ? "{" + aStart.length + (inRGB ? "!" : "") + "}" : "0") + uStart + " + " + (nEnd ? "{" + (aStart.length + (nStart ? 1 : 0)) + (inRGB ? "!" : "") + "}" : "0") + uEnd + ")";
+											if (nStart) {
+												aStart.push(nStart);
+												aEnd.push(0);
+											}
+											if (nEnd) {
+												aStart.push(0);
+												aEnd.push(nEnd);
+											}
+										}
+									} else if (cStart === cEnd) {
+										pattern += cStart;
+										iStart++;
+										iEnd++;
+										// Keep track of being inside a calc()
+										if (inCalc === 0 && cStart === "c" || inCalc === 1 && cStart === "a" || inCalc === 2 && cStart === "l" || inCalc === 3 && cStart === "c" || inCalc >= 4 && cStart === "(") {
+											inCalc++;
+										} else if (inCalc && inCalc < 5 || inCalc >= 4 && cStart === ")" && --inCalc < 5) {
+											inCalc = 0;
+										}
+										// Keep track of being inside an rgb() / rgba()
+										if (inRGB === 0 && cStart === "r" || inRGB === 1 && cStart === "g" || inRGB === 2 && cStart === "b" || inRGB === 3 && cStart === "a" || inRGB >= 3 && cStart === "(") {
+											if (inRGB === 3 && cStart === "a") {
+												inRGBA = 1;
+											}
+											inRGB++;
+										} else if (inRGBA && cStart === ",") {
+											if (++inRGBA > 3) {
+												inRGB = inRGBA = 0;
+											}
+										} else if (inRGBA && inRGB < (inRGBA ? 5 : 4) || inRGB >= (inRGBA ? 4 : 3) && cStart === ")" && --inRGB < (inRGBA ? 5 : 4)) {
+											inRGB = inRGBA = 0;
+										}
+									} else {
+										inCalc = 0;
+										// TODO: changing units, fixing colours
+										break;
+									}
+								}
+								if (iStart !== startValue.length || iEnd !== endValue.length) {
+									if (Velocity.debug) {
+										console.error("Trying to pattern match mis-matched strings [\"" + endValue + "\", \"" + startValue + "\"]");
+									}
+									pattern = undefined;
+								}
+								if (pattern) {
+									if (aStart.length) {
+										if (Velocity.debug) {
+											console.log("Pattern found \"" + pattern + "\" -> ", aStart, aEnd, "[" + startValue + "," + endValue + "]");
+										}
+										startValue = aStart;
+										endValue = aEnd;
+										endValueUnitType = startValueUnitType = "";
+									} else {
+										pattern = undefined;
+									}
+								}
+							}
+
+							if (!pattern) {
+								/* Separate startValue. */
+								separatedValue = separateValue(property, startValue);
+								startValue = separatedValue[0];
+								startValueUnitType = separatedValue[1];
+
+								/* Separate endValue, and extract a value operator (e.g. "+=", "-=") if one exists. */
+								separatedValue = separateValue(property, endValue);
+								endValue = separatedValue[0].replace(/^([+-\/*])=/, function (match, subMatch) {
+									operator = subMatch;
+
+									/* Strip the operator off of the value. */
+									return "";
+								});
+								endValueUnitType = separatedValue[1];
+
+								/* Parse float values from endValue and startValue. Default to 0 if NaN is returned. */
+								startValue = parseFloat(startValue) || 0;
+								endValue = parseFloat(endValue) || 0;
+
+								/***************************************
+         Property-Specific Value Conversion
+         ***************************************/
+
+								/* Custom support for properties that don't actually accept the % unit type, but where pollyfilling is trivial and relatively foolproof. */
+								if (endValueUnitType === "%") {
+									/* A %-value fontSize/lineHeight is relative to the parent's fontSize (as opposed to the parent's dimensions),
+          which is identical to the em unit's behavior, so we piggyback off of that. */
+									if (/^(fontSize|lineHeight)$/.test(property)) {
+										/* Convert % into an em decimal value. */
+										endValue = endValue / 100;
+										endValueUnitType = "em";
+										/* For scaleX and scaleY, convert the value into its decimal format and strip off the unit type. */
+									} else if (/^scale/.test(property)) {
+										endValue = endValue / 100;
+										endValueUnitType = "";
+										/* For RGB components, take the defined percentage of 255 and strip off the unit type. */
+									} else if (/(Red|Green|Blue)$/i.test(property)) {
+										endValue = endValue / 100 * 255;
+										endValueUnitType = "";
+									}
+								}
+							}
+
+							/***************************
+        Unit Ratio Calculation
+        ***************************/
+
+							/* When queried, the browser returns (most) CSS property values in pixels. Therefore, if an endValue with a unit type of
+        %, em, or rem is animated toward, startValue must be converted from pixels into the same unit type as endValue in order
+        for value manipulation logic (increment/decrement) to proceed. Further, if the startValue was forcefed or transferred
+        from a previous call, startValue may also not be in pixels. Unit conversion logic therefore consists of two steps:
+        1) Calculating the ratio of %/em/rem/vh/vw relative to pixels
+        2) Converting startValue into the same unit of measurement as endValue based on these ratios. */
+							/* Unit conversion ratios are calculated by inserting a sibling node next to the target node, copying over its position property,
+        setting values with the target unit type then comparing the returned pixel value. */
+							/* Note: Even if only one of these unit types is being animated, all unit ratios are calculated at once since the overhead
+        of batching the SETs and GETs together upfront outweights the potential overhead
+        of layout thrashing caused by re-querying for uncalculated ratios for subsequently-processed properties. */
+							/* Todo: Shift this logic into the calls' first tick instance so that it's synced with RAF. */
+							var calculateUnitRatios = function () {
+
+								/************************
+         Same Ratio Checks
+         ************************/
+
+								/* The properties below are used to determine whether the element differs sufficiently from this call's
+         previously iterated element to also differ in its unit conversion ratios. If the properties match up with those
+         of the prior element, the prior element's conversion ratios are used. Like most optimizations in Velocity,
+         this is done to minimize DOM querying. */
+								var sameRatioIndicators = {
+									myParent: element.parentNode || document.body, /* GET */
+									position: CSS.getPropertyValue(element, "position"), /* GET */
+									fontSize: CSS.getPropertyValue(element, "fontSize") /* GET */
+								},
+
+								/* Determine if the same % ratio can be used. % is based on the element's position value and its parent's width and height dimensions. */
+								samePercentRatio = sameRatioIndicators.position === callUnitConversionData.lastPosition && sameRatioIndicators.myParent === callUnitConversionData.lastParent,
+
+								/* Determine if the same em ratio can be used. em is relative to the element's fontSize. */
+								sameEmRatio = sameRatioIndicators.fontSize === callUnitConversionData.lastFontSize;
+
+								/* Store these ratio indicators call-wide for the next element to compare against. */
+								callUnitConversionData.lastParent = sameRatioIndicators.myParent;
+								callUnitConversionData.lastPosition = sameRatioIndicators.position;
+								callUnitConversionData.lastFontSize = sameRatioIndicators.fontSize;
+
+								/***************************
+         Element-Specific Units
+         ***************************/
+
+								/* Note: IE8 rounds to the nearest pixel when returning CSS values, thus we perform conversions using a measurement
+         of 100 (instead of 1) to give our ratios a precision of at least 2 decimal values. */
+								var measurement = 100,
+								    unitRatios = {};
+
+								if (!sameEmRatio || !samePercentRatio) {
+									var dummy = data && data.isSVG ? document.createElementNS("http://www.w3.org/2000/svg", "rect") : document.createElement("div");
+
+									Velocity.init(dummy);
+									sameRatioIndicators.myParent.appendChild(dummy);
+
+									/* To accurately and consistently calculate conversion ratios, the element's cascaded overflow and box-sizing are stripped.
+          Similarly, since width/height can be artificially constrained by their min-/max- equivalents, these are controlled for as well. */
+									/* Note: Overflow must be also be controlled for per-axis since the overflow property overwrites its per-axis values. */
+									$.each(["overflow", "overflowX", "overflowY"], function (i, property) {
+										Velocity.CSS.setPropertyValue(dummy, property, "hidden");
+									});
+									Velocity.CSS.setPropertyValue(dummy, "position", sameRatioIndicators.position);
+									Velocity.CSS.setPropertyValue(dummy, "fontSize", sameRatioIndicators.fontSize);
+									Velocity.CSS.setPropertyValue(dummy, "boxSizing", "content-box");
+
+									/* width and height act as our proxy properties for measuring the horizontal and vertical % ratios. */
+									$.each(["minWidth", "maxWidth", "width", "minHeight", "maxHeight", "height"], function (i, property) {
+										Velocity.CSS.setPropertyValue(dummy, property, measurement + "%");
+									});
+									/* paddingLeft arbitrarily acts as our proxy property for the em ratio. */
+									Velocity.CSS.setPropertyValue(dummy, "paddingLeft", measurement + "em");
+
+									/* Divide the returned value by the measurement to get the ratio between 1% and 1px. Default to 1 since working with 0 can produce Infinite. */
+									unitRatios.percentToPxWidth = callUnitConversionData.lastPercentToPxWidth = (parseFloat(CSS.getPropertyValue(dummy, "width", null, true)) || 1) / measurement; /* GET */
+									unitRatios.percentToPxHeight = callUnitConversionData.lastPercentToPxHeight = (parseFloat(CSS.getPropertyValue(dummy, "height", null, true)) || 1) / measurement; /* GET */
+									unitRatios.emToPx = callUnitConversionData.lastEmToPx = (parseFloat(CSS.getPropertyValue(dummy, "paddingLeft")) || 1) / measurement; /* GET */
+
+									sameRatioIndicators.myParent.removeChild(dummy);
+								} else {
+									unitRatios.emToPx = callUnitConversionData.lastEmToPx;
+									unitRatios.percentToPxWidth = callUnitConversionData.lastPercentToPxWidth;
+									unitRatios.percentToPxHeight = callUnitConversionData.lastPercentToPxHeight;
+								}
+
+								/***************************
+         Element-Agnostic Units
+         ***************************/
+
+								/* Whereas % and em ratios are determined on a per-element basis, the rem unit only needs to be checked
+         once per call since it's exclusively dependant upon document.body's fontSize. If this is the first time
+         that calculateUnitRatios() is being run during this call, remToPx will still be set to its default value of null,
+         so we calculate it now. */
+								if (callUnitConversionData.remToPx === null) {
+									/* Default to browsers' default fontSize of 16px in the case of 0. */
+									callUnitConversionData.remToPx = parseFloat(CSS.getPropertyValue(document.body, "fontSize")) || 16; /* GET */
+								}
+
+								/* Similarly, viewport units are %-relative to the window's inner dimensions. */
+								if (callUnitConversionData.vwToPx === null) {
+									callUnitConversionData.vwToPx = parseFloat(window.innerWidth) / 100; /* GET */
+									callUnitConversionData.vhToPx = parseFloat(window.innerHeight) / 100; /* GET */
+								}
+
+								unitRatios.remToPx = callUnitConversionData.remToPx;
+								unitRatios.vwToPx = callUnitConversionData.vwToPx;
+								unitRatios.vhToPx = callUnitConversionData.vhToPx;
+
+								if (Velocity.debug >= 1) {
+									console.log("Unit ratios: " + JSON.stringify(unitRatios), element);
+								}
+								return unitRatios;
+							};
+
+							/********************
+        Unit Conversion
+        ********************/
+
+							/* The * and / operators, which are not passed in with an associated unit, inherently use startValue's unit. Skip value and unit conversion. */
+							if (/[\/*]/.test(operator)) {
+								endValueUnitType = startValueUnitType;
+								/* If startValue and endValue differ in unit type, convert startValue into the same unit type as endValue so that if endValueUnitType
+         is a relative unit (%, em, rem), the values set during tweening will continue to be accurately relative even if the metrics they depend
+         on are dynamically changing during the course of the animation. Conversely, if we always normalized into px and used px for setting values, the px ratio
+         would become stale if the original unit being animated toward was relative and the underlying metrics change during the animation. */
+								/* Since 0 is 0 in any unit type, no conversion is necessary when startValue is 0 -- we just start at 0 with endValueUnitType. */
+							} else if (startValueUnitType !== endValueUnitType && startValue !== 0) {
+								/* Unit conversion is also skipped when endValue is 0, but *startValueUnitType* must be used for tween values to remain accurate. */
+								/* Note: Skipping unit conversion here means that if endValueUnitType was originally a relative unit, the animation won't relatively
+         match the underlying metrics if they change, but this is acceptable since we're animating toward invisibility instead of toward visibility,
+         which remains past the point of the animation's completion. */
+								if (endValue === 0) {
+									endValueUnitType = startValueUnitType;
+								} else {
+									/* By this point, we cannot avoid unit conversion (it's undesirable since it causes layout thrashing).
+          If we haven't already, we trigger calculateUnitRatios(), which runs once per element per call. */
+									elementUnitConversionData = elementUnitConversionData || calculateUnitRatios();
+
+									/* The following RegEx matches CSS properties that have their % values measured relative to the x-axis. */
+									/* Note: W3C spec mandates that all of margin and padding's properties (even top and bottom) are %-relative to the *width* of the parent element. */
+									var axis = /margin|padding|left|right|width|text|word|letter/i.test(property) || /X$/.test(property) || property === "x" ? "x" : "y";
+
+									/* In order to avoid generating n^2 bespoke conversion functions, unit conversion is a two-step process:
+          1) Convert startValue into pixels. 2) Convert this new pixel value into endValue's unit type. */
+									switch (startValueUnitType) {
+										case "%":
+											/* Note: translateX and translateY are the only properties that are %-relative to an element's own dimensions -- not its parent's dimensions.
+            Velocity does not include a special conversion process to account for this behavior. Therefore, animating translateX/Y from a % value
+            to a non-% value will produce an incorrect start value. Fortunately, this sort of cross-unit conversion is rarely done by users in practice. */
+											startValue *= axis === "x" ? elementUnitConversionData.percentToPxWidth : elementUnitConversionData.percentToPxHeight;
+											break;
+
+										case "px":
+											/* px acts as our midpoint in the unit conversion process; do nothing. */
+											break;
+
+										default:
+											startValue *= elementUnitConversionData[startValueUnitType + "ToPx"];
+									}
+
+									/* Invert the px ratios to convert into to the target unit. */
+									switch (endValueUnitType) {
+										case "%":
+											startValue *= 1 / (axis === "x" ? elementUnitConversionData.percentToPxWidth : elementUnitConversionData.percentToPxHeight);
+											break;
+
+										case "px":
+											/* startValue is already in px, do nothing; we're done. */
+											break;
+
+										default:
+											startValue *= 1 / elementUnitConversionData[endValueUnitType + "ToPx"];
+									}
+								}
+							}
+
+							/*********************
+        Relative Values
+        *********************/
+
+							/* Operator logic must be performed last since it requires unit-normalized start and end values. */
+							/* Note: Relative *percent values* do not behave how most people think; while one would expect "+=50%"
+        to increase the property 1.5x its current value, it in fact increases the percent units in absolute terms:
+        50 points is added on top of the current % value. */
+							switch (operator) {
+								case "+":
+									endValue = startValue + endValue;
+									break;
+
+								case "-":
+									endValue = startValue - endValue;
+									break;
+
+								case "*":
+									endValue = startValue * endValue;
+									break;
+
+								case "/":
+									endValue = startValue / endValue;
+									break;
+							}
+
+							/**************************
+        tweensContainer Push
+        **************************/
+
+							/* Construct the per-property tween object, and push it to the element's tweensContainer. */
+							tweensContainer[property] = {
+								rootPropertyValue: rootPropertyValue,
+								startValue: startValue,
+								currentValue: startValue,
+								endValue: endValue,
+								unitType: endValueUnitType,
+								easing: easing
+							};
+							if (pattern) {
+								tweensContainer[property].pattern = pattern;
+							}
+
+							if (Velocity.debug) {
+								console.log("tweensContainer (" + property + "): " + JSON.stringify(tweensContainer[property]), element);
+							}
+						};
+
+						/* Create a tween out of each property, and append its associated data to tweensContainer. */
+						for (var property in propertiesMap) {
+
+							if (!propertiesMap.hasOwnProperty(property)) {
+								continue;
+							}
+							/* The original property name's format must be used for the parsePropertyValue() lookup,
+        but we then use its camelCase styling to normalize it for manipulation. */
+							var propertyName = CSS.Names.camelCase(property),
+							    valueData = parsePropertyValue(propertiesMap[property]);
+
+							/* Find shorthand color properties that have been passed a hex string. */
+							/* Would be quicker to use CSS.Lists.colors.includes() if possible */
+							if (_inArray(CSS.Lists.colors, propertyName)) {
+								/* Parse the value data for each shorthand. */
+								var endValue = valueData[0],
+								    easing = valueData[1],
+								    startValue = valueData[2];
+
+								if (CSS.RegEx.isHex.test(endValue)) {
+									/* Convert the hex strings into their RGB component arrays. */
+									var colorComponents = ["Red", "Green", "Blue"],
+									    endValueRGB = CSS.Values.hexToRgb(endValue),
+									    startValueRGB = startValue ? CSS.Values.hexToRgb(startValue) : undefined;
+
+									/* Inject the RGB component tweens into propertiesMap. */
+									for (var i = 0; i < colorComponents.length; i++) {
+										var dataArray = [endValueRGB[i]];
+
+										if (easing) {
+											dataArray.push(easing);
+										}
+
+										if (startValueRGB !== undefined) {
+											dataArray.push(startValueRGB[i]);
+										}
+
+										fixPropertyValue(propertyName + colorComponents[i], dataArray);
+									}
+									/* If we have replaced a shortcut color value then don't update the standard property name */
+									continue;
+								}
+							}
+							fixPropertyValue(propertyName, valueData);
+						}
+
+						/* Along with its property data, store a reference to the element itself onto tweensContainer. */
+						tweensContainer.element = element;
+					}
+
+					/*****************
+      Call Push
+      *****************/
+
+					/* Note: tweensContainer can be empty if all of the properties in this call's property map were skipped due to not
+      being supported by the browser. The element property is used for checking that the tweensContainer has been appended to. */
+					if (tweensContainer.element) {
+						/* Apply the "velocity-animating" indicator class. */
+						CSS.Values.addClass(element, "velocity-animating");
+
+						/* The call array houses the tweensContainers for each element being animated in the current call. */
+						call.push(tweensContainer);
+
+						data = Data(element);
+
+						if (data) {
+							/* Store the tweensContainer and options if we're working on the default effects queue, so that they can be used by the reverse command. */
+							if (opts.queue === "") {
+
+								data.tweensContainer = tweensContainer;
+								data.opts = opts;
+							}
+
+							/* Switch on the element's animating flag. */
+							data.isAnimating = true;
+						}
+
+						/* Once the final element in this call's element set has been processed, push the call array onto
+       Velocity.State.calls for the animation tick to immediately begin processing. */
+						if (elementsIndex === elementsLength - 1) {
+							/* Add the current call plus its associated metadata (the element set and the call's options) onto the global call container.
+        Anything on this call container is subjected to tick() processing. */
+							Velocity.State.calls.push([call, elements, opts, null, promiseData.resolver, null, 0]);
+
+							/* If the animation tick isn't running, start it. (Velocity shuts it off when there are no active calls to process.) */
+							if (Velocity.State.isTicking === false) {
+								Velocity.State.isTicking = true;
+
+								/* Start the tick loop. */
+								tick();
+							}
+						} else {
+							elementsIndex++;
+						}
+					}
+				}
+
+				/* When the queue option is set to false, the call skips the element's queue and fires immediately. */
+				if (opts.queue === false) {
+					/* Since this buildQueue call doesn't respect the element's existing queue (which is where a delay option would have been appended),
+      we manually inject the delay property here with an explicit setTimeout. */
+					if (opts.delay) {
+
+						/* Temporarily store delayed elements to facilitate access for global pause/resume */
+						var callIndex = Velocity.State.delayedElements.count++;
+						Velocity.State.delayedElements[callIndex] = element;
+
+						var delayComplete = function (index) {
+							return function () {
+								/* Clear the temporary element */
+								Velocity.State.delayedElements[index] = false;
+
+								/* Finally, issue the call */
+								buildQueue();
+							};
+						}(callIndex);
+
+						Data(element).delayBegin = new Date().getTime();
+						Data(element).delay = parseFloat(opts.delay);
+						Data(element).delayTimer = {
+							setTimeout: setTimeout(buildQueue, parseFloat(opts.delay)),
+							next: delayComplete
+						};
+					} else {
+						buildQueue();
+					}
+					/* Otherwise, the call undergoes element queueing as normal. */
+					/* Note: To interoperate with jQuery, Velocity uses jQuery's own $.queue() stack for queuing logic. */
+				} else {
+					$.queue(element, opts.queue, function (next, clearQueue) {
+						/* If the clearQueue flag was passed in by the stop command, resolve this call's promise. (Promises can only be resolved once,
+       so it's fine if this is repeatedly triggered for each element in the associated call.) */
+						if (clearQueue === true) {
+							if (promiseData.promise) {
+								promiseData.resolver(elements);
+							}
+
+							/* Do not continue with animation queueing. */
+							return true;
+						}
+
+						/* This flag indicates to the upcoming completeCall() function that this queue entry was initiated by Velocity.
+       See completeCall() for further details. */
+						Velocity.velocityQueueEntryFlag = true;
+
+						buildQueue(next);
+					});
+				}
+
+				/*********************
+     Auto-Dequeuing
+     *********************/
+
+				/* As per jQuery's $.queue() behavior, to fire the first non-custom-queue entry on an element, the element
+     must be dequeued if its queue stack consists *solely* of the current call. (This can be determined by checking
+     for the "inprogress" item that jQuery prepends to active queue stack arrays.) Regardless, whenever the element's
+     queue is further appended with additional items -- including $.delay()'s or even $.animate() calls, the queue's
+     first entry is automatically fired. This behavior contrasts that of custom queues, which never auto-fire. */
+				/* Note: When an element set is being subjected to a non-parallel Velocity call, the animation will not begin until
+     each one of the elements in the set has reached the end of its individually pre-existing queue chain. */
+				/* Note: Unfortunately, most people don't fully grasp jQuery's powerful, yet quirky, $.queue() function.
+     Lean more here: http://stackoverflow.com/questions/1058158/can-somebody-explain-jquery-queue-to-me */
+				if ((opts.queue === "" || opts.queue === "fx") && $.queue(element)[0] !== "inprogress") {
+					$.dequeue(element);
+				}
+			}
+
+			/**************************
+    Element Set Iteration
+    **************************/
+
+			/* If the "nodeType" property exists on the elements variable, we're animating a single element.
+    Place it in an array so that $.each() can iterate over it. */
+			$.each(elements, function (i, element) {
+				/* Ensure each element in a set has a nodeType (is a real element) to avoid throwing errors. */
+				if (Type.isNode(element)) {
+					processElement(element, i);
+				}
+			});
+
+			/******************
+    Option: Loop
+    ******************/
+
+			/* The loop option accepts an integer indicating how many times the element should loop between the values in the
+    current call's properties map and the element's property values prior to this call. */
+			/* Note: The loop option's logic is performed here -- after element processing -- because the current call needs
+    to undergo its queue insertion prior to the loop option generating its series of constituent "reverse" calls,
+    which chain after the current call. Two reverse calls (two "alternations") constitute one loop. */
+			opts = $.extend({}, Velocity.defaults, options);
+			opts.loop = parseInt(opts.loop, 10);
+			var reverseCallsCount = opts.loop * 2 - 1;
+
+			if (opts.loop) {
+				/* Double the loop count to convert it into its appropriate number of "reverse" calls.
+     Subtract 1 from the resulting value since the current call is included in the total alternation count. */
+				for (var x = 0; x < reverseCallsCount; x++) {
+					/* Since the logic for the reverse action occurs inside Queueing and therefore this call's options object
+      isn't parsed until then as well, the current call's delay option must be explicitly passed into the reverse
+      call so that the delay logic that occurs inside *Pre-Queueing* can process it. */
+					var reverseOptions = {
+						delay: opts.delay,
+						progress: opts.progress
+					};
+
+					/* If a complete callback was passed into this call, transfer it to the loop redirect's final "reverse" call
+      so that it's triggered when the entire redirect is complete (and not when the very first animation is complete). */
+					if (x === reverseCallsCount - 1) {
+						reverseOptions.display = opts.display;
+						reverseOptions.visibility = opts.visibility;
+						reverseOptions.complete = opts.complete;
+					}
+
+					animate(elements, "reverse", reverseOptions);
+				}
+			}
+
+			/***************
+    Chaining
+    ***************/
+
+			/* Return the elements back to the call chain, with wrapped elements taking precedence in case Velocity was called via the $.fn. extension. */
+			return getChain();
+		};
+
+		/* Turn Velocity into the animation function, extended with the pre-existing Velocity object. */
+		Velocity = $.extend(animate, Velocity);
+		/* For legacy support, also expose the literal animate method. */
+		Velocity.animate = animate;
+
+		/**************
+   Timing
+   **************/
+
+		/* Ticker function. */
+		var ticker = window.requestAnimationFrame || rAFShim;
+
+		/* Inactive browser tabs pause rAF, which results in all active animations immediately sprinting to their completion states when the tab refocuses.
+   To get around this, we dynamically switch rAF to setTimeout (which the browser *doesn't* pause) when the tab loses focus. We skip this for mobile
+   devices to avoid wasting battery power on inactive tabs. */
+		/* Note: Tab focus detection doesn't work on older versions of IE, but that's okay since they don't support rAF to begin with. */
+		if (!Velocity.State.isMobile && document.hidden !== undefined) {
+			var updateTicker = function () {
+				/* Reassign the rAF function (which the global tick() function uses) based on the tab's focus state. */
+				if (document.hidden) {
+					ticker = function (callback) {
+						/* The tick function needs a truthy first argument in order to pass its internal timestamp check. */
+						return setTimeout(function () {
+							callback(true);
+						}, 16);
+					};
+
+					/* The rAF loop has been paused by the browser, so we manually restart the tick. */
+					tick();
+				} else {
+					ticker = window.requestAnimationFrame || rAFShim;
+				}
+			};
+
+			/* Page could be sitting in the background at this time (i.e. opened as new tab) so making sure we use correct ticker from the start */
+			updateTicker();
+
+			/* And then run check again every time visibility changes */
+			document.addEventListener("visibilitychange", updateTicker);
+		}
+
+		/************
+   Tick
+   ************/
+
+		/* Note: All calls to Velocity are pushed to the Velocity.State.calls array, which is fully iterated through upon each tick. */
+		function tick(timestamp) {
+			/* An empty timestamp argument indicates that this is the first tick occurence since ticking was turned on.
+    We leverage this metadata to fully ignore the first tick pass since RAF's initial pass is fired whenever
+    the browser's next tick sync time occurs, which results in the first elements subjected to Velocity
+    calls being animated out of sync with any elements animated immediately thereafter. In short, we ignore
+    the first RAF tick pass so that elements being immediately consecutively animated -- instead of simultaneously animated
+    by the same Velocity call -- are properly batched into the same initial RAF tick and consequently remain in sync thereafter. */
+			if (timestamp) {
+				/* We normally use RAF's high resolution timestamp but as it can be significantly offset when the browser is
+     under high stress we give the option for choppiness over allowing the browser to drop huge chunks of frames.
+     We use performance.now() and shim it if it doesn't exist for when the tab is hidden. */
+				var timeCurrent = Velocity.timestamp && timestamp !== true ? timestamp : performance.now();
+
+				/********************
+     Call Iteration
+     ********************/
+
+				var callsLength = Velocity.State.calls.length;
+
+				/* To speed up iterating over this array, it is compacted (falsey items -- calls that have completed -- are removed)
+     when its length has ballooned to a point that can impact tick performance. This only becomes necessary when animation
+     has been continuous with many elements over a long period of time; whenever all active calls are completed, completeCall() clears Velocity.State.calls. */
+				if (callsLength > 10000) {
+					Velocity.State.calls = compactSparseArray(Velocity.State.calls);
+					callsLength = Velocity.State.calls.length;
+				}
+
+				/* Iterate through each active call. */
+				for (var i = 0; i < callsLength; i++) {
+					/* When a Velocity call is completed, its Velocity.State.calls entry is set to false. Continue on to the next call. */
+					if (!Velocity.State.calls[i]) {
+						continue;
+					}
+
+					/************************
+      Call-Wide Variables
+      ************************/
+
+					var callContainer = Velocity.State.calls[i],
+					    call = callContainer[0],
+					    opts = callContainer[2],
+					    timeStart = callContainer[3],
+					    firstTick = !!timeStart,
+					    tweenDummyValue = null,
+					    pauseObject = callContainer[5],
+					    millisecondsEllapsed = callContainer[6];
+
+					/* If timeStart is undefined, then this is the first time that this call has been processed by tick().
+      We assign timeStart now so that its value is as close to the real animation start time as possible.
+      (Conversely, had timeStart been defined when this call was added to Velocity.State.calls, the delay
+      between that time and now would cause the first few frames of the tween to be skipped since
+      percentComplete is calculated relative to timeStart.) */
+					/* Further, subtract 16ms (the approximate resolution of RAF) from the current time value so that the
+      first tick iteration isn't wasted by animating at 0% tween completion, which would produce the
+      same style value as the element's current value. */
+					if (!timeStart) {
+						timeStart = Velocity.State.calls[i][3] = timeCurrent - 16;
+					}
+
+					/* If a pause object is present, skip processing unless it has been set to resume */
+					if (pauseObject) {
+						if (pauseObject.resume === true) {
+							/* Update the time start to accomodate the paused completion amount */
+							timeStart = callContainer[3] = Math.round(timeCurrent - millisecondsEllapsed - 16);
+
+							/* Remove pause object after processing */
+							callContainer[5] = null;
+						} else {
+							continue;
+						}
+					}
+
+					millisecondsEllapsed = callContainer[6] = timeCurrent - timeStart;
+
+					/* The tween's completion percentage is relative to the tween's start time, not the tween's start value
+      (which would result in unpredictable tween durations since JavaScript's timers are not particularly accurate).
+      Accordingly, we ensure that percentComplete does not exceed 1. */
+					var percentComplete = Math.min(millisecondsEllapsed / opts.duration, 1);
+
+					/**********************
+      Element Iteration
+      **********************/
+
+					/* For every call, iterate through each of the elements in its set. */
+					for (var j = 0, callLength = call.length; j < callLength; j++) {
+						var tweensContainer = call[j],
+						    element = tweensContainer.element;
+
+						/* Check to see if this element has been deleted midway through the animation by checking for the
+       continued existence of its data cache. If it's gone, or the element is currently paused, skip animating this element. */
+						if (!Data(element)) {
+							continue;
+						}
+
+						var transformPropertyExists = false;
+
+						/**********************************
+       Display & Visibility Toggling
+       **********************************/
+
+						/* If the display option is set to non-"none", set it upfront so that the element can become visible before tweening begins.
+       (Otherwise, display's "none" value is set in completeCall() once the animation has completed.) */
+						if (opts.display !== undefined && opts.display !== null && opts.display !== "none") {
+							if (opts.display === "flex") {
+								var flexValues = ["-webkit-box", "-moz-box", "-ms-flexbox", "-webkit-flex"];
+
+								$.each(flexValues, function (i, flexValue) {
+									CSS.setPropertyValue(element, "display", flexValue);
+								});
+							}
+
+							CSS.setPropertyValue(element, "display", opts.display);
+						}
+
+						/* Same goes with the visibility option, but its "none" equivalent is "hidden". */
+						if (opts.visibility !== undefined && opts.visibility !== "hidden") {
+							CSS.setPropertyValue(element, "visibility", opts.visibility);
+						}
+
+						/************************
+       Property Iteration
+       ************************/
+
+						/* For every element, iterate through each property. */
+						for (var property in tweensContainer) {
+							/* Note: In addition to property tween data, tweensContainer contains a reference to its associated element. */
+							if (tweensContainer.hasOwnProperty(property) && property !== "element") {
+								var tween = tweensContainer[property],
+								    currentValue,
+
+								/* Easing can either be a pre-genereated function or a string that references a pre-registered easing
+         on the Velocity.Easings object. In either case, return the appropriate easing *function*. */
+								easing = Type.isString(tween.easing) ? Velocity.Easings[tween.easing] : tween.easing;
+
+								/******************************
+         Current Value Calculation
+         ******************************/
+
+								if (Type.isString(tween.pattern)) {
+									var patternReplace = percentComplete === 1 ? function ($0, index, round) {
+										var result = tween.endValue[index];
+
+										return round ? Math.round(result) : result;
+									} : function ($0, index, round) {
+										var startValue = tween.startValue[index],
+										    tweenDelta = tween.endValue[index] - startValue,
+										    result = startValue + tweenDelta * easing(percentComplete, opts, tweenDelta);
+
+										return round ? Math.round(result) : result;
+									};
+
+									currentValue = tween.pattern.replace(/{(\d+)(!)?}/g, patternReplace);
+								} else if (percentComplete === 1) {
+									/* If this is the last tick pass (if we've reached 100% completion for this tween),
+          ensure that currentValue is explicitly set to its target endValue so that it's not subjected to any rounding. */
+									currentValue = tween.endValue;
+								} else {
+									/* Otherwise, calculate currentValue based on the current delta from startValue. */
+									var tweenDelta = tween.endValue - tween.startValue;
+
+									currentValue = tween.startValue + tweenDelta * easing(percentComplete, opts, tweenDelta);
+									/* If no value change is occurring, don't proceed with DOM updating. */
+								}
+								if (!firstTick && currentValue === tween.currentValue) {
+									continue;
+								}
+
+								tween.currentValue = currentValue;
+
+								/* If we're tweening a fake 'tween' property in order to log transition values, update the one-per-call variable so that
+         it can be passed into the progress callback. */
+								if (property === "tween") {
+									tweenDummyValue = currentValue;
+								} else {
+									/******************
+          Hooks: Part I
+          ******************/
+									var hookRoot;
+
+									/* For hooked properties, the newly-updated rootPropertyValueCache is cached onto the element so that it can be used
+          for subsequent hooks in this call that are associated with the same root property. If we didn't cache the updated
+          rootPropertyValue, each subsequent update to the root property in this tick pass would reset the previous hook's
+          updates to rootPropertyValue prior to injection. A nice performance byproduct of rootPropertyValue caching is that
+          subsequently chained animations using the same hookRoot but a different hook can use this cached rootPropertyValue. */
+									if (CSS.Hooks.registered[property]) {
+										hookRoot = CSS.Hooks.getRoot(property);
+
+										var rootPropertyValueCache = Data(element).rootPropertyValueCache[hookRoot];
+
+										if (rootPropertyValueCache) {
+											tween.rootPropertyValue = rootPropertyValueCache;
+										}
+									}
+
+									/*****************
+          DOM Update
+          *****************/
+
+									/* setPropertyValue() returns an array of the property name and property value post any normalization that may have been performed. */
+									/* Note: To solve an IE<=8 positioning bug, the unit type is dropped when setting a property value of 0. */
+									var adjustedSetData = CSS.setPropertyValue(element, /* SET */
+									property, tween.currentValue + (IE < 9 && parseFloat(currentValue) === 0 ? "" : tween.unitType), tween.rootPropertyValue, tween.scrollData);
+
+									/*******************
+          Hooks: Part II
+          *******************/
+
+									/* Now that we have the hook's updated rootPropertyValue (the post-processed value provided by adjustedSetData), cache it onto the element. */
+									if (CSS.Hooks.registered[property]) {
+										/* Since adjustedSetData contains normalized data ready for DOM updating, the rootPropertyValue needs to be re-extracted from its normalized form. ?? */
+										if (CSS.Normalizations.registered[hookRoot]) {
+											Data(element).rootPropertyValueCache[hookRoot] = CSS.Normalizations.registered[hookRoot]("extract", null, adjustedSetData[1]);
+										} else {
+											Data(element).rootPropertyValueCache[hookRoot] = adjustedSetData[1];
+										}
+									}
+
+									/***************
+          Transforms
+          ***************/
+
+									/* Flag whether a transform property is being animated so that flushTransformCache() can be triggered once this tick pass is complete. */
+									if (adjustedSetData[0] === "transform") {
+										transformPropertyExists = true;
+									}
+								}
+							}
+						}
+
+						/****************
+       mobileHA
+       ****************/
+
+						/* If mobileHA is enabled, set the translate3d transform to null to force hardware acceleration.
+       It's safe to override this property since Velocity doesn't actually support its animation (hooks are used in its place). */
+						if (opts.mobileHA) {
+							/* Don't set the null transform hack if we've already done so. */
+							if (Data(element).transformCache.translate3d === undefined) {
+								/* All entries on the transformCache object are later concatenated into a single transform string via flushTransformCache(). */
+								Data(element).transformCache.translate3d = "(0px, 0px, 0px)";
+
+								transformPropertyExists = true;
+							}
+						}
+
+						if (transformPropertyExists) {
+							CSS.flushTransformCache(element);
+						}
+					}
+
+					/* The non-"none" display value is only applied to an element once -- when its associated call is first ticked through.
+      Accordingly, it's set to false so that it isn't re-processed by this call in the next tick. */
+					if (opts.display !== undefined && opts.display !== "none") {
+						Velocity.State.calls[i][2].display = false;
+					}
+					if (opts.visibility !== undefined && opts.visibility !== "hidden") {
+						Velocity.State.calls[i][2].visibility = false;
+					}
+
+					/* Pass the elements and the timing data (percentComplete, msRemaining, timeStart, tweenDummyValue) into the progress callback. */
+					if (opts.progress) {
+						opts.progress.call(callContainer[1], callContainer[1], percentComplete, Math.max(0, timeStart + opts.duration - timeCurrent), timeStart, tweenDummyValue);
+					}
+
+					/* If this call has finished tweening, pass its index to completeCall() to handle call cleanup. */
+					if (percentComplete === 1) {
+						completeCall(i);
+					}
+				}
+			}
+
+			/* Note: completeCall() sets the isTicking flag to false when the last call on Velocity.State.calls has completed. */
+			if (Velocity.State.isTicking) {
+				ticker(tick);
+			}
+		}
+
+		/**********************
+   Call Completion
+   **********************/
+
+		/* Note: Unlike tick(), which processes all active calls at once, call completion is handled on a per-call basis. */
+		function completeCall(callIndex, isStopped) {
+			/* Ensure the call exists. */
+			if (!Velocity.State.calls[callIndex]) {
+				return false;
+			}
+
+			/* Pull the metadata from the call. */
+			var call = Velocity.State.calls[callIndex][0],
+			    elements = Velocity.State.calls[callIndex][1],
+			    opts = Velocity.State.calls[callIndex][2],
+			    resolver = Velocity.State.calls[callIndex][4];
+
+			var remainingCallsExist = false;
+
+			/*************************
+    Element Finalization
+    *************************/
+
+			for (var i = 0, callLength = call.length; i < callLength; i++) {
+				var element = call[i].element;
+
+				/* If the user set display to "none" (intending to hide the element), set it now that the animation has completed. */
+				/* Note: display:none isn't set when calls are manually stopped (via Velocity("stop"). */
+				/* Note: Display gets ignored with "reverse" calls and infinite loops, since this behavior would be undesirable. */
+				if (!isStopped && !opts.loop) {
+					if (opts.display === "none") {
+						CSS.setPropertyValue(element, "display", opts.display);
+					}
+
+					if (opts.visibility === "hidden") {
+						CSS.setPropertyValue(element, "visibility", opts.visibility);
+					}
+				}
+
+				/* If the element's queue is empty (if only the "inprogress" item is left at position 0) or if its queue is about to run
+     a non-Velocity-initiated entry, turn off the isAnimating flag. A non-Velocity-initiatied queue entry's logic might alter
+     an element's CSS values and thereby cause Velocity's cached value data to go stale. To detect if a queue entry was initiated by Velocity,
+     we check for the existence of our special Velocity.queueEntryFlag declaration, which minifiers won't rename since the flag
+     is assigned to jQuery's global $ object and thus exists out of Velocity's own scope. */
+				var data = Data(element);
+
+				if (opts.loop !== true && ($.queue(element)[1] === undefined || !/\.velocityQueueEntryFlag/i.test($.queue(element)[1]))) {
+					/* The element may have been deleted. Ensure that its data cache still exists before acting on it. */
+					if (data) {
+						data.isAnimating = false;
+						/* Clear the element's rootPropertyValueCache, which will become stale. */
+						data.rootPropertyValueCache = {};
+
+						var transformHAPropertyExists = false;
+						/* If any 3D transform subproperty is at its default value (regardless of unit type), remove it. */
+						$.each(CSS.Lists.transforms3D, function (i, transformName) {
+							var defaultValue = /^scale/.test(transformName) ? 1 : 0,
+							    currentValue = data.transformCache[transformName];
+
+							if (data.transformCache[transformName] !== undefined && new RegExp("^\\(" + defaultValue + "[^.]").test(currentValue)) {
+								transformHAPropertyExists = true;
+
+								delete data.transformCache[transformName];
+							}
+						});
+
+						/* Mobile devices have hardware acceleration removed at the end of the animation in order to avoid hogging the GPU's memory. */
+						if (opts.mobileHA) {
+							transformHAPropertyExists = true;
+							delete data.transformCache.translate3d;
+						}
+
+						/* Flush the subproperty removals to the DOM. */
+						if (transformHAPropertyExists) {
+							CSS.flushTransformCache(element);
+						}
+
+						/* Remove the "velocity-animating" indicator class. */
+						CSS.Values.removeClass(element, "velocity-animating");
+					}
+				}
+
+				/*********************
+     Option: Complete
+     *********************/
+
+				/* Complete is fired once per call (not once per element) and is passed the full raw DOM element set as both its context and its first argument. */
+				/* Note: Callbacks aren't fired when calls are manually stopped (via Velocity("stop"). */
+				if (!isStopped && opts.complete && !opts.loop && i === callLength - 1) {
+					/* We throw callbacks in a setTimeout so that thrown errors don't halt the execution of Velocity itself. */
+					try {
+						opts.complete.call(elements, elements);
+					} catch (error) {
+						setTimeout(function () {
+							throw error;
+						}, 1);
+					}
+				}
+
+				/**********************
+     Promise Resolving
+     **********************/
+
+				/* Note: Infinite loops don't return promises. */
+				if (resolver && opts.loop !== true) {
+					resolver(elements);
+				}
+
+				/****************************
+     Option: Loop (Infinite)
+     ****************************/
+
+				if (data && opts.loop === true && !isStopped) {
+					/* If a rotateX/Y/Z property is being animated by 360 deg with loop:true, swap tween start/end values to enable
+      continuous iterative rotation looping. (Otherise, the element would just rotate back and forth.) */
+					$.each(data.tweensContainer, function (propertyName, tweenContainer) {
+						if (/^rotate/.test(propertyName) && (parseFloat(tweenContainer.startValue) - parseFloat(tweenContainer.endValue)) % 360 === 0) {
+							var oldStartValue = tweenContainer.startValue;
+
+							tweenContainer.startValue = tweenContainer.endValue;
+							tweenContainer.endValue = oldStartValue;
+						}
+
+						if (/^backgroundPosition/.test(propertyName) && parseFloat(tweenContainer.endValue) === 100 && tweenContainer.unitType === "%") {
+							tweenContainer.endValue = 0;
+							tweenContainer.startValue = 100;
+						}
+					});
+
+					Velocity(element, "reverse", { loop: true, delay: opts.delay });
+				}
+
+				/***************
+     Dequeueing
+     ***************/
+
+				/* Fire the next call in the queue so long as this call's queue wasn't set to false (to trigger a parallel animation),
+     which would have already caused the next call to fire. Note: Even if the end of the animation queue has been reached,
+     $.dequeue() must still be called in order to completely clear jQuery's animation queue. */
+				if (opts.queue !== false) {
+					$.dequeue(element, opts.queue);
+				}
+			}
+
+			/************************
+    Calls Array Cleanup
+    ************************/
+
+			/* Since this call is complete, set it to false so that the rAF tick skips it. This array is later compacted via compactSparseArray().
+    (For performance reasons, the call is set to false instead of being deleted from the array: http://www.html5rocks.com/en/tutorials/speed/v8/) */
+			Velocity.State.calls[callIndex] = false;
+
+			/* Iterate through the calls array to determine if this was the final in-progress animation.
+    If so, set a flag to end ticking and clear the calls array. */
+			for (var j = 0, callsLength = Velocity.State.calls.length; j < callsLength; j++) {
+				if (Velocity.State.calls[j] !== false) {
+					remainingCallsExist = true;
+
+					break;
+				}
+			}
+
+			if (remainingCallsExist === false) {
+				/* tick() will detect this flag upon its next iteration and subsequently turn itself off. */
+				Velocity.State.isTicking = false;
+
+				/* Clear the calls array so that its length is reset. */
+				delete Velocity.State.calls;
+				Velocity.State.calls = [];
+			}
+		}
+
+		/******************
+   Frameworks
+   ******************/
+
+		/* Both jQuery and Zepto allow their $.fn object to be extended to allow wrapped elements to be subjected to plugin calls.
+   If either framework is loaded, register a "velocity" extension pointing to Velocity's core animate() method.  Velocity
+   also registers itself onto a global container (window.jQuery || window.Zepto || window) so that certain features are
+   accessible beyond just a per-element scope. This master object contains an .animate() method, which is later assigned to $.fn
+   (if jQuery or Zepto are present). Accordingly, Velocity can both act on wrapped DOM elements and stand alone for targeting raw DOM elements. */
+		global.Velocity = Velocity;
+
+		if (global !== window) {
+			/* Assign the element function to Velocity's core animate() method. */
+			global.fn.velocity = animate;
+			/* Assign the object function's defaults to Velocity's global defaults object. */
+			global.fn.velocity.defaults = Velocity.defaults;
+		}
+
+		/***********************
+   Packaged Redirects
+   ***********************/
+
+		/* slideUp, slideDown */
+		$.each(["Down", "Up"], function (i, direction) {
+			Velocity.Redirects["slide" + direction] = function (element, options, elementsIndex, elementsSize, elements, promiseData) {
+				var opts = $.extend({}, options),
+				    begin = opts.begin,
+				    complete = opts.complete,
+				    inlineValues = {},
+				    computedValues = { height: "", marginTop: "", marginBottom: "", paddingTop: "", paddingBottom: "" };
+
+				if (opts.display === undefined) {
+					/* Show the element before slideDown begins and hide the element after slideUp completes. */
+					/* Note: Inline elements cannot have dimensions animated, so they're reverted to inline-block. */
+					opts.display = direction === "Down" ? Velocity.CSS.Values.getDisplayType(element) === "inline" ? "inline-block" : "block" : "none";
+				}
+
+				opts.begin = function () {
+					/* If the user passed in a begin callback, fire it now. */
+					if (elementsIndex === 0 && begin) {
+						begin.call(elements, elements);
+					}
+
+					/* Cache the elements' original vertical dimensional property values so that we can animate back to them. */
+					for (var property in computedValues) {
+						if (!computedValues.hasOwnProperty(property)) {
+							continue;
+						}
+						inlineValues[property] = element.style[property];
+
+						/* For slideDown, use forcefeeding to animate all vertical properties from 0. For slideUp,
+       use forcefeeding to start from computed values and animate down to 0. */
+						var propertyValue = CSS.getPropertyValue(element, property);
+						computedValues[property] = direction === "Down" ? [propertyValue, 0] : [0, propertyValue];
+					}
+
+					/* Force vertical overflow content to clip so that sliding works as expected. */
+					inlineValues.overflow = element.style.overflow;
+					element.style.overflow = "hidden";
+				};
+
+				opts.complete = function () {
+					/* Reset element to its pre-slide inline values once its slide animation is complete. */
+					for (var property in inlineValues) {
+						if (inlineValues.hasOwnProperty(property)) {
+							element.style[property] = inlineValues[property];
+						}
+					}
+
+					/* If the user passed in a complete callback, fire it now. */
+					if (elementsIndex === elementsSize - 1) {
+						if (complete) {
+							complete.call(elements, elements);
+						}
+						if (promiseData) {
+							promiseData.resolver(elements);
+						}
+					}
+				};
+
+				Velocity(element, computedValues, opts);
+			};
+		});
+
+		/* fadeIn, fadeOut */
+		$.each(["In", "Out"], function (i, direction) {
+			Velocity.Redirects["fade" + direction] = function (element, options, elementsIndex, elementsSize, elements, promiseData) {
+				var opts = $.extend({}, options),
+				    complete = opts.complete,
+				    propertiesMap = { opacity: direction === "In" ? 1 : 0 };
+
+				/* Since redirects are triggered individually for each element in the animated set, avoid repeatedly triggering
+     callbacks by firing them only when the final element has been reached. */
+				if (elementsIndex !== 0) {
+					opts.begin = null;
+				}
+				if (elementsIndex !== elementsSize - 1) {
+					opts.complete = null;
+				} else {
+					opts.complete = function () {
+						if (complete) {
+							complete.call(elements, elements);
+						}
+						if (promiseData) {
+							promiseData.resolver(elements);
+						}
+					};
+				}
+
+				/* If a display was passed in, use it. Otherwise, default to "none" for fadeOut or the element-specific default for fadeIn. */
+				/* Note: We allow users to pass in "null" to skip display setting altogether. */
+				if (opts.display === undefined) {
+					opts.display = direction === "In" ? "auto" : "none";
+				}
+
+				Velocity(this, propertiesMap, opts);
+			};
+		});
+
+		return Velocity;
+	}(window.jQuery || window.Zepto || window, window, window ? window.document : undefined);
+});
+
+/******************
+ Known Issues
+ ******************/
+
+/* The CSS spec mandates that the translateX/Y/Z transforms are %-relative to the element itself -- not its parent.
+ Velocity, however, doesn't make this distinction. Thus, converting to or from the % unit with these subproperties
+ will produce an inaccurate conversion value. The same issue exists with the cx/cy attributes of SVG circles and ellipses. */
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = function () {
+	return this;
+}();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1, eval)("this");
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_expose_loader_Tether_tether__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_expose_loader_Tether_tether___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_expose_loader_Tether_tether__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_bootstrap_dist_js_bootstrap_min__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_bootstrap_dist_js_bootstrap_min___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_bootstrap_dist_js_bootstrap_min__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_flexibility__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_flexibility___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_flexibility__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_bootstrap_touchspin__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_bootstrap_touchspin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_bootstrap_touchspin__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__selectors__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__responsive__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__checkout__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__customer__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__listing__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__product__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__cart__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__rts_icons__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__sliders__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__county__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__jquery_zoom__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__jquery_zoom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__jquery_zoom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_prestashop__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_prestashop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_prestashop__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_events__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_events___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16_events__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_drop_down__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_form__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_product_miniature__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_product_select__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_top_menu__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__lib_bootstrap_filestyle_min__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__lib_bootstrap_filestyle_min___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22__lib_bootstrap_filestyle_min__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__lib_jquery_scrollbox_min__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__lib_jquery_scrollbox_min___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_23__lib_jquery_scrollbox_min__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__lib_jquery_sticky_kit_min_js__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__lib_jquery_sticky_kit_min_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24__lib_jquery_sticky_kit_min_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__lib_animsition_min__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__lib_animsition_min___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25__lib_animsition_min__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_block_cart__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_27_jquery__);
+/**
+ * 2007-2017 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ * @author    PrestaShop SA <contact@prestashop.com>
+ * @copyright 2007-2018 PrestaShop SA
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
+ * International Registered Trademark & Property of PrestaShop SA
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* eslint-enable */
+
+// "inherit" EventEmitter
+// eslint-disable-next-line
+for (const i in __WEBPACK_IMPORTED_MODULE_16_events___default.a.prototype) {
+    __WEBPACK_IMPORTED_MODULE_15_prestashop___default.a[i] = __WEBPACK_IMPORTED_MODULE_16_events___default.a.prototype[i];
+}
+
+__WEBPACK_IMPORTED_MODULE_27_jquery___default()(document).ready(() => {
+    const dropDownEl = __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.js-dropdown');
+    const form = new __WEBPACK_IMPORTED_MODULE_18__components_form__["a" /* default */]();
+    const topMenuEl = __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.js-top-menu ul[data-depth="0"]');
+    const dropDown = new __WEBPACK_IMPORTED_MODULE_17__components_drop_down__["a" /* default */](dropDownEl);
+    const topMenu = new __WEBPACK_IMPORTED_MODULE_21__components_top_menu__["a" /* default */](topMenuEl);
+    const productMinitature = new __WEBPACK_IMPORTED_MODULE_19__components_product_miniature__["a" /* default */]();
+    const productSelect = new __WEBPACK_IMPORTED_MODULE_20__components_product_select__["a" /* default */]();
+    dropDown.init();
+    form.init();
+    topMenu.init();
+    productMinitature.init();
+    productSelect.init();
+
+    __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.form-control-select').change(function () {
+        this.blur();
+    });
+
+    if (__WEBPACK_IMPORTED_MODULE_27_jquery___default()('.page-footer').children().length == 0) {
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.page-footer').addClass('hidden');
+    }
+
+    // page reload
+    __WEBPACK_IMPORTED_MODULE_27_jquery___default()(".animsition").animsition({
+        inClass: 'fade-in',
+        outClass: 'fade-out-up-sm',
+        inDuration: 600,
+        outDuration: 600,
+        linkElement: '.header-nav a:not([target="_blank"]):not([href^="#"]):not([href^="mailto:"]):not([href^="tel:"]), .side-column a:not([data-toggle="dropdown"]):not(.select-title):not([onclick]):not([href^="javascript:"]):not([href="javascript:history.back()"]):not([onClick="history.go(-1)"]):not([target="_blank"]):not([href^="#"]):not([href^="mailto:"]):not([href^="tel:"]):not(.cart_nogo):not(.fancybox-close):not(.searchLine), #main p a:not([data-toggle="dropdown"]):not(.select-title):not([onclick]):not([href^="javascript:"]):not([href="javascript:history.back()"]):not([onClick="history.go(-1)"]):not([target="_blank"]):not([href^="#"]):not([href^="mailto:"]):not([href^="tel:"]):not(.cart_nogo):not(.fancybox-close):not(.searchLine), .side_menu_rel > div:not(#side_menu_wrap) a:not([data-toggle="dropdown"]):not(.select-title):not([onclick]):not([href^="javascript:"]):not([href="javascript:history.back()"]):not([onClick="history.go(-1)"]):not([target="_blank"]):not([href^="#"]):not([href^="mailto:"]):not([href^="tel:"]):not(.cart_nogo):not(.fancybox-close):not(.searchLine), #roy_brands a:not([data-toggle="dropdown"]):not(.select-title):not([onclick]):not([href^="javascript:"]):not([href="javascript:history.back()"]):not([onClick="history.go(-1)"]):not([target="_blank"]):not([href^="#"]):not([href^="mailto:"]):not([href^="tel:"]):not(.cart_nogo):not(.fancybox-close):not(.searchLine), .roy_blog a:not([data-toggle="dropdown"]):not(.select-title):not([onclick]):not([href^="javascript:"]):not([href="javascript:history.back()"]):not([onClick="history.go(-1)"]):not([target="_blank"]):not([href^="#"]):not([href^="mailto:"]):not([href^="tel:"]):not(.cart_nogo):not(.fancybox-close):not(.searchLine), .footer-container .links a:not([data-toggle="dropdown"]):not(.select-title):not([onclick]):not([href^="javascript:"]):not([href="javascript:history.back()"]):not([onClick="history.go(-1)"]):not([target="_blank"]):not([href^="#"]):not([href^="mailto:"]):not([href^="tel:"]):not(.cart_nogo):not(.fancybox-close):not(.searchLine):not(.bx-parcel-point-button)',
+        loading: false,
+        loadingParentElement: 'body', //animsition wrapper element
+        loadingClass: 'animsition-loading',
+        loadingInner: '', // e.g '<img src="loading.svg" />'
+        timeout: true,
+        timeoutCountdown: 300,
+        onLoadEvent: true,
+        browser: ['animation-duration', '-webkit-animation-duration'],
+        // "browser" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
+        // The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
+        overlay: false,
+        overlayClass: 'animsition-overlay-slide',
+        overlayParentElement: 'body',
+        transition: function (url) {
+            window.location.href = url;
+        }
+    });
+
+    __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.animsition').on('animsition.outStart', function () {
+        var exitDiv = __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.roy-loader');
+        exitDiv.fadeIn('slow');
+    });
+    __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.animsition').on('animsition.inStart', function () {
+        var exitDiv = __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.roy-loader');
+        exitDiv.fadeOut(400);
+    });
+
+    // side
+    // side: reopen function for mobile and open for desktop
+    var reopen = function () {
+        if (__WEBPACK_IMPORTED_MODULE_27_jquery___default()('body').hasClass('side_open')) {
+
+            __WEBPACK_IMPORTED_MODULE_27_jquery___default()('body').removeClass('side_content');
+            __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_menu').removeClass('reopen_go').addClass('reopen_hide');
+            setTimeout(function () {
+                __WEBPACK_IMPORTED_MODULE_27_jquery___default()('body').addClass('side_content');
+            }, 320);
+            setTimeout(function () {
+                __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_menu').removeClass('reopen_hide').addClass('reopen_go');
+            }, 600);
+        } else {
+            __WEBPACK_IMPORTED_MODULE_27_jquery___default()('body').addClass('side_open side_content');
+        }
+
+        // 2020 scroll to top when side menu changed
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_menu').animate({ scrollTop: 0 }, 'fast');
+    };
+
+    var searchtoside = function () {
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.action .search-widget').attr("id", "");
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_menu .search-widget').attr("id", "search_widget");
+    };
+
+    searchtoside();
+
+    // side: close
+    __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_close').on('click', function () {
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('body').removeClass('side_open side_content');
+        cartprodshide();
+        accsidehide();
+    });
+    __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.return').on('click', function () {
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('body').removeClass('side_open side_content');
+        cartprodshide();
+        accsidehide();
+    });
+
+    var cartprodshide = function () {
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_menu').find('.cart-prods > li').each(function (i) {
+            __WEBPACK_IMPORTED_MODULE_27_jquery___default()(this).removeClass('show');
+        });
+    };
+    var cartprodsshow = function () {
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_menu').find('.cart-prods > li').each(function (i) {
+            var row = __WEBPACK_IMPORTED_MODULE_27_jquery___default()(this);
+            setTimeout(function () {
+                row.addClass('show');
+            }, 300 + i * 160);
+        });
+    };
+    var accsidehide = function () {
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_menu').find('.acc_ul > *').each(function (i) {
+            __WEBPACK_IMPORTED_MODULE_27_jquery___default()(this).removeClass('show');
+        });
+    };
+    var accsideshow = function () {
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_menu').find('.acc_ul > *').each(function (i) {
+            var row = __WEBPACK_IMPORTED_MODULE_27_jquery___default()(this);
+            setTimeout(function () {
+                row.addClass('show');
+            }, 300 + i * 160);
+        });
+    };
+    var scrollsidetop = function () {
+        setTimeout(function () {
+            __WEBPACK_IMPORTED_MODULE_27_jquery___default()('html, body').animate({
+                scrollTop: __WEBPACK_IMPORTED_MODULE_27_jquery___default()(".side_menu").offset().top
+            }, 1000);
+        }, 980);
+    };
+
+    // side: open, levibox clicks
+    var cart_click = function (e) {
+        e.preventDefault();
+        accsidehide();
+        reopen();
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_menu .side_menu_rel > div').removeClass('show');
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('#side_cart_wrap').addClass('show');
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_close').removeClass('search_close menu_close mail_close acc_close').addClass('cart_close');
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_close i').toggleClass('rotateit');
+        if (__WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_menu').hasClass('reopen_hide')) {
+            setTimeout(function () {
+                cartprodsshow();
+            }, 320);
+        } else {
+            cartprodsshow();
+        }
+    };
+    var search_click = function (e) {
+        e.preventDefault();
+        accsidehide();
+        cartprodshide();
+        reopen();
+        searchtoside();
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_menu .side_menu_rel > div').removeClass('show');
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('#side_search_wrap').addClass('show');
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_close').removeClass('cart_close menu_close mail_close acc_close').addClass('search_close');
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_close i').toggleClass('rotateit');
+    };
+    var menu_click = function (e) {
+        e.preventDefault();
+        accsidehide();
+        cartprodshide();
+        reopen();
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_menu .side_menu_rel > div').removeClass('show');
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('#side_menu_wrap').addClass('show');
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_close').removeClass('cart_close search_close mail_close acc_close').addClass('menu_close');
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_close i').toggleClass('rotateit');
+    };
+    var mail_click = function (e) {
+        e.preventDefault();
+        accsidehide();
+        cartprodshide();
+        reopen();
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_menu .side_menu_rel > div').removeClass('show');
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('#side_mail_wrap').addClass('show');
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_close').removeClass('cart_close search_close menu_close acc_close').addClass('mail_close');
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_close i').toggleClass('rotateit');
+    };
+    var acc_click = function (e) {
+        e.preventDefault();
+        cartprodshide();
+        reopen();
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_menu .side_menu_rel > div').removeClass('show');
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('#side_acc_wrap').addClass('show');
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_close').removeClass('cart_close search_close menu_close mail_close').addClass('acc_close');
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_close i').toggleClass('rotateit');
+        if (__WEBPACK_IMPORTED_MODULE_27_jquery___default()('.side_menu').hasClass('reopen_hide')) {
+            setTimeout(function () {
+                accsideshow();
+            }, 320);
+        } else {
+            accsideshow();
+        }
+    };
+
+    __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.box-cart').off("click", cart_click).on("click touchend", cart_click);
+    __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.box-search').off("click", search_click).on("click touchend", search_click);
+    __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.box-menu').off("click", menu_click).on("click touchend", menu_click);
+    __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.box-mail').off("click", mail_click).on("click touchend", mail_click);
+    __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.box-acc').off("click", acc_click).on("click touchend", acc_click);
+
+    __WEBPACK_IMPORTED_MODULE_27_jquery___default()('#header .row.action .blockcart a').off("click touchend", cart_click).on("click", cart_click);
+    __WEBPACK_IMPORTED_MODULE_27_jquery___default()('#header .row.action .search_nogo').off("click touchend", search_click).on("click", search_click);
+
+    // menu special mobile
+    __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.ets_mm_megamenu').clone().appendTo('.menu_mob_wrapper');
+
+    // mobile - desktop swittch
+    if (__WEBPACK_IMPORTED_MODULE_27_jquery___default()('#is_media').css('float') == 'left') {
+
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('body').addClass('mob_enabled');
+    } else {
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('body').removeClass('mob_enabled');
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('body').removeClass('side_open side_content');
+    }
+
+    __WEBPACK_IMPORTED_MODULE_27_jquery___default()(window).on('resize', function () {
+        if (__WEBPACK_IMPORTED_MODULE_27_jquery___default()('#is_media').css('float') == 'left') {
+            __WEBPACK_IMPORTED_MODULE_27_jquery___default()('body').addClass('mob_enabled');
+        } else {
+            __WEBPACK_IMPORTED_MODULE_27_jquery___default()('body').removeClass('mob_enabled');
+            __WEBPACK_IMPORTED_MODULE_27_jquery___default()('body').removeClass('side_open side_content');
+        }
+    });
+});
+
+// special label height
+__WEBPACK_IMPORTED_MODULE_27_jquery___default()(window).on('load', function () {
+
+    var specialbtn = __WEBPACK_IMPORTED_MODULE_27_jquery___default()('#roy_specials_col .product-item .discount-product');
+    var specialtimer = __WEBPACK_IMPORTED_MODULE_27_jquery___default()('#roy_specials_col .product-item .count_icon');
+    var pimg = __WEBPACK_IMPORTED_MODULE_27_jquery___default()('#roy_specials_col .product-item .product-image');
+    var pimgheight = pimg.height();
+    specialbtn.css('top', pimgheight);
+    specialtimer.css('top', pimgheight);
+});
+
+// tooltip
+function uiTips() {
+
+    var $uiEl = __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.tip_inside');
+
+    __WEBPACK_IMPORTED_MODULE_27_jquery___default()('body').append('<div id="ui_tip"><div class="ui_wrapper"><span class="ui_title"></span></div></div>');
+
+    var $uiTip = __WEBPACK_IMPORTED_MODULE_27_jquery___default()('#ui_tip');
+    var $uiTipTitle = $uiTip.find('.ui_title');
+
+    $uiEl.on('mousemove', function (e) {
+        $uiTip.css({
+            top: e.clientY,
+            left: e.clientX
+        });
+
+        var winwidth = __WEBPACK_IMPORTED_MODULE_27_jquery___default()(window).width(),
+            tipwidth = __WEBPACK_IMPORTED_MODULE_27_jquery___default()('#ui_tip').width(),
+            tiprightdot = e.clientX + tipwidth + 14 + 40; // plus 40 padding compensation
+
+        if (tiprightdot > winwidth) {
+            __WEBPACK_IMPORTED_MODULE_27_jquery___default()('#ui_tip').addClass('align-right');
+        } else {
+            __WEBPACK_IMPORTED_MODULE_27_jquery___default()('#ui_tip').removeClass('align-right');
+        }
+    });
+
+    $uiEl.on('mouseenter', function () {
+        $uiTipTitle.text(__WEBPACK_IMPORTED_MODULE_27_jquery___default()(this).find('.tip').text());
+        $uiTip.addClass('active');
+    }).on('mouseleave', function () {
+        $uiTip.removeClass('active');
+    });
+}
+
+uiTips();
+
+__WEBPACK_IMPORTED_MODULE_27_jquery___default()(function () {
+    if (typeof __WEBPACK_IMPORTED_MODULE_15_prestashop___default.a !== 'undefined') {
+        __WEBPACK_IMPORTED_MODULE_15_prestashop___default.a.on('updatedProduct', function (event) {
+            uiTips();
+        });
+    }
+});
+
+// Sticky product page
+if (__WEBPACK_IMPORTED_MODULE_27_jquery___default()('.breadcrumb').length) {
+    var breadheight = __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.breadcrumb').height() + 24;
+} else {
+    var breadheight = 0;
+}
+var mmpro = __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.ets_mm_megamenu');
+if (mmpro.length > 0 && mmpro.hasClass('sticky_enabled')) {
+    var levibox_menu = 68;
+    __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.roy_levibox').addClass('mm_sticky_padding');
+} else {
+    var levibox_menu = 0;
+}
+var stick = __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.stick_it'),
+    stick_ops = {
+    parent: '.stick_parent'
+},
+    stick_levibox = __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.stick_lb'),
+    stick_ops_levibox = {
+    parent: '.stick_parent_lb',
+    offset_top: 22,
+    bottoming: false
+};
+
+__WEBPACK_IMPORTED_MODULE_27_jquery___default()(window).on('load resize', function () {
+    if (window.matchMedia('(min-width: 992px)').matches) {
+
+        stick.stick_in_parent(stick_ops);
+        setTimeout(function () {
+            stick_levibox.stick_in_parent(stick_ops_levibox);
+        }, 160);
+
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.roy_levibox').removeClass('mobile');
+
+        var containerwidth = __WEBPACK_IMPORTED_MODULE_27_jquery___default()('#wrapper').find('.container').width(),
+            containerwidthhalf = containerwidth / 2,
+            lb_pos2_margin = containerwidthhalf + 84; // compenstation +84px
+
+        if (__WEBPACK_IMPORTED_MODULE_27_jquery___default()('body').attr('data-layout') == '3') {
+            lb_pos2_margin = containerwidthhalf + 106;
+        }
+        if (__WEBPACK_IMPORTED_MODULE_27_jquery___default()('body').attr('data-layout') == '4') {
+            lb_pos2_margin = containerwidthhalf + 124;
+        }
+
+        if (__WEBPACK_IMPORTED_MODULE_27_jquery___default()('.roy_levibox.stick_lb').hasClass('left')) {
+            __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.roy_levibox.stick_lb').css({
+                'left': '50%',
+                'margin-left': -lb_pos2_margin
+            });
+        } else {
+            __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.roy_levibox.stick_lb').css({
+                'right': '50%',
+                'margin-right': -lb_pos2_margin
+            });
+        }
+    } else {
+        stick.trigger("sticky_kit:detach");
+        stick_levibox.trigger("sticky_kit:detach");
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()('.roy_levibox').addClass('mobile');
+    }
+});
+
+// Roy Countdowns
+__WEBPACK_IMPORTED_MODULE_27_jquery___default()(function ($) {
+    $(".roycount").each(function (e) {
+        var $roycount = $(this);
+        var $dataspecificpriceto = $roycount.attr('data-specific-price-to');
+        $roycount.closest('.roycountdown').county({
+            endDateTime: new Date($dataspecificpriceto.replace(/-/g, "/")), reflection: false, animation: 'none', theme: 'black',
+            titleDays: $roycount.data('days'), titleHours: $roycount.data('hours'), titleMinutes: $roycount.data('minutes'), titleSeconds: $roycount.data('seconds')
+        });
+    });
+});
+
+// Youtube responsive
+__WEBPACK_IMPORTED_MODULE_27_jquery___default()(function () {
+
+    var $allVideos = __WEBPACK_IMPORTED_MODULE_27_jquery___default()(".page-cms iframe[src^='//player.vimeo.com'], .page-cms iframe[src^='https://player.vimeo.com'], .page-cms iframe[src^='//www.youtube.com'], .page-cms iframe[src^='https://www.youtube.com'], .page-cms iframe[src^='http://www.youtube.com'], .page-cms object, .page-cms embed"),
+        $allVideosPPS = __WEBPACK_IMPORTED_MODULE_27_jquery___default()("#short_description_content iframe[src^='//player.vimeo.com'], #short_description_content iframe[src^='https://player.vimeo.com'], #short_description_content iframe[src^='//www.youtube.com'], #short_description_content iframe[src^='https://www.youtube.com'], #short_description_content iframe[src^='http://www.youtube.com'], #short_description_content object, #short_description_content embed"),
+        $fluidElPPS = __WEBPACK_IMPORTED_MODULE_27_jquery___default()("#short_description_content"),
+        $allVideosPPF = __WEBPACK_IMPORTED_MODULE_27_jquery___default()("#idTab1 iframe[src^='//player.vimeo.com'], #idTab1 iframe[src^='https://player.vimeo.com'], #idTab1 iframe[src^='//www.youtube.com'], #idTab1 iframe[src^='https://www.youtube.com'], #idTab1 iframe[src^='http://www.youtube.com'], #idTab1 object, #idTab1 embed"),
+        $fluidElPPF = __WEBPACK_IMPORTED_MODULE_27_jquery___default()("#idTab1"),
+        $allVideosB = __WEBPACK_IMPORTED_MODULE_27_jquery___default()("#module-smartblog-details iframe[src^='//player.vimeo.com'], #module-smartblog-details iframe[src^='https://player.vimeo.com'], #module-smartblog-details iframe[src^='//www.youtube.com'], #module-smartblog-details iframe[src^='https://www.youtube.com'], #module-smartblog-details iframe[src^='http://www.youtube.com'], #module-smartblog-details object, #module-smartblog-details embed"),
+        $allVideosMenu = __WEBPACK_IMPORTED_MODULE_27_jquery___default()(".ets_mm_block_content iframe[src^='//player.vimeo.com'], .ets_mm_block_content iframe[src^='https://player.vimeo.com'], .ets_mm_block_content iframe[src^='//www.youtube.com'], .ets_mm_block_content iframe[src^='https://www.youtube.com'], .ets_mm_block_content iframe[src^='http://www.youtube.com'], .ets_mm_block_content object, .ets_mm_block_content embed"),
+        $fluidElB = __WEBPACK_IMPORTED_MODULE_27_jquery___default()("#module-smartblog-details #content"),
+        $allVideosRC = __WEBPACK_IMPORTED_MODULE_27_jquery___default()(".video_banner iframe[src^='//player.vimeo.com'], .video_banner iframe[src^='https://player.vimeo.com'], .video_banner iframe[src^='//www.youtube.com'], .video_banner iframe[src^='https://www.youtube.com'], .video_banner iframe[src^='http://www.youtube.com'], .video_banner object, .video_banner embed");
+
+    $allVideos.each(function () {
+
+        __WEBPACK_IMPORTED_MODULE_27_jquery___default()(this)
+        // jQuery .data does not work on object/embed elements
+        .attr('data-aspectRatio', this.height / this.width).removeAttr('height').removeAttr('width');
+    });
+
+    __WEBPACK_IMPORTED_MODULE_27_jquery___default()(window).on('resize', function () {
+
+        var newWidthPPS = $fluidElPPS.width();
+        var newWidthPPF = $fluidElPPF.width();
+        var newWidthB = $fluidElB.width();
+
+        $allVideos.each(function () {
+
+            var $el = __WEBPACK_IMPORTED_MODULE_27_jquery___default()(this);
+            var $fluidEl = $el.parent();
+            var newWidth = $fluidEl.width();
+            $el.width(newWidth).height(newWidth * $el.attr('data-aspectRatio'));
+        });
+
+        $allVideosB.each(function () {
+            var $el = __WEBPACK_IMPORTED_MODULE_27_jquery___default()(this);
+            $el.width(newWidthB).height(newWidthB * $el.attr('data-aspectRatio'));
+        });
+        $allVideosMenu.each(function () {
+            var $el = __WEBPACK_IMPORTED_MODULE_27_jquery___default()(this);
+            var $fluidEl = $el.parent();
+            var newWidth = $fluidEl.width();
+
+            $el.attr('data-aspectRatio', this.height / this.width).removeAttr('height').removeAttr('width').width(newWidth).height(newWidth * $el.attr('data-aspectRatio'));
+        });
+        $allVideosPPS.each(function () {
+            var $el = __WEBPACK_IMPORTED_MODULE_27_jquery___default()(this);
+            $el.width(newWidthPPS).height(newWidthPPS * $el.attr('data-aspectRatio'));
+        });
+        $allVideosPPF.each(function () {
+            var $el = __WEBPACK_IMPORTED_MODULE_27_jquery___default()(this);
+            $el.width(newWidthPPF).height(newWidthPPF * $el.attr('data-aspectRatio'));
+        });
+        $allVideosRC.each(function () {
+
+            var $el = __WEBPACK_IMPORTED_MODULE_27_jquery___default()(this);
+            var $fluidElRC = $el.closest('.video_banner');
+            var newWidthRC = $fluidElRC.width();
+            $el.width(newWidthRC).height(newWidthRC * $el.attr('data-aspectRatio'));
+        });
+    });
+});
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__) {
+
+"use strict";
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prestashop__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prestashop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prestashop__);
+
+
+
+__WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.cart = __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.cart || {};
+
+__WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.cart.active_inputs = null;
+
+const spinnerSelector = 'input[name="product-quantity-spin"]';
+let hasError = false;
+let isUpdateOperation = false;
+let errorMsg = '';
+
+/**
+ * Attach Bootstrap TouchSpin event handlers
+ */
+function createSpin() {
+  __WEBPACK_IMPORTED_MODULE_0_jquery___default.a.each(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(spinnerSelector), (index, spinner) => {
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()(spinner).TouchSpin({
+      verticalbuttons: true,
+      verticalupclass: 'material-icons touchspin-up',
+      verticaldownclass: 'material-icons touchspin-down',
+      buttondown_class: 'btn btn-touchspin js-touchspin js-increase-product-quantity',
+      buttonup_class: 'btn btn-touchspin js-touchspin js-decrease-product-quantity',
+      min: parseInt(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(spinner).attr('min'), 10),
+      max: 1000000
+    });
+  });
+
+  __WEBPACK_IMPORTED_MODULE_0_jquery___default()(__WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.themeSelectors.touchspin).off('touchstart.touchspin');
+
+  CheckUpdateQuantityOperations.switchErrorStat();
+}
+
+__WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).ready(() => {
+  const productLineInCartSelector = '.js-cart-line-product-quantity';
+  const promises = [];
+
+  __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.on('updateCart', () => {
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.quickview').modal('hide');
+  });
+
+  __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.on('updatedCart', () => {
+    createSpin();
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#header .row.action .blockcart a').click(function (e) {
+      e.preventDefault();
+      __WEBPACK_IMPORTED_MODULE_0_jquery___default()('body').addClass('side_open side_content');
+      __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.side_menu .side_menu_rel > div').removeClass('show');
+      __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#side_cart_wrap').addClass('show');
+      __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.side_close').removeClass('search_close menu_close mail_close').addClass('cart_close');
+      __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.side_menu').find('.cart-prods > li').each(function (i) {
+        var row = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this);
+        setTimeout(function () {
+          row.addClass('show');
+        }, 300 + i * 160);
+      });
+    });
+  });
+
+  createSpin();
+
+  const $body = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('body');
+
+  function isTouchSpin(namespace) {
+    return namespace === 'on.startupspin' || namespace === 'on.startdownspin';
+  }
+
+  function shouldIncreaseProductQuantity(namespace) {
+    return namespace === 'on.startupspin';
+  }
+
+  function findCartLineProductQuantityInput($target) {
+    const $input = $target.parents('.bootstrap-touchspin').find(productLineInCartSelector);
+
+    if ($input.is(':focus')) {
+      return null;
+    }
+
+    return $input;
+  }
+
+  function camelize(subject) {
+    const actionTypeParts = subject.split('-');
+    let i;
+    let part;
+    let camelizedSubject = '';
+
+    for (i = 0; i < actionTypeParts.length; i += 1) {
+      part = actionTypeParts[i];
+
+      if (i !== 0) {
+        part = part.substring(0, 1).toUpperCase() + part.substring(1);
+      }
+
+      camelizedSubject += part;
+    }
+
+    return camelizedSubject;
+  }
+
+  function parseCartAction($target, namespace) {
+    if (!isTouchSpin(namespace)) {
+      return {
+        url: $target.attr('href'),
+        type: camelize($target.data('link-action'))
+      };
+    }
+
+    const $input = findCartLineProductQuantityInput($target);
+
+    if (!$input) {
+      return false;
+    }
+
+    let cartAction = {};
+
+    if (shouldIncreaseProductQuantity(namespace)) {
+      cartAction = {
+        url: $input.data('up-url'),
+        type: 'increaseProductQuantity'
+      };
+    } else {
+      cartAction = {
+        url: $input.data('down-url'),
+        type: 'decreaseProductQuantity'
+      };
+    }
+
+    return cartAction;
+  }
+
+  const abortPreviousRequests = () => {
+    let promise;
+    while (promises.length > 0) {
+      promise = promises.pop();
+      promise.abort();
+    }
+  };
+
+  const getTouchSpinInput = $button => __WEBPACK_IMPORTED_MODULE_0_jquery___default()($button.parents('.bootstrap-touchspin').find('input'));
+
+  const handleCartAction = event => {
+    event.preventDefault();
+
+    const $target = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.currentTarget);
+    const { dataset } = event.currentTarget;
+    const cartAction = parseCartAction($target, event.namespace);
+    const requestData = {
+      ajax: '1',
+      action: 'update'
+    };
+
+    if (!cartAction) {
+      return;
+    }
+
+    abortPreviousRequests();
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default.a.ajax({
+      url: cartAction.url,
+      method: 'POST',
+      data: requestData,
+      dataType: 'json',
+      beforeSend(jqXHR) {
+        promises.push(jqXHR);
+      }
+    }).then(resp => {
+      CheckUpdateQuantityOperations.checkUpdateOpertation(resp);
+      const $quantityInput = getTouchSpinInput($target);
+      $quantityInput.val(resp.quantity);
+
+      // Refresh cart preview
+      __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.emit('updateCart', {
+        reason: dataset,
+        resp
+      });
+    }).fail(resp => {
+      __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.emit('handleError', {
+        eventType: 'updateProductInCart',
+        resp,
+        cartAction: cartAction.type
+      });
+    });
+  };
+
+  $body.on('click', '[data-link-action="delete-from-cart"], [data-link-action="remove-voucher"]', handleCartAction);
+
+  $body.on('touchspin.on.startdownspin', spinnerSelector, handleCartAction);
+  $body.on('touchspin.on.startupspin', spinnerSelector, handleCartAction);
+
+  function sendUpdateQuantityInCartRequest(updateQuantityInCartUrl, requestData, $target) {
+    abortPreviousRequests();
+
+    return __WEBPACK_IMPORTED_MODULE_0_jquery___default.a.ajax({
+      url: updateQuantityInCartUrl,
+      method: 'POST',
+      data: requestData,
+      dataType: 'json',
+      beforeSend(jqXHR) {
+        promises.push(jqXHR);
+      }
+    }).then(resp => {
+      CheckUpdateQuantityOperations.checkUpdateOpertation(resp);
+      $target.val(resp.quantity);
+
+      let dataset;
+
+      if ($target && $target.dataset) {
+        // eslint-disable-next-line
+        dataset = $target.dataset;
+      } else {
+        dataset = resp;
+      }
+
+      // Refresh cart preview
+      __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.emit('updateCart', {
+        reason: dataset,
+        resp
+      });
+    }).fail(resp => {
+      __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.emit('handleError', {
+        eventType: 'updateProductQuantityInCart',
+        resp
+      });
+    });
+  }
+
+  function getRequestData(quantity) {
+    return {
+      ajax: '1',
+      qty: Math.abs(quantity),
+      action: 'update',
+      op: getQuantityChangeType(quantity)
+    };
+  }
+
+  function getQuantityChangeType($quantity) {
+    return $quantity > 0 ? 'up' : 'down';
+  }
+
+  function updateProductQuantityInCart(event) {
+    const $target = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.currentTarget);
+    const updateQuantityInCartUrl = $target.data('update-url');
+    const baseValue = $target.attr('value');
+
+    // There should be a valid product quantity in cart
+    const targetValue = $target.val();
+    /* eslint-disable */
+    if (targetValue != parseInt(targetValue, 10) || targetValue < 0 || isNaN(targetValue)) {
+      $target.val(baseValue);
+      return;
+    }
+    /* eslint-enable */
+    // There should be a new product quantity in cart
+    const qty = targetValue - baseValue;
+
+    if (qty === 0) {
+      return;
+    }
+
+    $target.attr('value', targetValue);
+    sendUpdateQuantityInCartRequest(updateQuantityInCartUrl, getRequestData(qty), $target);
+  }
+
+  $body.on('focusout keyup', productLineInCartSelector, event => {
+    if (event.type === 'keyup') {
+      if (event.keyCode === 13) {
+        updateProductQuantityInCart(event);
+      }
+      return false;
+    }
+
+    updateProductQuantityInCart(event);
+
+    return false;
+  });
+
+  const $timeoutEffect = 400;
+
+  $body.on('hidden.bs.collapse', '#promo-code', () => {
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.display-promo').show($timeoutEffect);
+  });
+
+  $body.on('click', '.promo-code-button', event => {
+    event.preventDefault();
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#promo-code').collapse('toggle');
+  });
+
+  $body.on('click', '.display-promo', event => {
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.currentTarget).hide($timeoutEffect);
+  });
+
+  $body.on('click', '.js-discount .code', event => {
+    event.stopPropagation();
+
+    const $code = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.currentTarget);
+    const $discountInput = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('[name=discount_name]');
+
+    $discountInput.val($code.text());
+    // Show promo code field
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#promo-code').collapse('show');
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.display-promo').hide($timeoutEffect);
+
+    return false;
+  });
+});
+
+const CheckUpdateQuantityOperations = {
+  switchErrorStat: () => {
+    /**
+     * if errorMsg is not empty or if notifications are shown, we have error to display
+     * if hasError is true, quantity was not updated : we don't disable checkout button
+     */
+    const $checkoutBtn = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.checkout a');
+
+    if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()('#notifications article.alert-danger').length || errorMsg !== '' && !hasError) {
+      $checkoutBtn.addClass('disabled');
+    }
+
+    if (errorMsg !== '') {
+      // eslint-disable-next-line
+      const strError = ` <article class="alert alert-danger" role="alert" data-alert="danger"><ul><li>${errorMsg}</li></ul></article>`;
+      __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#notifications .container').html(strError);
+      errorMsg = '';
+      isUpdateOperation = false;
+      if (hasError) {
+        // if hasError is true, quantity was not updated : allow checkout
+        $checkoutBtn.removeClass('disabled');
+      }
+    } else if (!hasError && isUpdateOperation) {
+      hasError = false;
+      isUpdateOperation = false;
+      __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#notifications .container').html('');
+      $checkoutBtn.removeClass('disabled');
+    }
+  },
+  checkUpdateOpertation: resp => {
+    /**
+     * resp.hasError can be not defined but resp.errors not empty: quantity is updated but order cannot be placed
+     * when resp.hasError=true, quantity is not updated
+     */
+    // eslint-disable-next-line
+    hasError = resp.hasOwnProperty('hasError');
+    const errors = resp.errors || '';
+
+    // 1.7.2.x returns errors as string, 1.7.3.x returns array
+    if (errors instanceof Array) {
+      errorMsg = errors.join(' ');
+    } else {
+      errorMsg = errors;
+    }
+
+    isUpdateOperation = true;
+  }
+};
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prestashop__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prestashop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prestashop__);
+/**
+ * Copyright since 2007 PrestaShop SA and Contributors
+ * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to https://devdocs.prestashop.com/ for more information.
+ *
+ * @author    PrestaShop SA and Contributors <contact@prestashop.com>
+ * @copyright Since 2007 PrestaShop SA and Contributors
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0) 
+ */
+
+
+
+function setUpCheckout() {
+  if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-cancel-address').length !== 0) {
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.checkout-step:not(.js-current-step) .step-title').addClass('not-allowed');
+  }
+
+  __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-terms a').on('click', event => {
+    event.preventDefault();
+    var url = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.target).attr('href');
+    if (url) {
+      // TODO: Handle request if no pretty URL
+      url += '?content_only=1';
+      __WEBPACK_IMPORTED_MODULE_0_jquery___default.a.get(url, content => {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#modal').find('.js-modal-content').html(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(content).find('.page-cms').contents());
+      }).fail(resp => {
+        __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.emit('handleError', { eventType: 'clickTerms', resp: resp });
+      });
+    }
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#modal').modal('show');
+  });
+
+  __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-gift-checkbox').on('click', event => {
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#gift').collapse('toggle');
+  });
+}
+
+__WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).ready(() => {
+  if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()('body#checkout').length === 1) {
+    setUpCheckout();
+  }
+
+  __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.on('updatedDeliveryForm', params => {
+    if (typeof params.deliveryOption === 'undefined' || 0 === params.deliveryOption.length) {
+      return;
+    }
+    // Hide all carrier extra content ...
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()(".carrier-extra-content").hide();
+    // and show the one related to the selected carrier
+    params.deliveryOption.next(".carrier-extra-content").slideDown();
+    // active delivery
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.delivery-option').removeClass('active');
+    params.deliveryOption.addClass('active');
+  });
+
+  if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()('.delivery-option input:radio:checked').length > 0) {
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.delivery-option input:radio:checked').parents('div.delivery-option').addClass('active');
+  }
+});
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_prestashop__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_prestashop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_prestashop__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
+/**
+ * Copyright since 2007 PrestaShop SA and Contributors
+ * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to https://devdocs.prestashop.com/ for more information.
+ *
+ * @author    PrestaShop SA and Contributors <contact@prestashop.com>
+ * @copyright Since 2007 PrestaShop SA and Contributors
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
+ */
+
+
+
+__WEBPACK_IMPORTED_MODULE_0_prestashop___default.a.blockcart = __WEBPACK_IMPORTED_MODULE_0_prestashop___default.a.blockcart || {};
+
+__WEBPACK_IMPORTED_MODULE_0_prestashop___default.a.blockcart.showModal = html => {
+  function getBlockCartModal() {
+    return __WEBPACK_IMPORTED_MODULE_1_jquery___default()('#blockcart-modal');
+  }
+
+  let $blockCartModal = getBlockCartModal();
+
+  if ($blockCartModal.length) {
+    $blockCartModal.remove();
+  }
+
+  __WEBPACK_IMPORTED_MODULE_1_jquery___default()('body').append(html);
+
+  $blockCartModal = getBlockCartModal();
+  $blockCartModal.modal('show').on('hidden.bs.modal', event => {
+    __WEBPACK_IMPORTED_MODULE_0_prestashop___default.a.emit('updateProduct', {
+      reason: event.currentTarget.dataset,
+      event
+    });
+  });
+};
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+
+
+class Form {
+    init() {
+        this.parentFocus();
+        this.togglePasswordVisibility();
+    }
+
+    parentFocus() {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-child-focus').focus(function () {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).closest('.js-parent-focus').addClass('focus');
+        });
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-child-focus').focusout(function () {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).closest('.js-parent-focus').removeClass('focus');
+        });
+    }
+
+    togglePasswordVisibility() {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('button[data-action="show-password"]').on('click', function () {
+            const elm = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).closest('.input-group').children('input.js-visible-password');
+
+            if (elm.attr('type') === 'password') {
+                elm.attr('type', 'text');
+                __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).html('<i class="material-icons">visibility</i>');
+            } else {
+                elm.attr('type', 'password');
+                __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).html('<i class="material-icons">visibility_off</i>');
+            }
+        });
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Form;
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_velocity_animate__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_velocity_animate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_velocity_animate__);
+/**
+ * 2007-2017 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ * @author    PrestaShop SA <contact@prestashop.com>
+ * @copyright 2007-2017 PrestaShop SA
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
+ * International Registered Trademark & Property of PrestaShop SA
+ */
+
+
+
+class ProductSelect {
+  init() {
+    const MAX_THUMBS = 5;
+    const FLAG_MARGIN = 10;
+    let $arrows = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-modal-arrows');
+    let $thumbnails = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-modal-product-images');
+    let $onsale = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.on-sale');
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('body').on('click', '.js-modal-thumb', event => {
+      if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-modal-thumb').hasClass('selected')) {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-modal-thumb').removeClass('selected');
+      }
+      __WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.currentTarget).addClass('selected');
+      __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-modal-product-cover').attr('src', __WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.target).data('image-large-src'));
+      __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-modal-product-cover').attr('title', __WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.target).attr('title'));
+      __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-modal-product-cover').attr('alt', __WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.target).attr('alt'));
+    }).on('click', 'aside#thumbnails', event => {
+      if (event.target.id == 'thumbnails') {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#product-modal').modal('hide');
+      }
+    });
+
+    // if($onsale.length && $('#product').length){
+    //   $('.new').css('top',$onsale.height() + FLAG_MARGIN);
+    // }
+    if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-modal-product-images li').length <= MAX_THUMBS) {
+      $arrows.css('opacity', '.2');
+    } else {
+      $arrows.on('click', event => {
+        if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.target).hasClass('arrow-up') && $thumbnails.position().top < 0) {
+          this.move('up');
+          __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-modal-arrow-down').css('opacity', '1');
+        } else if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.target).hasClass('arrow-down') && $thumbnails.position().top + $thumbnails.height() > __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-modal-mask').height()) {
+          this.move('down');
+          __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-modal-arrow-up').css('opacity', '1');
+        }
+      });
+    }
+  }
+
+  move(direction) {
+    const THUMB_MARGIN = 10;
+    var $thumbnails = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-modal-product-images');
+    var thumbHeight = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-modal-product-images li img').height() + THUMB_MARGIN;
+    var currentPosition = $thumbnails.position().top;
+    $thumbnails.velocity({
+      translateY: direction === 'up' ? currentPosition + thumbHeight : currentPosition - thumbHeight
+    }, function () {
+      if ($thumbnails.position().top >= 0) {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-modal-arrow-up').css('opacity', '.2');
+      } else if ($thumbnails.position().top + $thumbnails.height() <= __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-modal-mask').height()) {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-modal-arrow-down').css('opacity', '.2');
+      }
+    });
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = ProductSelect;
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__drop_down__ = __webpack_require__(2);
+/**
+ * 2007-2017 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ * @author    PrestaShop SA <contact@prestashop.com>
+ * @copyright 2007-2017 PrestaShop SA
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
+ * International Registered Trademark & Property of PrestaShop SA
+ */
+
+
+
+class TopMenu extends __WEBPACK_IMPORTED_MODULE_1__drop_down__["a" /* default */] {
+    init() {
+        let elmId;
+        let self = this;
+        this.el.find('li').on('hover', e => {
+            if (this.el.parent().hasClass('mobile')) {
+                return;
+            }
+            if (elmId !== __WEBPACK_IMPORTED_MODULE_0_jquery___default()(e.currentTarget).attr('id')) {
+                if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()(e.target).data('depth') === 0) {
+                    __WEBPACK_IMPORTED_MODULE_0_jquery___default()(`#${elmId} .js-sub-menu`).css({
+                        'top': '78px',
+                        'visibility': 'hidden',
+                        'opacity': '0'
+                    });
+                }
+                elmId = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(e.currentTarget).attr('id');
+            }
+            if (elmId && __WEBPACK_IMPORTED_MODULE_0_jquery___default()(e.target).data('depth') === 0) {
+                __WEBPACK_IMPORTED_MODULE_0_jquery___default()(`#${elmId} .js-sub-menu`).css({
+                    'top': '68px',
+                    'visibility': 'visible',
+                    'opacity': '1'
+                });
+            }
+        });
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#menu-icon').on('click', function () {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#mobile_top_menu_wrapper').toggle();
+            self.toggleMobileMenu();
+        });
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-top-menu').on('mouseleave', function () {
+            if (this.el.parent().hasClass('mobile')) {
+                return;
+            }
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(`#${elmId} .js-sub-menu`).css({
+                'top': '78px',
+                'visibility': 'hidden',
+                'opacity': '0'
+            });
+        });
+        this.el.on('click', e => {
+            if (this.el.parent().hasClass('mobile')) {
+                return;
+            }
+            e.stopPropagation();
+        });
+        prestashop.on('responsive update', function (event) {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-sub-menu').removeAttr('style');
+            self.toggleMobileMenu();
+        });
+        super.init();
+    }
+
+    toggleMobileMenu() {
+        if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()('#mobile_top_menu_wrapper').is(":visible")) {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#notifications').hide();
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#wrapper').hide();
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#footer').hide();
+        } else {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#notifications').show();
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#wrapper').show();
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#footer').show();
+        }
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = TopMenu;
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prestashop__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prestashop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prestashop__);
+
+
+
+!function ($) {
+    "use strict";
+
+    var County = function (arg, options) {
+        this.init(arg, options);
+    };
+
+    County.prototype = {
+        constructor: County,
+
+        init: function (arg, options) {
+            this.settings = $.extend({ endDateTime: new Date(), animation: 'fade', reflection: false, reflectionOpacity: 0.2, speed: 500, theme: 'black' }, options);
+            this.timeoutInterval = null;
+            this.container = $(arg);
+
+            this.createViews();
+        },
+
+        createViews: function () {
+            var self = this;
+            if (!this.container.hasClass('county')) {
+                this.container.addClass('county ' + this.settings.theme);
+                this.container.append('<div class="county-cell county-days-wrapper first"><span class="county-days">000</span><span class="county-label county-label-days">' + this.settings.titleDays + '</span></div><div class="county-cell county-hours-wrapper"><span class="county-hours">00</span><span class="county-label county-label-hours">' + this.settings.titleHours + '</span></div><div class="county-cell county-minutes-wrapper separator-left separator-left"><span class="county-minutes">00</span><span class="county-label county-label-minutes">' + this.settings.titleMinutes + '</span></div><div class="county-cell county-seconds-wrapper separator-left last"><span class="county-seconds">00</span><span class="county-label county-label-seconds">' + this.settings.titleSeconds + '</span></div>');
+            }
+            if (this.container.attr('id') == undefined || this.container.attr('id') == null) {
+                this.container.attr('id', Math.random());
+            }
+            var w = 0;
+            this.container.find('>span').each(function () {
+                if ($(this).hasClass('county-days-wrapper') || $(this).hasClass('county-hours-wrapper') || $(this).hasClass('county-minutes-wrapper') || $(this).hasClass('county-seconds-wrapper')) w += $(this).outerWidth();
+            });
+
+            this.container.css({ width: w });
+
+            this.container.find('>span>span').each(function () {
+
+                $(this).css({ position: 'absolute', width: $(this).width(), height: $(this).height() });
+                $(this).parent().css({ width: $(this).width() });
+                var daysLabel = self.container.find('.county-label-days');
+                var hoursLabel = self.container.find('.county-label-hours');
+                var minutesLabel = self.container.find('.county-label-minutes');
+                var secondsLabel = self.container.find('.county-label-seconds');
+                if ($(this).hasClass('county-days')) {
+                    daysLabel.css({ width: $(this).parent().outerWidth() });
+                }
+                if ($(this).hasClass('county-hours')) {
+                    hoursLabel.css({ width: $(this).parent().outerWidth() });
+                }
+                if ($(this).hasClass('county-minutes')) {
+                    minutesLabel.css({ width: $(this).parent().outerWidth() });
+                }
+                if ($(this).hasClass('county-seconds')) {
+                    secondsLabel.css({ width: $(this).parent().outerWidth() });
+                }
+            });
+
+            this.reflectionContainer = this.container.clone().css({ opacity: this.settings.reflectionOpacity }).attr('id', this.container.attr('id') + '-refl').addClass('county-reflection');
+            if (this.settings.reflection) this.container.after(this.reflectionContainer);
+
+            this.updateCounter();
+        },
+
+        getCountDown: function () {
+            var self = this;
+            clearTimeout(this.timeoutInterval);
+            this.timeoutInterval = setTimeout(function () {
+
+                self.updateCounter();
+            }, 1000);
+        },
+
+        updateCounter: function () {
+            var countDown = this.getCurrentCountDown();
+            var days = this.container.find('.county-days');
+            var hours = this.container.find('.county-hours');
+            var minutes = this.container.find('.county-minutes');
+            var seconds = this.container.find('.county-seconds');
+
+            var dayVal = days.html();
+            var hourVal = hours.html();
+            var minuteVal = minutes.html();
+            var secondVal = seconds.html();
+
+            if (dayVal == countDown.days) {
+                days.html(countDown.days);
+            } else {
+                if (this.settings.reflection) this.aimateObject(days, this.reflectionContainer.find('.county-days'), dayVal, countDown.days, this.settings.animation);else this.aimateObject(days, null, dayVal, countDown.days, this.settings.animation);
+            }
+
+            if (hourVal == countDown.hours) hours.html(countDown.hours);else {
+                if (this.settings.reflection) this.aimateObject(hours, this.reflectionContainer.find('.county-hours'), hourVal, countDown.hours, this.settings.animation);else this.aimateObject(hours, null, hourVal, countDown.hours, this.settings.animation);
+            }
+
+            if (minuteVal == countDown.minutes) minutes.html(countDown.minutes);else {
+                if (this.settings.reflection) this.aimateObject(minutes, this.reflectionContainer.find('.county-minutes'), minuteVal, countDown.minutes, this.settings.animation);else this.aimateObject(minutes, null, minuteVal, countDown.minutes, this.settings.animation);
+            }
+            if (secondVal == countDown.seconds) seconds.html(countDown.seconds);else {
+                if (this.settings.reflection) this.aimateObject(seconds, this.reflectionContainer.find('.county-seconds'), secondVal, countDown.seconds, this.settings.animation);else this.aimateObject(seconds, null, secondVal, countDown.seconds, this.settings.animation);
+            }
+
+            this.getCountDown();
+        },
+
+        aimateObject: function (element, reflectionElement, oldValue, newValue, type) {
+
+            if (type == 'fade') {
+                element.fadeOut('fast').fadeIn('fast').html(newValue);
+                if (this.settings.reflection) this.reflectionElement.fadeOut('fast').fadeIn('fast').html(newValue);
+            } else if (type == 'none') {
+                element.html(newValue);
+            } else if (type == 'scroll') {
+                var copy = element.clone();
+                var reflectionCopy = null;
+
+                if (this.settings.reflection) reflectionCopy = reflectionElement.clone();
+
+                var marginTop = copy.outerHeight();
+
+                copy.css({ marginTop: -marginTop });
+                copy.html(newValue);
+                copy.prependTo(element.parent());
+
+                if (this.settings.reflection) {
+                    reflectionCopy.css({ marginTop: -marginTop });
+                    reflectionCopy.html(newValue);
+                    reflectionCopy.prependTo(this.reflectionElement.parent());
+                }
+
+                element.animate({ marginTop: "22px", opacity: 0 }, this.settings.speed, function () {
+                    $(this).remove();
+                });
+                copy.animate({ marginTop: 0 }, this.settings.speed, function () {});
+
+                if (this.settings.reflection) {
+                    this.reflectionElement.animate({ marginTop: marginTop }, this.settings.speed, function () {
+                        $(this).remove();
+                    });
+                    reflectionCopy.animate({ marginTop: 0 }, this.settings.speed, function () {});
+                }
+            }
+        },
+
+        getCurrentCountDown: function () {
+            var currentDateTime = new Date();
+
+            var diff = parseFloat(this.settings.endDateTime - currentDateTime);
+            var self = this;
+
+            var seconds = 0;
+            var minutes = 0;
+            var hours = 0;
+            var total = parseFloat(diff / 1000.0 / 60.0 / 60.0 / 24.0);
+
+            var days = parseInt(total);
+
+            total -= days;
+
+            total *= 24.0;
+
+            hours = parseInt(total);
+
+            total -= hours;
+
+            total *= 60.0;
+
+            minutes = parseInt(total);
+
+            total -= minutes;
+
+            total *= 60;
+
+            seconds = parseInt(total);
+
+            return { days: self.formatNumber(Math.max(0, days), true), hours: self.formatNumber(Math.max(0, hours), false), minutes: self.formatNumber(Math.max(0, minutes), false), seconds: self.formatNumber(Math.max(0, seconds), false) };
+        },
+
+        formatNumber: function (number, isday) {
+            var strNumber = number.toString();
+            if (!isday) {
+                if (strNumber.length == 1) return '0' + strNumber;else return strNumber;
+            } else {
+                if (strNumber.length == 1) return strNumber;else if (strNumber == 2) return strNumber;else return strNumber;
+            }
+        },
+
+        getHunderth: function (number) {
+            var strNumber = '' + number;
+
+            if (strNumber.length == 3) return strNumber.substr(0, 1);else return '0';
+        },
+
+        getTenth: function (number) {
+            var strNumber = '' + number;
+
+            if (strNumber.length == 2) return strNumber.substr(0, 1);else return '0';
+        },
+
+        getUnit: function (number) {
+            var strNumber = '' + number;
+
+            if (strNumber.length >= 1) return strNumber.substr(0, 1);else return '0';
+        }
+    };
+
+    $.fn.county = function (option, params) {
+        var $this = $(this);
+        var data = $this.data('list');
+        if (!data) {
+            $this.data('list', data = new County(this, option));
+        }
+        if (typeof option === 'string') {
+            return data[option](params);
+        }
+    };
+
+    $.fn.county.Constructor = County;
+}(window.jQuery);
+
+/***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prestashop__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prestashop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prestashop__);
+/**
+ * Copyright since 2007 PrestaShop SA and Contributors
+ * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to https://devdocs.prestashop.com/ for more information.
+ *
+ * @author    PrestaShop SA and Contributors <contact@prestashop.com>
+ * @copyright Since 2007 PrestaShop SA and Contributors
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
+ */
+
+
+
+function initRmaItemSelector() {
+  __WEBPACK_IMPORTED_MODULE_0_jquery___default()(`${__WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.themeSelectors.order.returnForm} table thead input[type=checkbox]`).on('click', function () {
+    const checked = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).prop('checked');
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()(`${__WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.themeSelectors.order.returnForm} table tbody input[type=checkbox]`).each((_, checkbox) => {
+      __WEBPACK_IMPORTED_MODULE_0_jquery___default()(checkbox).prop('checked', checked);
+    });
+  });
+}
+
+function setupCustomerScripts() {
+  if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()('body#order-detail')) {
+    initRmaItemSelector();
+  }
+}
+
+__WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).ready(setupCustomerScripts);
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+/*!
+	Zoom 1.7.21
+	license: MIT
+	http://www.jacklmoore.com/zoom
+*/
+(function ($) {
+	var defaults = {
+		url: false,
+		callback: false,
+		target: false,
+		duration: 120,
+		on: 'mouseover', // other options: grab, click, toggle
+		touch: true, // enables a touch fallback
+		onZoomIn: false,
+		onZoomOut: false,
+		magnify: 1
+	};
+
+	// Core Zoom Logic, independent of event listeners.
+	$.zoom = function (target, source, img, magnify) {
+		var targetHeight,
+		    targetWidth,
+		    sourceHeight,
+		    sourceWidth,
+		    xRatio,
+		    yRatio,
+		    offset,
+		    $target = $(target),
+		    position = $target.css('position'),
+		    $source = $(source);
+
+		// The parent element needs positioning so that the zoomed element can be correctly positioned within.
+		target.style.position = /(absolute|fixed)/.test(position) ? position : 'relative';
+		target.style.overflow = 'hidden';
+		img.style.width = img.style.height = '';
+
+		$(img).addClass('zoomImg').css({
+			position: 'absolute',
+			top: 0,
+			left: 0,
+			opacity: 0,
+			width: img.width * magnify,
+			height: img.height * magnify,
+			border: 'none',
+			maxWidth: 'none',
+			maxHeight: 'none'
+		}).appendTo(target);
+
+		return {
+			init: function () {
+				targetWidth = $target.outerWidth();
+				targetHeight = $target.outerHeight();
+
+				if (source === target) {
+					sourceWidth = targetWidth;
+					sourceHeight = targetHeight;
+				} else {
+					sourceWidth = $source.outerWidth();
+					sourceHeight = $source.outerHeight();
+				}
+
+				xRatio = (img.width - targetWidth) / sourceWidth;
+				yRatio = (img.height - targetHeight) / sourceHeight;
+
+				offset = $source.offset();
+			},
+			move: function (e) {
+				var left = e.pageX - offset.left,
+				    top = e.pageY - offset.top;
+
+				top = Math.max(Math.min(top, sourceHeight), 0);
+				left = Math.max(Math.min(left, sourceWidth), 0);
+
+				img.style.left = left * -xRatio + 'px';
+				img.style.top = top * -yRatio + 'px';
+			}
+		};
+	};
+
+	$.fn.zoom = function (options) {
+		return this.each(function () {
+			var settings = $.extend({}, defaults, options || {}),
+
+			//target will display the zoomed image
+			target = settings.target && $(settings.target)[0] || this,
+
+			//source will provide zoom location info (thumbnail)
+			source = this,
+			    $source = $(source),
+			    img = document.createElement('img'),
+			    $img = $(img),
+			    mousemove = 'mousemove.zoom',
+			    clicked = false,
+			    touched = false;
+
+			// If a url wasn't specified, look for an image element.
+			if (!settings.url) {
+				var srcElement = source.querySelector('img');
+				if (srcElement) {
+					settings.url = srcElement.getAttribute('data-src') || srcElement.currentSrc || srcElement.src;
+				}
+				if (!settings.url) {
+					return;
+				}
+			}
+
+			$source.one('zoom.destroy', function (position, overflow) {
+				$source.off(".zoom");
+				target.style.position = position;
+				target.style.overflow = overflow;
+				img.onload = null;
+				$img.remove();
+			}.bind(this, target.style.position, target.style.overflow));
+
+			img.onload = function () {
+				var zoom = $.zoom(target, source, img, settings.magnify);
+
+				function start(e) {
+					zoom.init();
+					zoom.move(e);
+
+					// Skip the fade-in for IE8 and lower since it chokes on fading-in
+					// and changing position based on mousemovement at the same time.
+					$img.stop().fadeTo($.support.opacity ? settings.duration : 0, 1, $.isFunction(settings.onZoomIn) ? settings.onZoomIn.call(img) : false);
+				}
+
+				function stop() {
+					$img.stop().fadeTo(settings.duration, 0, $.isFunction(settings.onZoomOut) ? settings.onZoomOut.call(img) : false);
+				}
+
+				// Mouse events
+				if (settings.on === 'grab') {
+					$source.on('mousedown.zoom', function (e) {
+						if (e.which === 1) {
+							$(document).one('mouseup.zoom', function () {
+								stop();
+
+								$(document).off(mousemove, zoom.move);
+							});
+
+							start(e);
+
+							$(document).on(mousemove, zoom.move);
+
+							e.preventDefault();
+						}
+					});
+				} else if (settings.on === 'click') {
+					$source.on('click.zoom', function (e) {
+						if (clicked) {
+							// bubble the event up to the document to trigger the unbind.
+							return;
+						} else {
+							clicked = true;
+							start(e);
+							$(document).on(mousemove, zoom.move);
+							$(document).one('click.zoom', function () {
+								stop();
+								clicked = false;
+								$(document).off(mousemove, zoom.move);
+							});
+							return false;
+						}
+					});
+				} else if (settings.on === 'toggle') {
+					$source.on('click.zoom', function (e) {
+						if (clicked) {
+							stop();
+						} else {
+							start(e);
+						}
+						clicked = !clicked;
+					});
+				} else if (settings.on === 'mouseover') {
+					zoom.init(); // Preemptively call init because IE7 will fire the mousemove handler before the hover handler.
+
+					$source.on('mouseenter.zoom', start).on('mouseleave.zoom', stop).on(mousemove, zoom.move);
+				}
+
+				// Touch fallback
+				if (settings.touch) {
+					if (settings.on !== 'click') {
+						//added by sseiz to improve page scrolling possibilities
+						$source.on('touchstart.zoom', function (e) {
+							e.preventDefault();
+							if (touched) {
+								touched = false;
+								stop();
+							} else {
+								touched = true;
+								start(e.originalEvent.touches[0] || e.originalEvent.changedTouches[0]);
+							}
+						});
+					}
+					$source.on('touchmove.zoom', function (e) {
+						if (clicked) {
+							e.preventDefault();
+						}
+						zoom.move(e.originalEvent.touches[0] || e.originalEvent.changedTouches[0]);
+					});
+					if (settings.on !== 'click') {
+						//added by sseiz to improve page scrolling possibilities
+						$source.on('touchend.zoom', function (e) {
+							e.preventDefault();
+							if (touched) {
+								touched = false;
+								stop();
+							}
+						});
+					}
+				}
+
+				if ($.isFunction(settings.callback)) {
+					settings.callback.call(img);
+				}
+			};
+
+			img.setAttribute('role', 'presentation');
+			img.alt = '';
+			img.src = settings.url;
+		});
+	};
+
+	$.fn.zoom.defaults = defaults;
+})(window.jQuery);
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+ * animsition v4.0.2
+ * A simple and easy jQuery plugin for CSS animated page transitions.
+ * http://blivesta.github.io/animsition
+ * License : MIT
+ * Author : blivesta (http://blivesta.com/)
+ */
+!function (t) {
+  "use strict";
+   true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0)], __WEBPACK_AMD_DEFINE_FACTORY__ = (t),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : "object" == typeof exports ? module.exports = t(require("jquery")) : t(jQuery);
+}(function (t) {
+  "use strict";
+  var n = "animsition",
+      i = { init: function (a) {
+      a = t.extend({ inClass: "fade-in", outClass: "fade-out", inDuration: 1500, outDuration: 800, linkElement: ".animsition-link", loading: !0, loadingParentElement: "body", loadingClass: "animsition-loading", loadingInner: "", timeout: !1, timeoutCountdown: 5e3, onLoadEvent: !0, browser: ["animation-duration", "-webkit-animation-duration"], overlay: !1, overlayClass: "animsition-overlay-slide", overlayParentElement: "body", transition: function (t) {
+          window.location.href = t;
+        } }, a), i.settings = { timer: !1, data: { inClass: "animsition-in-class", inDuration: "animsition-in-duration", outClass: "animsition-out-class", outDuration: "animsition-out-duration", overlay: "animsition-overlay" }, events: { inStart: "animsition.inStart", inEnd: "animsition.inEnd", outStart: "animsition.outStart", outEnd: "animsition.outEnd" } };var o = i.supportCheck.call(this, a);if (!o && a.browser.length > 0 && (!o || !this.length)) return "console" in window || (window.console = {}, window.console.log = function (t) {
+        return t;
+      }), this.length , o , i.destroy.call(this);var e = i.optionCheck.call(this, a);return e && t("." + a.overlayClass).length <= 0 && i.addOverlay.call(this, a), a.loading && t("." + a.loadingClass).length <= 0 && i.addLoading.call(this, a), this.each(function () {
+        var o = this,
+            e = t(this),
+            s = t(window),
+            r = t(document),
+            l = e.data(n);l || (a = t.extend({}, a), e.data(n, { options: a }), a.timeout && i.addTimer.call(o), a.onLoadEvent && s.on("load." + n, function () {
+          i.settings.timer && clearTimeout(i.settings.timer), i["in"].call(o);
+        }), s.on("pageshow." + n, function (t) {
+          t.originalEvent.persisted && i["in"].call(o);
+        }), s.on("unload." + n, function () {}), r.on("click." + n, a.linkElement, function (n) {
+          n.preventDefault();var a = t(this),
+              e = a.attr("href");2 === n.which || n.metaKey || n.shiftKey || -1 !== navigator.platform.toUpperCase().indexOf("WIN") && n.ctrlKey ? window.open(e, "_blank") : i.out.call(o, a, e);
+        }));
+      });
+    }, addOverlay: function (n) {
+      t(n.overlayParentElement).prepend('<div class="' + n.overlayClass + '"></div>');
+    }, addLoading: function (n) {
+      t(n.loadingParentElement).append('<div class="' + n.loadingClass + '">' + n.loadingInner + "</div>");
+    }, removeLoading: function () {
+      var i = t(this),
+          a = i.data(n).options,
+          o = t(a.loadingParentElement).children("." + a.loadingClass);o.fadeOut().remove();
+    }, addTimer: function () {
+      var a = this,
+          o = t(this),
+          e = o.data(n).options;i.settings.timer = setTimeout(function () {
+        i["in"].call(a), t(window).off("load." + n);
+      }, e.timeoutCountdown);
+    }, supportCheck: function (n) {
+      var i = t(this),
+          a = n.browser,
+          o = a.length,
+          e = !1;0 === o && (e = !0);for (var s = 0; o > s; s++) if ("string" == typeof i.css(a[s])) {
+        e = !0;break;
+      }return e;
+    }, optionCheck: function (n) {
+      var a,
+          o = t(this);return a = n.overlay || o.data(i.settings.data.overlay) ? !0 : !1;
+    }, animationCheck: function (i, a, o) {
+      var e = t(this),
+          s = e.data(n).options,
+          r = typeof i,
+          l = !a && "number" === r,
+          d = a && "string" === r && i.length > 0;return l || d ? i = i : a && o ? i = s.inClass : !a && o ? i = s.inDuration : a && !o ? i = s.outClass : a || o || (i = s.outDuration), i;
+    }, "in": function () {
+      var a = this,
+          o = t(this),
+          e = o.data(n).options,
+          s = o.data(i.settings.data.inDuration),
+          r = o.data(i.settings.data.inClass),
+          l = i.animationCheck.call(a, s, !1, !0),
+          d = i.animationCheck.call(a, r, !0, !0),
+          u = i.optionCheck.call(a, e),
+          c = o.data(n).outClass;e.loading && i.removeLoading.call(a), c && o.removeClass(c), u ? i.inOverlay.call(a, d, l) : i.inDefault.call(a, d, l);
+    }, inDefault: function (n, a) {
+      var o = t(this);o.css({ "animation-duration": a + "ms" }).addClass(n).trigger(i.settings.events.inStart).animateCallback(function () {
+        o.removeClass(n).css({ opacity: 1 }).trigger(i.settings.events.inEnd);
+      });
+    }, inOverlay: function (a, o) {
+      var e = t(this),
+          s = e.data(n).options;e.css({ opacity: 1 }).trigger(i.settings.events.inStart), t(s.overlayParentElement).children("." + s.overlayClass).css({ "animation-duration": o + "ms" }).addClass(a).animateCallback(function () {
+        e.trigger(i.settings.events.inEnd);
+      });
+    }, out: function (a, o) {
+      var e = this,
+          s = t(this),
+          r = s.data(n).options,
+          l = a.data(i.settings.data.outClass),
+          d = s.data(i.settings.data.outClass),
+          u = a.data(i.settings.data.outDuration),
+          c = s.data(i.settings.data.outDuration),
+          m = l ? l : d,
+          g = u ? u : c,
+          f = i.animationCheck.call(e, m, !0, !1),
+          v = i.animationCheck.call(e, g, !1, !1),
+          h = i.optionCheck.call(e, r);s.data(n).outClass = f, h ? i.outOverlay.call(e, f, v, o) : i.outDefault.call(e, f, v, o);
+    }, outDefault: function (a, o, e) {
+      var s = t(this),
+          r = s.data(n).options;s.css({ "animation-duration": o + 1 + "ms" }).addClass(a).trigger(i.settings.events.outStart).animateCallback(function () {
+        s.trigger(i.settings.events.outEnd), r.transition(e);
+      });
+    }, outOverlay: function (a, o, e) {
+      var s = this,
+          r = t(this),
+          l = r.data(n).options,
+          d = r.data(i.settings.data.inClass),
+          u = i.animationCheck.call(s, d, !0, !0);t(l.overlayParentElement).children("." + l.overlayClass).css({ "animation-duration": o + 1 + "ms" }).removeClass(u).addClass(a).trigger(i.settings.events.outStart).animateCallback(function () {
+        r.trigger(i.settings.events.outEnd), l.transition(e);
+      });
+    }, destroy: function () {
+      return this.each(function () {
+        var i = t(this);t(window).off("." + n), i.css({ opacity: 1 }).removeData(n);
+      });
+    } };t.fn.animateCallback = function (n) {
+    var i = "animationend webkitAnimationEnd";return this.each(function () {
+      var a = t(this);a.on(i, function () {
+        return a.off(i), n.call(this);
+      });
+    });
+  }, t.fn.animsition = function (a) {
+    return i[a] ? i[a].apply(this, Array.prototype.slice.call(arguments, 1)) : "object" != typeof a && a ? void t.error("Method " + a + " does not exist on jQuery." + n) : i.init.apply(this, arguments);
+  };
+});
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+/**
+ * 2007-2017 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ * @author    PrestaShop SA <contact@prestashop.com>
+ * @copyright 2007-2017 PrestaShop SA
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
+ * International Registered Trademark & Property of PrestaShop SA
+ */
+(function ($) {
+  var nextId = 0;var Filestyle = function (element, options) {
+    this.options = options;this.$elementFilestyle = [];this.$element = $(element);
+  };Filestyle.prototype = { clear: function () {
+      this.$element.val("");this.$elementFilestyle.find(":text").val("");this.$elementFilestyle.find(".badge").remove();
+    }, destroy: function () {
+      this.$element.removeAttr("style").removeData("filestyle");this.$elementFilestyle.remove();
+    }, disabled: function (value) {
+      if (value === true) {
+        if (!this.options.disabled) {
+          this.$element.attr("disabled", "true");this.$elementFilestyle.find("label").attr("disabled", "true");this.options.disabled = true;
+        }
+      } else {
+        if (value === false) {
+          if (this.options.disabled) {
+            this.$element.removeAttr("disabled");this.$elementFilestyle.find("label").removeAttr("disabled");this.options.disabled = false;
+          }
+        } else {
+          return this.options.disabled;
+        }
+      }
+    }, buttonBefore: function (value) {
+      if (value === true) {
+        if (!this.options.buttonBefore) {
+          this.options.buttonBefore = true;if (this.options.input) {
+            this.$elementFilestyle.remove();this.constructor();this.pushNameFiles();
+          }
+        }
+      } else {
+        if (value === false) {
+          if (this.options.buttonBefore) {
+            this.options.buttonBefore = false;if (this.options.input) {
+              this.$elementFilestyle.remove();this.constructor();this.pushNameFiles();
+            }
+          }
+        } else {
+          return this.options.buttonBefore;
+        }
+      }
+    }, icon: function (value) {
+      if (value === true) {
+        if (!this.options.icon) {
+          this.options.icon = true;this.$elementFilestyle.find("label").prepend(this.htmlIcon());
+        }
+      } else {
+        if (value === false) {
+          if (this.options.icon) {
+            this.options.icon = false;this.$elementFilestyle.find(".icon-span-filestyle").remove();
+          }
+        } else {
+          return this.options.icon;
+        }
+      }
+    }, input: function (value) {
+      if (value === true) {
+        if (!this.options.input) {
+          this.options.input = true;if (this.options.buttonBefore) {
+            this.$elementFilestyle.append(this.htmlInput());
+          } else {
+            this.$elementFilestyle.prepend(this.htmlInput());
+          }this.$elementFilestyle.find(".badge").remove();this.pushNameFiles();this.$elementFilestyle.find(".group-span-filestyle").addClass("input-group-btn");
+        }
+      } else {
+        if (value === false) {
+          if (this.options.input) {
+            this.options.input = false;this.$elementFilestyle.find(":text").remove();var files = this.pushNameFiles();if (files.length > 0 && this.options.badge) {
+              this.$elementFilestyle.find("label").append(' <span class="badge">' + files.length + "</span>");
+            }this.$elementFilestyle.find(".group-span-filestyle").removeClass("input-group-btn");
+          }
+        } else {
+          return this.options.input;
+        }
+      }
+    }, size: function (value) {
+      if (value !== undefined) {
+        var btn = this.$elementFilestyle.find("label"),
+            input = this.$elementFilestyle.find("input");btn.removeClass("btn-lg btn-sm");input.removeClass("input-lg input-sm");if (value != "nr") {
+          btn.addClass("btn-" + value);input.addClass("input-" + value);
+        }
+      } else {
+        return this.options.size;
+      }
+    }, placeholder: function (value) {
+      if (value !== undefined) {
+        this.options.placeholder = value;this.$elementFilestyle.find("input").attr("placeholder", value);
+      } else {
+        return this.options.placeholder;
+      }
+    }, buttonText: function (value) {
+      if (value !== undefined) {
+        this.options.buttonText = value;this.$elementFilestyle.find("label .buttonText").html(this.options.buttonText);
+      } else {
+        return this.options.buttonText;
+      }
+    }, buttonName: function (value) {
+      if (value !== undefined) {
+        this.options.buttonName = value;this.$elementFilestyle.find("label").attr({ "class": "btn " + this.options.buttonName });
+      } else {
+        return this.options.buttonName;
+      }
+    }, iconName: function (value) {
+      if (value !== undefined) {
+        this.$elementFilestyle.find(".icon-span-filestyle").attr({ "class": "icon-span-filestyle " + this.options.iconName });
+      } else {
+        return this.options.iconName;
+      }
+    }, htmlIcon: function () {
+      if (this.options.icon) {
+        return '<span class="icon-span-filestyle ' + this.options.iconName + '"></span> ';
+      } else {
+        return "";
+      }
+    }, htmlInput: function () {
+      if (this.options.input) {
+        return '<input type="text" class="form-control ' + (this.options.size == "nr" ? "" : "input-" + this.options.size) + '" placeholder="' + this.options.placeholder + '" disabled> ';
+      } else {
+        return "";
+      }
+    }, pushNameFiles: function () {
+      var content = "",
+          files = [];if (this.$element[0].files === undefined) {
+        files[0] = { name: this.$element[0] && this.$element[0].value };
+      } else {
+        files = this.$element[0].files;
+      }for (var i = 0; i < files.length; i++) {
+        content += files[i].name.split("\\").pop() + ", ";
+      }if (content !== "") {
+        this.$elementFilestyle.find(":text").val(content.replace(/\, $/g, ""));
+      } else {
+        this.$elementFilestyle.find(":text").val("");
+      }return files;
+    }, constructor: function () {
+      var _self = this,
+          html = "",
+          id = _self.$element.attr("id"),
+          files = [],
+          btn = "",
+          $label;if (id === "" || !id) {
+        id = "filestyle-" + nextId;_self.$element.attr({ id: id });nextId++;
+      }btn = '<span class="group-span-filestyle ' + (_self.options.input ? "input-group-btn" : "") + '"><label for="' + id + '" class="btn ' + _self.options.buttonName + " " + (_self.options.size == "nr" ? "" : "btn-" + _self.options.size) + '" ' + (_self.options.disabled ? 'disabled="true"' : "") + ">" + _self.htmlIcon() + '<span class="buttonText">' + _self.options.buttonText + "</span></label></span>";html = _self.options.buttonBefore ? btn + _self.htmlInput() : _self.htmlInput() + btn;_self.$elementFilestyle = $('<div class="bootstrap-filestyle input-group">' + html + "</div>");_self.$elementFilestyle.find(".group-span-filestyle").attr("tabindex", "0").keypress(function (e) {
+        if (e.keyCode === 13 || e.charCode === 32) {
+          _self.$elementFilestyle.find("label").click();return false;
+        }
+      });_self.$element.css({ position: "absolute", clip: "rect(0px 0px 0px 0px)" }).attr("tabindex", "-1").after(_self.$elementFilestyle);if (_self.options.disabled) {
+        _self.$element.attr("disabled", "true");
+      }_self.$element.change(function () {
+        var files = _self.pushNameFiles();if (_self.options.input == false && _self.options.badge) {
+          if (_self.$elementFilestyle.find(".badge").length == 0) {
+            _self.$elementFilestyle.find("label").append(' <span class="badge">' + files.length + "</span>");
+          } else {
+            if (files.length == 0) {
+              _self.$elementFilestyle.find(".badge").remove();
+            } else {
+              _self.$elementFilestyle.find(".badge").html(files.length);
+            }
+          }
+        } else {
+          _self.$elementFilestyle.find(".badge").remove();
+        }
+      });if (window.navigator.userAgent.search(/firefox/i) > -1) {
+        _self.$elementFilestyle.find("label").click(function () {
+          _self.$element.click();return false;
+        });
+      }
+    } };var old = $.fn.filestyle;$.fn.filestyle = function (option, value) {
+    var get = "",
+        element = this.each(function () {
+      if ($(this).attr("type") === "file") {
+        var $this = $(this),
+            data = $this.data("filestyle"),
+            options = $.extend({}, $.fn.filestyle.defaults, option, typeof option === "object" && option);if (!data) {
+          $this.data("filestyle", data = new Filestyle(this, options));data.constructor();
+        }if (typeof option === "string") {
+          get = data[option](value);
+        }
+      }
+    });if (typeof get !== undefined) {
+      return get;
+    } else {
+      return element;
+    }
+  };$.fn.filestyle.defaults = { buttonText: "Choose file", iconName: "glyphicon glyphicon-folder-open", buttonName: "btn-default", size: "nr", input: true, badge: true, icon: true, buttonBefore: false, disabled: false, placeholder: "" };$.fn.filestyle.noConflict = function () {
+    $.fn.filestyle = old;return this;
+  };$(function () {
+    $(".filestyle").each(function () {
+      var $this = $(this),
+          options = { input: $this.attr("data-input") === "false" ? false : true, icon: $this.attr("data-icon") === "false" ? false : true, buttonBefore: $this.attr("data-buttonBefore") === "true" ? true : false, disabled: $this.attr("data-disabled") === "true" ? true : false, size: $this.attr("data-size"), buttonText: $this.attr("data-buttonText"), buttonName: $this.attr("data-buttonName"), iconName: $this.attr("data-iconName"), badge: $this.attr("data-badge") === "false" ? false : true, placeholder: $this.attr("data-placeholder") };$this.filestyle(options);
+    });
+  });
+})(window.jQuery);
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports) {
+
+/**
+ * 2007-2017 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ * @author    PrestaShop SA <contact@prestashop.com>
+ * @copyright 2007-2017 PrestaShop SA
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
+ * International Registered Trademark & Property of PrestaShop SA
+ */
+(function ($) {
+  $.fn.scrollbox = function (config) {
+    var defConfig = { linear: false, startDelay: 2, delay: 3, step: 5, speed: 32, switchItems: 1, direction: "vertical", distance: "auto", autoPlay: true, onMouseOverPause: true, paused: false, queue: null, listElement: "ul", listItemElement: "li", infiniteLoop: true, switchAmount: 0, afterForward: null, afterBackward: null, triggerStackable: false };config = $.extend(defConfig, config);config.scrollOffset = config.direction === "vertical" ? "scrollTop" : "scrollLeft";if (config.queue) {
+      config.queue = $("#" + config.queue);
+    }return this.each(function () {
+      var container = $(this),
+          containerUL,
+          scrollingId = null,
+          nextScrollId = null,
+          paused = false,
+          releaseStack,
+          backward,
+          forward,
+          resetClock,
+          scrollForward,
+          scrollBackward,
+          forwardHover,
+          pauseHover,
+          switchCount = 0,
+          stackedTriggerIndex = 0;if (config.onMouseOverPause) {
+        container.bind("mouseover", function () {
+          paused = true;
+        });container.bind("mouseout", function () {
+          paused = false;
+        });
+      }containerUL = container.children(config.listElement + ":first-child");if (config.infiniteLoop === false && config.switchAmount === 0) {
+        config.switchAmount = containerUL.children().length;
+      }scrollForward = function () {
+        if (paused) {
+          return;
+        }var curLi, i, newScrollOffset, scrollDistance, theStep;curLi = containerUL.children(config.listItemElement + ":first-child");scrollDistance = config.distance !== "auto" ? config.distance : config.direction === "vertical" ? curLi.outerHeight(true) : curLi.outerWidth(true);if (!config.linear) {
+          theStep = Math.max(3, parseInt((scrollDistance - container[0][config.scrollOffset]) * .3, 10));newScrollOffset = Math.min(container[0][config.scrollOffset] + theStep, scrollDistance);
+        } else {
+          newScrollOffset = Math.min(container[0][config.scrollOffset] + config.step, scrollDistance);
+        }container[0][config.scrollOffset] = newScrollOffset;if (newScrollOffset >= scrollDistance) {
+          for (i = 0; i < config.switchItems; i++) {
+            if (config.queue && config.queue.find(config.listItemElement).length > 0) {
+              containerUL.append(config.queue.find(config.listItemElement)[0]);containerUL.children(config.listItemElement + ":first-child").remove();
+            } else {
+              containerUL.append(containerUL.children(config.listItemElement + ":first-child"));
+            }++switchCount;
+          }container[0][config.scrollOffset] = 0;clearInterval(scrollingId);scrollingId = null;if ($.isFunction(config.afterForward)) {
+            config.afterForward.call(container, { switchCount: switchCount, currentFirstChild: containerUL.children(config.listItemElement + ":first-child") });
+          }if (config.triggerStackable && stackedTriggerIndex !== 0) {
+            releaseStack();return;
+          }if (config.infiniteLoop === false && switchCount >= config.switchAmount) {
+            return;
+          }if (config.autoPlay) {
+            nextScrollId = setTimeout(forward, config.delay * 1e3);
+          }
+        }
+      };scrollBackward = function () {
+        if (paused) {
+          return;
+        }var curLi, i, newScrollOffset, scrollDistance, theStep;if (container[0][config.scrollOffset] === 0) {
+          for (i = 0; i < config.switchItems; i++) {
+            containerUL.children(config.listItemElement + ":last-child").insertBefore(containerUL.children(config.listItemElement + ":first-child"));
+          }curLi = containerUL.children(config.listItemElement + ":first-child");scrollDistance = config.distance !== "auto" ? config.distance : config.direction === "vertical" ? curLi.height() : curLi.width();container[0][config.scrollOffset] = scrollDistance;
+        }if (!config.linear) {
+          theStep = Math.max(3, parseInt(container[0][config.scrollOffset] * .3, 10));newScrollOffset = Math.max(container[0][config.scrollOffset] - theStep, 0);
+        } else {
+          newScrollOffset = Math.max(container[0][config.scrollOffset] - config.step, 0);
+        }container[0][config.scrollOffset] = newScrollOffset;if (newScrollOffset === 0) {
+          --switchCount;clearInterval(scrollingId);scrollingId = null;if ($.isFunction(config.afterBackward)) {
+            config.afterBackward.call(container, { switchCount: switchCount, currentFirstChild: containerUL.children(config.listItemElement + ":first-child") });
+          }if (config.triggerStackable && stackedTriggerIndex !== 0) {
+            releaseStack();return;
+          }if (config.autoPlay) {
+            nextScrollId = setTimeout(forward, config.delay * 1e3);
+          }
+        }
+      };releaseStack = function () {
+        if (stackedTriggerIndex === 0) {
+          return;
+        }if (stackedTriggerIndex > 0) {
+          stackedTriggerIndex--;nextScrollId = setTimeout(forward, 0);
+        } else {
+          stackedTriggerIndex++;nextScrollId = setTimeout(backward, 0);
+        }
+      };forward = function () {
+        clearInterval(scrollingId);scrollingId = setInterval(scrollForward, config.speed);
+      };backward = function () {
+        clearInterval(scrollingId);scrollingId = setInterval(scrollBackward, config.speed);
+      };forwardHover = function () {
+        config.autoPlay = true;paused = false;clearInterval(scrollingId);scrollingId = setInterval(scrollForward, config.speed);
+      };pauseHover = function () {
+        paused = true;
+      };resetClock = function (delay) {
+        config.delay = delay || config.delay;clearTimeout(nextScrollId);if (config.autoPlay) {
+          nextScrollId = setTimeout(forward, config.delay * 1e3);
+        }
+      };if (config.autoPlay) {
+        nextScrollId = setTimeout(forward, config.startDelay * 1e3);
+      }container.bind("resetClock", function (delay) {
+        resetClock(delay);
+      });container.bind("forward", function () {
+        if (config.triggerStackable) {
+          if (scrollingId !== null) {
+            stackedTriggerIndex++;
+          } else {
+            forward();
+          }
+        } else {
+          clearTimeout(nextScrollId);forward();
+        }
+      });container.bind("backward", function () {
+        if (config.triggerStackable) {
+          if (scrollingId !== null) {
+            stackedTriggerIndex--;
+          } else {
+            backward();
+          }
+        } else {
+          clearTimeout(nextScrollId);backward();
+        }
+      });container.bind("pauseHover", function () {
+        pauseHover();
+      });container.bind("forwardHover", function () {
+        forwardHover();
+      });container.bind("speedUp", function (event, speed) {
+        if (speed === "undefined") {
+          speed = Math.max(1, parseInt(config.speed / 2, 10));
+        }config.speed = speed;
+      });container.bind("speedDown", function (event, speed) {
+        if (speed === "undefined") {
+          speed = config.speed * 2;
+        }config.speed = speed;
+      });container.bind("updateConfig", function (event, options) {
+        config = $.extend(config, options);
+      });
+    });
+  };
+})(jQuery);
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports) {
+
+/*
+ Sticky-kit v1.1.3 | MIT | Leaf Corcoran 2015 | http://leafo.net
+*/
+(function () {
+  var c, f;c = window.jQuery;f = c(window);c.fn.stick_in_parent = function (b) {
+    var A, w, J, n, B, K, p, q, L, k, E, t;null == b && (b = {});t = b.sticky_class;B = b.inner_scrolling;E = b.recalc_every;k = b.parent;q = b.offset_top;p = b.spacer;w = b.bottoming;null == q && (q = 0);null == k && (k = void 0);null == B && (B = !0);null == t && (t = "is_stuck");A = c(document);null == w && (w = !0);L = function (a) {
+      var b;return window.getComputedStyle ? (a = window.getComputedStyle(a[0]), b = parseFloat(a.getPropertyValue("width")) + parseFloat(a.getPropertyValue("margin-left")) + parseFloat(a.getPropertyValue("margin-right")), "border-box" !== a.getPropertyValue("box-sizing") && (b += parseFloat(a.getPropertyValue("border-left-width")) + parseFloat(a.getPropertyValue("border-right-width")) + parseFloat(a.getPropertyValue("padding-left")) + parseFloat(a.getPropertyValue("padding-right"))), b) : a.outerWidth(!0);
+    };J = function (a, b, n, C, F, u, r, G) {
+      var v, H, m, D, I, d, g, x, y, z, h, l;if (!a.data("sticky_kit")) {
+        a.data("sticky_kit", !0);I = A.height();g = a.parent();null != k && (g = g.closest(k));if (!g.length) throw "failed to find stick parent";
+        v = m = !1;(h = null != p ? p && a.closest(p) : c("<div />")) && h.css("position", a.css("position"));x = function () {
+          var d, f, e;if (!G && (I = A.height(), d = parseInt(g.css("border-top-width"), 10), f = parseInt(g.css("padding-top"), 10), b = parseInt(g.css("padding-bottom"), 10), n = g.offset().top + d + f, C = g.height(), m && (v = m = !1, null == p && (a.insertAfter(h), h.detach()), a.css({ position: "", top: "", width: "", bottom: "" }).removeClass(t), e = !0), F = a.offset().top - (parseInt(a.css("margin-top"), 10) || 0) - q, u = a.outerHeight(!0), r = a.css("float"), h && h.css({ width: L(a),
+            height: u, display: a.css("display"), "vertical-align": a.css("vertical-align"), "float": r }), e)) return l();
+        };x();if (u !== C) return D = void 0, d = q, z = E, l = function () {
+          var c, l, e, k;if (!G && (e = !1, null != z && (--z, 0 >= z && (z = E, x(), e = !0)), e || A.height() === I || x(), e = f.scrollTop(), null != D && (l = e - D), D = e, m ? (w && (k = e + u + d > C + n, v && !k && (v = !1, a.css({ position: "fixed", bottom: "", top: d }).trigger("sticky_kit:unbottom"))), e < F && (m = !1, d = q, null == p && ("left" !== r && "right" !== r || a.insertAfter(h), h.detach()), c = { position: "", width: "", top: "" }, a.css(c).removeClass(t).trigger("sticky_kit:unstick")), B && (c = f.height(), u + q > c && !v && (d -= l, d = Math.max(c - u, d), d = Math.min(q, d), m && a.css({ top: d + "px" })))) : e > F && (m = !0, c = { position: "fixed", top: d }, c.width = "border-box" === a.css("box-sizing") ? a.outerWidth() + "px" : a.width() + "px", a.css(c).addClass(t), null == p && (a.after(h), "left" !== r && "right" !== r || h.append(a)), a.trigger("sticky_kit:stick")), m && w && (null == k && (k = e + u + d > C + n), !v && k))) return v = !0, "static" === g.css("position") && g.css({ position: "relative" }), a.css({ position: "absolute", bottom: b, top: "auto" }).trigger("sticky_kit:bottom");
+        }, y = function () {
+          x();return l();
+        }, H = function () {
+          G = !0;f.off("touchmove", l);f.off("scroll", l);f.off("resize", y);c(document.body).off("sticky_kit:recalc", y);a.off("sticky_kit:detach", H);a.removeData("sticky_kit");a.css({ position: "", bottom: "", top: "", width: "" });g.position("position", "");if (m) return null == p && ("left" !== r && "right" !== r || a.insertAfter(h), h.remove()), a.removeClass(t);
+        }, f.on("touchmove", l), f.on("scroll", l), f.on("resize", y), c(document.body).on("sticky_kit:recalc", y), a.on("sticky_kit:detach", H), setTimeout(l, 0);
+      }
+    };n = 0;for (K = this.length; n < K; n++) b = this[n], J(c(b));return this;
+  };
+}).call(this);
+
+/***/ }),
+/* 22 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prestashop__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prestashop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prestashop__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_velocity_animate__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_velocity_animate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_velocity_animate__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_animejs__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_animejs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_animejs__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_owl_carousel__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_owl_carousel___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_owl_carousel__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_product_miniature__ = __webpack_require__(3);
+
+
+
+
+
+
+
+
+__WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).ready(() => {
+    __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.on('clickQuickView', function (elm) {
+        let data = {
+            'action': 'quickview',
+            'id_product': elm.dataset.idProduct,
+            'id_product_attribute': elm.dataset.idProductAttribute
+        };
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default.a.post(__WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.urls.pages.product, data, null, 'json').then(function (resp) {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()('body').append(resp.quickview_html);
+            let productModal = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(`#quickview-modal-${resp.product.id}-${resp.product.id_product_attribute}`);
+            productModal.modal('show');
+            productConfig(productModal);
+            productModal.on('hidden.bs.modal', function () {
+                productModal.remove();
+            });
+        }).fail(resp => {
+            __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.emit('handleError', { eventType: 'clickQuickView', resp: resp });
+        });
+
+        //init slider
+        setTimeout(function () {
+            qv_slider();
+            updateCounters();
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-qv-mask').addClass('showit');
+        }, 1400);
+    });
+
+    var productConfig = qv => {
+        const MAX_THUMBS = 4;
+        var $arrows = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-arrows');
+        var $thumbnails = qv.find('.js-qv-product-images');
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-thumb').on('click', event => {
+            if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-thumb').hasClass('selected')) {
+                __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-thumb').removeClass('selected');
+            }
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.currentTarget).addClass('selected');
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-qv-product-cover').attr('src', __WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.target).data('image-large-src'));
+        });
+        if ($thumbnails.find('li').length <= MAX_THUMBS) {
+            $arrows.hide();
+        } else {
+            $arrows.on('click', event => {
+                if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.target).hasClass('arrow-up') && __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-qv-product-images').position().top < 0) {
+                    move('up');
+                    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.arrow-down').css('opacity', '1');
+                } else if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.target).hasClass('arrow-down') && $thumbnails.position().top + $thumbnails.height() > __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-qv-mask').height()) {
+                    move('down');
+                    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.arrow-up').css('opacity', '1');
+                }
+            });
+        }
+        qv.find('#quantity_wanted').TouchSpin({
+            verticalbuttons: true,
+            verticalupclass: 'material-icons touchspin-up',
+            verticaldownclass: 'material-icons touchspin-down',
+            buttondown_class: 'btn btn-touchspin js-touchspin',
+            buttonup_class: 'btn btn-touchspin js-touchspin',
+            min: 1,
+            max: 1000000
+        });
+    };
+    var move = direction => {
+        const THUMB_MARGIN = 20;
+        var $thumbnails = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-qv-product-images');
+        var thumbHeight = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-qv-product-images li img').height() + THUMB_MARGIN;
+        var currentPosition = $thumbnails.position().top;
+        $thumbnails.velocity({
+            translateY: direction === 'up' ? currentPosition + thumbHeight : currentPosition - thumbHeight
+        }, function () {
+            if ($thumbnails.position().top >= 0) {
+                __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.arrow-up').css('opacity', '.2');
+            } else if ($thumbnails.position().top + $thumbnails.height() <= __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-qv-mask').height()) {
+                __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.arrow-down').css('opacity', '.2');
+            }
+        });
+    };
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('body').on('click', '#search_filter_toggler', function () {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#search_filters_wrapper').removeClass('hidden-sm-down');
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#content-wrapper').addClass('hidden-sm-down');
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#footer').addClass('hidden-sm-down');
+    });
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#search_filter_controls .clear').on('click', function () {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#search_filters_wrapper').addClass('hidden-sm-down');
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#content-wrapper').removeClass('hidden-sm-down');
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#footer').removeClass('hidden-sm-down');
+    });
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#search_filter_controls .ok').on('click', function () {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#search_filters_wrapper').addClass('hidden-sm-down');
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#content-wrapper').removeClass('hidden-sm-down');
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#footer').removeClass('hidden-sm-down');
+    });
+
+    const parseSearchUrl = function (event) {
+        if (event.target.dataset.searchUrl !== undefined) {
+            return event.target.dataset.searchUrl;
+        }
+
+        if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.target).parent()[0].dataset.searchUrl === undefined) {
+            throw new Error('Can not parse search URL');
+        }
+
+        return __WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.target).parent()[0].dataset.searchUrl;
+    };
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('body').on('change', '#search_filters input[data-search-url]', function (event) {
+        __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.emit('updateFacets', parseSearchUrl(event));
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('body').on('click', '.js-search-filters-clear-all', function (event) {
+        __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.emit('updateFacets', parseSearchUrl(event));
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('body').on('click', '.js-search-link', function (event) {
+        event.preventDefault();
+        __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.emit('updateFacets', __WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.target).closest('a').get(0).href);
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('body').on('change', '#search_filters select', function (event) {
+        const form = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.target).closest('form');
+        __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.emit('updateFacets', '?' + form.serialize());
+    });
+
+    __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.on('updateProductList', data => {
+        updateProductListDOM(data);
+        updateCounters();
+        hideProds();
+        showProds();
+    });
+
+    // Grid - list
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.show_list').on('click', function () {
+        document.cookie = "show_list=true; expires=Thu, 30 Jan 2100 12:00:00 UTC; path=/";
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#main #js-product-list .product-item').addClass('product_show_list');
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).addClass('active');
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.show_grid').removeClass('active');
+        hideProds();
+        showProds();
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.show_grid').on('click', function () {
+        document.cookie = "show_list=; expires=Thu, 30 Jan 1970 12:00:00 UTC; path=/";
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#main #js-product-list .product-item').removeClass('product_show_list');
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).addClass('active');
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.show_list').removeClass('active');
+        hideProds();
+        showProds();
+    });
+
+    __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.on('updateProductList', function (event) {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.show_list').on('click', function () {
+            document.cookie = "show_list=true; expires=Thu, 30 Jan 2100 12:00:00 UTC; path=/";
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#main #js-product-list .product-item').addClass('product_show_list');
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).addClass('active');
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.show_grid').removeClass('active');
+            hideProds();
+            showProds();
+        });
+
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.show_grid').on('click', function () {
+            document.cookie = "show_list=; expires=Thu, 30 Jan 1970 12:00:00 UTC; path=/";
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#main #js-product-list .product-item').removeClass('product_show_list');
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).addClass('active');
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.show_list').removeClass('active');
+            hideProds();
+            showProds();
+        });
+    });
+
+    // roythemes show prods
+
+    function showProds() {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#products #js-product-list').find('.products > .product-item').each(function (i) {
+            var row = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this);
+            setTimeout(function () {
+                row.addClass('show');
+            }, 360 + i * 140);
+        });
+    }
+    showProds();
+
+    function hideProds() {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#products #js-product-list').find('.products > .product-item').each(function (i) {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).removeClass('show');
+        });
+    }
+
+    // quickview slider
+
+    function qv_slider() {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.qv-images').owlCarousel({
+            loop: false,
+            margin: 12,
+            items: 1,
+            autoplay: false,
+            mouseDrag: true,
+            touchDrag: true,
+            navText: '  ',
+            nav: true,
+            navSpeed: 400,
+            dots: true,
+            responsive: {
+                0: {
+                    dots: true,
+                    nav: false
+                },
+                768: {
+                    dots: true
+                }
+            }
+        });
+    }
+
+    // On pagination scroll to top of page
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).ready(() => {
+        __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.on('updateProductList', () => {
+            let target = __WEBPACK_IMPORTED_MODULE_0_jquery___default()("#wrapper");
+            if (target.length) {
+                __WEBPACK_IMPORTED_MODULE_0_jquery___default()('html, body').animate({
+                    scrollTop: target.offset().top
+                }, 0);
+            }
+        });
+    });
+
+    // modez fastview
+
+    class Details {
+        constructor() {
+            this.DOM = {};
+
+            const detailsTmpl = `
+          <div class="details__bg details__bg--up"></div>
+          <div class="details__bg details__bg--down"></div>
+          <div class="details__close"></div>
+          <img class="details__img" src="" alt="img 01"/>
+          <h2 class="details__title"></h2>
+          <div class="details__price"></div>
+          <p class="details__description"></p>
+          <button class="details__addtocart">Add to cart</button>
+          <button class="details__magnifier"><svg class="icon icon--magnifier"><use xlink:href="#icon-magnifier"></use></svg></button>
+          `;
+
+            this.DOM.details = document.createElement('div');
+            this.DOM.details.className = 'details';
+            this.DOM.details.innerHTML = detailsTmpl;
+            DOM.content.appendChild(this.DOM.details);
+            this.init();
+        }
+        init() {
+            this.DOM.bgUp = this.DOM.details.querySelector('.details__bg--up');
+            this.DOM.bgDown = this.DOM.details.querySelector('.details__bg--down');
+            this.DOM.img = this.DOM.details.querySelector('.details__img');
+            this.DOM.title = this.DOM.details.querySelector('.details__title');
+            this.DOM.price = this.DOM.details.querySelector('.details__price');
+            this.DOM.description = this.DOM.details.querySelector('.details__description');
+            this.DOM.cart = this.DOM.details.querySelector('.details__addtocart');
+            this.DOM.close = this.DOM.details.querySelector('.details__close');
+            this.DOM.magnifier = this.DOM.details.querySelector('.details__magnifier');
+
+            this.initEvents();
+        }
+        initEvents() {
+            this.DOM.close.addEventListener('click', () => this.isZoomed ? this.zoomOut() : this.close());
+            this.DOM.magnifier.addEventListener('click', () => this.zoomIn());
+        }
+        fill(info) {
+            this.DOM.img.src = info.img;
+            this.DOM.title.innerHTML = info.title;
+            this.DOM.price.innerHTML = info.price;
+            this.DOM.description.innerHTML = info.description;
+        }
+        getProductDetailsRect() {
+            return {
+                productBgRect: this.DOM.productBg.getBoundingClientRect(),
+                detailsBgRect: this.DOM.bgDown.getBoundingClientRect(),
+                productImgRect: this.DOM.productImg.getBoundingClientRect(),
+                detailsImgRect: this.DOM.img.getBoundingClientRect()
+            };
+        }
+        open(data) {
+            if (this.isAnimating) return false;
+            this.isAnimating = true;
+
+            this.DOM.details.classList.add('details--open');
+
+            this.DOM.productBg = data.productBg;
+            this.DOM.productImg = data.productImg;
+
+            this.DOM.productBg.style.opacity = 0;
+            this.DOM.productImg.style.opacity = 0;
+
+            const rect = this.getProductDetailsRect();
+
+            this.DOM.bgDown.style.transform = `translateX(${rect.productBgRect.left - rect.detailsBgRect.left}px) translateY(${rect.productBgRect.top - rect.detailsBgRect.top}px) scaleX(${rect.productBgRect.width / rect.detailsBgRect.width}) scaleY(${rect.productBgRect.height / rect.detailsBgRect.height})`;
+            this.DOM.bgDown.style.opacity = 1;
+
+            this.DOM.img.style.transform = `translateX(${rect.productImgRect.left - rect.detailsImgRect.left}px) translateY(${rect.productImgRect.top - rect.detailsImgRect.top}px) scaleX(${rect.productImgRect.width / rect.detailsImgRect.width}) scaleY(${rect.productImgRect.height / rect.detailsImgRect.height})`;
+            this.DOM.img.style.opacity = 1;
+
+            __WEBPACK_IMPORTED_MODULE_3_animejs___default()({
+                targets: [this.DOM.bgDown, this.DOM.img],
+                duration: (target, index) => index ? 800 : 250,
+                easing: (target, index) => index ? 'easeOutElastic' : 'easeOutSine',
+                elasticity: 250,
+                translateX: 0,
+                translateY: 0,
+                scaleX: 1,
+                scaleY: 1,
+                complete: () => this.isAnimating = false
+            });
+
+            __WEBPACK_IMPORTED_MODULE_3_animejs___default()({
+                targets: [this.DOM.title, this.DOM.price, this.DOM.description, this.DOM.cart, this.DOM.magnifier],
+                duration: 600,
+                easing: 'easeOutExpo',
+                delay: (target, index) => {
+                    return index * 60;
+                },
+                translateY: (target, index, total) => {
+                    return index !== total - 1 ? [50, 0] : 0;
+                },
+                scale: (target, index, total) => {
+                    return index === total - 1 ? [0, 1] : 1;
+                },
+                opacity: 1
+            });
+
+            __WEBPACK_IMPORTED_MODULE_3_animejs___default()({
+                targets: this.DOM.bgUp,
+                duration: 100,
+                easing: 'linear',
+                opacity: 0.8
+            });
+
+            __WEBPACK_IMPORTED_MODULE_3_animejs___default()({
+                targets: this.DOM.close,
+                duration: 250,
+                easing: 'easeOutSine',
+                translateY: ['100%', 0],
+                opacity: 1
+            });
+        }
+        close() {
+            if (this.isAnimating) return false;
+            this.isAnimating = true;
+
+            this.DOM.details.classList.remove('details--open');
+
+            __WEBPACK_IMPORTED_MODULE_3_animejs___default()({
+                targets: this.DOM.close,
+                duration: 250,
+                easing: 'easeOutSine',
+                translateY: '100%',
+                opacity: 0
+            });
+
+            __WEBPACK_IMPORTED_MODULE_3_animejs___default()({
+                targets: this.DOM.bgUp,
+                duration: 100,
+                easing: 'linear',
+                opacity: 0
+            });
+
+            __WEBPACK_IMPORTED_MODULE_3_animejs___default()({
+                targets: [this.DOM.title, this.DOM.price, this.DOM.description, this.DOM.cart, this.DOM.magnifier],
+                duration: 20,
+                easing: 'linear',
+                opacity: 0
+            });
+
+            const rect = this.getProductDetailsRect();
+            __WEBPACK_IMPORTED_MODULE_3_animejs___default()({
+                targets: [this.DOM.bgDown, this.DOM.img],
+                duration: 250,
+                easing: 'easeOutSine',
+                translateX: (target, index) => {
+                    return index ? rect.productImgRect.left - rect.detailsImgRect.left : rect.productBgRect.left - rect.detailsBgRect.left;
+                },
+                translateY: (target, index) => {
+                    return index ? rect.productImgRect.top - rect.detailsImgRect.top : rect.productBgRect.top - rect.detailsBgRect.top;
+                },
+                scaleX: (target, index) => {
+                    return index ? rect.productImgRect.width / rect.detailsImgRect.width : rect.productBgRect.width / rect.detailsBgRect.width;
+                },
+                scaleY: (target, index) => {
+                    return index ? rect.productImgRect.height / rect.detailsImgRect.height : rect.productBgRect.height / rect.detailsBgRect.height;
+                },
+                complete: () => {
+                    this.DOM.bgDown.style.opacity = 0;
+                    this.DOM.img.style.opacity = 0;
+                    this.DOM.bgDown.style.transform = 'none';
+                    this.DOM.img.style.transform = 'none';
+                    this.DOM.productBg.style.opacity = 1;
+                    this.DOM.productImg.style.opacity = 1;
+                    this.isAnimating = false;
+                }
+            });
+        }
+        zoomIn() {
+            this.isZoomed = true;
+
+            __WEBPACK_IMPORTED_MODULE_3_animejs___default()({
+                targets: [this.DOM.title, this.DOM.price, this.DOM.description, this.DOM.cart, this.DOM.magnifier],
+                duration: 100,
+                easing: 'easeOutSine',
+                translateY: (target, index, total) => {
+                    return index !== total - 1 ? [0, index === 0 || index === 1 ? -50 : 50] : 0;
+                },
+                scale: (target, index, total) => {
+                    return index === total - 1 ? [1, 0] : 1;
+                },
+                opacity: 0
+            });
+
+            const imgrect = this.DOM.img.getBoundingClientRect();
+            const win = { w: window.innerWidth, h: window.innerHeight };
+
+            const imgAnimeOpts = {
+                targets: this.DOM.img,
+                duration: 250,
+                easing: 'easeOutCubic',
+                translateX: win.w / 2 - (imgrect.left + imgrect.width / 2),
+                translateY: win.h / 2 - (imgrect.top + imgrect.height / 2)
+            };
+
+            if (win.w > 0.8 * win.h) {
+                this.DOM.img.style.transformOrigin = '50% 50%';
+                Object.assign(imgAnimeOpts, {
+                    scaleX: 0.95 * win.w / parseInt(0.8 * win.h),
+                    scaleY: 0.95 * win.w / parseInt(0.8 * win.h),
+                    rotate: 90
+                });
+            }
+            __WEBPACK_IMPORTED_MODULE_3_animejs___default()(imgAnimeOpts);
+
+            __WEBPACK_IMPORTED_MODULE_3_animejs___default()({
+                targets: this.DOM.close,
+                duration: 250,
+                easing: 'easeInOutCubic',
+                scale: 1.8,
+                rotate: 180
+            });
+        }
+        zoomOut() {
+            this.isZoomed = false;
+
+            __WEBPACK_IMPORTED_MODULE_3_animejs___default()({
+                targets: [this.DOM.title, this.DOM.price, this.DOM.description, this.DOM.cart, this.DOM.magnifier],
+                duration: 250,
+                easing: 'easeOutCubic',
+                translateY: 0,
+                scale: 1,
+                opacity: 1
+            });
+
+            __WEBPACK_IMPORTED_MODULE_3_animejs___default()({
+                targets: this.DOM.img,
+                duration: 250,
+                easing: 'easeOutCubic',
+                translateX: 0,
+                translateY: 0,
+                scaleX: 1,
+                scaleY: 1,
+                rotate: 0,
+                complete: () => this.DOM.img.style.transformOrigin = '0 0'
+            });
+
+            __WEBPACK_IMPORTED_MODULE_3_animejs___default()({
+                targets: this.DOM.close,
+                duration: 250,
+                easing: 'easeInOutCubic',
+                scale: 1,
+                rotate: 0
+            });
+        }
+    };
+
+    class Item {
+        constructor(el) {
+            this.DOM = {};
+            this.DOM.el = el;
+            this.DOM.product = this.DOM.el.querySelector('.thumbnail-container');
+            this.DOM.productBg = this.DOM.product.querySelector('.product-description');
+            this.DOM.productImg = this.DOM.product.querySelector('.product-image img');
+            this.DOM.fw = this.DOM.product.querySelector('.fast-view');
+
+            this.info = {
+                img: this.DOM.productImg.src,
+                title: this.DOM.product.querySelector('.product-title').innerHTML,
+                description: this.DOM.product.querySelector('.prod-short-desc').innerHTML,
+                price: this.DOM.product.querySelector('.product-price-and-shipping').innerHTML
+            };
+
+            this.initEvents();
+        }
+        initEvents() {
+            console.log(this.DOM.fw);
+            this.DOM.fw.addEventListener('click', () => this.open());
+        }
+        open() {
+            DOM.details.fill(this.info);
+            DOM.details.open({
+                productBg: this.DOM.productBg,
+                productImg: this.DOM.productImg
+            });
+        }
+    };
+
+    if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()('product-item ').length) {
+        const DOM = {};
+        DOM.grid = document.querySelector('#main .products');
+        DOM.content = DOM.grid.parentNode;
+        DOM.gridItems = Array.from(DOM.grid.querySelectorAll('.product-item'));
+        let items = [];
+        DOM.gridItems.forEach(item => items.push(new Item(item)));
+
+        DOM.details = new Details();
+    }
+});
+
+function updateCounters() {
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()(".countcontainer").each(function (e) {
+        var $roycountdown = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find(".roycountdown");
+        var $roycount = $roycountdown.find(".roycount");
+        var $dataspecificpriceto = $roycount.attr('data-specific-price-to');
+        if ($roycountdown.length) {
+            $roycountdown.county({
+                endDateTime: new Date($dataspecificpriceto.replace(/-/g, "/")), reflection: false, animation: 'none', theme: 'black',
+                titleDays: $roycount.data('days'), titleHours: $roycount.data('hours'), titleMinutes: $roycount.data('minutes'), titleSeconds: $roycount.data('seconds')
+            });
+        }
+    });
+}
+
+function updateProductListDOM(data) {
+
+    if (!window.af_custom_updateProductListDOM) {
+        // AF compatibility
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#search_filters').replaceWith(data.rendered_facets);
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#js-active-search-filters').replaceWith(data.rendered_active_filters);
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#js-product-list-top').replaceWith(data.rendered_products_top);
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#js-product-list').replaceWith(data.rendered_products);
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#js-product-list-bottom').replaceWith(data.rendered_products_bottom);
+    }
+
+    let productMinitature = new __WEBPACK_IMPORTED_MODULE_5__components_product_miniature__["a" /* default */]();
+    productMinitature.init();
+}
+
+/***/ }),
+/* 23 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prestashop__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prestashop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prestashop__);
+/**
+ * 2007-2017 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ * @author    PrestaShop SA <contact@prestashop.com>
+ * @copyright 2007-2018 PrestaShop SA
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
+ * International Registered Trademark & Property of PrestaShop SA
+ */
+
+
+
+__WEBPACK_IMPORTED_MODULE_0_jquery___default()(function () {
+    createProductSpin();
+    createInputFile();
+    coverImage();
+    thumbsInit();
+    whiteborder();
+    shareclick();
+    ppzoom();
+
+    __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.on('updatedProduct', function (event) {
+        thumbsDestroy();
+        createProductSpin();
+        createInputFile();
+        coverImage();
+        if (event && event.product_minimal_quantity) {
+            const minimalProductQuantity = parseInt(event.product_minimal_quantity, 10);
+            const quantityInputSelector = '#quantity_wanted';
+            let quantityInput = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(quantityInputSelector);
+
+            // @see http://www.virtuosoft.eu/code/bootstrap-touchspin/ about Bootstrap TouchSpin
+            quantityInput.trigger('touchspin.updatesettings', { min: minimalProductQuantity });
+        }
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(__WEBPACK_IMPORTED_MODULE_0_jquery___default()('.tabs .nav-link.active').attr('href')).addClass('active').removeClass('fade');
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-product-images-modal').replaceWith(event.product_images_modal);
+        thumbsInit();
+        whiteborder();
+        updateCounters();
+        shareclick();
+        ppzoom();
+    });
+
+    function thumbsDestroy() {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.images-container .product-images').trigger('destroy.owl.carousel').removeClass('owl-carousel owl-loaded');
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.images-container .product-images').find('.owl-stage-outer').children().unwrap();
+    }
+    function thumbsInit() {
+        var maxsthumbs = parseInt(__WEBPACK_IMPORTED_MODULE_0_jquery___default()('#main .js-qv-product-images').attr('data-max-slides'));
+        var thumbs_count_lis = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#main .js-qv-product-images li');
+        var thumbs_count;
+        if (thumbs_count_lis.length >= maxsthumbs) {
+            thumbs_count = maxsthumbs;
+        } else if (thumbs_count_lis.length == 1) {
+            thumbs_count = thumbs_count_lis.length;
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#main .js-qv-mask').addClass('hide_it_pls');
+        } else {
+            thumbs_count = thumbs_count_lis.length;
+        }
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#main .images-container .product-images').addClass('owl-carousel').owlCarousel({
+            loop: false,
+            margin: 22,
+            autoplay: false,
+            mouseDrag: true,
+            touchDrag: true,
+            nav: false,
+            navText: '  ',
+            navSpeed: 400,
+            dots: false,
+            responsive: {
+                0: {
+                    items: 1,
+                    margin: 0,
+                    nav: true,
+                    dots: true
+                },
+                768: {
+                    nav: true,
+                    items: thumbs_count
+                }
+            }
+        });
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.quickview .images-container .product-images').addClass('owl-carousel').owlCarousel({
+            loop: false,
+            margin: 12,
+            items: 1,
+            autoplay: false,
+            mouseDrag: true,
+            touchDrag: true,
+            navText: '  ',
+            nav: true,
+            navSpeed: 400,
+            dots: true,
+            responsive: {
+                0: {
+                    dots: true,
+                    nav: false
+                },
+                768: {
+                    dots: true
+                }
+            }
+        });
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-qv-mask').addClass('showit');
+    }
+
+    function coverImage() {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-thumb').on('click', event => {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-modal-product-cover').attr('src', __WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.target).data('image-large-src'));
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.selected').removeClass('selected');
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.target).addClass('selected');
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-qv-product-cover').prop('src', __WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.currentTarget).data('image-large-src'));
+        });
+    }
+
+    function createInputFile() {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.js-file-input').on('change', event => {
+            let target, file;
+
+            if ((target = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(event.currentTarget)[0]) && (file = target.files[0])) {
+                __WEBPACK_IMPORTED_MODULE_0_jquery___default()(target).prev().text(file.name);
+            }
+        });
+    }
+
+    function createProductSpin() {
+        const $quantityInput = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#quantity_wanted');
+
+        $quantityInput.TouchSpin({
+            verticalbuttons: true,
+            verticalupclass: 'material-icons touchspin-up',
+            verticaldownclass: 'material-icons touchspin-down',
+            buttondown_class: 'btn btn-touchspin js-touchspin',
+            buttonup_class: 'btn btn-touchspin js-touchspin',
+            min: parseInt($quantityInput.attr('min'), 10),
+            max: 1000000
+        });
+
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('body').on('change keyup', '#quantity_wanted', e => {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(e.currentTarget).trigger('touchspin.stopspin');
+            __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.emit('updateProduct', {
+                eventType: 'updatedProductQuantity',
+                event: e
+            });
+        });
+    }
+
+    var atts_list = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.product-variants-item').find('ul'),
+        atts_select = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.product-variants-item').find('select');
+    atts_list.on('mouseenter mouseleave', function () {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).closest('.product-variants-item').toggleClass('hover');
+    });
+    atts_select.on('mouseenter mouseleave', function () {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).closest('.product-variants-item').toggleClass('hover');
+    });
+
+    // white color
+    function whiteborder() {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.color').each(function () {
+            if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).css('background-color') === 'rgb(255, 255, 255)') {
+                __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).addClass('white');
+            }
+        });
+    }
+
+    // 2020 pp zoom
+    function ppzoom() {
+        if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()('#is_media').css('float') == 'left') {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(".thumb-container").each(function (arg, el) {
+                var image = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(el).find("img");
+                __WEBPACK_IMPORTED_MODULE_0_jquery___default()(el).zoom({
+                    on: 'click',
+                    url: image.attr("src").replace("home", "large")
+                });
+            });
+        }
+    }
+
+    // reviews click
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.product-comments-additional-info .goreviews').on('click', function (e) {
+        e.preventDefault;
+
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()("body, html").animate({
+            scrollTop: __WEBPACK_IMPORTED_MODULE_0_jquery___default()("#product-comments-list-header").offset().top - 150
+        }, 400);
+    });
+
+    // share
+    function shareclick() {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.share_text').on('click', function (e) {
+            e.preventDefault;
+            var share_dad = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.share_text').parent('.social-sharing');
+            if (!share_dad.hasClass('click')) {
+                share_dad.addClass('click');
+            }
+        });
+    }
+
+    function updateCounters() {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(".countcontainer").each(function (e) {
+            var $roycountdown = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find(".roycountdown");
+            var $roycount = $roycountdown.find(".roycount");
+            var $dataspecificpriceto = $roycount.attr('data-specific-price-to');
+            if ($roycountdown.length) {
+                $roycountdown.county({
+                    endDateTime: new Date($dataspecificpriceto.replace(/-/g, "/")), reflection: false, animation: 'none', theme: 'black',
+                    titleDays: $roycount.data('days'), titleHours: $roycount.data('hours'), titleMinutes: $roycount.data('minutes'), titleSeconds: $roycount.data('seconds')
+                });
+            }
+        });
+    }
+});
+
+/***/ }),
+/* 24 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prestashop__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prestashop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prestashop__);
+/**
+ * 2007-2017 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ * @author    PrestaShop SA <contact@prestashop.com>
+ * @copyright 2007-2017 PrestaShop SA
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
+ * International Registered Trademark & Property of PrestaShop SA
+ */
+
+
+
+__WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.responsive = __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.responsive || {};
+
+__WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.responsive.current_width = window.innerWidth;
+__WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.responsive.min_width = 992;
+__WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.responsive.mobile = __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.responsive.current_width < __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.responsive.min_width;
+
+function swapChildren(obj1, obj2) {
+	var temp = obj2.children().detach();
+	obj2.empty().append(obj1.children().detach());
+	obj1.append(temp);
+}
+
+function toggleMobileStyles() {
+	if (__WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.responsive.mobile) {
+		__WEBPACK_IMPORTED_MODULE_0_jquery___default()("*[id^='_desktop_']").each(function (idx, el) {
+			var target = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#' + el.id.replace('_desktop_', '_mobile_'));
+			if (target.length) {
+				swapChildren(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(el), target);
+			}
+		});
+	} else {
+		__WEBPACK_IMPORTED_MODULE_0_jquery___default()("*[id^='_mobile_']").each(function (idx, el) {
+			var target = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#' + el.id.replace('_mobile_', '_desktop_'));
+			if (target.length) {
+				swapChildren(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(el), target);
+			}
+		});
+	}
+	__WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.emit('responsive update', {
+		mobile: __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.responsive.mobile
+	});
+}
+
+__WEBPACK_IMPORTED_MODULE_0_jquery___default()(window).on('resize', function () {
+	var _cw = __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.responsive.current_width;
+	var _mw = __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.responsive.min_width;
+	var _w = window.innerWidth;
+	var _toggle = _cw >= _mw && _w < _mw || _cw < _mw && _w >= _mw;
+	__WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.responsive.current_width = _w;
+	__WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.responsive.mobile = __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.responsive.current_width < __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.responsive.min_width;
+	if (_toggle) {
+		toggleMobileStyles();
+	}
+});
+
+__WEBPACK_IMPORTED_MODULE_0_jquery___default()(function () {
+	if (__WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.responsive.mobile) {
+		toggleMobileStyles();
+	}
+
+	var headermobile = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.header-mobile');
+
+	__WEBPACK_IMPORTED_MODULE_0_jquery___default()(window).on('scroll', function () {
+		if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()(window).scrollTop() > 0) {
+			headermobile.addClass('scroll-down');
+		} else {
+			headermobile.removeClass('scroll-down');
+		}
+	});
+});
+
+/***/ }),
+/* 25 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prestashop__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prestashop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prestashop__);
+/* These SVG icons designed by RoyThemes. All rights reserved */
+
+
+
+
+function regenIcons() {
+  __WEBPACK_IMPORTED_MODULE_0_jquery___default()('i.rts').each(function (i) {
+    var rts_icon = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).html(),
+        rts_size = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).attr('data-size'),
+        rts_color = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).attr('data-color'),
+        rts_align = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).attr('data-align');
+
+    if (rts_icon == 'search1') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g id="Layer_1" data-name="Layer 1"><circle cx="11.5" cy="10.5" r="7" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.5px"/><line x1="22" y1="21" x2="17" y2="16" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.5px"/></g></svg>';
+    if (rts_icon == 'search2') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g id="Layer_1" data-name="Layer 1"><circle cx="10.5" cy="9.5" r="7" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.5px"/><line x1="22" y1="21" x2="18" y2="17" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.5px"/></g></svg>';
+    if (rts_icon == 'search3') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g id="Layer_1" data-name="Layer 1"><circle cx="10.26" cy="9.5" r="7" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.5px"/><polyline points="13.96 16.04 18.67 20.74 21.5 17.91 16.79 13.21" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.5px"/></g></svg>';
+    if (rts_icon == 'search4') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g id="Layer_1" data-name="Layer 1"><circle cx="10.41" cy="9.66" r="7.16" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.5px"/><path d="M18.72,14.46l2.3,2.3a2.73,2.73,0,0,1,0,3.85h0a2.73,2.73,0,0,1-3.85,0L14.7,18.14" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.200000047683716px"/><path d="M8.1,7S12,4.15,14.27,9.26" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2px"/></g></svg>';
+    if (rts_icon == 'qv1') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.a{fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.5px;}</style></defs><polyline class="a" points="3.09 7.97 3.75 3.89 7.99 3.39"/><polyline class="a" points="3.09 15.75 3.75 19.83 7.99 20.33"/><polyline class="a" points="20.78 7.97 20.13 3.89 15.88 3.39"/><polyline class="a" points="20.78 15.84 20.13 19.92 15.88 20.42"/></svg>';
+    if (rts_icon == 'qv2') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.a{fill:none;stroke:' + rts_color + ';stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><path class="a" d="M23,12.92c0,3.87-5.48,7-11,7s-11-3.13-11-7,5.48-7,11-7S23,9.05,23,12.92Z"/><circle class="a" cx="12" cy="12.92" r="4"/><line class="a" x1="4.25" y1="5.92" x2="3.17" y2="4.42"/><line class="a" x1="19.25" y1="5.92" x2="20.92" y2="4.5"/><line class="a" x1="12" y1="4.67" x2="12" y2="3.08"/></svg>';
+    if (rts_icon == 'discover1') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g id="Layer_4" data-name="Layer 4"><circle cx="12.02" cy="12" r="10" style="fill:none;stroke:' + rts_color + ';stroke-linecap:round;stroke-linejoin:round;stroke-width:2.5px"/><polyline points="10.55 8.94 14.51 11.98 10.55 15.06" style="fill:none;stroke:' + rts_color + ';stroke-linecap:round;stroke-linejoin:round;stroke-width:2.20000004768372px"/></g></svg>';
+    if (rts_icon == 'discover2') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g id="Layer_4" data-name="Layer 4"><path d="M10.71,19.45l4.95-4.95,2.83-2.83L15.66,8.85,10.71,3.9a1,1,0,0,0-1.41,0L7.88,5.31a1,1,0,0,0,0,1.41l4.95,4.95L7.88,16.63a1,1,0,0,0,0,1.41l1.41,1.41A1,1,0,0,0,10.71,19.45Z" style="fill:none;stroke:' + rts_color + ';stroke-linecap:round;stroke-linejoin:round;stroke-width:2px"/></g></svg>';
+    if (rts_icon == 'plus') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g id="Layer_4" data-name="Layer 4"><path d="M14.1,18.3V14.1h4.2a.7.7,0,0,0,.7-.7V10.6a.7.7,0,0,0-.7-.7H14.1V5.7a.7.7,0,0,0-.7-.7H10.6a.7.7,0,0,0-.7.7V9.9H5.7a.7.7,0,0,0-.7.7v2.8a.7.7,0,0,0,.7.7H9.9v4.2a.7.7,0,0,0,.7.7h2.8A.7.7,0,0,0,14.1,18.3Z" style="fill:none;stroke:' + rts_color + ';stroke-linecap:round;stroke-linejoin:round;stroke-width:2px"/></g></svg>';
+    if (rts_icon == 'cat_grid') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.a{fill:none;stroke:' + rts_color + ';stroke-linecap:round;stroke-linejoin:round;stroke-width:2.2px;}</style></defs><rect class="a" x="2" y="2" width="8" height="8" rx="3" ry="3"/><rect class="a" x="2" y="14" width="8" height="8" rx="3" ry="3"/><rect class="a" x="14" y="2" width="8" height="8" rx="3" ry="3"/><rect class="a" x="14" y="14" width="8" height="8" rx="3" ry="3"/></svg>';
+    if (rts_icon == 'cat_list') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.a{fill:none;stroke:' + rts_color + ';stroke-linecap:round;stroke-linejoin:round;stroke-width:2.2px;}</style></defs><rect class="a" x="2" y="2" width="20" height="4" rx="2" ry="2"/><rect class="a" x="2" y="10" width="20" height="4" rx="2" ry="2"/><rect class="a" x="2" y="18" width="20" height="4" rx="2" ry="2"/></svg>';
+    if (rts_icon == 'cat_filter') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.a,.b{fill:none;stroke:' + rts_color + ';stroke-linecap:round;stroke-linejoin:round;}.a{stroke-width:2px;}.b{stroke-width:2.3px;}</style></defs><circle class="a" cx="4" cy="8" r="3"/><circle class="a" cx="20" cy="9" r="3"/><circle class="a" cx="12" cy="16" r="3"/><line class="b" x1="20" y1="2" x2="20" y2="5"/><line class="b" x1="4" y1="2" x2="4" y2="4"/><line class="b" x1="4" y1="14.29" x2="4" y2="22.21"/><line class="b" x1="12" y1="20.29" x2="12" y2="22.21"/><line class="b" x1="20" y1="15.29" x2="20" y2="22.21"/><line class="b" x1="12" y1="2" x2="12" y2="12"/></svg>';
+    if (rts_icon == 'round_plus') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.a{fill:none;stroke:' + rts_color + ';stroke-linecap:round;stroke-linejoin:round;stroke-width:2.5px;}</style></defs><circle class="a" cx="12.02" cy="12" r="10"/><line class="a" x1="8.54" y1="12.08" x2="15.54" y2="12.08"/><line class="a" x1="12.04" y1="15.58" x2="12.04" y2="8.58"/></svg>';
+    if (rts_icon == 'cart1') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.a{fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.5px;}</style></defs><polyline class="a" points="3 2.5 7 2.5 6.5 17.5 19 17.5 22 6.5 8 6.5"/><line class="a" x1="13" y1="21.5" x2="17" y2="21.5"/><line class="a" x1="5" y1="21.5" x2="8.93" y2="21.5"/></svg>';
+    if (rts_icon == 'cart2') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g id="Layer_4" data-name="Layer 4"><rect x="3.5" y="2.5" width="17" height="19" rx="5" ry="5" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.5px"/><path d="M8.5,6v.9c0,2.35,1.57,4.27,3.5,4.27s3.5-1.92,3.5-4.27V6" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.299999952316284px"/></g></svg>';
+    if (rts_icon == 'cart3') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g id="Layer_4" data-name="Layer 4"><rect x="4.5" y="5.5" width="15" height="16" rx="2" ry="2" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.5px"/><path d="M7.5,5V3.59c0-1.37,2-2.5,4.5-2.5s4.5,1.12,4.5,2.5V5" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.299999952316284px"/></g></svg>';
+    if (rts_icon == 'cart4') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g id="Layer_4" data-name="Layer 4"><path d="M19.62,21.5h-15a1.94,1.94,0,0,1-2-1.87l2-11.25a1.94,1.94,0,0,1,2-1.87h11a1.94,1.94,0,0,1,2,1.88l2,11.25A1.94,1.94,0,0,1,19.62,21.5Z" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.5px"/><path d="M8,6V4.57c0-1.32,1.8-2.4,4-2.4s4,1.08,4,2.4V6" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.299999952316284px"/></g></svg>';
+    if (rts_icon == 'cart5') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g id="Layer_4" data-name="Layer 4"><path d="M8,9.5V4.57c0-1.32,1.8-2.4,4-2.4s4,1.08,4,2.4V8" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.299999952316284px"/><polyline points="10.69 8.5 18.32 8.49 21.37 21.49 2.77 21.5 6.58 7.94" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.5px"/></g></svg>';
+    if (rts_icon == 'cart6') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g id="Layer_4" data-name="Layer 4"><path d="M8,10V5.57c0-1.32,1.8-2.4,4-2.4s4,1.08,4,2.4V9" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.299999952316284px"/><polygon points="18.5 21.5 5.5 21.5 2.5 11.5 21.5 11.5 18.5 21.5" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.5px"/></g></svg>';
+    if (rts_icon == 'cart7') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g id="Layer_4" data-name="Layer 4"><path d="M9,10V5.52A2.79,2.79,0,0,1,12,3a2.79,2.79,0,0,1,3,2.5V9" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.4000000953674316px"/><path d="M12,10.14a42.05,42.05,0,0,0-8.81,1.15,9,9,0,1,0,17.69,0A42.31,42.31,0,0,0,12,10.14Z" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.299999952316284px"/></g></svg>';
+    if (rts_icon == 'cart8') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.a,.b{fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;}.a{stroke-width:2.5px;}.b{stroke-width:2px;}</style></defs><polyline class="a" points="23.57 3.04 20.05 3.02 15.87 15.08 6.04 15.08 2.6 5.04 18.92 5.04"/><circle class="b" cx="7.01" cy="20.09" r="2.29"/><circle class="b" cx="14.29" cy="20.09" r="2.29"/></svg>';
+    if (rts_icon == 'cart9') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24"><defs><linearGradient id="linear-gradient" x1="8" y1="21" x2="10" y2="21" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"/><stop offset="1"/></linearGradient><linearGradient id="linear-gradient-2" x1="14" x2="16" xlink:href="#linear-gradient"/></defs><g id="Layer_4" data-name="Layer 4"><circle cx="9" cy="21" r="1" style="stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2px;fill:url(#linear-gradient)"/><circle cx="15" cy="21" r="1" style="stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2px;fill:url(#linear-gradient-2)"/><polyline points="22.14 3.72 19.65 6.56 15.98 16.5 7.64 16.5 2.92 6.5 15 6.5" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.5px"/><line x1="6" y1="11.5" x2="13" y2="11.5" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.5px"/></g></svg>';
+    if (rts_icon == 'cart10') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g id="Layer_4" data-name="Layer 4"><path d="M3.5,2.5h17a0,0,0,0,1,0,0v14a5,5,0,0,1-5,5h-7a5,5,0,0,1-5-5V2.5a0,0,0,0,1,0,0Z" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.5px"/><path d="M8.5,6v.9c0,2.35,1.57,4.27,3.5,4.27s3.5-1.92,3.5-4.27V6" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.299999952316284px"/></g></svg>';
+    if (rts_icon == 'cart11') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g id="Layer_4" data-name="Layer 4"><path d="M18.5,10.69a2,2,0,0,1,2,2l-2,6.81c0,1.1-1.9,2-3,2h-7c-1.1,0-3-.9-3-2l-2-6.81a2,2,0,0,1,2-2h8.71" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.5px"/><path d="M7.56,9.84h0a5.14,5.14,0,0,1,3.16-5.16h2.75a5.14,5.14,0,0,1,3.16,5.16h0a4.15,4.15,0,0,1-1.36,3.06" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.299999952316284px"/></g></svg>';
+    if (rts_icon == 'cart12') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g id="Layer_4" data-name="Layer 4"><path d="M16.56,21.5H7.44c-1.12,0-3.05.08-3.05-1,0,0-2-9-2-9.12a2,2,0,0,1,2-1.85H19.61a2,2,0,0,1,2,1.85c0,.12-2,9.12-2,9.12C19.61,21.58,17.68,21.5,16.56,21.5Z" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.5px"/><line x1="7.06" y1="13.63" x2="7.96" y2="17.95" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.299999952316284px"/><line x1="16.82" y1="13.63" x2="16" y2="18" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.299999952316284px"/><line x1="12" y1="13" x2="12" y2="18.14" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.299999952316284px"/><line x1="12.09" y1="3.04" x2="17.77" y2="8.06" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.299999952316284px"/><line x1="12.09" y1="3.04" x2="5.84" y2="8.06" style="fill:none;stroke:' + rts_color + ';stroke-miterlimit:10;stroke-width:2.299999952316284px"/></g></svg>';
+    if (rts_icon == 'truck') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.a{fill:none;stroke:' + rts_color + ';stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><circle class="a" cx="7" cy="19" r="3"/><circle class="a" cx="18.06" cy="19" r="3"/><path class="a" d="M18.95,6H15c-1.1,0-1,3.9-1,5v5a2,2,0,0,0,1.29,1.86,3,3,0,0,1,5.59.14h.07a2,2,0,0,0,2-2V11C22.95,9.93,20.17,6.46,18.95,6Z"/><path class="a" d="M14,10H2c-1.1,0-1,1.9-1,3v3a2,2,0,0,0,2,2H4.18a3,3,0,0,1,5.63,0H12a2,2,0,0,0,2-2V10Z"/><rect class="a" x="3" y="6" width="5" height="4"/><rect class="a" x="8" y="7" width="3" height="3"/><line class="a" x1="16.76" y1="11" x2="21.06" y2="11"/></svg>';
+    if (rts_icon == 'security') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.a{fill:none;stroke:' + rts_color + ';stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><line class="a" x1="4" y1="7.13" x2="11" y2="2.83"/><path class="a" d="M4,9s.5,11,7,13"/><line class="a" x1="19" y1="7.13" x2="12" y2="2.83"/><path class="a" d="M19,9s-.5,11-7,13"/><line class="a" x1="8.97" y1="12.68" x2="11.35" y2="14.76"/><line class="a" x1="11.21" y1="14.44" x2="14.69" y2="9.72"/></svg>';
+    if (rts_icon == 'return') var svg_current = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.a{fill:none;stroke:' + rts_color + ';stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><rect class="a" x="7" y="12" width="10" height="10" rx="1.87" ry="1.87"/><path class="a" d="M13,8h5.68A2.32,2.32,0,0,1,21,10.32V16"/><line class="a" x1="8.83" y1="11.43" x2="12.86" y2="8.5"/><line class="a" x1="21" y1="17.63" x2="18.17" y2="20.59"/><line class="a" x1="2.74" y1="3.13" x2="19.83" y2="3.13"/><line class="a" x1="18.25" y1="1" x2="22.16" y2="3.13"/><line class="a" x1="21.45" y1="3.13" x2="18.28" y2="5.04"/><line class="a" x1="10" y1="6" x2="4" y2="6"/><line class="a" x1="2.28" y1="6.1" x2="5.45" y2="8.02"/></svg>';
+
+    if (typeof rts_size !== typeof undefined && rts_size !== false) {
+      __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).html(svg_current).css({
+        'width': rts_size,
+        'height': rts_size
+      });
+      __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('svg').css({
+        'width': rts_size,
+        'height': rts_size
+      });
+    } else {
+      __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).html(svg_current).css({
+        'width': 24,
+        'height': 24
+      });
+      __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('svg').css({
+        'width': 24,
+        'height': 24
+      });
+    }
+    if (typeof rts_align !== typeof undefined && rts_align !== false) {
+      if (rts_align == 'left') __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).css({
+        'float': 'left',
+        'margin-right': '10px'
+      });
+      if (rts_align == 'right') __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).css({
+        'float': 'right',
+        'margin-left': '10px'
+      });
+    }
+  });
+}
+regenIcons();
+
+__WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).ready(function () {
+  if (typeof __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a !== 'undefined') {
+    __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.on('updateProductList', function (event) {
+      regenIcons();
+    });
+    __WEBPACK_IMPORTED_MODULE_1_prestashop___default.a.on('updatedCart', () => {
+      regenIcons();
+    });
+  }
+});
+
+/***/ }),
+/* 26 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_prestashop__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_prestashop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_prestashop__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
+/**
+ * Copyright since 2007 PrestaShop SA and Contributors
+ * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to https://devdocs.prestashop.com/ for more information.
+ *
+ * @author    PrestaShop SA and Contributors <contact@prestashop.com>
+ * @copyright Since 2007 PrestaShop SA and Contributors
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
+ */
+
+
+
+__WEBPACK_IMPORTED_MODULE_0_prestashop___default.a.themeSelectors = {
+  product: {
+    tabs: '.tabs .nav-link',
+    activeNavClass: 'js-product-nav-active',
+    activeTabClass: 'js-product-tab-active',
+    activeTabs: '.tabs .nav-link.active, .js-product-nav-active',
+    imagesModal: '.js-product-images-modal',
+    thumb: '.js-thumb',
+    thumbContainer: '.thumb-container, .js-thumb-container',
+    arrows: '.js-arrows',
+    selected: '.selected, .js-thumb-selected',
+    modalProductCover: '.js-modal-product-cover',
+    cover: '.js-qv-product-cover'
+  },
+  listing: {
+    searchFilterToggler: '#search_filter_toggler, .js-search-toggler',
+    searchFiltersWrapper: '#search_filters_wrapper',
+    searchFilterControls: '#search_filter_controls',
+    searchFilters: '#search_filters',
+    activeSearchFilters: '#js-active-search-filters',
+    listTop: '#js-product-list-top',
+    list: '#js-product-list',
+    listBottom: '#js-product-list-bottom',
+    listHeader: '#js-product-list-header',
+    searchFiltersClearAll: '.js-search-filters-clear-all',
+    searchLink: '.js-search-link'
+  },
+  order: {
+    returnForm: '#order-return-form, .js-order-return-form'
+  },
+  arrowDown: '.arrow-down, .js-arrow-down',
+  arrowUp: '.arrow-up, .js-arrow-up',
+  clear: '.clear',
+  fileInput: '.js-file-input',
+  contentWrapper: '#content-wrapper, .js-content-wrapper',
+  footer: '#footer, .js-footer',
+  modalContent: '.js-modal-content',
+  modal: '#modal, .js-checkout-modal',
+  touchspin: '.js-touchspin',
+  checkout: {
+    termsLink: '.js-terms a',
+    giftCheckbox: '.js-gift-checkbox',
+    imagesLink: '.card-block .cart-summary-products p a, .js-show-details',
+    carrierExtraContent: '.carrier-extra-content, .js-carrier-extra-content'
+  }
+};
+
+__WEBPACK_IMPORTED_MODULE_1_jquery___default()(document).ready(() => {
+  __WEBPACK_IMPORTED_MODULE_0_prestashop___default.a.emit('themeSelectorsInit');
+});
+
+/***/ }),
+/* 27 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_owl_carousel__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_owl_carousel___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_owl_carousel__);
+
+
+
+
+// add carousel classes to products and wrapper
+__WEBPACK_IMPORTED_MODULE_0_jquery___default()('#index #main .slider-on .products, #product .products, #roy_specials_col .products').addClass('owl-carousel');
+
+__WEBPACK_IMPORTED_MODULE_0_jquery___default()(function () {
+
+    // Sliders configuration
+    var ulFeatured = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(".roy_featured"),
+        autoFeatured = ulFeatured.attr('data-auto') === "true" ? true : false,
+        maxslidesFeatured = parseInt(ulFeatured.attr('data-max-slides')),
+        maxslidesFeaturedRes = 3,
+        maxslidesFeaturedResSmall = 3,
+        ulBest = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(".roy_best"),
+        autoBest = ulBest.attr('data-auto') === "true" ? true : false,
+        maxslidesBest = parseInt(ulBest.attr('data-max-slides')),
+        maxslidesBestRes = 3,
+        maxslidesBestResSmall = 3,
+        ulNew = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(".roy_new"),
+        autoNew = ulNew.attr('data-auto') === "true" ? true : false,
+        maxslidesNew = parseInt(ulNew.attr('data-max-slides')),
+        maxslidesNewRes = 3,
+        maxslidesNewResSmall = 3,
+        ulSale = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(".roy_specials"),
+        autoSale = ulSale.attr('data-auto') === "true" ? true : false,
+        maxslidesSale = parseInt(ulSale.attr('data-max-slides')),
+        maxslidesSaleRes = 3,
+        maxslidesSaleResSmall = 3,
+        ulCustom1 = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(".roy_cc1"),
+        autoCustom1 = ulCustom1.attr('data-auto') === "true" ? true : false,
+        maxslidesCustom1 = parseInt(ulCustom1.attr('data-max-slides')),
+        maxslidesCustom1Res = 3,
+        maxslidesCustom1ResSmall = 3,
+        ulCustom2 = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(".roy_cc2"),
+        autoCustom2 = ulCustom2.attr('data-auto') === "true" ? true : false,
+        maxslidesCustom2 = parseInt(ulCustom2.attr('data-max-slides')),
+        maxslidesCustom2Res = 3,
+        maxslidesCustom2ResSmall = 3,
+        ulCustom3 = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(".roy_cc3"),
+        autoCustom3 = ulCustom3.attr('data-auto') === "true" ? true : false,
+        maxslidesCustom3 = parseInt(ulCustom3.attr('data-max-slides')),
+        maxslidesCustom3Res = 3,
+        maxslidesCustom3ResSmall = 3,
+        ulBlogHome = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(".roy_blog"),
+        maxslidesBlogHome = parseInt(ulBlogHome.attr('data-in-row')),
+        ulBrands = __WEBPACK_IMPORTED_MODULE_0_jquery___default()("#roy_brands"),
+        maxslidesBrands = parseInt(ulBrands.attr('data-in-row')),
+        maxslidesBrandsTablet = maxslidesBrands - 1,
+        hpMobile = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(".page-home"),
+        maxslideshpMobile = parseInt(hpMobile.attr('data-mob-row'));
+
+    if (maxslidesFeatured > 3) {
+        maxslidesFeaturedRes = 4;
+    } else if (maxslidesFeatured == 2) {
+        maxslidesFeaturedRes = 2, maxslidesFeaturedResSmall = 2;
+    }
+    if (maxslidesBest > 3) {
+        maxslidesBestRes = 4;
+    } else if (maxslidesBest == 2) {
+        maxslidesBestRes = 2, maxslidesBestResSmall = 2;
+    }
+    if (maxslidesNew > 3) {
+        maxslidesNewRes = 4;
+    } else if (maxslidesNew == 2) {
+        maxslidesNewRes = 2, maxslidesNewResSmall = 2;
+    }
+    if (maxslidesSale > 3) {
+        maxslidesSaleRes = 4;
+    } else if (maxslidesSale == 2) {
+        maxslidesSaleRes = 2, maxslidesSaleResSmall = 2;
+    }
+    if (maxslidesCustom1 > 3) {
+        maxslidesCustom1Res = 4;
+    } else if (maxslidesCustom1 == 2) {
+        maxslidesCustom1Res = 2, maxslidesCustom1ResSmall = 2;
+    }
+    if (maxslidesCustom2 > 3) {
+        maxslidesCustom2Res = 4;
+    } else if (maxslidesCustom2 == 2) {
+        maxslidesCustom2Res = 2, maxslidesCustom2ResSmall = 2;
+    }
+    if (maxslidesCustom3 > 3) {
+        maxslidesCustom3Res = 4;
+    } else if (maxslidesCustom3 == 2) {
+        maxslidesCustom3Res = 2, maxslidesCustom3ResSmall = 2;
+    }
+
+    // 2021 Elementor Widget Roy Product Tabs Slider
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.elementor-widget-roy_product_tabs').each(function () {
+        var ul = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('.nav-tabs');
+        if (ul.hasClass('slider-on')) {
+            var autoTabs = ul.attr('data-auto') === "yes" ? true : false,
+                perrowTabs = parseInt(ul.attr('data-max-slides')),
+                perrowTabsTablet = 3;
+            if (perrowTabs > 4) {
+                perrowTabsTablet = 3;
+            } else {
+                perrowTabsTablet = 2;
+            }
+
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('.products').owlCarousel({
+                loop: false,
+                margin: 13,
+                autoplay: autoTabs,
+                autoplayTimeout: 5000,
+                autoplayHoverPause: true,
+                mouseDrag: true,
+                touchDrag: true,
+                navText: '  ',
+                nav: true,
+                navSpeed: 400,
+                autoplaySpeed: 1100,
+                dots: false,
+                responsive: {
+                    0: {
+                        items: maxslideshpMobile,
+                        margin: 12,
+                        nav: false
+                    },
+                    768: {
+                        items: perrowTabsTablet
+                    },
+                    992: {
+                        items: perrowTabs
+                    }
+                }
+            });
+        }
+    });
+
+    // 2021 Elementor Widget Roy Products: Featured / Best / New / Special
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.roy-elements-products').each(function () {
+
+        if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).hasClass('slider')) {
+
+            var autoProds = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).attr('data-auto') === "yes" ? true : false,
+                perrowProds = parseInt(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).attr('data-max-slides')),
+                perrowProdsTablet = 3;
+            if (perrowProds > 4) {
+                perrowProdsTablet = 3;
+            } else {
+                perrowProdsTablet = 2;
+            }
+
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('.products').owlCarousel({
+                loop: false,
+                margin: 13,
+                autoplay: autoProds,
+                autoplayTimeout: 5000,
+                autoplayHoverPause: true,
+                mouseDrag: true,
+                touchDrag: true,
+                navText: '  ',
+                nav: true,
+                navSpeed: 400,
+                autoplaySpeed: 1100,
+                dots: false,
+                responsive: {
+                    0: {
+                        items: maxslideshpMobile,
+                        margin: 12,
+                        nav: false
+                    },
+                    768: {
+                        items: perrowProdsTablet
+                    },
+                    992: {
+                        items: perrowProds
+                    }
+                }
+            });
+        }
+    });
+
+    // 2021 Elementor Widget Roy Brands
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.roy-elements-brands-slider').each(function () {
+
+        if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).hasClass('slider')) {
+
+            var autoBrands = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).attr('data-auto') === "yes" ? true : false,
+                perrowBrands = parseInt(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).attr('data-max-slides')),
+                perrowBrandsTablet = 3;
+            if (perrowBrands > 4) {
+                perrowBrandsTablet = 3;
+            } else {
+                perrowBrandsTablet = 2;
+            }
+
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('.brands-slider').owlCarousel({
+                loop: true,
+                margin: 60,
+                autoplay: true,
+                autoplayTimeout: 3400,
+                autoplayHoverPause: true,
+                mouseDrag: true,
+                touchDrag: true,
+                navText: '  ',
+                nav: true,
+                navSpeed: 600,
+                autoplaySpeed: 600,
+                dots: false,
+                responsive: {
+                    0: {
+                        items: 2,
+                        margin: 15,
+                        nav: false
+                    },
+                    480: {
+                        items: 3,
+                        nav: false
+                    },
+                    768: {
+                        items: perrowBrandsTablet
+                    },
+                    992: {
+                        items: perrowBrands
+                    }
+                }
+            });
+        }
+    });
+
+    // Home page products sliders
+    // Featured
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#index #main .roy_featured.slider-on .products').owlCarousel({
+        loop: false,
+        margin: 13,
+        autoplay: autoFeatured,
+        autoplayTimeout: 7000,
+        autoplayHoverPause: true,
+        mouseDrag: true,
+        touchDrag: true,
+        navText: '  ',
+        nav: true,
+        navSpeed: 400,
+        autoplaySpeed: 1100,
+        dots: false,
+        responsive: {
+            0: {
+                items: maxslideshpMobile,
+                margin: 12,
+                nav: false
+            },
+            768: {
+                items: maxslidesFeaturedResSmall
+            },
+            992: {
+                items: maxslidesFeatured
+            }
+        }
+    });
+    // Best
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#index #main .roy_best.slider-on .products').owlCarousel({
+        loop: false,
+        margin: 13,
+        autoplay: autoBest,
+        autoplayTimeout: 7000,
+        autoplayHoverPause: true,
+        mouseDrag: true,
+        touchDrag: true,
+        navText: '  ',
+        nav: true,
+        navSpeed: 400,
+        autoplaySpeed: 1100,
+        dots: false,
+        responsive: {
+            0: {
+                items: maxslideshpMobile,
+                margin: 12,
+                nav: false
+            },
+            768: {
+                items: maxslidesBestResSmall
+            },
+            992: {
+                items: maxslidesBest
+            }
+        }
+    });
+    // New
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#index #main .roy_new.slider-on .products').owlCarousel({
+        loop: false,
+        margin: 13,
+        autoplay: autoNew,
+        autoplayTimeout: 7000,
+        autoplayHoverPause: true,
+        mouseDrag: true,
+        touchDrag: true,
+        navText: '  ',
+        nav: true,
+        navSpeed: 400,
+        autoplaySpeed: 1100,
+        dots: false,
+        responsive: {
+            0: {
+                items: maxslideshpMobile,
+                margin: 12,
+                nav: false
+            },
+            768: {
+                items: maxslidesNewResSmall
+            },
+            992: {
+                items: maxslidesNew
+            }
+        }
+    });
+    // Sale/specials
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#index #main .roy_specials.slider-on .products').owlCarousel({
+        loop: false,
+        margin: 13,
+        autoplay: autoSale,
+        autoplayTimeout: 7000,
+        autoplayHoverPause: true,
+        mouseDrag: true,
+        touchDrag: true,
+        navText: '  ',
+        nav: true,
+        navSpeed: 400,
+        autoplaySpeed: 1100,
+        dots: false,
+        responsive: {
+            0: {
+                items: maxslideshpMobile,
+                margin: 12,
+                nav: false
+            },
+            768: {
+                items: maxslidesSaleResSmall
+            },
+            992: {
+                items: maxslidesSale
+            }
+        }
+    });
+    // CC1
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#index #main .roy_cc1.slider-on .products').owlCarousel({
+        loop: false,
+        margin: 13,
+        autoplay: autoCustom1,
+        autoplayTimeout: 7000,
+        autoplayHoverPause: true,
+        mouseDrag: true,
+        touchDrag: true,
+        navText: '  ',
+        nav: true,
+        navSpeed: 400,
+        autoplaySpeed: 1100,
+        dots: false,
+        responsive: {
+            0: {
+                items: maxslideshpMobile,
+                margin: 12,
+                nav: false
+            },
+            768: {
+                items: maxslidesCustom1ResSmall
+            },
+            992: {
+                items: maxslidesCustom1
+            }
+        }
+    });
+    // CC2
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#index #main .roy_cc2.slider-on .products').owlCarousel({
+        loop: false,
+        margin: 13,
+        autoplay: autoCustom2,
+        autoplayTimeout: 7000,
+        autoplayHoverPause: true,
+        mouseDrag: true,
+        touchDrag: true,
+        navText: '  ',
+        nav: true,
+        navSpeed: 400,
+        autoplaySpeed: 1100,
+        dots: false,
+        responsive: {
+            0: {
+                items: maxslideshpMobile,
+                margin: 12,
+                nav: false
+            },
+            768: {
+                items: maxslidesCustom2ResSmall
+            },
+            992: {
+                items: maxslidesCustom2
+            }
+        }
+    });
+    // CC3
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#index #main .roy_cc3.slider-on .products').owlCarousel({
+        loop: false,
+        margin: 13,
+        autoplay: autoCustom3,
+        autoplayTimeout: 7000,
+        autoplayHoverPause: true,
+        mouseDrag: true,
+        touchDrag: true,
+        navText: '  ',
+        nav: true,
+        navSpeed: 400,
+        autoplaySpeed: 1100,
+        dots: false,
+        responsive: {
+            0: {
+                items: maxslideshpMobile,
+                margin: 12,
+                nav: false
+            },
+            768: {
+                items: maxslidesCustom3ResSmall
+            },
+            992: {
+                items: maxslidesCustom3
+            }
+        }
+    });
+
+    // Blog Latest posts slider
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.sdsblog-box-content').owlCarousel({
+        loop: false,
+        margin: 22,
+        mouseDrag: true,
+        touchDrag: true,
+        navText: '  ',
+        nav: true,
+        navSpeed: 400,
+        dots: false,
+        responsive: {
+            0: {
+                items: 1,
+                nav: false
+            },
+            480: {
+                items: 2,
+                nav: false
+            },
+            992: {
+                items: maxslidesBlogHome
+            }
+        }
+    });
+
+    // Product page products sliders
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#product .products').owlCarousel({
+        loop: false,
+        margin: 12,
+        autoplay: true,
+        autoplayTimeout: 7000,
+        autoplayHoverPause: true,
+        mouseDrag: true,
+        touchDrag: true,
+        navText: '  ',
+        nav: true,
+        navSpeed: 400,
+        autoplaySpeed: 1100,
+        dots: false,
+        responsive: {
+            0: {
+                items: 1,
+                margin: 13,
+                nav: false
+            },
+            480: {
+                items: 2,
+                nav: false
+            },
+            768: {
+                items: 2
+            },
+            992: {
+                items: 4
+            }
+        }
+    });
+
+    // Specials column slider
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#roy_specials_col .products').owlCarousel({
+        items: 1,
+        loop: true,
+        margin: 28,
+        autoplay: 300,
+        smartSpeed: 300,
+        slideSpeed: 300,
+        autoplayTimeout: 4000,
+        autoplayHoverPause: true,
+        mouseDrag: true,
+        touchDrag: true,
+        autoHeight: true,
+        navText: ' ',
+        nav: true,
+        navSpeed: 400,
+        autoplaySpeed: 1100,
+        dots: false
+    });
+
+    // Brands slider
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#roy_brands .slideme').owlCarousel({
+        loop: true,
+        margin: 60,
+        autoplay: true,
+        autoplayTimeout: 3400,
+        autoplayHoverPause: true,
+        mouseDrag: true,
+        touchDrag: true,
+        navText: '  ',
+        nav: true,
+        navSpeed: 600,
+        autoplaySpeed: 600,
+        dots: false,
+        responsive: {
+            0: {
+                items: 2,
+                margin: 15,
+                nav: false
+            },
+            480: {
+                items: 3,
+                nav: false
+            },
+            680: {
+                items: maxslidesBrandsTablet
+            },
+            992: {
+                items: maxslidesBrands
+            }
+        }
+    });
+});
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
+ 2017 Julian Garnier
+ Released under the MIT license
+*/
+var $jscomp = { scope: {} };$jscomp.defineProperty = "function" == typeof Object.defineProperties ? Object.defineProperty : function (e, r, p) {
+  if (p.get || p.set) throw new TypeError("ES3 does not support getters and setters.");e != Array.prototype && e != Object.prototype && (e[r] = p.value);
+};$jscomp.getGlobal = function (e) {
+  return "undefined" != typeof window && window === e ? e : "undefined" != typeof global && null != global ? global : e;
+};$jscomp.global = $jscomp.getGlobal(this);$jscomp.SYMBOL_PREFIX = "jscomp_symbol_";
+$jscomp.initSymbol = function () {
+  $jscomp.initSymbol = function () {};$jscomp.global.Symbol || ($jscomp.global.Symbol = $jscomp.Symbol);
+};$jscomp.symbolCounter_ = 0;$jscomp.Symbol = function (e) {
+  return $jscomp.SYMBOL_PREFIX + (e || "") + $jscomp.symbolCounter_++;
+};
+$jscomp.initSymbolIterator = function () {
+  $jscomp.initSymbol();var e = $jscomp.global.Symbol.iterator;e || (e = $jscomp.global.Symbol.iterator = $jscomp.global.Symbol("iterator"));"function" != typeof Array.prototype[e] && $jscomp.defineProperty(Array.prototype, e, { configurable: !0, writable: !0, value: function () {
+      return $jscomp.arrayIterator(this);
+    } });$jscomp.initSymbolIterator = function () {};
+};$jscomp.arrayIterator = function (e) {
+  var r = 0;return $jscomp.iteratorPrototype(function () {
+    return r < e.length ? { done: !1, value: e[r++] } : { done: !0 };
+  });
+};
+$jscomp.iteratorPrototype = function (e) {
+  $jscomp.initSymbolIterator();e = { next: e };e[$jscomp.global.Symbol.iterator] = function () {
+    return this;
+  };return e;
+};$jscomp.array = $jscomp.array || {};$jscomp.iteratorFromArray = function (e, r) {
+  $jscomp.initSymbolIterator();e instanceof String && (e += "");var p = 0,
+      m = { next: function () {
+      if (p < e.length) {
+        var u = p++;return { value: r(u, e[u]), done: !1 };
+      }m.next = function () {
+        return { done: !0, value: void 0 };
+      };return m.next();
+    } };m[Symbol.iterator] = function () {
+    return m;
+  };return m;
+};
+$jscomp.polyfill = function (e, r, p, m) {
+  if (r) {
+    p = $jscomp.global;e = e.split(".");for (m = 0; m < e.length - 1; m++) {
+      var u = e[m];u in p || (p[u] = {});p = p[u];
+    }e = e[e.length - 1];m = p[e];r = r(m);r != m && null != r && $jscomp.defineProperty(p, e, { configurable: !0, writable: !0, value: r });
+  }
+};$jscomp.polyfill("Array.prototype.keys", function (e) {
+  return e ? e : function () {
+    return $jscomp.iteratorFromArray(this, function (e) {
+      return e;
+    });
+  };
+}, "es6-impl", "es3");var $jscomp$this = this;
+(function (e, r) {
+   true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (r),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : "object" === typeof module && module.exports ? module.exports = r() : e.anime = r();
+})(this, function () {
+  function e(a) {
+    if (!h.col(a)) try {
+      return document.querySelectorAll(a);
+    } catch (c) {}
+  }function r(a, c) {
+    for (var d = a.length, b = 2 <= arguments.length ? arguments[1] : void 0, f = [], n = 0; n < d; n++) if (n in a) {
+      var k = a[n];c.call(b, k, n, a) && f.push(k);
+    }return f;
+  }function p(a) {
+    return a.reduce(function (a, d) {
+      return a.concat(h.arr(d) ? p(d) : d);
+    }, []);
+  }function m(a) {
+    if (h.arr(a)) return a;
+    h.str(a) && (a = e(a) || a);return a instanceof NodeList || a instanceof HTMLCollection ? [].slice.call(a) : [a];
+  }function u(a, c) {
+    return a.some(function (a) {
+      return a === c;
+    });
+  }function C(a) {
+    var c = {},
+        d;for (d in a) c[d] = a[d];return c;
+  }function D(a, c) {
+    var d = C(a),
+        b;for (b in a) d[b] = c.hasOwnProperty(b) ? c[b] : a[b];return d;
+  }function z(a, c) {
+    var d = C(a),
+        b;for (b in c) d[b] = h.und(a[b]) ? c[b] : a[b];return d;
+  }function T(a) {
+    a = a.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i, function (a, c, d, k) {
+      return c + c + d + d + k + k;
+    });var c = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(a);
+    a = parseInt(c[1], 16);var d = parseInt(c[2], 16),
+        c = parseInt(c[3], 16);return "rgba(" + a + "," + d + "," + c + ",1)";
+  }function U(a) {
+    function c(a, c, b) {
+      0 > b && (b += 1);1 < b && --b;return b < 1 / 6 ? a + 6 * (c - a) * b : .5 > b ? c : b < 2 / 3 ? a + (c - a) * (2 / 3 - b) * 6 : a;
+    }var d = /hsl\((\d+),\s*([\d.]+)%,\s*([\d.]+)%\)/g.exec(a) || /hsla\((\d+),\s*([\d.]+)%,\s*([\d.]+)%,\s*([\d.]+)\)/g.exec(a);a = parseInt(d[1]) / 360;var b = parseInt(d[2]) / 100,
+        f = parseInt(d[3]) / 100,
+        d = d[4] || 1;if (0 == b) f = b = a = f;else {
+      var n = .5 > f ? f * (1 + b) : f + b - f * b,
+          k = 2 * f - n,
+          f = c(k, n, a + 1 / 3),
+          b = c(k, n, a);a = c(k, n, a - 1 / 3);
+    }return "rgba(" + 255 * f + "," + 255 * b + "," + 255 * a + "," + d + ")";
+  }function y(a) {
+    if (a = /([\+\-]?[0-9#\.]+)(%|px|pt|em|rem|in|cm|mm|ex|ch|pc|vw|vh|vmin|vmax|deg|rad|turn)?$/.exec(a)) return a[2];
+  }function V(a) {
+    if (-1 < a.indexOf("translate") || "perspective" === a) return "px";if (-1 < a.indexOf("rotate") || -1 < a.indexOf("skew")) return "deg";
+  }function I(a, c) {
+    return h.fnc(a) ? a(c.target, c.id, c.total) : a;
+  }function E(a, c) {
+    if (c in a.style) return getComputedStyle(a).getPropertyValue(c.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase()) || "0";
+  }function J(a, c) {
+    if (h.dom(a) && u(W, c)) return "transform";if (h.dom(a) && (a.getAttribute(c) || h.svg(a) && a[c])) return "attribute";if (h.dom(a) && "transform" !== c && E(a, c)) return "css";if (null != a[c]) return "object";
+  }function X(a, c) {
+    var d = V(c),
+        d = -1 < c.indexOf("scale") ? 1 : 0 + d;a = a.style.transform;if (!a) return d;for (var b = [], f = [], n = [], k = /(\w+)\((.+?)\)/g; b = k.exec(a);) f.push(b[1]), n.push(b[2]);a = r(n, function (a, b) {
+      return f[b] === c;
+    });return a.length ? a[0] : d;
+  }function K(a, c) {
+    switch (J(a, c)) {case "transform":
+        return X(a, c);case "css":
+        return E(a, c);case "attribute":
+        return a.getAttribute(c);}return a[c] || 0;
+  }function L(a, c) {
+    var d = /^(\*=|\+=|-=)/.exec(a);if (!d) return a;var b = y(a) || 0;c = parseFloat(c);a = parseFloat(a.replace(d[0], ""));switch (d[0][0]) {case "+":
+        return c + a + b;case "-":
+        return c - a + b;case "*":
+        return c * a + b;}
+  }function F(a, c) {
+    return Math.sqrt(Math.pow(c.x - a.x, 2) + Math.pow(c.y - a.y, 2));
+  }function M(a) {
+    a = a.points;for (var c = 0, d, b = 0; b < a.numberOfItems; b++) {
+      var f = a.getItem(b);0 < b && (c += F(d, f));d = f;
+    }return c;
+  }function N(a) {
+    if (a.getTotalLength) return a.getTotalLength();switch (a.tagName.toLowerCase()) {case "circle":
+        return 2 * Math.PI * a.getAttribute("r");case "rect":
+        return 2 * a.getAttribute("width") + 2 * a.getAttribute("height");case "line":
+        return F({ x: a.getAttribute("x1"), y: a.getAttribute("y1") }, { x: a.getAttribute("x2"), y: a.getAttribute("y2") });case "polyline":
+        return M(a);case "polygon":
+        var c = a.points;return M(a) + F(c.getItem(c.numberOfItems - 1), c.getItem(0));}
+  }function Y(a, c) {
+    function d(b) {
+      b = void 0 === b ? 0 : b;return a.el.getPointAtLength(1 <= c + b ? c + b : 0);
+    }var b = d(),
+        f = d(-1),
+        n = d(1);switch (a.property) {case "x":
+        return b.x;case "y":
+        return b.y;
+      case "angle":
+        return 180 * Math.atan2(n.y - f.y, n.x - f.x) / Math.PI;}
+  }function O(a, c) {
+    var d = /-?\d*\.?\d+/g,
+        b;b = h.pth(a) ? a.totalLength : a;if (h.col(b)) {
+      if (h.rgb(b)) {
+        var f = /rgb\((\d+,\s*[\d]+,\s*[\d]+)\)/g.exec(b);b = f ? "rgba(" + f[1] + ",1)" : b;
+      } else b = h.hex(b) ? T(b) : h.hsl(b) ? U(b) : void 0;
+    } else f = (f = y(b)) ? b.substr(0, b.length - f.length) : b, b = c && !/\s/g.test(b) ? f + c : f;b += "";return { original: b, numbers: b.match(d) ? b.match(d).map(Number) : [0], strings: h.str(a) || c ? b.split(d) : [] };
+  }function P(a) {
+    a = a ? p(h.arr(a) ? a.map(m) : m(a)) : [];return r(a, function (a, d, b) {
+      return b.indexOf(a) === d;
+    });
+  }function Z(a) {
+    var c = P(a);return c.map(function (a, b) {
+      return { target: a, id: b, total: c.length };
+    });
+  }function aa(a, c) {
+    var d = C(c);if (h.arr(a)) {
+      var b = a.length;2 !== b || h.obj(a[0]) ? h.fnc(c.duration) || (d.duration = c.duration / b) : a = { value: a };
+    }return m(a).map(function (a, b) {
+      b = b ? 0 : c.delay;a = h.obj(a) && !h.pth(a) ? a : { value: a };h.und(a.delay) && (a.delay = b);return a;
+    }).map(function (a) {
+      return z(a, d);
+    });
+  }function ba(a, c) {
+    var d = {},
+        b;for (b in a) {
+      var f = I(a[b], c);h.arr(f) && (f = f.map(function (a) {
+        return I(a, c);
+      }), 1 === f.length && (f = f[0]));d[b] = f;
+    }d.duration = parseFloat(d.duration);d.delay = parseFloat(d.delay);return d;
+  }function ca(a) {
+    return h.arr(a) ? A.apply(this, a) : Q[a];
+  }function da(a, c) {
+    var d;return a.tweens.map(function (b) {
+      b = ba(b, c);var f = b.value,
+          e = K(c.target, a.name),
+          k = d ? d.to.original : e,
+          k = h.arr(f) ? f[0] : k,
+          w = L(h.arr(f) ? f[1] : f, k),
+          e = y(w) || y(k) || y(e);b.from = O(k, e);b.to = O(w, e);b.start = d ? d.end : a.offset;b.end = b.start + b.delay + b.duration;b.easing = ca(b.easing);b.elasticity = (1E3 - Math.min(Math.max(b.elasticity, 1), 999)) / 1E3;b.isPath = h.pth(f);b.isColor = h.col(b.from.original);b.isColor && (b.round = 1);return d = b;
+    });
+  }function ea(a, c) {
+    return r(p(a.map(function (a) {
+      return c.map(function (b) {
+        var c = J(a.target, b.name);if (c) {
+          var d = da(b, a);b = { type: c, property: b.name, animatable: a, tweens: d, duration: d[d.length - 1].end, delay: d[0].delay };
+        } else b = void 0;return b;
+      });
+    })), function (a) {
+      return !h.und(a);
+    });
+  }function R(a, c, d, b) {
+    var f = "delay" === a;return c.length ? (f ? Math.min : Math.max).apply(Math, c.map(function (b) {
+      return b[a];
+    })) : f ? b.delay : d.offset + b.delay + b.duration;
+  }function fa(a) {
+    var c = D(ga, a),
+        d = D(S, a),
+        b = Z(a.targets),
+        f = [],
+        e = z(c, d),
+        k;for (k in a) e.hasOwnProperty(k) || "targets" === k || f.push({ name: k, offset: e.offset, tweens: aa(a[k], d) });a = ea(b, f);return z(c, { children: [], animatables: b, animations: a, duration: R("duration", a, c, d), delay: R("delay", a, c, d) });
+  }function q(a) {
+    function c() {
+      return window.Promise && new Promise(function (a) {
+        return p = a;
+      });
+    }function d(a) {
+      return g.reversed ? g.duration - a : a;
+    }function b(a) {
+      for (var b = 0, c = {}, d = g.animations, f = d.length; b < f;) {
+        var e = d[b],
+            k = e.animatable,
+            h = e.tweens,
+            n = h.length - 1,
+            l = h[n];n && (l = r(h, function (b) {
+          return a < b.end;
+        })[0] || l);for (var h = Math.min(Math.max(a - l.start - l.delay, 0), l.duration) / l.duration, w = isNaN(h) ? 1 : l.easing(h, l.elasticity), h = l.to.strings, p = l.round, n = [], m = void 0, m = l.to.numbers.length, t = 0; t < m; t++) {
+          var x = void 0,
+              x = l.to.numbers[t],
+              q = l.from.numbers[t],
+              x = l.isPath ? Y(l.value, w * x) : q + w * (x - q);p && (l.isColor && 2 < t || (x = Math.round(x * p) / p));n.push(x);
+        }if (l = h.length) for (m = h[0], w = 0; w < l; w++) p = h[w + 1], t = n[w], isNaN(t) || (m = p ? m + (t + p) : m + (t + " "));else m = n[0];ha[e.type](k.target, e.property, m, c, k.id);e.currentValue = m;b++;
+      }if (b = Object.keys(c).length) for (d = 0; d < b; d++) H || (H = E(document.body, "transform") ? "transform" : "-webkit-transform"), g.animatables[d].target.style[H] = c[d].join(" ");g.currentTime = a;g.progress = a / g.duration * 100;
+    }function f(a) {
+      if (g[a]) g[a](g);
+    }function e() {
+      g.remaining && !0 !== g.remaining && g.remaining--;
+    }function k(a) {
+      var k = g.duration,
+          n = g.offset,
+          w = n + g.delay,
+          r = g.currentTime,
+          x = g.reversed,
+          q = d(a);if (g.children.length) {
+        var u = g.children,
+            v = u.length;
+        if (q >= g.currentTime) for (var G = 0; G < v; G++) u[G].seek(q);else for (; v--;) u[v].seek(q);
+      }if (q >= w || !k) g.began || (g.began = !0, f("begin")), f("run");if (q > n && q < k) b(q);else if (q <= n && 0 !== r && (b(0), x && e()), q >= k && r !== k || !k) b(k), x || e();f("update");a >= k && (g.remaining ? (t = h, "alternate" === g.direction && (g.reversed = !g.reversed)) : (g.pause(), g.completed || (g.completed = !0, f("complete"), "Promise" in window && (p(), m = c()))), l = 0);
+    }a = void 0 === a ? {} : a;var h,
+        t,
+        l = 0,
+        p = null,
+        m = c(),
+        g = fa(a);g.reset = function () {
+      var a = g.direction,
+          c = g.loop;g.currentTime = 0;g.progress = 0;g.paused = !0;g.began = !1;g.completed = !1;g.reversed = "reverse" === a;g.remaining = "alternate" === a && 1 === c ? 2 : c;b(0);for (a = g.children.length; a--;) g.children[a].reset();
+    };g.tick = function (a) {
+      h = a;t || (t = h);k((l + h - t) * q.speed);
+    };g.seek = function (a) {
+      k(d(a));
+    };g.pause = function () {
+      var a = v.indexOf(g);-1 < a && v.splice(a, 1);g.paused = !0;
+    };g.play = function () {
+      g.paused && (g.paused = !1, t = 0, l = d(g.currentTime), v.push(g), B || ia());
+    };g.reverse = function () {
+      g.reversed = !g.reversed;t = 0;l = d(g.currentTime);
+    };g.restart = function () {
+      g.pause();
+      g.reset();g.play();
+    };g.finished = m;g.reset();g.autoplay && g.play();return g;
+  }var ga = { update: void 0, begin: void 0, run: void 0, complete: void 0, loop: 1, direction: "normal", autoplay: !0, offset: 0 },
+      S = { duration: 1E3, delay: 0, easing: "easeOutElastic", elasticity: 500, round: 0 },
+      W = "translateX translateY translateZ rotate rotateX rotateY rotateZ scale scaleX scaleY scaleZ skewX skewY perspective".split(" "),
+      H,
+      h = { arr: function (a) {
+      return Array.isArray(a);
+    }, obj: function (a) {
+      return -1 < Object.prototype.toString.call(a).indexOf("Object");
+    },
+    pth: function (a) {
+      return h.obj(a) && a.hasOwnProperty("totalLength");
+    }, svg: function (a) {
+      return a instanceof SVGElement;
+    }, dom: function (a) {
+      return a.nodeType || h.svg(a);
+    }, str: function (a) {
+      return "string" === typeof a;
+    }, fnc: function (a) {
+      return "function" === typeof a;
+    }, und: function (a) {
+      return "undefined" === typeof a;
+    }, hex: function (a) {
+      return (/(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(a)
+      );
+    }, rgb: function (a) {
+      return (/^rgb/.test(a)
+      );
+    }, hsl: function (a) {
+      return (/^hsl/.test(a)
+      );
+    }, col: function (a) {
+      return h.hex(a) || h.rgb(a) || h.hsl(a);
+    } },
+      A = function () {
+    function a(a, d, b) {
+      return (((1 - 3 * b + 3 * d) * a + (3 * b - 6 * d)) * a + 3 * d) * a;
+    }return function (c, d, b, f) {
+      if (0 <= c && 1 >= c && 0 <= b && 1 >= b) {
+        var e = new Float32Array(11);if (c !== d || b !== f) for (var k = 0; 11 > k; ++k) e[k] = a(.1 * k, c, b);return function (k) {
+          if (c === d && b === f) return k;if (0 === k) return 0;if (1 === k) return 1;for (var h = 0, l = 1; 10 !== l && e[l] <= k; ++l) h += .1;--l;var l = h + (k - e[l]) / (e[l + 1] - e[l]) * .1,
+              n = 3 * (1 - 3 * b + 3 * c) * l * l + 2 * (3 * b - 6 * c) * l + 3 * c;if (.001 <= n) {
+            for (h = 0; 4 > h; ++h) {
+              n = 3 * (1 - 3 * b + 3 * c) * l * l + 2 * (3 * b - 6 * c) * l + 3 * c;if (0 === n) break;var m = a(l, c, b) - k,
+                  l = l - m / n;
+            }k = l;
+          } else if (0 === n) k = l;else {
+            var l = h,
+                h = h + .1,
+                g = 0;do m = l + (h - l) / 2, n = a(m, c, b) - k, 0 < n ? h = m : l = m; while (1e-7 < Math.abs(n) && 10 > ++g);k = m;
+          }return a(k, d, f);
+        };
+      }
+    };
+  }(),
+      Q = function () {
+    function a(a, b) {
+      return 0 === a || 1 === a ? a : -Math.pow(2, 10 * (a - 1)) * Math.sin(2 * (a - 1 - b / (2 * Math.PI) * Math.asin(1)) * Math.PI / b);
+    }var c = "Quad Cubic Quart Quint Sine Expo Circ Back Elastic".split(" "),
+        d = { In: [[.55, .085, .68, .53], [.55, .055, .675, .19], [.895, .03, .685, .22], [.755, .05, .855, .06], [.47, 0, .745, .715], [.95, .05, .795, .035], [.6, .04, .98, .335], [.6, -.28, .735, .045], a], Out: [[.25, .46, .45, .94], [.215, .61, .355, 1], [.165, .84, .44, 1], [.23, 1, .32, 1], [.39, .575, .565, 1], [.19, 1, .22, 1], [.075, .82, .165, 1], [.175, .885, .32, 1.275], function (b, c) {
+        return 1 - a(1 - b, c);
+      }], InOut: [[.455, .03, .515, .955], [.645, .045, .355, 1], [.77, 0, .175, 1], [.86, 0, .07, 1], [.445, .05, .55, .95], [1, 0, 0, 1], [.785, .135, .15, .86], [.68, -.55, .265, 1.55], function (b, c) {
+        return .5 > b ? a(2 * b, c) / 2 : 1 - a(-2 * b + 2, c) / 2;
+      }] },
+        b = { linear: A(.25, .25, .75, .75) },
+        f = {},
+        e;for (e in d) f.type = e, d[f.type].forEach(function (a) {
+      return function (d, f) {
+        b["ease" + a.type + c[f]] = h.fnc(d) ? d : A.apply($jscomp$this, d);
+      };
+    }(f)), f = { type: f.type };return b;
+  }(),
+      ha = { css: function (a, c, d) {
+      return a.style[c] = d;
+    }, attribute: function (a, c, d) {
+      return a.setAttribute(c, d);
+    }, object: function (a, c, d) {
+      return a[c] = d;
+    }, transform: function (a, c, d, b, f) {
+      b[f] || (b[f] = []);b[f].push(c + "(" + d + ")");
+    } },
+      v = [],
+      B = 0,
+      ia = function () {
+    function a() {
+      B = requestAnimationFrame(c);
+    }function c(c) {
+      var b = v.length;if (b) {
+        for (var d = 0; d < b;) v[d] && v[d].tick(c), d++;a();
+      } else cancelAnimationFrame(B), B = 0;
+    }return a;
+  }();q.version = "2.2.0";q.speed = 1;q.running = v;q.remove = function (a) {
+    a = P(a);for (var c = v.length; c--;) for (var d = v[c], b = d.animations, f = b.length; f--;) u(a, b[f].animatable.target) && (b.splice(f, 1), b.length || d.pause());
+  };q.getValue = K;q.path = function (a, c) {
+    var d = h.str(a) ? e(a)[0] : a,
+        b = c || 100;return function (a) {
+      return { el: d, property: a, totalLength: N(d) * (b / 100) };
+    };
+  };q.setDashoffset = function (a) {
+    var c = N(a);a.setAttribute("stroke-dasharray", c);return c;
+  };q.bezier = A;q.easings = Q;q.timeline = function (a) {
+    var c = q(a);c.pause();c.duration = 0;c.add = function (d) {
+      c.children.forEach(function (a) {
+        a.began = !0;a.completed = !0;
+      });m(d).forEach(function (b) {
+        var d = z(b, D(S, a || {}));d.targets = d.targets || a.targets;b = c.duration;var e = d.offset;d.autoplay = !1;d.direction = c.direction;d.offset = h.und(e) ? b : L(e, b);c.began = !0;c.completed = !0;c.seek(d.offset);d = q(d);d.began = !0;d.completed = !0;d.duration > b && (c.duration = d.duration);c.children.push(d);
+      });c.seek(0);c.reset();c.autoplay && c.restart();return c;
+    };return c;
+  };q.random = function (a, c) {
+    return Math.floor(Math.random() * (c - a + 1)) + a;
+  };return q;
+});
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports) {
+
+/*
+ *  Bootstrap TouchSpin - v3.1.1
+ *  A mobile and touch friendly input spinner component for Bootstrap 3.
+ *  http://www.virtuosoft.eu/code/bootstrap-touchspin/
+ *
+ *  Made by István Ujj-Mészáros
+ *  Under Apache License v2.0 License
+ */
+(function ($) {
+  'use strict';
+
+  var _currentSpinnerId = 0;
+
+  function _scopedEventName(name, id) {
+    return name + '.touchspin_' + id;
+  }
+
+  function _scopeEventNames(names, id) {
+    return $.map(names, function (name) {
+      return _scopedEventName(name, id);
+    });
+  }
+
+  $.fn.TouchSpin = function (options) {
+
+    if (options === 'destroy') {
+      this.each(function () {
+        var originalinput = $(this),
+            originalinput_data = originalinput.data();
+        $(document).off(_scopeEventNames(['mouseup', 'touchend', 'touchcancel', 'mousemove', 'touchmove', 'scroll', 'scrollstart'], originalinput_data.spinnerid).join(' '));
+      });
+      return;
+    }
+
+    var defaults = {
+      min: 0,
+      max: 100,
+      initval: '',
+      replacementval: '',
+      step: 1,
+      decimals: 0,
+      stepinterval: 100,
+      forcestepdivisibility: 'round', // none | floor | round | ceil
+      stepintervaldelay: 500,
+      verticalbuttons: false,
+      verticalupclass: 'glyphicon glyphicon-chevron-up',
+      verticaldownclass: 'glyphicon glyphicon-chevron-down',
+      prefix: '',
+      postfix: '',
+      prefix_extraclass: '',
+      postfix_extraclass: '',
+      booster: true,
+      boostat: 10,
+      maxboostedstep: false,
+      mousewheel: true,
+      buttondown_class: 'btn btn-default',
+      buttonup_class: 'btn btn-default',
+      buttondown_txt: '-',
+      buttonup_txt: '+'
+    };
+
+    var attributeMap = {
+      min: 'min',
+      max: 'max',
+      initval: 'init-val',
+      replacementval: 'replacement-val',
+      step: 'step',
+      decimals: 'decimals',
+      stepinterval: 'step-interval',
+      verticalbuttons: 'vertical-buttons',
+      verticalupclass: 'vertical-up-class',
+      verticaldownclass: 'vertical-down-class',
+      forcestepdivisibility: 'force-step-divisibility',
+      stepintervaldelay: 'step-interval-delay',
+      prefix: 'prefix',
+      postfix: 'postfix',
+      prefix_extraclass: 'prefix-extra-class',
+      postfix_extraclass: 'postfix-extra-class',
+      booster: 'booster',
+      boostat: 'boostat',
+      maxboostedstep: 'max-boosted-step',
+      mousewheel: 'mouse-wheel',
+      buttondown_class: 'button-down-class',
+      buttonup_class: 'button-up-class',
+      buttondown_txt: 'button-down-txt',
+      buttonup_txt: 'button-up-txt'
+    };
+
+    return this.each(function () {
+
+      var settings,
+          originalinput = $(this),
+          originalinput_data = originalinput.data(),
+          container,
+          elements,
+          value,
+          downSpinTimer,
+          upSpinTimer,
+          downDelayTimeout,
+          upDelayTimeout,
+          spincount = 0,
+          spinning = false;
+
+      init();
+
+      function init() {
+        if (originalinput.data('alreadyinitialized')) {
+          return;
+        }
+
+        originalinput.data('alreadyinitialized', true);
+        _currentSpinnerId += 1;
+        originalinput.data('spinnerid', _currentSpinnerId);
+
+        if (!originalinput.is('input')) {
+          console.log('Must be an input.');
+          return;
+        }
+
+        _initSettings();
+        _setInitval();
+        _checkValue();
+        _buildHtml();
+        _initElements();
+        _hideEmptyPrefixPostfix();
+        _bindEvents();
+        _bindEventsInterface();
+        elements.input.css('display', 'block');
+      }
+
+      function _setInitval() {
+        if (settings.initval !== '' && originalinput.val() === '') {
+          originalinput.val(settings.initval);
+        }
+      }
+
+      function changeSettings(newsettings) {
+        _updateSettings(newsettings);
+        _checkValue();
+
+        var value = elements.input.val();
+
+        if (value !== '') {
+          value = Number(elements.input.val());
+          elements.input.val(value.toFixed(settings.decimals));
+        }
+      }
+
+      function _initSettings() {
+        settings = $.extend({}, defaults, originalinput_data, _parseAttributes(), options);
+      }
+
+      function _parseAttributes() {
+        var data = {};
+        $.each(attributeMap, function (key, value) {
+          var attrName = 'bts-' + value + '';
+          if (originalinput.is('[data-' + attrName + ']')) {
+            data[key] = originalinput.data(attrName);
+          }
+        });
+        return data;
+      }
+
+      function _updateSettings(newsettings) {
+        settings = $.extend({}, settings, newsettings);
+      }
+
+      function _buildHtml() {
+        var initval = originalinput.val(),
+            parentelement = originalinput.parent();
+
+        if (initval !== '') {
+          initval = Number(initval).toFixed(settings.decimals);
+        }
+
+        originalinput.data('initvalue', initval).val(initval);
+        originalinput.addClass('form-control');
+
+        if (parentelement.hasClass('input-group')) {
+          _advanceInputGroup(parentelement);
+        } else {
+          _buildInputGroup();
+        }
+      }
+
+      function _advanceInputGroup(parentelement) {
+        parentelement.addClass('bootstrap-touchspin');
+
+        var prev = originalinput.prev(),
+            next = originalinput.next();
+
+        var downhtml,
+            uphtml,
+            prefixhtml = '<span class="input-group-addon bootstrap-touchspin-prefix">' + settings.prefix + '</span>',
+            postfixhtml = '<span class="input-group-addon bootstrap-touchspin-postfix">' + settings.postfix + '</span>';
+
+        if (prev.hasClass('input-group-btn')) {
+          downhtml = '<button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">' + settings.buttondown_txt + '</button>';
+          prev.append(downhtml);
+        } else {
+          downhtml = '<span class="input-group-btn"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">' + settings.buttondown_txt + '</button></span>';
+          $(downhtml).insertBefore(originalinput);
+        }
+
+        if (next.hasClass('input-group-btn')) {
+          uphtml = '<button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">' + settings.buttonup_txt + '</button>';
+          next.prepend(uphtml);
+        } else {
+          uphtml = '<span class="input-group-btn"><button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">' + settings.buttonup_txt + '</button></span>';
+          $(uphtml).insertAfter(originalinput);
+        }
+
+        $(prefixhtml).insertBefore(originalinput);
+        $(postfixhtml).insertAfter(originalinput);
+
+        container = parentelement;
+      }
+
+      function _buildInputGroup() {
+        var html;
+
+        if (settings.verticalbuttons) {
+          html = '<div class="input-group bootstrap-touchspin"><span class="input-group-addon bootstrap-touchspin-prefix">' + settings.prefix + '</span><span class="input-group-addon bootstrap-touchspin-postfix">' + settings.postfix + '</span><span class="input-group-btn-vertical"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-up" type="button"><i class="' + settings.verticalupclass + '"></i></button><button class="' + settings.buttonup_class + ' bootstrap-touchspin-down" type="button"><i class="' + settings.verticaldownclass + '"></i></button></span></div>';
+        } else {
+          html = '<div class="input-group bootstrap-touchspin"><span class="input-group-btn"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">' + settings.buttondown_txt + '</button></span><span class="input-group-addon bootstrap-touchspin-prefix">' + settings.prefix + '</span><span class="input-group-addon bootstrap-touchspin-postfix">' + settings.postfix + '</span><span class="input-group-btn"><button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">' + settings.buttonup_txt + '</button></span></div>';
+        }
+
+        container = $(html).insertBefore(originalinput);
+
+        $('.bootstrap-touchspin-prefix', container).after(originalinput);
+
+        if (originalinput.hasClass('input-sm')) {
+          container.addClass('input-group-sm');
+        } else if (originalinput.hasClass('input-lg')) {
+          container.addClass('input-group-lg');
+        }
+      }
+
+      function _initElements() {
+        elements = {
+          down: $('.bootstrap-touchspin-down', container),
+          up: $('.bootstrap-touchspin-up', container),
+          input: $('input', container),
+          prefix: $('.bootstrap-touchspin-prefix', container).addClass(settings.prefix_extraclass),
+          postfix: $('.bootstrap-touchspin-postfix', container).addClass(settings.postfix_extraclass)
+        };
+      }
+
+      function _hideEmptyPrefixPostfix() {
+        if (settings.prefix === '') {
+          elements.prefix.hide();
+        }
+
+        if (settings.postfix === '') {
+          elements.postfix.hide();
+        }
+      }
+
+      function _bindEvents() {
+        originalinput.on('keydown', function (ev) {
+          var code = ev.keyCode || ev.which;
+
+          if (code === 38) {
+            if (spinning !== 'up') {
+              upOnce();
+              startUpSpin();
+            }
+            ev.preventDefault();
+          } else if (code === 40) {
+            if (spinning !== 'down') {
+              downOnce();
+              startDownSpin();
+            }
+            ev.preventDefault();
+          }
+        });
+
+        originalinput.on('keyup', function (ev) {
+          var code = ev.keyCode || ev.which;
+
+          if (code === 38) {
+            stopSpin();
+          } else if (code === 40) {
+            stopSpin();
+          }
+        });
+
+        originalinput.on('blur', function () {
+          _checkValue();
+        });
+
+        elements.down.on('keydown', function (ev) {
+          var code = ev.keyCode || ev.which;
+
+          if (code === 32 || code === 13) {
+            if (spinning !== 'down') {
+              downOnce();
+              startDownSpin();
+            }
+            ev.preventDefault();
+          }
+        });
+
+        elements.down.on('keyup', function (ev) {
+          var code = ev.keyCode || ev.which;
+
+          if (code === 32 || code === 13) {
+            stopSpin();
+          }
+        });
+
+        elements.up.on('keydown', function (ev) {
+          var code = ev.keyCode || ev.which;
+
+          if (code === 32 || code === 13) {
+            if (spinning !== 'up') {
+              upOnce();
+              startUpSpin();
+            }
+            ev.preventDefault();
+          }
+        });
+
+        elements.up.on('keyup', function (ev) {
+          var code = ev.keyCode || ev.which;
+
+          if (code === 32 || code === 13) {
+            stopSpin();
+          }
+        });
+
+        elements.down.on('mousedown.touchspin', function (ev) {
+          elements.down.off('touchstart.touchspin'); // android 4 workaround
+
+          if (originalinput.is(':disabled')) {
+            return;
+          }
+
+          downOnce();
+          startDownSpin();
+
+          ev.preventDefault();
+          ev.stopPropagation();
+        });
+
+        elements.down.on('touchstart.touchspin', function (ev) {
+          elements.down.off('mousedown.touchspin'); // android 4 workaround
+
+          if (originalinput.is(':disabled')) {
+            return;
+          }
+
+          downOnce();
+          startDownSpin();
+
+          ev.preventDefault();
+          ev.stopPropagation();
+        });
+
+        elements.up.on('mousedown.touchspin', function (ev) {
+          elements.up.off('touchstart.touchspin'); // android 4 workaround
+
+          if (originalinput.is(':disabled')) {
+            return;
+          }
+
+          upOnce();
+          startUpSpin();
+
+          ev.preventDefault();
+          ev.stopPropagation();
+        });
+
+        elements.up.on('touchstart.touchspin', function (ev) {
+          elements.up.off('mousedown.touchspin'); // android 4 workaround
+
+          if (originalinput.is(':disabled')) {
+            return;
+          }
+
+          upOnce();
+          startUpSpin();
+
+          ev.preventDefault();
+          ev.stopPropagation();
+        });
+
+        elements.up.on('mouseout touchleave touchend touchcancel', function (ev) {
+          if (!spinning) {
+            return;
+          }
+
+          ev.stopPropagation();
+          stopSpin();
+        });
+
+        elements.down.on('mouseout touchleave touchend touchcancel', function (ev) {
+          if (!spinning) {
+            return;
+          }
+
+          ev.stopPropagation();
+          stopSpin();
+        });
+
+        elements.down.on('mousemove touchmove', function (ev) {
+          if (!spinning) {
+            return;
+          }
+
+          ev.stopPropagation();
+          ev.preventDefault();
+        });
+
+        elements.up.on('mousemove touchmove', function (ev) {
+          if (!spinning) {
+            return;
+          }
+
+          ev.stopPropagation();
+          ev.preventDefault();
+        });
+
+        $(document).on(_scopeEventNames(['mouseup', 'touchend', 'touchcancel'], _currentSpinnerId).join(' '), function (ev) {
+          if (!spinning) {
+            return;
+          }
+
+          ev.preventDefault();
+          stopSpin();
+        });
+
+        $(document).on(_scopeEventNames(['mousemove', 'touchmove', 'scroll', 'scrollstart'], _currentSpinnerId).join(' '), function (ev) {
+          if (!spinning) {
+            return;
+          }
+
+          ev.preventDefault();
+          stopSpin();
+        });
+
+        originalinput.on('mousewheel DOMMouseScroll', function (ev) {
+          if (!settings.mousewheel || !originalinput.is(':focus')) {
+            return;
+          }
+
+          var delta = ev.originalEvent.wheelDelta || -ev.originalEvent.deltaY || -ev.originalEvent.detail;
+
+          ev.stopPropagation();
+          ev.preventDefault();
+
+          if (delta < 0) {
+            downOnce();
+          } else {
+            upOnce();
+          }
+        });
+      }
+
+      function _bindEventsInterface() {
+        originalinput.on('touchspin.uponce', function () {
+          stopSpin();
+          upOnce();
+        });
+
+        originalinput.on('touchspin.downonce', function () {
+          stopSpin();
+          downOnce();
+        });
+
+        originalinput.on('touchspin.startupspin', function () {
+          startUpSpin();
+        });
+
+        originalinput.on('touchspin.startdownspin', function () {
+          startDownSpin();
+        });
+
+        originalinput.on('touchspin.stopspin', function () {
+          stopSpin();
+        });
+
+        originalinput.on('touchspin.updatesettings', function (e, newsettings) {
+          changeSettings(newsettings);
+        });
+      }
+
+      function _forcestepdivisibility(value) {
+        switch (settings.forcestepdivisibility) {
+          case 'round':
+            return (Math.round(value / settings.step) * settings.step).toFixed(settings.decimals);
+          case 'floor':
+            return (Math.floor(value / settings.step) * settings.step).toFixed(settings.decimals);
+          case 'ceil':
+            return (Math.ceil(value / settings.step) * settings.step).toFixed(settings.decimals);
+          default:
+            return value;
+        }
+      }
+
+      function _checkValue() {
+        var val, parsedval, returnval;
+
+        val = originalinput.val();
+
+        if (val === '') {
+          if (settings.replacementval !== '') {
+            originalinput.val(settings.replacementval);
+            originalinput.trigger('change');
+          }
+          return;
+        }
+
+        if (settings.decimals > 0 && val === '.') {
+          return;
+        }
+
+        parsedval = parseFloat(val);
+
+        if (isNaN(parsedval)) {
+          if (settings.replacementval !== '') {
+            parsedval = settings.replacementval;
+          } else {
+            parsedval = 0;
+          }
+        }
+
+        returnval = parsedval;
+
+        if (parsedval.toString() !== val) {
+          returnval = parsedval;
+        }
+
+        if (parsedval < settings.min) {
+          returnval = settings.min;
+        }
+
+        if (parsedval > settings.max) {
+          returnval = settings.max;
+        }
+
+        returnval = _forcestepdivisibility(returnval);
+
+        if (Number(val).toString() !== returnval.toString()) {
+          originalinput.val(returnval);
+          originalinput.trigger('change');
+        }
+      }
+
+      function _getBoostedStep() {
+        if (!settings.booster) {
+          return settings.step;
+        } else {
+          var boosted = Math.pow(2, Math.floor(spincount / settings.boostat)) * settings.step;
+
+          if (settings.maxboostedstep) {
+            if (boosted > settings.maxboostedstep) {
+              boosted = settings.maxboostedstep;
+              value = Math.round(value / boosted) * boosted;
+            }
+          }
+
+          return Math.max(settings.step, boosted);
+        }
+      }
+
+      function upOnce() {
+        _checkValue();
+
+        value = parseFloat(elements.input.val());
+        if (isNaN(value)) {
+          value = 0;
+        }
+
+        var initvalue = value,
+            boostedstep = _getBoostedStep();
+
+        value = value + boostedstep;
+
+        if (value > settings.max) {
+          value = settings.max;
+          originalinput.trigger('touchspin.on.max');
+          stopSpin();
+        }
+
+        elements.input.val(Number(value).toFixed(settings.decimals));
+
+        if (initvalue !== value) {
+          originalinput.trigger('change');
+        }
+      }
+
+      function downOnce() {
+        _checkValue();
+
+        value = parseFloat(elements.input.val());
+        if (isNaN(value)) {
+          value = 0;
+        }
+
+        var initvalue = value,
+            boostedstep = _getBoostedStep();
+
+        value = value - boostedstep;
+
+        if (value < settings.min) {
+          value = settings.min;
+          originalinput.trigger('touchspin.on.min');
+          stopSpin();
+        }
+
+        elements.input.val(value.toFixed(settings.decimals));
+
+        if (initvalue !== value) {
+          originalinput.trigger('change');
+        }
+      }
+
+      function startDownSpin() {
+        stopSpin();
+
+        spincount = 0;
+        spinning = 'down';
+
+        originalinput.trigger('touchspin.on.startspin');
+        originalinput.trigger('touchspin.on.startdownspin');
+
+        downDelayTimeout = setTimeout(function () {
+          downSpinTimer = setInterval(function () {
+            spincount++;
+            downOnce();
+          }, settings.stepinterval);
+        }, settings.stepintervaldelay);
+      }
+
+      function startUpSpin() {
+        stopSpin();
+
+        spincount = 0;
+        spinning = 'up';
+
+        originalinput.trigger('touchspin.on.startspin');
+        originalinput.trigger('touchspin.on.startupspin');
+
+        upDelayTimeout = setTimeout(function () {
+          upSpinTimer = setInterval(function () {
+            spincount++;
+            upOnce();
+          }, settings.stepinterval);
+        }, settings.stepintervaldelay);
+      }
+
+      function stopSpin() {
+        clearTimeout(downDelayTimeout);
+        clearTimeout(upDelayTimeout);
+        clearInterval(downSpinTimer);
+        clearInterval(upSpinTimer);
+
+        switch (spinning) {
+          case 'up':
+            originalinput.trigger('touchspin.on.stopupspin');
+            originalinput.trigger('touchspin.on.stopspin');
+            break;
+          case 'down':
+            originalinput.trigger('touchspin.on.stopdownspin');
+            originalinput.trigger('touchspin.on.stopspin');
+            break;
+        }
+
+        spincount = 0;
+        spinning = false;
+      }
+    });
+  };
+})(jQuery);
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports) {
+
+/*!
+ * Bootstrap v4.0.0-alpha.5 (https://getbootstrap.com)
+ * Copyright 2011-2016 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+if ("undefined" == typeof jQuery) throw new Error("Bootstrap's JavaScript requires jQuery");+function (a) {
+  var b = a.fn.jquery.split(" ")[0].split(".");if (b[0] < 2 && b[1] < 9 || 1 == b[0] && 9 == b[1] && b[2] < 1 || b[0] >= 4) throw new Error("Bootstrap's JavaScript requires at least jQuery v1.9.1 but less than v4.0.0");
+}(jQuery), +function () {
+  function a(a, b) {
+    if (!a) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return !b || "object" != typeof b && "function" != typeof b ? a : b;
+  }function b(a, b) {
+    if ("function" != typeof b && null !== b) throw new TypeError("Super expression must either be null or a function, not " + typeof b);a.prototype = Object.create(b && b.prototype, { constructor: { value: a, enumerable: !1, writable: !0, configurable: !0 } }), b && (Object.setPrototypeOf ? Object.setPrototypeOf(a, b) : a.__proto__ = b);
+  }function c(a, b) {
+    if (!(a instanceof b)) throw new TypeError("Cannot call a class as a function");
+  }var d = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (a) {
+    return typeof a;
+  } : function (a) {
+    return a && "function" == typeof Symbol && a.constructor === Symbol && a !== Symbol.prototype ? "symbol" : typeof a;
+  },
+      e = function () {
+    function a(a, b) {
+      for (var c = 0; c < b.length; c++) {
+        var d = b[c];d.enumerable = d.enumerable || !1, d.configurable = !0, "value" in d && (d.writable = !0), Object.defineProperty(a, d.key, d);
+      }
+    }return function (b, c, d) {
+      return c && a(b.prototype, c), d && a(b, d), b;
+    };
+  }(),
+      f = function (a) {
+    function b(a) {
+      return {}.toString.call(a).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+    }function c(a) {
+      return (a[0] || a).nodeType;
+    }function d() {
+      return { bindType: h.end, delegateType: h.end, handle: function (b) {
+          if (a(b.target).is(this)) return b.handleObj.handler.apply(this, arguments);
+        } };
+    }function e() {
+      if (window.QUnit) return !1;var a = document.createElement("bootstrap");for (var b in j) if (void 0 !== a.style[b]) return { end: j[b] };return !1;
+    }function f(b) {
+      var c = this,
+          d = !1;return a(this).one(k.TRANSITION_END, function () {
+        d = !0;
+      }), setTimeout(function () {
+        d || k.triggerTransitionEnd(c);
+      }, b), this;
+    }function g() {
+      h = e(), a.fn.emulateTransitionEnd = f, k.supportsTransitionEnd() && (a.event.special[k.TRANSITION_END] = d());
+    }var h = !1,
+        i = 1e6,
+        j = { WebkitTransition: "webkitTransitionEnd", MozTransition: "transitionend", OTransition: "oTransitionEnd otransitionend", transition: "transitionend" },
+        k = { TRANSITION_END: "bsTransitionEnd", getUID: function (a) {
+        do a += ~~(Math.random() * i); while (document.getElementById(a));return a;
+      }, getSelectorFromElement: function (a) {
+        var b = a.getAttribute("data-target");return b || (b = a.getAttribute("href") || "", b = /^#[a-z]/i.test(b) ? b : null), b;
+      }, reflow: function (a) {
+        new Function("bs", "return bs")(a.offsetHeight);
+      }, triggerTransitionEnd: function (b) {
+        a(b).trigger(h.end);
+      }, supportsTransitionEnd: function () {
+        return Boolean(h);
+      }, typeCheckConfig: function (a, d, e) {
+        for (var f in e) if (e.hasOwnProperty(f)) {
+          var g = e[f],
+              h = d[f],
+              i = void 0;if (i = h && c(h) ? "element" : b(h), !new RegExp(g).test(i)) throw new Error(a.toUpperCase() + ": " + ('Option "' + f + '" provided type "' + i + '" ') + ('but expected type "' + g + '".'));
+        }
+      } };return g(), k;
+  }(jQuery),
+      g = (function (a) {
+    var b = "alert",
+        d = "4.0.0-alpha.5",
+        g = "bs.alert",
+        h = "." + g,
+        i = ".data-api",
+        j = a.fn[b],
+        k = 150,
+        l = { DISMISS: '[data-dismiss="alert"]' },
+        m = { CLOSE: "close" + h, CLOSED: "closed" + h, CLICK_DATA_API: "click" + h + i },
+        n = { ALERT: "alert", FADE: "fade", IN: "in" },
+        o = function () {
+      function b(a) {
+        c(this, b), this._element = a;
+      }return b.prototype.close = function (a) {
+        a = a || this._element;var b = this._getRootElement(a),
+            c = this._triggerCloseEvent(b);c.isDefaultPrevented() || this._removeElement(b);
+      }, b.prototype.dispose = function () {
+        a.removeData(this._element, g), this._element = null;
+      }, b.prototype._getRootElement = function (b) {
+        var c = f.getSelectorFromElement(b),
+            d = !1;return c && (d = a(c)[0]), d || (d = a(b).closest("." + n.ALERT)[0]), d;
+      }, b.prototype._triggerCloseEvent = function (b) {
+        var c = a.Event(m.CLOSE);return a(b).trigger(c), c;
+      }, b.prototype._removeElement = function (b) {
+        return a(b).removeClass(n.IN), f.supportsTransitionEnd() && a(b).hasClass(n.FADE) ? void a(b).one(f.TRANSITION_END, a.proxy(this._destroyElement, this, b)).emulateTransitionEnd(k) : void this._destroyElement(b);
+      }, b.prototype._destroyElement = function (b) {
+        a(b).detach().trigger(m.CLOSED).remove();
+      }, b._jQueryInterface = function (c) {
+        return this.each(function () {
+          var d = a(this),
+              e = d.data(g);e || (e = new b(this), d.data(g, e)), "close" === c && e[c](this);
+        });
+      }, b._handleDismiss = function (a) {
+        return function (b) {
+          b && b.preventDefault(), a.close(this);
+        };
+      }, e(b, null, [{ key: "VERSION", get: function () {
+          return d;
+        } }]), b;
+    }();return a(document).on(m.CLICK_DATA_API, l.DISMISS, o._handleDismiss(new o())), a.fn[b] = o._jQueryInterface, a.fn[b].Constructor = o, a.fn[b].noConflict = function () {
+      return a.fn[b] = j, o._jQueryInterface;
+    }, o;
+  }(jQuery), function (a) {
+    var b = "button",
+        d = "4.0.0-alpha.5",
+        f = "bs.button",
+        g = "." + f,
+        h = ".data-api",
+        i = a.fn[b],
+        j = { ACTIVE: "active", BUTTON: "btn", FOCUS: "focus" },
+        k = { DATA_TOGGLE_CARROT: '[data-toggle^="button"]', DATA_TOGGLE: '[data-toggle="buttons"]', INPUT: "input", ACTIVE: ".active", BUTTON: ".btn" },
+        l = { CLICK_DATA_API: "click" + g + h, FOCUS_BLUR_DATA_API: "focus" + g + h + " " + ("blur" + g + h) },
+        m = function () {
+      function b(a) {
+        c(this, b), this._element = a;
+      }return b.prototype.toggle = function () {
+        var b = !0,
+            c = a(this._element).closest(k.DATA_TOGGLE)[0];if (c) {
+          var d = a(this._element).find(k.INPUT)[0];if (d) {
+            if ("radio" === d.type) if (d.checked && a(this._element).hasClass(j.ACTIVE)) b = !1;else {
+              var e = a(c).find(k.ACTIVE)[0];e && a(e).removeClass(j.ACTIVE);
+            }b && (d.checked = !a(this._element).hasClass(j.ACTIVE), a(this._element).trigger("change")), d.focus();
+          }
+        } else this._element.setAttribute("aria-pressed", !a(this._element).hasClass(j.ACTIVE));b && a(this._element).toggleClass(j.ACTIVE);
+      }, b.prototype.dispose = function () {
+        a.removeData(this._element, f), this._element = null;
+      }, b._jQueryInterface = function (c) {
+        return this.each(function () {
+          var d = a(this).data(f);d || (d = new b(this), a(this).data(f, d)), "toggle" === c && d[c]();
+        });
+      }, e(b, null, [{ key: "VERSION", get: function () {
+          return d;
+        } }]), b;
+    }();return a(document).on(l.CLICK_DATA_API, k.DATA_TOGGLE_CARROT, function (b) {
+      b.preventDefault();var c = b.target;a(c).hasClass(j.BUTTON) || (c = a(c).closest(k.BUTTON)), m._jQueryInterface.call(a(c), "toggle");
+    }).on(l.FOCUS_BLUR_DATA_API, k.DATA_TOGGLE_CARROT, function (b) {
+      var c = a(b.target).closest(k.BUTTON)[0];a(c).toggleClass(j.FOCUS, /^focus(in)?$/.test(b.type));
+    }), a.fn[b] = m._jQueryInterface, a.fn[b].Constructor = m, a.fn[b].noConflict = function () {
+      return a.fn[b] = i, m._jQueryInterface;
+    }, m;
+  }(jQuery), function (a) {
+    var b = "carousel",
+        g = "4.0.0-alpha.5",
+        h = "bs.carousel",
+        i = "." + h,
+        j = ".data-api",
+        k = a.fn[b],
+        l = 600,
+        m = 37,
+        n = 39,
+        o = { interval: 5e3, keyboard: !0, slide: !1, pause: "hover", wrap: !0 },
+        p = { interval: "(number|boolean)", keyboard: "boolean", slide: "(boolean|string)", pause: "(string|boolean)", wrap: "boolean" },
+        q = { NEXT: "next", PREVIOUS: "prev" },
+        r = { SLIDE: "slide" + i, SLID: "slid" + i, KEYDOWN: "keydown" + i, MOUSEENTER: "mouseenter" + i, MOUSELEAVE: "mouseleave" + i, LOAD_DATA_API: "load" + i + j, CLICK_DATA_API: "click" + i + j },
+        s = { CAROUSEL: "carousel", ACTIVE: "active", SLIDE: "slide", RIGHT: "right", LEFT: "left", ITEM: "carousel-item" },
+        t = { ACTIVE: ".active", ACTIVE_ITEM: ".active.carousel-item", ITEM: ".carousel-item", NEXT_PREV: ".next, .prev", INDICATORS: ".carousel-indicators", DATA_SLIDE: "[data-slide], [data-slide-to]", DATA_RIDE: '[data-ride="carousel"]' },
+        u = function () {
+      function j(b, d) {
+        c(this, j), this._items = null, this._interval = null, this._activeElement = null, this._isPaused = !1, this._isSliding = !1, this._config = this._getConfig(d), this._element = a(b)[0], this._indicatorsElement = a(this._element).find(t.INDICATORS)[0], this._addEventListeners();
+      }return j.prototype.next = function () {
+        this._isSliding || this._slide(q.NEXT);
+      }, j.prototype.nextWhenVisible = function () {
+        document.hidden || this.next();
+      }, j.prototype.prev = function () {
+        this._isSliding || this._slide(q.PREVIOUS);
+      }, j.prototype.pause = function (b) {
+        b || (this._isPaused = !0), a(this._element).find(t.NEXT_PREV)[0] && f.supportsTransitionEnd() && (f.triggerTransitionEnd(this._element), this.cycle(!0)), clearInterval(this._interval), this._interval = null;
+      }, j.prototype.cycle = function (b) {
+        b || (this._isPaused = !1), this._interval && (clearInterval(this._interval), this._interval = null), this._config.interval && !this._isPaused && (this._interval = setInterval(a.proxy(document.visibilityState ? this.nextWhenVisible : this.next, this), this._config.interval));
+      }, j.prototype.to = function (b) {
+        var c = this;this._activeElement = a(this._element).find(t.ACTIVE_ITEM)[0];var d = this._getItemIndex(this._activeElement);if (!(b > this._items.length - 1 || b < 0)) {
+          if (this._isSliding) return void a(this._element).one(r.SLID, function () {
+            return c.to(b);
+          });if (d === b) return this.pause(), void this.cycle();var e = b > d ? q.NEXT : q.PREVIOUS;this._slide(e, this._items[b]);
+        }
+      }, j.prototype.dispose = function () {
+        a(this._element).off(i), a.removeData(this._element, h), this._items = null, this._config = null, this._element = null, this._interval = null, this._isPaused = null, this._isSliding = null, this._activeElement = null, this._indicatorsElement = null;
+      }, j.prototype._getConfig = function (c) {
+        return c = a.extend({}, o, c), f.typeCheckConfig(b, c, p), c;
+      }, j.prototype._addEventListeners = function () {
+        this._config.keyboard && a(this._element).on(r.KEYDOWN, a.proxy(this._keydown, this)), "hover" !== this._config.pause || "ontouchstart" in document.documentElement || a(this._element).on(r.MOUSEENTER, a.proxy(this.pause, this)).on(r.MOUSELEAVE, a.proxy(this.cycle, this));
+      }, j.prototype._keydown = function (a) {
+        if (a.preventDefault(), !/input|textarea/i.test(a.target.tagName)) switch (a.which) {case m:
+            this.prev();break;case n:
+            this.next();break;default:
+            return;}
+      }, j.prototype._getItemIndex = function (b) {
+        return this._items = a.makeArray(a(b).parent().find(t.ITEM)), this._items.indexOf(b);
+      }, j.prototype._getItemByDirection = function (a, b) {
+        var c = a === q.NEXT,
+            d = a === q.PREVIOUS,
+            e = this._getItemIndex(b),
+            f = this._items.length - 1,
+            g = d && 0 === e || c && e === f;if (g && !this._config.wrap) return b;var h = a === q.PREVIOUS ? -1 : 1,
+            i = (e + h) % this._items.length;return i === -1 ? this._items[this._items.length - 1] : this._items[i];
+      }, j.prototype._triggerSlideEvent = function (b, c) {
+        var d = a.Event(r.SLIDE, { relatedTarget: b, direction: c });return a(this._element).trigger(d), d;
+      }, j.prototype._setActiveIndicatorElement = function (b) {
+        if (this._indicatorsElement) {
+          a(this._indicatorsElement).find(t.ACTIVE).removeClass(s.ACTIVE);var c = this._indicatorsElement.children[this._getItemIndex(b)];c && a(c).addClass(s.ACTIVE);
+        }
+      }, j.prototype._slide = function (b, c) {
+        var d = this,
+            e = a(this._element).find(t.ACTIVE_ITEM)[0],
+            g = c || e && this._getItemByDirection(b, e),
+            h = Boolean(this._interval),
+            i = b === q.NEXT ? s.LEFT : s.RIGHT;if (g && a(g).hasClass(s.ACTIVE)) return void (this._isSliding = !1);var j = this._triggerSlideEvent(g, i);if (!j.isDefaultPrevented() && e && g) {
+          this._isSliding = !0, h && this.pause(), this._setActiveIndicatorElement(g);var k = a.Event(r.SLID, { relatedTarget: g, direction: i });f.supportsTransitionEnd() && a(this._element).hasClass(s.SLIDE) ? (a(g).addClass(b), f.reflow(g), a(e).addClass(i), a(g).addClass(i), a(e).one(f.TRANSITION_END, function () {
+            a(g).removeClass(i).removeClass(b), a(g).addClass(s.ACTIVE), a(e).removeClass(s.ACTIVE).removeClass(b).removeClass(i), d._isSliding = !1, setTimeout(function () {
+              return a(d._element).trigger(k);
+            }, 0);
+          }).emulateTransitionEnd(l)) : (a(e).removeClass(s.ACTIVE), a(g).addClass(s.ACTIVE), this._isSliding = !1, a(this._element).trigger(k)), h && this.cycle();
+        }
+      }, j._jQueryInterface = function (b) {
+        return this.each(function () {
+          var c = a(this).data(h),
+              e = a.extend({}, o, a(this).data());"object" === ("undefined" == typeof b ? "undefined" : d(b)) && a.extend(e, b);var f = "string" == typeof b ? b : e.slide;if (c || (c = new j(this, e), a(this).data(h, c)), "number" == typeof b) c.to(b);else if ("string" == typeof f) {
+            if (void 0 === c[f]) throw new Error('No method named "' + f + '"');c[f]();
+          } else e.interval && (c.pause(), c.cycle());
+        });
+      }, j._dataApiClickHandler = function (b) {
+        var c = f.getSelectorFromElement(this);if (c) {
+          var d = a(c)[0];if (d && a(d).hasClass(s.CAROUSEL)) {
+            var e = a.extend({}, a(d).data(), a(this).data()),
+                g = this.getAttribute("data-slide-to");g && (e.interval = !1), j._jQueryInterface.call(a(d), e), g && a(d).data(h).to(g), b.preventDefault();
+          }
+        }
+      }, e(j, null, [{ key: "VERSION", get: function () {
+          return g;
+        } }, { key: "Default", get: function () {
+          return o;
+        } }]), j;
+    }();return a(document).on(r.CLICK_DATA_API, t.DATA_SLIDE, u._dataApiClickHandler), a(window).on(r.LOAD_DATA_API, function () {
+      a(t.DATA_RIDE).each(function () {
+        var b = a(this);u._jQueryInterface.call(b, b.data());
+      });
+    }), a.fn[b] = u._jQueryInterface, a.fn[b].Constructor = u, a.fn[b].noConflict = function () {
+      return a.fn[b] = k, u._jQueryInterface;
+    }, u;
+  }(jQuery), function (a) {
+    var b = "collapse",
+        g = "4.0.0-alpha.5",
+        h = "bs.collapse",
+        i = "." + h,
+        j = ".data-api",
+        k = a.fn[b],
+        l = 600,
+        m = { toggle: !0, parent: "" },
+        n = { toggle: "boolean", parent: "string" },
+        o = { SHOW: "show" + i, SHOWN: "shown" + i, HIDE: "hide" + i, HIDDEN: "hidden" + i, CLICK_DATA_API: "click" + i + j },
+        p = { IN: "in", COLLAPSE: "collapse", COLLAPSING: "collapsing", COLLAPSED: "collapsed" },
+        q = { WIDTH: "width", HEIGHT: "height" },
+        r = { ACTIVES: ".card > .in, .card > .collapsing", DATA_TOGGLE: '[data-toggle="collapse"]' },
+        s = function () {
+      function i(b, d) {
+        c(this, i), this._isTransitioning = !1, this._element = b, this._config = this._getConfig(d), this._triggerArray = a.makeArray(a('[data-toggle="collapse"][href="#' + b.id + '"],' + ('[data-toggle="collapse"][data-target="#' + b.id + '"]'))), this._parent = this._config.parent ? this._getParent() : null, this._config.parent || this._addAriaAndCollapsedClass(this._element, this._triggerArray), this._config.toggle && this.toggle();
+      }return i.prototype.toggle = function () {
+        a(this._element).hasClass(p.IN) ? this.hide() : this.show();
+      }, i.prototype.show = function () {
+        var b = this;if (!this._isTransitioning && !a(this._element).hasClass(p.IN)) {
+          var c = void 0,
+              d = void 0;if (this._parent && (c = a.makeArray(a(r.ACTIVES)), c.length || (c = null)), !(c && (d = a(c).data(h), d && d._isTransitioning))) {
+            var e = a.Event(o.SHOW);if (a(this._element).trigger(e), !e.isDefaultPrevented()) {
+              c && (i._jQueryInterface.call(a(c), "hide"), d || a(c).data(h, null));var g = this._getDimension();a(this._element).removeClass(p.COLLAPSE).addClass(p.COLLAPSING), this._element.style[g] = 0, this._element.setAttribute("aria-expanded", !0), this._triggerArray.length && a(this._triggerArray).removeClass(p.COLLAPSED).attr("aria-expanded", !0), this.setTransitioning(!0);var j = function () {
+                a(b._element).removeClass(p.COLLAPSING).addClass(p.COLLAPSE).addClass(p.IN), b._element.style[g] = "", b.setTransitioning(!1), a(b._element).trigger(o.SHOWN);
+              };if (!f.supportsTransitionEnd()) return void j();var k = g[0].toUpperCase() + g.slice(1),
+                  m = "scroll" + k;a(this._element).one(f.TRANSITION_END, j).emulateTransitionEnd(l), this._element.style[g] = this._element[m] + "px";
+            }
+          }
+        }
+      }, i.prototype.hide = function () {
+        var b = this;if (!this._isTransitioning && a(this._element).hasClass(p.IN)) {
+          var c = a.Event(o.HIDE);if (a(this._element).trigger(c), !c.isDefaultPrevented()) {
+            var d = this._getDimension(),
+                e = d === q.WIDTH ? "offsetWidth" : "offsetHeight";this._element.style[d] = this._element[e] + "px", f.reflow(this._element), a(this._element).addClass(p.COLLAPSING).removeClass(p.COLLAPSE).removeClass(p.IN), this._element.setAttribute("aria-expanded", !1), this._triggerArray.length && a(this._triggerArray).addClass(p.COLLAPSED).attr("aria-expanded", !1), this.setTransitioning(!0);var g = function () {
+              b.setTransitioning(!1), a(b._element).removeClass(p.COLLAPSING).addClass(p.COLLAPSE).trigger(o.HIDDEN);
+            };return this._element.style[d] = "", f.supportsTransitionEnd() ? void a(this._element).one(f.TRANSITION_END, g).emulateTransitionEnd(l) : void g();
+          }
+        }
+      }, i.prototype.setTransitioning = function (a) {
+        this._isTransitioning = a;
+      }, i.prototype.dispose = function () {
+        a.removeData(this._element, h), this._config = null, this._parent = null, this._element = null, this._triggerArray = null, this._isTransitioning = null;
+      }, i.prototype._getConfig = function (c) {
+        return c = a.extend({}, m, c), c.toggle = Boolean(c.toggle), f.typeCheckConfig(b, c, n), c;
+      }, i.prototype._getDimension = function () {
+        var b = a(this._element).hasClass(q.WIDTH);return b ? q.WIDTH : q.HEIGHT;
+      }, i.prototype._getParent = function () {
+        var b = this,
+            c = a(this._config.parent)[0],
+            d = '[data-toggle="collapse"][data-parent="' + this._config.parent + '"]';return a(c).find(d).each(function (a, c) {
+          b._addAriaAndCollapsedClass(i._getTargetFromElement(c), [c]);
+        }), c;
+      }, i.prototype._addAriaAndCollapsedClass = function (b, c) {
+        if (b) {
+          var d = a(b).hasClass(p.IN);b.setAttribute("aria-expanded", d), c.length && a(c).toggleClass(p.COLLAPSED, !d).attr("aria-expanded", d);
+        }
+      }, i._getTargetFromElement = function (b) {
+        var c = f.getSelectorFromElement(b);return c ? a(c)[0] : null;
+      }, i._jQueryInterface = function (b) {
+        return this.each(function () {
+          var c = a(this),
+              e = c.data(h),
+              f = a.extend({}, m, c.data(), "object" === ("undefined" == typeof b ? "undefined" : d(b)) && b);if (!e && f.toggle && /show|hide/.test(b) && (f.toggle = !1), e || (e = new i(this, f), c.data(h, e)), "string" == typeof b) {
+            if (void 0 === e[b]) throw new Error('No method named "' + b + '"');e[b]();
+          }
+        });
+      }, e(i, null, [{ key: "VERSION", get: function () {
+          return g;
+        } }, { key: "Default", get: function () {
+          return m;
+        } }]), i;
+    }();return a(document).on(o.CLICK_DATA_API, r.DATA_TOGGLE, function (b) {
+      b.preventDefault();var c = s._getTargetFromElement(this),
+          d = a(c).data(h),
+          e = d ? "toggle" : a(this).data();s._jQueryInterface.call(a(c), e);
+    }), a.fn[b] = s._jQueryInterface, a.fn[b].Constructor = s, a.fn[b].noConflict = function () {
+      return a.fn[b] = k, s._jQueryInterface;
+    }, s;
+  }(jQuery), function (a) {
+    var b = "dropdown",
+        d = "4.0.0-alpha.5",
+        g = "bs.dropdown",
+        h = "." + g,
+        i = ".data-api",
+        j = a.fn[b],
+        k = 27,
+        l = 38,
+        m = 40,
+        n = 3,
+        o = { HIDE: "hide" + h, HIDDEN: "hidden" + h, SHOW: "show" + h, SHOWN: "shown" + h, CLICK: "click" + h, CLICK_DATA_API: "click" + h + i, KEYDOWN_DATA_API: "keydown" + h + i },
+        p = { BACKDROP: "dropdown-backdrop", DISABLED: "disabled", OPEN: "open" },
+        q = { BACKDROP: ".dropdown-backdrop", DATA_TOGGLE: '[data-toggle="dropdown"]', FORM_CHILD: ".dropdown form", ROLE_MENU: '[role="menu"]', ROLE_LISTBOX: '[role="listbox"]', NAVBAR_NAV: ".navbar-nav", VISIBLE_ITEMS: '[role="menu"] li:not(.disabled) a, [role="listbox"] li:not(.disabled) a' },
+        r = function () {
+      function b(a) {
+        c(this, b), this._element = a, this._addEventListeners();
+      }return b.prototype.toggle = function () {
+        if (this.disabled || a(this).hasClass(p.DISABLED)) return !1;var c = b._getParentFromElement(this),
+            d = a(c).hasClass(p.OPEN);if (b._clearMenus(), d) return !1;if ("ontouchstart" in document.documentElement && !a(c).closest(q.NAVBAR_NAV).length) {
+          var e = document.createElement("div");e.className = p.BACKDROP, a(e).insertBefore(this), a(e).on("click", b._clearMenus);
+        }var f = { relatedTarget: this },
+            g = a.Event(o.SHOW, f);return a(c).trigger(g), !g.isDefaultPrevented() && (this.focus(), this.setAttribute("aria-expanded", "true"), a(c).toggleClass(p.OPEN), a(c).trigger(a.Event(o.SHOWN, f)), !1);
+      }, b.prototype.dispose = function () {
+        a.removeData(this._element, g), a(this._element).off(h), this._element = null;
+      }, b.prototype._addEventListeners = function () {
+        a(this._element).on(o.CLICK, this.toggle);
+      }, b._jQueryInterface = function (c) {
+        return this.each(function () {
+          var d = a(this).data(g);if (d || a(this).data(g, d = new b(this)), "string" == typeof c) {
+            if (void 0 === d[c]) throw new Error('No method named "' + c + '"');d[c].call(this);
+          }
+        });
+      }, b._clearMenus = function (c) {
+        if (!c || c.which !== n) {
+          var d = a(q.BACKDROP)[0];d && d.parentNode.removeChild(d);for (var e = a.makeArray(a(q.DATA_TOGGLE)), f = 0; f < e.length; f++) {
+            var g = b._getParentFromElement(e[f]),
+                h = { relatedTarget: e[f] };if (a(g).hasClass(p.OPEN) && !(c && "click" === c.type && /input|textarea/i.test(c.target.tagName) && a.contains(g, c.target))) {
+              var i = a.Event(o.HIDE, h);a(g).trigger(i), i.isDefaultPrevented() || (e[f].setAttribute("aria-expanded", "false"), a(g).removeClass(p.OPEN).trigger(a.Event(o.HIDDEN, h)));
+            }
+          }
+        }
+      }, b._getParentFromElement = function (b) {
+        var c = void 0,
+            d = f.getSelectorFromElement(b);return d && (c = a(d)[0]), c || b.parentNode;
+      }, b._dataApiKeydownHandler = function (c) {
+        if (/(38|40|27|32)/.test(c.which) && !/input|textarea/i.test(c.target.tagName) && (c.preventDefault(), c.stopPropagation(), !this.disabled && !a(this).hasClass(p.DISABLED))) {
+          var d = b._getParentFromElement(this),
+              e = a(d).hasClass(p.OPEN);if (!e && c.which !== k || e && c.which === k) {
+            if (c.which === k) {
+              var f = a(d).find(q.DATA_TOGGLE)[0];a(f).trigger("focus");
+            }return void a(this).trigger("click");
+          }var g = a.makeArray(a(q.VISIBLE_ITEMS));if (g = g.filter(function (a) {
+            return a.offsetWidth || a.offsetHeight;
+          }), g.length) {
+            var h = g.indexOf(c.target);c.which === l && h > 0 && h--, c.which === m && h < g.length - 1 && h++, h < 0 && (h = 0), g[h].focus();
+          }
+        }
+      }, e(b, null, [{ key: "VERSION", get: function () {
+          return d;
+        } }]), b;
+    }();return a(document).on(o.KEYDOWN_DATA_API, q.DATA_TOGGLE, r._dataApiKeydownHandler).on(o.KEYDOWN_DATA_API, q.ROLE_MENU, r._dataApiKeydownHandler).on(o.KEYDOWN_DATA_API, q.ROLE_LISTBOX, r._dataApiKeydownHandler).on(o.CLICK_DATA_API, r._clearMenus).on(o.CLICK_DATA_API, q.DATA_TOGGLE, r.prototype.toggle).on(o.CLICK_DATA_API, q.FORM_CHILD, function (a) {
+      a.stopPropagation();
+    }), a.fn[b] = r._jQueryInterface, a.fn[b].Constructor = r, a.fn[b].noConflict = function () {
+      return a.fn[b] = j, r._jQueryInterface;
+    }, r;
+  }(jQuery), function (a) {
+    var b = "modal",
+        g = "4.0.0-alpha.5",
+        h = "bs.modal",
+        i = "." + h,
+        j = ".data-api",
+        k = a.fn[b],
+        l = 300,
+        m = 150,
+        n = 27,
+        o = { backdrop: !0, keyboard: !0, focus: !0, show: !0 },
+        p = { backdrop: "(boolean|string)", keyboard: "boolean", focus: "boolean", show: "boolean" },
+        q = { HIDE: "hide" + i, HIDDEN: "hidden" + i, SHOW: "show" + i, SHOWN: "shown" + i, FOCUSIN: "focusin" + i, RESIZE: "resize" + i, CLICK_DISMISS: "click.dismiss" + i, KEYDOWN_DISMISS: "keydown.dismiss" + i, MOUSEUP_DISMISS: "mouseup.dismiss" + i, MOUSEDOWN_DISMISS: "mousedown.dismiss" + i, CLICK_DATA_API: "click" + i + j },
+        r = { SCROLLBAR_MEASURER: "modal-scrollbar-measure", BACKDROP: "modal-backdrop", OPEN: "modal-open", FADE: "fade", IN: "in" },
+        s = { DIALOG: ".modal-dialog", DATA_TOGGLE: '[data-toggle="modal"]', DATA_DISMISS: '[data-dismiss="modal"]', FIXED_CONTENT: ".navbar-fixed-top, .navbar-fixed-bottom, .is-fixed" },
+        t = function () {
+      function j(b, d) {
+        c(this, j), this._config = this._getConfig(d), this._element = b, this._dialog = a(b).find(s.DIALOG)[0], this._backdrop = null, this._isShown = !1, this._isBodyOverflowing = !1, this._ignoreBackdropClick = !1, this._originalBodyPadding = 0, this._scrollbarWidth = 0;
+      }return j.prototype.toggle = function (a) {
+        return this._isShown ? this.hide() : this.show(a);
+      }, j.prototype.show = function (b) {
+        var c = this,
+            d = a.Event(q.SHOW, { relatedTarget: b });a(this._element).trigger(d), this._isShown || d.isDefaultPrevented() || (this._isShown = !0, this._checkScrollbar(), this._setScrollbar(), a(document.body).addClass(r.OPEN), this._setEscapeEvent(), this._setResizeEvent(), a(this._element).on(q.CLICK_DISMISS, s.DATA_DISMISS, a.proxy(this.hide, this)), a(this._dialog).on(q.MOUSEDOWN_DISMISS, function () {
+          a(c._element).one(q.MOUSEUP_DISMISS, function (b) {
+            a(b.target).is(c._element) && (c._ignoreBackdropClick = !0);
+          });
+        }), this._showBackdrop(a.proxy(this._showElement, this, b)));
+      }, j.prototype.hide = function (b) {
+        b && b.preventDefault();var c = a.Event(q.HIDE);a(this._element).trigger(c), this._isShown && !c.isDefaultPrevented() && (this._isShown = !1, this._setEscapeEvent(), this._setResizeEvent(), a(document).off(q.FOCUSIN), a(this._element).removeClass(r.IN), a(this._element).off(q.CLICK_DISMISS), a(this._dialog).off(q.MOUSEDOWN_DISMISS), f.supportsTransitionEnd() && a(this._element).hasClass(r.FADE) ? a(this._element).one(f.TRANSITION_END, a.proxy(this._hideModal, this)).emulateTransitionEnd(l) : this._hideModal());
+      }, j.prototype.dispose = function () {
+        a.removeData(this._element, h), a(window).off(i), a(document).off(i), a(this._element).off(i), a(this._backdrop).off(i), this._config = null, this._element = null, this._dialog = null, this._backdrop = null, this._isShown = null, this._isBodyOverflowing = null, this._ignoreBackdropClick = null, this._originalBodyPadding = null, this._scrollbarWidth = null;
+      }, j.prototype._getConfig = function (c) {
+        return c = a.extend({}, o, c), f.typeCheckConfig(b, c, p), c;
+      }, j.prototype._showElement = function (b) {
+        var c = this,
+            d = f.supportsTransitionEnd() && a(this._element).hasClass(r.FADE);this._element.parentNode && this._element.parentNode.nodeType === Node.ELEMENT_NODE || document.body.appendChild(this._element), this._element.style.display = "block", this._element.removeAttribute("aria-hidden"), this._element.scrollTop = 0, d && f.reflow(this._element), a(this._element).addClass(r.IN), this._config.focus && this._enforceFocus();var e = a.Event(q.SHOWN, { relatedTarget: b }),
+            g = function () {
+          c._config.focus && c._element.focus(), a(c._element).trigger(e);
+        };d ? a(this._dialog).one(f.TRANSITION_END, g).emulateTransitionEnd(l) : g();
+      }, j.prototype._enforceFocus = function () {
+        var b = this;a(document).off(q.FOCUSIN).on(q.FOCUSIN, function (c) {
+          document === c.target || b._element === c.target || a(b._element).has(c.target).length || b._element.focus();
+        });
+      }, j.prototype._setEscapeEvent = function () {
+        var b = this;this._isShown && this._config.keyboard ? a(this._element).on(q.KEYDOWN_DISMISS, function (a) {
+          a.which === n && b.hide();
+        }) : this._isShown || a(this._element).off(q.KEYDOWN_DISMISS);
+      }, j.prototype._setResizeEvent = function () {
+        this._isShown ? a(window).on(q.RESIZE, a.proxy(this._handleUpdate, this)) : a(window).off(q.RESIZE);
+      }, j.prototype._hideModal = function () {
+        var b = this;this._element.style.display = "none", this._element.setAttribute("aria-hidden", "true"), this._showBackdrop(function () {
+          a(document.body).removeClass(r.OPEN), b._resetAdjustments(), b._resetScrollbar(), a(b._element).trigger(q.HIDDEN);
+        });
+      }, j.prototype._removeBackdrop = function () {
+        this._backdrop && (a(this._backdrop).remove(), this._backdrop = null);
+      }, j.prototype._showBackdrop = function (b) {
+        var c = this,
+            d = a(this._element).hasClass(r.FADE) ? r.FADE : "";if (this._isShown && this._config.backdrop) {
+          var e = f.supportsTransitionEnd() && d;if (this._backdrop = document.createElement("div"), this._backdrop.className = r.BACKDROP, d && a(this._backdrop).addClass(d), a(this._backdrop).appendTo(document.body), a(this._element).on(q.CLICK_DISMISS, function (a) {
+            return c._ignoreBackdropClick ? void (c._ignoreBackdropClick = !1) : void (a.target === a.currentTarget && ("static" === c._config.backdrop ? c._element.focus() : c.hide()));
+          }), e && f.reflow(this._backdrop), a(this._backdrop).addClass(r.IN), !b) return;if (!e) return void b();a(this._backdrop).one(f.TRANSITION_END, b).emulateTransitionEnd(m);
+        } else if (!this._isShown && this._backdrop) {
+          a(this._backdrop).removeClass(r.IN);var g = function () {
+            c._removeBackdrop(), b && b();
+          };f.supportsTransitionEnd() && a(this._element).hasClass(r.FADE) ? a(this._backdrop).one(f.TRANSITION_END, g).emulateTransitionEnd(m) : g();
+        } else b && b();
+      }, j.prototype._handleUpdate = function () {
+        this._adjustDialog();
+      }, j.prototype._adjustDialog = function () {
+        var a = this._element.scrollHeight > document.documentElement.clientHeight;!this._isBodyOverflowing && a && (this._element.style.paddingLeft = this._scrollbarWidth + "px"), this._isBodyOverflowing && !a && (this._element.style.paddingRight = this._scrollbarWidth + "px");
+      }, j.prototype._resetAdjustments = function () {
+        this._element.style.paddingLeft = "", this._element.style.paddingRight = "";
+      }, j.prototype._checkScrollbar = function () {
+        this._isBodyOverflowing = document.body.clientWidth < window.innerWidth, this._scrollbarWidth = this._getScrollbarWidth();
+      }, j.prototype._setScrollbar = function () {
+        var b = parseInt(a(s.FIXED_CONTENT).css("padding-right") || 0, 10);this._originalBodyPadding = document.body.style.paddingRight || "", this._isBodyOverflowing && (document.body.style.paddingRight = b + this._scrollbarWidth + "px");
+      }, j.prototype._resetScrollbar = function () {
+        document.body.style.paddingRight = this._originalBodyPadding;
+      }, j.prototype._getScrollbarWidth = function () {
+        var a = document.createElement("div");a.className = r.SCROLLBAR_MEASURER, document.body.appendChild(a);var b = a.offsetWidth - a.clientWidth;return document.body.removeChild(a), b;
+      }, j._jQueryInterface = function (b, c) {
+        return this.each(function () {
+          var e = a(this).data(h),
+              f = a.extend({}, j.Default, a(this).data(), "object" === ("undefined" == typeof b ? "undefined" : d(b)) && b);if (e || (e = new j(this, f), a(this).data(h, e)), "string" == typeof b) {
+            if (void 0 === e[b]) throw new Error('No method named "' + b + '"');e[b](c);
+          } else f.show && e.show(c);
+        });
+      }, e(j, null, [{ key: "VERSION", get: function () {
+          return g;
+        } }, { key: "Default", get: function () {
+          return o;
+        } }]), j;
+    }();return a(document).on(q.CLICK_DATA_API, s.DATA_TOGGLE, function (b) {
+      var c = this,
+          d = void 0,
+          e = f.getSelectorFromElement(this);e && (d = a(e)[0]);var g = a(d).data(h) ? "toggle" : a.extend({}, a(d).data(), a(this).data());"A" === this.tagName && b.preventDefault();var i = a(d).one(q.SHOW, function (b) {
+        b.isDefaultPrevented() || i.one(q.HIDDEN, function () {
+          a(c).is(":visible") && c.focus();
+        });
+      });t._jQueryInterface.call(a(d), g, this);
+    }), a.fn[b] = t._jQueryInterface, a.fn[b].Constructor = t, a.fn[b].noConflict = function () {
+      return a.fn[b] = k, t._jQueryInterface;
+    }, t;
+  }(jQuery), function (a) {
+    var b = "scrollspy",
+        g = "4.0.0-alpha.5",
+        h = "bs.scrollspy",
+        i = "." + h,
+        j = ".data-api",
+        k = a.fn[b],
+        l = { offset: 10, method: "auto", target: "" },
+        m = { offset: "number", method: "string", target: "(string|element)" },
+        n = { ACTIVATE: "activate" + i, SCROLL: "scroll" + i, LOAD_DATA_API: "load" + i + j },
+        o = { DROPDOWN_ITEM: "dropdown-item", DROPDOWN_MENU: "dropdown-menu", NAV_LINK: "nav-link", NAV: "nav", ACTIVE: "active" },
+        p = { DATA_SPY: '[data-spy="scroll"]', ACTIVE: ".active", LIST_ITEM: ".list-item", LI: "li", LI_DROPDOWN: "li.dropdown", NAV_LINKS: ".nav-link", DROPDOWN: ".dropdown", DROPDOWN_ITEMS: ".dropdown-item", DROPDOWN_TOGGLE: ".dropdown-toggle" },
+        q = { OFFSET: "offset", POSITION: "position" },
+        r = function () {
+      function j(b, d) {
+        c(this, j), this._element = b, this._scrollElement = "BODY" === b.tagName ? window : b, this._config = this._getConfig(d), this._selector = this._config.target + " " + p.NAV_LINKS + "," + (this._config.target + " " + p.DROPDOWN_ITEMS), this._offsets = [], this._targets = [], this._activeTarget = null, this._scrollHeight = 0, a(this._scrollElement).on(n.SCROLL, a.proxy(this._process, this)), this.refresh(), this._process();
+      }return j.prototype.refresh = function () {
+        var b = this,
+            c = this._scrollElement !== this._scrollElement.window ? q.POSITION : q.OFFSET,
+            d = "auto" === this._config.method ? c : this._config.method,
+            e = d === q.POSITION ? this._getScrollTop() : 0;this._offsets = [], this._targets = [], this._scrollHeight = this._getScrollHeight();var g = a.makeArray(a(this._selector));g.map(function (b) {
+          var c = void 0,
+              g = f.getSelectorFromElement(b);return g && (c = a(g)[0]), c && (c.offsetWidth || c.offsetHeight) ? [a(c)[d]().top + e, g] : null;
+        }).filter(function (a) {
+          return a;
+        }).sort(function (a, b) {
+          return a[0] - b[0];
+        }).forEach(function (a) {
+          b._offsets.push(a[0]), b._targets.push(a[1]);
+        });
+      }, j.prototype.dispose = function () {
+        a.removeData(this._element, h), a(this._scrollElement).off(i), this._element = null, this._scrollElement = null, this._config = null, this._selector = null, this._offsets = null, this._targets = null, this._activeTarget = null, this._scrollHeight = null;
+      }, j.prototype._getConfig = function (c) {
+        if (c = a.extend({}, l, c), "string" != typeof c.target) {
+          var d = a(c.target).attr("id");d || (d = f.getUID(b), a(c.target).attr("id", d)), c.target = "#" + d;
+        }return f.typeCheckConfig(b, c, m), c;
+      }, j.prototype._getScrollTop = function () {
+        return this._scrollElement === window ? this._scrollElement.scrollY : this._scrollElement.scrollTop;
+      }, j.prototype._getScrollHeight = function () {
+        return this._scrollElement.scrollHeight || Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      }, j.prototype._process = function () {
+        var a = this._getScrollTop() + this._config.offset,
+            b = this._getScrollHeight(),
+            c = this._config.offset + b - this._scrollElement.offsetHeight;if (this._scrollHeight !== b && this.refresh(), a >= c) {
+          var d = this._targets[this._targets.length - 1];this._activeTarget !== d && this._activate(d);
+        }if (this._activeTarget && a < this._offsets[0]) return this._activeTarget = null, void this._clear();for (var e = this._offsets.length; e--;) {
+          var f = this._activeTarget !== this._targets[e] && a >= this._offsets[e] && (void 0 === this._offsets[e + 1] || a < this._offsets[e + 1]);f && this._activate(this._targets[e]);
+        }
+      }, j.prototype._activate = function (b) {
+        this._activeTarget = b, this._clear();var c = this._selector.split(",");c = c.map(function (a) {
+          return a + '[data-target="' + b + '"],' + (a + '[href="' + b + '"]');
+        });var d = a(c.join(","));d.hasClass(o.DROPDOWN_ITEM) ? (d.closest(p.DROPDOWN).find(p.DROPDOWN_TOGGLE).addClass(o.ACTIVE), d.addClass(o.ACTIVE)) : d.parents(p.LI).find(p.NAV_LINKS).addClass(o.ACTIVE), a(this._scrollElement).trigger(n.ACTIVATE, { relatedTarget: b });
+      }, j.prototype._clear = function () {
+        a(this._selector).filter(p.ACTIVE).removeClass(o.ACTIVE);
+      }, j._jQueryInterface = function (b) {
+        return this.each(function () {
+          var c = a(this).data(h),
+              e = "object" === ("undefined" == typeof b ? "undefined" : d(b)) && b || null;if (c || (c = new j(this, e), a(this).data(h, c)), "string" == typeof b) {
+            if (void 0 === c[b]) throw new Error('No method named "' + b + '"');c[b]();
+          }
+        });
+      }, e(j, null, [{ key: "VERSION", get: function () {
+          return g;
+        } }, { key: "Default", get: function () {
+          return l;
+        } }]), j;
+    }();return a(window).on(n.LOAD_DATA_API, function () {
+      for (var b = a.makeArray(a(p.DATA_SPY)), c = b.length; c--;) {
+        var d = a(b[c]);r._jQueryInterface.call(d, d.data());
+      }
+    }), a.fn[b] = r._jQueryInterface, a.fn[b].Constructor = r, a.fn[b].noConflict = function () {
+      return a.fn[b] = k, r._jQueryInterface;
+    }, r;
+  }(jQuery), function (a) {
+    var b = "tab",
+        d = "4.0.0-alpha.5",
+        g = "bs.tab",
+        h = "." + g,
+        i = ".data-api",
+        j = a.fn[b],
+        k = 150,
+        l = { HIDE: "hide" + h, HIDDEN: "hidden" + h, SHOW: "show" + h, SHOWN: "shown" + h, CLICK_DATA_API: "click" + h + i },
+        m = { DROPDOWN_MENU: "dropdown-menu", ACTIVE: "active", FADE: "fade", IN: "in" },
+        n = { A: "a", LI: "li", DROPDOWN: ".dropdown", UL: "ul:not(.dropdown-menu)", FADE_CHILD: "> .nav-item .fade, > .fade", ACTIVE: ".active", ACTIVE_CHILD: "> .nav-item > .active, > .active", DATA_TOGGLE: '[data-toggle="tab"], [data-toggle="pill"]',
+      DROPDOWN_TOGGLE: ".dropdown-toggle", DROPDOWN_ACTIVE_CHILD: "> .dropdown-menu .active" },
+        o = function () {
+      function b(a) {
+        c(this, b), this._element = a;
+      }return b.prototype.show = function () {
+        var b = this;if (!this._element.parentNode || this._element.parentNode.nodeType !== Node.ELEMENT_NODE || !a(this._element).hasClass(m.ACTIVE)) {
+          var c = void 0,
+              d = void 0,
+              e = a(this._element).closest(n.UL)[0],
+              g = f.getSelectorFromElement(this._element);e && (d = a.makeArray(a(e).find(n.ACTIVE)), d = d[d.length - 1]);var h = a.Event(l.HIDE, { relatedTarget: this._element }),
+              i = a.Event(l.SHOW, { relatedTarget: d });if (d && a(d).trigger(h), a(this._element).trigger(i), !i.isDefaultPrevented() && !h.isDefaultPrevented()) {
+            g && (c = a(g)[0]), this._activate(this._element, e);var j = function () {
+              var c = a.Event(l.HIDDEN, { relatedTarget: b._element }),
+                  e = a.Event(l.SHOWN, { relatedTarget: d });a(d).trigger(c), a(b._element).trigger(e);
+            };c ? this._activate(c, c.parentNode, j) : j();
+          }
+        }
+      }, b.prototype.dispose = function () {
+        a.removeClass(this._element, g), this._element = null;
+      }, b.prototype._activate = function (b, c, d) {
+        var e = a(c).find(n.ACTIVE_CHILD)[0],
+            g = d && f.supportsTransitionEnd() && (e && a(e).hasClass(m.FADE) || Boolean(a(c).find(n.FADE_CHILD)[0])),
+            h = a.proxy(this._transitionComplete, this, b, e, g, d);e && g ? a(e).one(f.TRANSITION_END, h).emulateTransitionEnd(k) : h(), e && a(e).removeClass(m.IN);
+      }, b.prototype._transitionComplete = function (b, c, d, e) {
+        if (c) {
+          a(c).removeClass(m.ACTIVE);var g = a(c).find(n.DROPDOWN_ACTIVE_CHILD)[0];g && a(g).removeClass(m.ACTIVE), c.setAttribute("aria-expanded", !1);
+        }if (a(b).addClass(m.ACTIVE), b.setAttribute("aria-expanded", !0), d ? (f.reflow(b), a(b).addClass(m.IN)) : a(b).removeClass(m.FADE), b.parentNode && a(b.parentNode).hasClass(m.DROPDOWN_MENU)) {
+          var h = a(b).closest(n.DROPDOWN)[0];h && a(h).find(n.DROPDOWN_TOGGLE).addClass(m.ACTIVE), b.setAttribute("aria-expanded", !0);
+        }e && e();
+      }, b._jQueryInterface = function (c) {
+        return this.each(function () {
+          var d = a(this),
+              e = d.data(g);if (e || (e = e = new b(this), d.data(g, e)), "string" == typeof c) {
+            if (void 0 === e[c]) throw new Error('No method named "' + c + '"');e[c]();
+          }
+        });
+      }, e(b, null, [{ key: "VERSION", get: function () {
+          return d;
+        } }]), b;
+    }();return a(document).on(l.CLICK_DATA_API, n.DATA_TOGGLE, function (b) {
+      b.preventDefault(), o._jQueryInterface.call(a(this), "show");
+    }), a.fn[b] = o._jQueryInterface, a.fn[b].Constructor = o, a.fn[b].noConflict = function () {
+      return a.fn[b] = j, o._jQueryInterface;
+    }, o;
+  }(jQuery), function (a) {
+    if (void 0 === window.Tether) throw new Error("Bootstrap tooltips require Tether (http://tether.io/)");var b = "tooltip",
+        g = "4.0.0-alpha.5",
+        h = "bs.tooltip",
+        i = "." + h,
+        j = a.fn[b],
+        k = 150,
+        l = "bs-tether",
+        m = { animation: !0, template: '<div class="tooltip" role="tooltip"><div class="tooltip-inner"></div></div>', trigger: "hover focus", title: "", delay: 0, html: !1, selector: !1, placement: "top", offset: "0 0", constraints: [] },
+        n = { animation: "boolean", template: "string", title: "(string|element|function)", trigger: "string", delay: "(number|object)", html: "boolean", selector: "(string|boolean)", placement: "(string|function)", offset: "string", constraints: "array" },
+        o = { TOP: "bottom center", RIGHT: "middle left", BOTTOM: "top center", LEFT: "middle right" },
+        p = { IN: "in", OUT: "out" },
+        q = { HIDE: "hide" + i, HIDDEN: "hidden" + i, SHOW: "show" + i, SHOWN: "shown" + i, INSERTED: "inserted" + i, CLICK: "click" + i, FOCUSIN: "focusin" + i, FOCUSOUT: "focusout" + i, MOUSEENTER: "mouseenter" + i, MOUSELEAVE: "mouseleave" + i },
+        r = { FADE: "fade", IN: "in" },
+        s = { TOOLTIP: ".tooltip", TOOLTIP_INNER: ".tooltip-inner" },
+        t = { element: !1, enabled: !1 },
+        u = { HOVER: "hover", FOCUS: "focus", CLICK: "click", MANUAL: "manual" },
+        v = function () {
+      function j(a, b) {
+        c(this, j), this._isEnabled = !0, this._timeout = 0, this._hoverState = "", this._activeTrigger = {}, this._tether = null, this.element = a, this.config = this._getConfig(b), this.tip = null, this._setListeners();
+      }return j.prototype.enable = function () {
+        this._isEnabled = !0;
+      }, j.prototype.disable = function () {
+        this._isEnabled = !1;
+      }, j.prototype.toggleEnabled = function () {
+        this._isEnabled = !this._isEnabled;
+      }, j.prototype.toggle = function (b) {
+        if (b) {
+          var c = this.constructor.DATA_KEY,
+              d = a(b.currentTarget).data(c);d || (d = new this.constructor(b.currentTarget, this._getDelegateConfig()), a(b.currentTarget).data(c, d)), d._activeTrigger.click = !d._activeTrigger.click, d._isWithActiveTrigger() ? d._enter(null, d) : d._leave(null, d);
+        } else {
+          if (a(this.getTipElement()).hasClass(r.IN)) return void this._leave(null, this);this._enter(null, this);
+        }
+      }, j.prototype.dispose = function () {
+        clearTimeout(this._timeout), this.cleanupTether(), a.removeData(this.element, this.constructor.DATA_KEY), a(this.element).off(this.constructor.EVENT_KEY), this.tip && a(this.tip).remove(), this._isEnabled = null, this._timeout = null, this._hoverState = null, this._activeTrigger = null, this._tether = null, this.element = null, this.config = null, this.tip = null;
+      }, j.prototype.show = function () {
+        var b = this,
+            c = a.Event(this.constructor.Event.SHOW);if (this.isWithContent() && this._isEnabled) {
+          a(this.element).trigger(c);var d = a.contains(this.element.ownerDocument.documentElement, this.element);if (c.isDefaultPrevented() || !d) return;var e = this.getTipElement(),
+              g = f.getUID(this.constructor.NAME);e.setAttribute("id", g), this.element.setAttribute("aria-describedby", g), this.setContent(), this.config.animation && a(e).addClass(r.FADE);var h = "function" == typeof this.config.placement ? this.config.placement.call(this, e, this.element) : this.config.placement,
+              i = this._getAttachment(h);a(e).data(this.constructor.DATA_KEY, this).appendTo(document.body), a(this.element).trigger(this.constructor.Event.INSERTED), this._tether = new Tether({ attachment: i, element: e, target: this.element, classes: t, classPrefix: l, offset: this.config.offset, constraints: this.config.constraints, addTargetClasses: !1 }), f.reflow(e), this._tether.position(), a(e).addClass(r.IN);var k = function () {
+            var c = b._hoverState;b._hoverState = null, a(b.element).trigger(b.constructor.Event.SHOWN), c === p.OUT && b._leave(null, b);
+          };if (f.supportsTransitionEnd() && a(this.tip).hasClass(r.FADE)) return void a(this.tip).one(f.TRANSITION_END, k).emulateTransitionEnd(j._TRANSITION_DURATION);k();
+        }
+      }, j.prototype.hide = function (b) {
+        var c = this,
+            d = this.getTipElement(),
+            e = a.Event(this.constructor.Event.HIDE),
+            g = function () {
+          c._hoverState !== p.IN && d.parentNode && d.parentNode.removeChild(d), c.element.removeAttribute("aria-describedby"), a(c.element).trigger(c.constructor.Event.HIDDEN), c.cleanupTether(), b && b();
+        };a(this.element).trigger(e), e.isDefaultPrevented() || (a(d).removeClass(r.IN), f.supportsTransitionEnd() && a(this.tip).hasClass(r.FADE) ? a(d).one(f.TRANSITION_END, g).emulateTransitionEnd(k) : g(), this._hoverState = "");
+      }, j.prototype.isWithContent = function () {
+        return Boolean(this.getTitle());
+      }, j.prototype.getTipElement = function () {
+        return this.tip = this.tip || a(this.config.template)[0];
+      }, j.prototype.setContent = function () {
+        var b = a(this.getTipElement());this.setElementContent(b.find(s.TOOLTIP_INNER), this.getTitle()), b.removeClass(r.FADE).removeClass(r.IN), this.cleanupTether();
+      }, j.prototype.setElementContent = function (b, c) {
+        var e = this.config.html;"object" === ("undefined" == typeof c ? "undefined" : d(c)) && (c.nodeType || c.jquery) ? e ? a(c).parent().is(b) || b.empty().append(c) : b.text(a(c).text()) : b[e ? "html" : "text"](c);
+      }, j.prototype.getTitle = function () {
+        var a = this.element.getAttribute("data-original-title");return a || (a = "function" == typeof this.config.title ? this.config.title.call(this.element) : this.config.title), a;
+      }, j.prototype.cleanupTether = function () {
+        this._tether && this._tether.destroy();
+      }, j.prototype._getAttachment = function (a) {
+        return o[a.toUpperCase()];
+      }, j.prototype._setListeners = function () {
+        var b = this,
+            c = this.config.trigger.split(" ");c.forEach(function (c) {
+          if ("click" === c) a(b.element).on(b.constructor.Event.CLICK, b.config.selector, a.proxy(b.toggle, b));else if (c !== u.MANUAL) {
+            var d = c === u.HOVER ? b.constructor.Event.MOUSEENTER : b.constructor.Event.FOCUSIN,
+                e = c === u.HOVER ? b.constructor.Event.MOUSELEAVE : b.constructor.Event.FOCUSOUT;a(b.element).on(d, b.config.selector, a.proxy(b._enter, b)).on(e, b.config.selector, a.proxy(b._leave, b));
+          }
+        }), this.config.selector ? this.config = a.extend({}, this.config, { trigger: "manual", selector: "" }) : this._fixTitle();
+      }, j.prototype._fixTitle = function () {
+        var a = d(this.element.getAttribute("data-original-title"));(this.element.getAttribute("title") || "string" !== a) && (this.element.setAttribute("data-original-title", this.element.getAttribute("title") || ""), this.element.setAttribute("title", ""));
+      }, j.prototype._enter = function (b, c) {
+        var d = this.constructor.DATA_KEY;return c = c || a(b.currentTarget).data(d), c || (c = new this.constructor(b.currentTarget, this._getDelegateConfig()), a(b.currentTarget).data(d, c)), b && (c._activeTrigger["focusin" === b.type ? u.FOCUS : u.HOVER] = !0), a(c.getTipElement()).hasClass(r.IN) || c._hoverState === p.IN ? void (c._hoverState = p.IN) : (clearTimeout(c._timeout), c._hoverState = p.IN, c.config.delay && c.config.delay.show ? void (c._timeout = setTimeout(function () {
+          c._hoverState === p.IN && c.show();
+        }, c.config.delay.show)) : void c.show());
+      }, j.prototype._leave = function (b, c) {
+        var d = this.constructor.DATA_KEY;if (c = c || a(b.currentTarget).data(d), c || (c = new this.constructor(b.currentTarget, this._getDelegateConfig()), a(b.currentTarget).data(d, c)), b && (c._activeTrigger["focusout" === b.type ? u.FOCUS : u.HOVER] = !1), !c._isWithActiveTrigger()) return clearTimeout(c._timeout), c._hoverState = p.OUT, c.config.delay && c.config.delay.hide ? void (c._timeout = setTimeout(function () {
+          c._hoverState === p.OUT && c.hide();
+        }, c.config.delay.hide)) : void c.hide();
+      }, j.prototype._isWithActiveTrigger = function () {
+        for (var a in this._activeTrigger) if (this._activeTrigger[a]) return !0;return !1;
+      }, j.prototype._getConfig = function (c) {
+        return c = a.extend({}, this.constructor.Default, a(this.element).data(), c), c.delay && "number" == typeof c.delay && (c.delay = { show: c.delay, hide: c.delay }), f.typeCheckConfig(b, c, this.constructor.DefaultType), c;
+      }, j.prototype._getDelegateConfig = function () {
+        var a = {};if (this.config) for (var b in this.config) this.constructor.Default[b] !== this.config[b] && (a[b] = this.config[b]);return a;
+      }, j._jQueryInterface = function (b) {
+        return this.each(function () {
+          var c = a(this).data(h),
+              e = "object" === ("undefined" == typeof b ? "undefined" : d(b)) ? b : null;if ((c || !/dispose|hide/.test(b)) && (c || (c = new j(this, e), a(this).data(h, c)), "string" == typeof b)) {
+            if (void 0 === c[b]) throw new Error('No method named "' + b + '"');c[b]();
+          }
+        });
+      }, e(j, null, [{ key: "VERSION", get: function () {
+          return g;
+        } }, { key: "Default", get: function () {
+          return m;
+        } }, { key: "NAME", get: function () {
+          return b;
+        } }, { key: "DATA_KEY", get: function () {
+          return h;
+        } }, { key: "Event", get: function () {
+          return q;
+        } }, { key: "EVENT_KEY", get: function () {
+          return i;
+        } }, { key: "DefaultType", get: function () {
+          return n;
+        } }]), j;
+    }();return a.fn[b] = v._jQueryInterface, a.fn[b].Constructor = v, a.fn[b].noConflict = function () {
+      return a.fn[b] = j, v._jQueryInterface;
+    }, v;
+  }(jQuery));(function (f) {
+    var h = "popover",
+        i = "4.0.0-alpha.5",
+        j = "bs.popover",
+        k = "." + j,
+        l = f.fn[h],
+        m = f.extend({}, g.Default, { placement: "right", trigger: "click", content: "", template: '<div class="popover" role="tooltip"><h3 class="popover-title"></h3><div class="popover-content"></div></div>' }),
+        n = f.extend({}, g.DefaultType, { content: "(string|element|function)" }),
+        o = { FADE: "fade", IN: "in" },
+        p = { TITLE: ".popover-title", CONTENT: ".popover-content" },
+        q = { HIDE: "hide" + k, HIDDEN: "hidden" + k, SHOW: "show" + k, SHOWN: "shown" + k, INSERTED: "inserted" + k, CLICK: "click" + k, FOCUSIN: "focusin" + k, FOCUSOUT: "focusout" + k, MOUSEENTER: "mouseenter" + k, MOUSELEAVE: "mouseleave" + k },
+        r = function (g) {
+      function l() {
+        return c(this, l), a(this, g.apply(this, arguments));
+      }return b(l, g), l.prototype.isWithContent = function () {
+        return this.getTitle() || this._getContent();
+      }, l.prototype.getTipElement = function () {
+        return this.tip = this.tip || f(this.config.template)[0];
+      }, l.prototype.setContent = function () {
+        var a = f(this.getTipElement());this.setElementContent(a.find(p.TITLE), this.getTitle()), this.setElementContent(a.find(p.CONTENT), this._getContent()), a.removeClass(o.FADE).removeClass(o.IN), this.cleanupTether();
+      }, l.prototype._getContent = function () {
+        return this.element.getAttribute("data-content") || ("function" == typeof this.config.content ? this.config.content.call(this.element) : this.config.content);
+      }, l._jQueryInterface = function (a) {
+        return this.each(function () {
+          var b = f(this).data(j),
+              c = "object" === ("undefined" == typeof a ? "undefined" : d(a)) ? a : null;if ((b || !/destroy|hide/.test(a)) && (b || (b = new l(this, c), f(this).data(j, b)), "string" == typeof a)) {
+            if (void 0 === b[a]) throw new Error('No method named "' + a + '"');b[a]();
+          }
+        });
+      }, e(l, null, [{ key: "VERSION", get: function () {
+          return i;
+        } }, { key: "Default", get: function () {
+          return m;
+        } }, { key: "NAME", get: function () {
+          return h;
+        } }, { key: "DATA_KEY", get: function () {
+          return j;
+        } }, { key: "Event", get: function () {
+          return q;
+        } }, { key: "EVENT_KEY", get: function () {
+          return k;
+        } }, { key: "DefaultType", get: function () {
+          return n;
+        } }]), l;
+    }(g);return f.fn[h] = r._jQueryInterface, f.fn[h].Constructor = r, f.fn[h].noConflict = function () {
+      return f.fn[h] = l, r._jQueryInterface;
+    }, r;
+  })(jQuery);
+}();
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports) {
+
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+function EventEmitter() {
+  this._events = this._events || {};
+  this._maxListeners = this._maxListeners || undefined;
+}
+module.exports = EventEmitter;
+
+// Backwards-compat with node 0.10.x
+EventEmitter.EventEmitter = EventEmitter;
+
+EventEmitter.prototype._events = undefined;
+EventEmitter.prototype._maxListeners = undefined;
+
+// By default EventEmitters will print a warning if more than 10 listeners are
+// added to it. This is a useful default which helps finding memory leaks.
+EventEmitter.defaultMaxListeners = 10;
+
+// Obviously not all Emitters should be limited to 10. This function allows
+// that to be increased. Set to zero for unlimited.
+EventEmitter.prototype.setMaxListeners = function (n) {
+  if (!isNumber(n) || n < 0 || isNaN(n)) throw TypeError('n must be a positive number');
+  this._maxListeners = n;
+  return this;
+};
+
+EventEmitter.prototype.emit = function (type) {
+  var er, handler, len, args, i, listeners;
+
+  if (!this._events) this._events = {};
+
+  // If there is no 'error' event listener then throw.
+  if (type === 'error') {
+    if (!this._events.error || isObject(this._events.error) && !this._events.error.length) {
+      er = arguments[1];
+      if (er instanceof Error) {
+        throw er; // Unhandled 'error' event
+      } else {
+        // At least give some kind of context to the user
+        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
+        err.context = er;
+        throw err;
+      }
+    }
+  }
+
+  handler = this._events[type];
+
+  if (isUndefined(handler)) return false;
+
+  if (isFunction(handler)) {
+    switch (arguments.length) {
+      // fast cases
+      case 1:
+        handler.call(this);
+        break;
+      case 2:
+        handler.call(this, arguments[1]);
+        break;
+      case 3:
+        handler.call(this, arguments[1], arguments[2]);
+        break;
+      // slower
+      default:
+        args = Array.prototype.slice.call(arguments, 1);
+        handler.apply(this, args);
+    }
+  } else if (isObject(handler)) {
+    args = Array.prototype.slice.call(arguments, 1);
+    listeners = handler.slice();
+    len = listeners.length;
+    for (i = 0; i < len; i++) listeners[i].apply(this, args);
+  }
+
+  return true;
+};
+
+EventEmitter.prototype.addListener = function (type, listener) {
+  var m;
+
+  if (!isFunction(listener)) throw TypeError('listener must be a function');
+
+  if (!this._events) this._events = {};
+
+  // To avoid recursion in the case that type === "newListener"! Before
+  // adding it to the listeners, first emit "newListener".
+  if (this._events.newListener) this.emit('newListener', type, isFunction(listener.listener) ? listener.listener : listener);
+
+  if (!this._events[type])
+    // Optimize the case of one listener. Don't need the extra array object.
+    this._events[type] = listener;else if (isObject(this._events[type]))
+    // If we've already got an array, just append.
+    this._events[type].push(listener);else
+    // Adding the second element, need to change to array.
+    this._events[type] = [this._events[type], listener];
+
+  // Check for listener leak
+  if (isObject(this._events[type]) && !this._events[type].warned) {
+    if (!isUndefined(this._maxListeners)) {
+      m = this._maxListeners;
+    } else {
+      m = EventEmitter.defaultMaxListeners;
+    }
+
+    if (m && m > 0 && this._events[type].length > m) {
+      this._events[type].warned = true;
+      console.error('(node) warning: possible EventEmitter memory ' + 'leak detected. %d listeners added. ' + 'Use emitter.setMaxListeners() to increase limit.', this._events[type].length);
+      if (typeof console.trace === 'function') {
+        // not supported in IE 10
+        console.trace();
+      }
+    }
+  }
+
+  return this;
+};
+
+EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+
+EventEmitter.prototype.once = function (type, listener) {
+  if (!isFunction(listener)) throw TypeError('listener must be a function');
+
+  var fired = false;
+
+  function g() {
+    this.removeListener(type, g);
+
+    if (!fired) {
+      fired = true;
+      listener.apply(this, arguments);
+    }
+  }
+
+  g.listener = listener;
+  this.on(type, g);
+
+  return this;
+};
+
+// emits a 'removeListener' event iff the listener was removed
+EventEmitter.prototype.removeListener = function (type, listener) {
+  var list, position, length, i;
+
+  if (!isFunction(listener)) throw TypeError('listener must be a function');
+
+  if (!this._events || !this._events[type]) return this;
+
+  list = this._events[type];
+  length = list.length;
+  position = -1;
+
+  if (list === listener || isFunction(list.listener) && list.listener === listener) {
+    delete this._events[type];
+    if (this._events.removeListener) this.emit('removeListener', type, listener);
+  } else if (isObject(list)) {
+    for (i = length; i-- > 0;) {
+      if (list[i] === listener || list[i].listener && list[i].listener === listener) {
+        position = i;
+        break;
+      }
+    }
+
+    if (position < 0) return this;
+
+    if (list.length === 1) {
+      list.length = 0;
+      delete this._events[type];
+    } else {
+      list.splice(position, 1);
+    }
+
+    if (this._events.removeListener) this.emit('removeListener', type, listener);
+  }
+
+  return this;
+};
+
+EventEmitter.prototype.removeAllListeners = function (type) {
+  var key, listeners;
+
+  if (!this._events) return this;
+
+  // not listening for removeListener, no need to emit
+  if (!this._events.removeListener) {
+    if (arguments.length === 0) this._events = {};else if (this._events[type]) delete this._events[type];
+    return this;
+  }
+
+  // emit removeListener for all listeners on all events
+  if (arguments.length === 0) {
+    for (key in this._events) {
+      if (key === 'removeListener') continue;
+      this.removeAllListeners(key);
+    }
+    this.removeAllListeners('removeListener');
+    this._events = {};
+    return this;
+  }
+
+  listeners = this._events[type];
+
+  if (isFunction(listeners)) {
+    this.removeListener(type, listeners);
+  } else if (listeners) {
+    // LIFO order
+    while (listeners.length) this.removeListener(type, listeners[listeners.length - 1]);
+  }
+  delete this._events[type];
+
+  return this;
+};
+
+EventEmitter.prototype.listeners = function (type) {
+  var ret;
+  if (!this._events || !this._events[type]) ret = [];else if (isFunction(this._events[type])) ret = [this._events[type]];else ret = this._events[type].slice();
+  return ret;
+};
+
+EventEmitter.prototype.listenerCount = function (type) {
+  if (this._events) {
+    var evlistener = this._events[type];
+
+    if (isFunction(evlistener)) return 1;else if (evlistener) return evlistener.length;
+  }
+  return 0;
+};
+
+EventEmitter.listenerCount = function (emitter, type) {
+  return emitter.listenerCount(type);
+};
+
+function isFunction(arg) {
+  return typeof arg === 'function';
+}
+
+function isNumber(arg) {
+  return typeof arg === 'number';
+}
+
+function isObject(arg) {
+  return typeof arg === 'object' && arg !== null;
+}
+
+function isUndefined(arg) {
+  return arg === void 0;
+}
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var require;var require;!function (e) {
+  if (true) module.exports = e();else if ("function" == typeof define && define.amd) define([], e);else {
+    var t;t = "undefined" != typeof window ? window : "undefined" != typeof global ? global : "undefined" != typeof self ? self : this, t.flexibility = e();
+  }
+}(function () {
+  return function e(t, r, l) {
+    function n(o, i) {
+      if (!r[o]) {
+        if (!t[o]) {
+          var s = "function" == typeof require && require;if (!i && s) return require(o, !0);if (f) return f(o, !0);var a = new Error("Cannot find module '" + o + "'");throw a.code = "MODULE_NOT_FOUND", a;
+        }var c = r[o] = { exports: {} };t[o][0].call(c.exports, function (e) {
+          var r = t[o][1][e];return n(r ? r : e);
+        }, c, c.exports, e, t, r, l);
+      }return r[o].exports;
+    }for (var f = "function" == typeof require && require, o = 0; o < l.length; o++) n(l[o]);return n;
+  }({ 1: [function (e, t, r) {
+      t.exports = function (e) {
+        var t,
+            r,
+            l,
+            n = -1;if (e.lines.length > 1 && "flex-start" === e.style.alignContent) for (t = 0; l = e.lines[++n];) l.crossStart = t, t += l.cross;else if (e.lines.length > 1 && "flex-end" === e.style.alignContent) for (t = e.flexStyle.crossSpace; l = e.lines[++n];) l.crossStart = t, t += l.cross;else if (e.lines.length > 1 && "center" === e.style.alignContent) for (t = e.flexStyle.crossSpace / 2; l = e.lines[++n];) l.crossStart = t, t += l.cross;else if (e.lines.length > 1 && "space-between" === e.style.alignContent) for (r = e.flexStyle.crossSpace / (e.lines.length - 1), t = 0; l = e.lines[++n];) l.crossStart = t, t += l.cross + r;else if (e.lines.length > 1 && "space-around" === e.style.alignContent) for (r = 2 * e.flexStyle.crossSpace / (2 * e.lines.length), t = r / 2; l = e.lines[++n];) l.crossStart = t, t += l.cross + r;else for (r = e.flexStyle.crossSpace / e.lines.length, t = e.flexStyle.crossInnerBefore; l = e.lines[++n];) l.crossStart = t, l.cross += r, t += l.cross;
+      };
+    }, {}], 2: [function (e, t, r) {
+      t.exports = function (e) {
+        for (var t, r = -1; line = e.lines[++r];) for (t = -1; child = line.children[++t];) {
+          var l = child.style.alignSelf;"auto" === l && (l = e.style.alignItems), "flex-start" === l ? child.flexStyle.crossStart = line.crossStart : "flex-end" === l ? child.flexStyle.crossStart = line.crossStart + line.cross - child.flexStyle.crossOuter : "center" === l ? child.flexStyle.crossStart = line.crossStart + (line.cross - child.flexStyle.crossOuter) / 2 : (child.flexStyle.crossStart = line.crossStart, child.flexStyle.crossOuter = line.cross, child.flexStyle.cross = child.flexStyle.crossOuter - child.flexStyle.crossBefore - child.flexStyle.crossAfter);
+        }
+      };
+    }, {}], 3: [function (e, t, r) {
+      t.exports = function l(e, l) {
+        var t = "row" === l || "row-reverse" === l,
+            r = e.mainAxis;if (r) {
+          var n = t && "inline" === r || !t && "block" === r;n || (e.flexStyle = { main: e.flexStyle.cross, cross: e.flexStyle.main, mainOffset: e.flexStyle.crossOffset, crossOffset: e.flexStyle.mainOffset, mainBefore: e.flexStyle.crossBefore, mainAfter: e.flexStyle.crossAfter, crossBefore: e.flexStyle.mainBefore, crossAfter: e.flexStyle.mainAfter, mainInnerBefore: e.flexStyle.crossInnerBefore, mainInnerAfter: e.flexStyle.crossInnerAfter, crossInnerBefore: e.flexStyle.mainInnerBefore, crossInnerAfter: e.flexStyle.mainInnerAfter, mainBorderBefore: e.flexStyle.crossBorderBefore, mainBorderAfter: e.flexStyle.crossBorderAfter, crossBorderBefore: e.flexStyle.mainBorderBefore, crossBorderAfter: e.flexStyle.mainBorderAfter });
+        } else t ? e.flexStyle = { main: e.style.width, cross: e.style.height, mainOffset: e.style.offsetWidth, crossOffset: e.style.offsetHeight, mainBefore: e.style.marginLeft, mainAfter: e.style.marginRight, crossBefore: e.style.marginTop, crossAfter: e.style.marginBottom, mainInnerBefore: e.style.paddingLeft, mainInnerAfter: e.style.paddingRight, crossInnerBefore: e.style.paddingTop, crossInnerAfter: e.style.paddingBottom, mainBorderBefore: e.style.borderLeftWidth, mainBorderAfter: e.style.borderRightWidth, crossBorderBefore: e.style.borderTopWidth, crossBorderAfter: e.style.borderBottomWidth } : e.flexStyle = { main: e.style.height, cross: e.style.width, mainOffset: e.style.offsetHeight, crossOffset: e.style.offsetWidth, mainBefore: e.style.marginTop, mainAfter: e.style.marginBottom, crossBefore: e.style.marginLeft, crossAfter: e.style.marginRight, mainInnerBefore: e.style.paddingTop, mainInnerAfter: e.style.paddingBottom, crossInnerBefore: e.style.paddingLeft, crossInnerAfter: e.style.paddingRight, mainBorderBefore: e.style.borderTopWidth, mainBorderAfter: e.style.borderBottomWidth, crossBorderBefore: e.style.borderLeftWidth, crossBorderAfter: e.style.borderRightWidth }, "content-box" === e.style.boxSizing && ("number" == typeof e.flexStyle.main && (e.flexStyle.main += e.flexStyle.mainInnerBefore + e.flexStyle.mainInnerAfter + e.flexStyle.mainBorderBefore + e.flexStyle.mainBorderAfter), "number" == typeof e.flexStyle.cross && (e.flexStyle.cross += e.flexStyle.crossInnerBefore + e.flexStyle.crossInnerAfter + e.flexStyle.crossBorderBefore + e.flexStyle.crossBorderAfter));e.mainAxis = t ? "inline" : "block", e.crossAxis = t ? "block" : "inline", "number" == typeof e.style.flexBasis && (e.flexStyle.main = e.style.flexBasis + e.flexStyle.mainInnerBefore + e.flexStyle.mainInnerAfter + e.flexStyle.mainBorderBefore + e.flexStyle.mainBorderAfter), e.flexStyle.mainOuter = e.flexStyle.main, e.flexStyle.crossOuter = e.flexStyle.cross, "auto" === e.flexStyle.mainOuter && (e.flexStyle.mainOuter = e.flexStyle.mainOffset), "auto" === e.flexStyle.crossOuter && (e.flexStyle.crossOuter = e.flexStyle.crossOffset), "number" == typeof e.flexStyle.mainBefore && (e.flexStyle.mainOuter += e.flexStyle.mainBefore), "number" == typeof e.flexStyle.mainAfter && (e.flexStyle.mainOuter += e.flexStyle.mainAfter), "number" == typeof e.flexStyle.crossBefore && (e.flexStyle.crossOuter += e.flexStyle.crossBefore), "number" == typeof e.flexStyle.crossAfter && (e.flexStyle.crossOuter += e.flexStyle.crossAfter);
+      };
+    }, {}], 4: [function (e, t, r) {
+      var l = e("../reduce");t.exports = function (e) {
+        if (e.mainSpace > 0) {
+          var t = l(e.children, function (e, t) {
+            return e + parseFloat(t.style.flexGrow);
+          }, 0);t > 0 && (e.main = l(e.children, function (r, l) {
+            return "auto" === l.flexStyle.main ? l.flexStyle.main = l.flexStyle.mainOffset + parseFloat(l.style.flexGrow) / t * e.mainSpace : l.flexStyle.main += parseFloat(l.style.flexGrow) / t * e.mainSpace, l.flexStyle.mainOuter = l.flexStyle.main + l.flexStyle.mainBefore + l.flexStyle.mainAfter, r + l.flexStyle.mainOuter;
+          }, 0), e.mainSpace = 0);
+        }
+      };
+    }, { "../reduce": 12 }], 5: [function (e, t, r) {
+      var l = e("../reduce");t.exports = function (e) {
+        if (e.mainSpace < 0) {
+          var t = l(e.children, function (e, t) {
+            return e + parseFloat(t.style.flexShrink);
+          }, 0);t > 0 && (e.main = l(e.children, function (r, l) {
+            return l.flexStyle.main += parseFloat(l.style.flexShrink) / t * e.mainSpace, l.flexStyle.mainOuter = l.flexStyle.main + l.flexStyle.mainBefore + l.flexStyle.mainAfter, r + l.flexStyle.mainOuter;
+          }, 0), e.mainSpace = 0);
+        }
+      };
+    }, { "../reduce": 12 }], 6: [function (e, t, r) {
+      var l = e("../reduce");t.exports = function (e) {
+        var t;e.lines = [t = { main: 0, cross: 0, children: [] }];for (var r, n = -1; r = e.children[++n];) "nowrap" === e.style.flexWrap || 0 === t.children.length || "auto" === e.flexStyle.main || e.flexStyle.main - e.flexStyle.mainInnerBefore - e.flexStyle.mainInnerAfter - e.flexStyle.mainBorderBefore - e.flexStyle.mainBorderAfter >= t.main + r.flexStyle.mainOuter ? (t.main += r.flexStyle.mainOuter, t.cross = Math.max(t.cross, r.flexStyle.crossOuter)) : e.lines.push(t = { main: r.flexStyle.mainOuter, cross: r.flexStyle.crossOuter, children: [] }), t.children.push(r);e.flexStyle.mainLines = l(e.lines, function (e, t) {
+          return Math.max(e, t.main);
+        }, 0), e.flexStyle.crossLines = l(e.lines, function (e, t) {
+          return e + t.cross;
+        }, 0), "auto" === e.flexStyle.main && (e.flexStyle.main = Math.max(e.flexStyle.mainOffset, e.flexStyle.mainLines + e.flexStyle.mainInnerBefore + e.flexStyle.mainInnerAfter + e.flexStyle.mainBorderBefore + e.flexStyle.mainBorderAfter)), "auto" === e.flexStyle.cross && (e.flexStyle.cross = Math.max(e.flexStyle.crossOffset, e.flexStyle.crossLines + e.flexStyle.crossInnerBefore + e.flexStyle.crossInnerAfter + e.flexStyle.crossBorderBefore + e.flexStyle.crossBorderAfter)), e.flexStyle.crossSpace = e.flexStyle.cross - e.flexStyle.crossInnerBefore - e.flexStyle.crossInnerAfter - e.flexStyle.crossBorderBefore - e.flexStyle.crossBorderAfter - e.flexStyle.crossLines, e.flexStyle.mainOuter = e.flexStyle.main + e.flexStyle.mainBefore + e.flexStyle.mainAfter, e.flexStyle.crossOuter = e.flexStyle.cross + e.flexStyle.crossBefore + e.flexStyle.crossAfter;
+      };
+    }, { "../reduce": 12 }], 7: [function (e, t, r) {
+      function l(t) {
+        for (var r, l = -1; r = t.children[++l];) e("./flex-direction")(r, t.style.flexDirection);e("./flex-direction")(t, t.style.flexDirection), e("./order")(t), e("./flexbox-lines")(t), e("./align-content")(t), l = -1;for (var n; n = t.lines[++l];) n.mainSpace = t.flexStyle.main - t.flexStyle.mainInnerBefore - t.flexStyle.mainInnerAfter - t.flexStyle.mainBorderBefore - t.flexStyle.mainBorderAfter - n.main, e("./flex-grow")(n), e("./flex-shrink")(n), e("./margin-main")(n), e("./margin-cross")(n), e("./justify-content")(n, t.style.justifyContent, t);e("./align-items")(t);
+      }t.exports = l;
+    }, { "./align-content": 1, "./align-items": 2, "./flex-direction": 3, "./flex-grow": 4, "./flex-shrink": 5, "./flexbox-lines": 6, "./justify-content": 8, "./margin-cross": 9, "./margin-main": 10, "./order": 11 }], 8: [function (e, t, r) {
+      t.exports = function (e, t, r) {
+        var l,
+            n,
+            f,
+            o = r.flexStyle.mainInnerBefore,
+            i = -1;if ("flex-end" === t) for (l = e.mainSpace, l += o; f = e.children[++i];) f.flexStyle.mainStart = l, l += f.flexStyle.mainOuter;else if ("center" === t) for (l = e.mainSpace / 2, l += o; f = e.children[++i];) f.flexStyle.mainStart = l, l += f.flexStyle.mainOuter;else if ("space-between" === t) for (n = e.mainSpace / (e.children.length - 1), l = 0, l += o; f = e.children[++i];) f.flexStyle.mainStart = l, l += f.flexStyle.mainOuter + n;else if ("space-around" === t) for (n = 2 * e.mainSpace / (2 * e.children.length), l = n / 2, l += o; f = e.children[++i];) f.flexStyle.mainStart = l, l += f.flexStyle.mainOuter + n;else for (l = 0, l += o; f = e.children[++i];) f.flexStyle.mainStart = l, l += f.flexStyle.mainOuter;
+      };
+    }, {}], 9: [function (e, t, r) {
+      t.exports = function (e) {
+        for (var t, r = -1; t = e.children[++r];) {
+          var l = 0;"auto" === t.flexStyle.crossBefore && ++l, "auto" === t.flexStyle.crossAfter && ++l;var n = e.cross - t.flexStyle.crossOuter;"auto" === t.flexStyle.crossBefore && (t.flexStyle.crossBefore = n / l), "auto" === t.flexStyle.crossAfter && (t.flexStyle.crossAfter = n / l), "auto" === t.flexStyle.cross ? t.flexStyle.crossOuter = t.flexStyle.crossOffset + t.flexStyle.crossBefore + t.flexStyle.crossAfter : t.flexStyle.crossOuter = t.flexStyle.cross + t.flexStyle.crossBefore + t.flexStyle.crossAfter;
+        }
+      };
+    }, {}], 10: [function (e, t, r) {
+      t.exports = function (e) {
+        for (var t, r = 0, l = -1; t = e.children[++l];) "auto" === t.flexStyle.mainBefore && ++r, "auto" === t.flexStyle.mainAfter && ++r;if (r > 0) {
+          for (l = -1; t = e.children[++l];) "auto" === t.flexStyle.mainBefore && (t.flexStyle.mainBefore = e.mainSpace / r), "auto" === t.flexStyle.mainAfter && (t.flexStyle.mainAfter = e.mainSpace / r), "auto" === t.flexStyle.main ? t.flexStyle.mainOuter = t.flexStyle.mainOffset + t.flexStyle.mainBefore + t.flexStyle.mainAfter : t.flexStyle.mainOuter = t.flexStyle.main + t.flexStyle.mainBefore + t.flexStyle.mainAfter;e.mainSpace = 0;
+        }
+      };
+    }, {}], 11: [function (e, t, r) {
+      var l = /^(column|row)-reverse$/;t.exports = function (e) {
+        e.children.sort(function (e, t) {
+          return e.style.order - t.style.order || e.index - t.index;
+        }), l.test(e.style.flexDirection) && e.children.reverse();
+      };
+    }, {}], 12: [function (e, t, r) {
+      function l(e, t, r) {
+        for (var l = e.length, n = -1; ++n < l;) n in e && (r = t(r, e[n], n));return r;
+      }t.exports = l;
+    }, {}], 13: [function (e, t, r) {
+      function l(e) {
+        i(o(e));
+      }var n = e("./read"),
+          f = e("./write"),
+          o = e("./readAll"),
+          i = e("./writeAll");t.exports = l, t.exports.read = n, t.exports.write = f, t.exports.readAll = o, t.exports.writeAll = i;
+    }, { "./read": 15, "./readAll": 16, "./write": 17, "./writeAll": 18 }], 14: [function (e, t, r) {
+      function l(e, t) {
+        var r = String(e).match(f);if (!r) return e;var l = r[1],
+            o = r[2];return "px" === o ? 1 * l : "cm" === o ? .3937 * l * 96 : "in" === o ? 96 * l : "mm" === o ? .3937 * l * 96 / 10 : "pc" === o ? 12 * l * 96 / 72 : "pt" === o ? 96 * l / 72 : "rem" === o ? 16 * l : n(e, t);
+      }function n(e, t) {
+        o.style.cssText = "border:none!important;clip:rect(0 0 0 0)!important;display:block!important;font-size:1em!important;height:0!important;margin:0!important;padding:0!important;position:relative!important;width:" + e + "!important", t.parentNode.insertBefore(o, t.nextSibling);var r = o.offsetWidth;return t.parentNode.removeChild(o), r;
+      }t.exports = l;var f = /^([-+]?\d*\.?\d+)(%|[a-z]+)$/,
+          o = document.createElement("div");
+    }, {}], 15: [function (e, t, r) {
+      function l(e) {
+        var t = { alignContent: "stretch", alignItems: "stretch", alignSelf: "auto", borderBottomWidth: 0, borderLeftWidth: 0, borderRightWidth: 0, borderTopWidth: 0, boxSizing: "content-box", display: "inline", flexBasis: "auto", flexDirection: "row", flexGrow: 0, flexShrink: 1, flexWrap: "nowrap", justifyContent: "flex-start", height: "auto", marginTop: 0, marginRight: 0, marginLeft: 0, marginBottom: 0, paddingTop: 0, paddingRight: 0, paddingLeft: 0, paddingBottom: 0, maxHeight: "none", maxWidth: "none", minHeight: 0, minWidth: 0, order: 0, position: "static", width: "auto" },
+            r = e instanceof Element;if (r) {
+          var l = e.hasAttribute("data-style"),
+              i = l ? e.getAttribute("data-style") : e.getAttribute("style") || "";l || e.setAttribute("data-style", i);var a = window.getComputedStyle && getComputedStyle(e) || {};o(t, a);var c = e.currentStyle || {};n(t, c), f(t, i);for (var y in t) t[y] = s(t[y], e);var x = e.getBoundingClientRect();t.offsetHeight = x.height || e.offsetHeight, t.offsetWidth = x.width || e.offsetWidth;
+        }var S = { element: e, style: t };return S;
+      }function n(e, t) {
+        for (var r in e) {
+          var l = r in t;if (l) e[r] = t[r];else {
+            var n = r.replace(/[A-Z]/g, "-$&").toLowerCase(),
+                f = n in t;f && (e[r] = t[n]);
+          }
+        }var o = "-js-display" in t;o && (e.display = t["-js-display"]);
+      }function f(e, t) {
+        for (var r; r = i.exec(t);) {
+          var l = r[1].toLowerCase().replace(/-[a-z]/g, function (e) {
+            return e.slice(1).toUpperCase();
+          });e[l] = r[2];
+        }
+      }function o(e, t) {
+        for (var r in e) {
+          var l = r in t;l && !/^(alignSelf|height|width)$/.test(r) && (e[r] = t[r]);
+        }
+      }t.exports = l;var i = /([^\s:;]+)\s*:\s*([^;]+?)\s*(;|$)/g,
+          s = e("./getComputedLength");
+    }, { "./getComputedLength": 14 }], 16: [function (e, t, r) {
+      function l(e) {
+        var t = [];return n(e, t), t;
+      }function n(e, t) {
+        for (var r, l = f(e), i = [], s = -1; r = e.childNodes[++s];) {
+          var a = 3 === r.nodeType && !/^\s*$/.test(r.nodeValue);if (l && a) {
+            var c = r;r = e.insertBefore(document.createElement("flex-item"), c), r.appendChild(c);
+          }var y = r instanceof Element;if (y) {
+            var x = n(r, t);if (l) {
+              var S = r.style;S.display = "inline-block", S.position = "absolute", x.style = o(r).style, i.push(x);
+            }
+          }
+        }var m = { element: e, children: i };return l && (m.style = o(e).style, t.push(m)), m;
+      }function f(e) {
+        var t = e instanceof Element,
+            r = t && e.getAttribute("data-style"),
+            l = t && e.currentStyle && e.currentStyle["-js-display"],
+            n = i.test(r) || s.test(l);return n;
+      }t.exports = l;var o = e("../read"),
+          i = /(^|;)\s*display\s*:\s*(inline-)?flex\s*(;|$)/i,
+          s = /^(inline-)?flex$/i;
+    }, { "../read": 15 }], 17: [function (e, t, r) {
+      function l(e) {
+        f(e);var t = e.element.style,
+            r = "inline" === e.mainAxis ? ["main", "cross"] : ["cross", "main"];t.boxSizing = "content-box", t.display = "block", t.position = "relative", t.width = n(e.flexStyle[r[0]] - e.flexStyle[r[0] + "InnerBefore"] - e.flexStyle[r[0] + "InnerAfter"] - e.flexStyle[r[0] + "BorderBefore"] - e.flexStyle[r[0] + "BorderAfter"]), t.height = n(e.flexStyle[r[1]] - e.flexStyle[r[1] + "InnerBefore"] - e.flexStyle[r[1] + "InnerAfter"] - e.flexStyle[r[1] + "BorderBefore"] - e.flexStyle[r[1] + "BorderAfter"]);for (var l, o = -1; l = e.children[++o];) {
+          var i = l.element.style,
+              s = "inline" === l.mainAxis ? ["main", "cross"] : ["cross", "main"];i.boxSizing = "content-box", i.display = "block", i.position = "absolute", "auto" !== l.flexStyle[s[0]] && (i.width = n(l.flexStyle[s[0]] - l.flexStyle[s[0] + "InnerBefore"] - l.flexStyle[s[0] + "InnerAfter"] - l.flexStyle[s[0] + "BorderBefore"] - l.flexStyle[s[0] + "BorderAfter"])), "auto" !== l.flexStyle[s[1]] && (i.height = n(l.flexStyle[s[1]] - l.flexStyle[s[1] + "InnerBefore"] - l.flexStyle[s[1] + "InnerAfter"] - l.flexStyle[s[1] + "BorderBefore"] - l.flexStyle[s[1] + "BorderAfter"])), i.top = n(l.flexStyle[s[1] + "Start"]), i.left = n(l.flexStyle[s[0] + "Start"]), i.marginTop = n(l.flexStyle[s[1] + "Before"]), i.marginRight = n(l.flexStyle[s[0] + "After"]), i.marginBottom = n(l.flexStyle[s[1] + "After"]), i.marginLeft = n(l.flexStyle[s[0] + "Before"]);
+        }
+      }function n(e) {
+        return "string" == typeof e ? e : Math.max(e, 0) + "px";
+      }t.exports = l;var f = e("../flexbox");
+    }, { "../flexbox": 7 }], 18: [function (e, t, r) {
+      function l(e) {
+        for (var t, r = -1; t = e[++r];) n(t);
+      }t.exports = l;var n = e("../write");
+    }, { "../write": 17 }] }, {}, [13])(13);
+});
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! tether 1.4.0 */
+
+(function (root, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+				__WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else if (typeof exports === 'object') {
+    module.exports = factory(require, exports, module);
+  } else {
+    root.Tether = factory();
+  }
+})(this, function (require, exports, module) {
+
+  'use strict';
+
+  var _createClass = function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ('value' in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+    };
+  }();
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError('Cannot call a class as a function');
+    }
+  }
+
+  var TetherBase = undefined;
+  if (typeof TetherBase === 'undefined') {
+    TetherBase = { modules: [] };
+  }
+
+  var zeroElement = null;
+
+  // Same as native getBoundingClientRect, except it takes into account parent <frame> offsets
+  // if the element lies within a nested document (<frame> or <iframe>-like).
+  function getActualBoundingClientRect(node) {
+    var boundingRect = node.getBoundingClientRect();
+
+    // The original object returned by getBoundingClientRect is immutable, so we clone it
+    // We can't use extend because the properties are not considered part of the object by hasOwnProperty in IE9
+    var rect = {};
+    for (var k in boundingRect) {
+      rect[k] = boundingRect[k];
+    }
+
+    if (node.ownerDocument !== document) {
+      var _frameElement = node.ownerDocument.defaultView.frameElement;
+      if (_frameElement) {
+        var frameRect = getActualBoundingClientRect(_frameElement);
+        rect.top += frameRect.top;
+        rect.bottom += frameRect.top;
+        rect.left += frameRect.left;
+        rect.right += frameRect.left;
+      }
+    }
+
+    return rect;
+  }
+
+  function getScrollParents(el) {
+    // In firefox if the el is inside an iframe with display: none; window.getComputedStyle() will return null;
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+    var computedStyle = getComputedStyle(el) || {};
+    var position = computedStyle.position;
+    var parents = [];
+
+    if (position === 'fixed') {
+      return [el];
+    }
+
+    var parent = el;
+    while ((parent = parent.parentNode) && parent && parent.nodeType === 1) {
+      var style = undefined;
+      try {
+        style = getComputedStyle(parent);
+      } catch (err) {}
+
+      if (typeof style === 'undefined' || style === null) {
+        parents.push(parent);
+        return parents;
+      }
+
+      var _style = style;
+      var overflow = _style.overflow;
+      var overflowX = _style.overflowX;
+      var overflowY = _style.overflowY;
+
+      if (/(auto|scroll)/.test(overflow + overflowY + overflowX)) {
+        if (position !== 'absolute' || ['relative', 'absolute', 'fixed'].indexOf(style.position) >= 0) {
+          parents.push(parent);
+        }
+      }
+    }
+
+    parents.push(el.ownerDocument.body);
+
+    // If the node is within a frame, account for the parent window scroll
+    if (el.ownerDocument !== document) {
+      parents.push(el.ownerDocument.defaultView);
+    }
+
+    return parents;
+  }
+
+  var uniqueId = function () {
+    var id = 0;
+    return function () {
+      return ++id;
+    };
+  }();
+
+  var zeroPosCache = {};
+  var getOrigin = function getOrigin() {
+    // getBoundingClientRect is unfortunately too accurate.  It introduces a pixel or two of
+    // jitter as the user scrolls that messes with our ability to detect if two positions
+    // are equivilant or not.  We place an element at the top left of the page that will
+    // get the same jitter, so we can cancel the two out.
+    var node = zeroElement;
+    if (!node || !document.body.contains(node)) {
+      node = document.createElement('div');
+      node.setAttribute('data-tether-id', uniqueId());
+      extend(node.style, {
+        top: 0,
+        left: 0,
+        position: 'absolute'
+      });
+
+      document.body.appendChild(node);
+
+      zeroElement = node;
+    }
+
+    var id = node.getAttribute('data-tether-id');
+    if (typeof zeroPosCache[id] === 'undefined') {
+      zeroPosCache[id] = getActualBoundingClientRect(node);
+
+      // Clear the cache when this position call is done
+      defer(function () {
+        delete zeroPosCache[id];
+      });
+    }
+
+    return zeroPosCache[id];
+  };
+
+  function removeUtilElements() {
+    if (zeroElement) {
+      document.body.removeChild(zeroElement);
+    }
+    zeroElement = null;
+  };
+
+  function getBounds(el) {
+    var doc = undefined;
+    if (el === document) {
+      doc = document;
+      el = document.documentElement;
+    } else {
+      doc = el.ownerDocument;
+    }
+
+    var docEl = doc.documentElement;
+
+    var box = getActualBoundingClientRect(el);
+
+    var origin = getOrigin();
+
+    box.top -= origin.top;
+    box.left -= origin.left;
+
+    if (typeof box.width === 'undefined') {
+      box.width = document.body.scrollWidth - box.left - box.right;
+    }
+    if (typeof box.height === 'undefined') {
+      box.height = document.body.scrollHeight - box.top - box.bottom;
+    }
+
+    box.top = box.top - docEl.clientTop;
+    box.left = box.left - docEl.clientLeft;
+    box.right = doc.body.clientWidth - box.width - box.left;
+    box.bottom = doc.body.clientHeight - box.height - box.top;
+
+    return box;
+  }
+
+  function getOffsetParent(el) {
+    return el.offsetParent || document.documentElement;
+  }
+
+  var _scrollBarSize = null;
+  function getScrollBarSize() {
+    if (_scrollBarSize) {
+      return _scrollBarSize;
+    }
+    var inner = document.createElement('div');
+    inner.style.width = '100%';
+    inner.style.height = '200px';
+
+    var outer = document.createElement('div');
+    extend(outer.style, {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      pointerEvents: 'none',
+      visibility: 'hidden',
+      width: '200px',
+      height: '150px',
+      overflow: 'hidden'
+    });
+
+    outer.appendChild(inner);
+
+    document.body.appendChild(outer);
+
+    var widthContained = inner.offsetWidth;
+    outer.style.overflow = 'scroll';
+    var widthScroll = inner.offsetWidth;
+
+    if (widthContained === widthScroll) {
+      widthScroll = outer.clientWidth;
+    }
+
+    document.body.removeChild(outer);
+
+    var width = widthContained - widthScroll;
+
+    _scrollBarSize = { width: width, height: width };
+    return _scrollBarSize;
+  }
+
+  function extend() {
+    var out = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+    var args = [];
+
+    Array.prototype.push.apply(args, arguments);
+
+    args.slice(1).forEach(function (obj) {
+      if (obj) {
+        for (var key in obj) {
+          if ({}.hasOwnProperty.call(obj, key)) {
+            out[key] = obj[key];
+          }
+        }
+      }
+    });
+
+    return out;
+  }
+
+  function removeClass(el, name) {
+    if (typeof el.classList !== 'undefined') {
+      name.split(' ').forEach(function (cls) {
+        if (cls.trim()) {
+          el.classList.remove(cls);
+        }
+      });
+    } else {
+      var regex = new RegExp('(^| )' + name.split(' ').join('|') + '( |$)', 'gi');
+      var className = getClassName(el).replace(regex, ' ');
+      setClassName(el, className);
+    }
+  }
+
+  function addClass(el, name) {
+    if (typeof el.classList !== 'undefined') {
+      name.split(' ').forEach(function (cls) {
+        if (cls.trim()) {
+          el.classList.add(cls);
+        }
+      });
+    } else {
+      removeClass(el, name);
+      var cls = getClassName(el) + (' ' + name);
+      setClassName(el, cls);
+    }
+  }
+
+  function hasClass(el, name) {
+    if (typeof el.classList !== 'undefined') {
+      return el.classList.contains(name);
+    }
+    var className = getClassName(el);
+    return new RegExp('(^| )' + name + '( |$)', 'gi').test(className);
+  }
+
+  function getClassName(el) {
+    // Can't use just SVGAnimatedString here since nodes within a Frame in IE have
+    // completely separately SVGAnimatedString base classes
+    if (el.className instanceof el.ownerDocument.defaultView.SVGAnimatedString) {
+      return el.className.baseVal;
+    }
+    return el.className;
+  }
+
+  function setClassName(el, className) {
+    el.setAttribute('class', className);
+  }
+
+  function updateClasses(el, add, all) {
+    // Of the set of 'all' classes, we need the 'add' classes, and only the
+    // 'add' classes to be set.
+    all.forEach(function (cls) {
+      if (add.indexOf(cls) === -1 && hasClass(el, cls)) {
+        removeClass(el, cls);
+      }
+    });
+
+    add.forEach(function (cls) {
+      if (!hasClass(el, cls)) {
+        addClass(el, cls);
+      }
+    });
+  }
+
+  var deferred = [];
+
+  var defer = function defer(fn) {
+    deferred.push(fn);
+  };
+
+  var flush = function flush() {
+    var fn = undefined;
+    while (fn = deferred.pop()) {
+      fn();
+    }
+  };
+
+  var Evented = function () {
+    function Evented() {
+      _classCallCheck(this, Evented);
+    }
+
+    _createClass(Evented, [{
+      key: 'on',
+      value: function on(event, handler, ctx) {
+        var once = arguments.length <= 3 || arguments[3] === undefined ? false : arguments[3];
+
+        if (typeof this.bindings === 'undefined') {
+          this.bindings = {};
+        }
+        if (typeof this.bindings[event] === 'undefined') {
+          this.bindings[event] = [];
+        }
+        this.bindings[event].push({ handler: handler, ctx: ctx, once: once });
+      }
+    }, {
+      key: 'once',
+      value: function once(event, handler, ctx) {
+        this.on(event, handler, ctx, true);
+      }
+    }, {
+      key: 'off',
+      value: function off(event, handler) {
+        if (typeof this.bindings === 'undefined' || typeof this.bindings[event] === 'undefined') {
+          return;
+        }
+
+        if (typeof handler === 'undefined') {
+          delete this.bindings[event];
+        } else {
+          var i = 0;
+          while (i < this.bindings[event].length) {
+            if (this.bindings[event][i].handler === handler) {
+              this.bindings[event].splice(i, 1);
+            } else {
+              ++i;
+            }
+          }
+        }
+      }
+    }, {
+      key: 'trigger',
+      value: function trigger(event) {
+        if (typeof this.bindings !== 'undefined' && this.bindings[event]) {
+          var i = 0;
+
+          for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+            args[_key - 1] = arguments[_key];
+          }
+
+          while (i < this.bindings[event].length) {
+            var _bindings$event$i = this.bindings[event][i];
+            var handler = _bindings$event$i.handler;
+            var ctx = _bindings$event$i.ctx;
+            var once = _bindings$event$i.once;
+
+            var context = ctx;
+            if (typeof context === 'undefined') {
+              context = this;
+            }
+
+            handler.apply(context, args);
+
+            if (once) {
+              this.bindings[event].splice(i, 1);
+            } else {
+              ++i;
+            }
+          }
+        }
+      }
+    }]);
+
+    return Evented;
+  }();
+
+  TetherBase.Utils = {
+    getActualBoundingClientRect: getActualBoundingClientRect,
+    getScrollParents: getScrollParents,
+    getBounds: getBounds,
+    getOffsetParent: getOffsetParent,
+    extend: extend,
+    addClass: addClass,
+    removeClass: removeClass,
+    hasClass: hasClass,
+    updateClasses: updateClasses,
+    defer: defer,
+    flush: flush,
+    uniqueId: uniqueId,
+    Evented: Evented,
+    getScrollBarSize: getScrollBarSize,
+    removeUtilElements: removeUtilElements
+  };
+  /* globals TetherBase, performance */
+
+  'use strict';
+
+  var _slicedToArray = function () {
+    function sliceIterator(arr, i) {
+      var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
+        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;_e = err;
+      } finally {
+        try {
+          if (!_n && _i['return']) _i['return']();
+        } finally {
+          if (_d) throw _e;
+        }
+      }return _arr;
+    }return function (arr, i) {
+      if (Array.isArray(arr)) {
+        return arr;
+      } else if (Symbol.iterator in Object(arr)) {
+        return sliceIterator(arr, i);
+      } else {
+        throw new TypeError('Invalid attempt to destructure non-iterable instance');
+      }
+    };
+  }();
+
+  var _createClass = function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ('value' in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+    };
+  }();
+
+  var _get = function get(_x6, _x7, _x8) {
+    var _again = true;_function: while (_again) {
+      var object = _x6,
+          property = _x7,
+          receiver = _x8;_again = false;if (object === null) object = Function.prototype;var desc = Object.getOwnPropertyDescriptor(object, property);if (desc === undefined) {
+        var parent = Object.getPrototypeOf(object);if (parent === null) {
+          return undefined;
+        } else {
+          _x6 = parent;_x7 = property;_x8 = receiver;_again = true;desc = parent = undefined;continue _function;
+        }
+      } else if ('value' in desc) {
+        return desc.value;
+      } else {
+        var getter = desc.get;if (getter === undefined) {
+          return undefined;
+        }return getter.call(receiver);
+      }
+    }
+  };
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError('Cannot call a class as a function');
+    }
+  }
+
+  function _inherits(subClass, superClass) {
+    if (typeof superClass !== 'function' && superClass !== null) {
+      throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);
+    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+  }
+
+  if (typeof TetherBase === 'undefined') {
+    throw new Error('You must include the utils.js file before tether.js');
+  }
+
+  var _TetherBase$Utils = TetherBase.Utils;
+  var getScrollParents = _TetherBase$Utils.getScrollParents;
+  var getBounds = _TetherBase$Utils.getBounds;
+  var getOffsetParent = _TetherBase$Utils.getOffsetParent;
+  var extend = _TetherBase$Utils.extend;
+  var addClass = _TetherBase$Utils.addClass;
+  var removeClass = _TetherBase$Utils.removeClass;
+  var updateClasses = _TetherBase$Utils.updateClasses;
+  var defer = _TetherBase$Utils.defer;
+  var flush = _TetherBase$Utils.flush;
+  var getScrollBarSize = _TetherBase$Utils.getScrollBarSize;
+  var removeUtilElements = _TetherBase$Utils.removeUtilElements;
+
+  function within(a, b) {
+    var diff = arguments.length <= 2 || arguments[2] === undefined ? 1 : arguments[2];
+
+    return a + diff >= b && b >= a - diff;
+  }
+
+  var transformKey = function () {
+    if (typeof document === 'undefined') {
+      return '';
+    }
+    var el = document.createElement('div');
+
+    var transforms = ['transform', 'WebkitTransform', 'OTransform', 'MozTransform', 'msTransform'];
+    for (var i = 0; i < transforms.length; ++i) {
+      var key = transforms[i];
+      if (el.style[key] !== undefined) {
+        return key;
+      }
+    }
+  }();
+
+  var tethers = [];
+
+  var position = function position() {
+    tethers.forEach(function (tether) {
+      tether.position(false);
+    });
+    flush();
+  };
+
+  function now() {
+    if (typeof performance !== 'undefined' && typeof performance.now !== 'undefined') {
+      return performance.now();
+    }
+    return +new Date();
+  }
+
+  (function () {
+    var lastCall = null;
+    var lastDuration = null;
+    var pendingTimeout = null;
+
+    var tick = function tick() {
+      if (typeof lastDuration !== 'undefined' && lastDuration > 16) {
+        // We voluntarily throttle ourselves if we can't manage 60fps
+        lastDuration = Math.min(lastDuration - 16, 250);
+
+        // Just in case this is the last event, remember to position just once more
+        pendingTimeout = setTimeout(tick, 250);
+        return;
+      }
+
+      if (typeof lastCall !== 'undefined' && now() - lastCall < 10) {
+        // Some browsers call events a little too frequently, refuse to run more than is reasonable
+        return;
+      }
+
+      if (pendingTimeout != null) {
+        clearTimeout(pendingTimeout);
+        pendingTimeout = null;
+      }
+
+      lastCall = now();
+      position();
+      lastDuration = now() - lastCall;
+    };
+
+    if (typeof window !== 'undefined' && typeof window.addEventListener !== 'undefined') {
+      ['resize', 'scroll', 'touchmove'].forEach(function (event) {
+        window.addEventListener(event, tick);
+      });
+    }
+  })();
+
+  var MIRROR_LR = {
+    center: 'center',
+    left: 'right',
+    right: 'left'
+  };
+
+  var MIRROR_TB = {
+    middle: 'middle',
+    top: 'bottom',
+    bottom: 'top'
+  };
+
+  var OFFSET_MAP = {
+    top: 0,
+    left: 0,
+    middle: '50%',
+    center: '50%',
+    bottom: '100%',
+    right: '100%'
+  };
+
+  var autoToFixedAttachment = function autoToFixedAttachment(attachment, relativeToAttachment) {
+    var left = attachment.left;
+    var top = attachment.top;
+
+    if (left === 'auto') {
+      left = MIRROR_LR[relativeToAttachment.left];
+    }
+
+    if (top === 'auto') {
+      top = MIRROR_TB[relativeToAttachment.top];
+    }
+
+    return { left: left, top: top };
+  };
+
+  var attachmentToOffset = function attachmentToOffset(attachment) {
+    var left = attachment.left;
+    var top = attachment.top;
+
+    if (typeof OFFSET_MAP[attachment.left] !== 'undefined') {
+      left = OFFSET_MAP[attachment.left];
+    }
+
+    if (typeof OFFSET_MAP[attachment.top] !== 'undefined') {
+      top = OFFSET_MAP[attachment.top];
+    }
+
+    return { left: left, top: top };
+  };
+
+  function addOffset() {
+    var out = { top: 0, left: 0 };
+
+    for (var _len = arguments.length, offsets = Array(_len), _key = 0; _key < _len; _key++) {
+      offsets[_key] = arguments[_key];
+    }
+
+    offsets.forEach(function (_ref) {
+      var top = _ref.top;
+      var left = _ref.left;
+
+      if (typeof top === 'string') {
+        top = parseFloat(top, 10);
+      }
+      if (typeof left === 'string') {
+        left = parseFloat(left, 10);
+      }
+
+      out.top += top;
+      out.left += left;
+    });
+
+    return out;
+  }
+
+  function offsetToPx(offset, size) {
+    if (typeof offset.left === 'string' && offset.left.indexOf('%') !== -1) {
+      offset.left = parseFloat(offset.left, 10) / 100 * size.width;
+    }
+    if (typeof offset.top === 'string' && offset.top.indexOf('%') !== -1) {
+      offset.top = parseFloat(offset.top, 10) / 100 * size.height;
+    }
+
+    return offset;
+  }
+
+  var parseOffset = function parseOffset(value) {
+    var _value$split = value.split(' ');
+
+    var _value$split2 = _slicedToArray(_value$split, 2);
+
+    var top = _value$split2[0];
+    var left = _value$split2[1];
+
+    return { top: top, left: left };
+  };
+  var parseAttachment = parseOffset;
+
+  var TetherClass = function (_Evented) {
+    _inherits(TetherClass, _Evented);
+
+    function TetherClass(options) {
+      var _this = this;
+
+      _classCallCheck(this, TetherClass);
+
+      _get(Object.getPrototypeOf(TetherClass.prototype), 'constructor', this).call(this);
+      this.position = this.position.bind(this);
+
+      tethers.push(this);
+
+      this.history = [];
+
+      this.setOptions(options, false);
+
+      TetherBase.modules.forEach(function (module) {
+        if (typeof module.initialize !== 'undefined') {
+          module.initialize.call(_this);
+        }
+      });
+
+      this.position();
+    }
+
+    _createClass(TetherClass, [{
+      key: 'getClass',
+      value: function getClass() {
+        var key = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+        var classes = this.options.classes;
+
+        if (typeof classes !== 'undefined' && classes[key]) {
+          return this.options.classes[key];
+        } else if (this.options.classPrefix) {
+          return this.options.classPrefix + '-' + key;
+        } else {
+          return key;
+        }
+      }
+    }, {
+      key: 'setOptions',
+      value: function setOptions(options) {
+        var _this2 = this;
+
+        var pos = arguments.length <= 1 || arguments[1] === undefined ? true : arguments[1];
+
+        var defaults = {
+          offset: '0 0',
+          targetOffset: '0 0',
+          targetAttachment: 'auto auto',
+          classPrefix: 'tether'
+        };
+
+        this.options = extend(defaults, options);
+
+        var _options = this.options;
+        var element = _options.element;
+        var target = _options.target;
+        var targetModifier = _options.targetModifier;
+
+        this.element = element;
+        this.target = target;
+        this.targetModifier = targetModifier;
+
+        if (this.target === 'viewport') {
+          this.target = document.body;
+          this.targetModifier = 'visible';
+        } else if (this.target === 'scroll-handle') {
+          this.target = document.body;
+          this.targetModifier = 'scroll-handle';
+        }
+
+        ['element', 'target'].forEach(function (key) {
+          if (typeof _this2[key] === 'undefined') {
+            throw new Error('Tether Error: Both element and target must be defined');
+          }
+
+          if (typeof _this2[key].jquery !== 'undefined') {
+            _this2[key] = _this2[key][0];
+          } else if (typeof _this2[key] === 'string') {
+            _this2[key] = document.querySelector(_this2[key]);
+          }
+        });
+
+        addClass(this.element, this.getClass('element'));
+        if (!(this.options.addTargetClasses === false)) {
+          addClass(this.target, this.getClass('target'));
+        }
+
+        if (!this.options.attachment) {
+          throw new Error('Tether Error: You must provide an attachment');
+        }
+
+        this.targetAttachment = parseAttachment(this.options.targetAttachment);
+        this.attachment = parseAttachment(this.options.attachment);
+        this.offset = parseOffset(this.options.offset);
+        this.targetOffset = parseOffset(this.options.targetOffset);
+
+        if (typeof this.scrollParents !== 'undefined') {
+          this.disable();
+        }
+
+        if (this.targetModifier === 'scroll-handle') {
+          this.scrollParents = [this.target];
+        } else {
+          this.scrollParents = getScrollParents(this.target);
+        }
+
+        if (!(this.options.enabled === false)) {
+          this.enable(pos);
+        }
+      }
+    }, {
+      key: 'getTargetBounds',
+      value: function getTargetBounds() {
+        if (typeof this.targetModifier !== 'undefined') {
+          if (this.targetModifier === 'visible') {
+            if (this.target === document.body) {
+              return { top: pageYOffset, left: pageXOffset, height: innerHeight, width: innerWidth };
+            } else {
+              var bounds = getBounds(this.target);
+
+              var out = {
+                height: bounds.height,
+                width: bounds.width,
+                top: bounds.top,
+                left: bounds.left
+              };
+
+              out.height = Math.min(out.height, bounds.height - (pageYOffset - bounds.top));
+              out.height = Math.min(out.height, bounds.height - (bounds.top + bounds.height - (pageYOffset + innerHeight)));
+              out.height = Math.min(innerHeight, out.height);
+              out.height -= 2;
+
+              out.width = Math.min(out.width, bounds.width - (pageXOffset - bounds.left));
+              out.width = Math.min(out.width, bounds.width - (bounds.left + bounds.width - (pageXOffset + innerWidth)));
+              out.width = Math.min(innerWidth, out.width);
+              out.width -= 2;
+
+              if (out.top < pageYOffset) {
+                out.top = pageYOffset;
+              }
+              if (out.left < pageXOffset) {
+                out.left = pageXOffset;
+              }
+
+              return out;
+            }
+          } else if (this.targetModifier === 'scroll-handle') {
+            var bounds = undefined;
+            var target = this.target;
+            if (target === document.body) {
+              target = document.documentElement;
+
+              bounds = {
+                left: pageXOffset,
+                top: pageYOffset,
+                height: innerHeight,
+                width: innerWidth
+              };
+            } else {
+              bounds = getBounds(target);
+            }
+
+            var style = getComputedStyle(target);
+
+            var hasBottomScroll = target.scrollWidth > target.clientWidth || [style.overflow, style.overflowX].indexOf('scroll') >= 0 || this.target !== document.body;
+
+            var scrollBottom = 0;
+            if (hasBottomScroll) {
+              scrollBottom = 15;
+            }
+
+            var height = bounds.height - parseFloat(style.borderTopWidth) - parseFloat(style.borderBottomWidth) - scrollBottom;
+
+            var out = {
+              width: 15,
+              height: height * 0.975 * (height / target.scrollHeight),
+              left: bounds.left + bounds.width - parseFloat(style.borderLeftWidth) - 15
+            };
+
+            var fitAdj = 0;
+            if (height < 408 && this.target === document.body) {
+              fitAdj = -0.00011 * Math.pow(height, 2) - 0.00727 * height + 22.58;
+            }
+
+            if (this.target !== document.body) {
+              out.height = Math.max(out.height, 24);
+            }
+
+            var scrollPercentage = this.target.scrollTop / (target.scrollHeight - height);
+            out.top = scrollPercentage * (height - out.height - fitAdj) + bounds.top + parseFloat(style.borderTopWidth);
+
+            if (this.target === document.body) {
+              out.height = Math.max(out.height, 24);
+            }
+
+            return out;
+          }
+        } else {
+          return getBounds(this.target);
+        }
+      }
+    }, {
+      key: 'clearCache',
+      value: function clearCache() {
+        this._cache = {};
+      }
+    }, {
+      key: 'cache',
+      value: function cache(k, getter) {
+        // More than one module will often need the same DOM info, so
+        // we keep a cache which is cleared on each position call
+        if (typeof this._cache === 'undefined') {
+          this._cache = {};
+        }
+
+        if (typeof this._cache[k] === 'undefined') {
+          this._cache[k] = getter.call(this);
+        }
+
+        return this._cache[k];
+      }
+    }, {
+      key: 'enable',
+      value: function enable() {
+        var _this3 = this;
+
+        var pos = arguments.length <= 0 || arguments[0] === undefined ? true : arguments[0];
+
+        if (!(this.options.addTargetClasses === false)) {
+          addClass(this.target, this.getClass('enabled'));
+        }
+        addClass(this.element, this.getClass('enabled'));
+        this.enabled = true;
+
+        this.scrollParents.forEach(function (parent) {
+          if (parent !== _this3.target.ownerDocument) {
+            parent.addEventListener('scroll', _this3.position);
+          }
+        });
+
+        if (pos) {
+          this.position();
+        }
+      }
+    }, {
+      key: 'disable',
+      value: function disable() {
+        var _this4 = this;
+
+        removeClass(this.target, this.getClass('enabled'));
+        removeClass(this.element, this.getClass('enabled'));
+        this.enabled = false;
+
+        if (typeof this.scrollParents !== 'undefined') {
+          this.scrollParents.forEach(function (parent) {
+            parent.removeEventListener('scroll', _this4.position);
+          });
+        }
+      }
+    }, {
+      key: 'destroy',
+      value: function destroy() {
+        var _this5 = this;
+
+        this.disable();
+
+        tethers.forEach(function (tether, i) {
+          if (tether === _this5) {
+            tethers.splice(i, 1);
+          }
+        });
+
+        // Remove any elements we were using for convenience from the DOM
+        if (tethers.length === 0) {
+          removeUtilElements();
+        }
+      }
+    }, {
+      key: 'updateAttachClasses',
+      value: function updateAttachClasses(elementAttach, targetAttach) {
+        var _this6 = this;
+
+        elementAttach = elementAttach || this.attachment;
+        targetAttach = targetAttach || this.targetAttachment;
+        var sides = ['left', 'top', 'bottom', 'right', 'middle', 'center'];
+
+        if (typeof this._addAttachClasses !== 'undefined' && this._addAttachClasses.length) {
+          // updateAttachClasses can be called more than once in a position call, so
+          // we need to clean up after ourselves such that when the last defer gets
+          // ran it doesn't add any extra classes from previous calls.
+          this._addAttachClasses.splice(0, this._addAttachClasses.length);
+        }
+
+        if (typeof this._addAttachClasses === 'undefined') {
+          this._addAttachClasses = [];
+        }
+        var add = this._addAttachClasses;
+
+        if (elementAttach.top) {
+          add.push(this.getClass('element-attached') + '-' + elementAttach.top);
+        }
+        if (elementAttach.left) {
+          add.push(this.getClass('element-attached') + '-' + elementAttach.left);
+        }
+        if (targetAttach.top) {
+          add.push(this.getClass('target-attached') + '-' + targetAttach.top);
+        }
+        if (targetAttach.left) {
+          add.push(this.getClass('target-attached') + '-' + targetAttach.left);
+        }
+
+        var all = [];
+        sides.forEach(function (side) {
+          all.push(_this6.getClass('element-attached') + '-' + side);
+          all.push(_this6.getClass('target-attached') + '-' + side);
+        });
+
+        defer(function () {
+          if (!(typeof _this6._addAttachClasses !== 'undefined')) {
+            return;
+          }
+
+          updateClasses(_this6.element, _this6._addAttachClasses, all);
+          if (!(_this6.options.addTargetClasses === false)) {
+            updateClasses(_this6.target, _this6._addAttachClasses, all);
+          }
+
+          delete _this6._addAttachClasses;
+        });
+      }
+    }, {
+      key: 'position',
+      value: function position() {
+        var _this7 = this;
+
+        var flushChanges = arguments.length <= 0 || arguments[0] === undefined ? true : arguments[0];
+
+        // flushChanges commits the changes immediately, leave true unless you are positioning multiple
+        // tethers (in which case call Tether.Utils.flush yourself when you're done)
+
+        if (!this.enabled) {
+          return;
+        }
+
+        this.clearCache();
+
+        // Turn 'auto' attachments into the appropriate corner or edge
+        var targetAttachment = autoToFixedAttachment(this.targetAttachment, this.attachment);
+
+        this.updateAttachClasses(this.attachment, targetAttachment);
+
+        var elementPos = this.cache('element-bounds', function () {
+          return getBounds(_this7.element);
+        });
+
+        var width = elementPos.width;
+        var height = elementPos.height;
+
+        if (width === 0 && height === 0 && typeof this.lastSize !== 'undefined') {
+          var _lastSize = this.lastSize;
+
+          // We cache the height and width to make it possible to position elements that are
+          // getting hidden.
+          width = _lastSize.width;
+          height = _lastSize.height;
+        } else {
+          this.lastSize = { width: width, height: height };
+        }
+
+        var targetPos = this.cache('target-bounds', function () {
+          return _this7.getTargetBounds();
+        });
+        var targetSize = targetPos;
+
+        // Get an actual px offset from the attachment
+        var offset = offsetToPx(attachmentToOffset(this.attachment), { width: width, height: height });
+        var targetOffset = offsetToPx(attachmentToOffset(targetAttachment), targetSize);
+
+        var manualOffset = offsetToPx(this.offset, { width: width, height: height });
+        var manualTargetOffset = offsetToPx(this.targetOffset, targetSize);
+
+        // Add the manually provided offset
+        offset = addOffset(offset, manualOffset);
+        targetOffset = addOffset(targetOffset, manualTargetOffset);
+
+        // It's now our goal to make (element position + offset) == (target position + target offset)
+        var left = targetPos.left + targetOffset.left - offset.left;
+        var top = targetPos.top + targetOffset.top - offset.top;
+
+        for (var i = 0; i < TetherBase.modules.length; ++i) {
+          var _module2 = TetherBase.modules[i];
+          var ret = _module2.position.call(this, {
+            left: left,
+            top: top,
+            targetAttachment: targetAttachment,
+            targetPos: targetPos,
+            elementPos: elementPos,
+            offset: offset,
+            targetOffset: targetOffset,
+            manualOffset: manualOffset,
+            manualTargetOffset: manualTargetOffset,
+            scrollbarSize: scrollbarSize,
+            attachment: this.attachment
+          });
+
+          if (ret === false) {
+            return false;
+          } else if (typeof ret === 'undefined' || typeof ret !== 'object') {
+            continue;
+          } else {
+            top = ret.top;
+            left = ret.left;
+          }
+        }
+
+        // We describe the position three different ways to give the optimizer
+        // a chance to decide the best possible way to position the element
+        // with the fewest repaints.
+        var next = {
+          // It's position relative to the page (absolute positioning when
+          // the element is a child of the body)
+          page: {
+            top: top,
+            left: left
+          },
+
+          // It's position relative to the viewport (fixed positioning)
+          viewport: {
+            top: top - pageYOffset,
+            bottom: pageYOffset - top - height + innerHeight,
+            left: left - pageXOffset,
+            right: pageXOffset - left - width + innerWidth
+          }
+        };
+
+        var doc = this.target.ownerDocument;
+        var win = doc.defaultView;
+
+        var scrollbarSize = undefined;
+        if (win.innerHeight > doc.documentElement.clientHeight) {
+          scrollbarSize = this.cache('scrollbar-size', getScrollBarSize);
+          next.viewport.bottom -= scrollbarSize.height;
+        }
+
+        if (win.innerWidth > doc.documentElement.clientWidth) {
+          scrollbarSize = this.cache('scrollbar-size', getScrollBarSize);
+          next.viewport.right -= scrollbarSize.width;
+        }
+
+        if (['', 'static'].indexOf(doc.body.style.position) === -1 || ['', 'static'].indexOf(doc.body.parentElement.style.position) === -1) {
+          // Absolute positioning in the body will be relative to the page, not the 'initial containing block'
+          next.page.bottom = doc.body.scrollHeight - top - height;
+          next.page.right = doc.body.scrollWidth - left - width;
+        }
+
+        if (typeof this.options.optimizations !== 'undefined' && this.options.optimizations.moveElement !== false && !(typeof this.targetModifier !== 'undefined')) {
+          (function () {
+            var offsetParent = _this7.cache('target-offsetparent', function () {
+              return getOffsetParent(_this7.target);
+            });
+            var offsetPosition = _this7.cache('target-offsetparent-bounds', function () {
+              return getBounds(offsetParent);
+            });
+            var offsetParentStyle = getComputedStyle(offsetParent);
+            var offsetParentSize = offsetPosition;
+
+            var offsetBorder = {};
+            ['Top', 'Left', 'Bottom', 'Right'].forEach(function (side) {
+              offsetBorder[side.toLowerCase()] = parseFloat(offsetParentStyle['border' + side + 'Width']);
+            });
+
+            offsetPosition.right = doc.body.scrollWidth - offsetPosition.left - offsetParentSize.width + offsetBorder.right;
+            offsetPosition.bottom = doc.body.scrollHeight - offsetPosition.top - offsetParentSize.height + offsetBorder.bottom;
+
+            if (next.page.top >= offsetPosition.top + offsetBorder.top && next.page.bottom >= offsetPosition.bottom) {
+              if (next.page.left >= offsetPosition.left + offsetBorder.left && next.page.right >= offsetPosition.right) {
+                // We're within the visible part of the target's scroll parent
+                var scrollTop = offsetParent.scrollTop;
+                var scrollLeft = offsetParent.scrollLeft;
+
+                // It's position relative to the target's offset parent (absolute positioning when
+                // the element is moved to be a child of the target's offset parent).
+                next.offset = {
+                  top: next.page.top - offsetPosition.top + scrollTop - offsetBorder.top,
+                  left: next.page.left - offsetPosition.left + scrollLeft - offsetBorder.left
+                };
+              }
+            }
+          })();
+        }
+
+        // We could also travel up the DOM and try each containing context, rather than only
+        // looking at the body, but we're gonna get diminishing returns.
+
+        this.move(next);
+
+        this.history.unshift(next);
+
+        if (this.history.length > 3) {
+          this.history.pop();
+        }
+
+        if (flushChanges) {
+          flush();
+        }
+
+        return true;
+      }
+
+      // THE ISSUE
+    }, {
+      key: 'move',
+      value: function move(pos) {
+        var _this8 = this;
+
+        if (!(typeof this.element.parentNode !== 'undefined')) {
+          return;
+        }
+
+        var same = {};
+
+        for (var type in pos) {
+          same[type] = {};
+
+          for (var key in pos[type]) {
+            var found = false;
+
+            for (var i = 0; i < this.history.length; ++i) {
+              var point = this.history[i];
+              if (typeof point[type] !== 'undefined' && !within(point[type][key], pos[type][key])) {
+                found = true;
+                break;
+              }
+            }
+
+            if (!found) {
+              same[type][key] = true;
+            }
+          }
+        }
+
+        var css = { top: '', left: '', right: '', bottom: '' };
+
+        var transcribe = function transcribe(_same, _pos) {
+          var hasOptimizations = typeof _this8.options.optimizations !== 'undefined';
+          var gpu = hasOptimizations ? _this8.options.optimizations.gpu : null;
+          if (gpu !== false) {
+            var yPos = undefined,
+                xPos = undefined;
+            if (_same.top) {
+              css.top = 0;
+              yPos = _pos.top;
+            } else {
+              css.bottom = 0;
+              yPos = -_pos.bottom;
+            }
+
+            if (_same.left) {
+              css.left = 0;
+              xPos = _pos.left;
+            } else {
+              css.right = 0;
+              xPos = -_pos.right;
+            }
+
+            if (window.matchMedia) {
+              // HubSpot/tether#207
+              var retina = window.matchMedia('only screen and (min-resolution: 1.3dppx)').matches || window.matchMedia('only screen and (-webkit-min-device-pixel-ratio: 1.3)').matches;
+              if (!retina) {
+                xPos = Math.round(xPos);
+                yPos = Math.round(yPos);
+              }
+            }
+
+            css[transformKey] = 'translateX(' + xPos + 'px) translateY(' + yPos + 'px)';
+
+            if (transformKey !== 'msTransform') {
+              // The Z transform will keep this in the GPU (faster, and prevents artifacts),
+              // but IE9 doesn't support 3d transforms and will choke.
+              css[transformKey] += " translateZ(0)";
+            }
+          } else {
+            if (_same.top) {
+              css.top = _pos.top + 'px';
+            } else {
+              css.bottom = _pos.bottom + 'px';
+            }
+
+            if (_same.left) {
+              css.left = _pos.left + 'px';
+            } else {
+              css.right = _pos.right + 'px';
+            }
+          }
+        };
+
+        var moved = false;
+        if ((same.page.top || same.page.bottom) && (same.page.left || same.page.right)) {
+          css.position = 'absolute';
+          transcribe(same.page, pos.page);
+        } else if ((same.viewport.top || same.viewport.bottom) && (same.viewport.left || same.viewport.right)) {
+          css.position = 'fixed';
+          transcribe(same.viewport, pos.viewport);
+        } else if (typeof same.offset !== 'undefined' && same.offset.top && same.offset.left) {
+          (function () {
+            css.position = 'absolute';
+            var offsetParent = _this8.cache('target-offsetparent', function () {
+              return getOffsetParent(_this8.target);
+            });
+
+            if (getOffsetParent(_this8.element) !== offsetParent) {
+              defer(function () {
+                _this8.element.parentNode.removeChild(_this8.element);
+                offsetParent.appendChild(_this8.element);
+              });
+            }
+
+            transcribe(same.offset, pos.offset);
+            moved = true;
+          })();
+        } else {
+          css.position = 'absolute';
+          transcribe({ top: true, left: true }, pos.page);
+        }
+
+        if (!moved) {
+          if (this.options.bodyElement) {
+            this.options.bodyElement.appendChild(this.element);
+          } else {
+            var offsetParentIsBody = true;
+            var currentNode = this.element.parentNode;
+            while (currentNode && currentNode.nodeType === 1 && currentNode.tagName !== 'BODY') {
+              if (getComputedStyle(currentNode).position !== 'static') {
+                offsetParentIsBody = false;
+                break;
+              }
+
+              currentNode = currentNode.parentNode;
+            }
+
+            if (!offsetParentIsBody) {
+              this.element.parentNode.removeChild(this.element);
+              this.element.ownerDocument.body.appendChild(this.element);
+            }
+          }
+        }
+
+        // Any css change will trigger a repaint, so let's avoid one if nothing changed
+        var writeCSS = {};
+        var write = false;
+        for (var key in css) {
+          var val = css[key];
+          var elVal = this.element.style[key];
+
+          if (elVal !== val) {
+            write = true;
+            writeCSS[key] = val;
+          }
+        }
+
+        if (write) {
+          defer(function () {
+            extend(_this8.element.style, writeCSS);
+            _this8.trigger('repositioned');
+          });
+        }
+      }
+    }]);
+
+    return TetherClass;
+  }(Evented);
+
+  TetherClass.modules = [];
+
+  TetherBase.position = position;
+
+  var Tether = extend(TetherClass, TetherBase);
+  /* globals TetherBase */
+
+  'use strict';
+
+  var _slicedToArray = function () {
+    function sliceIterator(arr, i) {
+      var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
+        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;_e = err;
+      } finally {
+        try {
+          if (!_n && _i['return']) _i['return']();
+        } finally {
+          if (_d) throw _e;
+        }
+      }return _arr;
+    }return function (arr, i) {
+      if (Array.isArray(arr)) {
+        return arr;
+      } else if (Symbol.iterator in Object(arr)) {
+        return sliceIterator(arr, i);
+      } else {
+        throw new TypeError('Invalid attempt to destructure non-iterable instance');
+      }
+    };
+  }();
+
+  var _TetherBase$Utils = TetherBase.Utils;
+  var getBounds = _TetherBase$Utils.getBounds;
+  var extend = _TetherBase$Utils.extend;
+  var updateClasses = _TetherBase$Utils.updateClasses;
+  var defer = _TetherBase$Utils.defer;
+
+  var BOUNDS_FORMAT = ['left', 'top', 'right', 'bottom'];
+
+  function getBoundingRect(tether, to) {
+    if (to === 'scrollParent') {
+      to = tether.scrollParents[0];
+    } else if (to === 'window') {
+      to = [pageXOffset, pageYOffset, innerWidth + pageXOffset, innerHeight + pageYOffset];
+    }
+
+    if (to === document) {
+      to = to.documentElement;
+    }
+
+    if (typeof to.nodeType !== 'undefined') {
+      (function () {
+        var node = to;
+        var size = getBounds(to);
+        var pos = size;
+        var style = getComputedStyle(to);
+
+        to = [pos.left, pos.top, size.width + pos.left, size.height + pos.top];
+
+        // Account any parent Frames scroll offset
+        if (node.ownerDocument !== document) {
+          var win = node.ownerDocument.defaultView;
+          to[0] += win.pageXOffset;
+          to[1] += win.pageYOffset;
+          to[2] += win.pageXOffset;
+          to[3] += win.pageYOffset;
+        }
+
+        BOUNDS_FORMAT.forEach(function (side, i) {
+          side = side[0].toUpperCase() + side.substr(1);
+          if (side === 'Top' || side === 'Left') {
+            to[i] += parseFloat(style['border' + side + 'Width']);
+          } else {
+            to[i] -= parseFloat(style['border' + side + 'Width']);
+          }
+        });
+      })();
+    }
+
+    return to;
+  }
+
+  TetherBase.modules.push({
+    position: function position(_ref) {
+      var _this = this;
+
+      var top = _ref.top;
+      var left = _ref.left;
+      var targetAttachment = _ref.targetAttachment;
+
+      if (!this.options.constraints) {
+        return true;
+      }
+
+      var _cache = this.cache('element-bounds', function () {
+        return getBounds(_this.element);
+      });
+
+      var height = _cache.height;
+      var width = _cache.width;
+
+      if (width === 0 && height === 0 && typeof this.lastSize !== 'undefined') {
+        var _lastSize = this.lastSize;
+
+        // Handle the item getting hidden as a result of our positioning without glitching
+        // the classes in and out
+        width = _lastSize.width;
+        height = _lastSize.height;
+      }
+
+      var targetSize = this.cache('target-bounds', function () {
+        return _this.getTargetBounds();
+      });
+
+      var targetHeight = targetSize.height;
+      var targetWidth = targetSize.width;
+
+      var allClasses = [this.getClass('pinned'), this.getClass('out-of-bounds')];
+
+      this.options.constraints.forEach(function (constraint) {
+        var outOfBoundsClass = constraint.outOfBoundsClass;
+        var pinnedClass = constraint.pinnedClass;
+
+        if (outOfBoundsClass) {
+          allClasses.push(outOfBoundsClass);
+        }
+        if (pinnedClass) {
+          allClasses.push(pinnedClass);
+        }
+      });
+
+      allClasses.forEach(function (cls) {
+        ['left', 'top', 'right', 'bottom'].forEach(function (side) {
+          allClasses.push(cls + '-' + side);
+        });
+      });
+
+      var addClasses = [];
+
+      var tAttachment = extend({}, targetAttachment);
+      var eAttachment = extend({}, this.attachment);
+
+      this.options.constraints.forEach(function (constraint) {
+        var to = constraint.to;
+        var attachment = constraint.attachment;
+        var pin = constraint.pin;
+
+        if (typeof attachment === 'undefined') {
+          attachment = '';
+        }
+
+        var changeAttachX = undefined,
+            changeAttachY = undefined;
+        if (attachment.indexOf(' ') >= 0) {
+          var _attachment$split = attachment.split(' ');
+
+          var _attachment$split2 = _slicedToArray(_attachment$split, 2);
+
+          changeAttachY = _attachment$split2[0];
+          changeAttachX = _attachment$split2[1];
+        } else {
+          changeAttachX = changeAttachY = attachment;
+        }
+
+        var bounds = getBoundingRect(_this, to);
+
+        if (changeAttachY === 'target' || changeAttachY === 'both') {
+          if (top < bounds[1] && tAttachment.top === 'top') {
+            top += targetHeight;
+            tAttachment.top = 'bottom';
+          }
+
+          if (top + height > bounds[3] && tAttachment.top === 'bottom') {
+            top -= targetHeight;
+            tAttachment.top = 'top';
+          }
+        }
+
+        if (changeAttachY === 'together') {
+          if (tAttachment.top === 'top') {
+            if (eAttachment.top === 'bottom' && top < bounds[1]) {
+              top += targetHeight;
+              tAttachment.top = 'bottom';
+
+              top += height;
+              eAttachment.top = 'top';
+            } else if (eAttachment.top === 'top' && top + height > bounds[3] && top - (height - targetHeight) >= bounds[1]) {
+              top -= height - targetHeight;
+              tAttachment.top = 'bottom';
+
+              eAttachment.top = 'bottom';
+            }
+          }
+
+          if (tAttachment.top === 'bottom') {
+            if (eAttachment.top === 'top' && top + height > bounds[3]) {
+              top -= targetHeight;
+              tAttachment.top = 'top';
+
+              top -= height;
+              eAttachment.top = 'bottom';
+            } else if (eAttachment.top === 'bottom' && top < bounds[1] && top + (height * 2 - targetHeight) <= bounds[3]) {
+              top += height - targetHeight;
+              tAttachment.top = 'top';
+
+              eAttachment.top = 'top';
+            }
+          }
+
+          if (tAttachment.top === 'middle') {
+            if (top + height > bounds[3] && eAttachment.top === 'top') {
+              top -= height;
+              eAttachment.top = 'bottom';
+            } else if (top < bounds[1] && eAttachment.top === 'bottom') {
+              top += height;
+              eAttachment.top = 'top';
+            }
+          }
+        }
+
+        if (changeAttachX === 'target' || changeAttachX === 'both') {
+          if (left < bounds[0] && tAttachment.left === 'left') {
+            left += targetWidth;
+            tAttachment.left = 'right';
+          }
+
+          if (left + width > bounds[2] && tAttachment.left === 'right') {
+            left -= targetWidth;
+            tAttachment.left = 'left';
+          }
+        }
+
+        if (changeAttachX === 'together') {
+          if (left < bounds[0] && tAttachment.left === 'left') {
+            if (eAttachment.left === 'right') {
+              left += targetWidth;
+              tAttachment.left = 'right';
+
+              left += width;
+              eAttachment.left = 'left';
+            } else if (eAttachment.left === 'left') {
+              left += targetWidth;
+              tAttachment.left = 'right';
+
+              left -= width;
+              eAttachment.left = 'right';
+            }
+          } else if (left + width > bounds[2] && tAttachment.left === 'right') {
+            if (eAttachment.left === 'left') {
+              left -= targetWidth;
+              tAttachment.left = 'left';
+
+              left -= width;
+              eAttachment.left = 'right';
+            } else if (eAttachment.left === 'right') {
+              left -= targetWidth;
+              tAttachment.left = 'left';
+
+              left += width;
+              eAttachment.left = 'left';
+            }
+          } else if (tAttachment.left === 'center') {
+            if (left + width > bounds[2] && eAttachment.left === 'left') {
+              left -= width;
+              eAttachment.left = 'right';
+            } else if (left < bounds[0] && eAttachment.left === 'right') {
+              left += width;
+              eAttachment.left = 'left';
+            }
+          }
+        }
+
+        if (changeAttachY === 'element' || changeAttachY === 'both') {
+          if (top < bounds[1] && eAttachment.top === 'bottom') {
+            top += height;
+            eAttachment.top = 'top';
+          }
+
+          if (top + height > bounds[3] && eAttachment.top === 'top') {
+            top -= height;
+            eAttachment.top = 'bottom';
+          }
+        }
+
+        if (changeAttachX === 'element' || changeAttachX === 'both') {
+          if (left < bounds[0]) {
+            if (eAttachment.left === 'right') {
+              left += width;
+              eAttachment.left = 'left';
+            } else if (eAttachment.left === 'center') {
+              left += width / 2;
+              eAttachment.left = 'left';
+            }
+          }
+
+          if (left + width > bounds[2]) {
+            if (eAttachment.left === 'left') {
+              left -= width;
+              eAttachment.left = 'right';
+            } else if (eAttachment.left === 'center') {
+              left -= width / 2;
+              eAttachment.left = 'right';
+            }
+          }
+        }
+
+        if (typeof pin === 'string') {
+          pin = pin.split(',').map(function (p) {
+            return p.trim();
+          });
+        } else if (pin === true) {
+          pin = ['top', 'left', 'right', 'bottom'];
+        }
+
+        pin = pin || [];
+
+        var pinned = [];
+        var oob = [];
+
+        if (top < bounds[1]) {
+          if (pin.indexOf('top') >= 0) {
+            top = bounds[1];
+            pinned.push('top');
+          } else {
+            oob.push('top');
+          }
+        }
+
+        if (top + height > bounds[3]) {
+          if (pin.indexOf('bottom') >= 0) {
+            top = bounds[3] - height;
+            pinned.push('bottom');
+          } else {
+            oob.push('bottom');
+          }
+        }
+
+        if (left < bounds[0]) {
+          if (pin.indexOf('left') >= 0) {
+            left = bounds[0];
+            pinned.push('left');
+          } else {
+            oob.push('left');
+          }
+        }
+
+        if (left + width > bounds[2]) {
+          if (pin.indexOf('right') >= 0) {
+            left = bounds[2] - width;
+            pinned.push('right');
+          } else {
+            oob.push('right');
+          }
+        }
+
+        if (pinned.length) {
+          (function () {
+            var pinnedClass = undefined;
+            if (typeof _this.options.pinnedClass !== 'undefined') {
+              pinnedClass = _this.options.pinnedClass;
+            } else {
+              pinnedClass = _this.getClass('pinned');
+            }
+
+            addClasses.push(pinnedClass);
+            pinned.forEach(function (side) {
+              addClasses.push(pinnedClass + '-' + side);
+            });
+          })();
+        }
+
+        if (oob.length) {
+          (function () {
+            var oobClass = undefined;
+            if (typeof _this.options.outOfBoundsClass !== 'undefined') {
+              oobClass = _this.options.outOfBoundsClass;
+            } else {
+              oobClass = _this.getClass('out-of-bounds');
+            }
+
+            addClasses.push(oobClass);
+            oob.forEach(function (side) {
+              addClasses.push(oobClass + '-' + side);
+            });
+          })();
+        }
+
+        if (pinned.indexOf('left') >= 0 || pinned.indexOf('right') >= 0) {
+          eAttachment.left = tAttachment.left = false;
+        }
+        if (pinned.indexOf('top') >= 0 || pinned.indexOf('bottom') >= 0) {
+          eAttachment.top = tAttachment.top = false;
+        }
+
+        if (tAttachment.top !== targetAttachment.top || tAttachment.left !== targetAttachment.left || eAttachment.top !== _this.attachment.top || eAttachment.left !== _this.attachment.left) {
+          _this.updateAttachClasses(eAttachment, tAttachment);
+          _this.trigger('update', {
+            attachment: eAttachment,
+            targetAttachment: tAttachment
+          });
+        }
+      });
+
+      defer(function () {
+        if (!(_this.options.addTargetClasses === false)) {
+          updateClasses(_this.target, addClasses, allClasses);
+        }
+        updateClasses(_this.element, addClasses, allClasses);
+      });
+
+      return { top: top, left: left };
+    }
+  });
+  /* globals TetherBase */
+
+  'use strict';
+
+  var _TetherBase$Utils = TetherBase.Utils;
+  var getBounds = _TetherBase$Utils.getBounds;
+  var updateClasses = _TetherBase$Utils.updateClasses;
+  var defer = _TetherBase$Utils.defer;
+
+  TetherBase.modules.push({
+    position: function position(_ref) {
+      var _this = this;
+
+      var top = _ref.top;
+      var left = _ref.left;
+
+      var _cache = this.cache('element-bounds', function () {
+        return getBounds(_this.element);
+      });
+
+      var height = _cache.height;
+      var width = _cache.width;
+
+      var targetPos = this.getTargetBounds();
+
+      var bottom = top + height;
+      var right = left + width;
+
+      var abutted = [];
+      if (top <= targetPos.bottom && bottom >= targetPos.top) {
+        ['left', 'right'].forEach(function (side) {
+          var targetPosSide = targetPos[side];
+          if (targetPosSide === left || targetPosSide === right) {
+            abutted.push(side);
+          }
+        });
+      }
+
+      if (left <= targetPos.right && right >= targetPos.left) {
+        ['top', 'bottom'].forEach(function (side) {
+          var targetPosSide = targetPos[side];
+          if (targetPosSide === top || targetPosSide === bottom) {
+            abutted.push(side);
+          }
+        });
+      }
+
+      var allClasses = [];
+      var addClasses = [];
+
+      var sides = ['left', 'top', 'right', 'bottom'];
+      allClasses.push(this.getClass('abutted'));
+      sides.forEach(function (side) {
+        allClasses.push(_this.getClass('abutted') + '-' + side);
+      });
+
+      if (abutted.length) {
+        addClasses.push(this.getClass('abutted'));
+      }
+
+      abutted.forEach(function (side) {
+        addClasses.push(_this.getClass('abutted') + '-' + side);
+      });
+
+      defer(function () {
+        if (!(_this.options.addTargetClasses === false)) {
+          updateClasses(_this.target, addClasses, allClasses);
+        }
+        updateClasses(_this.element, addClasses, allClasses);
+      });
+
+      return true;
+    }
+  });
+  /* globals TetherBase */
+
+  'use strict';
+
+  var _slicedToArray = function () {
+    function sliceIterator(arr, i) {
+      var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
+        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;_e = err;
+      } finally {
+        try {
+          if (!_n && _i['return']) _i['return']();
+        } finally {
+          if (_d) throw _e;
+        }
+      }return _arr;
+    }return function (arr, i) {
+      if (Array.isArray(arr)) {
+        return arr;
+      } else if (Symbol.iterator in Object(arr)) {
+        return sliceIterator(arr, i);
+      } else {
+        throw new TypeError('Invalid attempt to destructure non-iterable instance');
+      }
+    };
+  }();
+
+  TetherBase.modules.push({
+    position: function position(_ref) {
+      var top = _ref.top;
+      var left = _ref.left;
+
+      if (!this.options.shift) {
+        return;
+      }
+
+      var shift = this.options.shift;
+      if (typeof this.options.shift === 'function') {
+        shift = this.options.shift.call(this, { top: top, left: left });
+      }
+
+      var shiftTop = undefined,
+          shiftLeft = undefined;
+      if (typeof shift === 'string') {
+        shift = shift.split(' ');
+        shift[1] = shift[1] || shift[0];
+
+        var _shift = shift;
+
+        var _shift2 = _slicedToArray(_shift, 2);
+
+        shiftTop = _shift2[0];
+        shiftLeft = _shift2[1];
+
+        shiftTop = parseFloat(shiftTop, 10);
+        shiftLeft = parseFloat(shiftLeft, 10);
+      } else {
+        shiftTop = shift.top;
+        shiftLeft = shift.left;
+      }
+
+      top += shiftTop;
+      left += shiftLeft;
+
+      return { top: top, left: left };
+    }
+  });
+  return Tether;
+});
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Tether"] = __webpack_require__(33);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(7);
+module.exports = __webpack_require__(8);
+
+
+/***/ })
+/******/ ]);

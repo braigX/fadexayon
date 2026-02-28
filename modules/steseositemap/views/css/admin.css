@@ -1,0 +1,22 @@
+/* Simple Admin Styles */
+.ste-seo-cron-url {
+    background: #f8f8f8;
+    padding: 10px;
+    border: 1px dashed #ccc;
+    font-family: monospace;
+    display: block;
+    margin-top: 10px;
+}
+
+.ste-seo-alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.ste-seo-alert-info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}

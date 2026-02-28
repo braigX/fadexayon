@@ -1,0 +1,25 @@
+Date;Journal;ID Commande;Ref Commande;Pays;ID Client;Client;Société;Compte;Facture;Libelle;Type de paiement;Montant;Debit;Credit;ID de transaction
+04/07/2025;1;2550;DNAZFIANR;France;4768;simon edery;;411;#FA022378;commande 002550 par simon edery;Paiement CB;60.00;60.00;;1-322117
+04/07/2025;1;2550;DNAZFIANR;France;4768;simon edery;;702;#FA022378;produits ht fr taux standard 20 pourc;;0.00;;0.00;1-322117
+04/07/2025;1;2550;DNAZFIANR;France;4768;simon edery;;;#FA022378;tva produits;;10.00;;10.00;1-322117
+04/07/2025;1;2551;FPZHDNRIT;France;647;aaaaa aaaaa;;411;#FA022379;commande 002551 par aaaaa aaaaa;Paiement CB;15.00;15.00;;1-344306
+04/07/2025;1;2551;FPZHDNRIT;France;647;aaaaa aaaaa;;702;#FA022379;produits ht fr taux standard 20 pourc;;0.00;;0.00;1-344306
+04/07/2025;1;2551;FPZHDNRIT;France;647;aaaaa aaaaa;;;#FA022379;tva produits;;0.83;;0.83;1-344306
+04/07/2025;1;2552;ANBMJGHIJ;France;4952;david fleischer;sci hianerstahl;411;#FA022380;commande 002552 par david fleischer;Sogecommerce;394.88;394.88;;
+04/07/2025;1;2552;ANBMJGHIJ;France;4952;david fleischer;sci hianerstahl;702;#FA022380;produits ht fr taux standard 20 pourc;;0.00;;0.00;
+04/07/2025;1;2552;ANBMJGHIJ;France;4952;david fleischer;sci hianerstahl;706;#FA022380;transporteur ht livraison geodis sans rendez vous france;;73.10;;73.10;
+04/07/2025;1;2552;ANBMJGHIJ;France;4952;david fleischer;sci hianerstahl;;#FA022380;tva produits;;51.19;;51.19;
+04/07/2025;1;2552;ANBMJGHIJ;France;4952;david fleischer;sci hianerstahl;;#FA022380;tva transporteur fr taux standard 20 pourc;;14.62;;14.62;
+04/07/2025;1;2553;RMXAFIPFR;France;4941;florian menguy;;411;#FA022381;commande 002553 par florian menguy;Sogecommerce;123.34;123.34;;
+04/07/2025;1;2553;RMXAFIPFR;France;4941;florian menguy;;702;#FA022381;produits ht fr taux standard 20 pourc;;0.00;;0.00;
+04/07/2025;1;2553;RMXAFIPFR;France;4941;florian menguy;;706;#FA022381;transporteur ht express tnt domicile france;;24.00;;24.00;
+04/07/2025;1;2553;RMXAFIPFR;France;4941;florian menguy;;;#FA022381;tva produits;;15.76;;15.76;
+04/07/2025;1;2553;RMXAFIPFR;France;4941;florian menguy;;;#FA022381;tva transporteur fr taux standard 20 pourc;;4.80;;4.80;
+04/07/2025;1;2554;POMKKSHJH;France;647;aaaaa aaaaa;;411;#FA022382;commande 002554 par aaaaa aaaaa;Paiement CB;15.00;15.00;;1-369824
+04/07/2025;1;2554;POMKKSHJH;France;647;aaaaa aaaaa;;702;#FA022382;produits ht fr taux standard 20 pourc;;0.00;;0.00;1-369824
+04/07/2025;1;2554;POMKKSHJH;France;647;aaaaa aaaaa;;;#FA022382;tva produits;;0.83;;0.83;1-369824
+04/07/2025;1;2555;UIQFNWSIB;France;4969;martin van boxsom;sas digital brain industries;411;#FA022383;commande 002555 par martin van boxsom;Paiement VISA;112.14;112.14;;1-414352
+04/07/2025;1;2555;UIQFNWSIB;France;4969;martin van boxsom;sas digital brain industries;702;#FA022383;produits ht fr taux standard 20 pourc;;0.00;;0.00;1-414352
+04/07/2025;1;2555;UIQFNWSIB;France;4969;martin van boxsom;sas digital brain industries;706;#FA022383;transporteur ht express tnt en entreprise france;;24.00;;24.00;1-414352
+04/07/2025;1;2555;UIQFNWSIB;France;4969;martin van boxsom;sas digital brain industries;;#FA022383;tva produits;;13.89;;13.89;1-414352
+04/07/2025;1;2555;UIQFNWSIB;France;4969;martin van boxsom;sas digital brain industries;;#FA022383;tva transporteur fr taux standard 20 pourc;;4.80;;4.80;1-414352

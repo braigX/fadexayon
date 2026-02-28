@@ -1,0 +1,14 @@
+Retraso en el envío advertencia
+
+Pedido {order_id} con ref {order_Reference}
+Debe ser enviado hoy
+
+Pedido {order_name} - Retrasado
+
+El pedido {order_name}
+Con ID {order_id}
+Debe ser enviado inmediatamente o no será entregado en la fecha estimada
+
+Puede revisar su pedido y descargar su factura desde la sección "Historial de pedidos" de su cuenta de cliente haciendo clic en "Mi cuenta" en nuestra tienda.
+
+{shop_name}

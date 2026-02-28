@@ -1,0 +1,35 @@
+<?php
+
+global $_MODULE;
+$_MODULE = array();
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_3d76748f7b90f12e56891373fbd55312'] = 'Avis Google My Business';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_4d5b4f2d3cbf29922136c61d0b21a44b'] = 'Connectez votre page Google My Business';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_44d7b2036166452a10240ddf1d7e93b0'] = 'Etes-vous certain de vouloir d\'installer le module?';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_0f40e8817b005044250943f57a21c5e7'] = 'Aucun nom fourni';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_413c191899a2943cb324ed171c52e342'] = 'La configuration n\'est pas sauvegardée, la clé api n\'est pas une chaîne valide.';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_774d5d1ad2be7fdc281624444702fa56'] = 'La configuration n\'est pas sauvegardée, la clé api doit être complétée.';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_b45a58b84c98b1e65f14aace61d028a1'] = 'La configuration n\'est pas sauvegardée, l\'identifiant de lieu n\'est pas une chaîne valide.';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_f329d0bd3c75dd0455ae667578df5f68'] = 'La configuration n\'est pas sauvegardée, l\'identification du lieu doit être complétée.';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_099932ed49d4fa74fb1568713fa1f7c1'] = 'La configuration n\'est pas sauvegardée, le nombre d\'avis affichés n\'est pas un nombre valide.';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_45e5c09cb71068ae07053193ae4e00cb'] = 'La configuration n\'est pas enregistrée, le score minimum n\'est pas un nombre valide.';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_8f742b3511132a24412f92d7b1199901'] = 'La configuration est sauvegardée.';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_7c8682d92dfb1522b4cc2975608e582d'] = 'Informations mises à jour avec succès.';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_62c7594948c1231bbae9f948b1535b7e'] = 'Clef API';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_0052da38e1603c790ba5231e9f9e506d'] = 'ID Place';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_745e2bddb16945fef0caff6241ca83af'] = 'Trouver mon ID Place';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_d3cc8ca88dc923a955275a94ce852f0d'] = 'Nombre d\'avis affichés';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_04d679a2af0c9772ea82db315faf486c'] = 'Note minimum';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_b0c3d0fb29baf4c041ca276dca1f4ce3'] = 'Affichage format simple';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_0138893c6b171114e8f3981d93900d3e'] = 'Affichage format carrousel';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_c9cc8cce247e49bae79f15173ce97354'] = 'Sauvegarder';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_7b9cf007806ed854cd12ab800c8a982b'] = 'Place';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_dda9c06f33071c9b6fc237ee164109d8'] = 'Avis';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_983782ed8b736664cbf01b70352fbf53'] = 'Cliquer ici pour synchroniser les avis';
+$_MODULE['<{googlemybusinessreviews}prestashop>googlemybusinessreviews_b18b960c57a784907dc1cd97ba8a8065'] = 'Synchroniser';
+$_MODULE['<{googlemybusinessreviews}prestashop>description_cron_3c266e5bab850b03036ac76795c14d63'] = 'Tout d\'abord, vérifiez que la bibliothèque \"curl\" est installée sur votre serveur';
+$_MODULE['<{googlemybusinessreviews}prestashop>description_cron_e900b7823c6570f6b2c21f416f23803d'] = 'Pour exécuter vos tâches cron, veuillez insérer la ligne suivante dans votre éditeur de tâches cron';
+$_MODULE['<{googlemybusinessreviews}prestashop>simple_8f85f619fde5d092132fe99474dad0e6'] = 'Avis Google';
+$_MODULE['<{googlemybusinessreviews}prestashop>simple_1161d886534f68c87dbb8f061689bae1'] = 'Avis Google';
+$_MODULE['<{googlemybusinessreviews}prestashop>simple_2af1b136e457bab7345a3f366262667d'] = 'Voir tous nos avis';
+$_MODULE['<{googlemybusinessreviews}prestashop>slider_05fbba95479ef33f5d1d1b58009497b5'] = 'Basé sur %s avis';
+$_MODULE['<{googlemybusinessreviews}prestashop>slider_2af1b136e457bab7345a3f366262667d'] = 'Voir tous nos avis';

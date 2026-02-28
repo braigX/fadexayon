@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>rg_pushnotifications</name>
+    <displayName><![CDATA[Notifications Push du Navigateur Web en utilisant OneSignal]]></displayName>
+    <version><![CDATA[1.11.0]]></version>
+    <description><![CDATA[Envoyer des notifications push aux navigateurs web sur n&#039;importe quel appareil, m&ecirc;me si le site Web de votre boutique est ferm&eacute;, &agrave; l&#039;aide de filtres de segmentation avanc&eacute;s bas&eacute;s sur PrestaShop.]]></description>
+    <author><![CDATA[Rolige]]></author>
+    <tab><![CDATA[advertising_marketing]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+</module>

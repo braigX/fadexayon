@@ -1,0 +1,19 @@
+ 
+
+{shop_url}
+
+{firstname_friend} {lastname_friend}, Unisciti a noi!
+
+Il tuo amico {firstname} {lastname} desidera raccomandarti su [{shop_name}]({shop_url})!
+
+Siamo lieti di offrirti un buono del valore di {discount} che potrai usare nel tuo prossimo ordine. Fatti presentare e vinci un buono sconto di {discount}!!
+
+[È facilissimo iscriversi, basta cliccare qui!]({link})
+
+Quando ti iscrivi, non dimenticare di indicare l'email dell'amico che ti ha presentato: {email}.
+
+Cordiali saluti,
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop-project.org/)

@@ -1,0 +1,22 @@
+{*
+* 2018 PSBlog
+*
+* NOTICE OF LICENSE
+*
+* READ ATTACHED LICENSE.TXT
+*
+*  @author    PSBlog
+*  @copyright 2018 PSBlog
+*  @license   READ ATTACHED README.TXT
+*}
+
+{if $twitter_active && $twitterusername|@strlen > 0}
+<!-- TwitterCard -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{if $product->name|is_array}{$product->name[$id_lang]|strip_tags|escape:'html':'UTF-8'|trim}{else}{$product->name|strip_tags|escape:'html':'UTF-8'|trim}{/if}">
+<meta name="twitter:description" content="{if $product->description_short|is_array}{$product->description_short[$id_lang]|strip_tags|escape:'html':'UTF-8'|trim}{else}{$product->description_short|strip_tags|escape:'html':'UTF-8'|trim}{/if}">
+<meta name="twitter:image" content="{$image|escape:'html':'UTF-8'}">
+<meta name="twitter:site" content="{$twitterusername|escape:'html':'UTF-8'}">
+<meta name="twitter:creator" content="{$twitterusername|escape:'html':'UTF-8'}">
+<meta name="twitter:domain" content="{$domain|escape:'html':'UTF-8'}">
+{/if}

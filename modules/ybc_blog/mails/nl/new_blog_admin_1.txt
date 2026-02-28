@@ -1,0 +1,4 @@
+Er is een nieuwe post ingediend bij {shop_name} en deze is automatisch goedgekeurd
+Auteur: {customer_name}
+Titel van bericht: {post_title}
+Bekijk bericht

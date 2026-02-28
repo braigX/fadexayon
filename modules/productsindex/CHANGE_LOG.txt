@@ -1,0 +1,50 @@
+1.0.0 - start
+1.1.8 - release version
+1.1.9 - 1.6.1.support
+1.1.12 - css fix
+1.1.15 - PHP 7.0 support
+1.1.16 - old IE support
+1.1.17 - new manufacturers sorting ps 1.6.1
+1.1.18 - manufacturers new identification
+1.1.19 - fix bug: brand products on adding new products
+1.1.20 - manufacturers list upgrade
+1.1.21 - exclude index then product way choosed
+1.1.22 - brands per page logic
+1.1.23 - add colors to brands list
+1.1.24 - hide echo bug
+1.1.25 - last changes ps 1.7 test
+1.1.26 - new way for 1.7.3 manufacturer list 
+1.1.27 - 1.7.4.2 full test
+1.6.1 - 1.6 version
+1.7.1 - 1.7 version
+1.7.2 - move out of stock products to the end of category list
+1.7.3 - Sort option - "move disabled products to the end", "hide disabled products from list" (bug print_r)
+1.7.4 - clear 1.7.3 version
+1.7.5 - FR translations
+1.7.8 - de,fr,es,it,pl,pt translations
+1.7.9 - validated version
+1.7.10 - ps-switch glitch fix on Chrome > 80
+1.7.11 - hide not active products from brands on products save, fix brand chosen
+1.7.12 - hide products with visibility nowhere.
+1.7.14 - hide not active products from brands 1.7
+1.7.15 - multishop fix from customer 1279239
+1.7.16 - validated
+1.7.17 - js fix, validated
+1.7.18 - add links to pages, 1.7.5+ check
+1.7.19 - order by name products
+1.7.20 - 1.7.7+ check
+1.7.21 - fix manufacturers list on 1.7.5+
+1.7.22 - two images at brand page (commented getProductInfo function Images in ProductsIndexClass class).
+1.7.25 - fixed more than 1000 products in category
+1.7.27 - logo ua
+1.7.28 - fixed bugs from customer report https://i.gyazo.com/7a0699d5151d1b796bf10708afe0fa47.png
+1.7.29 - fixed - https://i.gyazo.com/79cfd23735038dc94f2acb4f39d34dbf.png
+1.7.30 - fix error in debug mode if manufacturer is null for product https://i.gyazo.com/d99e8dc6063e5683b325682b7d458489.png
+1.8.1 - prestashop 8 and PHP 8.1 support
+1.8.2 - validation
+1.8.3 - fix PL translation
+1.8.4 - fix deprecated Header hook
+1.8.5 - ps 8.1 check, validation
+1.8.6 - add new products in manufacturer view
+1.8.7 - improve css width for imagess in BO
+2.4.1 - validate 2024

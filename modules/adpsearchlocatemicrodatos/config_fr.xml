@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>adpsearchlocatemicrodatos</name>
+    <displayName><![CDATA[Recherche et &eacute;puration des microdonn&eacute;es erron&eacute;es - SEO]]></displayName>
+    <version><![CDATA[2.3.2]]></version>
+    <description><![CDATA[Trouvez des microdonn&eacute;es en double ou mal configur&eacute;es dans votre commerce &eacute;lectronique et nettoyez-les automatiquement.]]></description>
+    <author><![CDATA[Adalop]]></author>
+    <tab><![CDATA[administration]]></tab>
+	<confirmUninstall><![CDATA[Êtes-vous sûr de vouloir supprimer ces options?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+</module>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>googlemybusinessreviews</name>
+    <displayName><![CDATA[Avis Google My Business]]></displayName>
+    <version><![CDATA[1.3.0]]></version>
+    <description><![CDATA[Connectez votre page Google My Business]]></description>
+    <author><![CDATA[AN Eshop Group]]></author>
+    <tab><![CDATA[market_place]]></tab>
+	<confirmUninstall><![CDATA[Etes-vous certain de vouloir d'installer le module?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+</module>

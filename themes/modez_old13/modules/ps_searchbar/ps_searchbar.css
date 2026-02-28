@@ -1,0 +1,17 @@
+.ui-autocomplete.searchbar-autocomplete {
+  width: 100%;
+  min-height: 100%;
+  border: none;
+}
+
+.ui-autocomplete.searchbar-autocomplete li a:hover {
+  cursor: pointer;
+}
+
+.ui-autocomplete.searchbar-autocomplete li a .autocomplete-thumbnail {
+  float: left;
+  width: 50px;
+  height: auto;
+  margin-right: 8px;
+}
+

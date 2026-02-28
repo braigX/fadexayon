@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>adpmicrodatos</name>
+    <displayName><![CDATA[Int&eacute;gration automatique de Rich Snippets JSON-LD - SEO]]></displayName>
+    <version><![CDATA[5.5.1]]></version>
+    <description><![CDATA[Nettoyez automatiquement vos mod&egrave;les de microdonn&eacute;es et ajoutez de nouvelles microdonn&eacute;es correctement configur&eacute;es pour votre boutique en ligne]]></description>
+    <author><![CDATA[Adalop]]></author>
+    <tab><![CDATA[seo]]></tab>
+	<confirmUninstall><![CDATA[Êtes-vous sûr de vouloir supprimer ces options?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+</module>

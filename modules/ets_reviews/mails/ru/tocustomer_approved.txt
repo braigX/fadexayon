@@ -1,0 +1,9 @@
+[{shop_url}]
+
+Здравствуйте {customer_name},
+Ваш {объект} в {product_name} одобрен и опубликован.
+
+{content}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

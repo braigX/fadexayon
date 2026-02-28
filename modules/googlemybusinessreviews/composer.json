@@ -1,0 +1,24 @@
+{
+  "name": "Aneshop/googlebusinessreview",
+  "description": "Avis Google My Business",
+  "authors": [
+    {
+      "name": "Anshop",
+      "email": "Anshop@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.6.0",
+    "google/apiclient": "^2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Anshop\\GoogleBusinessReview\\": "src/"
+    }
+  },
+  "config": {
+    "preferred-install": "dist",
+    "prepend-autoloader": false
+  },
+  "type": "prestashop-module"
+}

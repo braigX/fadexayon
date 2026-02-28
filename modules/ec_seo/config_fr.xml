@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>ec_seo</name>
+    <displayName><![CDATA[SEO]]></displayName>
+    <version><![CDATA[2.0.9]]></version>
+    <description><![CDATA[Augmentez votre Chiffre d&#039;affaires gr&acirc;ce &agrave; l&#039;optimisation de votre r&eacute;f&eacute;rencement naturel (SEO). Le module vous donne un &eacute;tat des lieux complet de l&#039;optimisation de vos pages (produit, cat&eacute;gories, CMS, marques, etc.) et surtout des pistes concr&egrave;tes d&#039;optimisation pour chacune : balises meta, pertinence du contenu, modification des balises h1, tout est g&eacute;r&eacute; pour vous permettre de (vraiment) performer en SEO !]]></description>
+    <author><![CDATA[Ether Creation]]></author>
+    <tab><![CDATA[administration]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+</module>

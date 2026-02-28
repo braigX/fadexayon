@@ -1,0 +1,13 @@
+[{shop_url}]
+
+Hallo {customer_name},
+We zijn blij te kunnen meedelen dat u zojuist een vouchercode heeft ontvangen na het beoordelen van uw gekochte artikelen.
+Code: {voucher_code}
+Kortingswaarde: {voucher_value}
+Voer deze code in bij uw volgende aankoop om de korting te krijgen
+
+Gebruik nu een waardebon
+
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

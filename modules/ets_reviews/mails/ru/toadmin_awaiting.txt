@@ -1,0 +1,10 @@
+[{shop_url}]
+
+Здравствуйте {admin_name},
+{customer_name} отправил {object}. Пожалуйста, ознакомьтесь с его содержанием и примите решение:
+
+{product}
+{content}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

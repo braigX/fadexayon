@@ -1,0 +1,14 @@
+Vertraging in verzending waarschuwing
+
+Bestelling {order_id} met ref {order_Reference}
+Moet vandaag worden verzonden
+
+Bestelling {order_name} - Vertraagd
+
+De bestelling {order_name}
+Met ID {order_id}
+Moet onmiddellijk worden verzonden, anders wordt deze niet geleverd op de geschatte datum
+
+U kunt uw bestelling bekijken en uw factuur downloaden in de sectie "Bestelgeschiedenis" van uw klantaccount door te klikken op "Mijn account" in onze winkel.
+
+{shop_name}

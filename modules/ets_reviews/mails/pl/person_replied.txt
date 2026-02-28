@@ -1,0 +1,12 @@
+[{shop_url}]
+
+Witaj {person_name},
+{from_person_name} odpowiedział na Twój {object} w {product_name}
+“{object_content}”
+
+{content}
+
+[Wyświetl odpowiedź]
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

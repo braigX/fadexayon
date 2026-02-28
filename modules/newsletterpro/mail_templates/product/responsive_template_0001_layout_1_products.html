@@ -1,0 +1,121 @@
+<!-- start header --><!--
+displayColumns = false;
+displayImageSize = false;
+displayProductWidth = false;
+loadImageSize = 300;
+content = template;
+info = {"color": "#55b82b", "for_template_name": "responsive_template_0001.html", "display_text_color": "#ffffff"};
+--><!-- end header -->
+
+np-template: {{
+	np-columns: {{ 1 }},
+	np-row: {{
+		<tr>
+			<td align="left">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+					<tr class="np-row-products-target">
+					</tr>
+				</table>
+			</td>
+		</tr>
+	}},
+
+	np-row-separator: {{
+		<tr><td height="15"></td></tr>
+	}},
+
+	np-product: {{
+		<td align="left">
+			<table data-id="{id_product}" width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;" bgcolor="#ffffff" class="newsletter-pro-product">
+				<tr>
+					<td align="left" width="250" class="np_resize_600" valign="top">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+							<tr>
+								<td align="left" class="np_resize_image">
+									<a href="{link}" target="_blank" style="text-decoration: none; display: block;">
+										<img class="newsletter-pro-image" src="{image_path}" width="250" style="display: block; width: 100%;" alt="" />
+									</a>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td align="center" class="np_resize_600" valign="top">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+							<tr>
+								<td align="left" class="np_content_padding" width="20"></td>
+								<td align="left" class="np_content_center" valign="top">
+									<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse; min-height: 225px;" class="np_min_height_auto">
+										<tr>
+											<td align="left" valign="top">
+												<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+													<tr>
+														<td align="left" height="15"></td>
+													</tr>
+													<tr>
+														<td align="left">
+															<a style="color: #55b82b; text-decoration: none; font-size: 16pt;" href="{link}" target="_blank" class="newsletter-pro-name">
+																{name}
+															</a>
+														</td>
+													</tr>
+													<tr>
+														<td align="left" height="15"></td>
+													</tr>
+													<tr>
+														<td align="left" class="newsletter-pro-description_short">
+															{description_short}
+														</td>
+													</tr>
+													<tr>
+														<td align="left" height="15"></td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+										<tr>
+											<td align="left" valign="bottom">
+												<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+													<tr>
+														<td align="left">
+															<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+																<tr>
+																	<td align="left" valign="middle">
+																		{if reduction > 0}
+																			<span style="text-decoration: line-through;">{price_without_reduction_display}</span> / {discount} discount<br />
+																		{/if}
+																		<span style="color: #55b82b; font-size: 18pt; font-weight: bold;">{price_display}</span>
+																	</td>
+																	<td align="right" valign="bottom">
+																		<table border="0" cellpadding="0" cellspacing="0" width="65" bgcolor="#55b82b" style="border-collapse: collapse; font-weight: bold;">
+																			<tr>
+																				<td align="center" valign="middle" height="20" bgcolor="#55b82b">
+																					<a href="{link}" target="_blank" style="color: #ffffff; text-decoration: none; font-size: 9pt;">VIEW</a>
+																				</td>
+																			</tr>
+																		</table>
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+													<tr>
+														<td align="left" height="15"></td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td>
+								<td align="left" class="np_content_padding" width="20"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>	
+		</td>
+	}},
+
+	np-product-separator: {{
+		<td align="left" width="15" class="np_show_height15"></td>
+	}},
+}}

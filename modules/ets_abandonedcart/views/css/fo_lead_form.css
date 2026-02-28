@@ -1,0 +1,151 @@
+.ets-ac-lead-field_content .checkbox,
+.ets-ac-lead-field_content .radio {
+    display: block;
+    width: 100%;
+}
+.ets-ac-lead-field_content .field-file-desc {
+    font-size: 13px;
+    margin-bottom: 3px;
+    margin-top: 2px;
+    font-style: italic;
+    color: #999;
+}
+.ets-ac-lead-form-field-shortcode .alert ul li {
+    list-style: none;
+}
+.ets-ac-lead-form-field-shortcode .alert.alert-danger:before,
+.ets-ac-lead-form-field-shortcode label.required:before{
+    display:none;
+}
+.ets-ac-lead-form-field-shortcode label.required:after {
+    content: "*";
+    color: #c70000;
+    margin-left: 4px;
+}
+.ets-ac-lead-form-field-shortcode input::-webkit-input-placeholder,
+.ets-ac-lead-form-field-shortcode textarea::-webkit-input-placeholder{
+    color: #7a7a7a!important;
+    opacity: 1!important;
+}
+.ets-ac-lead-form-field-shortcode input::-moz-placeholder,
+.ets-ac-lead-form-field-shortcode textarea::-moz-placeholder{
+    color: #7a7a7a!important;
+    opacity: 1!important;
+}
+.ets-ac-lead-form-field-shortcode input:-ms-input-placeholder,
+.ets-ac-lead-form-field-shortcode textarea:-ms-input-placeholder{
+    color: #7a7a7a!important;
+    opacity: 1!important;
+}
+.ets-ac-lead-form-field-shortcode input:-moz-placeholder,
+.ets-ac-lead-form-field-shortcode textarea:-moz-placeholder{
+    color: #7a7a7a!important;
+    opacity: 1!important;
+}
+.ets-ac-lead-form-field-shortcode input::placeholder,
+.ets-ac-lead-form-field-shortcode textarea::placeholder{
+    color: #7a7a7a!important;
+    opacity: 1!important;
+}
+.ets-ac-lead-form-field-shortcode input:active::-webkit-input-placeholder,
+.ets-ac-lead-form-field-shortcode textarea:active::-webkit-input-placeholder{
+    color: #7a7a7a!important;
+    opacity: 1!important;
+}
+.ets-ac-lead-form-field-shortcode input:active::-moz-placeholder,
+.ets-ac-lead-form-field-shortcode textarea:active::-moz-placeholder{
+    color: #7a7a7a!important;
+    opacity: 1!important;
+}
+.ets-ac-lead-form-field-shortcode input:active:-ms-input-placeholder,
+.ets-ac-lead-form-field-shortcode textarea:active:-ms-input-placeholder{
+    color: #7a7a7a!important;
+    opacity: 1!important;
+}
+.ets-ac-lead-form-field-shortcode input:active:-moz-placeholder,
+.ets-ac-lead-form-field-shortcode textarea:active:-moz-placeholder{
+    color: #7a7a7a!important;
+    opacity: 1!important;
+}
+.ets-ac-lead-form-field-shortcode input:focus::-webkit-input-placeholder,
+.ets-ac-lead-form-field-shortcode textarea:focus::-webkit-input-placeholder{
+    color: #7a7a7a!important;
+    opacity: 1!important;
+}
+.ets-ac-lead-form-field-shortcode input:focus::-moz-placeholder,
+.ets-ac-lead-form-field-shortcode textarea:focus::-moz-placeholder{
+    color: #7a7a7a!important;
+    opacity: 1!important;
+}
+.ets-ac-lead-form-field-shortcode input:focus:-ms-input-placeholder,
+.ets-ac-lead-form-field-shortcode textarea:focus:-ms-input-placeholder {
+    color: #7a7a7a!important;
+    opacity: 1!important;
+}
+.ets-ac-lead-form-field-shortcode .form-control:focus,
+.ets-ac-lead-form-field-shortcode input{
+    color: #7a7a7a!important;
+    opacity: 1!important;
+}
+.ets-ac-lead-form-field-shortcode input:focus:-moz-placeholder,
+.ets-ac-lead-form-field-shortcode textarea:focus:-moz-placeholder {
+    color: #7a7a7a;
+    opacity: 1!important;
+}
+.ets-ac-lead-form-field-shortcode select.form-control {
+    height: auto!important;
+    padding: 0 20px 0 10px;
+}
+.ets-ac-lead-form-field-shortcode .form-group label {
+    vertical-align: top;
+    padding-top: 8px;
+}
+.ets-ac-lead-form-field-shortcode .form-group {
+    margin-bottom: 15px;
+}
+.ets-ac-lead-form-field-shortcode .form-group label ~ .ets-ac-lead-field_content {
+    font-weight: normal;
+}
+.ets-ac-lead-form-field-shortcode input[type="file"],
+.ets-ac-lead-form-field-shortcode input[type="text"],
+.ets-ac-lead-form-field-shortcode input[type="email"],
+.ets-ac-lead-form-field-shortcode input[type="number"],
+.ets-ac-lead-form-field-shortcode select,
+.ets-ac-lead-form-field-shortcode textarea {
+    background: #ffffff;
+    min-height: 36px!important;
+    border: 1px solid #ddd;
+    width: 100%;
+    font-size: 14px;
+    vertical-align: top;
+}
+.ets-ac-lead-form-field-shortcode button.ets-ac-btn-submit-lead-form{
+    position: relative;
+}
+body .ets-ac-lead-form-field-shortcode textarea{
+    min-height: 100px!important;
+}
+.ets-ac-lead-form-field-shortcode .alert ul{
+    margin: 0;
+    padding: 0;
+}
+.ets-ac-lead-form-field-shortcode .form-error-item{
+    color: red;
+    font-size: 12px;
+}
+button.ets-ac-btn-submit-lead-form.loading {
+    color: transparent!important;
+}
+.ets-ac-lead-field_content select.form-control {
+    width: 100%;
+}
+.ets_abancart_lead_form .text-right {
+    text-align: right!important;
+}
+.ets-ac-lead-field_content .radio label, .ets-ac-lead-field_content .checkbox label, .ets-ac-lead-field_content .checkbox label input, .ets-ac-lead-field_content .radio label input {
+    cursor: pointer;
+}
+.ets-ac-lead-field_content label {
+    font-weight: normal;
+    text-align: inherit;
+}

@@ -1,0 +1,205 @@
+.hide{
+    display: none;
+}
+.hi-hide {
+    display: none !important;
+}
+.list-group a.list-group-item{
+    display: block;
+}
+.tabs a.list-group-item{
+    display: inline-block;
+}
+a.list-group-item{
+    background-color: #EBEDF4;
+    font-weight: 700;
+    border:1px solid #CCCED7;
+    border-bottom: none;
+    border-radius: 0 !important;
+    color: #555;
+    position: relative;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    box-sizing: border-box;
+    text-transform: capitalize;
+}
+a.list-group-item.active{
+    background-color: #49B2FF;
+    z-index: 2;
+    color: #fff;
+    border: 1px solid #CCCED7;
+    border-bottom: none;
+}
+
+/*ps 1.5 style*/
+.form_content{
+    margin-left: 170px !important;
+}
+.form_content .table_grid{
+    background-color: #EBEDF4;
+    border: 1px solid #CCCED7;
+    color: #585A69;
+    font-size: 1.1em;
+    margin: 0;
+    padding: 1em;
+}
+.productTabs{
+    background: #fff;
+    border: none;
+    margin-right: 20px;
+}
+.productTabs ul li.tab-row a{
+    margin-bottom: -1px;
+    border: 1px solid #ddd;
+}
+.productTabs ul li.tab-row a.selected{
+    border-right: 1px solid #CCCED7;
+}
+.productTabs ul li.tab-row:first-child  a{
+    border-top: 1px solid #CCCED7;
+}
+
+.hi-cookie-modules-list img {
+    max-width: 22px;
+}
+
+#cookie_countries {
+    height: 200px;
+}
+
+.CodeMirror {
+    border: 1px solid #eee;
+}
+
+.mce-container * {
+    white-space: normal;
+}
+
+.bootstrap .hipresta-modules-ad .module-sorting-menu {
+    margin-bottom: 30px;
+}
+.bootstrap .hipresta-modules-ad .module-item-wrapper-grid {
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    min-height: 415px;
+    padding: .625rem;
+    position: relative;
+    display: block;
+    margin-bottom: .625rem;
+    background-color: #fff;
+}
+.bootstrap .hipresta-modules-ad .module-item-heading-grid {
+    position: relative;
+    text-align: center;
+}
+.bootstrap .hipresta-modules-ad .module-logo-thumb-grid {
+    width: 55px;
+    height: 55px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 0;
+}
+.bootstrap .hipresta-modules-ad .module-logo-thumb-grid img {
+    max-width: 55px;
+    max-height: 55px;
+}
+#content.bootstrap .hipresta-modules-ad h3.module-name-grid {
+    border: none;
+    font-size: 1.2em;
+    padding: 0 0 0 5px;
+    position: relative;
+    text-align: center;
+    font-weight: bolder;
+    margin: 1rem 0 .5rem;
+    min-height: 24px;
+    font-family: Open Sans,Helvetica,Arial,sans-serif;
+    line-height: 1.2;
+    color: #363a41;
+    text-transform: none;
+    border-bottom: none;
+    height: inherit;
+}
+.bootstrap .hipresta-modules-ad .module-quick-description-grid {
+    margin: 15px 0;
+    text-align: center;
+    min-height: 100px;
+}
+.bootstrap .hipresta-modules-ad .module-read-more-grid {
+    display: inline-block;
+}
+.bootstrap .hipresta-modules-ad .module-price {
+    right: auto;
+    bottom: auto;
+    position: relative;
+    margin-right: 5px;
+    float: right;
+    font-size: 14px;
+}
+.bootstrap .hipresta-modules-ad hr {
+    margin-top: 1.875rem;
+    margin-bottom: 1.875rem;
+    border: 0;
+    border-top: 1px solid #bbcdd2;
+}
+.bootstrap .hipresta-modules-ad .form-action-button-container {
+    display: flex;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    left: 0;
+    padding: 0 10px;
+}
+.bootstrap .hipresta-modules-ad .btn {
+    height: 32px;
+    font-size: .625rem;
+    padding: .5rem;
+    float: none;
+    margin: 0 auto;
+    color: #25b9d7;
+    background-color: transparent;
+    background-image: none;
+    border-color: #25b9d7;
+    border-width: 1px;
+    font-weight: 600;
+    border-radius: .063rem;
+    white-space: nowrap;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    text-transform: none;
+    border-left: 1px solid #25b9d7;
+}
+.bootstrap .hipresta-modules-ad .btn:hover {
+    color: #fff;
+    background-color: #19a9c6;
+    border-color: #19a9c6;
+    box-shadow: none;
+}
+.bootstrap .hipresta-modules-ad .badges-container {
+    min-height: 30px;
+    font-size: 14px;
+    line-height: 50%;
+    text-align: center;
+}
+.bootstrap .hipresta-modules-ad .badges-container img {
+    width: 22px;
+}
+.bootstrap .hipresta-modules-ad .module-quick-action-grid {
+    color: #363a41;
+}
+
+.column-preview {
+    width: 200px;
+}
+#table-higoogleconnect .hi-module-table-filter-wrapper {
+    display: none;
+}
+.hi-google-users-chart .form-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

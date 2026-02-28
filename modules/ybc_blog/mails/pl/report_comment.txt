@@ -1,0 +1,5 @@
+Cześć {author_name}
+{reporter} właśnie zgłosił nadużycie w komentarzu do {post_title}.
+{comment}
+Zobacz komentarz
+

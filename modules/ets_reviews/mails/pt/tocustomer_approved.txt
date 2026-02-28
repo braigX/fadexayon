@@ -1,0 +1,9 @@
+[{shop_url}]
+
+Olá {customer_name},
+Seu {object} no {product_name} foi aprovado e publicado.
+
+{content}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

@@ -1,0 +1,195 @@
+/*
+ * Redis Cache
+ * Version: 3.0.0
+ * Copyright (c) 2020-2023. Mateusz Szymański Teamwant
+ * https://teamwant.pl
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @author    Teamwant <kontakt@teamwant.pl>
+ * @copyright Copyright 2020-2023 © Teamwant Mateusz Szymański All right reserved
+ * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category  Teamwant
+ * @package   Teamwant
+ */
+
+.teamwant-redis--button > :root {
+    --loader-width: 15px;
+    --loader-height: 15px;
+    --loader-color-primary: #27ae60;
+    --loader-color-secondary: #eee;
+    --line-width: 3px;
+    --animation-duration: 2s;
+    --loader-initial-scale: 0.1;
+}
+
+.teamwant-redis--button > .loader, .teamwant-redis--button > .loader:before, .teamwant-redis--button > .loader:after {
+    box-sizing: border-box;
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-right: 5px;
+    margin-top: 3px;
+    display: none;
+}
+
+@keyframes circle-loader {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.teamwant-redis--button > .loader.simple-circle {
+    transform-origin: center center;
+    border: var(--line-width, 1px) solid var(--loader-color-secondary, #fff);
+    border-right-color: var(--loader-color-primary, #00f);
+    width: var(--loader-width, 15px);
+    height: var(--loader-height, 15px);
+    border-radius: 50%;
+    animation: circle-loader var(--animation-duration, 1s) infinite ease-out;
+}
+
+.teamwant-redis--button {
+    display: flex;
+    float: left;
+    margin-right: 10px;
+}
+
+.teamwant-redis-table {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+    -o-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+    -ms-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 100%;
+}
+
+.teamwant-redis-table button {
+    background: #5680e2;
+    border-color: #5e6aec;
+}
+
+.teamwant-redis-table button:hover,
+.teamwant-redis-table button:focus,
+.teamwant-redis-table button:active {
+    background: #6391fb !important;
+    border-color: #5865f1 !important;
+}
+
+.teamwant-redis-table thead {
+    font-size: 12px;
+    color: #fff;
+    line-height: 1.4;
+    background-color: #5d88ec;
+}
+
+.teamwant-redis-table thead th {
+    padding: 8px 5px !important;
+    text-align: center;
+    color: #fff !important;
+}
+
+.teamwant-redis-table tbody tr td {
+    padding: 5px 5px 8px;
+}
+
+.teamwant-redis-table tbody tr td input {
+    border: none;
+    width: 100%;
+    line-height: 28px;
+    background: #fafafa;
+    -webkit-box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 0 6px;
+    font-size: 16px;
+    color: #666;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    min-width: 100% !important;
+}
+
+.teamwant-redis-table tbody tr td.last-td {
+    padding: 6px;
+}
+
+.teamwant-redis-table tbody tr td.last-td button {
+    float: right;
+    margin-left: 2px;
+}
+
+.teamwant-redis-table tbody tr td .teamwant-redis--button {
+    display: flex;
+    float: left;
+    max-width: 120px;
+    padding: 3px 5px;
+    font-size: 10px;
+    margin: 0;
+    color: #fff !important;
+}
+
+.teamwant-redis-table tbody tr td:nth-of-type(1),
+.teamwant-redis-table thead tr td:nth-of-type(1),
+.teamwant-redis-table tbody tr th:nth-of-type(1),
+.teamwant-redis-table thead tr th:nth-of-type(1) {
+    max-width: 50px !important;
+}
+
+.teamwant-redis-table tbody tr td:nth-of-type(2),
+.teamwant-redis-table thead tr td:nth-of-type(2),
+.teamwant-redis-table tbody tr th:nth-of-type(2),
+.teamwant-redis-table thead tr th:nth-of-type(2) {
+    max-width: 2000px !important;
+}
+
+.teamwant-redis-table tbody tr td:nth-of-type(3),
+.teamwant-redis-table thead tr td:nth-of-type(3),
+.teamwant-redis-table tbody tr th:nth-of-type(3),
+.teamwant-redis-table thead tr th:nth-of-type(3) {
+    max-width: 50px !important;
+}
+
+.teamwant-redis-table tbody tr td:nth-of-type(7),
+.teamwant-redis-table thead tr td:nth-of-type(7),
+.teamwant-redis-table tbody tr th:nth-of-type(7),
+.teamwant-redis-table thead tr th:nth-of-type(7) {
+    max-width: 150px !important;
+}
+
+.teamwant-redis-table .btn-section-for-table td {
+    padding-top: 10px !important;
+    max-width: unset;
+}
+
+.teamwant-redis-table .btn-section-for-table td button {
+    font-size: 12px !important;
+    margin-right: 10px !important;
+    padding: 7px 15px !important;
+}
+.teamwant_redis_table_container{
+    float:left;
+    width: 100%;
+    margin-top: 10px;
+}
+.showmorerow{
+    display: contents !important;
+    opacity: 1;
+    transition: display 0.5s;
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="105px" height="18px" viewBox="0 0 105 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 2</title>
+    <defs>
+        <polygon id="path-1" points="9.035037 14.25 3.451077 17.1856614 4.517519 10.9678307 0 6.56433855 6.243057 5.65716928 9.035037 0 11.827017 5.65716928 18.070074 6.56433855 13.552555 10.9678307 14.618997 17.1856614"></polygon>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Google-Reviews-Copy" transform="translate(-147.000000, -2.000000)">
+            <g id="Group-2" transform="translate(147.214963, 2.750000)">
+                <polygon id="Combined-Shape-path" fill="#FFB900" fill-rule="nonzero" points="9.035037 14.25 3.451077 17.1856614 4.517519 10.9678307 0 6.56433855 6.243057 5.65716928 9.035037 0 11.827017 5.65716928 18.070074 6.56433855 13.552555 10.9678307 14.618997 17.1856614"></polygon>
+                <polygon id="Combined-Shape-path" fill="#FFB900" fill-rule="nonzero" points="52.035037 14.25 46.451077 17.1856614 47.517519 10.9678307 43 6.56433855 49.243057 5.65716928 52.035037 0 54.827017 5.65716928 61.070074 6.56433855 56.552555 10.9678307 57.618997 17.1856614"></polygon>
+                <polygon id="Combined-Shape-path" fill="#FFB900" fill-rule="nonzero" points="30.535037 14.25 24.951077 17.1856614 26.017519 10.9678307 21.5 6.56433855 27.743057 5.65716928 30.535037 0 33.327017 5.65716928 39.570074 6.56433855 35.052555 10.9678307 36.118997 17.1856614"></polygon>
+                <polygon id="Combined-Shape-path" fill="#FFB900" fill-rule="nonzero" points="73.535037 14.25 67.951077 17.1856614 69.017519 10.9678307 64.5 6.56433855 70.743057 5.65716928 73.535037 0 76.327017 5.65716928 82.570074 6.56433855 78.052555 10.9678307 79.118997 17.1856614"></polygon>
+                <g id="Rectangle" transform="translate(86.000000, 0.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="Mask" fill="#FFB900" fill-rule="nonzero" xlink:href="#path-1"></use>
+                    <rect fill="#DADCE0" mask="url(#mask-2)" x="9.030037" y="-2.00728323e-13" width="9.035" height="17.19"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

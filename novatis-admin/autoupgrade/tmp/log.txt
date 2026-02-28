@@ -1,0 +1,12 @@
+[2025-05-26 14:58:36] === Step checkFilesVersion
+[2025-05-26 14:58:36] === Step getChannelInfo
+[2025-05-26 14:58:36] === Step compareReleases
+[2025-05-26 15:06:14] === Step getChannelInfo
+[2025-05-26 15:06:14] === Step compareReleases
+[2025-05-26 15:06:14] === Step checkFilesVersion
+[2025-07-02 13:05:20] === Step checkFilesVersion
+[2025-07-02 13:05:20] === Step getChannelInfo
+[2025-07-02 13:05:20] === Step compareReleases
+[2026-02-17 09:24:26] === Step checkFilesVersion
+[2026-02-17 09:24:26] === Step getChannelInfo
+[2026-02-17 09:24:26] === Step compareReleases

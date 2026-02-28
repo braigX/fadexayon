@@ -1,0 +1,56 @@
+{*
+* 2017-2018 PSBlog
+*
+* NOTICE OF LICENSE
+*
+* READ ATTACHED LICENSE.TXT
+*
+*  @author    PSBlog
+*  @copyright 2017-2018 PSBlog
+*  @license   LICENSE.TXT
+*}
+
+<!-- Organization -->
+{foreach from=$stores item=store}
+<script type="application/ld+json">
+{
+  "@context": "http://www.schema.org",
+  "@type": "{$store_type|escape:'html':'UTF-8'}",
+  "name": "{$store.name|escape:'html':'UTF-8'}",
+  "telephone": "{$store.phone|escape:'html':'UTF-8'}",
+  "url": "{$store.linkurl|escape:'html':'UTF-8'}",
+  {if $sameas}
+  "sameAs": [ {$social_string|escape:'html':'UTF-8'|html_entity_decode}
+  ],
+  {/if}
+  {if $store.opening|@strlen > 1}
+  "openingHours": [ {$store.opening|escape:'html':'UTF-8'|html_entity_decode} ],
+  {/if}  
+"logo": "{$store.logo|escape:'html':'UTF-8'}",
+  "image": "{$store.image|escape:'html':'UTF-8'}",
+  "priceRange": "{$store.pricerange|escape:'html':'UTF-8'}",
+  "description": "{$store.description|escape:'html':'UTF-8'}",
+  "address": {
+	"@type": "PostalAddress",
+	"streetAddress": "{$store.street|escape:'html':'UTF-8'}",
+	"addressLocality": "{$store.locality|escape:'html':'UTF-8'}",
+	"addressRegion": "{$store.region|escape:'html':'UTF-8'}",
+	"postalCode": "{$store.postal|escape:'html':'UTF-8'}",
+	"addressCountry": "{$store.country|escape:'html':'UTF-8'}"
+  },
+  {if $store.lat > 0 && $store.lon > 0 }
+  "geo": {
+	"@type": "GeoCoordinates",
+	"latitude": "{$store.lat|escape:'html':'UTF-8'}",
+	"longitude": "{$store.lon|escape:'html':'UTF-8'}"
+  },
+  "hasMap": "{$store.map_url|escape:'html':'UTF-8'}",
+  {/if}
+"contactPoint": {
+	"@type": "ContactPoint",
+	"telephone": "{$store.phone|escape:'html':'UTF-8'}",
+	"contactType": "{$store.who|escape:'html':'UTF-8'}"
+  }
+}
+</script>
+{/foreach}

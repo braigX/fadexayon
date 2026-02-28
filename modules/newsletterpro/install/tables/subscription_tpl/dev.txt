@@ -1,0 +1,2 @@
+# To fix the validation for the css files
+sass --watch css_style.scss:css_style.compiled.scss --sourcemap=none --style expanded

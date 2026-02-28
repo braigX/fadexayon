@@ -1,0 +1,30 @@
+.wpcf7-form-control-wrap input[type="text"], .wpcf7-form-control-wrap input[type="email"] {
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  height: 30px;
+  padding: 0 10px;
+  width: 100%;
+}
+.wpcf7-form-control-wrap textarea {
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

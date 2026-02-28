@@ -1,0 +1,4 @@
+Uma nova postagem foi enviada para {shop_name} e está aguardando sua aprovação
+Autor:{customer_name}
+Título da postagem:{post_title}
+Ver postagem

@@ -1,0 +1,33 @@
+{% extends constant('_PS_VERSION_')|number_format >= 8 ? '@!PrestaShop/Admin/Sell/Order/Order/view.html.twig': 'PrestaShopBundle:Admin/Sell/Order/Order:view.html.twig' %}
+{% block content %}
+{{ parent() }}
+<form action="" method="post">
+    <div class="ets_order_popup">
+            <div class="popup_content table">
+            <div class="popup_content_tablecell">
+                <div class="popup_content_wrap" style="position: relative">
+                    <span class="close_popup">+</span>
+                    <div id="block-form-popup-dublicate">
+                        
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+</form>
+{%endblock%}
+{% block javascripts %}
+  {{ parent() }}
+  <script type="text/javascript"> 
+    $(document).ready(function(){
+       if ($(".datepicker2").length > 0) {
+            var dateToday = new Date();
+			$(".datepicker2").datepicker({
+				dateFormat: 'yy-mm-dd',
+                timeFormat: 'hh:mm:ss',
+                maxDate: dateToday,
+			});
+		}
+    });
+  </script>
+{% endblock %}

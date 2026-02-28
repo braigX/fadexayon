@@ -1,0 +1,13 @@
+[{shop_url}]
+
+Witaj {customer_name},
+Twoja opinia na temat produktu {product_name} została odrzucona.
+
+{title}
+
+{content}
+
+{refuse}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

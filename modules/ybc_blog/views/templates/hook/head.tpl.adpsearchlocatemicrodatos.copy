@@ -1,0 +1,86 @@
+{*
+ * Copyright ETS Software Technology Co., Ltd
+ *
+ * NOTICE OF LICENSE
+ *
+ * This file is not open source! Each license that you purchased is only available for 1 website only.
+ * If you want to use this file on more websites (or projects), you need to purchase additional licenses.
+ * You are not allowed to redistribute, resell, lease, license, sub-license or offer our resources to any third party.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future.
+ *
+ * @author ETS Software Technology Co., Ltd
+ * @copyright  ETS Software Technology Co., Ltd
+ * @license    Valid for 1 website (or project) for each purchase of license
+*}
+{if isset($add_tmce) && $add_tmce}
+<script type="text/javascript" src="{$url_path|escape:'html':'UTF-8'}views/js/tinymce/tinymce.min.js"></script>
+{/if}   
+<script type="text/javascript">
+var unlike_text ="{l s='Unlike this post' mod='ybc_blog'}";
+var like_text ="{l s='Like this post' mod='ybc_blog'}";
+var baseAdminDir ='{$baseAdminDir|escape:'html':'UTF-8'}';
+var ybc_blog_product_category ='{$ybc_blog_product_category|intval}';
+var ybc_blog_polls_g_recaptcha = false;
+</script>
+{if $link_current}
+<link href="{$link_current|escape:'html':'UTF-8'}" rel="canonical" />
+{/if}
+{if isset($css) && $css}
+    <style>{$css nofilter}</style>
+{/if}
+{if isset($blog_post_header)}
+    <meta         content="id_app" />
+    <meta           content="article" />
+    <meta          content="{$blog_post_header.title|escape:'html':'UTF-8'}" />
+    <meta          content="{if $blog_post_header.image}{$blog_post_header.image|escape:'html':'UTF-8'}{else}{$blog_post_header.thumb|escape:'html':'UTF-8'}{/if}" />
+    <meta    content="{$blog_post_header.short_description|strip_tags|escape:'html':'UTF-8'}" />
+    <meta            content="{ucfirst($blog_post_header.firstname)|escape:'html':'UTF-8'} {ucfirst($blog_post_header.lastname)|escape:'html':'UTF-8'}"/>
+    <meta            content="{$blog_post_header.link|escape:'quotes':'UTF-8'}" />
+    <meta          content="summary_large_image" />
+    {if $blog_post_header.enabled==-2}
+        <meta name="robots" content="noindex, follow" />
+    {/if}
+{/if} 
+{if $YBC_BLOG_CAPTCHA_TYPE=='google'}
+    <script type="text/javascript">
+        var YBC_BLOG_CAPTCHA_SITE_KEY = '{$YBC_BLOG_CAPTCHA_SITE_KEY|escape:'html':'UTF-8'}';
+        var ybc_polls_lonloadCallback = function() {
+            ybc_blog_polls_g_recaptcha = grecaptcha.render(document.getElementById('ybc_blog_polls_g_recaptcha'), {
+                'sitekey':YBC_BLOG_CAPTCHA_SITE_KEY,
+                'theme':'light'
+            });
+        };
+        var ybc_comment_lonloadCallback = function() {
+            grecaptcha.render(document.getElementById('ybc_blog_comment_g_recaptcha'), {
+                'sitekey':YBC_BLOG_CAPTCHA_SITE_KEY,
+                'theme':'light'
+            });
+        };
+    </script>
+{/if}
+{if $YBC_BLOG_CAPTCHA_TYPE=='google3'}
+    <script type="text/javascript">
+        var YBC_BLOG_CAPTCHA_SITE_KEY = '{$YBC_BLOG_CAPTCHA_SITE_KEY|escape:'html':'UTF-8'}';
+        {literal}
+        var ybc_polls_lonloadCallback = function() {
+             grecaptcha.ready(function() {
+                grecaptcha.execute(YBC_BLOG_CAPTCHA_SITE_KEY, {action: 'homepage'}).then(function(token) {
+                    $('#ybc_blog_polls_g_recaptcha').val(token);
+             });
+          });
+        };
+        var ybc_comment_lonloadCallback = function() {
+            grecaptcha.ready(function() {
+                grecaptcha.execute(YBC_BLOG_CAPTCHA_SITE_KEY, {action: 'homepage'}).then(function(token) {
+                    $('#ybc_blog_comment_g_recaptcha').val(token);
+                });
+            });
+        };
+        {/literal}
+    </script>
+    
+{/if}

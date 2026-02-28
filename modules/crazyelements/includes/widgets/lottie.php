@@ -1,0 +1,858 @@
+<?php
+
+namespace CrazyElements;
+
+use CrazyElements\PrestaHelper;
+
+if (!defined('_PS_VERSION_')) {
+    exit; // Exit if accessed directly.
+}
+
+class Widget_Lottie extends Widget_Base {
+
+	/**
+	 * Get element name.
+	 *
+	 * Retrieve the element name.
+	 *
+	 * @return string The name.
+	 * @since 2.7.0
+	 * @access public
+	 *
+	 */
+	public function get_name() {
+		return 'lottie';
+	}
+
+	public function get_title() {
+		return PrestaHelper::__( 'Lottie', 'elementor' );
+	}
+
+	public function get_script_depends() {
+		return [ 'lottie' ];
+	}
+
+	public function get_style_depends() {
+		return [ 'e-lottie' ];
+	}
+
+	public function get_icon() {
+		return 'ceicon-lottie';
+	}
+
+	protected function _register_controls() {
+		$this->start_controls_section( 'lottie', [
+			'label' => PrestaHelper::__( 'Lottie', 'elementor' ),
+		] );
+
+		$this->add_control(
+			'source',
+			[
+				'label' => PrestaHelper::__( 'Source', 'elementor' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'media_file',
+				'options' => [
+					'media_file' => PrestaHelper::__( 'Media File', 'elementor' ),
+					'external_url' => PrestaHelper::__( 'External URL', 'elementor' ),
+				],
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
+			'source_external_url',
+			[
+				'label' => PrestaHelper::__( 'External URL', 'elementor' ),
+				'type' => Controls_Manager::URL,
+				'condition' => [
+					'source' => 'external_url',
+				],
+				'dynamic' => [
+					'active' => true,
+				],
+				'placeholder' => PrestaHelper::__( 'Enter your URL', 'elementor' ),
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
+			'source_json',
+			[
+				'label' => PrestaHelper::__( 'Upload JSON File', 'elementor' ),
+				'type' => Controls_Manager::MEDIA,
+				'media_type' => 'application/json',
+				'frontend_available' => true,
+				'condition' => [
+					'source' => 'media_file',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'align',
+			[
+				'label' => PrestaHelper::__( 'Alignment', 'elementor' ),
+				'type' => Controls_Manager::CHOOSE,
+				'options' => [
+					'left'    => [
+						'title' => PrestaHelper::__( 'Left', 'elementor' ),
+						'icon' => 'ceicon-text-align-left',
+					],
+					'center' => [
+						'title' => PrestaHelper::__( 'Center', 'elementor' ),
+						'icon' => 'ceicon-text-align-center',
+					],
+					'right' => [
+						'title' => PrestaHelper::__( 'Right', 'elementor' ),
+						'icon' => 'ceicon-text-align-right',
+					],
+				],
+				'prefix_class' => 'celementor%s-align-',
+				'default' => 'center',
+			]
+		);
+
+		$this->add_control(
+			'caption_source',
+			[
+				'label' => PrestaHelper::__( 'Caption', 'elementor' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'none',
+				'options' => [
+					'none' => PrestaHelper::__( 'None', 'elementor' ),
+					'title' => PrestaHelper::__( 'Title', 'elementor' ),
+					'caption' => PrestaHelper::__( 'Caption', 'elementor' ),
+					'custom' => PrestaHelper::__( 'Custom', 'elementor' ),
+				],
+				'condition' => [
+					'source!' => 'external_url',
+					'source_json[url]!' => '',
+				],
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
+			'caption',
+			[
+				'label' => PrestaHelper::__( 'Custom Caption', 'elementor' ),
+				'type' => Controls_Manager::TEXT,
+				'render_type' => 'none',
+				'conditions' => [
+					'relation' => 'or',
+					'terms' => [
+						[
+							'name' => 'caption_source',
+							'value' => 'custom',
+						],
+						[
+							'name' => 'source',
+							'value' => 'external_url',
+						],
+					],
+				],
+				'dynamic' => [
+					'active' => true,
+				],
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
+			'link_to',
+			[
+				'label' => PrestaHelper::__( 'Link', 'elementor' ),
+				'type' => Controls_Manager::SELECT,
+				'render_type' => 'none',
+				'default' => 'none',
+				'options' => [
+					'none' => PrestaHelper::__( 'None', 'elementor' ),
+					'custom' => PrestaHelper::__( 'Custom URL', 'elementor' ),
+				],
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
+			'custom_link',
+			[
+				'label' => PrestaHelper::__( 'Link', 'elementor' ),
+				'type' => Controls_Manager::URL,
+				'render_type' => 'none',
+				'placeholder' => PrestaHelper::__( 'Enter your URL', 'elementor' ),
+				'condition' => [
+					'link_to' => 'custom',
+				],
+				'dynamic' => [
+					'active' => true,
+				],
+				'default' => [
+					'url' => '',
+				],
+				'show_label' => false,
+				'frontend_available' => true,
+			]
+		);
+
+		// lottie.
+		$this->end_controls_section();
+
+		$this->start_controls_section( 'settings', [
+			'label' => PrestaHelper::__( 'Settings', 'elementor' ),
+		] );
+
+		$this->add_control(
+			'trigger',
+			[
+				'label' => PrestaHelper::__( 'Trigger', 'elementor' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'arriving_to_viewport',
+				'options' => [
+					'arriving_to_viewport' => PrestaHelper::__( 'Viewport', 'elementor' ),
+					'on_click' => PrestaHelper::__( 'On Click', 'elementor' ),
+					'on_hover' => PrestaHelper::__( 'On Hover', 'elementor' ),
+					'bind_to_scroll' => PrestaHelper::__( 'Scroll', 'elementor' ),
+					'none' => PrestaHelper::__( 'None', 'elementor' ),
+				],
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
+			'viewport',
+			[
+				'label' => PrestaHelper::__( 'Viewport', 'elementor' ),
+				'type' => Controls_Manager::SLIDER,
+				'render_type' => 'none',
+				'conditions' => [
+					'relation' => 'or',
+					'terms' => [
+						[
+							'name' => 'trigger',
+							'operator' => '===',
+							'value' => 'arriving_to_viewport',
+						],
+						[
+							'name' => 'trigger',
+							'operator' => '===',
+							'value' => 'bind_to_scroll',
+						],
+					],
+				],
+				'default' => [
+					'sizes' => [
+						'start' => 0,
+						'end' => 100,
+					],
+					'unit' => '%',
+				],
+				'labels' => [
+					PrestaHelper::__( 'Bottom', 'elementor' ),
+					PrestaHelper::__( 'Top', 'elementor' ),
+				],
+				'scales' => 1,
+				'handles' => 'range',
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
+			'effects_relative_to',
+			[
+				'label' => PrestaHelper::__( 'Effects Relative To', 'elementor' ),
+				'type' => Controls_Manager::SELECT,
+				'render_type' => 'none',
+				'condition' => [
+					'trigger' => 'bind_to_scroll',
+				],
+				'default' => 'viewport',
+				'options' => [
+					'viewport' => PrestaHelper::__( 'Viewport', 'elementor' ),
+					'page' => PrestaHelper::__( 'Entire Page', 'elementor' ),
+				],
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
+			'loop',
+			[
+				'label' => PrestaHelper::__( 'Loop', 'elementor' ),
+				'type' => Controls_Manager::SWITCHER,
+				'render_type' => 'none',
+				'condition' => [
+					'trigger!' => 'bind_to_scroll',
+				],
+				'return_value' => 'yes',
+				'default' => '',
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
+			'number_of_times',
+			[
+				'label' => PrestaHelper::__( 'Times', 'elementor' ),
+				'type' => Controls_Manager::NUMBER,
+				'render_type' => 'none',
+				'conditions' => [
+					'relation' => 'and',
+					'terms' => [
+						[
+							'name' => 'trigger',
+							'operator' => '!==',
+							'value' => 'bind_to_scroll',
+						],
+						[
+							'name' => 'loop',
+							'operator' => '===',
+							'value' => 'yes',
+						],
+					],
+				],
+				'min' => 0,
+				'step' => 1,
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
+			'link_timeout',
+			[
+				'label' => PrestaHelper::__( 'Link Timeout', 'elementor' ) . ' (ms)',
+				'type' => Controls_Manager::NUMBER,
+				'render_type' => 'none',
+				'conditions' => [
+					'relation' => 'and',
+					'terms' => [
+						[
+							'name' => 'link_to',
+							'operator' => '===',
+							'value' => 'custom',
+						],
+						[
+							'name' => 'trigger',
+							'operator' => '===',
+							'value' => 'on_click',
+						],
+						[
+							'name' => 'custom_link[url]',
+							'operator' => '!==',
+							'value' => '',
+						],
+					],
+				],
+				'description' => PrestaHelper::__( 'Redirect to link after selected timeout', 'elementor' ),
+				'min' => 0,
+				'max' => 5000,
+				'step' => 1,
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
+			'on_hover_out',
+			[
+				'label' => PrestaHelper::__( 'On Hover Out', 'elementor' ),
+				'type' => Controls_Manager::SELECT,
+				'render_type' => 'none',
+				'condition' => [
+					'trigger' => 'on_hover',
+				],
+				'default' => 'default',
+				'options' => [
+					'default' => PrestaHelper::__( 'Default', 'elementor' ),
+					'reverse' => PrestaHelper::__( 'Reverse', 'elementor' ),
+					'pause' => PrestaHelper::__( 'Pause', 'elementor' ),
+				],
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
+			'hover_area',
+			[
+				'label' => PrestaHelper::__( 'Hover Area', 'elementor' ),
+				'type' => Controls_Manager::SELECT,
+				'render_type' => 'none',
+				'condition' => [
+					'trigger' => 'on_hover',
+				],
+				'default' => 'animation',
+				'options' => [
+					'animation' => PrestaHelper::__( 'Animation', 'elementor' ),
+					'column' => PrestaHelper::__( 'Column', 'elementor' ),
+					'section' => PrestaHelper::__( 'Section', 'elementor' ),
+				],
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
+			'play_speed',
+			[
+				'label' => PrestaHelper::__( 'Play Speed', 'elementor' ) . ' (x)',
+				'type' => Controls_Manager::SLIDER,
+				'render_type' => 'none',
+				'condition' => [
+					'trigger!' => 'bind_to_scroll',
+				],
+				'default' => [
+					'unit' => 'px',
+					'size' => 1,
+				],
+				'range' => [
+					'px' => [
+						'min' => 0.1,
+						'max' => 5,
+						'step' => 0.1,
+					],
+				],
+				'size_units' => [ 'px' ],
+				'dynamic' => [
+					'active' => true,
+				],
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
+			'start_point',
+			[
+				'label' => PrestaHelper::__( 'Start Point', 'elementor' ),
+				'type' => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'render_type' => 'none',
+				'default' => [
+					'size' => '0',
+					'unit' => '%',
+				],
+				'size_units' => [ '%' ],
+			]
+		);
+
+		$this->add_control(
+			'end_point',
+			[
+				'label' => PrestaHelper::__( 'End Point', 'elementor' ),
+				'type' => Controls_Manager::SLIDER,
+				'frontend_available' => true,
+				'render_type' => 'none',
+				'default' => [
+					'size' => '100',
+					'unit' => '%',
+				],
+				'size_units' => [ '%' ],
+			]
+		);
+
+		$this->add_control(
+			'reverse_animation',
+			[
+				'label' => PrestaHelper::__( 'Reverse', 'elementor' ),
+				'type' => Controls_Manager::SWITCHER,
+				'render_type' => 'none',
+				'conditions' => [
+					'relation' => 'and',
+					'terms' => [
+						[
+							'name' => 'trigger',
+							'operator' => '!==',
+							'value' => 'bind_to_scroll',
+						],
+						[
+							'name' => 'trigger',
+							'operator' => '!==',
+							'value' => 'on_hover',
+						],
+					],
+				],
+				'return_value' => 'yes',
+				'default' => '',
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
+			'renderer',
+			[
+				'label' => PrestaHelper::__( 'Renderer', 'elementor' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'svg',
+				'options' => [
+					'svg' => PrestaHelper::__( 'SVG', 'elementor' ),
+					'canvas' => PrestaHelper::__( 'Canvas', 'elementor' ),
+				],
+				'separator' => 'before',
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
+			'lazyload',
+			[
+				'label' => PrestaHelper::__( 'Lazy Load', 'elementor' ),
+				'type' => Controls_Manager::SWITCHER,
+				'return_value' => 'yes',
+				'default' => '',
+				'frontend_available' => true,
+			]
+		);
+
+		// Settings.
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'style',
+			[
+				'label' => PrestaHelper::__( 'Lottie', 'elementor' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_responsive_control(
+			'width',
+			[
+				'label' => PrestaHelper::__( 'Width', 'elementor' ),
+				'type' => Controls_Manager::SLIDER,
+				'default' => [
+					'unit' => '%',
+				],
+				'tablet_default' => [
+					'unit' => '%',
+				],
+				'mobile_default' => [
+					'unit' => '%',
+				],
+				'size_units' => [ '%', 'px', 'vw' ],
+				'range' => [
+					'%' => [
+						'min' => 1,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 1,
+						'max' => 1000,
+					],
+					'vw' => [
+						'min' => 1,
+						'max' => 100,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}}' => '--lottie-container-width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'space',
+			[
+				'label' => PrestaHelper::__( 'Max Width', 'elementor' ),
+				'type' => Controls_Manager::SLIDER,
+				'default' => [
+					'unit' => '%',
+				],
+				'tablet_default' => [
+					'unit' => '%',
+				],
+				'mobile_default' => [
+					'unit' => '%',
+				],
+				'size_units' => [ '%', 'px', 'vw' ],
+				'range' => [
+					'%' => [
+						'min' => 1,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 1,
+						'max' => 1000,
+					],
+					'vw' => [
+						'min' => 1,
+						'max' => 100,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}}' => '--lottie-container-max-width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'separator_panel_style',
+			[
+				'type' => Controls_Manager::DIVIDER,
+				'style' => 'thick',
+			]
+		);
+
+		$this->start_controls_tabs( 'image_effects' );
+
+			$this->start_controls_tab( 'normal',
+				[
+					'label' => PrestaHelper::__( 'Normal', 'elementor' ),
+				]
+			);
+
+			$this->add_control(
+				'opacity',
+				[
+					'label' => PrestaHelper::__( 'Opacity', 'elementor' ),
+					'type' => Controls_Manager::SLIDER,
+					'range' => [
+						'px' => [
+							'max' => 1,
+							'min' => 0.10,
+							'step' => 0.01,
+						],
+					],
+					'selectors' => [
+						'{{WRAPPER}}' => '--lottie-container-opacity: {{SIZE}};',
+					],
+				]
+			);
+
+			$this->add_group_control(
+				Group_Control_Css_Filter::get_type(),
+				[
+					'name' => 'css_filters',
+					'selector' => '{{WRAPPER}} .e-lottie__container',
+				]
+			);
+
+			// Normal.
+			$this->end_controls_tab();
+
+			$this->start_controls_tab( 'hover',
+				[
+					'label' => PrestaHelper::__( 'Hover', 'elementor' ),
+				]
+			);
+
+			$this->add_control(
+				'opacity_hover',
+				[
+					'label' => PrestaHelper::__( 'Opacity', 'elementor' ),
+					'type' => Controls_Manager::SLIDER,
+					'range' => [
+						'px' => [
+							'max' => 1,
+							'min' => 0.10,
+							'step' => 0.01,
+						],
+					],
+					'selectors' => [
+						'{{WRAPPER}}' => '--lottie-container-opacity-hover: {{SIZE}};',
+					],
+				]
+			);
+
+			$this->add_group_control(
+				Group_Control_Css_Filter::get_type(),
+				[
+					'name' => 'css_filters_hover',
+					'selector' => '{{WRAPPER}} .e-lottie__container:hover',
+				]
+			);
+
+			$this->add_control(
+				'background_hover_transition',
+				[
+					'label' => PrestaHelper::__( 'Transition Duration', 'elementor' ),
+					'type' => Controls_Manager::SLIDER,
+					'range' => [
+						'px' => [
+							'max' => 3,
+							'step' => 0.1,
+						],
+					],
+					'selectors' => [
+						'{{WRAPPER}}' => '--lottie-container-transition-duration-hover: {{SIZE}}s',
+					],
+				]
+			);
+
+			// Hover.
+			$this->end_controls_tab();
+
+		// Image effects.
+		$this->end_controls_tabs();
+
+		// lottie style.
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_style_caption',
+			[
+				'label' => PrestaHelper::__( 'Caption', 'elementor' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'caption_source!' => 'none',
+				],
+			]
+		);
+
+		$this->add_control(
+			'caption_align',
+			[
+				'label' => PrestaHelper::__( 'Alignment', 'elementor' ),
+				'type' => Controls_Manager::CHOOSE,
+				'options' => [
+					'left' => [
+						'title' => PrestaHelper::__( 'Left', 'elementor' ),
+						'icon' => 'ceicon-text-align-left',
+					],
+					'center' => [
+						'title' => PrestaHelper::__( 'Center', 'elementor' ),
+						'icon' => 'ceicon-text-align-center',
+					],
+					'right' => [
+						'title' => PrestaHelper::__( 'Right', 'elementor' ),
+						'icon' => 'ceicon-text-align-right',
+					],
+				],
+				'default' => 'center',
+				'selectors' => [
+					'{{WRAPPER}}' => '--caption-text-align: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'text_color',
+			[
+				'label' => PrestaHelper::__( 'Text Color', 'elementor' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '',
+				'selectors' => [
+					'{{WRAPPER}}' => '--caption-color: {{VALUE}};',
+				],
+				'scheme' => [
+                    'type' => Scheme_Color::get_type(),
+                    'value' => Scheme_Color::COLOR_3,
+                ],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name' => 'caption_typography',
+				'selector' => '{{WRAPPER}} .e-lottie__caption',
+                'label' => PrestaHelper::__( 'Caption Typography', 'elementor' ),
+				
+			]
+		);
+
+		$this->add_responsive_control(
+			'caption_space',
+			[
+				'label' => PrestaHelper::__( 'Spacing', 'elementor' ),
+				'type' => Controls_Manager::SLIDER,
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}}' => '--caption-margin-top: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+	}
+
+	private function get_caption( $settings ) {
+		$is_media_file_caption = $this->is_media_file_caption( $settings );
+		$is_external_url_caption = $this->is_external_url_caption( $settings );
+
+		if ( ( $is_media_file_caption && 'custom' === $settings['caption_source'] ) || $is_external_url_caption ) {
+			return $settings['caption'];
+		} else if ( 'caption' === $settings['caption_source'] ) {
+			return wp_get_attachment_caption( $settings['source_json']['id'] );
+		} else if ( 'title' === $settings['caption_source'] ) {
+			return get_the_title( $settings['source_json']['id'] );
+		}
+
+		return '';
+	}
+
+	private function is_media_file_caption( $settings ) {
+		return 'media_file' === $settings['source'] && 'none' !== $settings['caption_source'];
+	}
+
+	private function is_external_url_caption( $settings ) {
+		return 'external_url' === $settings['source'] && '' !== $settings['caption'];
+	}
+
+	protected function render() {
+		$settings = $this->get_settings_for_display();
+		$caption = $this->get_caption( $settings );
+		$widget_caption = $caption ? '<p class="e-lottie__caption"> ' . esc_html( $caption ) . '</p>' : '';
+		$widget_container = '<div class="e-lottie__container"><div class="e-lottie__animation"></div>' . $widget_caption . '</div>';
+
+		if ( ! empty( $settings['custom_link']['url'] ) && 'custom' === $settings['link_to'] ) {
+			$this->add_link_attributes( 'url', $settings['custom_link'] );
+			$widget_container = sprintf( '<a class="e-lottie__container__link" %1$s>%2$s</a>', $this->get_render_attribute_string( 'url' ), $widget_container );
+		}
+
+		// PHPCS - XSS ok. Everything that should be escaped in the way is escaped.
+		echo $widget_container; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
+	protected function content_template() {
+		?>
+		<#
+		var ensureAttachmentData = function( id, type ) {
+			if ( 'caption' === type || 'title' === type ) {
+				if ( 'undefined' === typeof wp.media.attachment( id ).get( type ) ) {
+					wp.media.attachment( id ).fetch().then( function( data ) {
+						view.render();
+					} );
+				}
+			}
+		};
+
+		var getAttachmentData = function( id, type ) {
+			if ( id && ( 'caption' === type || 'title' === type ) ) {
+				ensureAttachmentData( id, type );
+				return wp.media.attachment( id ).get( type );
+			}
+
+			return '';
+		};
+
+		var getCaption = function() {
+			if ( ( isMediaFileCaption() && 'custom' === settings.caption_source ) || isExternalUrlCaption() ) {
+				return settings.caption;
+			} else if ( 'caption' === settings.caption_source || 'title' === settings.caption_source ) {
+				return getAttachmentData( settings.source_json.id, settings.caption_source );
+			}
+
+			return '';
+		};
+
+		var isMediaFileCaption = function() {
+			return 'media_file' === settings.source && 'none' !== settings.caption_source;
+		};
+
+		var isExternalUrlCaption = function() {
+			return 'external_url' === settings.source && '' !== settings.caption;
+		};
+
+		var widget_caption = getCaption() ? '<p class="e-lottie__caption">' + getCaption() + '</p>' : '';
+		var widget_container = '<div class="e-lottie__container"><div class="e-lottie__animation"></div>' + widget_caption + '</div>';
+
+		if ( settings.custom_link.url && 'custom' === settings.link_to ) {
+			widget_container = '<a class="e-lottie__container__link" href="' + settings.custom_link.url + '">' + widget_container + '</a>';
+		}
+
+		print( widget_container );
+		#>
+		<?php
+	}
+}

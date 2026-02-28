@@ -1,0 +1,49 @@
+#ets-abancart-error {
+    border: 1px solid #e12a02;
+    background-color: #fce9e5;
+    color: #e12a02;
+    border-radius: 4px;
+    padding: 12px;
+}
+
+#ets-abancart-success {
+    border: 1px solid #49a02d;
+    background-color: #eef6eb;
+    padding: 12px;
+    color: #49a02d;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    border-radius: 4px;
+    font-size: 15px;
+}
+
+span.icon_success {
+    display: inline-flex;
+    background: #499f2c;
+    padding: 6px;
+    vertical-align: middle;
+    margin-right: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 0 #499f2c;
+}
+
+span.icon_success svg {
+    background: #fff;
+    fill: #499f2c;
+    border-radius: 50%;
+}
+span.icon_timex{
+    display: inline-flex;
+    background: #e12a02;
+    padding: 6px;
+    vertical-align: middle;
+    margin-right: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 0 #e12a02;
+}
+span.icon_timex svg {
+    background: #fff;
+    fill: #e12a02;
+    border-radius: 50%;
+}

@@ -1,0 +1,5 @@
+Hallo {author_name}
+{reporter} hat gerade einen Kommentar zu {post_title} als missbraucht gemeldet.
+{comment}
+Kommentar ansehen
+

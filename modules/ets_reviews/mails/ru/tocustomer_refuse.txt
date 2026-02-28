@@ -1,0 +1,13 @@
+[{shop_url}]
+
+Здравствуйте {customer_name},
+Ваш отзыв о {product_name} отклонен.
+
+{title}
+
+{content}
+
+{reason}
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

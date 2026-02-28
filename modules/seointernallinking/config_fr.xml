@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>seointernallinking</name>
+    <displayName><![CDATA[Lien interne SEO]]></displayName>
+    <version><![CDATA[1.1.0]]></version>
+    <description><![CDATA[G&eacute;n&eacute;rez des liens internes entre toutes sortes de pages pour un meilleur r&eacute;f&eacute;rencement.]]></description>
+    <author><![CDATA[FMM Modules]]></author>
+    <tab><![CDATA[seo]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+</module>

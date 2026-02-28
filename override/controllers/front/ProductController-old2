@@ -1,0 +1,39 @@
+<?php
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+class ProductController extends ProductControllerCore
+{
+    public function init()
+    {
+        $id_product = (int) Tools::getValue('id_product');
+        if (!$id_product) {
+            Tools::redirect('index.php');
+        }
+        parent::init();
+    }
+    public function getPriceProduct($getDiscount = false)
+    {
+        $id_customer = ($this->context->customer->id) ? (int) ($this->context->customer->id) : 0;
+        $id_group = null;
+        if ($id_customer) {
+            $id_group = Customer::getDefaultGroupId((int) $id_customer);
+        }
+        if (!$id_group) {
+            $id_group = (int) Group::getCurrent()->id;
+        }
+        $group = new Group($id_group);
+        $tax = !$group->price_display_method;
+        if ($getDiscount) {
+            return Tools::displayPrice($this->product->getPrice($tax));
+        }
+        return Tools::displayPrice($this->product->getPriceWithoutReduct(!$tax));
+    }
+    public function getBrandName()
+    {
+        if ($this->product->id_manufacturer && ($manuf = new Manufacturer($this->product->id_manufacturer, $this->context->language->id)) && $manuf->id) {
+            return $manuf->name;
+        }
+        return '';
+    }
+}

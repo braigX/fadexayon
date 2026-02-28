@@ -1,0 +1,19 @@
+ 
+
+{shop_url}
+
+Hallo {firstname} {lastname},
+
+Uw bericht is succesvol verzonden, bedankt dat u de tijd hebt genomen om ons te schrijven!
+
+Ordernummer #:  {order_name}
+
+Product:  {product_name}
+
+Bijlage: {attached_file}
+
+Wij zullen zo spoedig mogelijk antwoorden.
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop-project.org/)

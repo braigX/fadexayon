@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modules>
+    <module id_product="24352" rate="5">
+        <en name="Full Features Groups PRO (with Compare products)">
+            Using our module you can easily display product features groups on product. This module also displays the list of features, aligned with the selected category, in administration panel on the product page. Assign several values to one product feature.
+        </en>
+    </module>
+
+    <module id_product="21788" rate="5">
+        <en name="Price List generator">
+            Using our module you can easily get an downloadable XLS products price list on your site for customers!
+        </en>
+    </module>
+
+    <module id_product="21368" rate="5">
+        <en name="Full Features Groups">
+            Using our module you can easily display product features groups on product and comparison pages. This module
+            also displays the list of features, alligned with the selected category, in administration panel on the
+            product page.
+        </en>
+    </module>
+</modules>

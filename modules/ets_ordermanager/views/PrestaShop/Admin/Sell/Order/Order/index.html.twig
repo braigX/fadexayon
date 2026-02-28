@@ -1,0 +1,20 @@
+{% extends constant('_PS_VERSION_')|number_format >= 8 ? '@!PrestaShop/Admin/Sell/Order/Order/index.html.twig':'PrestaShopBundle:Admin/Sell/Order/Order:index.html.twig' %}
+{% block order_grid_row %}
+    <div class="row">
+      <div class="col-12">
+        {% include '@PrestaShop/Admin/Common/Grid/grid_panel_order.html.twig' with {'grid': orderGrid} %}
+      </div>
+      <div class="ets_order_popup">
+            <div class="popup_content table">
+            <div class="popup_content_tablecell">
+                <div class="popup_content_wrap" style="position: relative">
+                    <span class="close_popup">+</span>
+                    <div id="block-form-popup-dublicate">
+                        
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

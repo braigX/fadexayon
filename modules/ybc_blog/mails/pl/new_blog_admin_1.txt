@@ -1,0 +1,4 @@
+Nowy post został przesłany do {shop_name} i został automatycznie zatwierdzony
+Autor:{customer_name}
+Tytuł posta:{post_title}
+Zobacz post

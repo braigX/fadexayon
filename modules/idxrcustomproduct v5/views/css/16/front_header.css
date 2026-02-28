@@ -1,0 +1,45 @@
+/**
+ * 2007-2018 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * @author    Innovadeluxe SL
+ * @copyright 2018 Innovadeluxe SL
+
+ * @license   INNOVADELUXE
+ */
+
+.configure_cart_button {
+    padding: 10px;
+    background: #00b7ff !important;
+    border-radius: 2px !important;
+    color: #ffffff !important;
+    font-size: 14px;
+    font-weight: bold;
+}
+.configure_cart_button:hover{
+    background:#0d94c9 !important;
+}
+
+.idxrcustomproduct-notes {
+  display: flex;
+}
+
+.idxrcustomproduct-notes-title {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: #7a7a7a;
+  margin-right: 10px;
+}
+
+.idxrcustomproduct-notes-texts {
+  width: 100%;
+}
+
+.idxrcustomproduct-notes-text {
+  padding: 5px;
+}
+
+.idxrcustomproduct-notes-texts  .idxrcustomproduct-notes-text:not(:first-child) {
+  border-top: 1px solid #f6f6f6;
+}

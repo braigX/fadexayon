@@ -1,0 +1,54 @@
+{*
+* 2007-2019 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Academic Free License (AFL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/afl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@buy-addons.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+* @author    Buy-addons    <contact@buy-addons.com>
+* @copyright 2007-2019 Buy-addons
+* @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*  International Registered Trademark & Property of PrestaShop SA
+*}
+<link href="{$path|escape:'htmlall':'UTF-8'}views/css/baourcategories/baourcategories.css" rel="stylesheet" type="text/css" media="all" />
+<div class="div_title_customer_reviews">
+	<span class="title_customer_reviews" style="color: #4C67A1;font-size: 16px;">{l s='Our Categories:' mod='bafacebookstore'}</span>
+	<span class="style_hr"><hr style="margin-top: 20px;margin-bottom: 20px;border: 0;border-top: 2px solid #4C67A1;"></span>
+</div>
+{if $arraycategory != 0}
+	<div id="htmlcontent_home" style="position: relative">
+		<ul class="htmlcontent-home clearfix" style=" width:725px ; height:auto; padding:0 !important">
+			{foreach $arraycategory key=key item=arraycategoryitem}
+				<li style="width:230px ; height:150px ; display: inline-block; background-size: 230px auto; margin:5px; margin-bottom: 15px; position: receive;">
+					<div style="overflow: hidden; width: 230px; height: 150px; position: absolute;">
+						<img src="{$link->getCatImageLink({$arraycategory[$key]["0"]["link_rewrite"]|escape:'htmlall':'UTF-8'}, $arraycategory[$key]["1"]->id_image, $a)|escape:'htmlall':'UTF-8'}">
+					</div>
+					<a style="position: absolute;" class="product_img_link" href="{$link->getModuleLink('bafacebookstore', 'fbstorecategory', ['id_category' => $arraycategory[$key]["0"]["id_category"]], true)|escape:'htmlall':'UTF-8'}" itemprop="url">
+						<div style="width: 230px; height: 150px; text-align: center; display:inline-block; background-color: #000; opacity: 0.6; position: absolute"></div>
+						<div style="width: 230px; height: 150px; text-align: center; display:inline-block; position: absolute">
+							<div class="cat_desc" style=" height: 50px; padding-top: 48px;">
+								<p class="category-name" style="font-family: Lato, sans-serif; color: #FFF; font-size: 20px; overflow:hidden; margin-bottom: 0px;">
+									{$arraycategory[$key]["0"]["name"]|escape:'htmlall':'UTF-8'}
+								</p>
+								<div style="color: #FFF; height: 20px; overflow:hidden">{$arraycategory[$key]["0"]["description"] nofilter}{*Escape is unnecessary*}</div>
+							</div>
+							{*<img src="{$link->getCatImageLink({$arraycategory[$key]["0"]["link_rewrite"]|escape:'htmlall':'UTF-8'}, $arraycategory[$key]["1"]->id_image, 'ba_img_categories')|escape:'htmlall':'UTF-8'}">*}
+						</div>
+					</a>
+				</li>
+			{/foreach}
+		</ul>
+	</div>
+{/if}

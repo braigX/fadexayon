@@ -1,0 +1,30 @@
+.fa.fa-truck,.fa.fa-user {
+    font-size: 0;
+}
+.fa.fa-truck:before,.fa.fa-user:before {
+    font-size: 16px;
+}
+.js-link-row-action .fa-ticket {
+    font-size: 0!important;
+}
+.fa-ticket::before {
+    font-size: 14px;
+}
+.dropdown-menu .dropdown-item i {
+    min-width: 26px;
+    text-align: center;
+}
+.dropdown-menu .dropdown-item i.fa_ets {
+    font-size: 0;
+}
+.dropdown-menu .dropdown-item i:before {
+    font-size: 16px;
+}
+.dropdown-menu>.dropdown-item {
+    border-radius: 0!important;
+}
+.dropdown-menu>.dropdown-item, .dropdown-menu.dropdown-menu-right {
+    min-width: 200px;
+}
+
+

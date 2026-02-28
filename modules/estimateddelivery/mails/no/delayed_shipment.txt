@@ -1,0 +1,13 @@
+Hei {firstname} {lastname},
+
+Forsendelsen av bestillingen din er forsinket
+
+Bestilling {order_name} - Forsinket
+
+Forsendelsen av bestillingen din {order_name} er forsinket på grunn av uforutsette omstendigheter.
+Vi vil gjøre vårt beste for å sende det så snart som mulig.
+Hvis du har spørsmål eller trenger ytterligere informasjon, vennligst kontakt kundeservice eller svar på denne meldingen.
+
+Du kan se gjennom bestillingen din og laste ned fakturaen fra "Bestillingshistorikk" i kundekontoen din ved å klikke på "Min konto" på vår butikk.
+
+{shop_name} PrestaShop™

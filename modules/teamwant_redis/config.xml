@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>teamwant_redis</name>
+	<displayName><![CDATA[Redis Cache]]></displayName>
+	<version><![CDATA[3.6.10]]></version>
+	<description><![CDATA[Support Redis Cache for Prestashop]]></description>
+	<author><![CDATA[Mateusz Szymański Teamwant]]></author>
+	<tab><![CDATA[others]]></tab>
+	<is_configurable>1</is_configurable>
+	<need_instance>1</need_instance>
+</module>

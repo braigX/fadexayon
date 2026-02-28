@@ -1,0 +1,13 @@
+Hello {firstname} {lastname},
+
+The shipment of Your order has been delayed
+
+Order {order_name} - Delayed
+
+Your order's {order_name} shipment has been delayed due to unforeseen circumstances.
+We will make every effort to ship it as soon as possible.
+If you have any questions or require additional information, please contact customer support or reply to this message.
+
+You can review your order and download your invoice from the "Order history" section of your customer account by clicking "My account" on our shop.
+
+{shop_name}

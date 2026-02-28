@@ -1,0 +1,355 @@
+<?php
+if (!defined('_PS_VERSION_')) { exit; }
+abstract class Controller extends ControllerCore
+{
+    /*
+    * module: ets_superspeed
+    * date: 2024-03-22 20:23:32
+    * version: 1.8.3
+    */
+    protected function smartyOutputContent_($content)
+    {
+        if (version_compare(_PS_VERSION_, '1.7.0', '<')) {
+            ob_start();
+            parent::smartyOutputContent($content);
+            $html = ob_get_contents();
+            ob_clean();
+            Hook::exec('actionOutputHTMLBefore',  array('html' => &$html));
+	        echo $html;
+        } else
+            return parent::smartyOutputContent($content);
+    }
+
+    protected function smartyOutputContent($content)
+    {
+        $sirv = Module::getInstanceByName('sirv');
+        $doSirv = !(defined('PS_ADMIN_DIR') ||
+            !$sirv || !(Configuration::get('SIRV_ACTIVE')) ||
+            !Module::isEnabled('sirv'));
+        if (!$doSirv) {
+            if ($sirv && Module::isEnabled('sirv')) {
+                $sirv->processFetchQueue();
+            }
+        } elseif (Configuration::get('SIRV_SERVE_JSCSS') && !$sirv->isMuted()) {
+            $js_files = $this->context->smarty->getTemplateVars('js_files');
+            if (!empty($js_files) && count($js_files)) {
+                foreach ($js_files as $i => $js_file) {
+                    if ($sirv->isFileExcluded($js_file)) {
+                        continue;
+                    }
+                    $js_files[$i] = preg_replace(
+                        '/^(?:'.
+                        preg_replace(
+                            '/https?\:/ims',
+                            'https?:',
+                            preg_quote(str_replace('http:', 'https:', _PS_BASE_URL_), '/')
+                        ).')?'.preg_quote(__PS_BASE_URI__, '/').'/ims',
+                        $sirv->getSirvURL(),
+                        $js_file
+                    );
+                }
+            }
+            $css_files = $this->context->smarty->getTemplateVars('css_files');
+            if (!empty($css_files) && count($css_files)) {
+                $css_files_ = array();
+                foreach ($css_files as $i => $css_file) {
+                    if ($sirv->isFileExcluded($i)) {
+                        continue;
+                    }
+                    $i = preg_replace(
+                        '/^(?:'.
+                        preg_replace(
+                            '/https?\:/ims',
+                            'https?:',
+                            preg_quote(str_replace('http:', 'https:', _PS_BASE_URL_), '/')
+                        ).')?'.preg_quote(__PS_BASE_URI__, '/').'/ims',
+                        $sirv->getSirvURL(),
+                        $i
+                    );
+                    $css_files_[$i] = $css_file;
+                }
+                $css_files = $css_files_;
+            }
+            $this->context->smarty->assign(array(
+                'js_files'  =>  $js_files,
+                'css_files' =>  $css_files
+            ));
+        }
+        ob_start();
+        if (false && method_exists($this, 'smartyOutputContent_')) {
+            $this->smartyOutputContent_($content);
+        } else {
+            parent::smartyOutputContent($content);
+        }
+        $content = ob_get_contents();
+        ob_end_clean();
+        
+        if ($doSirv && Configuration::get('SIRV_IMAGES_CMS')) {
+            $content = preg_replace_callback('/<img[^>]*?>/ims', function ($matches) {
+                $sirv = Module::getInstanceByName('sirv');
+                $m = $matches[0];
+                $src = preg_replace('/.*(?: |\t)(?:data\-)?src *= *"(.*?)".*/ims', '$1', $m);
+                $url_reg = '/^(?:(https?:\/\/(www\.)?'.
+                preg_quote(preg_replace('/https?:\/\/(?:www\.)?/ims', '', _PS_BASE_URL_.__PS_BASE_URI__), '/').
+                ')|('.preg_quote(preg_replace('/https?:\/\/(?:www\.)?/ims', '', __PS_BASE_URI__), '/').'))/ims';
+                $url_reg_short = '/^'.
+                preg_quote(preg_replace('/https?:\/\/(?:www\.)?/ims', '', __PS_BASE_URI__), '/').
+                '/ims';
+                if ($m!=$src &&
+                    strpos($src, 'img/magicscroll/') === false &&
+                    strpos($src, 'img/magicslideshow/') === false &&
+                    strpos($src, 'img/magic360/') === false &&
+                    strpos($src, 'img/p/') === false &&
+                    strpos($src, 'module/cron/') === false &&
+                    strpos($src, 'img/c/') === false &&
+                    (
+                        preg_match($url_reg, $src) || strrpos($src, $sirv->getSirvURL()) !== false || file_exists($src)
+                    )
+                ) {
+                    if ( strrpos($src, $sirv->getSirvURL()) === false ) {
+                        $src_orig = $src;
+                        $imgPath = $src = urldecode($src);                  
+
+                        if (!file_exists($imgPath)) {
+                            $imgPath = preg_replace($url_reg, '', $src);
+                            $imgPath = preg_replace($url_reg_short, '', $imgPath);
+                            $imgPath = preg_replace('/^\//ims', '', $imgPath);                            
+                        }
+                        
+                        $types = join('|', array_keys($sirv->getImageTypes()));
+                        if (preg_match('/^([0-9]{1,})(?:\-('.$types.'))?\/([^\/]{1,})\.[a-z]{1,}$/ims', $imgPath, $sh_m)) {
+                            $name = $sh_m[3];
+                            $ids = $sh_m[1];
+                            $type = $sh_m[2];
+                            $imgPath = _PS_PROD_IMG_DIR_.Image::getImgFolderStatic($ids).$ids.".jpg";
+                            $link = $sirv->syncImage($name, $ids, $type, '', $imgPath, 'PRODUCT', false);
+                        } else {
+                            $link = $sirv->syncImage(false, false, false, $src, $imgPath, 'CUSTOM', true);
+                        }
+                        if ($link) {
+                            $m = str_replace($src_orig, $link, $m);
+                        }
+                    } else {
+                        $imgPath = str_replace($sirv->getSirvURL(), '', $src);
+                        $sql = "SELECT * FROM "._DB_PREFIX_."sirv_images WHERE sirvpath = '".pSQL($imgPath)."'";    
+                        $image = Db::getInstance()->getRow($sql);
+                        if (!empty($image['path'])) {
+                            $imgPath = $image['path'];
+                        }
+                    }
+                    if (Configuration::get('SIRV_ADD_WIDTH_HEIGHT') && !empty($imgPath)) {
+                        $size = getimagesize($imgPath);
+                        if (!empty($size[0]) && !preg_match('/width\s*=\s*"[^\"]*"/ims', $m)) {
+                            $m = preg_replace('/width *= *"[0-9]{1,}"/ims', '', $m);
+                            $m = preg_replace('/<img/ims', '$0 width="'.$size[0].'"', $m);
+                        }
+                        if (!empty($size[1]) && !preg_match('/height\s*=\s*"[^\"]*"/ims', $m)) {
+                            $m = preg_replace('/height *= *"[0-9]{1,}"/ims', '', $m);
+                            $m = preg_replace('/<img/ims', '$0 height="'.$size[1].'"', $m);
+                        }
+                    }
+                }
+                if (preg_match('/title=".*?"/ims', $m)) {
+                    $title = preg_replace('/.*title="(.*?)".*/ims', '$1', $m);
+                    if (!preg_match('/alt=".*?"/ims', $m)) {
+                        $m = preg_replace('/(title=".*?")/ims', '$1 alt="'.$title.'"', $m);
+                    } elseif (preg_match('/alt=""/ims', $m)) {
+                        $m = preg_replace('/(alt="")/ims', 'alt="'.$title.'"', $m);
+                    }
+                }
+                return $m;
+            }, $content);
+            $pattern = '/background(?:\-image)?:\s?url\((.*?)\)/ims';
+            $content = preg_replace_callback($pattern, function ($matches) {
+                $sirv = Module::getInstanceByName('sirv');
+                $m = $matches[0];
+                
+                $src = $matches[1];
+                $src_orig = $src;
+                $src =  str_replace('&#039;', '', $src);
+                $src =  str_replace('%20', ' ', $src);
+                $url_reg = '/^(?:(https?:\/\/(www\.)?'.
+                preg_quote(preg_replace('/https?:\/\/(?:www\.)?/ims', '', _PS_BASE_URL_.__PS_BASE_URI__), '/').
+                ')|('.preg_quote(preg_replace('/https?:\/\/(?:www\.)?/ims', '', __PS_BASE_URI__), '/').'))/ims';
+                
+                $url_reg_short = '/^'.
+                preg_quote(preg_replace('/https?:\/\/(?:www\.)?/ims', '', __PS_BASE_URI__), '/').
+                '/ims';
+                if ($m!=$src &&
+                    strpos($src, 'img/magicscroll/') === false &&
+                    strpos($src, 'img/magicslideshow/') === false &&
+                    strpos($src, 'img/magic360/') === false &&
+                    strpos($src, 'img/p/') === false &&
+                    strpos($src, 'module/cron/') === false &&
+                    strpos($src, 'img/c/') === false &&
+                    strrpos($src, $sirv->getSirvURL()) === false &&
+                    (
+                        preg_match($url_reg, $src)
+                    )
+                ) {
+                    $src = urldecode($src);
+                    
+                    $imgPath = preg_replace($url_reg, '', $src);
+                    $imgPath = preg_replace($url_reg_short, '', $imgPath);
+                    $imgPath = preg_replace('/^\//ims', '', $imgPath);
+                    $types = join('|', array_keys($sirv->getImageTypes()));
+                    if (preg_match('/^([0-9]{1,})\-('.$types.')\/([^\/]{1,})\.[a-z]{1,}$/ims', $imgPath, $sh_m)) {
+                        $name = $sh_m[3];
+                        $ids = $sh_m[1];
+                        $type = $sh_m[2];
+                        $imgPath = _PS_PROD_IMG_DIR_.Image::getImgFolderStatic($ids).$ids.".jpg";
+                        $link = $sirv->syncImage($name, $ids, $type, '', $imgPath, 'PRODUCT', false);
+                    } else {
+                        $link = $sirv->syncImage(false, false, false, $src, $imgPath, 'CUSTOM', true);
+                    }
+                    
+                    if ($link) {
+                        $link = str_replace(' ', '%20', $link);
+                        $m = str_replace($src_orig, $link, $m);
+                    }
+                }
+                return $m;
+            }, $content);
+        }
+        
+        
+        
+        if ($doSirv && (Configuration::get('SIRV_IMAGES_LAZYLOAD') || true)) {
+            $content = preg_replace_callback('/<img[^>]*?>/ims', function ($matches) {
+                $sirv = Module::getInstanceByName('sirv');
+                $m = $matches[0];
+                $src = preg_replace('/.*(?: |\t|data\-)src *= *"(.*?)".*/ims', '$1', $m);
+                $class = preg_replace('/.*class="(.*?)".*/ims', '$1', $matches[0]);
+                if ($class == $matches[0]) {
+                    $class = 'FAKECLASS';
+                }
+                if ($src!=$m &&
+                    !$sirv->isFileExcluded($class, 'SIRV_EXCLUDEFILES_FROM_LAZY') &&
+                    !$sirv->isFileExcluded($src, 'SIRV_EXCLUDEFILES_FROM_LAZY') &&
+                    strrpos($src, $sirv->getSirvURL()) !== false &&
+                    !preg_match('/img\/magic/ims', $src) &&
+                    !preg_match('/no\-sirv\-lazy\-load/ims', $m)
+                ) {
+                    if (Configuration::get('SIRV_IMAGES_LAZYLOAD') == 2) {
+                        $m = preg_replace('/loading="lazy"/ims', '', $m);
+                        $m = preg_replace('/<img/ims', '<img loading="lazy"', $m);
+                    } elseif (Configuration::get('SIRV_IMAGE_SCALING') == 1
+                        || Configuration::get('SIRV_IMAGES_LAZYLOAD') == 1) {
+
+                        $m = preg_replace('/loading="lazy"/ims', '', $m);
+                        $m = preg_replace('/<img/ims', '<img loading="lazy"', $m);
+                        if (preg_match('/class *= *"/ims', $m)) {
+                            $m = preg_replace('/class *= *"/ims', '$0Sirv ', $m);
+                        } else {
+                            $m = preg_replace('/<img/ims', '<img class="Sirv"', $m);
+                        }
+
+
+                        $src_clean = $src;
+                        $m = preg_replace('/(?: |\t|data\-)(src *= *".*?")/ims', ' data-src="'.$src_clean.'"', $m);
+        
+
+                        if (Configuration::get('SIRV_IMAGE_SCALING') == 1
+                            && Configuration::get('SIRV_IMAGES_LAZYLOAD') == 1) {
+                        } elseif (Configuration::get('SIRV_IMAGE_SCALING') == 1
+                            && Configuration::get('SIRV_IMAGES_LAZYLOAD') == 0) {
+                            $m = preg_replace('/<img/ims', '<img data-options="autostart:created"', $m);
+                        } elseif (Configuration::get('SIRV_IMAGE_SCALING') == 0
+                            && Configuration::get('SIRV_IMAGES_LAZYLOAD') == 1) {
+                            $m = preg_replace('/<img/ims', '<img data-type="static"', $m);
+                        }
+                        if (Configuration::get('SIRV_IMAGES_LAZYLOAD') == 1
+                            && Configuration::get('SIRV_LAZY_PLACEHOLDER') != 'disabled') {
+                            $url_info = parse_url($src_clean);
+                            if (Configuration::get('SIRV_LAZY_PLACEHOLDER') == 'image'
+                                || Configuration::get('SIRV_LAZY_PLACEHOLDER') == 'blurred') {
+                                if (Configuration::get('SIRV_LAZY_PLACEHOLDER') == 'image') {
+                                    $src_url = 'q=30';
+                                } elseif (Configuration::get('SIRV_LAZY_PLACEHOLDER') == 'blurred') {
+                                    $src_url = 'q=30&w=30';
+                                }
+                                if (!empty($url_info['query'])) {
+                                    $src_clean = str_replace('?'.$url_info['query'], '', $src_clean);
+                                }
+                                $src_url = $src_clean.'?'.$src_url;
+                            } elseif (Configuration::get('SIRV_LAZY_PLACEHOLDER') == 'background') {
+                                $src_url = 'data:image/png;base64,'.
+                                'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABC'.
+                                'AQAAAC1HAwCAAAAC0lEQVR42mN89h8AAtEB5wrzxXEAAAAASUVORK5CYII=';
+                            }
+                            if (preg_match('/\ssrc\s*=\s*"/ims', $m)) {
+                                $m = preg_replace('/\ssrc\s*=\s*".*?"/ims', 'src="'.$src_url.'"', $m);
+                            } else {
+                                $m = preg_replace('/<img/ims', '<img src="'.$src_url.'"', $m);
+                            }
+                        }
+                    }
+                }
+
+                $m = str_replace('&amp;amp;amp;', '&amp;', $m);
+
+                return $m;
+            }, $content);
+        }
+                
+        if ($doSirv && Configuration::get('SIRV_ADD_WIDTH_HEIGHT')) {
+            $content = preg_replace_callback('/<img[^>]*?>/ims', function ($matches) {
+                $sirv = Module::getInstanceByName('sirv');
+                $m = $matches[0];
+                $src = preg_replace('/.*(?: |\t)(?:data\-)src *= *"(.*?)".*/ims', '$1', $m);
+                if ($src!=$m &&
+                    strrpos($src, $sirv->getSirvURL()) !== false &&
+                    !preg_match('/img\/m/ims', $src) &&
+                    !preg_match('/no\-sirv\-lazy\-load/ims', $m)
+                ) {
+                    $src = preg_replace('/.*(?: |\t)(?:data\-)?src *= *"(.*?)".*/ims', '$1', $m);
+                    $size = array(
+                        (int)preg_replace('/.*?w=([0-9]{1,}).*/ims', '$1', $src),
+                        (int)preg_replace('/.*?h=([0-9]{1,}).*/ims', '$1', $src),
+                    );
+                    if (!empty($size[0]) && !preg_match('/width\s*=\s*"[^\"]*"/ims', $m)) {
+                        $m = preg_replace('/<img/ims', '$0 width="'.$size[0].'"', $m);
+                    }
+                    if (!empty($size[1]) && !preg_match('/height\s*=\s*"[^\"]*"/ims', $m)) {
+                        $m = preg_replace('/<img/ims', '$0 height="'.$size[1].'"', $m);
+                    }
+                }
+                return $m;
+            }, $content);
+        }
+        if ($doSirv && Configuration::get('SIRV_INCLUDESIRVJS')!='nopages') {
+            $includeJS = false;
+            if (Configuration::get('SIRV_INCLUDESIRVJS')=='allpages') {
+                $includeJS = true;
+            }
+            $includeJS = $includeJS || preg_match('/class(?: |\t)*=(?: |\t)*"[^"]*sirv/ims',$content);
+            $includeJS = $includeJS || 
+                (Configuration::get('SIRV_IMAGES_LAZYLOAD') == 1 || Configuration::get('SIRV_IMAGE_SCALING')) ||
+                'product' === $this->context->controller->php_self && Configuration::get('SIRV_USE_SMV') == 1;
+            if ($includeJS) {
+                $sirvjscomponent_items = explode(',', Configuration::get('SIRV_SIRVJSCOMPONENTS'));
+                if ($sirvjscomponent_items == array('') ) {
+                    $sirvjscomponent_items = array();
+                }
+                if (Configuration::get('SIRV_IMAGES_LAZYLOAD') == 1 && !in_array('lazyimage', $sirvjscomponent_items)) {
+                    $sirvjscomponent_items[] = 'lazyimage';
+                }
+                $modules = (!empty($sirvjscomponent_items))?'?modules='.implode(',', $sirvjscomponent_items):'';
+                $content = preg_replace('/<\/body>/ims', "\r\n<script src=\"https://scripts.sirv.com/sirvjs/v3/sirv.js".$modules."\"></script>\r\n</body>", $content);
+            }
+        }
+        if ($doSirv) {
+            $sirv->processFetchQueue();
+            $content = $sirv->parseTemplateStandard($content, null, true);            
+        }
+        if (!(defined('PS_ADMIN_DIR') ||
+            !$sirv || !(Configuration::get('SIRV_ACTIVE')) ||
+            !Module::isEnabled('sirv') || !Configuration::get('SIRV_SERVE_JSCSS') || $sirv->isMuted())) {
+            $content = preg_replace('/((?:<script[^>]*src=")|(?:<link[^<]*href="))([^"]*magic(zoom|zoomplus|360|slideshow|scroll|thumb)\/views\/)/ims', '$1'.preg_replace('/\/$/ims', '', $sirv->getSirvURL()).'$2', $content);
+        }
+        
+        Hook::exec('actionOutputHTMLBefore', array('html' => &$content));
+        echo $content;
+    }
+
+}

@@ -1,0 +1,4 @@
+Cześć {reporter}
+Udało Ci się zgłosić nadużycie w komentarzach do {post_title}.
+{comment}
+Dziękujemy za Twój wkład w naszą stronę

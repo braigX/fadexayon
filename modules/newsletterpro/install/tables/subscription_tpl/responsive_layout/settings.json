@@ -1,0 +1,49 @@
+{
+    "name": "Responsive Layout",
+    "voucher": "",
+    "active": false,
+    "display_gender": true,
+    "display_firstname": true,
+    "display_lastname": true,
+    "display_language": false,
+    "display_birthday": true,
+    "display_list_of_interest": true,
+    "display_subscribe_message": false,
+    "body_width": "100%",
+    "body_min_width": "0",
+    "body_max_width": "600",
+    "body_top": "100",
+    "cookie_lifetime": 365,
+    "start_timer": 0,
+    "allow_multiple_time_subscription": true,
+    "mandatory_fields": [],
+    "terms_and_conditions_url": "",
+    "_const": [
+        {
+            "field_name": "list_of_interest_type",
+            "field_value": "NewsletterProSubscriptionTpl::LIST_OF_INTEREST_TYPE_CHECKBOX"
+        },
+        {
+            "field_name": "show_on_pages",
+            "field_value": "NewsletterProSubscriptionTpl::SHOW_ON_PAGES_NONE"
+        },
+        {
+            "field_name": "when_to_show",
+            "field_value": "NewsletterProSubscriptionTpl::WHEN_TO_SHOW_POPUP_COOKIE"
+        },
+        {
+            "field_name": "render_loader",
+            "field_value": "NewsletterProSubscriptionTpl::RENDER_LOADER_BETTER"
+        }
+    ],
+    "_content": {
+        "css_style": "css_style.compiled.scss"
+    },
+    "_content_lang": {
+        "content": "content.html",
+        "subscribe_message": "subscribe_message.html",
+        "email_subscribe_voucher_message": "email_subscribe_voucher_message.html",
+        "email_subscribe_confirmation_message": "email_subscribe_confirmation_message.html",
+        "email_unsubscribe_confirmation_message": "email_unsubscribe_confirmation_message.html"
+    }
+}

@@ -1,0 +1,13 @@
+[{shop_url}]
+
+Dobrý den {customer_name},
+Doufáme, že si můžete ušetřit čas na hodnocení svých nedávno zakoupených položek:
+
+{product_list}
+
+Děkujeme za důvěru a nákup v našem obchodě
+
+Hodnotit teď
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

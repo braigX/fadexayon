@@ -1,0 +1,13 @@
+[{shop_url}]
+
+Hello {customer_name},
+We hope that you can spare your time to rate your recently purchased items:
+
+{product_list}
+
+Thank you for trusting and shopping at our store
+
+Rate now
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]

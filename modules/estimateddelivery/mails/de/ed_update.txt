@@ -1,0 +1,8 @@
+[{shop_url}] 
+
+Hi {firstname} {lastname}, 
+
+Das voraussichtliche Lieferdatum mit der Referenz  {order_name} wurde aktualisiert. Das neue voraussichtliche Datum ist
+
+Lieferung min.: {delivery_min}
+Lieferung max.: {delivery_max}

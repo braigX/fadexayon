@@ -1,0 +1,8 @@
+[{shop_url}] 
+
+Olá {firstname} {lastname}, 
+
+A data estimada de entrega da sua encomenda com a referência {nome_da_ordem} foi atualizada. A nova data prevista é
+
+Entrega min: {delivery_min}
+Entrega máx: {delivery_max}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>customshippingrate</name>
+    <displayName><![CDATA[Taux d&#039;exp&eacute;dition personnalis&eacute;]]></displayName>
+    <version><![CDATA[2.1.8]]></version>
+    <description><![CDATA[Permet l&#039;application d&#039;un tarif d&#039;exp&eacute;dition personnalis&eacute; dans le back office lors de la cr&eacute;ation des commandes.]]></description>
+    <author><![CDATA[Prestamatic]]></author>
+    <tab><![CDATA[shipping_logistics]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+</module>

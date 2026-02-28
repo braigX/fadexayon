@@ -1,0 +1,27 @@
+label.col-md-3.form-control-label.avatar-label,
+.col-md-6.ets_rv_profile_image {
+    padding: 0 5px;
+    width: 100%;
+}
+input#avatar-name {
+    min-height: 32px;
+}
+.ets_rv_my_review .link-item i{
+    line-height: 1;
+}
+.ajax_block_product .product-list-reviews {
+    position: relative;
+    top: auto;
+}
+#my-account ul.myaccount-link-list li a i svg {
+    width: 24px!important;
+    height: 24px!important;
+}
+.ets_rv_profile_image button#avatar-selectbutton {
+    min-height: 32px;
+}
+.ets_rv_profile_image .input-group-addon {
+    height: 32px;
+    min-height: 32px;
+}
+

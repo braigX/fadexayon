@@ -1,0 +1,12 @@
+[{shop_url}]
+
+Dobrý den {person_name},
+{from_person_name} odpověděl na váš {object} ve službě {product_name}
+“{object_content}”
+
+{content}
+
+[Zobrazit odpověď]
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/]
