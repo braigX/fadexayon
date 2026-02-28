@@ -3003,7 +3003,7 @@ const CustomizationModule = (() => {
             arrows = cutoutDems;
             let outsideCutShapeDims = null;
             suppressCutInternalDimensions = type > 0;
-            const genericOutsideCutTypes = [4, 5, 6, 7, 8, 9, 10, 12, 13];
+            const genericOutsideCutTypes = [4, 7, 8, 9, 10];
             var extra = 0;
             if (shapeSettings.type == 12) {
                 extra = scale(getValue('text_56', 80));
@@ -3082,6 +3082,23 @@ const CustomizationModule = (() => {
                     var cutWidth = getValue('text_39', 40);
 
                     trapezoidalRight(cutTopWidth, cutWidth, cutHeight, 2, cutoutX, cutoutY);
+                    const trBase = scale(cutTopWidth);
+                    const trTop = scale(cutHeight);
+                    const trHeight = scale(cutWidth);
+                    const trStartX = cutoutX - Math.max(trBase, trTop) / 2;
+                    const trStartY = cutoutY - trHeight / 2;
+                    outsideCutShapeDims = {
+                        shape: 'trapezoidRight',
+                        x1: trStartX,
+                        y1: trStartY + trHeight,
+                        x2: trStartX + trBase,
+                        y2: trStartY + trHeight,
+                        x3: trStartX + trTop,
+                        y3: trStartY,
+                        baseMM: cutTopWidth,
+                        topMM: cutHeight,
+                        heightMM: cutWidth
+                    };
 
                     perimeter2 = cutTopWidth + cutHeight + Math.sqrt(Math.pow(cutWidth, 2) + Math.pow((cutTopWidth - cutHeight) / 2, 2)) * 2;
                     break;
@@ -3091,6 +3108,25 @@ const CustomizationModule = (() => {
                     var cutWidth = getValue('text_39', 40);
 
                     trapezoidalIsosceles(cutTopWidth, cutWidth, cutHeight, 2, cutoutX, cutoutY);
+                    const tiBase = scale(cutTopWidth);
+                    const tiTop = scale(cutWidth);
+                    const tiHeight = scale(cutHeight);
+                    const tiOffsetX = (tiBase - tiTop) / 2;
+                    const tiStartX = cutoutX - tiBase / 2 + tiOffsetX;
+                    const tiStartY = cutoutY - tiHeight / 2;
+                    outsideCutShapeDims = {
+                        shape: 'trapezoidIso',
+                        x1: tiStartX,
+                        y1: tiStartY + tiHeight,
+                        x2: tiStartX + tiBase,
+                        y2: tiStartY + tiHeight,
+                        x3: tiStartX + tiOffsetX + tiTop,
+                        y3: tiStartY,
+                        x4: tiStartX + tiOffsetX,
+                        baseMM: cutTopWidth,
+                        topMM: cutWidth,
+                        heightMM: cutHeight
+                    };
 
                     perimeter2 = cutTopWidth + cutHeight + Math.sqrt(Math.pow(cutWidth, 2) + Math.pow((cutTopWidth - cutHeight) / 2, 2)) * 2;
                     break;
@@ -3137,6 +3173,23 @@ const CustomizationModule = (() => {
                     var th = getValue('text_68', 20);
                     var hh = getValue('text_69', 20);
                     arrow(tw, hw, th, hh, 2, cutoutX, cutoutY);
+                    const twS = scale(tw);
+                    const hwS = scale(hw);
+                    const thS = scale(th);
+                    const hhS = scale(hh);
+                    outsideCutShapeDims = {
+                        shape: 'arrow',
+                        xx: cutoutX,
+                        yy: cutoutY,
+                        twS,
+                        hwS,
+                        thS,
+                        hhS,
+                        twMM: tw,
+                        hwMM: hw,
+                        thMM: th,
+                        hhMM: hh
+                    };
                     let tailP = (tw + th) * 2;
                     let headP = hw + hh + Math.sqrt(hw * hw + hh * hh);
 
@@ -3147,6 +3200,17 @@ const CustomizationModule = (() => {
                     var outerRadius = getValue('text_64', 50);
                     var innerRadius = getValue('text_65', 20);
                     star(outerRadius, innerRadius, 5, 2, cutoutX, cutoutY);
+                    const outerR = scale(outerRadius);
+                    const innerR = scale(innerRadius);
+                    outsideCutShapeDims = {
+                        shape: 'star',
+                        centerX: cutoutX,
+                        centerY: cutoutY,
+                        outerR,
+                        innerR,
+                        outerMM: outerRadius,
+                        innerMM: innerRadius
+                    };
                     let angleRad = Math.PI / pointsStar;
                     let segmentLength = Math.sqrt(Math.pow(outerRadius, 2) + Math.pow(innerRadius, 2) - 2 * outerRadius * innerRadius * Math.cos(angleRad));
                     perimeter2 = segmentLength * 2 * pointsStar;
@@ -3254,6 +3318,102 @@ const CustomizationModule = (() => {
                     arrowsGroup.line(x0 + 1.5 * s, y0, x0 + 1.5 * s, cutDimTop2Y).attr(connectorAttrs);
                     arrowsGroup.line(x0, y0, cutDimLeftX, y0).attr(connectorAttrs);
                     arrowsGroup.line(x0, y0 + h, cutDimLeftX, y0 + h).attr(connectorAttrs);
+                } else if (outsideCutShapeDims && outsideCutShapeDims.shape === 'trapezoidRight') {
+                    drawDimensionWithText(
+                        outsideCutShapeDims.x1, cutDimTopY,
+                        outsideCutShapeDims.x2, cutDimTopY,
+                        `${idxr_tr_width}: `, `${outsideCutShapeDims.baseMM} mm`, '', 2
+                    );
+                    drawDimensionWithText(
+                        outsideCutShapeDims.x1, cutDimTop2Y,
+                        outsideCutShapeDims.x3, cutDimTop2Y,
+                        `Longueur: `, `${outsideCutShapeDims.topMM} mm`, '', 2
+                    );
+                    drawDimensionWithText(
+                        cutDimLeftX, outsideCutShapeDims.y3,
+                        cutDimLeftX, outsideCutShapeDims.y1,
+                        `${idxr_tr_height}: `, `${outsideCutShapeDims.heightMM} mm`, 'vertical', 2
+                    );
+
+                    arrowsGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y1, outsideCutShapeDims.x1, cutDimTopY).attr(connectorAttrs);
+                    arrowsGroup.line(outsideCutShapeDims.x2, outsideCutShapeDims.y2, outsideCutShapeDims.x2, cutDimTopY).attr(connectorAttrs);
+                    arrowsGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y3, outsideCutShapeDims.x1, cutDimTop2Y).attr(connectorAttrs);
+                    arrowsGroup.line(outsideCutShapeDims.x3, outsideCutShapeDims.y3, outsideCutShapeDims.x3, cutDimTop2Y).attr(connectorAttrs);
+                    arrowsGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y3, cutDimLeftX, outsideCutShapeDims.y3).attr(connectorAttrs);
+                    arrowsGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y1, cutDimLeftX, outsideCutShapeDims.y1).attr(connectorAttrs);
+                } else if (outsideCutShapeDims && outsideCutShapeDims.shape === 'trapezoidIso') {
+                    drawDimensionWithText(
+                        outsideCutShapeDims.x1, cutDimTopY,
+                        outsideCutShapeDims.x2, cutDimTopY,
+                        `${idxr_tr_width}: `, `${outsideCutShapeDims.baseMM} mm`, '', 2
+                    );
+                    drawDimensionWithText(
+                        outsideCutShapeDims.x4, cutDimTop2Y,
+                        outsideCutShapeDims.x3, cutDimTop2Y,
+                        `Longueur: `, `${outsideCutShapeDims.topMM} mm`, '', 2
+                    );
+                    drawDimensionWithText(
+                        cutDimLeftX, outsideCutShapeDims.y3,
+                        cutDimLeftX, outsideCutShapeDims.y1,
+                        `${idxr_tr_height}: `, `${outsideCutShapeDims.heightMM} mm`, 'vertical', 2
+                    );
+
+                    arrowsGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y1, outsideCutShapeDims.x1, cutDimTopY).attr(connectorAttrs);
+                    arrowsGroup.line(outsideCutShapeDims.x2, outsideCutShapeDims.y2, outsideCutShapeDims.x2, cutDimTopY).attr(connectorAttrs);
+                    arrowsGroup.line(outsideCutShapeDims.x4, outsideCutShapeDims.y3, outsideCutShapeDims.x4, cutDimTop2Y).attr(connectorAttrs);
+                    arrowsGroup.line(outsideCutShapeDims.x3, outsideCutShapeDims.y3, outsideCutShapeDims.x3, cutDimTop2Y).attr(connectorAttrs);
+                    arrowsGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y3, cutDimLeftX, outsideCutShapeDims.y3).attr(connectorAttrs);
+                    arrowsGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y1, cutDimLeftX, outsideCutShapeDims.y1).attr(connectorAttrs);
+                } else if (outsideCutShapeDims && outsideCutShapeDims.shape === 'star') {
+                    const centerX = outsideCutShapeDims.centerX;
+                    const centerY = outsideCutShapeDims.centerY;
+                    const outerX = centerX + outsideCutShapeDims.outerR;
+                    const innerX = centerX + outsideCutShapeDims.innerR;
+
+                    drawDimensionWithText(
+                        centerX, cutDimTopY,
+                        outerX, cutDimTopY,
+                        `${idxr_tr_outer_radius}: `,
+                        `${outsideCutShapeDims.outerMM} mm`,
+                        '',
+                        2
+                    );
+                    drawDimensionWithText(
+                        centerX, cutDimTop2Y,
+                        innerX, cutDimTop2Y,
+                        `${idxr_tr_inner_radius}: `,
+                        `${outsideCutShapeDims.innerMM} mm`,
+                        '',
+                        2
+                    );
+
+                    arrowsGroup.line(centerX, centerY, centerX, cutDimTopY).attr(connectorAttrs);
+                    arrowsGroup.line(outerX, centerY, outerX, cutDimTopY).attr(connectorAttrs);
+                    arrowsGroup.line(centerX, centerY, centerX, cutDimTop2Y).attr(connectorAttrs);
+                    arrowsGroup.line(innerX, centerY, innerX, cutDimTop2Y).attr(connectorAttrs);
+                } else if (outsideCutShapeDims && outsideCutShapeDims.shape === 'arrow') {
+                    const xx = outsideCutShapeDims.xx;
+                    const yy = outsideCutShapeDims.yy;
+                    const tailEndX = xx + outsideCutShapeDims.twS;
+                    const headEndX = tailEndX + outsideCutShapeDims.hwS;
+                    const baseTopY = yy - outsideCutShapeDims.hhS - offset;
+                    const baseTop2Y = baseTopY - offset;
+                    const leftV1X = leftGuideX - offset * 2;
+                    const leftV2X = leftGuideX - offset * 3;
+
+                    drawDimensionWithText(xx, baseTopY, tailEndX, baseTopY, 'L.Q: ', `${outsideCutShapeDims.twMM} mm`, '', 2);
+                    drawDimensionWithText(tailEndX, baseTop2Y, headEndX, baseTop2Y, 'L.T: ', `${outsideCutShapeDims.hwMM} mm`, '', 2);
+                    drawDimensionWithText(leftV1X, yy, leftV1X, yy + outsideCutShapeDims.thS, 'H.Q: ', `${outsideCutShapeDims.thMM} mm`, 'vertical', 2);
+                    drawDimensionWithText(leftV2X, yy + outsideCutShapeDims.thS, leftV2X, yy + outsideCutShapeDims.thS + outsideCutShapeDims.hhS, 'H.T: ', `${outsideCutShapeDims.hhMM} mm`, 'vertical', 2);
+
+                    arrowsGroup.line(xx, yy, xx, baseTopY).attr(connectorAttrs);
+                    arrowsGroup.line(tailEndX, yy, tailEndX, baseTopY).attr(connectorAttrs);
+                    arrowsGroup.line(tailEndX, yy - outsideCutShapeDims.hhS, tailEndX, baseTop2Y).attr(connectorAttrs);
+                    arrowsGroup.line(headEndX, yy - outsideCutShapeDims.hhS, headEndX, baseTop2Y).attr(connectorAttrs);
+                    arrowsGroup.line(xx, yy, leftV1X, yy).attr(connectorAttrs);
+                    arrowsGroup.line(xx, yy + outsideCutShapeDims.thS, leftV1X, yy + outsideCutShapeDims.thS).attr(connectorAttrs);
+                    arrowsGroup.line(tailEndX, yy + outsideCutShapeDims.thS, leftV2X, yy + outsideCutShapeDims.thS).attr(connectorAttrs);
+                    arrowsGroup.line(tailEndX, yy + outsideCutShapeDims.thS + outsideCutShapeDims.hhS, leftV2X, yy + outsideCutShapeDims.thS + outsideCutShapeDims.hhS).attr(connectorAttrs);
                 } else if (genericOutsideCutTypes.includes(type)) {
                     const cutBBox = cutoutGroup.getBBox();
                     if (cutBBox) {
