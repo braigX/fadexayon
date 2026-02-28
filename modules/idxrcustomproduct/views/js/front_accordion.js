@@ -4080,14 +4080,11 @@ const CustomizationModule = (() => {
 
         function drawDimensionWithText(x1, y1, x2, y2, text = '', boldText = '', orientation = 'horizontal', type = 1) {
             drawArrow(x1, y1, x2, y2, type);
-            var fontt = type == 1 ? 13 : type == 2 ? 10 : 8;
-            if (type == 2) {
-                fontt = 10;
-            }
+            const fontt = 8;
             const midX = (x1 + x2) / 2;
             const midY = (y1 + y2) / 2;
             if (text || boldText) {
-                addText(text, boldText, midX, midY + 10, () => ({
+                addText(text, boldText, midX, midY, () => ({
                     'font-size': fontt,
                     'fill': '#065075'
                 }), orientation, midX, midY, type);
@@ -4158,10 +4155,10 @@ const CustomizationModule = (() => {
         }
 
         function addText(text, boldText, x, y, textAttrFunc, orientation = 'horizontal', originX = 0, originY = 0, type) {
-            const padding = type === 1 ? 2 : 1;
+            const padding = 2;
             const fill = type === 1 ? 'rgba(97, 241, 150, 0.73)' : (type === 3 ? 'rgba(255, 165, 0, 0.73)' : 'rgba(83, 246, 181, 0.73)');
-            const paddings = type === 1 ? 9 : 6;
-            const moveUpBy = type === 3 ? -12 : 0;  // Shift up by 5px if type === 3
+            const paddings = 9;
+            const moveUpBy = 0;
         
             const textBlock = arrows.text(x, y - paddings, [text, boldText]).attr(textAttrFunc());
             textBlock.select('tspan:nth-child(2)').attr({
@@ -4179,12 +4176,16 @@ const CustomizationModule = (() => {
                     x: textCenterX,
                     y: textCenterY + moveUpBy
                 });
-        
+
+                const centeredBBox = textBlock.getBBox();
+                const rectWidth = centeredBBox.width + 2 * padding;
+                const rectHeight = ((centeredBBox.height + 3 * padding) * 2) / 3;
+
                 const rect = arrows.rect(
-                    bbox.x - bboxWidth / 2 - padding,
-                    bbox.y - padding + moveUpBy,
-                    bboxWidth + 2 * padding,
-                    bboxHeight + 3 * padding,
+                    centeredBBox.cx - rectWidth / 2,
+                    centeredBBox.cy - rectHeight / 2,
+                    rectWidth,
+                    rectHeight,
                     5
                 ).attr({
                     fill
@@ -4416,4 +4417,3 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
-

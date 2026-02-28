@@ -798,7 +798,17 @@ class IdxrCustomProduct extends Module
                     $this->context->controller->registerStylesheet('modules-idxcpfrontcss', 'modules/' . $this->name . '/views/css/17/front.css', ['media' => 'all', 'priority' => 150]);
                     $this->context->controller->registerJavascript('modules-idxcpfrontjs', 'modules/' . $this->name . '/views/js/front.js', ['position' => 'bottom', 'priority' => 150]);
                     $this->context->controller->registerStylesheet('modules-idxcpfront' . $steps['visualization'] . 'css', 'modules/' . $this->name . '/views/css/17/front_' . $steps['visualization'] . '.css', array('media' => 'all', 'priority' => 150));
-                    $this->context->controller->registerJavascript('modules-idxcpfront' . $steps['visualization'] . 'js', 'modules/' . $this->name . '/views/js/front_' . $steps['visualization'] . '.js', array('position' => 'bottom', 'priority' => 100));
+                    $visualizationJsUri = 'modules/' . $this->name . '/views/js/front_' . $steps['visualization'] . '.js';
+                    $visualizationJsPath = _PS_MODULE_DIR_ . $this->name . '/views/js/front_' . $steps['visualization'] . '.js';
+                    $isJsThemeCacheEnabled = (bool) Configuration::get('PS_JS_THEME_CACHE');
+                    if (_PS_MODE_DEV_ && !$isJsThemeCacheEnabled && file_exists($visualizationJsPath)) {
+                        $visualizationJsUri .= '?v=' . (int) filemtime($visualizationJsPath);
+                    }
+                    $this->context->controller->registerJavascript(
+                        'modules-idxcpfront' . $steps['visualization'] . 'js',
+                        $visualizationJsUri,
+                        array('position' => 'bottom', 'priority' => 100)
+                    );
 
                     if ($steps['visualization'] == 'minified') {
                         $this->context->controller->registerStylesheet('modules-idxcpfront-bootstrap-select.min.css', 'modules/' . $this->name . '/views/css/bootstrap-select.min.css', array('media' => 'all', 'priority' => 150));
@@ -972,7 +982,13 @@ class IdxrCustomProduct extends Module
                     $this->context->controller->addJS($this->_path . 'libraries/slick/slick.min.js', false);
                 }
                 $this->context->controller->addJS($this->_path . 'views/js/front.js', false);
-                $this->context->controller->addJS($this->_path . 'views/js/front_' . $steps['visualization'] . '.js', false);
+                $visualizationJsLegacyUri = $this->_path . 'views/js/front_' . $steps['visualization'] . '.js';
+                $visualizationJsLegacyPath = _PS_MODULE_DIR_ . $this->name . '/views/js/front_' . $steps['visualization'] . '.js';
+                $isJsThemeCacheEnabledLegacy = (bool) Configuration::get('PS_JS_THEME_CACHE');
+                if (_PS_MODE_DEV_ && !$isJsThemeCacheEnabledLegacy && file_exists($visualizationJsLegacyPath)) {
+                    $visualizationJsLegacyUri .= '?v=' . (int) filemtime($visualizationJsLegacyPath);
+                }
+                $this->context->controller->addJS($visualizationJsLegacyUri, false);
                 $this->context->controller->addCSS($this->_path . 'views/css/idxrcustomproduct.css', 'all');
                 $this->context->controller->addCSS($this->_path . 'views/css/16/front.css', 'all');
                 $this->context->controller->addCSS($this->_path . 'views/css/16/front_' . $steps['visualization'] . '.css', 'all');
