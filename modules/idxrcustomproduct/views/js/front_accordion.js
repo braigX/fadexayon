@@ -3902,7 +3902,7 @@ const CustomizationModule = (() => {
             }
         
             drawDimensionWithText(x1, y1 + offSet, x2, y1 + offSet, `${idxr_tr_width}: `, `${baseWidth} mm`, '', type);
-            drawDimensionWithText(x4, y3 - offSet, x3, y3 - offSet, 'Longueur: ', `${topWidth} mm`, 'horizontal', type);
+            drawDimensionWithText(x4, y3 - offSet, x3, y3 - offSet, `${idxr_tr_width}: `, `${topWidth} mm`, 'horizontal', type);
             drawDimensionWithText(x1 - startX - offSet, y3, x1 - startX - offSet, y1, `${idxr_tr_height}: `, `${height} mm`, 'vertical', type);
         }
 
