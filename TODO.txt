@@ -1,0 +1,85 @@
+P1 - Blocking / Critical
+
+1) Fix orders sent without dimensions
+- Dimensions are visible in the back office but missing in order/invoice PDFs.
+- Goal: properly store and render dimensions in PDF documents.
+
+2) Global validation before cart / checkout
+- Add strict validation before add-to-cart and checkout.
+- Conditional checklist (depending on use case):
+  - dimensions
+  - thickness
+  - material
+  - shape(s)
+  - holes
+  - text
+- Normalize numeric input: remove commas (example: 12,5 -> 12.5).
+
+3) Fix diameter / radius display
+- Standardize and stabilize display for diameter/radius dimensions.
+
+
+P2 - Business Features
+
+4) Pricing - dedicated admin dashboard
+- Admin interface to manage pricing grids for:
+  - shapes
+  - thicknesses
+  - materials
+  - finishes
+  - linear metrics
+
+5) Pricing by shape
+- Allow fixed/unit price per shape type.
+- Must be compatible with thickness and material.
+
+6) Cutting price per linear meter
+- Define a EUR/m rate applied dynamically based on total perimeter.
+
+7) Finishing price per linear meter
+- Define a EUR/m rate for each finish type.
+
+8) Thickness-based grid
+- For each thickness, define:
+  - linear cutting price
+  - linear finishing price
+  - surcharges
+
+9) CAD-ready SVG (1:1 scale)
+- Export/generate SVG at real scale.
+
+
+P3 - Customer Experience
+
+10) Save my customization (cart)
+- "Save" button (logged-in customer required).
+- Store all options: shapes, holes, text, thickness, finishes.
+
+11) Simulation list in customer account
+- "My simulations" page:
+  - list
+  - rename
+  - duplicate
+  - delete
+  - show thumbnail preview
+
+12) Restore a simulation in the editor
+- Open a simulation from "My simulations".
+- Reload full parameters and recalculate price.
+
+
+P4 - Front-office Performance
+
+13) Advanced performance optimization
+- Audit JS/CSS (theme + modules), identify unnecessary/blocking resources (LCP/TBT/CLS).
+- Load JS/CSS conditionally by page (home, product, category, checkout).
+- Optimize JS execution: defer/async, delay non-critical scripts, remove duplicates.
+- Clean up/disable non-essential hooks or modules on specific pages.
+- Minify/concatenate/bundle based on theme/module compatibility.
+- Optimize fonts and icons.
+- Measure before/after (Lighthouse/PageSpeed) and document recommendations.
+
+
+Current Status (reference)
+- Showing dimensions outside preview: in progress / partially done.
+- Remaining points above must be finalized and validated.
