@@ -3075,9 +3075,24 @@ const CustomizationModule = (() => {
             
             if(withArrows){
                 arrows = arrowsGroup;
-                // shaper.circle( cutoutX, cutoutY, scale(3) ).attr( {fill: 'green'} );
-                drawDimensionWithText( 0, cutoutY, cutoutX, cutoutY, 'X: ', `${demX.toFixed(2)} mm`, '', 2);
-                drawDimensionWithText( cutoutX, 0, cutoutX, cutoutY, 'Y: ', `${demY.toFixed(2)} mm`, 'vertical', 2);
+                const outsideOffset = offset + extraSpace;
+                const topGuideY = -outsideOffset;
+                const leftGuideX = -outsideOffset;
+                const connectorAttrs = {
+                    stroke: "#000",
+                    strokeWidth: 1,
+                    strokeDasharray: "1, 1"
+                };
+
+                // Draw cutout position dimensions outside the main shape.
+                drawDimensionWithText(0, topGuideY, cutoutX, topGuideY, 'X: ', `${demX.toFixed(2)} mm`, '', 2);
+                drawDimensionWithText(leftGuideX, 0, leftGuideX, cutoutY, 'Y: ', `${demY.toFixed(2)} mm`, 'vertical', 2);
+
+                // Dotted connectors from old internal arrow points to new outside dimensions.
+                arrowsGroup.line(0, cutoutY, 0, topGuideY).attr(connectorAttrs);
+                arrowsGroup.line(cutoutX, cutoutY, cutoutX, topGuideY).attr(connectorAttrs);
+                arrowsGroup.line(cutoutX, 0, leftGuideX, 0).attr(connectorAttrs);
+                arrowsGroup.line(cutoutX, cutoutY, leftGuideX, cutoutY).attr(connectorAttrs);
             }
         }
 
