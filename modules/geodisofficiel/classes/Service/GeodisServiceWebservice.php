@@ -140,16 +140,22 @@ class GeodisServiceWebservice
         }
 
         $logFilePath = _PS_MODULE_DIR_ . 'geodisofficiel/debug_log.txt';
+        $canWriteDebugLog = is_dir(dirname($logFilePath))
+            && (file_exists($logFilePath) ? is_writable($logFilePath) : is_writable(dirname($logFilePath)));
 		
         if ($rawResult === false) {
 			$errorMessage = curl_error($ch);
-    		file_put_contents($logFilePath, "CURL Error: " . $errorMessage . "\n", FILE_APPEND);
+            if ($canWriteDebugLog) {
+                file_put_contents($logFilePath, "CURL Error: " . $errorMessage . "\n", FILE_APPEND);
+            }
     
             GeodisServiceLog::getInstance()->dev("$service\nNo response");
             GeodisServiceLog::getInstance()->error('Webservice cannot be reached or invalid api query.');
             throw new Exception('Webservice not available.');
         } else {
-			file_put_contents($logFilePath, "Server Response: " . $rawResult . "\n", FILE_APPEND);
+            if ($canWriteDebugLog) {
+                file_put_contents($logFilePath, "Server Response: " . $rawResult . "\n", FILE_APPEND);
+            }
 		}
 
         if ($returnRaw) {

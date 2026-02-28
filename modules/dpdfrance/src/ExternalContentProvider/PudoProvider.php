@@ -57,6 +57,11 @@ class PudoProvider
             return true;
         }
 
+        // On some dev environments SOAP extension is not enabled.
+        if (!class_exists('\\SoapClient')) {
+            return false;
+        }
+
         try {
             $soapClient = new SoapClient(
                 $url,
@@ -66,7 +71,7 @@ class PudoProvider
                     'exceptions'         => true,
                 ]
             );
-        } catch (SoapFault $exception) {
+        } catch (\Throwable $exception) {
             return false;
         }
 
