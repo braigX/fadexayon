@@ -2424,6 +2424,7 @@ const CustomizationModule = (() => {
         cutoutDems.clear();
         var shaper = shapeGroup;
         var arrows = arrowsGroup;
+        let fitViewBoxTimer = null;
         function copySvgOnly() {
             // Clone the SVG element with id="actualSvg"
             let svgClone = $('#svgContainer #actualSvg').clone();
@@ -2431,11 +2432,55 @@ const CustomizationModule = (() => {
             // Clear the content of the target elements and append the cloned SVG
             $('#step_2_preview, #step_17_preview, #step_29_preview').empty().append(svgClone.clone());
         }
+
+        function fitViewBoxToContent() {
+            const groups = [shapeGroup, holesGroup, cutoutGroup, arrowsGroup, cutoutDems];
+            let minX = Infinity;
+            let minY = Infinity;
+            let maxX = -Infinity;
+            let maxY = -Infinity;
+
+            groups.forEach((group) => {
+                if (!group) return;
+                try {
+                    const b = group.getBBox();
+                    if (!b || !isFinite(b.x) || !isFinite(b.y) || !isFinite(b.x2) || !isFinite(b.y2)) return;
+                    if (b.w <= 0 && b.h <= 0) return;
+                    minX = Math.min(minX, b.x);
+                    minY = Math.min(minY, b.y);
+                    maxX = Math.max(maxX, b.x2);
+                    maxY = Math.max(maxY, b.y2);
+                } catch (e) {
+                    // Ignore transient bbox errors from empty/transforming groups.
+                }
+            });
+
+            if (!isFinite(minX) || !isFinite(minY) || !isFinite(maxX) || !isFinite(maxY)) {
+                return;
+            }
+
+            const margin = offset + extraSpace;
+            const width = Math.max(1, (maxX - minX) + 2 * margin);
+            const height = Math.max(1, (maxY - minY) + 2 * margin);
+            svg.attr({
+                viewBox: `${minX - margin} ${minY - margin} ${width} ${height}`
+            });
+        }
+
+        function scheduleFitViewBox() {
+            if (fitViewBoxTimer) {
+                clearTimeout(fitViewBoxTimer);
+            }
+            fitViewBoxTimer = setTimeout(() => {
+                fitViewBoxToContent();
+                copySvgOnly();
+            }, 0);
+        }
         
         var extraInfo = drow(shapeSettings.type);
         holes(holesSettings.type, extraInfo);
         cut(cutSettings.type);
-        copySvgOnly();
+        scheduleFitViewBox();
 
         function calculateScaleFactor(dimension, target = 400) {
             const maxDimension = Math.max(...dimension);
@@ -2957,7 +3002,8 @@ const CustomizationModule = (() => {
             shaper = cutoutGroup;
             arrows = cutoutDems;
             let outsideCutShapeDims = null;
-            suppressCutInternalDimensions = [1, 2, 3, 11].includes(type);
+            suppressCutInternalDimensions = type > 0;
+            const genericOutsideCutTypes = [4, 5, 6, 7, 8, 9, 10, 12, 13];
             var extra = 0;
             if (shapeSettings.type == 12) {
                 extra = scale(getValue('text_56', 80));
@@ -3208,6 +3254,31 @@ const CustomizationModule = (() => {
                     arrowsGroup.line(x0 + 1.5 * s, y0, x0 + 1.5 * s, cutDimTop2Y).attr(connectorAttrs);
                     arrowsGroup.line(x0, y0, cutDimLeftX, y0).attr(connectorAttrs);
                     arrowsGroup.line(x0, y0 + h, cutDimLeftX, y0 + h).attr(connectorAttrs);
+                } else if (genericOutsideCutTypes.includes(type)) {
+                    const cutBBox = cutoutGroup.getBBox();
+                    if (cutBBox) {
+                        drawDimensionWithText(
+                            cutBBox.x, cutDimTopY,
+                            cutBBox.x2, cutDimTopY,
+                            `${idxr_tr_width}: `,
+                            `${unScale(cutBBox.width).toFixed(2)} mm`,
+                            '',
+                            2
+                        );
+                        drawDimensionWithText(
+                            cutDimLeftX, cutBBox.y,
+                            cutDimLeftX, cutBBox.y2,
+                            `${idxr_tr_height}: `,
+                            `${unScale(cutBBox.height).toFixed(2)} mm`,
+                            'vertical',
+                            2
+                        );
+
+                        arrowsGroup.line(cutBBox.x, cutBBox.y, cutBBox.x, cutDimTopY).attr(connectorAttrs);
+                        arrowsGroup.line(cutBBox.x2, cutBBox.y, cutBBox.x2, cutDimTopY).attr(connectorAttrs);
+                        arrowsGroup.line(cutBBox.x, cutBBox.y, cutDimLeftX, cutBBox.y).attr(connectorAttrs);
+                        arrowsGroup.line(cutBBox.x, cutBBox.y2, cutDimLeftX, cutBBox.y2).attr(connectorAttrs);
+                    }
                 }
             }
         }
@@ -4334,6 +4405,7 @@ const CustomizationModule = (() => {
                     textBlock.transform(transformString);
                     rect.transform(transformString);
                 }
+                scheduleFitViewBox();
                 copySvgOnly();
             }, 0);
         }
