@@ -5,15 +5,15 @@ P1 - Blocking / Critical
 - Goal: properly store and render dimensions in PDF documents.
 
 2) Global validation before cart / checkout✅
-- Add strict validation before add-to-cart and checkout.
-- Conditional checklist (depending on use case):
+- Add strict validation before add-to-cart and checkout.✅
+- Conditional checklist (depending on use case):✅
   - dimensions
   - thickness
   - material
   - shape(s)
   - holes
   - text
-- Normalize numeric input: remove commas (example: 12,5 -> 12.5).
+- Normalize numeric input: remove commas (example: 12,5 -> 12.5).✅
 
 3) Fix diameter / radius display
 - Standardize and stabilize display for diameter/radius dimensions.✅

@@ -4520,7 +4520,7 @@ const CustomizationModule = (() => {
                 
                 arrowsGroup.line(centerX, centerY- extra, centerX, centerY- extra + isRadial ).attr(attrs);
                 arrowsGroup.line(centerX, centerY + isRadial - extra, 0, centerY + isRadial - extra).attr(attrs);
-                drawDimensionWithText(- offset/3, centerY - extra + isRadial, - offset/3, centerY + - extra , 'D: ', `${unScale(centerY)} mm`, 'vertical', 3);
+                drawDimensionWithText(- offset/3, centerY - extra + isRadial, - offset/3, centerY + - extra , 'D: ', `${unScale(isRadial)} mm`, 'vertical', 3);
             }else{
                 arrowsGroup.line(cx, cy, 0, cy).attr(attrs);
                 drawDimensionWithText(- offset/3, cy, - offset/3, - extra, 'Dist: ', `${unScale(space)} mm`, 'vertical', 3);
