@@ -353,30 +353,23 @@ function idxrAutoRestoreFromUrlWhenReady(attempt) {
     var tryNum = parseInt(attempt, 10) || 0;
     var hasSteps = $('.component_step').length > 0;
     var hasContainer = $('#component_steps_container').length > 0;
-    var hasStepButtons = $('.js_icp_next_option').length > 0;
     var canEvaluateVisibility = (typeof mustBeVisible === 'function');
-    var hasCoreFlowFns =
-        (typeof set_option_value === 'function') &&
-        (typeof next_panel_id === 'function') &&
-        (typeof open_next_panel === 'function') &&
-        (typeof updateTotal === 'function') &&
-        (typeof checkFinish === 'function');
 
     idxrSetGlobalPreloader(true);
 
-    if (hasSteps && hasContainer && hasStepButtons && canEvaluateVisibility && hasCoreFlowFns) {
+    if (hasSteps && hasContainer && canEvaluateVisibility) {
         idxrAutoRestoreFromUrlIfNeeded();
         return;
     }
 
-    if (tryNum >= 45) {
+    if (tryNum >= 25) {
         idxrAutoRestoreFromUrlIfNeeded();
         return;
     }
 
     setTimeout(function () {
         idxrAutoRestoreFromUrlWhenReady(tryNum + 1);
-    }, 180);
+    }, 120);
 }
 
 function idxrEsc(text) {
@@ -833,9 +826,7 @@ $(document).ready(function() {
     }
 
     $.post( url_ajax, { action: "setCart" });
-    setTimeout(function () {
-        idxrAutoRestoreFromUrlWhenReady(0);
-    }, 600);
+    idxrAutoRestoreFromUrlWhenReady(0);
 
     // Remove price and attributes from product page
 	
