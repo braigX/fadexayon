@@ -51,9 +51,27 @@ P2 - Business Features
 
 P3 - Customer Experience
 
-10) Save my customization (cart)
+10) Save my customization (cart)✅
 - "Save" button (logged-in customer required).
 - Store all options: shapes, holes, text, thickness, finishes.
+
+CREATE TABLE IF NOT EXISTS `ps_idxrcustomproduct_saved_customisations` (
+  `id_saved_customisation` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_customer` INT(11) NOT NULL,
+  `id_product` INT(11) NOT NULL,
+  `id_product_attribute` INT(11) NOT NULL DEFAULT 0,
+  `customisation_name` VARCHAR(100) NOT NULL,
+  `customization` LONGTEXT NULL,
+  `extra_info` LONGTEXT NULL,
+  `snapshot_json` LONGTEXT NULL,
+  `preview_html` LONGTEXT NULL,
+  `date_add` DATETIME NOT NULL,
+  `date_upd` DATETIME NOT NULL,
+  PRIMARY KEY (`id_saved_customisation`),
+  KEY `idxr_saved_customer_product` (`id_customer`, `id_product`),
+  KEY `idxr_saved_customer_date` (`id_customer`, `date_add`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 11) Simulation list in customer account
 - "My simulations" page:
@@ -83,3 +101,63 @@ P4 - Front-office Performance
 Current Status (reference)
 - Showing dimensions outside preview: in progress / partially done.
 - Remaining points above must be finalized and validated.
+
+
+
+
+
+
+
+========== NON ORGNISED VIEW: ==============
+Corriger l’envoi de commandes sans dimensions
+ - Les dimensions saisies par le client apparaissent correctement dans le tableau de bord mais ne sont pas reprises dans le PDF de facture/commande.
+- Validation globale avant panier/checkout
+- Checklist : dimensions, épaisseur, matière, forme(s), trous, texte. Tous obligatoires selon le cas d’usage.
+- supprimer les virgules 
+✅ Interface / Aperçu
+
+ Afficher les cotes à l’extérieur de l’aperçu ✅
+Les côtes (dimensions, repères) sont rendues hors de la forme, lisibles à tout zoom. Aucun chevauchement avec la matière. ✅
+Corriger l'affichage (Diamètre/rayons) 
+
+✅ Pricing
+
+Créer un tableau de bord dédié aux prix
+- Interface admin pour gérer les grilles : formes, épaisseurs, matières, finitions, métriques linéaires.
+
+Saisie du prix par forme
+- Permettre de définir un prix fixe/unitaire par type de forme. Compatible avec épaisseur/matière.
+- Prix de découpe au mètre linéaire
+- Définir un tarif €/m pour découpe. S’applique dynamiquement selon le périmètre total.
+- Prix de finition au mètre linéaire
+- Définir un tarif €/m pour chaque type de finition.
+- Paramétrable par épaisseur. Grille par épaisseur
+- Pour chaque épaisseur, pouvoir saisir : prix découpe/finition linéaire, surcharges.
+- Corriger problème de Rayon / diamètre
+- SVG avec echelle 1/1 exploitable en CAO 
+
+✅ Sauvegarde / Panier
+ Sauvegarder ma personnalisation (panier)
+- Bouton « Sauvegarder ». Requiert compte connecté. Stocke toutes les options (formes, trous, texte, épaisseur, finitions).
+
+Liste des simulations dans l’espace client
+- Page « Mes simulations » : lister, renommer, dupliquer, supprimer. Aperçu miniature.
+
+Restaurer une simulation dans l’éditeur
+- Depuis « Mes simulations », ouvrir dans l’éditeur avec paramètres préchargés et recalcul du prix. 
+✅ Optimisation avancée des performances
+ Mise en place d’une optimisation “fine” du front-office visant à réduire la charge réelle par page, au-delà du cache/CDN :
+
+Audit des scripts et feuilles de style chargés (thème + modules), identification des ressources inutiles ou bloquantes (LCP/TBT/CLS).
+
+Chargement conditionnel des ressources : chargement des fichiers JS/CSS uniquement sur les pages où ils sont nécessaires (ex : page d’accueil, produit, catégorie, tunnel de commande).
+
+Optimisation de l’exécution JavaScript : defer/async, retardement des scripts non critiques (consent, tracking, widgets), suppression des doublons.
+
+Nettoyage et désactivation des hooks/modules non indispensables sur certaines pages afin de réduire le nombre d’appels et de traitements serveur.
+
+Minification/concaténation/bundling (selon compatibilité thème/modules) et optimisation des polices/icônes.
+
+Vérification post-déploiement et tests de performance (avant/après) avec indicateurs PageSpeed/Lighthouse + recommandations.
+
+✅ Objectif : améliorer sensiblement le temps de chargement perçu et réel, notamment sur la page d’accueil et les pages à fort trafic, même lorsque l’infrastructure (CDN/cache) est déjà en place.

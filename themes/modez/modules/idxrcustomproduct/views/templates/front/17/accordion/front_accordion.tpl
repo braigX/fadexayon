@@ -66,6 +66,7 @@
                 </div>
             </div>
 
+            {assign var="idxr_customer_logged" value=(isset($customer) && isset($customer.is_logged) && $customer.is_logged)}
             <div class="braig_addtocart_section">
                 <div id="submit_idxrcustomproduct_unique_12345" class="cart-container-unique-12345">
                     <div class="quantity-controls-unique-12345">
@@ -80,6 +81,32 @@
                         <span id="front_tr_add_to_cart">{l s='Ajouter au panier' mod='idxrcustomproduct'}</span>
                     </button>
                 </div>
+                <div class="cart-container-unique-12345" style="margin-top:10px; display:flex; gap:10px;">
+                    <button
+                        type="button"
+                        class="add-to-cart-button-unique-12345{if !$idxr_customer_logged} disabled{/if}"
+                        id="save-customization-button-unique-12345"
+                        style="background-color:#2e48c4; flex:1;"
+                        {if !$idxr_customer_logged}disabled="disabled" title="{l s='Login to save customisations' mod='idxrcustomproduct'}"{/if}
+                    >
+                        <i class="cart-icon-unique-12345" style="background-color:#1e0978;">
+                            <img src="/modules/idxrcustomproduct/img/icon/save.png" alt=">">
+                        </i>
+                        <span id="front_tr_save_customization">{l s='Save customization' mod='idxrcustomproduct'}</span>
+                    </button>
+                    <button
+                        type="button"
+                        class="add-to-cart-button-unique-12345{if !$idxr_customer_logged} disabled{/if}"
+                        id="restore-customization-button-unique-12345"
+                        style="background-color:#3b5bd6; flex:1;"
+                        {if !$idxr_customer_logged}disabled="disabled" title="{l s='Login to restore customisations' mod='idxrcustomproduct'}"{/if}
+                    >
+                        <i class="cart-icon-unique-12345" style="background-color:#1e0978;">
+                            <img src="/modules/idxrcustomproduct/img/icon/restore.png" alt=">">
+                        </i>
+                        <span id="front_tr_restore_customization">{l s='Restore customization' mod='idxrcustomproduct'}</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -88,11 +115,18 @@
 	<div id="preloader-overlay-xyz123" class="preloader-overlay">
     	<div id="spinner-abc456" class="spinner"></div>
 	</div>
+    <style>
+            .idxr-c-item-name input {
+            height: .8em;
+        }
+    </style>
 <script>
 
   function initContainer() {
     // i18n
     $('#front_tr_add_to_cart').text(window.idxr_tr_add_to_cart || $('#front_tr_add_to_cart').text());
+    $('#front_tr_save_customization').text(window.idxr_tr_save_customization || $('#front_tr_save_customization').text());
+    $('#front_tr_restore_customization').text(window.idxr_tr_restore_customization || $('#front_tr_restore_customization').text());
     $('#front_tr_eppaisseur').text(window.idxr_tr_epaisseur || $('#front_tr_eppaisseur').text());
     $('#front_tr_volume').text(window.idxr_tr_volume || $('#front_tr_volume').text());
     $('#front_tr_surface').text(window.idxr_tr_surface || $('#front_tr_surface').text());

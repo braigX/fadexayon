@@ -109,9 +109,580 @@ function syncInputExtraToHidden(stepId) {
     $('#js_opt_extra_' + stepId + '_value').html(normalizeExtraPayloadValue(value));
 }
 
+function idxrServerRequest(action, payload) {
+    var data = payload || {};
+    data.action = action;
+    return $.post(url_ajax, data).then(function (response) {
+        if (typeof response === 'string') {
+            try {
+                response = JSON.parse(response);
+            } catch (e) {
+                return $.Deferred().reject('invalid_json').promise();
+            }
+        }
+        if (!response || response.success !== true) {
+            return $.Deferred().reject(response && response.message ? response.message : 'request_failed').promise();
+        }
+        return response;
+    });
+}
+
+function idxrErrorMessage(err, fallbackMessage) {
+    if (typeof err === 'string' && err.length) {
+        return err;
+    }
+    if (err && err.responseText) {
+        try {
+            var parsed = JSON.parse(err.responseText);
+            if (parsed && parsed.message) {
+                return parsed.message;
+            }
+        } catch (e) {
+            // ignore parse errors and fallback below
+        }
+    }
+    return fallbackMessage || 'Request failed.';
+}
+
+function idxrSetRestoreButtonLoading(isLoading) {
+    var $btn = $('#restore-customization-button-unique-12345');
+    if (!$btn.length) {
+        return;
+    }
+
+    if (isLoading) {
+        if (!$btn.data('idxr-original-html')) {
+            $btn.data('idxr-original-html', $btn.html());
+        }
+        if ($btn.data('idxr-original-disabled') === undefined) {
+            $btn.data('idxr-original-disabled', $btn.prop('disabled'));
+        }
+        $btn.prop('disabled', true).addClass('disabled');
+        $btn.html('<i class="cart-icon-unique-12345" style="background-color:#1e0978;"><img src="/modules/idxrcustomproduct/img/icon/loading.png" alt="" style="animation:idxrSpin 1s linear infinite;"></i><span>Loading...</span>');
+        if (!$('#idxr-restore-loading-style').length) {
+            $('head').append('<style id="idxr-restore-loading-style">@keyframes idxrSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}</style>');
+        }
+        return;
+    }
+
+    var originalHtml = $btn.data('idxr-original-html');
+    if (originalHtml) {
+        $btn.html(originalHtml);
+    }
+    var originallyDisabled = !!$btn.data('idxr-original-disabled');
+    $btn.prop('disabled', originallyDisabled);
+    $btn.toggleClass('disabled', originallyDisabled);
+}
+
+function idxrSetModalActionLoading(selector, isLoading, loadingText) {
+    var $btn = $(selector);
+    if (!$btn.length) {
+        return;
+    }
+
+    if (isLoading) {
+        if (!$btn.data('idxr-original-html')) {
+            $btn.data('idxr-original-html', $btn.html());
+        }
+        if ($btn.data('idxr-original-disabled') === undefined) {
+            $btn.data('idxr-original-disabled', $btn.prop('disabled'));
+        }
+        $btn.prop('disabled', true);
+        $btn.html('<span style="display:inline-flex;align-items:center;gap:8px;"><img src="/modules/idxrcustomproduct/img/icon/loading.png" alt="" style="width:16px;height:16px;animation:idxrSpin 1s linear infinite;">' + idxrEsc(loadingText || 'Loading...') + '</span>');
+        return;
+    }
+
+    var originalHtml = $btn.data('idxr-original-html');
+    if (originalHtml) {
+        $btn.html(originalHtml);
+    }
+    var originallyDisabled = !!$btn.data('idxr-original-disabled');
+    $btn.prop('disabled', originallyDisabled);
+}
+
+function idxrSetGlobalPreloader(isVisible) {
+    var $overlay = $('#preloader-overlay-xyz123');
+    var $spinner = $('#spinner-abc456');
+    if (!$overlay.length && !$spinner.length) {
+        return;
+    }
+    if (isVisible) {
+        $overlay.show();
+        $spinner.show();
+    } else {
+        $overlay.hide();
+        $spinner.hide();
+    }
+}
+
+function idxrResetAllBeforeRestore() {
+    // Trigger module-specific "none" options first when present.
+    if ($('#card_17_0').length) {
+        $('#card_17_0').trigger('click');
+    }
+    if ($('#card_29_0').length) {
+        $('#card_29_0').trigger('click');
+    }
+
+    $('.component_step').each(function () {
+        var stepId = (($(this).attr('id') || '').replace('component_step_', ''));
+        if (!stepId || stepId === 'last') {
+            return;
+        }
+
+        $('input[name=option_' + stepId + ']').prop('checked', false);
+        $('[id^="option_' + stepId + '_"][id$="_qty"]').val('');
+
+        $('#text_' + stepId).val('');
+        $('#textarea_' + stepId).val('');
+        $('#file_' + stepId).val('');
+
+        $('#js_opt_' + stepId + '_value').html('false');
+        $('#js_opt_extra_' + stepId + '_value').html('false');
+        $('#js_opt_' + stepId + '_value_wqty').html('false');
+
+        $('#step_content_' + stepId).removeClass('finished');
+        $('#step_title_' + stepId + ' .check').removeClass('check');
+    });
+
+    if (typeof checkFinish === 'function') {
+        checkFinish();
+    }
+}
+
+function idxrEsc(text) {
+    return $('<div/>').text(text === undefined || text === null ? '' : String(text)).html();
+}
+
+function idxrGetSummaryPreviewHtml() {
+    var $table = $('#collapsibleSection .table-unique-12345').first();
+    if (!$table.length) {
+        return '<p class="idxr-empty-preview">No preview available.</p>';
+    }
+    var $clone = $table.clone();
+    $clone.find('script,style,.hidden,[data-option="template"]').remove();
+    return $('<div/>').append($clone).html();
+}
+
+function idxrCollectCurrentSnapshot(customName) {
+    var snapshot = {
+        id: 'idxr_' + Date.now() + '_' + Math.floor(Math.random() * 100000),
+        name: customName,
+        created_at: (new Date()).toISOString(),
+        product_id: parseInt(idxcp_id_product, 10) || 0,
+        attribute_id: parseInt($('#id_attribute_for_idxr').val(), 10) || 0,
+        customization: '',
+        extra_info: buildExtraInfoPayload(),
+        steps: [],
+        preview_html: idxrGetSummaryPreviewHtml()
+    };
+
+    var comma = '';
+    $('.sel_opt_wqty').each(function () {
+        var stepId = parseInt($(this).attr('id').split('_')[2], 10);
+        if (isNaN(stepId)) {
+            return;
+        }
+        snapshot.customization += comma + stepId + '_' + $(this).html();
+        comma = ',';
+    });
+
+    $('.component_step').each(function () {
+        var $step = $(this);
+        var stepId = ($step.attr('id') || '').replace('component_step_', '');
+        if (!stepId || stepId === 'last') {
+            return;
+        }
+        if ($step.hasClass('hidden')) {
+            return;
+        }
+        if (typeof mustBeVisible === 'function' && !mustBeVisible(stepId)) {
+            return;
+        }
+        var stepType = $('#js_icp_next_opt_' + stepId).attr('data-type');
+        if (!stepType) {
+            return;
+        }
+
+        var stepData = {
+            step_id: stepId,
+            type: stepType
+        };
+
+        if (stepType === 'text') {
+            stepData.value = $('#text_' + stepId).val() || '';
+        } else if (stepType === 'textarea') {
+            stepData.value = $('#textarea_' + stepId).val() || '';
+        } else if (stepType === 'file') {
+            stepData.value = ($('#file_' + stepId).val() || '').replace(/C:\\fakepath\\/i, '');
+        } else {
+            stepData.options = [];
+            $('input[name=option_' + stepId + ']:checked').each(function () {
+                if ($(this).is(':disabled') || $(this).closest('.hidden').length) {
+                    return;
+                }
+                var optionId = $(this).attr('data-value');
+                if (typeof optionId === 'undefined') {
+                    return;
+                }
+                var qty = '';
+                var qtySelector = '#option_' + stepId + '_' + optionId + '_qty';
+                if ($(qtySelector).length) {
+                    qty = $(qtySelector).val() || '';
+                }
+                stepData.options.push({
+                    option_id: String(optionId),
+                    qty: qty
+                });
+            });
+        }
+
+        snapshot.steps.push(stepData);
+    });
+
+    return snapshot;
+}
+
+function idxrApplySnapshot(snapshot) {
+    if (!snapshot || !$.isArray(snapshot.steps)) {
+        return Promise.resolve(false);
+    }
+
+    function idxrPause(ms) {
+        return new Promise(function (resolve) {
+            setTimeout(resolve, ms);
+        });
+    }
+
+    function idxrSimulateOptionClick(stepId, optionId) {
+        var cardSelector = '#card_' + stepId + '_' + optionId;
+        if ($(cardSelector).length) {
+            $(cardSelector).trigger('click');
+            return true;
+        }
+        var inputSelector = '#option_' + stepId + '_' + optionId;
+        if ($(inputSelector).length) {
+            $(inputSelector).prop('checked', true).trigger('change').trigger('click');
+            return true;
+        }
+        return false;
+    }
+
+    var chain = Promise.resolve(true);
+    $.each(snapshot.steps, function (_, stepData) {
+        chain = chain.then(function () {
+            var stepId = String(stepData && stepData.step_id ? stepData.step_id : '');
+            if (!stepId.length || !$('#component_step_' + stepId).length) {
+                return true;
+            }
+            if ($('#component_step_' + stepId).hasClass('hidden')) {
+                return true;
+            }
+            if (typeof mustBeVisible === 'function' && !mustBeVisible(stepId)) {
+                return true;
+            }
+
+            var stepType = $('#js_icp_next_opt_' + stepId).attr('data-type') || stepData.type;
+            var nextBtnSelector = '#js_icp_next_opt_' + stepId;
+
+            // Replay UI events like a user instead of forcing hidden markers.
+            if (stepType === 'text') {
+                if ($('#text_' + stepId).length) {
+                    $('#text_' + stepId)
+                        .val(stepData.value || '')
+                        .trigger('input')
+                        .trigger('change');
+                }
+                if ($(nextBtnSelector).length) {
+                    $(nextBtnSelector).trigger('click');
+                }
+                return idxrPause(40);
+            }
+
+            if (stepType === 'textarea') {
+                if ($('#textarea_' + stepId).length) {
+                    $('#textarea_' + stepId)
+                        .val(stepData.value || '')
+                        .trigger('input')
+                        .trigger('change');
+                }
+                if ($(nextBtnSelector).length) {
+                    $(nextBtnSelector).trigger('click');
+                }
+                return idxrPause(40);
+            }
+
+            if (stepType === 'file') {
+                return true;
+            }
+
+            if ($.isArray(stepData.options) && stepData.options.length) {
+                $('input[name=option_' + stepId + ']').prop('checked', false);
+                $.each(stepData.options, function (_, opt) {
+                    var optionId = String(opt && opt.option_id ? opt.option_id : '');
+                    if (!optionId.length) {
+                        return;
+                    }
+                    var qtySelector = '#option_' + stepId + '_' + optionId + '_qty';
+                    if ($(qtySelector).length && opt.qty !== undefined && opt.qty !== null && opt.qty !== '') {
+                        $(qtySelector).val(opt.qty).trigger('input').trigger('change');
+                    }
+                    idxrSimulateOptionClick(stepId, optionId);
+                });
+                if ($(nextBtnSelector).length) {
+                    $(nextBtnSelector).trigger('click');
+                }
+                return idxrPause(60);
+            }
+
+            return true;
+        });
+    });
+
+    return chain.then(function () {
+        var nextId = next_panel_id();
+        if (nextId) {
+            open_next_panel(nextId);
+        }
+        updateTotal();
+        checkFinish();
+        return true;
+    });
+}
+
+function idxrEnsureCustomizationModals() {
+    if ($('#idxr-save-customization-modal').length) {
+        return;
+    }
+
+    var saveTitle = window.idxr_tr_save_customization || 'Save customization';
+    var restoreTitle = window.idxr_tr_restore_customization || 'Restore customization';
+    var loginText = window.idxr_tr_login_to_save_customisations || 'Login to save customisations';
+
+    var style = ''
+        + '<style id="idxr-customization-modals-style">'
+        + '.idxr-c-modal{position:fixed;inset:0;background:rgba(25,25,40,.45);display:none;align-items:center;justify-content:center;z-index:10020;padding:16px;}'
+        + '.idxr-c-modal.is-open{display:flex;}'
+        + '.idxr-c-dialog{width:min(760px,96vw);max-height:86vh;overflow:auto;background:#fff;border-radius:12px;box-shadow:0 12px 40px rgba(15,20,60,.25);padding:18px;}'
+        + '.idxr-c-title{font-size:18px;font-weight:700;margin:0 0 12px 0;color:#1c1e2c;}'
+        + '.idxr-c-row{display:flex;gap:10px;align-items:center;margin-bottom:10px;}'
+        + '.idxr-c-input{flex:1;height:42px;border:1px solid #cdd4ea;border-radius:8px;padding:0 12px;font-size:14px;}'
+        + '.idxr-c-help{font-size:12px;color:#6a6f86;margin:0 0 10px 0;}'
+        + '.idxr-c-preview{border:1px solid #e4e8f5;border-radius:10px;padding:10px;max-height:260px;overflow:auto;background:#fbfcff;}'
+        + '.idxr-c-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:14px;}'
+        + '.idxr-c-btn{height:40px;border-radius:8px;padding:0 14px;border:1px solid transparent;cursor:pointer;font-weight:600;}'
+        + '.idxr-c-btn-secondary{background:#fff;border-color:#cad2ef;color:#334;}'
+        + '.idxr-c-btn-primary{background:#2e48c4;color:#fff;}'
+        + '.idxr-c-list{display:flex;flex-direction:column;gap:10px;max-height:360px;overflow:auto;}'
+        + '.idxr-c-item{border:1px solid #dbe1f5;border-radius:10px;padding:10px;background:#fff;}'
+        + '.idxr-c-item-head{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:6px;}'
+        + '.idxr-c-item-name{font-size:14px;font-weight:700;color:#1d2340;}'
+        + '.idxr-c-item-date{font-size:12px;color:#6c7395;}'
+        + '.idxr-c-empty{font-size:13px;color:#697198;padding:12px;border:1px dashed #cfd6ee;border-radius:10px;background:#fbfcff;}'
+        + '.idxr-c-error{font-size:12px;color:#b01933;display:none;margin:6px 0 0 0;}'
+        + '.idxr-c-warning{font-size:13px;color:#985f00;padding:8px 10px;background:#fff8e6;border:1px solid #ffe0a6;border-radius:8px;margin-bottom:10px;display:none;}'
+        + '</style>';
+
+    var saveModal = ''
+        + '<div id="idxr-save-customization-modal" class="idxr-c-modal" role="dialog" aria-hidden="true">'
+        + '  <div class="idxr-c-dialog">'
+        + '    <h3 class="idxr-c-title">' + idxrEsc(saveTitle) + '</h3>'
+        + '    <div class="idxr-c-warning" id="idxr-save-auth-warning">' + idxrEsc(loginText) + '</div>'
+        + '    <div class="idxr-c-row">'
+        + '      <input id="idxr-customization-name-input" class="idxr-c-input" type="text" maxlength="100" placeholder="' + idxrEsc(saveTitle) + '" />'
+        + '    </div>'
+        + '    <p class="idxr-c-help">Preview of current selection</p>'
+        + '    <div id="idxr-save-preview" class="idxr-c-preview"></div>'
+        + '    <p id="idxr-save-error" class="idxr-c-error">Please enter a name.</p>'
+        + '    <div class="idxr-c-actions">'
+        + '      <button type="button" class="idxr-c-btn idxr-c-btn-secondary" data-idxr-close="save">Cancel</button>'
+        + '      <button type="button" class="idxr-c-btn idxr-c-btn-primary" id="idxr-save-customization-confirm">Save</button>'
+        + '    </div>'
+        + '  </div>'
+        + '</div>';
+
+    var restoreModal = ''
+        + '<div id="idxr-restore-customization-modal" class="idxr-c-modal" role="dialog" aria-hidden="true">'
+        + '  <div class="idxr-c-dialog">'
+        + '    <h3 class="idxr-c-title">' + idxrEsc(restoreTitle) + '</h3>'
+        + '    <div class="idxr-c-warning" id="idxr-restore-auth-warning">' + idxrEsc(loginText) + '</div>'
+        + '    <div id="idxr-restore-customization-list" class="idxr-c-list"></div>'
+        + '    <p id="idxr-restore-error" class="idxr-c-error">Please select one customization.</p>'
+        + '    <div class="idxr-c-actions">'
+        + '      <button type="button" class="idxr-c-btn idxr-c-btn-secondary" data-idxr-close="restore">Cancel</button>'
+        + '      <button type="button" class="idxr-c-btn idxr-c-btn-primary" id="idxr-restore-customization-confirm">Restore</button>'
+        + '    </div>'
+        + '  </div>'
+        + '</div>';
+
+    $('head').append(style);
+    $('body').append(saveModal + restoreModal);
+}
+
+function idxrOpenModal(modalId) {
+    $('#' + modalId).addClass('is-open').attr('aria-hidden', 'false');
+}
+
+function idxrCloseModal(modalId) {
+    $('#' + modalId).removeClass('is-open').attr('aria-hidden', 'true');
+}
+
+function idxrRenderRestoreList(list) {
+    var $container = $('#idxr-restore-customization-list');
+    $container.empty();
+
+    if (!$.isArray(list) || !list.length) {
+        $container.html('<div class="idxr-c-empty">No saved customizations for this product.</div>');
+        return;
+    }
+
+    $.each(list, function (_, item) {
+        var createdAt = item.created_at ? new Date(item.created_at) : null;
+        var dateText = createdAt && !isNaN(createdAt.getTime()) ? createdAt.toLocaleString() : '';
+        var row = ''
+            + '<label class="idxr-c-item">'
+            + '  <div class="idxr-c-item-head">'
+            + '    <div class="idxr-c-item-name">'
+            + '      <input type="radio" name="idxr_restore_pick" value="' + idxrEsc(item.id) + '"> '
+            + idxrEsc(item.name || 'Unnamed customization')
+            + '    </div>'
+            + '    <div class="idxr-c-item-date">' + idxrEsc(dateText) + '</div>'
+            + '  </div>'
+            + '  <div class="idxr-c-preview">' + (item.preview_html || '<span class="idxr-c-empty">No preview</span>') + '</div>'
+            + '</label>';
+        $container.append(row);
+    });
+}
+
 $(document).ready(function() {
 
     var parentdiv = $("body");
+    idxrEnsureCustomizationModals();
+
+    parentdiv.on('click', '[data-idxr-close="save"]', function () {
+        idxrCloseModal('idxr-save-customization-modal');
+    });
+
+    parentdiv.on('click', '[data-idxr-close="restore"]', function () {
+        idxrCloseModal('idxr-restore-customization-modal');
+    });
+
+    parentdiv.on('click', '#idxr-save-customization-modal', function (e) {
+        if (e.target.id === 'idxr-save-customization-modal') {
+            idxrCloseModal('idxr-save-customization-modal');
+        }
+    });
+
+    parentdiv.on('click', '#idxr-restore-customization-modal', function (e) {
+        if (e.target.id === 'idxr-restore-customization-modal') {
+            idxrCloseModal('idxr-restore-customization-modal');
+        }
+    });
+
+    parentdiv.on('click', '#save-customization-button-unique-12345', function (e) {
+        if ($(this).prop('disabled')) {
+            return;
+        }
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        $('#idxr-save-error').hide();
+        $('#idxr-save-preview').html(idxrGetSummaryPreviewHtml());
+        var defaultName = $.trim($('#product-title-unique-12345').text()) || 'My customization';
+        $('#idxr-customization-name-input').val(defaultName).focus().select();
+        idxrOpenModal('idxr-save-customization-modal');
+    });
+
+    parentdiv.on('click', '#restore-customization-button-unique-12345', function (e) {
+        if ($(this).prop('disabled')) {
+            return;
+        }
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        $('#idxr-restore-error').hide();
+        idxrSetRestoreButtonLoading(true);
+        var productId = parseInt(idxcp_id_product, 10) || 0;
+        var attributeId = parseInt($('#id_attribute_for_idxr').val(), 10) || 0;
+        idxrServerRequest('listServerCustomizations', {
+            product: productId,
+            attribute: attributeId
+        }).done(function (response) {
+            idxrRenderRestoreList(response.items || []);
+            idxrOpenModal('idxr-restore-customization-modal');
+            idxrSetRestoreButtonLoading(false);
+        }).fail(function (msg) {
+            $('#idxr-restore-customization-list').html('<div class="idxr-c-empty">Unable to load saved customizations.</div>');
+            $('#idxr-restore-error').text(idxrErrorMessage(msg, 'Unable to load saved customizations.')).show();
+            idxrOpenModal('idxr-restore-customization-modal');
+            idxrSetRestoreButtonLoading(false);
+        });
+    });
+
+    parentdiv.on('click', '#idxr-save-customization-confirm', function () {
+        var customName = $.trim($('#idxr-customization-name-input').val());
+        if (!customName.length) {
+            $('#idxr-save-error').show();
+            return;
+        }
+        idxrSetModalActionLoading('#idxr-save-customization-confirm', true, 'Saving...');
+        var snapshot = idxrCollectCurrentSnapshot(customName);
+        idxrServerRequest('saveServerCustomization', {
+            product: snapshot.product_id,
+            attribute: snapshot.attribute_id,
+            name: snapshot.name,
+            custom: snapshot.customization,
+            extra: snapshot.extra_info,
+            snapshot_json: JSON.stringify(snapshot),
+            preview_html: snapshot.preview_html
+        }).done(function () {
+            idxrCloseModal('idxr-save-customization-modal');
+            idxrSetModalActionLoading('#idxr-save-customization-confirm', false);
+        }).fail(function (msg) {
+            $('#idxr-save-error').text(idxrErrorMessage(msg, 'Unable to save customization.')).show();
+            idxrSetModalActionLoading('#idxr-save-customization-confirm', false);
+        });
+    });
+
+    parentdiv.on('click', '#idxr-restore-customization-confirm', function () {
+        var selectedId = $('input[name="idxr_restore_pick"]:checked').val();
+        if (!selectedId) {
+            $('#idxr-restore-error').show();
+            return;
+        }
+        idxrSetModalActionLoading('#idxr-restore-customization-confirm', true, 'Restoring...');
+        idxrServerRequest('getServerCustomization', {
+            id_saved_customisation: selectedId
+        }).done(function (response) {
+            var snapshot = null;
+            if (response.item && response.item.snapshot_json) {
+                try {
+                    snapshot = JSON.parse(response.item.snapshot_json);
+                } catch (e) {
+                    snapshot = null;
+                }
+            }
+            if (!snapshot) {
+                $('#idxr-restore-error').text('Saved customization payload is invalid.').show();
+                idxrSetModalActionLoading('#idxr-restore-customization-confirm', false);
+                return;
+            }
+            idxrSetGlobalPreloader(true);
+            idxrResetAllBeforeRestore();
+            idxrCloseModal('idxr-restore-customization-modal');
+            idxrApplySnapshot(snapshot).then(function () {
+                idxrSetGlobalPreloader(false);
+                idxrSetModalActionLoading('#idxr-restore-customization-confirm', false);
+            }).catch(function () {
+                idxrSetGlobalPreloader(false);
+                idxrSetModalActionLoading('#idxr-restore-customization-confirm', false);
+                $('#idxr-restore-error').text('Unable to apply saved customization.').show();
+            });
+        }).fail(function (msg) {
+            $('#idxr-restore-error').text(idxrErrorMessage(msg, 'Unable to restore customization.')).show();
+            idxrSetModalActionLoading('#idxr-restore-customization-confirm', false);
+            idxrSetGlobalPreloader(false);
+        });
+    });
+
     view_type = $('#component_steps_container').attr('data-type');
     actual_cover = $(cover_image_id).attr('src');
     if(jQuery.isFunction('tooltip')) {

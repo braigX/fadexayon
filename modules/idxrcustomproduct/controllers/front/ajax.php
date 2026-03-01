@@ -89,6 +89,27 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
         if (Tools::getValue('action') == 'getTaxChange') {
             $this->ajaxProcessGetTaxChange();
         }
+
+        if (Tools::getValue('action') == 'saveServerCustomization') {
+            $this->ajaxProcessSaveServerCustomization();
+        }
+
+        if (Tools::getValue('action') == 'listServerCustomizations') {
+            $this->ajaxProcessListServerCustomizations();
+        }
+
+        if (Tools::getValue('action') == 'getServerCustomization') {
+            $this->ajaxProcessGetServerCustomization();
+        }
+    }
+
+    private function jsonResponse($data, $httpCode = 200)
+    {
+        if (!headers_sent()) {
+            http_response_code((int) $httpCode);
+            header('Content-Type: application/json; charset=utf-8');
+        }
+        die(json_encode($data));
     }
 
     public function ajaxProcessSavefav()
@@ -111,6 +132,195 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
     {
         $fav_id = Tools::getValue('favid');
         die($this->module->delFavorite($fav_id));
+    }
+
+    public function ajaxProcessSaveServerCustomization()
+    {
+        $context = Context::getContext();
+        $idCustomer = (int) $context->customer->id;
+        if ($idCustomer <= 0) {
+            $this->jsonResponse(array(
+                'success' => false,
+                'message' => $this->module->l('You need to be logged in to save a customization.', 'ajax'),
+            ), 403);
+        }
+
+        $idProduct = (int) Tools::getValue('product');
+        $idProductAttribute = (int) Tools::getValue('attribute');
+        $name = trim((string) Tools::getValue('name'));
+        $customization = (string) Tools::getValue('custom');
+        $extraInfo = (string) Tools::getValue('extra');
+        $snapshotJson = (string) Tools::getValue('snapshot_json');
+        $previewHtml = (string) Tools::getValue('preview_html');
+
+        if ($idProduct <= 0) {
+            $this->jsonResponse(array(
+                'success' => false,
+                'message' => $this->module->l('Invalid product.', 'ajax'),
+            ), 400);
+        }
+
+        if ($name === '') {
+            $this->jsonResponse(array(
+                'success' => false,
+                'message' => $this->module->l('Customization name is required.', 'ajax'),
+            ), 400);
+        }
+
+        if (Tools::strlen($name) > 100) {
+            $name = Tools::substr($name, 0, 100);
+        }
+
+        if (Tools::strlen($snapshotJson) > 5000000) {
+            $this->jsonResponse(array(
+                'success' => false,
+                'message' => $this->module->l('Customization data is too large.', 'ajax'),
+            ), 400);
+        }
+
+        if (Tools::strlen($previewHtml) > 500000) {
+            $previewHtml = Tools::substr($previewHtml, 0, 500000);
+        }
+
+        $now = date('Y-m-d H:i:s');
+        $data = array(
+            'id_customer' => $idCustomer,
+            'id_product' => $idProduct,
+            'id_product_attribute' => $idProductAttribute,
+            'customisation_name' => pSQL($name),
+            'customization' => pSQL($customization, true),
+            'extra_info' => pSQL($extraInfo, true),
+            'snapshot_json' => pSQL($snapshotJson, true),
+            'preview_html' => pSQL($previewHtml, true),
+            'date_add' => pSQL($now),
+            'date_upd' => pSQL($now),
+        );
+
+        $saved = Db::getInstance()->insert('idxrcustomproduct_saved_customisations', $data);
+        if (!$saved) {
+            $this->jsonResponse(array(
+                'success' => false,
+                'message' => Db::getInstance()->getMsgError() ?: $this->module->l('Unable to save customization.', 'ajax'),
+            ), 500);
+        }
+
+        // Keep a bounded history per customer/product to avoid unbounded growth.
+        Db::getInstance()->execute(
+            'DELETE s1 FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_saved_customisations` s1
+             INNER JOIN (
+                SELECT id_saved_customisation FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_saved_customisations`
+                WHERE id_customer=' . (int) $idCustomer . ' AND id_product=' . (int) $idProduct . '
+                ORDER BY date_add DESC
+                LIMIT 50, 500000
+             ) s2 ON s1.id_saved_customisation = s2.id_saved_customisation'
+        );
+
+        $this->jsonResponse(array(
+            'success' => true,
+            'id_saved_customisation' => (int) Db::getInstance()->Insert_ID(),
+            'message' => $this->module->l('Customization saved.', 'ajax'),
+        ));
+    }
+
+    public function ajaxProcessListServerCustomizations()
+    {
+        $context = Context::getContext();
+        $idCustomer = (int) $context->customer->id;
+        if ($idCustomer <= 0) {
+            $this->jsonResponse(array(
+                'success' => false,
+                'message' => $this->module->l('You need to be logged in.', 'ajax'),
+                'items' => array(),
+            ), 403);
+        }
+
+        $idProduct = (int) Tools::getValue('product');
+        $idProductAttribute = (int) Tools::getValue('attribute');
+        $whereAttribute = '';
+        if ($idProductAttribute > 0) {
+            $whereAttribute = ' AND (id_product_attribute = 0 OR id_product_attribute = ' . (int) $idProductAttribute . ')';
+        }
+
+        $rows = Db::getInstance()->executeS(
+            'SELECT id_saved_customisation, customisation_name, preview_html, date_add
+             FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_saved_customisations`
+             WHERE id_customer=' . (int) $idCustomer . '
+                AND id_product=' . (int) $idProduct . $whereAttribute . '
+             ORDER BY date_add DESC
+             LIMIT 100'
+        );
+
+        $items = array();
+        if (is_array($rows)) {
+            foreach ($rows as $row) {
+                $items[] = array(
+                    'id' => (int) $row['id_saved_customisation'],
+                    'name' => (string) $row['customisation_name'],
+                    'preview_html' => (string) $row['preview_html'],
+                    'created_at' => (string) $row['date_add'],
+                );
+            }
+        }
+
+        $this->jsonResponse(array(
+            'success' => true,
+            'items' => $items,
+        ));
+    }
+
+    public function ajaxProcessGetServerCustomization()
+    {
+        $context = Context::getContext();
+        $idCustomer = (int) $context->customer->id;
+        if ($idCustomer <= 0) {
+            $this->jsonResponse(array(
+                'success' => false,
+                'message' => $this->module->l('You need to be logged in.', 'ajax'),
+            ), 403);
+        }
+
+        $idSaved = (int) Tools::getValue('id_saved_customisation');
+        if ($idSaved <= 0) {
+            $this->jsonResponse(array(
+                'success' => false,
+                'message' => $this->module->l('Invalid customization id.', 'ajax'),
+            ), 400);
+        }
+
+        $row = Db::getInstance()->getRow(
+            'SELECT id_saved_customisation, id_product, id_product_attribute, customisation_name, customization, extra_info, snapshot_json, preview_html, date_add
+             FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_saved_customisations`
+             WHERE id_saved_customisation=' . (int) $idSaved . '
+               AND id_customer=' . (int) $idCustomer
+        );
+
+        if (!$row) {
+            $this->jsonResponse(array(
+                'success' => false,
+                'message' => $this->module->l('Customization not found.', 'ajax'),
+            ), 404);
+        }
+
+        Db::getInstance()->update(
+            'idxrcustomproduct_saved_customisations',
+            array('date_upd' => pSQL(date('Y-m-d H:i:s'))),
+            'id_saved_customisation=' . (int) $idSaved
+        );
+
+        $this->jsonResponse(array(
+            'success' => true,
+            'item' => array(
+                'id' => (int) $row['id_saved_customisation'],
+                'id_product' => (int) $row['id_product'],
+                'id_product_attribute' => (int) $row['id_product_attribute'],
+                'name' => (string) $row['customisation_name'],
+                'customization' => (string) $row['customization'],
+                'extra_info' => (string) $row['extra_info'],
+                'snapshot_json' => (string) $row['snapshot_json'],
+                'preview_html' => (string) $row['preview_html'],
+                'created_at' => (string) $row['date_add'],
+            ),
+        ));
     }
 
     public function ajaxProcessCustomfile()

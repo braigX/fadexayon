@@ -123,6 +123,23 @@ $sql[] = 'CREATE TABLE IF NOT EXISTS `'._DB_PREFIX_.'idxrcustomproduct_clones` (
  PRIMARY KEY (`id_producto`,`id_clon`)
 ) ENGINE='._MYSQL_ENGINE_.' DEFAULT CHARSET=utf8;';
 
+$sql[] = 'CREATE TABLE IF NOT EXISTS `'._DB_PREFIX_.'idxrcustomproduct_saved_customisations` (
+ `id_saved_customisation` int(11) NOT NULL AUTO_INCREMENT,
+ `id_customer` int(11) NOT NULL,
+ `id_product` int(11) NOT NULL,
+ `id_product_attribute` int(11) NOT NULL DEFAULT 0,
+ `customisation_name` varchar(100) NOT NULL,
+ `customization` longtext,
+ `extra_info` longtext,
+ `snapshot_json` longtext,
+ `preview_html` longtext,
+ `date_add` datetime NOT NULL,
+ `date_upd` datetime NOT NULL,
+ PRIMARY KEY (`id_saved_customisation`),
+ KEY `idxr_saved_customer_product` (`id_customer`, `id_product`),
+ KEY `idxr_saved_customer_date` (`id_customer`, `date_add`)
+) ENGINE='._MYSQL_ENGINE_.' DEFAULT CHARSET=utf8;';
+
 
 foreach ($sql as $query) {
     if (Db::getInstance()->execute($query) == false) {
@@ -141,3 +158,4 @@ require_once(dirname(__FILE__).'/upgrade-1.6.2.php');
 require_once(dirname(__FILE__).'/upgrade-1.6.3.php');
 require_once(dirname(__FILE__).'/upgrade-1.6.6.php');
 require_once(dirname(__FILE__).'/upgrade-1.7.3.php');
+require_once(dirname(__FILE__).'/upgrade-1.7.6.php');
