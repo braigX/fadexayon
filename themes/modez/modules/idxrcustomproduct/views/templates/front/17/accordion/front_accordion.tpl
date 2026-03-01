@@ -110,6 +110,8 @@
                 <div style="margin-top:8px; text-align:center;">
                     <a
                         href="{$link->getModuleLink('idxrcustomproduct','simulations')|escape:'htmlall':'UTF-8'}"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         style="font-size:12px; color:#2e48c4; text-decoration:underline;"
                     >
                         {l s='View all customisations' mod='idxrcustomproduct'}
@@ -126,6 +128,12 @@
     <style>
             .idxr-c-item-name input {
             height: .8em;
+        }
+        #save-customization-button-unique-12345 span,
+        #restore-customization-button-unique-12345 span {
+            font-size: 14px !important;
+            margin-left: 34px;
+            display: inline-block;
         }
     </style>
 <script>

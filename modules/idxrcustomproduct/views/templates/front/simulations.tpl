@@ -54,7 +54,7 @@
           <td class="idxr-sim-name">{$simulation.customisation_name|escape:'htmlall':'UTF-8'}</td>
           <td>{$simulation.product_name|escape:'htmlall':'UTF-8'}</td>
           <td>{$simulation.date_add|escape:'htmlall':'UTF-8'}</td>
-          <td><a class="btn btn-default" href="{$simulation.use_product_link|escape:'htmlall':'UTF-8'}">{l s='Apply' mod='idxrcustomproduct'}</a></td>
+          <td><a class="btn btn-default" href="{$simulation.use_product_link|escape:'htmlall':'UTF-8'}" target="_blank" rel="noopener noreferrer">{l s='Apply' mod='idxrcustomproduct'}</a></td>
           <td>
             <button type="button" class="btn btn-default idxr-sim-rename" data-id="{$simulation.id_saved_customisation|intval}" data-name="{$simulation.customisation_name|escape:'htmlall':'UTF-8'}">{l s='Rename' mod='idxrcustomproduct'}</button>
             <button type="button" class="btn btn-default idxr-sim-duplicate" data-id="{$simulation.id_saved_customisation|intval}">{l s='Duplicate' mod='idxrcustomproduct'}</button>

@@ -20,13 +20,13 @@ $(function () {
         var $btn = $(this);
         var id = $btn.data('id');
         var currentName = $btn.data('name') || '';
-        var nextName = window.prompt(idxr_sim_msg_rename || 'Rename simulation', currentName);
+        var nextName = window.prompt(idxr_sim_msg_rename, currentName);
         if (nextName === null) {
             return;
         }
         nextName = $.trim(nextName);
         if (!nextName.length) {
-            alert(idxr_sim_msg_rename_error || 'Name cannot be empty');
+            alert(idxr_sim_msg_rename_error);
             return;
         }
         request('renameServerCustomization', {
@@ -64,7 +64,7 @@ $(function () {
 
     $(document).on('click', '.idxr-sim-delete', function () {
         var id = $(this).data('id');
-        if (!window.confirm(idxr_sim_msg_delete || 'Delete this simulation?')) {
+        if (!window.confirm(idxr_sim_msg_delete)) {
             return;
         }
         request('deleteServerCustomization', {

@@ -55,33 +55,13 @@ P3 - Customer Experience
 - "Save" button (logged-in customer required).
 - Store all options: shapes, holes, text, thickness, finishes.
 
-CREATE TABLE IF NOT EXISTS `ps_idxrcustomproduct_saved_customisations` (
-  `id_saved_customisation` INT(11) NOT NULL AUTO_INCREMENT,
-  `id_customer` INT(11) NOT NULL,
-  `id_product` INT(11) NOT NULL,
-  `id_product_attribute` INT(11) NOT NULL DEFAULT 0,
-  `customisation_name` VARCHAR(100) NOT NULL,
-  `customization` LONGTEXT NULL,
-  `extra_info` LONGTEXT NULL,
-  `snapshot_json` LONGTEXT NULL,
-  `preview_html` LONGTEXT NULL,
-  `date_add` DATETIME NOT NULL,
-  `date_upd` DATETIME NOT NULL,
-  PRIMARY KEY (`id_saved_customisation`),
-  KEY `idxr_saved_customer_product` (`id_customer`, `id_product`),
-  KEY `idxr_saved_customer_date` (`id_customer`, `date_add`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-11) Simulation list in customer account
+11) Simulation list in customer account ✅
 - "My simulations" page:
   - list
   - rename
   - duplicate
   - delete
   - show thumbnail preview
-
-/module/idxrcustomproduct/simulations
 
 12) Restore a asimultion in the editor
 - Open a simulation from "My simulations".
@@ -100,10 +80,6 @@ P4 - Front-office Performance
 - Measure before/after (Lighthouse/PageSpeed) and document recommendations.
 
 
-Current Status (reference)
-- Showing dimensions outside preview: in progress / partially done.
-- Remaining points above must be finalized and validated.
-
 
 
 
@@ -111,6 +87,28 @@ Current Status (reference)
 
 
 ========== NON ORGNISED VIEW: ==============
+
+CREATE TABLE IF NOT EXISTS `ps_idxrcustomproduct_saved_customisations` (
+  `id_saved_customisation` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_customer` INT(11) NOT NULL,
+  `id_product` INT(11) NOT NULL,
+  `id_product_attribute` INT(11) NOT NULL DEFAULT 0,
+  `customisation_name` VARCHAR(100) NOT NULL,
+  `customization` LONGTEXT NULL,
+  `extra_info` LONGTEXT NULL,
+  `snapshot_json` LONGTEXT NULL,
+  `preview_html` LONGTEXT NULL,
+  `date_add` DATETIME NOT NULL,
+  `date_upd` DATETIME NOT NULL,
+  PRIMARY KEY (`id_saved_customisation`),
+  KEY `idxr_saved_customer_product` (`id_customer`, `id_product`),
+  KEY `idxr_saved_customer_date` (`id_customer`, `date_add`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+/module/idxrcustomproduct/simulations
+
+
 Corriger l’envoi de commandes sans dimensions
  - Les dimensions saisies par le client apparaissent correctement dans le tableau de bord mais ne sont pas reprises dans le PDF de facture/commande.
 - Validation globale avant panier/checkout

@@ -17,6 +17,31 @@ var block_animation = false;
 var debug = false;
 var idxcp_newtax = idxcp_originaltax
 var isAddingToCart = false;
+var idxrI18n = {
+    loading: window.idxr_tr_loading || 'Loading...',
+    saving: window.idxr_tr_saving || 'Saving...',
+    restoring: window.idxr_tr_restoring || 'Restoring...',
+    saveCustomization: window.idxr_tr_save_customization || 'Save customization',
+    restoreCustomization: window.idxr_tr_restore_customization || 'Restore customization',
+    loginToSave: window.idxr_tr_login_to_save_customisations || 'Login to save customisations',
+    previewCurrentSelection: window.idxr_tr_preview_current_selection || 'Preview of current selection',
+    pleaseEnterName: window.idxr_tr_please_enter_name || 'Please enter a name.',
+    pleaseSelectOne: window.idxr_tr_please_select_one_customization || 'Please select one customization.',
+    cancel: window.idxr_tr_cancel || 'Cancel',
+    save: window.idxr_tr_save || 'Save',
+    restore: window.idxr_tr_restore || 'Restore',
+    noSavedCustomizationsForProduct: window.idxr_tr_no_saved_customizations_for_product || 'No saved customizations for this product.',
+    unnamedCustomization: window.idxr_tr_unnamed_customization || 'Unnamed customization',
+    noPreview: window.idxr_tr_no_preview || 'No preview',
+    noPreviewAvailable: window.idxr_tr_no_preview_available || 'No preview available.',
+    myCustomization: window.idxr_tr_my_customization || 'My customization',
+    unableLoadSavedCustomizations: window.idxr_tr_unable_load_saved_customizations || 'Unable to load saved customizations.',
+    unableSaveCustomization: window.idxr_tr_unable_save_customization || 'Unable to save customization.',
+    unableRestoreCustomization: window.idxr_tr_unable_restore_customization || 'Unable to restore customization.',
+    unableApplySavedCustomization: window.idxr_tr_unable_apply_saved_customization || 'Unable to apply saved customization.',
+    savedPayloadInvalid: window.idxr_tr_saved_payload_invalid || 'Saved customization payload is invalid.',
+    requestFailed: window.idxr_tr_request_failed || 'Request failed.'
+};
 
 function normalizeExtraPayloadValue(value) {
     if (value === null || typeof value === 'undefined') {
@@ -141,7 +166,7 @@ function idxrErrorMessage(err, fallbackMessage) {
             // ignore parse errors and fallback below
         }
     }
-    return fallbackMessage || 'Request failed.';
+    return fallbackMessage || idxrI18n.requestFailed;
 }
 
 function idxrSetRestoreButtonLoading(isLoading) {
@@ -158,7 +183,7 @@ function idxrSetRestoreButtonLoading(isLoading) {
             $btn.data('idxr-original-disabled', $btn.prop('disabled'));
         }
         $btn.prop('disabled', true).addClass('disabled');
-        $btn.html('<i class="cart-icon-unique-12345" style="background-color:#1e0978;"><img src="/modules/idxrcustomproduct/img/icon/loading.png" alt="" style="animation:idxrSpin 1s linear infinite;"></i><span>Loading...</span>');
+        $btn.html('<i class="cart-icon-unique-12345" style="background-color:#1e0978;"><img src="/modules/idxrcustomproduct/img/icon/loading.png" alt="" style="animation:idxrSpin 1s linear infinite;"></i><span>' + idxrEsc(idxrI18n.loading) + '</span>');
         if (!$('#idxr-restore-loading-style').length) {
             $('head').append('<style id="idxr-restore-loading-style">@keyframes idxrSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}</style>');
         }
@@ -188,7 +213,7 @@ function idxrSetModalActionLoading(selector, isLoading, loadingText) {
             $btn.data('idxr-original-disabled', $btn.prop('disabled'));
         }
         $btn.prop('disabled', true);
-        $btn.html('<span style="display:inline-flex;align-items:center;gap:8px;"><img src="/modules/idxrcustomproduct/img/icon/loading.png" alt="" style="width:16px;height:16px;animation:idxrSpin 1s linear infinite;">' + idxrEsc(loadingText || 'Loading...') + '</span>');
+        $btn.html('<span style="display:inline-flex;align-items:center;gap:8px;"><img src="/modules/idxrcustomproduct/img/icon/loading.png" alt="" style="width:16px;height:16px;animation:idxrSpin 1s linear infinite;">' + idxrEsc(loadingText || idxrI18n.loading) + '</span>');
         return;
     }
 
@@ -309,7 +334,7 @@ function idxrEsc(text) {
 function idxrGetSummaryPreviewHtml() {
     var $table = $('#collapsibleSection .table-unique-12345').first();
     if (!$table.length) {
-        return '<p class="idxr-empty-preview">No preview available.</p>';
+        return '<p class="idxr-empty-preview">' + idxrEsc(idxrI18n.noPreviewAvailable) + '</p>';
     }
     var $clone = $table.clone();
     $clone.find('script,style,.hidden,[data-option="template"]').remove();
@@ -520,9 +545,9 @@ function idxrEnsureCustomizationModals() {
         return;
     }
 
-    var saveTitle = window.idxr_tr_save_customization || 'Save customization';
-    var restoreTitle = window.idxr_tr_restore_customization || 'Restore customization';
-    var loginText = window.idxr_tr_login_to_save_customisations || 'Login to save customisations';
+    var saveTitle = idxrI18n.saveCustomization;
+    var restoreTitle = idxrI18n.restoreCustomization;
+    var loginText = idxrI18n.loginToSave;
 
     var style = ''
         + '<style id="idxr-customization-modals-style">'
@@ -556,12 +581,12 @@ function idxrEnsureCustomizationModals() {
         + '    <div class="idxr-c-row">'
         + '      <input id="idxr-customization-name-input" class="idxr-c-input" type="text" maxlength="100" placeholder="' + idxrEsc(saveTitle) + '" />'
         + '    </div>'
-        + '    <p class="idxr-c-help">Preview of current selection</p>'
+        + '    <p class="idxr-c-help">' + idxrEsc(idxrI18n.previewCurrentSelection) + '</p>'
         + '    <div id="idxr-save-preview" class="idxr-c-preview"></div>'
-        + '    <p id="idxr-save-error" class="idxr-c-error">Please enter a name.</p>'
+        + '    <p id="idxr-save-error" class="idxr-c-error">' + idxrEsc(idxrI18n.pleaseEnterName) + '</p>'
         + '    <div class="idxr-c-actions">'
-        + '      <button type="button" class="idxr-c-btn idxr-c-btn-secondary" data-idxr-close="save">Cancel</button>'
-        + '      <button type="button" class="idxr-c-btn idxr-c-btn-primary" id="idxr-save-customization-confirm">Save</button>'
+        + '      <button type="button" class="idxr-c-btn idxr-c-btn-secondary" data-idxr-close="save">' + idxrEsc(idxrI18n.cancel) + '</button>'
+        + '      <button type="button" class="idxr-c-btn idxr-c-btn-primary" id="idxr-save-customization-confirm">' + idxrEsc(idxrI18n.save) + '</button>'
         + '    </div>'
         + '  </div>'
         + '</div>';
@@ -572,10 +597,10 @@ function idxrEnsureCustomizationModals() {
         + '    <h3 class="idxr-c-title">' + idxrEsc(restoreTitle) + '</h3>'
         + '    <div class="idxr-c-warning" id="idxr-restore-auth-warning">' + idxrEsc(loginText) + '</div>'
         + '    <div id="idxr-restore-customization-list" class="idxr-c-list"></div>'
-        + '    <p id="idxr-restore-error" class="idxr-c-error">Please select one customization.</p>'
+        + '    <p id="idxr-restore-error" class="idxr-c-error">' + idxrEsc(idxrI18n.pleaseSelectOne) + '</p>'
         + '    <div class="idxr-c-actions">'
-        + '      <button type="button" class="idxr-c-btn idxr-c-btn-secondary" data-idxr-close="restore">Cancel</button>'
-        + '      <button type="button" class="idxr-c-btn idxr-c-btn-primary" id="idxr-restore-customization-confirm">Restore</button>'
+        + '      <button type="button" class="idxr-c-btn idxr-c-btn-secondary" data-idxr-close="restore">' + idxrEsc(idxrI18n.cancel) + '</button>'
+        + '      <button type="button" class="idxr-c-btn idxr-c-btn-primary" id="idxr-restore-customization-confirm">' + idxrEsc(idxrI18n.restore) + '</button>'
         + '    </div>'
         + '  </div>'
         + '</div>';
@@ -597,7 +622,7 @@ function idxrRenderRestoreList(list) {
     $container.empty();
 
     if (!$.isArray(list) || !list.length) {
-        $container.html('<div class="idxr-c-empty">No saved customizations for this product.</div>');
+        $container.html('<div class="idxr-c-empty">' + idxrEsc(idxrI18n.noSavedCustomizationsForProduct) + '</div>');
         return;
     }
 
@@ -609,11 +634,11 @@ function idxrRenderRestoreList(list) {
             + '  <div class="idxr-c-item-head">'
             + '    <div class="idxr-c-item-name">'
             + '      <input type="radio" name="idxr_restore_pick" value="' + idxrEsc(item.id) + '"> '
-            + idxrEsc(item.name || 'Unnamed customization')
+            + idxrEsc(item.name || idxrI18n.unnamedCustomization)
             + '    </div>'
             + '    <div class="idxr-c-item-date">' + idxrEsc(dateText) + '</div>'
             + '  </div>'
-            + '  <div class="idxr-c-preview">' + (item.preview_html || '<span class="idxr-c-empty">No preview</span>') + '</div>'
+            + '  <div class="idxr-c-preview">' + (item.preview_html || '<span class="idxr-c-empty">' + idxrEsc(idxrI18n.noPreview) + '</span>') + '</div>'
             + '</label>';
         $container.append(row);
     });
@@ -652,7 +677,7 @@ $(document).ready(function() {
         e.stopImmediatePropagation();
         $('#idxr-save-error').hide();
         $('#idxr-save-preview').html(idxrGetSummaryPreviewHtml());
-        var defaultName = $.trim($('#product-title-unique-12345').text()) || 'My customization';
+        var defaultName = $.trim($('#product-title-unique-12345').text()) || idxrI18n.myCustomization;
         $('#idxr-customization-name-input').val(defaultName).focus().select();
         idxrOpenModal('idxr-save-customization-modal');
     });
@@ -675,8 +700,8 @@ $(document).ready(function() {
             idxrOpenModal('idxr-restore-customization-modal');
             idxrSetRestoreButtonLoading(false);
         }).fail(function (msg) {
-            $('#idxr-restore-customization-list').html('<div class="idxr-c-empty">Unable to load saved customizations.</div>');
-            $('#idxr-restore-error').text(idxrErrorMessage(msg, 'Unable to load saved customizations.')).show();
+            $('#idxr-restore-customization-list').html('<div class="idxr-c-empty">' + idxrEsc(idxrI18n.unableLoadSavedCustomizations) + '</div>');
+            $('#idxr-restore-error').text(idxrErrorMessage(msg, idxrI18n.unableLoadSavedCustomizations)).show();
             idxrOpenModal('idxr-restore-customization-modal');
             idxrSetRestoreButtonLoading(false);
         });
@@ -688,7 +713,7 @@ $(document).ready(function() {
             $('#idxr-save-error').show();
             return;
         }
-        idxrSetModalActionLoading('#idxr-save-customization-confirm', true, 'Saving...');
+        idxrSetModalActionLoading('#idxr-save-customization-confirm', true, idxrI18n.saving);
         var snapshot = idxrCollectCurrentSnapshot(customName);
         idxrServerRequest('saveServerCustomization', {
             product: snapshot.product_id,
@@ -703,7 +728,7 @@ $(document).ready(function() {
             idxrCloseModal('idxr-save-customization-modal');
             idxrSetModalActionLoading('#idxr-save-customization-confirm', false);
         }).fail(function (msg) {
-            $('#idxr-save-error').text(idxrErrorMessage(msg, 'Unable to save customization.')).show();
+            $('#idxr-save-error').text(idxrErrorMessage(msg, idxrI18n.unableSaveCustomization)).show();
             idxrSetModalActionLoading('#idxr-save-customization-confirm', false);
         });
     });
@@ -714,7 +739,7 @@ $(document).ready(function() {
             $('#idxr-restore-error').show();
             return;
         }
-        idxrSetModalActionLoading('#idxr-restore-customization-confirm', true, 'Restoring...');
+        idxrSetModalActionLoading('#idxr-restore-customization-confirm', true, idxrI18n.restoring);
         idxrServerRequest('getServerCustomization', {
             id_saved_customisation: selectedId
         }).done(function (response) {
@@ -727,7 +752,7 @@ $(document).ready(function() {
                 }
             }
             if (!snapshot) {
-                $('#idxr-restore-error').text('Saved customization payload is invalid.').show();
+                $('#idxr-restore-error').text(idxrI18n.savedPayloadInvalid).show();
                 idxrSetModalActionLoading('#idxr-restore-customization-confirm', false);
                 return;
             }
@@ -740,10 +765,10 @@ $(document).ready(function() {
             }).catch(function () {
                 idxrSetGlobalPreloader(false);
                 idxrSetModalActionLoading('#idxr-restore-customization-confirm', false);
-                $('#idxr-restore-error').text('Unable to apply saved customization.').show();
+                $('#idxr-restore-error').text(idxrI18n.unableApplySavedCustomization).show();
             });
         }).fail(function (msg) {
-            $('#idxr-restore-error').text(idxrErrorMessage(msg, 'Unable to restore customization.')).show();
+            $('#idxr-restore-error').text(idxrErrorMessage(msg, idxrI18n.unableRestoreCustomization)).show();
             idxrSetModalActionLoading('#idxr-restore-customization-confirm', false);
             idxrSetGlobalPreloader(false);
         });

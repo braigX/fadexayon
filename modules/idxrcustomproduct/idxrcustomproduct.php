@@ -173,6 +173,39 @@ class IdxrCustomProduct extends Module
         $this->l('Paramètres de Socle');
         $this->l('Les Dimensions Extérieures');
         $this->l('Vitrine sur mesure');
+        $this->l('Save customization');
+        $this->l('Restore customization');
+        $this->l('Login to save customisations');
+        $this->l('Login to restore customisations');
+        $this->l('View all customisations');
+        $this->l('Loading...');
+        $this->l('Saving...');
+        $this->l('Restoring...');
+        $this->l('Preview of current selection');
+        $this->l('Please enter a name.');
+        $this->l('Please select one customization.');
+        $this->l('Cancel');
+        $this->l('Save');
+        $this->l('Restore');
+        $this->l('No saved customizations for this product.');
+        $this->l('Unnamed customization');
+        $this->l('No preview');
+        $this->l('No preview available.');
+        $this->l('My customization');
+        $this->l('Unable to load saved customizations.');
+        $this->l('Unable to save customization.');
+        $this->l('Unable to restore customization.');
+        $this->l('Unable to apply saved customization.');
+        $this->l('Saved customization payload is invalid.');
+        $this->l('Request failed.');
+        $this->l('My simulations');
+        $this->l('Open product');
+        $this->l('Apply');
+        $this->l('No saved simulations yet.');
+        $this->l('Enter a new name for this simulation');
+        $this->l('Name cannot be empty');
+        $this->l('Delete this simulation?');
+        $this->l('Action failed, please try again');
     }
     
     // /*End*/
@@ -677,6 +710,30 @@ class IdxrCustomProduct extends Module
             'idxr_tr_base_settings' => $this->l('Paramètres de Socle'),
             'idxr_tr_outer_dimensions' => $this->l('Les Dimensions Extérieures'),
             'idxr_tr_custom_display' => $this->l('Vitrine sur mesure'),
+            'idxr_tr_loading' => $this->l('Loading...'),
+            'idxr_tr_saving' => $this->l('Saving...'),
+            'idxr_tr_restoring' => $this->l('Restoring...'),
+            'idxr_tr_save_customization' => $this->l('Save customization'),
+            'idxr_tr_restore_customization' => $this->l('Restore customization'),
+            'idxr_tr_login_to_save_customisations' => $this->l('Login to save customisations'),
+            'idxr_tr_login_to_restore_customisations' => $this->l('Login to restore customisations'),
+            'idxr_tr_preview_current_selection' => $this->l('Preview of current selection'),
+            'idxr_tr_please_enter_name' => $this->l('Please enter a name.'),
+            'idxr_tr_please_select_one_customization' => $this->l('Please select one customization.'),
+            'idxr_tr_cancel' => $this->l('Cancel'),
+            'idxr_tr_save' => $this->l('Save'),
+            'idxr_tr_restore' => $this->l('Restore'),
+            'idxr_tr_no_saved_customizations_for_product' => $this->l('No saved customizations for this product.'),
+            'idxr_tr_unnamed_customization' => $this->l('Unnamed customization'),
+            'idxr_tr_no_preview' => $this->l('No preview'),
+            'idxr_tr_no_preview_available' => $this->l('No preview available.'),
+            'idxr_tr_my_customization' => $this->l('My customization'),
+            'idxr_tr_unable_load_saved_customizations' => $this->l('Unable to load saved customizations.'),
+            'idxr_tr_unable_save_customization' => $this->l('Unable to save customization.'),
+            'idxr_tr_unable_restore_customization' => $this->l('Unable to restore customization.'),
+            'idxr_tr_unable_apply_saved_customization' => $this->l('Unable to apply saved customization.'),
+            'idxr_tr_saved_payload_invalid' => $this->l('Saved customization payload is invalid.'),
+            'idxr_tr_request_failed' => $this->l('Request failed.'),
         ];
 
         Media::addJsDef($translations);
