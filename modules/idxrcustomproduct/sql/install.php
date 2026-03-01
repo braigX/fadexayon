@@ -133,6 +133,7 @@ $sql[] = 'CREATE TABLE IF NOT EXISTS `'._DB_PREFIX_.'idxrcustomproduct_saved_cus
  `extra_info` longtext,
  `snapshot_json` longtext,
  `preview_html` longtext,
+ `thumbnail_svg` longtext,
  `date_add` datetime NOT NULL,
  `date_upd` datetime NOT NULL,
  PRIMARY KEY (`id_saved_customisation`),

@@ -16,3 +16,10 @@
 	{l s='Customized products' mod='idxrcustomproduct'}
 	</span>
 </a>
+
+<a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" title="{l s='My simulations' mod='idxrcustomproduct'}" href="{$link->getModuleLink('idxrcustomproduct','simulations')|escape:'htmlall':'UTF-8'}">
+	<span class="link-item">
+	    <i class="material-icons">science</i>
+	{l s='My simulations' mod='idxrcustomproduct'}
+	</span>
+</a>

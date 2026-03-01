@@ -101,6 +101,18 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
         if (Tools::getValue('action') == 'getServerCustomization') {
             $this->ajaxProcessGetServerCustomization();
         }
+
+        if (Tools::getValue('action') == 'renameServerCustomization') {
+            $this->ajaxProcessRenameServerCustomization();
+        }
+
+        if (Tools::getValue('action') == 'duplicateServerCustomization') {
+            $this->ajaxProcessDuplicateServerCustomization();
+        }
+
+        if (Tools::getValue('action') == 'deleteServerCustomization') {
+            $this->ajaxProcessDeleteServerCustomization();
+        }
     }
 
     private function jsonResponse($data, $httpCode = 200)
@@ -152,6 +164,7 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
         $extraInfo = (string) Tools::getValue('extra');
         $snapshotJson = (string) Tools::getValue('snapshot_json');
         $previewHtml = (string) Tools::getValue('preview_html');
+        $thumbnailSvg = (string) Tools::getValue('svg_thumbnail');
 
         if ($idProduct <= 0) {
             $this->jsonResponse(array(
@@ -181,6 +194,9 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
         if (Tools::strlen($previewHtml) > 500000) {
             $previewHtml = Tools::substr($previewHtml, 0, 500000);
         }
+        if (Tools::strlen($thumbnailSvg) > 700000) {
+            $thumbnailSvg = Tools::substr($thumbnailSvg, 0, 700000);
+        }
 
         $now = date('Y-m-d H:i:s');
         $data = array(
@@ -192,6 +208,7 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
             'extra_info' => pSQL($extraInfo, true),
             'snapshot_json' => pSQL($snapshotJson, true),
             'preview_html' => pSQL($previewHtml, true),
+            'thumbnail_svg' => pSQL($thumbnailSvg, true),
             'date_add' => pSQL($now),
             'date_upd' => pSQL($now),
         );
@@ -242,7 +259,7 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
         }
 
         $rows = Db::getInstance()->executeS(
-            'SELECT id_saved_customisation, customisation_name, preview_html, date_add
+            'SELECT id_saved_customisation, customisation_name, preview_html, thumbnail_svg, date_add
              FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_saved_customisations`
              WHERE id_customer=' . (int) $idCustomer . '
                 AND id_product=' . (int) $idProduct . $whereAttribute . '
@@ -257,6 +274,7 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
                     'id' => (int) $row['id_saved_customisation'],
                     'name' => (string) $row['customisation_name'],
                     'preview_html' => (string) $row['preview_html'],
+                    'thumbnail_svg' => (string) $row['thumbnail_svg'],
                     'created_at' => (string) $row['date_add'],
                 );
             }
@@ -321,6 +339,112 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
                 'created_at' => (string) $row['date_add'],
             ),
         ));
+    }
+
+    public function ajaxProcessRenameServerCustomization()
+    {
+        $idCustomer = (int) Context::getContext()->customer->id;
+        if ($idCustomer <= 0) {
+            $this->jsonResponse(array('success' => false, 'message' => $this->module->l('You need to be logged in.', 'ajax')), 403);
+        }
+
+        $idSaved = (int) Tools::getValue('id_saved_customisation');
+        $name = trim((string) Tools::getValue('name'));
+        if ($idSaved <= 0 || $name === '') {
+            $this->jsonResponse(array('success' => false, 'message' => $this->module->l('Invalid request.', 'ajax')), 400);
+        }
+        if (Tools::strlen($name) > 100) {
+            $name = Tools::substr($name, 0, 100);
+        }
+
+        $updated = Db::getInstance()->update(
+            'idxrcustomproduct_saved_customisations',
+            array(
+                'customisation_name' => pSQL($name),
+                'date_upd' => pSQL(date('Y-m-d H:i:s')),
+            ),
+            'id_saved_customisation=' . (int) $idSaved . ' AND id_customer=' . (int) $idCustomer
+        );
+
+        if (!$updated) {
+            $this->jsonResponse(array('success' => false, 'message' => $this->module->l('Unable to rename simulation.', 'ajax')), 500);
+        }
+
+        $this->jsonResponse(array('success' => true, 'message' => $this->module->l('Simulation renamed.', 'ajax')));
+    }
+
+    public function ajaxProcessDuplicateServerCustomization()
+    {
+        $idCustomer = (int) Context::getContext()->customer->id;
+        if ($idCustomer <= 0) {
+            $this->jsonResponse(array('success' => false, 'message' => $this->module->l('You need to be logged in.', 'ajax')), 403);
+        }
+
+        $idSaved = (int) Tools::getValue('id_saved_customisation');
+        if ($idSaved <= 0) {
+            $this->jsonResponse(array('success' => false, 'message' => $this->module->l('Invalid request.', 'ajax')), 400);
+        }
+
+        $row = Db::getInstance()->getRow(
+            'SELECT * FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_saved_customisations`
+             WHERE id_saved_customisation=' . (int) $idSaved . ' AND id_customer=' . (int) $idCustomer
+        );
+        if (!$row) {
+            $this->jsonResponse(array('success' => false, 'message' => $this->module->l('Simulation not found.', 'ajax')), 404);
+        }
+
+        $now = date('Y-m-d H:i:s');
+        $copyName = trim((string) $row['customisation_name']) . ' (copy)';
+        if (Tools::strlen($copyName) > 100) {
+            $copyName = Tools::substr($copyName, 0, 100);
+        }
+        $insert = Db::getInstance()->insert('idxrcustomproduct_saved_customisations', array(
+            'id_customer' => (int) $row['id_customer'],
+            'id_product' => (int) $row['id_product'],
+            'id_product_attribute' => (int) $row['id_product_attribute'],
+            'customisation_name' => pSQL($copyName),
+            'customization' => pSQL((string) $row['customization'], true),
+            'extra_info' => pSQL((string) $row['extra_info'], true),
+            'snapshot_json' => pSQL((string) $row['snapshot_json'], true),
+            'preview_html' => pSQL((string) $row['preview_html'], true),
+            'thumbnail_svg' => pSQL((string) $row['thumbnail_svg'], true),
+            'date_add' => pSQL($now),
+            'date_upd' => pSQL($now),
+        ));
+
+        if (!$insert) {
+            $this->jsonResponse(array('success' => false, 'message' => $this->module->l('Unable to duplicate simulation.', 'ajax')), 500);
+        }
+
+        $this->jsonResponse(array(
+            'success' => true,
+            'id_saved_customisation' => (int) Db::getInstance()->Insert_ID(),
+            'message' => $this->module->l('Simulation duplicated.', 'ajax'),
+        ));
+    }
+
+    public function ajaxProcessDeleteServerCustomization()
+    {
+        $idCustomer = (int) Context::getContext()->customer->id;
+        if ($idCustomer <= 0) {
+            $this->jsonResponse(array('success' => false, 'message' => $this->module->l('You need to be logged in.', 'ajax')), 403);
+        }
+
+        $idSaved = (int) Tools::getValue('id_saved_customisation');
+        if ($idSaved <= 0) {
+            $this->jsonResponse(array('success' => false, 'message' => $this->module->l('Invalid request.', 'ajax')), 400);
+        }
+
+        $deleted = Db::getInstance()->delete(
+            'idxrcustomproduct_saved_customisations',
+            'id_saved_customisation=' . (int) $idSaved . ' AND id_customer=' . (int) $idCustomer
+        );
+
+        if (!$deleted) {
+            $this->jsonResponse(array('success' => false, 'message' => $this->module->l('Unable to delete simulation.', 'ajax')), 500);
+        }
+
+        $this->jsonResponse(array('success' => true, 'message' => $this->module->l('Simulation deleted.', 'ajax')));
     }
 
     public function ajaxProcessCustomfile()

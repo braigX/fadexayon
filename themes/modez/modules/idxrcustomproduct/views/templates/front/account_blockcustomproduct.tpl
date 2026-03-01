@@ -15,3 +15,9 @@
         <span>{l s='Customized products' mod='idxrcustomproduct'}</span>
     </a>
 </li>
+<li>
+    <a title="{l s='My simulations' mod='idxrcustomproduct'}" href="{$link->getModuleLink('idxrcustomproduct','simulations')|escape:'htmlall':'UTF-8'}">
+        <i class="fa fa-flask"></i>
+        <span>{l s='My simulations' mod='idxrcustomproduct'}</span>
+    </a>
+</li>

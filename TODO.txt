@@ -81,7 +81,9 @@ CREATE TABLE IF NOT EXISTS `ps_idxrcustomproduct_saved_customisations` (
   - delete
   - show thumbnail preview
 
-12) Restore a simulation in the editor
+/module/idxrcustomproduct/simulations
+
+12) Restore a asimultion in the editor
 - Open a simulation from "My simulations".
 - Reload full parameters and recalculate price.
 

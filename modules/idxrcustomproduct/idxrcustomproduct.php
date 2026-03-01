@@ -181,7 +181,7 @@ class IdxrCustomProduct extends Module
     {
         $this->name = 'idxrcustomproduct';
         $this->tab = 'checkout';
-        $this->version = '1.7.6';
+        $this->version = '1.7.7';
         $this->author_address = '0x899FC2b81CbbB0326d695248838e80102D2B4c53';
         $this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_);
         $this->author = 'Innovadeluxe';

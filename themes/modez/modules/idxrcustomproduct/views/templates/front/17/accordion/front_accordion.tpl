@@ -107,6 +107,14 @@
                         <span id="front_tr_restore_customization">{l s='Restore customization' mod='idxrcustomproduct'}</span>
                     </button>
                 </div>
+                <div style="margin-top:8px; text-align:center;">
+                    <a
+                        href="{$link->getModuleLink('idxrcustomproduct','simulations')|escape:'htmlall':'UTF-8'}"
+                        style="font-size:12px; color:#2e48c4; text-decoration:underline;"
+                    >
+                        {l s='View all customisations' mod='idxrcustomproduct'}
+                    </a>
+                </div>
             </div>
         </div>
     </div>
