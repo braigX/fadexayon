@@ -449,6 +449,13 @@ const CustomizationModule = (() => {
                     $(this).val(limits.max);
                 }
             }
+
+            // Always commit on change after clamping/range normalization.
+            const id_option = ($(this).attr('id') || '').replace('text_', '');
+            if (id_option) {
+                $(this).closest('.step_content').addClass("finished");
+                $('#js_icp_next_opt_' + id_option).click();
+            }
         });            
 
         function moveAlert() {
@@ -4531,6 +4538,9 @@ const CustomizationModule = (() => {
             });
         
             setTimeout(() => {
+                if (!textBlock || !textBlock.node || !textBlock.node.parentNode) {
+                    return;
+                }
                 const bbox = textBlock.getBBox();
                 const bboxWidth = bbox.width;
                 const bboxHeight = bbox.height;
@@ -4556,7 +4566,13 @@ const CustomizationModule = (() => {
                     fill
                 });
         
-                textBlock.before(rect);
+                if (rect && rect.node && rect.node.parentNode === textBlock.node.parentNode) {
+                    try {
+                        textBlock.before(rect);
+                    } catch (e) {
+                        // Ignore ordering race during rapid redraws.
+                    }
+                }
          
                 // Handle rotations based on orientation
                 const transformAngle = orientation === 'vertical' ? -90 : (orientation === 'depth' ? -45 : 0);
@@ -4669,7 +4685,13 @@ const CustomizationModule = (() => {
             fill: 'white'
         });
 
-        textBlock.before(rect);
+        if (textBlock && textBlock.node && textBlock.node.parentNode && rect && rect.node && rect.node.parentNode === textBlock.node.parentNode) {
+            try {
+                textBlock.before(rect);
+            } catch (e) {
+                // Ignore ordering race during rapid redraws.
+            }
+        }
 
         if (orientation === 'vertical') {
             textBlock.transform(`rotate(-90 ${originX} ${originY})`);

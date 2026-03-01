@@ -4,7 +4,7 @@ P1 - Blocking / Critical
 - Dimensions are visible in the back office but missing in order/invoice PDFs.
 - Goal: properly store and render dimensions in PDF documents.
 
-2) Global validation before cart / checkout
+2) Global validation before cart / checkout✅
 - Add strict validation before add-to-cart and checkout.
 - Conditional checklist (depending on use case):
   - dimensions
@@ -16,7 +16,7 @@ P1 - Blocking / Critical
 - Normalize numeric input: remove commas (example: 12,5 -> 12.5).
 
 3) Fix diameter / radius display
-- Standardize and stabilize display for diameter/radius dimensions.
+- Standardize and stabilize display for diameter/radius dimensions.✅
 
 
 P2 - Business Features

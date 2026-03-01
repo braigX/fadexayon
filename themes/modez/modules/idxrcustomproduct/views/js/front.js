@@ -18,6 +18,97 @@ var debug = false;
 var idxcp_newtax = idxcp_originaltax
 var isAddingToCart = false;
 
+function normalizeExtraPayloadValue(value) {
+    if (value === null || typeof value === 'undefined') {
+        return 'false';
+    }
+    var normalized = ('' + value).trim();
+    if (!normalized.length) {
+        return 'false';
+    }
+    return normalized.replace('3x7r4', 'extra');
+}
+
+function buildExtraInfoPayload() {
+    var extraByComponent = {};
+    var order = [];
+
+    $('.sel_opt_extra').each(function () {
+        var componentId = parseInt($(this).attr('id').split("_")[3], 10);
+        if (isNaN(componentId)) {
+            return;
+        }
+        if (!Object.prototype.hasOwnProperty.call(extraByComponent, componentId)) {
+            order.push(componentId);
+        }
+        extraByComponent[componentId] = normalizeExtraPayloadValue($(this).html());
+    });
+
+    var processedStep = {};
+    $('.js_icp_next_option').each(function () {
+        var stepId = ($(this).attr('id') || '').replace('js_icp_next_opt_', '');
+        if (!stepId || processedStep[stepId]) {
+            return;
+        }
+        processedStep[stepId] = true;
+
+        var componentId = parseInt(stepId, 10);
+        if (isNaN(componentId)) {
+            return;
+        }
+
+        var stepContainer = $('#component_step_' + stepId);
+        if (stepContainer.length && stepContainer.hasClass('hidden')) {
+            return;
+        }
+
+        var selectedMarker = $('#js_opt_' + stepId + '_value').html();
+        var extraMarker = $('#js_opt_extra_' + stepId + '_value').html();
+        if (selectedMarker === 'false' && extraMarker === 'false') {
+            return;
+        }
+
+        var stepType = $(this).attr('data-type');
+        var liveValue;
+        if (stepType === 'text') {
+            liveValue = $('#text_' + stepId).val();
+        } else if (stepType === 'textarea') {
+            liveValue = $('#textarea_' + stepId).val();
+        } else if (stepType === 'file') {
+            liveValue = ($('#file_' + stepId).val() || '').replace(/C:\\fakepath\\/i, '');
+        } else {
+            return;
+        }
+
+        if (!Object.prototype.hasOwnProperty.call(extraByComponent, componentId)) {
+            order.push(componentId);
+        }
+        extraByComponent[componentId] = normalizeExtraPayloadValue(liveValue);
+    });
+
+    var payload = '';
+    var separator = '';
+    $.each(order, function (_, componentId) {
+        payload += separator + componentId + '_' + JSON.stringify(extraByComponent[componentId]);
+        separator = '3x7r4';
+    });
+
+    return payload;
+}
+
+function syncInputExtraToHidden(stepId) {
+    var stepType = $('#js_icp_next_opt_' + stepId).attr('data-type');
+    var value = 'false';
+    if (stepType === 'text') {
+        value = $('#text_' + stepId).val();
+    } else if (stepType === 'textarea') {
+        value = $('#textarea_' + stepId).val();
+    } else if (stepType === 'file') {
+        value = ($('#file_' + stepId).val() || '').replace(/C:\\fakepath\\/i, '');
+    }
+    $('#js_opt_extra_' + stepId + '_value').html(normalizeExtraPayloadValue(value));
+}
+
 $(document).ready(function() {
 
     var parentdiv = $("body");
@@ -265,7 +356,23 @@ $(document).ready(function() {
             $('#js_icp_next_opt_'+optionid).click();
         }
     });
-  
+
+    // Ensure accordion text fields are committed even if the user doesn't click a "next" link.
+    parentdiv.on('input', '.accordion_text', function(){
+        var id_option = $(this).attr('id').replace('text_','');
+        syncInputExtraToHidden(id_option);
+        $('#js_icp_next_opt_'+id_option).click();
+    });
+
+    parentdiv.on('click', '.js-text-next-btn', function(){
+        var id_option = ($(this).attr('id') || '').replace('js-text-next-btn-','');
+        if (id_option) {
+            syncInputExtraToHidden(id_option);
+            $('#js_icp_next_opt_'+id_option).click();
+        }
+        var nextId = next_panel_id();
+        go_next_panel(nextId);
+    });
 
     parentdiv.on('click', '.js_icp_next_option',function(){
         step_id = $(this).attr('id');
@@ -377,11 +484,7 @@ $(document).ready(function() {
             }
         });
         
-        comma = '';
-        $('.sel_opt_extra').each(function(){
-            data['extra_info'] += comma+parseInt($(this).attr('id').split("_")[3])+'_'+JSON.stringify($(this).html().replace('3x7r4','extra'));
-            comma = '3x7r4';
-        });
+        data['extra_info'] = buildExtraInfoPayload();
         
         var quantity = 1;
         if ($('#quantity_wanted').length) {
@@ -434,11 +537,7 @@ $(document).ready(function() {
             comma = ',';
         });
 
-        comma = '';
-        $('.sel_opt_extra').each(function(){
-            data['extra_info'] += comma+parseInt($(this).attr('id').split("_")[3])+'_'+JSON.stringify($(this).html().replace('3x7r4','extra'));
-            comma = '3x7r4';
-        });
+        data['extra_info'] = buildExtraInfoPayload();
 
         $.post( url_ajax, { action: "savefav", product: data['product_id'], attribute: data['attribute_id'], custom: data['customization'], extra: data['extra_info']} )
             .done(function(data){
