@@ -45,7 +45,7 @@ P2 - Business Features
   - linear finishing price
   - surcharges
 
-9) CAD-ready SVG (1:1 scale)
+9) CAD-ready SVG (1:1 scale) ✅
 - Export/generate SVG at real scale.
 
 

@@ -498,6 +498,73 @@ const CustomizationModule = (() => {
                 svg.css('transform', `rotate(${currentRotate - 90}deg)`);
             });
 
+            $(document)
+                .off('click.idxrDownloadSvg', '.download-svg')
+                .on('click.idxrDownloadSvg', '.download-svg', function() {
+                    var $svg = $('#actualSvg');
+                    var svgNode = $svg.get(0);
+                    if (!svgNode || !$svg.length) {
+                        return;
+                    }
+
+                    // Keep current visual state, export at scale 1, then restore previous state.
+                    var originalScale = $svg.data('scale');
+                    var originalRotate = $svg.data('rotate');
+                    var originalTransform = $svg.css('transform');
+
+                    var safeScale = (typeof originalScale === 'number' && !isNaN(originalScale)) ? originalScale : 1;
+                    var safeRotate = (typeof originalRotate === 'number' && !isNaN(originalRotate)) ? originalRotate : 0;
+
+                    try {
+                        $svg.data('scale', 1);
+                        if (safeRotate) {
+                            $svg.css('transform', 'rotate(' + safeRotate + 'deg) scale(1)');
+                        } else {
+                            $svg.css('transform', 'scale(1)');
+                        }
+
+                        var svgClone = svgNode.cloneNode(true);
+                        if (!svgClone.getAttribute('xmlns')) {
+                            svgClone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+                        }
+                        if (!svgClone.getAttribute('xmlns:xlink')) {
+                            svgClone.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
+                        }
+
+                        var serializer = new XMLSerializer();
+                        var svgContent = serializer.serializeToString(svgClone);
+                        if (!svgContent.match(/^<svg[^>]+xmlns=/)) {
+                            svgContent = svgContent.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
+                        }
+                        var svgFile = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgContent;
+
+                        var blob = new Blob([svgFile], { type: 'image/svg+xml;charset=utf-8' });
+                        var url = URL.createObjectURL(blob);
+                        var link = document.createElement('a');
+                        var name = ($('#product-title-unique-12345').text() || 'customization').trim().replace(/[^a-z0-9\-_]+/gi, '_');
+                        link.href = url;
+                        link.download = (name || 'customization') + '.svg';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        URL.revokeObjectURL(url);
+                    } finally {
+                        if (typeof originalScale === 'number' && !isNaN(originalScale)) {
+                            $svg.data('scale', originalScale);
+                        } else {
+                            $svg.removeData('scale');
+                        }
+
+                        if (typeof originalRotate === 'number' && !isNaN(originalRotate)) {
+                            $svg.data('rotate', originalRotate);
+                        } else {
+                            $svg.removeData('rotate');
+                        }
+
+                        $svg.css('transform', originalTransform);
+                    }
+                });
+
         }
 
         function appendHtmlBasedOnScreenWidth() {
@@ -1398,6 +1465,7 @@ const CustomizationModule = (() => {
                 <button class="svg-btn zoom-out"><img src="/modules/idxrcustomproduct/img/icon/m.png" alt="rg"></button>
                 <button class="svg-btn rotateright"><img src="/modules/idxrcustomproduct/img/icon/rr.png" alt="rg"></i></button>
                 <button class="svg-btn rotateleft"><img src="/modules/idxrcustomproduct/img/icon/rl.png" alt="rg"></button>
+                <button class="svg-btn download-svg" title="Download SVG"><img src="/modules/idxrcustomproduct/img/icon/down.png" alt="Download SVG"></button>
 
                 <div class="qwerty-switch-container">
                     <p id="switchStatus">Dimensions:</p>
@@ -1419,6 +1487,7 @@ const CustomizationModule = (() => {
                 <button class="svg-btn zoom-out"><img src="/modules/idxrcustomproduct/img/icon/m.png" alt="rg"></button>
                 <button class="svg-btn rotateright"><img src="/modules/idxrcustomproduct/img/icon/rr.png" alt="rg"></i></button>
                 <button class="svg-btn rotateleft"><img src="/modules/idxrcustomproduct/img/icon/rl.png" alt="rg"></button>
+                <button class="svg-btn download-svg" title="Download SVG"><img src="/modules/idxrcustomproduct/img/icon/down.png" alt="Download SVG"></button>
             </div>`;
             $('#svgContainer').prepend(controlsHtml);
 
