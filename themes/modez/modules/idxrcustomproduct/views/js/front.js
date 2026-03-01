@@ -17,6 +17,8 @@ var block_animation = false;
 var debug = false;
 var idxcp_newtax = idxcp_originaltax
 var isAddingToCart = false;
+var idxrRestoreFromUrlInProgress = false;
+var idxrRestoreFromUrlHandled = false;
 var idxrI18n = {
     loading: window.idxr_tr_loading || 'Loading...',
     saving: window.idxr_tr_saving || 'Saving...',
@@ -284,6 +286,10 @@ function idxrGetUrlParam(paramName) {
     return match ? decodeURIComponent(match[1]) : null;
 }
 
+function idxrHasRestoreFromUrl() {
+    return !!parseInt(idxrGetUrlParam('idxr_restore_sim'), 10);
+}
+
 function idxrRemoveUrlParam(paramName) {
     if (!window.history || !window.history.replaceState) {
         return;
@@ -294,11 +300,15 @@ function idxrRemoveUrlParam(paramName) {
 }
 
 function idxrAutoRestoreFromUrlIfNeeded() {
+    if (idxrRestoreFromUrlInProgress || idxrRestoreFromUrlHandled) {
+        return;
+    }
     var savedId = parseInt(idxrGetUrlParam('idxr_restore_sim'), 10);
     if (!savedId) {
         return;
     }
 
+    idxrRestoreFromUrlInProgress = true;
     idxrSetGlobalPreloader(true);
     idxrServerRequest('getServerCustomization', {
         id_saved_customisation: savedId
@@ -312,19 +322,54 @@ function idxrAutoRestoreFromUrlIfNeeded() {
             }
         }
         if (!snapshot) {
+            idxrRestoreFromUrlInProgress = false;
+            idxrRestoreFromUrlHandled = true;
             idxrSetGlobalPreloader(false);
             return;
         }
         idxrResetAllBeforeRestore();
         idxrApplySnapshot(snapshot).then(function () {
+            idxrRestoreFromUrlInProgress = false;
+            idxrRestoreFromUrlHandled = true;
             idxrSetGlobalPreloader(false);
             idxrRemoveUrlParam('idxr_restore_sim');
         }).catch(function () {
+            idxrRestoreFromUrlInProgress = false;
+            idxrRestoreFromUrlHandled = true;
             idxrSetGlobalPreloader(false);
         });
     }).fail(function () {
+        idxrRestoreFromUrlInProgress = false;
+        idxrRestoreFromUrlHandled = true;
         idxrSetGlobalPreloader(false);
     });
+}
+
+function idxrAutoRestoreFromUrlWhenReady(attempt) {
+    if (!idxrHasRestoreFromUrl()) {
+        return;
+    }
+
+    var tryNum = parseInt(attempt, 10) || 0;
+    var hasSteps = $('.component_step').length > 0;
+    var hasContainer = $('#component_steps_container').length > 0;
+    var canEvaluateVisibility = (typeof mustBeVisible === 'function');
+
+    idxrSetGlobalPreloader(true);
+
+    if (hasSteps && hasContainer && canEvaluateVisibility) {
+        idxrAutoRestoreFromUrlIfNeeded();
+        return;
+    }
+
+    if (tryNum >= 25) {
+        idxrAutoRestoreFromUrlIfNeeded();
+        return;
+    }
+
+    setTimeout(function () {
+        idxrAutoRestoreFromUrlWhenReady(tryNum + 1);
+    }, 120);
 }
 
 function idxrEsc(text) {
@@ -781,7 +826,7 @@ $(document).ready(function() {
     }
 
     $.post( url_ajax, { action: "setCart" });
-    setTimeout(idxrAutoRestoreFromUrlIfNeeded, 700);
+    idxrAutoRestoreFromUrlWhenReady(0);
 
     // Remove price and attributes from product page
 	

@@ -149,8 +149,24 @@
     $('#front_tr_poids').text(window.idxr_tr_weight || $('#front_tr_poids').text());
     $('#front_tr_show_struct').text(window.idxr_tr_show_price_structure || $('#front_tr_show_struct').text());
 
-    // preloader
-    $('#preloader-overlay-xyz123, #spinner-abc456').hide();
+    // preloader: keep visible when restoring from URL to avoid flicker.
+    var hasRestoreFromUrl = false;
+    try {
+      if (typeof URLSearchParams !== 'undefined') {
+        var urlParams = new URLSearchParams(window.location.search || '');
+        hasRestoreFromUrl = !!parseInt(urlParams.get('idxr_restore_sim'), 10);
+      } else {
+        var urlMatch = (window.location.search || '').match(/[?&]idxr_restore_sim=([^&]+)/);
+        hasRestoreFromUrl = !!(urlMatch && parseInt(decodeURIComponent(urlMatch[1]), 10));
+      }
+    } catch (e) {
+      hasRestoreFromUrl = false;
+    }
+    if (hasRestoreFromUrl) {
+      $('#preloader-overlay-xyz123, #spinner-abc456').show();
+    } else {
+      $('#preloader-overlay-xyz123, #spinner-abc456').hide();
+    }
 
     function updateExistingQuantity() {
       const quantity = parseInt($('#quantity_unique_input').val(), 10) || 1;
