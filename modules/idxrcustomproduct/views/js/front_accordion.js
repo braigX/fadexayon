@@ -438,9 +438,11 @@ const CustomizationModule = (() => {
         $('.accordion_text').on('change', function() {
             const inputId = $(this).attr('id');
             const limits = inputLimits[inputId];
+            const normalizedInput = (($(this).val() || '') + '').trim().replace(',', '.');
+            $(this).val(normalizedInput);
             
             if (limits) {
-                let value = parseFloat($(this).val());
+                let value = parseFloat(normalizedInput);
                 
                 // Check if value is within range; if not, set to minimum
                 if (isNaN(value) || value < limits.min) {
@@ -3248,8 +3250,8 @@ const CustomizationModule = (() => {
                 };
 
                 // Draw cutout position dimensions outside the main shape.
-                drawDimensionWithText(0, topGuideY, cutoutX, topGuideY, 'X: ', `${demX.toFixed(2)} mm`, '', 2);
-                drawDimensionWithText(leftGuideX, 0, leftGuideX, cutoutY, 'Y: ', `${demY.toFixed(2)} mm`, 'vertical', 2);
+                drawDimensionWithText(0, topGuideY, cutoutX, topGuideY, 'X: ', `${demX} mm`, '', 2);
+                drawDimensionWithText(leftGuideX, 0, leftGuideX, cutoutY, 'Y: ', `${demY} mm`, 'vertical', 2);
 
                 // Dotted connectors from old internal arrow points to new outside dimensions.
                 arrowsGroup.line(0, cutoutY, 0, topGuideY).attr(connectorAttrs);
@@ -3428,7 +3430,7 @@ const CustomizationModule = (() => {
                             cutBBox.x, cutDimTopY,
                             cutBBox.x2, cutDimTopY,
                             `${idxr_tr_width}: `,
-                            `${unScale(cutBBox.width).toFixed(2)} mm`,
+                            `${unScale(cutBBox.width)} mm`,
                             '',
                             2
                         );
@@ -3436,7 +3438,7 @@ const CustomizationModule = (() => {
                             cutDimLeftX, cutBBox.y,
                             cutDimLeftX, cutBBox.y2,
                             `${idxr_tr_height}: `,
-                            `${unScale(cutBBox.height).toFixed(2)} mm`,
+                            `${unScale(cutBBox.height)} mm`,
                             'vertical',
                             2
                         );
