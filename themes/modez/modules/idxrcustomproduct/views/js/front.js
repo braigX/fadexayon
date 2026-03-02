@@ -17,6 +17,8 @@ var block_animation = false;
 var debug = false;
 var idxcp_newtax = idxcp_originaltax
 var isAddingToCart = false;
+var idxrPendingUrlRestoreItem = null;
+var idxrUrlRestorePromptShown = false;
 var idxrI18n = {
     loading: window.idxr_tr_loading || 'Loading...',
     saving: window.idxr_tr_saving || 'Saving...',
@@ -226,6 +228,7 @@ function idxrSetModalActionLoading(selector, isLoading, loadingText) {
 }
 
 function idxrSetGlobalPreloader(isVisible) {
+    idxrEnsureGlobalPreloaderElements();
     var $overlay = $('#preloader-overlay-xyz123');
     var $spinner = $('#spinner-abc456');
     if (!$overlay.length && !$spinner.length) {
@@ -237,6 +240,32 @@ function idxrSetGlobalPreloader(isVisible) {
     } else {
         $overlay.hide();
         $spinner.hide();
+    }
+}
+
+function idxrEnsureGlobalPreloaderElements() {
+    var $section = $('#idxr_customisation_section');
+    if (!$section.length) {
+        return;
+    }
+    if ($section.css('position') === 'static') {
+        $section.css('position', 'relative');
+    }
+
+    if (!$('#preloader-overlay-xyz123').length) {
+        $section.append('<div id="preloader-overlay-xyz123" class="preloader-overlay"><div id="spinner-abc456" class="spinner"></div></div>');
+    } else if (!$('#spinner-abc456').length) {
+        $('#preloader-overlay-xyz123').append('<div id="spinner-abc456" class="spinner"></div>');
+    }
+
+    if (!$('#idxr-inline-preloader-style').length) {
+        $('head').append(
+            '<style id="idxr-inline-preloader-style">' +
+            '.preloader-overlay{position:absolute;inset:0;background:rgba(255,255,255,.72);display:none;z-index:10030;}' +
+            '.spinner{position:absolute;top:50%;left:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border:4px solid #d7ddf2;border-top-color:#2e48c4;border-radius:50%;animation:idxrPreloaderSpin 1s linear infinite;display:none;z-index:10031;}' +
+            '@keyframes idxrPreloaderSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}' +
+            '</style>'
+        );
     }
 }
 
@@ -276,12 +305,41 @@ function idxrResetAllBeforeRestore() {
 }
 
 function idxrGetUrlParam(paramName) {
+    var fullUrl = '';
+    try {
+        fullUrl = String(window.location.href || '');
+    } catch (e) {
+        fullUrl = '';
+    }
+    if (fullUrl.length) {
+        var fullMatch = fullUrl.match(new RegExp('[?&#]' + paramName + '=([^&#]+)'));
+        if (fullMatch && fullMatch[1]) {
+            return decodeURIComponent(fullMatch[1]);
+        }
+    }
+
     if (typeof URLSearchParams !== 'undefined') {
         var params = new URLSearchParams(window.location.search || '');
-        return params.get(paramName);
+        var fromSearch = params.get(paramName);
+        if (fromSearch !== null) {
+            return fromSearch;
+        }
+        var hash = window.location.hash || '';
+        var qPos = hash.indexOf('?');
+        if (qPos >= 0) {
+            var hashParams = new URLSearchParams(hash.substring(qPos + 1));
+            var fromHash = hashParams.get(paramName);
+            if (fromHash !== null) {
+                return fromHash;
+            }
+        }
     }
     var match = (window.location.search || '').match(new RegExp('[?&]' + paramName + '=([^&]+)'));
-    return match ? decodeURIComponent(match[1]) : null;
+    if (match) {
+        return decodeURIComponent(match[1]);
+    }
+    var hashMatch = (window.location.hash || '').match(new RegExp('[?&]' + paramName + '=([^&]+)'));
+    return hashMatch ? decodeURIComponent(hashMatch[1]) : null;
 }
 
 function idxrRemoveUrlParam(paramName) {
@@ -290,39 +348,102 @@ function idxrRemoveUrlParam(paramName) {
     }
     var url = new URL(window.location.href);
     url.searchParams.delete(paramName);
+    if (url.hash && url.hash.indexOf('?') >= 0) {
+        var hashRaw = url.hash.substring(1);
+        var hashParts = hashRaw.split('?');
+        var hashPath = hashParts[0];
+        var hashQuery = hashParts.slice(1).join('?');
+        var hashParams = new URLSearchParams(hashQuery);
+        hashParams.delete(paramName);
+        var hashQueryString = hashParams.toString();
+        url.hash = hashPath + (hashQueryString ? '?' + hashQueryString : '');
+    }
     window.history.replaceState({}, document.title, url.toString());
+}
+
+function idxrWaitForConfiguratorReady(timeoutMs) {
+    var maxMs = parseInt(timeoutMs, 10) || 12000;
+    var startedAt = Date.now();
+    return new Promise(function (resolve) {
+        function checkReady() {
+            var hasContainer = $('#component_steps_container').length > 0;
+            var hasSteps = $('#component_steps_container .component_step').length > 0;
+            var hasNextButtons = $('#component_steps_container .js_icp_next_option').length > 0;
+            var hasApi = (typeof set_option_value === 'function' && typeof checkFinish === 'function');
+            if (hasContainer && hasSteps && hasNextButtons && hasApi) {
+                resolve(true);
+                return;
+            }
+            if (Date.now() - startedAt >= maxMs) {
+                resolve(false);
+                return;
+            }
+            setTimeout(checkReady, 250);
+        }
+        checkReady();
+    });
+}
+
+function idxrParseSnapshotFromItem(item) {
+    if (!item || !item.snapshot_json) {
+        return null;
+    }
+    try {
+        return JSON.parse(item.snapshot_json);
+    } catch (e) {
+        return null;
+    }
+}
+
+function idxrApplyRestoreItem(item) {
+    var snapshot = idxrParseSnapshotFromItem(item);
+    if (!snapshot) {
+        return Promise.reject('invalid_snapshot');
+    }
+    idxrSetGlobalPreloader(true);
+    idxrResetAllBeforeRestore();
+    return idxrApplySnapshot(snapshot).then(function () {
+        idxrSetGlobalPreloader(false);
+        idxrRemoveUrlParam('idxr_restore_sim');
+        return true;
+    }).catch(function (e) {
+        idxrSetGlobalPreloader(false);
+        throw e;
+    });
+}
+
+function idxrRenderUrlRestorePrompt(item) {
+    var name = (item && item.name) ? item.name : idxrI18n.unnamedCustomization;
+    var createdAt = item && item.created_at ? new Date(item.created_at) : null;
+    var dateText = createdAt && !isNaN(createdAt.getTime()) ? createdAt.toLocaleString() : '';
+    var previewHtml = (item && item.preview_html) ? item.preview_html : '<span class="idxr-c-empty">' + idxrEsc(idxrI18n.noPreview) + '</span>';
+
+    $('#idxr-url-restore-name').text(name);
+    $('#idxr-url-restore-date').text(dateText);
+    $('#idxr-url-restore-preview').html(previewHtml);
 }
 
 function idxrAutoRestoreFromUrlIfNeeded() {
     var savedId = parseInt(idxrGetUrlParam('idxr_restore_sim'), 10);
-    if (!savedId) {
+    if (!savedId || idxrUrlRestorePromptShown) {
         return;
     }
 
-    idxrSetGlobalPreloader(true);
-    idxrServerRequest('getServerCustomization', {
-        id_saved_customisation: savedId
-    }).done(function (response) {
-        var snapshot = null;
-        if (response.item && response.item.snapshot_json) {
-            try {
-                snapshot = JSON.parse(response.item.snapshot_json);
-            } catch (e) {
-                snapshot = null;
-            }
-        }
-        if (!snapshot) {
-            idxrSetGlobalPreloader(false);
+    idxrWaitForConfiguratorReady(14000).then(function () {
+        idxrSetGlobalPreloader(true);
+        return idxrServerRequest('getServerCustomization', {
+            id_saved_customisation: savedId
+        });
+    }).then(function (response) {
+        idxrSetGlobalPreloader(false);
+        if (!response || !response.item) {
             return;
         }
-        idxrResetAllBeforeRestore();
-        idxrApplySnapshot(snapshot).then(function () {
-            idxrSetGlobalPreloader(false);
-            idxrRemoveUrlParam('idxr_restore_sim');
-        }).catch(function () {
-            idxrSetGlobalPreloader(false);
-        });
-    }).fail(function () {
+        idxrPendingUrlRestoreItem = response.item;
+        idxrRenderUrlRestorePrompt(response.item);
+        idxrOpenModal('idxr-url-restore-modal');
+        idxrUrlRestorePromptShown = true;
+    }).catch(function () {
         idxrSetGlobalPreloader(false);
     });
 }
@@ -442,13 +563,7 @@ function idxrApplySnapshot(snapshot) {
         return Promise.resolve(false);
     }
 
-    function idxrRestoreLog() {
-        if (typeof console !== 'undefined' && console.log) {
-            var args = Array.prototype.slice.call(arguments);
-            args.unshift('[idxr-restore]');
-            console.log.apply(console, args);
-        }
-    }
+    function idxrRestoreLog() {}
 
     function idxrPause(ms) {
         return new Promise(function (resolve) {
@@ -810,8 +925,28 @@ function idxrEnsureCustomizationModals() {
         + '  </div>'
         + '</div>';
 
+    var urlRestoreModal = ''
+        + '<div id="idxr-url-restore-modal" class="idxr-c-modal" role="dialog" aria-hidden="true">'
+        + '  <div class="idxr-c-dialog">'
+        + '    <h3 class="idxr-c-title">' + idxrEsc(idxrI18n.restoreCustomization) + '</h3>'
+        + '    <p class="idxr-c-help">' + idxrEsc(window.idxr_tr_restore_customization_prompt || 'A saved customization was found in the link. Restore it now?') + '</p>'
+        + '    <div class="idxr-c-item" style="margin-bottom:8px;">'
+        + '      <div class="idxr-c-item-head">'
+        + '        <div class="idxr-c-item-name" id="idxr-url-restore-name"></div>'
+        + '        <div class="idxr-c-item-date" id="idxr-url-restore-date"></div>'
+        + '      </div>'
+        + '      <div class="idxr-c-preview" id="idxr-url-restore-preview"></div>'
+        + '    </div>'
+        + '    <p id="idxr-url-restore-error" class="idxr-c-error"></p>'
+        + '    <div class="idxr-c-actions">'
+        + '      <button type="button" class="idxr-c-btn idxr-c-btn-secondary" id="idxr-url-restore-later">' + idxrEsc(idxrI18n.cancel) + '</button>'
+        + '      <button type="button" class="idxr-c-btn idxr-c-btn-primary" id="idxr-url-restore-confirm">' + idxrEsc(idxrI18n.restore) + '</button>'
+        + '    </div>'
+        + '  </div>'
+        + '</div>';
+
     $('head').append(style);
-    $('body').append(saveModal + restoreModal);
+    $('body').append(saveModal + restoreModal + urlRestoreModal);
 }
 
 function idxrOpenModal(modalId) {
@@ -853,6 +988,7 @@ $(document).ready(function() {
 
     var parentdiv = $("body");
     idxrEnsureCustomizationModals();
+    idxrEnsureGlobalPreloaderElements();
 
     parentdiv.on('click', '[data-idxr-close="save"]', function () {
         idxrCloseModal('idxr-save-customization-modal');
@@ -872,6 +1008,33 @@ $(document).ready(function() {
         if (e.target.id === 'idxr-restore-customization-modal') {
             idxrCloseModal('idxr-restore-customization-modal');
         }
+    });
+
+    parentdiv.on('click', '#idxr-url-restore-modal', function (e) {
+        if (e.target.id === 'idxr-url-restore-modal') {
+            idxrCloseModal('idxr-url-restore-modal');
+        }
+    });
+
+    parentdiv.on('click', '#idxr-url-restore-later', function () {
+        idxrCloseModal('idxr-url-restore-modal');
+    });
+
+    parentdiv.on('click', '#idxr-url-restore-confirm', function () {
+        if (!idxrPendingUrlRestoreItem) {
+            return;
+        }
+        $('#idxr-url-restore-error').hide().text('');
+        idxrSetModalActionLoading('#idxr-url-restore-confirm', true, idxrI18n.restoring);
+        idxrSetGlobalPreloader(true);
+        idxrCloseModal('idxr-url-restore-modal');
+        idxrApplyRestoreItem(idxrPendingUrlRestoreItem).then(function () {
+            idxrSetModalActionLoading('#idxr-url-restore-confirm', false);
+        }).catch(function () {
+            idxrSetModalActionLoading('#idxr-url-restore-confirm', false);
+            $('#idxr-url-restore-error').text(idxrI18n.unableApplySavedCustomization).show();
+            idxrOpenModal('idxr-url-restore-modal');
+        });
     });
 
     parentdiv.on('click', '#save-customization-button-unique-12345', function (e) {
@@ -944,8 +1107,8 @@ $(document).ready(function() {
             $('#idxr-restore-error').show();
             return;
         }
-        console.log('[idxr-restore] restore confirm selected id=', selectedId);
         idxrSetModalActionLoading('#idxr-restore-customization-confirm', true, idxrI18n.restoring);
+        idxrSetGlobalPreloader(true);
         idxrServerRequest('getServerCustomization', {
             id_saved_customisation: selectedId
         }).done(function (response) {
@@ -958,30 +1121,25 @@ $(document).ready(function() {
                 }
             }
             if (!snapshot) {
-                console.log('[idxr-restore] invalid snapshot payload for id=', selectedId);
                 $('#idxr-restore-error').text(idxrI18n.savedPayloadInvalid).show();
                 idxrSetModalActionLoading('#idxr-restore-customization-confirm', false);
+                idxrSetGlobalPreloader(false);
                 return;
             }
-            console.log('[idxr-restore] snapshot loaded', snapshot);
-            idxrSetGlobalPreloader(true);
             idxrResetAllBeforeRestore();
             idxrCloseModal('idxr-restore-customization-modal');
             idxrApplySnapshot(snapshot).then(function () {
                 idxrSetGlobalPreloader(false);
                 idxrSetModalActionLoading('#idxr-restore-customization-confirm', false);
-                console.log('[idxr-restore] restore completed successfully');
             }).catch(function () {
                 idxrSetGlobalPreloader(false);
                 idxrSetModalActionLoading('#idxr-restore-customization-confirm', false);
                 $('#idxr-restore-error').text(idxrI18n.unableApplySavedCustomization).show();
-                console.log('[idxr-restore] restore failed while applying snapshot');
             });
         }).fail(function (msg) {
             $('#idxr-restore-error').text(idxrErrorMessage(msg, idxrI18n.unableRestoreCustomization)).show();
             idxrSetModalActionLoading('#idxr-restore-customization-confirm', false);
             idxrSetGlobalPreloader(false);
-            console.log('[idxr-restore] getServerCustomization failed', msg);
         });
     });
 
@@ -992,7 +1150,7 @@ $(document).ready(function() {
     }
 
     $.post( url_ajax, { action: "setCart" });
-    setTimeout(idxrAutoRestoreFromUrlIfNeeded, 700);
+    setTimeout(idxrAutoRestoreFromUrlIfNeeded, 1200);
 
     // Remove price and attributes from product page
 	

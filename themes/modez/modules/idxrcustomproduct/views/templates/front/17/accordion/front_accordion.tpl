@@ -204,10 +204,8 @@
   // FIRST TIME: wait for full window load; if already loaded, run immediately
   function bootAfterLoad() { setTimeout(initContainer, 0); }
   if (document.readyState === 'complete') {
-    console.log('Second time');
     bootAfterLoad();
   } else {
-    console.log('First time');
     window.addEventListener('load', bootAfterLoad, { once: true });
   }
 
