@@ -401,45 +401,37 @@ class IdxrCustomProduct extends Module
             $this->_path . 'views/js/back.js',
             false
         );
-        if (Tools::isSubmit('submitModConfiguration')) {
-            // save IDs:
-            $rawInput = Tools::getValue('idxr_skipped_product_ids');
-            $cleanIds = [];
-            if (preg_match_all('/\b\d+\b/', $rawInput, $matches)) {
-                $cleanIds = array_unique(array_map('intval', $matches[0]));
-            }
-            $cleanString = implode(',', $cleanIds);
-            Configuration::updateValue('idxr_skipped_product_ids', json_encode($cleanIds));
-            // Retrieve the values from the form and replace ',' with '.' for numeric fields
+        if (Tools::isSubmit('submitIdxrPricingConfiguration')) {
+            // Retrieve the values from the pricing dashboard form and replace ',' with '.' for numeric fields
             $prixdepecoupe = str_replace(',', '.', Tools::getValue('idxr_prix_de_decoupe_cube'));
             $prixdecollage = str_replace(',', '.', Tools::getValue('prixdecollage'));
             $prix_fixe = str_replace(',', '.', Tools::getValue('prix_fixe'));
             $prix_fixe_vitrine = str_replace(',', '.', Tools::getValue('prix_fixe_vitrine'));
-            $maximumdememnsions = Tools::getValue('maximumdememnsions');
-        
+            $maximumdememnsions = Tools::getValue('maximumdememnsions', '800x800x800');
+
             // Retrieve cut, glue, and polish prices for each thickness level
             $cut_price_4mm = str_replace(',', '.', Tools::getValue('cut_price_4mm'));
             $cut_price_5mm = str_replace(',', '.', Tools::getValue('cut_price_5mm'));
             $cut_price_6mm = str_replace(',', '.', Tools::getValue('cut_price_6mm'));
             $cut_price_8mm = str_replace(',', '.', Tools::getValue('cut_price_8mm'));
             $cut_price_10mm = str_replace(',', '.', Tools::getValue('cut_price_10mm'));
-        
+
             $glue_price_4mm = str_replace(',', '.', Tools::getValue('glue_price_4mm'));
             $glue_price_5mm = str_replace(',', '.', Tools::getValue('glue_price_5mm'));
             $glue_price_6mm = str_replace(',', '.', Tools::getValue('glue_price_6mm'));
             $glue_price_8mm = str_replace(',', '.', Tools::getValue('glue_price_8mm'));
             $glue_price_10mm = str_replace(',', '.', Tools::getValue('glue_price_10mm'));
-        
+
             $polish_price_4mm = str_replace(',', '.', Tools::getValue('polish_price_4mm'));
             $polish_price_5mm = str_replace(',', '.', Tools::getValue('polish_price_5mm'));
             $polish_price_6mm = str_replace(',', '.', Tools::getValue('polish_price_6mm'));
             $polish_price_8mm = str_replace(',', '.', Tools::getValue('polish_price_8mm'));
             $polish_price_10mm = str_replace(',', '.', Tools::getValue('polish_price_10mm'));
-        
+
             // Check if the record already exists
             $sqlCheck = 'SELECT COUNT(*) as count FROM `ps_idxrcustomproduct_extra_config`';
             $exists = (int) Db::getInstance()->getValue($sqlCheck);
-        
+
             if ($exists > 0) {
                 // Update existing record
                 $sqlUpdate = 'UPDATE `ps_idxrcustomproduct_extra_config`
@@ -464,9 +456,9 @@ class IdxrCustomProduct extends Module
                         `polish_price_8mm` = ' . (float) $polish_price_8mm . ',
                         `polish_price_10mm` = ' . (float) $polish_price_10mm . '
                     WHERE `id` = 1';
-        
+
                 if (!Db::getInstance()->execute($sqlUpdate)) {
-                    $this->context->controller->errors[] = $this->l('Failed to update the configuration values');
+                    $this->context->controller->errors[] = $this->l('Failed to update the pricing values');
                 }
             } else {
                 // Insert a new record
@@ -483,13 +475,23 @@ class IdxrCustomProduct extends Module
                                       ' . (float) $glue_price_6mm . ', ' . (float) $glue_price_8mm . ', ' . (float) $glue_price_10mm . ',
                                       ' . (float) $polish_price_4mm . ', ' . (float) $polish_price_5mm . ', 
                                       ' . (float) $polish_price_6mm . ', ' . (float) $polish_price_8mm . ', ' . (float) $polish_price_10mm . ')';
-        
+
                 if (!Db::getInstance()->execute($sqlInsert)) {
-                    $this->context->controller->errors[] = $this->l('Failed to insert the configuration values');
+                    $this->context->controller->errors[] = $this->l('Failed to insert the pricing values');
                 }
             }
-            
-        
+
+            return $this->displayConfirmation($this->l('Pricing configuration saved'));
+        }
+        if (Tools::isSubmit('submitModConfiguration')) {
+            // save IDs:
+            $rawInput = Tools::getValue('idxr_skipped_product_ids');
+            $cleanIds = [];
+            if (preg_match_all('/\b\d+\b/', $rawInput, $matches)) {
+                $cleanIds = array_unique(array_map('intval', $matches[0]));
+            }
+            $cleanString = implode(',', $cleanIds);
+            Configuration::updateValue('idxr_skipped_product_ids', json_encode($cleanIds));
             $id_category = Tools::getValue('customizable_category');
             Configuration::updateValue(Tools::strtoupper($this->name) . '_CATEGORY', (int) $id_category);
             $this->updateRobotsFile();
@@ -1914,114 +1916,6 @@ class IdxrCustomProduct extends Module
                         'desc' => $this->l('Ajoutez les identifiants des produits séparés des virgules, ex: 19224, 78264, 98236.'),
                     ),
                     array(
-                        'type' => 'text', 
-                        'label' => $this->l('Prix de decoupe pour le rectangle sur mesure.'),
-                        'name' => 'idxr_prix_de_decoupe_cube',
-                        'desc' => $this->l('Ce montant est le même pour tout les produits sur mesure.'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de découpe pour 4mm'),
-                        'name' => 'cut_price_4mm',
-                        'desc' => $this->l('Ajouter prix de découpe pour 4mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de découpe pour 5mm'),
-                        'name' => 'cut_price_5mm',
-                        'desc' => $this->l('Ajouter prix de découpe pour 5mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de découpe pour 6mm'),
-                        'name' => 'cut_price_6mm',
-                        'desc' => $this->l('Ajouter prix de découpe pour 6mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de découpe pour 8mm'),
-                        'name' => 'cut_price_8mm',
-                        'desc' => $this->l('Ajouter prix de découpe pour 8mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de découpe pour 10mm et plus'),
-                        'name' => 'cut_price_10mm',
-                        'desc' => $this->l('Ajouter prix de découpe pour 10mm et plus'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de collage pour 4mm'),
-                        'name' => 'glue_price_4mm',
-                        'desc' => $this->l('Ajouter prix de collage pour 4mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de collage pour 5mm'),
-                        'name' => 'glue_price_5mm',
-                        'desc' => $this->l('Ajouter prix de collage pour 5mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de collage pour 6mm'),
-                        'name' => 'glue_price_6mm',
-                        'desc' => $this->l('Ajouter prix de collage pour 6mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de collage pour 8mm'),
-                        'name' => 'glue_price_8mm',
-                        'desc' => $this->l('Ajouter prix de collage pour 8mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de collage pour 10mm et plus'),
-                        'name' => 'glue_price_10mm',
-                        'desc' => $this->l('Ajouter prix de collage pour 10mm et plus'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de polissage pour 4mm'),
-                        'name' => 'polish_price_4mm',
-                        'desc' => $this->l('Ajouter prix de polissage pour 4mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de polissage pour 5mm'),
-                        'name' => 'polish_price_5mm',
-                        'desc' => $this->l('Ajouter prix de polissage pour 5mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de polissage pour 6mm'),
-                        'name' => 'polish_price_6mm',
-                        'desc' => $this->l('Ajouter prix de polissage pour 6mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de polissage pour 8mm'),
-                        'name' => 'polish_price_8mm',
-                        'desc' => $this->l('Ajouter prix de polissage pour 8mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de polissage pour 10mm et plus'),
-                        'name' => 'polish_price_10mm',
-                        'desc' => $this->l('Ajouter prix de polissage pour 10mm et plus'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix minimum pour les produits sur mesure.'),
-                        'name' => 'prix_fixe',
-                        'desc' => $this->l('Ce montant est le même pour tout les plaques sur mesure.'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix minimum pour les vitrines sur mesure.'),
-                        'name' => 'prix_fixe_vitrine',
-                        'desc' => $this->l('Ce montant est le même pour tout les vitrines sur mesure.'),
-                    ),
-                    array(
                         'type' => 'select',
                         'label' => $this->l('Customized category '),
                         'name' => 'customizable_category',
@@ -2257,6 +2151,171 @@ class IdxrCustomProduct extends Module
         );
 
         return $this->display(__FILE__, 'views/templates/admin/module-info.tpl') . $helper->generateForm(array($fields_form));
+    }
+
+    public function renderPricingDashboard()
+    {
+        $this->context->controller->addCSS($this->_path . 'views/css/back-pricing-tabs.css', 'all');
+        $this->context->controller->addJS($this->_path . 'views/js/back-pricing-tabs.js', false);
+        Media::addJsDef(array(
+            'idxr_pricing_tabs_labels' => array(
+                'title' => $this->l('Pricing groups'),
+                'fixed' => $this->l('Fixed prices'),
+                'cutting' => $this->l('Cutting pricing'),
+                'gluing' => $this->l('Gluing pricing'),
+                'polishing' => $this->l('Polishing pricing'),
+            )
+        ));
+
+        $fields_form = array(
+            'form' => array(
+                'legend' => array(
+                    'title' => $this->l('Pricing dashboard'),
+                    'icon' => 'icon-eur'
+                ),
+                'input' => array(
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix de decoupe pour le rectangle sur mesure.'),
+                        'name' => 'idxr_prix_de_decoupe_cube',
+                        'class' => 'idxr-pricing-field idxr-pricing-fixed',
+                        'desc' => $this->l('Ce montant est le même pour tout les produits sur mesure.'),
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix de collage global (legacy)'),
+                        'name' => 'prixdecollage',
+                        'class' => 'idxr-pricing-field idxr-pricing-fixed',
+                        'desc' => $this->l('Ce montant est conservé pour compatibilité avec les anciens calculs.'),
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix minimum pour les produits sur mesure.'),
+                        'name' => 'prix_fixe',
+                        'class' => 'idxr-pricing-field idxr-pricing-fixed',
+                        'desc' => $this->l('Ce montant est le même pour tout les plaques sur mesure.'),
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix minimum pour les vitrines sur mesure.'),
+                        'name' => 'prix_fixe_vitrine',
+                        'class' => 'idxr-pricing-field idxr-pricing-fixed',
+                        'desc' => $this->l('Ce montant est le même pour tout les vitrines sur mesure.'),
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix de découpe pour 4mm'),
+                        'name' => 'cut_price_4mm',
+                        'class' => 'idxr-pricing-field idxr-pricing-cutting',
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix de découpe pour 5mm'),
+                        'name' => 'cut_price_5mm',
+                        'class' => 'idxr-pricing-field idxr-pricing-cutting',
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix de découpe pour 6mm'),
+                        'name' => 'cut_price_6mm',
+                        'class' => 'idxr-pricing-field idxr-pricing-cutting',
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix de découpe pour 8mm'),
+                        'name' => 'cut_price_8mm',
+                        'class' => 'idxr-pricing-field idxr-pricing-cutting',
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix de découpe pour 10mm et plus'),
+                        'name' => 'cut_price_10mm',
+                        'class' => 'idxr-pricing-field idxr-pricing-cutting',
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix de collage pour 4mm'),
+                        'name' => 'glue_price_4mm',
+                        'class' => 'idxr-pricing-field idxr-pricing-gluing',
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix de collage pour 5mm'),
+                        'name' => 'glue_price_5mm',
+                        'class' => 'idxr-pricing-field idxr-pricing-gluing',
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix de collage pour 6mm'),
+                        'name' => 'glue_price_6mm',
+                        'class' => 'idxr-pricing-field idxr-pricing-gluing',
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix de collage pour 8mm'),
+                        'name' => 'glue_price_8mm',
+                        'class' => 'idxr-pricing-field idxr-pricing-gluing',
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix de collage pour 10mm et plus'),
+                        'name' => 'glue_price_10mm',
+                        'class' => 'idxr-pricing-field idxr-pricing-gluing',
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix de polissage pour 4mm'),
+                        'name' => 'polish_price_4mm',
+                        'class' => 'idxr-pricing-field idxr-pricing-polishing',
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix de polissage pour 5mm'),
+                        'name' => 'polish_price_5mm',
+                        'class' => 'idxr-pricing-field idxr-pricing-polishing',
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix de polissage pour 6mm'),
+                        'name' => 'polish_price_6mm',
+                        'class' => 'idxr-pricing-field idxr-pricing-polishing',
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix de polissage pour 8mm'),
+                        'name' => 'polish_price_8mm',
+                        'class' => 'idxr-pricing-field idxr-pricing-polishing',
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix de polissage pour 10mm et plus'),
+                        'name' => 'polish_price_10mm',
+                        'class' => 'idxr-pricing-field idxr-pricing-polishing',
+                    ),
+                ),
+                'submit' => array(
+                    'title' => $this->l('Save'),
+                    'name' => 'submitIdxrPricingConfiguration',
+                )
+            ),
+        );
+
+        $helper = new HelperForm();
+        $helper->show_toolbar = false;
+        $lang = new Language((int) Configuration::get('PS_LANG_DEFAULT'));
+        $helper->default_form_language = $lang->id;
+        $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') ? Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') : 0;
+        $helper->identifier = $this->identifier;
+        $helper->submit_action = 'submitIdxrPricingConfiguration';
+        $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false) . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
+        $helper->token = Tools::getAdminTokenLite('AdminModules');
+        $helper->tpl_vars = array(
+            'fields_value' => $this->getConfigFieldsValues(),
+            'languages' => $this->context->controller->getLanguages(),
+            'id_language' => $this->context->language->id
+        );
+
+        return $helper->generateForm(array($fields_form));
     }
 
     public function renderFormAddConfiguration()
@@ -2966,6 +3025,7 @@ class IdxrCustomProduct extends Module
         $idxr_prix_fixe = $extraConfig['prix_fixe'] ?? '0.0000';
         $idxr_prix_fixe_vitrine = $extraConfig['prix_fixe_vitrine'] ?? '0.0000';
         $idxr_prix_de_decoupe_cube = $extraConfig['prix_de_decoupe'] ?? '0.0000';
+        $idxr_prix_de_collage = $extraConfig['prix_de_collage'] ?? '0.0000';
         
         // Set fields for each thickness level for cutting and gluing
         $cutPrices = $extraConfig['cut_prices'];
@@ -3016,6 +3076,7 @@ class IdxrCustomProduct extends Module
         $fields['prix_fixe_vitrine'] = $idxr_prix_fixe_vitrine;
         $fields['idxr_skipped_product_ids'] = $idxr_skipped_product_ids;
         $fields['idxr_prix_de_decoupe_cube'] = $idxr_prix_de_decoupe_cube;
+        $fields['prixdecollage'] = $idxr_prix_de_collage;
         
         // Fields for each thickness level of cutting prices
         $fields['cut_price_4mm'] = $cutPrices['4mm'];
@@ -5327,6 +5388,9 @@ class IdxrCustomProduct extends Module
         if (Tools::isSubmit('updateconfiguration') || Tools::isSubmit('submitConfigurationStay') || Tools::isSubmit('updateidxrcustomproduct_configurations')) {
             $current_cat = 'renderFormAddConfiguration';
         }
+        if (Tools::isSubmit('submitIdxrPricingConfiguration')) {
+            $current_cat = 'renderPricingDashboard';
+        }
 
         $this->innovatabs = array();
 
@@ -5336,7 +5400,16 @@ class IdxrCustomProduct extends Module
             "link" => "helpGenerateForm",
             "type" => "tab",
             "show" => "both",
-            "active" => $locked
+            "active" => $locked ? true : ($current_cat == 'helpGenerateForm')
+        );
+
+        $this->innovatabs [] = array(
+            "title" => $this->l('Pricing dashboard'),
+            "icon" => "eur",
+            "link" => "renderPricingDashboard",
+            "type" => "tab",
+            "show" => "both",
+            "active" => ($current_cat == 'renderPricingDashboard') ? true : false
         );
 
         if (!$locked) {

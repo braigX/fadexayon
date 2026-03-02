@@ -1,0 +1,44 @@
+.tab-pane#renderPricingDashboard .panel,
+.tab-pane#renderPricingDashboard .panel form,
+.tab-pane#renderPricingDashboard .panel .form-wrapper {
+    width: 100%;
+    max-width: none;
+}
+
+.tab-pane#renderPricingDashboard .idxr-pricing-inline-row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.tab-pane#renderPricingDashboard .idxr-pricing-inline-row > [class*='col-'] {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.idxr-pricing-inline-tabs {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 18px 0 10px;
+    padding: 10px 12px 0;
+    border: 1px solid #d8d8d8;
+    background: #fbfbfb;
+}
+
+.idxr-pricing-inline-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.idxr-pricing-inline-tabs .nav-tabs {
+    border-bottom: 0;
+    width: 100%;
+}
+
+.idxr-pricing-inline-tabs .nav-tabs > li > a {
+    padding: 7px 12px;
+    text-align: center;
+}
+
+.idxr-pricing-row {
+    margin-top: 0;
+}

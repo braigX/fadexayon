@@ -48,7 +48,6 @@ P2 - Business Features
 9) CAD-ready SVG (1:1 scale) ✅
 - Export/generate SVG at real scale.
 
-
 P3 - Customer Experience
 
 10) Save my customization (cart)✅
@@ -70,7 +69,7 @@ P3 - Customer Experience
 
 P4 - Front-office Performance
 
-13) Advanced performance optimization
+13) Advanced performance optimization✅
 - Audit JS/CSS (theme + modules), identify unnecessary/blocking resources (LCP/TBT/CLS).
 - Load JS/CSS conditionally by page (home, product, category, checkout).
 - Optimize JS execution: defer/async, delay non-critical scripts, remove duplicates.
