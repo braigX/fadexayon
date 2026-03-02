@@ -342,7 +342,29 @@ class WkSampleCart extends ObjectModel
             return;
         }
 
-        $specificPrice = new SpecificPrice();
+        // Reuse existing cart-specific price when present to avoid duplicate unique-key violations.
+        $specificPrice = null;
+        $existingSpecificPrices = SpecificPrice::getIdsByProductId(
+            $idProduct,
+            (int) $ipa,
+            (int) $context->cart->id
+        );
+        if (!empty($existingSpecificPrices)) {
+            foreach ($existingSpecificPrices as $row) {
+                if (!empty($row['id_specific_price'])) {
+                    $loadedSpecificPrice = new SpecificPrice((int) $row['id_specific_price']);
+                    if (Validate::isLoadedObject($loadedSpecificPrice)) {
+                        $specificPrice = $loadedSpecificPrice;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (!$specificPrice) {
+            $specificPrice = new SpecificPrice();
+        }
+
         $specificPrice->id_shop = (int) Shop::getContextShopID();
         $specificPrice->id_shop_group = (int) Shop::getContextShopGroupID();
         $specificPrice->id_product = (int) $idProduct;
@@ -359,14 +381,43 @@ class WkSampleCart extends ObjectModel
         $specificPrice->from = pSQL('0000-00-00 00:00:00');
         $specificPrice->to = pSQL('0000-00-00 00:00:00');
         $specificPrice->id_product_attribute = (int) $ipa;
-        if ($specificPrice->save()) {
-            $this->createSampleCart($idProduct, $ipa, $context->cart->id, $specificPrice->id);
+
+        try {
+            if ($specificPrice->save()) {
+                $this->createSampleCart($idProduct, $ipa, $context->cart->id, $specificPrice->id);
+
+                return;
+            }
+        } catch (Exception $e) {
+            // Recover from duplicate specific_price rows by reusing existing entry.
+            PrestaShopLogger::addLog(
+                'wksampleproduct: duplicate/failed SpecificPrice save for sample product ' . (int) $idProduct
+                . ' attr ' . (int) $ipa . ' cart ' . (int) $context->cart->id . ' - ' . $e->getMessage(),
+                2
+            );
+        }
+
+        $existingSpecificPrices = SpecificPrice::getIdsByProductId(
+            $idProduct,
+            (int) $ipa,
+            (int) $context->cart->id
+        );
+        if (!empty($existingSpecificPrices) && !empty($existingSpecificPrices[0]['id_specific_price'])) {
+            $this->createSampleCart(
+                $idProduct,
+                $ipa,
+                $context->cart->id,
+                (int) $existingSpecificPrices[0]['id_specific_price']
+            );
 
             return;
-        } else {
-            // Optional: Log error for debugging
-            PrestaShopLogger::addLog('Failed to save SpecificPrice for sample product ' . $idProduct, 3);
         }
+
+        PrestaShopLogger::addLog(
+            'wksampleproduct: Failed to save/recover SpecificPrice for sample product ' . (int) $idProduct
+            . ' attr ' . (int) $ipa . ' cart ' . (int) $context->cart->id,
+            3
+        );
     }
 }
 

@@ -1,5 +1,15 @@
 
+function removeAllFeeLines() {
+  document
+    .querySelectorAll(
+      '.cart-summary-line.min-cart-fee, .min-cart-fee-row, [data-line-type="minimum_cart_fee"]'
+    )
+    .forEach(e => e.remove());
+}
+
 function refreshFeeLine() {
+  // Always clean stale fee rows first, even if AJAX fails later.
+  removeAllFeeLines();
 
   const randomParam = Math.random(); // Add random number to URL
   const urlWithRand = minCartFeeUrl + (minCartFeeUrl.includes('?') ? '&' : '?') + 'rand=' + randomParam;
@@ -7,8 +17,8 @@ function refreshFeeLine() {
   fetch(urlWithRand)
     .then(r => r.json())
     .then(data => {
-      // Remove all existing fee lines
-      document.querySelectorAll('.cart-summary-line.min-cart-fee, tr.min-cart-fee-row').forEach(e => e.remove());
+      // Remove all existing fee lines (safety against duplicate renders).
+      removeAllFeeLines();
 
       // If no fee, skip insertion
       if (!data.fee_incl_tax || data.fee_incl_tax <= 0) {
@@ -62,6 +72,8 @@ function refreshFeeLine() {
       }
     })
     .catch(error => {
+      // Keep UI consistent if endpoint fails.
+      removeAllFeeLines();
       // console.error('[MinimumCartFee] Error fetching fee data:', error);
     });
 }

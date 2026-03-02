@@ -25,52 +25,23 @@ class Minimumcartfee extends Module
         $this->description = $this->l('Adds a fee if the cart total is below a minimum threshold.');
     }
     
-    protected function logToFile(string $msg): void
-    {
-        $file = __DIR__ . '/uninstall_debug.log';
-        $time = date('[Y-m-d H:i:s]');
-        @file_put_contents($file, "$time $msg\n", FILE_APPEND);
-    }
-    
     public function install(): bool
     {
-        // Début de l’installation
-        $this->logToFile('=== Install started ===');
-
-        // 1) parent::install()
-        $this->logToFile('Step 1: calling parent::install()');
         if (!parent::install()) {
-            $this->logToFile('❌ parent::install() failed');
             return false;
         }
-        $this->logToFile('✅ parent::install() succeeded');
 
-        // 2) installDb()
-        $this->logToFile('Step 2: running installDb()');
         if (!$this->installDb()) {
-            $this->logToFile('❌ installDb() failed');
             return false;
         }
-        $this->logToFile('✅ installDb() succeeded');
 
-        // 3) installOverrides()
-        $this->logToFile('Step 3: installing overrides');
         if (!$this->installOverrides()) {
-            $this->logToFile('❌ installOverrides() failed');
             return false;
         }
-        $this->logToFile('✅ installOverrides() succeeded');
 
-        // 4) registerHooks()
-        $this->logToFile('Step 4: registering hooks');
         if (!$this->registerHooks()) {
-            $this->logToFile('❌ registerHooks() failed');
             return false;
         }
-        $this->logToFile('✅ registerHooks() succeeded');
-
-        // Fin de l’installation
-        $this->logToFile('=== Install completed successfully ===');
         return true;
     }
 
@@ -596,15 +567,6 @@ class Minimumcartfee extends Module
         return $helper->generateList($fees, $fields_list);
     }
 
-    // public function logToFile($message)
-    // {
-    //     $logFile = __DIR__ . '/log.txt';
-    //     $timestamp = date('Y-m-d H:i:s');
-    //     $formattedMessage = sprintf("[%s] %s\n", $timestamp, $message);
-
-    //     file_put_contents($logFile, $formattedMessage, FILE_APPEND);
-    // }
-
     public function hookDisplayOrderConfirmation($params)
     {
         /** @var Order $order */
@@ -815,7 +777,6 @@ class Minimumcartfee extends Module
 
     public function hookDisplayHeader($params)
     {
-        $this->logToFile('hookDisplayHeader called');
         if ($this->context->controller->controller_type !== 'front') {
             return;
         }
@@ -897,27 +858,38 @@ class Minimumcartfee extends Module
 
     protected function checkIsSample(Cart $cart, array $products)
     {
-        $sampleProducts = [];
-
-        if (Module::isEnabled('wksampleproduct')) {
-            $sampleModule = Module::getInstanceByName('wksampleproduct');
-
-            if (!empty($products)) {
-                $sampleInfos = $sampleModule->getSampleCartInformations(
-                    $cart->id,
-                    array_column($products, 'id_product')
-                );
-                $sampleProducts = $sampleInfos['samples'] ?? [];
-            }
-        }
+        $sampleModuleEnabled = Module::isEnabled('wksampleproduct');
 
         if (empty($products)) {
             return false; // By default: no products = no samples
         }
+        if (!$sampleModuleEnabled) {
+            return false;
+        }
+
+        // Use wk_sample_cart as source of truth for sample detection.
+        $rows = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS(
+            'SELECT DISTINCT wsc.`id_product`, wsc.`id_product_attribute`
+             FROM `' . _DB_PREFIX_ . 'wk_sample_cart` wsc
+             WHERE wsc.`id_cart` = ' . (int) $cart->id . '
+             AND wsc.`sample` = 1'
+        );
+        if (!is_array($rows) || empty($rows)) {
+            return false;
+        }
+
+        $sampleKeys = [];
+        foreach ($rows as $row) {
+            $key = (int) $row['id_product'] . '_' . (int) $row['id_product_attribute'];
+            $sampleKeys[$key] = true;
+        }
 
         foreach ($products as $product) {
-            $productKey = $product['id_product'] . '_' . (int)$product['id_product_attribute'];
-            $isSample = in_array($productKey, $sampleProducts);
+            $idProduct = (int) $product['id_product'];
+            $idProductAttribute = (int) $product['id_product_attribute'];
+            $productKey = $idProduct . '_' . $idProductAttribute;
+            // In wksampleproduct, attribute 0 can represent the product-level sample entry.
+            $isSample = isset($sampleKeys[$productKey]) || isset($sampleKeys[$idProduct . '_0']);
 
             if (!$isSample) {
                 // As soon as one is NOT a sample, stop
@@ -925,7 +897,6 @@ class Minimumcartfee extends Module
             }
         }
 
-        // If we completed loop: all were samples
         return true;
     }
 
