@@ -370,7 +370,11 @@ function idxrCollectCurrentSnapshot(customName) {
     var comma = '';
     $('.sel_opt_wqty').each(function () {
         var stepId = parseInt($(this).attr('id').split('_')[2], 10);
+        var markerValue = ($(this).html() || '').trim();
         if (isNaN(stepId)) {
+            return;
+        }
+        if (!markerValue.length || markerValue === 'false') {
             return;
         }
         snapshot.customization += comma + stepId + '_' + $(this).html();
@@ -438,77 +442,261 @@ function idxrApplySnapshot(snapshot) {
         return Promise.resolve(false);
     }
 
+    function idxrRestoreLog() {
+        if (typeof console !== 'undefined' && console.log) {
+            var args = Array.prototype.slice.call(arguments);
+            args.unshift('[idxr-restore]');
+            console.log.apply(console, args);
+        }
+    }
+
     function idxrPause(ms) {
         return new Promise(function (resolve) {
             setTimeout(resolve, ms);
         });
     }
 
+    function idxrParseCustomizationString(customizationRaw) {
+        var byStep = {};
+        var raw = (customizationRaw || '').toString().trim();
+        if (!raw.length) {
+            return byStep;
+        }
+        $.each(raw.split(','), function (_, tokenRaw) {
+            var token = (tokenRaw || '').trim();
+            if (!token.length) {
+                return;
+            }
+            var underscorePos = token.indexOf('_');
+            if (underscorePos <= 0) {
+                return;
+            }
+            var stepId = token.substring(0, underscorePos);
+            var payload = token.substring(underscorePos + 1);
+            if (!stepId || !payload) {
+                return;
+            }
+            if (payload === 'false') {
+                return;
+            }
+            if (!byStep[stepId]) {
+                byStep[stepId] = [];
+            }
+            $.each(payload.split('&'), function (_, optRaw) {
+                var optToken = (optRaw || '').trim().replace(/amp;/g, '');
+                if (!optToken.length) {
+                    return;
+                }
+                if (optToken === 'false') {
+                    return;
+                }
+                var optionId = optToken;
+                var qty = '';
+                if (optToken.indexOf('x') > -1) {
+                    var parts = optToken.split('x');
+                    optionId = parts[0];
+                    qty = parts[1] || '';
+                }
+                if (!optionId.length || optionId === 'false') {
+                    return;
+                }
+                byStep[stepId].push({
+                    option_id: String(optionId),
+                    qty: qty
+                });
+            });
+        });
+        return byStep;
+    }
+
+    function idxrParseExtraInfoString(extraRaw) {
+        var byStep = {};
+        var raw = (extraRaw || '').toString();
+        if (!raw.trim().length) {
+            return byStep;
+        }
+        $.each(raw.split('3x7r4'), function (_, entryRaw) {
+            var entry = (entryRaw || '').trim();
+            if (!entry.length) {
+                return;
+            }
+            var sep = entry.indexOf('_');
+            if (sep <= 0) {
+                return;
+            }
+            var stepId = entry.substring(0, sep);
+            var payload = entry.substring(sep + 1);
+            if (!stepId.length) {
+                return;
+            }
+            var parsed = payload;
+            try {
+                parsed = JSON.parse(payload);
+            } catch (e) {
+                parsed = payload;
+            }
+            byStep[String(stepId)] = parsed;
+        });
+        return byStep;
+    }
+
+    function idxrIsStepSatisfied(stepId, stepType, optional) {
+        if (String(optional) === '1') {
+            return true;
+        }
+
+        if (stepType === 'text' || stepType === 'textarea' || stepType === 'file') {
+            var markerValue = $('#js_opt_' + stepId + '_value').html();
+            var extraValue = $('#js_opt_extra_' + stepId + '_value').html();
+            return (markerValue && markerValue !== 'false') || (extraValue && extraValue !== 'false');
+        }
+
+        var selectedMarker = $('#js_opt_' + stepId + '_value').html();
+        if (selectedMarker && selectedMarker !== 'false') {
+            return true;
+        }
+
+        return $('input[name=option_' + stepId + ']:checked:enabled').length > 0;
+    }
+
+    function idxrCommitRestoredStep(stepId, stepType, optional, triggerNextButton) {
+        var nextBtnSelector = '#js_icp_next_opt_' + stepId;
+        var attempts = 0;
+
+        function runAttempt() {
+            attempts += 1;
+            idxrRestoreLog('commit step', stepId, 'type=', stepType, 'attempt=', attempts);
+
+            if (triggerNextButton && $(nextBtnSelector).length) {
+                $(nextBtnSelector).trigger('click');
+            }
+
+            var setterPromise = Promise.resolve(true);
+            if (typeof set_option_value === 'function') {
+                try {
+                    setterPromise = Promise.resolve(set_option_value(stepType, stepId, optional, false));
+                } catch (e) {
+                    setterPromise = Promise.resolve(false);
+                }
+            }
+
+            return setterPromise
+                .catch(function () {
+                    return false;
+                })
+                .then(function () {
+                    return idxrPause(140);
+                })
+                .then(function () {
+                    var satisfied = idxrIsStepSatisfied(stepId, stepType, optional);
+                    idxrRestoreLog('step status', stepId, 'satisfied=', satisfied, 'marker=', $('#js_opt_' + stepId + '_value').html(), 'extra=', $('#js_opt_extra_' + stepId + '_value').html(), 'checked=', $('input[name=option_' + stepId + ']:checked').length);
+                    if (satisfied) {
+                        return true;
+                    }
+                    if (attempts < 3) {
+                        return idxrPause(200).then(runAttempt);
+                    }
+                    return false;
+                });
+        }
+
+        return runAttempt();
+    }
+
     function idxrSimulateOptionClick(stepId, optionId) {
         var cardSelector = '#card_' + stepId + '_' + optionId;
         if ($(cardSelector).length) {
+            idxrRestoreLog('trigger card click', cardSelector);
             $(cardSelector).trigger('click');
             return true;
         }
         var inputSelector = '#option_' + stepId + '_' + optionId;
         if ($(inputSelector).length) {
+            idxrRestoreLog('trigger input click', inputSelector);
             $(inputSelector).prop('checked', true).trigger('change').trigger('click');
             return true;
         }
+        idxrRestoreLog('option not found', 'step=', stepId, 'option=', optionId);
         return false;
     }
 
+    var optionsByStepFromString = idxrParseCustomizationString(snapshot.customization);
+    var extraByStepFromString = idxrParseExtraInfoString(snapshot.extra_info);
+
+    idxrRestoreLog('apply snapshot start', 'steps=', snapshot.steps.length, 'snapshot_id=', snapshot.id || 'n/a');
+    idxrRestoreLog('parsed customization map', optionsByStepFromString);
+    idxrRestoreLog('parsed extra map', extraByStepFromString);
     var chain = Promise.resolve(true);
     $.each(snapshot.steps, function (_, stepData) {
         chain = chain.then(function () {
             var stepId = String(stepData && stepData.step_id ? stepData.step_id : '');
             if (!stepId.length || !$('#component_step_' + stepId).length) {
+                idxrRestoreLog('skip missing step', stepId);
                 return true;
             }
             if ($('#component_step_' + stepId).hasClass('hidden')) {
+                idxrRestoreLog('skip hidden step', stepId);
                 return true;
             }
             if (typeof mustBeVisible === 'function' && !mustBeVisible(stepId)) {
+                idxrRestoreLog('skip not visible by constraint', stepId);
                 return true;
             }
 
             var stepType = $('#js_icp_next_opt_' + stepId).attr('data-type') || stepData.type;
-            var nextBtnSelector = '#js_icp_next_opt_' + stepId;
+            var optional = $('#component_step_' + stepId).attr('data-optional');
+            idxrRestoreLog('rehydrating step', stepId, 'type=', stepType, 'optional=', optional);
 
             // Replay UI events like a user instead of forcing hidden markers.
             if (stepType === 'text') {
+                var textValue = (stepData.value !== undefined && stepData.value !== null && String(stepData.value).length)
+                    ? stepData.value
+                    : (extraByStepFromString[stepId] !== undefined ? extraByStepFromString[stepId] : '');
                 if ($('#text_' + stepId).length) {
                     $('#text_' + stepId)
-                        .val(stepData.value || '')
+                        .val(textValue || '')
                         .trigger('input')
                         .trigger('change');
+                    idxrRestoreLog('text value set', stepId, $('#text_' + stepId).val());
                 }
-                if ($(nextBtnSelector).length) {
-                    $(nextBtnSelector).trigger('click');
-                }
-                return idxrPause(40);
+                return idxrCommitRestoredStep(stepId, stepType, optional, true).then(function () {
+                    return idxrPause(260);
+                });
             }
 
             if (stepType === 'textarea') {
+                var textareaValue = (stepData.value !== undefined && stepData.value !== null && String(stepData.value).length)
+                    ? stepData.value
+                    : (extraByStepFromString[stepId] !== undefined ? extraByStepFromString[stepId] : '');
                 if ($('#textarea_' + stepId).length) {
                     $('#textarea_' + stepId)
-                        .val(stepData.value || '')
+                        .val(textareaValue || '')
                         .trigger('input')
                         .trigger('change');
+                    idxrRestoreLog('textarea value set', stepId, $('#textarea_' + stepId).val());
                 }
-                if ($(nextBtnSelector).length) {
-                    $(nextBtnSelector).trigger('click');
-                }
-                return idxrPause(40);
+                return idxrCommitRestoredStep(stepId, stepType, optional, true).then(function () {
+                    return idxrPause(260);
+                });
             }
 
             if (stepType === 'file') {
+                idxrRestoreLog('file step skipped (browser security)', stepId);
                 return true;
             }
 
+            var optionsToRestore = [];
             if ($.isArray(stepData.options) && stepData.options.length) {
+                optionsToRestore = stepData.options;
+            } else if (optionsByStepFromString[stepId] && optionsByStepFromString[stepId].length) {
+                optionsToRestore = optionsByStepFromString[stepId];
+                idxrRestoreLog('using customization-string fallback options', stepId, optionsToRestore);
+            }
+
+            if ($.isArray(optionsToRestore) && optionsToRestore.length) {
+                idxrRestoreLog('options to restore', stepId, optionsToRestore);
                 $('input[name=option_' + stepId + ']').prop('checked', false);
-                $.each(stepData.options, function (_, opt) {
+                $.each(optionsToRestore, function (_, opt) {
                     var optionId = String(opt && opt.option_id ? opt.option_id : '');
                     if (!optionId.length) {
                         return;
@@ -516,15 +704,29 @@ function idxrApplySnapshot(snapshot) {
                     var qtySelector = '#option_' + stepId + '_' + optionId + '_qty';
                     if ($(qtySelector).length && opt.qty !== undefined && opt.qty !== null && opt.qty !== '') {
                         $(qtySelector).val(opt.qty).trigger('input').trigger('change');
+                        idxrRestoreLog('qty set', qtySelector, '=>', $(qtySelector).val());
                     }
+
                     idxrSimulateOptionClick(stepId, optionId);
+
+                    var inputSelector = '#option_' + stepId + '_' + optionId;
+                    if ($(inputSelector).length && !$(inputSelector).prop('checked')) {
+                        idxrRestoreLog('force-check fallback', inputSelector);
+                        $(inputSelector).prop('checked', true).trigger('change');
+                    }
                 });
-                if ($(nextBtnSelector).length) {
-                    $(nextBtnSelector).trigger('click');
+                if (typeof updatechecks === 'function') {
+                    updatechecks(stepId);
                 }
-                return idxrPause(60);
+                idxrRestoreLog('checked after replay', stepId, $('input[name=option_' + stepId + ']:checked').map(function () { return $(this).attr('data-value'); }).get());
+                return idxrPause(280).then(function () {
+                    return idxrCommitRestoredStep(stepId, stepType, optional, true);
+                }).then(function () {
+                    return idxrPause(320);
+                });
             }
 
+            idxrRestoreLog('no options payload for step', stepId, 'snapshot.options=', stepData.options, 'fallback=', optionsByStepFromString[stepId] || []);
             return true;
         });
     });
@@ -534,8 +736,11 @@ function idxrApplySnapshot(snapshot) {
         if (nextId) {
             open_next_panel(nextId);
         }
+        return idxrPause(260);
+    }).then(function () {
         updateTotal();
         checkFinish();
+        idxrRestoreLog('apply snapshot done');
         return true;
     });
 }
@@ -739,6 +944,7 @@ $(document).ready(function() {
             $('#idxr-restore-error').show();
             return;
         }
+        console.log('[idxr-restore] restore confirm selected id=', selectedId);
         idxrSetModalActionLoading('#idxr-restore-customization-confirm', true, idxrI18n.restoring);
         idxrServerRequest('getServerCustomization', {
             id_saved_customisation: selectedId
@@ -752,25 +958,30 @@ $(document).ready(function() {
                 }
             }
             if (!snapshot) {
+                console.log('[idxr-restore] invalid snapshot payload for id=', selectedId);
                 $('#idxr-restore-error').text(idxrI18n.savedPayloadInvalid).show();
                 idxrSetModalActionLoading('#idxr-restore-customization-confirm', false);
                 return;
             }
+            console.log('[idxr-restore] snapshot loaded', snapshot);
             idxrSetGlobalPreloader(true);
             idxrResetAllBeforeRestore();
             idxrCloseModal('idxr-restore-customization-modal');
             idxrApplySnapshot(snapshot).then(function () {
                 idxrSetGlobalPreloader(false);
                 idxrSetModalActionLoading('#idxr-restore-customization-confirm', false);
+                console.log('[idxr-restore] restore completed successfully');
             }).catch(function () {
                 idxrSetGlobalPreloader(false);
                 idxrSetModalActionLoading('#idxr-restore-customization-confirm', false);
                 $('#idxr-restore-error').text(idxrI18n.unableApplySavedCustomization).show();
+                console.log('[idxr-restore] restore failed while applying snapshot');
             });
         }).fail(function (msg) {
             $('#idxr-restore-error').text(idxrErrorMessage(msg, idxrI18n.unableRestoreCustomization)).show();
             idxrSetModalActionLoading('#idxr-restore-customization-confirm', false);
             idxrSetGlobalPreloader(false);
+            console.log('[idxr-restore] getServerCustomization failed', msg);
         });
     });
 
@@ -1470,7 +1681,7 @@ function set_option_value(step_type,step_id,optional = false, update_final_price
                 option_id.push($(this).attr('data-value'));
             });
             refreshImpact(step_id,option_id);
-            if(option_id === false || typeof option_id === 'undefined'){
+            if ((!$.isArray(option_id) && (option_id === false || typeof option_id === 'undefined')) || ($.isArray(option_id) && option_id.length === 0)){
                 if (optional !== "1") {
                     $('#next_alert_'+step_id).show('slow');
                     reject(false);
@@ -2664,7 +2875,7 @@ function checkFinish(){
     $('.sel_opt').each(function() {
         if($(this).html() === 'false' && $(this).attr('data-required') === 'true' && $(this).attr('data-optional') ==='false'){
             finish = false;
-            console.log('remaining false '+$(this).attr('id'));
+            // console.log('remaining false '+$(this).attr('id'));
             toggleCheck($(this).attr('id'), false);
         }else{
             toggleCheck($(this).attr('id'), true);

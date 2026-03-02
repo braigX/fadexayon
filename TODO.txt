@@ -21,7 +21,7 @@ P1 - Blocking / Critical
 
 P2 - Business Features
 
-4) Pricing - dedicated admin dashboard
+4) Pricing - dedicated admin dashboard✅
 - Admin interface to manage pricing grids for:
   - shapes
   - thicknesses
@@ -29,14 +29,14 @@ P2 - Business Features
   - finishes
   - linear metrics
 
-5) Pricing by shape
+5) Pricing by shape✅
 - Allow fixed/unit price per shape type.
 - Must be compatible with thickness and material.
 
-6) Cutting price per linear meter
+6) Cutting price per linear meter✅
 - Define a EUR/m rate applied dynamically based on total perimeter.
 
-7) Finishing price per linear meter
+7) Finishing price per linear meter✅
 - Define a EUR/m rate for each finish type.
 
 8) Thickness-based grid
@@ -79,7 +79,7 @@ P4 - Front-office Performance
 - Measure before/after (Lighthouse/PageSpeed) and document recommendations.
 
 
-
+15) Fix minimumcartfees
 
 
 
