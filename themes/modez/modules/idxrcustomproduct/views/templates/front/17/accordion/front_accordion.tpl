@@ -81,42 +81,52 @@
                         <span id="front_tr_add_to_cart">{l s='Ajouter au panier' mod='idxrcustomproduct'}</span>
                     </button>
                 </div>
-                <div class="cart-container-unique-12345" style="margin-top:10px; display:flex; gap:10px;">
-                    <button
-                        type="button"
-                        class="add-to-cart-button-unique-12345{if !$idxr_customer_logged} disabled{/if}"
-                        id="save-customization-button-unique-12345"
-                        style="background-color:#2e48c4; flex:1;"
-                        {if !$idxr_customer_logged}disabled="disabled" title="{l s='Login to save customisations' mod='idxrcustomproduct'}"{/if}
-                    >
-                        <i class="cart-icon-unique-12345" style="background-color:#1e0978;">
-                            <img src="/modules/idxrcustomproduct/img/icon/save.png" alt=">">
-                        </i>
-                        <span id="front_tr_save_customization">{l s='Save customization' mod='idxrcustomproduct'}</span>
-                    </button>
-                    <button
-                        type="button"
-                        class="add-to-cart-button-unique-12345{if !$idxr_customer_logged} disabled{/if}"
-                        id="restore-customization-button-unique-12345"
-                        style="background-color:#3b5bd6; flex:1;"
-                        {if !$idxr_customer_logged}disabled="disabled" title="{l s='Login to restore customisations' mod='idxrcustomproduct'}"{/if}
-                    >
-                        <i class="cart-icon-unique-12345" style="background-color:#1e0978;">
-                            <img src="/modules/idxrcustomproduct/img/icon/restore.png" alt=">">
-                        </i>
-                        <span id="front_tr_restore_customization">{l s='Restore customization' mod='idxrcustomproduct'}</span>
-                    </button>
-                </div>
-                <div style="margin-top:8px; text-align:center;">
-                    <a
-                        href="{$link->getModuleLink('idxrcustomproduct','simulations')|escape:'htmlall':'UTF-8'}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style="font-size:12px; color:#2e48c4; text-decoration:underline;"
-                    >
-                        {l s='View all customisations' mod='idxrcustomproduct'}
-                    </a>
-                </div>
+                {if $idxr_customer_logged}
+                    <div class="cart-container-unique-12345" style="margin-top:10px; display:flex; gap:10px;">
+                        <button
+                            type="button"
+                            class="add-to-cart-button-unique-12345"
+                            id="save-customization-button-unique-12345"
+                            style="background-color:#2e48c4; flex:1;"
+                        >
+                            <i class="cart-icon-unique-12345" style="background-color:#1e0978;">
+                                <img src="/modules/idxrcustomproduct/img/icon/save.png" alt=">">
+                            </i>
+                            <span id="front_tr_save_customization">{l s='Save customization' mod='idxrcustomproduct'}</span>
+                        </button>
+                        <button
+                            type="button"
+                            class="add-to-cart-button-unique-12345"
+                            id="restore-customization-button-unique-12345"
+                            style="background-color:#3b5bd6; flex:1;"
+                        >
+                            <i class="cart-icon-unique-12345" style="background-color:#1e0978;">
+                                <img src="/modules/idxrcustomproduct/img/icon/restore.png" alt=">">
+                            </i>
+                            <span id="front_tr_restore_customization">{l s='Restore customization' mod='idxrcustomproduct'}</span>
+                        </button>
+                    </div>
+                    <div style="margin-top:8px; text-align:center;">
+                        <a
+                            href="{$link->getModuleLink('idxrcustomproduct','simulations')|escape:'htmlall':'UTF-8'}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style="font-size:12px; color:#2e48c4; text-decoration:underline;"
+                        >
+                            {l s='View all customisations' mod='idxrcustomproduct'}
+                        </a>
+                    </div>
+                {else}
+                    <div class="idxr-login-warning-box">
+                        <div class="idxr-login-warning-text">
+                            <i class="material-icons">warning_amber</i>
+                            <span>{l s='Connectez-vous pour utiliser la sauvegarde, la restauration et vos simulations enregistrées.' mod='idxrcustomproduct'}</span>
+                        </div>
+                        <a class="idxr-login-warning-btn" href="{$link->getPageLink('authentication', true)|escape:'htmlall':'UTF-8'}">
+                            {l s='Se connecter' mod='idxrcustomproduct'}
+                        </a>
+                    </div>
+                {/if}
             </div>
         </div>
     </div>
@@ -134,6 +144,45 @@
             font-size: 14px !important;
             margin-left: 34px;
             display: inline-block;
+        }
+        .idxr-login-warning-box {
+            margin-top: 10px;
+            padding: 10px 12px;
+            border: 1px solid #f3cf77;
+            border-radius: 6px;
+            background: #fff7cf;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .idxr-login-warning-text {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #7a5a00;
+            font-size: 13px;
+            line-height: 1.3;
+        }
+        .idxr-login-warning-text .material-icons {
+            font-size: 18px;
+            color: #f0ad00;
+        }
+        .idxr-login-warning-btn {
+            background: #2e48c4;
+            color: #fff !important;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 7px 12px;
+            white-space: nowrap;
+        }
+        .idxr-login-warning-btn:hover,
+        .idxr-login-warning-btn:focus {
+            background: #1e0978;
+            color: #fff !important;
+            text-decoration: none;
         }
     </style>
 <script>

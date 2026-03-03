@@ -221,6 +221,8 @@ class IdxrCustomProduct extends Module
         $this->l('Name cannot be empty');
         $this->l('Delete this simulation?');
         $this->l('Action failed, please try again');
+        $this->l('Connectez-vous pour utiliser la sauvegarde, la restauration et vos simulations enregistrées.');
+        $this->l('Se connecter');
     }
     
     // /*End*/
@@ -555,10 +557,9 @@ class IdxrCustomProduct extends Module
             return $this->displayConfirmation($this->l('Configuration saved'));
         }
         if (Tools::isSubmit('submitIdxrAccountCardConfiguration')) {
-            $showFavFavoriteAllShops = (int) Tools::getValue('show_fav_favorite_all_shops');
             $showFavSimulationsAllShops = (int) Tools::getValue('show_fav_simulations_all_shops');
+            $showFavFavoriteAllShops = $this->getBooleanConfigAllShopsValue(Tools::strtoupper($this->name . '_SHOWFAV_FAVORITE'));
 
-            $this->updateBooleanConfigForAllShops(Tools::strtoupper($this->name . '_SHOWFAV_FAVORITE'), $showFavFavoriteAllShops);
             $this->updateBooleanConfigForAllShops(Tools::strtoupper($this->name . '_SHOWFAV_SIMULATIONS'), $showFavSimulationsAllShops);
             $this->updateBooleanConfigForAllShops(Tools::strtoupper($this->name . '_SHOWFAV'), ($showFavFavoriteAllShops || $showFavSimulationsAllShops) ? 1 : 0);
 
@@ -2536,30 +2537,10 @@ class IdxrCustomProduct extends Module
                     'title' => $this->l('Cartes Mon compte'),
                     'icon' => 'icon-user'
                 ),
-                'description' => $this->l('Activez ou désactivez les cartes "Mes simulations" et "Produits personnalisés" pour toutes les boutiques en un seul enregistrement.'),
                 'input' => array(
                     array(
                         'type' => 'switch',
-                        'label' => $this->l('Afficher la carte "Produits personnalisés" dans toutes les boutiques'),
-                        'name' => 'show_fav_favorite_all_shops',
-                        'is_bool' => true,
-                        'values' => array(
-                            array(
-                                'id' => 'show_fav_favorite_all_shops_on',
-                                'value' => 1,
-                                'label' => $this->l('Yes')
-                            ),
-                            array(
-                                'id' => 'show_fav_favorite_all_shops_off',
-                                'value' => 0,
-                                'label' => $this->l('No')
-                            )
-                        ),
-                        'desc' => $this->l('Met à jour IDXRCUSTOMPRODUCT_SHOWFAV_FAVORITE pour toutes les boutiques.')
-                    ),
-                    array(
-                        'type' => 'switch',
-                        'label' => $this->l('Afficher la carte "Mes simulations" dans toutes les boutiques'),
+                        'label' => $this->l('Afficher les personnalisations sauvegardées (Oui/Non) sur la page "Mon compte"'),
                         'name' => 'show_fav_simulations_all_shops',
                         'is_bool' => true,
                         'values' => array(
@@ -2574,7 +2555,8 @@ class IdxrCustomProduct extends Module
                                 'label' => $this->l('No')
                             )
                         ),
-                        'desc' => $this->l('Met à jour IDXRCUSTOMPRODUCT_SHOWFAV_SIMULATIONS pour toutes les boutiques.')
+                        'desc' => $this->l('Choisissez Oui pour afficher la carte "Mes simulations" dans "Mon compte" sur toutes les boutiques. Choisissez Non pour la masquer.')
+                            . '<br><img src="' . $this->_path . 'img/help-14.png" alt="Help" style="max-width:100%;height:auto;margin-top:8px;border:1px solid #ddd;">'
                     ),
                 ),
                 'submit' => array(
