@@ -2569,39 +2569,66 @@ function safeParseFloat(value, defaultValue = 0) {
  * Get prices based on product thickness.
  */
 function getPricesByThickness(thicknessValue) {
-    const thickness = safeParseFloat(thicknessValue);
+    const requestedThickness = safeParseFloat(thicknessValue);
+    const fallbackPrices = {
+        decoupe: 0.0040,
+        collage: 0.0700,
+        polissage: 0.0050,
+    };
 
-    let idxcp_prix_de_decoupe = 0.004;
-    let idxcp_prix_de_collage = 0.07;
-    let idxcp_prix_de_polissage = 0.04;
+    const rawRates = Array.isArray(window.idxr_active_thickness_rates) ? window.idxr_active_thickness_rates : [];
+    const rates = rawRates
+        .map(function (row) {
+            return {
+                thickness: safeParseFloat(row && row.thickness_mm),
+                decoupe: safeParseFloat(row && row.cut_rate, fallbackPrices.decoupe),
+                collage: safeParseFloat(row && row.glue_rate, fallbackPrices.collage),
+                polissage: safeParseFloat(row && row.polish_rate, fallbackPrices.polissage),
+            };
+        })
+        .filter(function (row) {
+            return row.thickness > 0;
+        })
+        .sort(function (a, b) {
+            return a.thickness - b.thickness;
+        });
 
-    if (thickness <= 4) {
-        idxcp_prix_de_decoupe = idxcp_cut_prices['4mm'];
-        idxcp_prix_de_collage = idxcp_glue_prices['4mm'];
-        idxcp_prix_de_polissage = idxcp_polish_prices['4mm'];
-    } else if (thickness === 5) {
-        idxcp_prix_de_decoupe = idxcp_cut_prices['5mm'];
-        idxcp_prix_de_collage = idxcp_glue_prices['5mm'];
-        idxcp_prix_de_polissage = idxcp_polish_prices['5mm'];
-    } else if (thickness === 6) {
-        idxcp_prix_de_decoupe = idxcp_cut_prices['6mm'];
-        idxcp_prix_de_collage = idxcp_glue_prices['6mm'];
-        idxcp_prix_de_polissage = idxcp_polish_prices['6mm'];
-    } else if (thickness === 8) {
-        idxcp_prix_de_decoupe = idxcp_cut_prices['8mm'];
-        idxcp_prix_de_collage = idxcp_glue_prices['8mm'];
-        idxcp_prix_de_polissage = idxcp_polish_prices['8mm'];
-    } else if (thickness >= 10) {
-        idxcp_prix_de_decoupe = idxcp_cut_prices['10mm'];
-        idxcp_prix_de_collage = idxcp_glue_prices['10mm'];
-        idxcp_prix_de_polissage = idxcp_polish_prices['10mm'];
+    if (!rates.length) {
+        console.log('[idxr-pricing] requested thickness:', requestedThickness, '| no active rates in JS, using fallback:', fallbackPrices);
+        return fallbackPrices;
     }
 
-    return {
-        decoupe: idxcp_prix_de_decoupe,
-        collage: idxcp_prix_de_collage,
-        polissage: idxcp_prix_de_polissage,
+    const exact = rates.find(function (row) {
+        return Math.abs(row.thickness - requestedThickness) < 0.0001;
+    }) || null;
+    const nextBiggest = rates.find(function (row) {
+        return row.thickness > requestedThickness;
+    }) || null;
+    const nextSmallest = (function () {
+        const lower = rates.filter(function (row) {
+            return row.thickness < requestedThickness;
+        });
+        return lower.length ? lower[lower.length - 1] : null;
+    })();
+
+    console.log('[idxr-pricing] requested thickness:', requestedThickness);
+    console.log('[idxr-pricing] exact match exists:', !!exact, exact);
+    console.log('[idxr-pricing] next biggest:', nextBiggest);
+    console.log('[idxr-pricing] next slowest(lower):', nextSmallest);
+
+    const selected = exact || nextBiggest || nextSmallest;
+    if (!selected) {
+        console.log('[idxr-pricing] no selected rate, fallback:', fallbackPrices);
+        return fallbackPrices;
+    }
+
+    const result = {
+        decoupe: safeParseFloat(selected.decoupe, fallbackPrices.decoupe),
+        collage: safeParseFloat(selected.collage, fallbackPrices.collage),
+        polissage: safeParseFloat(selected.polissage, fallbackPrices.polissage),
     };
+    console.log('[idxr-pricing] selected thickness rate:', selected, '| applied:', result);
+    return result;
 }
 
 
