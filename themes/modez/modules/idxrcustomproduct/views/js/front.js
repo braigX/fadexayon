@@ -2624,6 +2624,9 @@ function updateTotal(){
     var idxcp_prix_de_decoupe = prices.decoupe;
     var idxcp_prix_de_collage = prices.collage;
     var idxcp_prix_de_polissage = prices.polissage;
+    const idxrHolesCount = parseInt(window.idxr_holes_count, 10) || 0;
+    const idxrHolesUnitPrice = safeParseFloat(typeof idxr_holes_fixed_price !== 'undefined' ? idxr_holes_fixed_price : 0);
+    const idxrHolesExtraTotal = (idxrHolesCount > 0 && idxrHolesUnitPrice > 0) ? (idxrHolesCount * idxrHolesUnitPrice) : 0;
 
     // total = total + parseFloat($('.js_base_price').val().replace(',',''));
     var basePricePerSquareMeter = safeParseFloat($('.js_base_price').val());
@@ -2719,6 +2722,7 @@ function updateTotal(){
         $('#tr_resume_prix_de_socle').text(`${total_price_socel.toFixed(2)} €`);
 
         total = total + parseFloat(totaleWithTax);
+        total += idxrHolesExtraTotal;
         
         $('#price_map_totale_ttc').text(`${total.toFixed(2)} €`)
         $('#price_map_totale_ht').text(`${getWithoutTax(total)} €`)
@@ -2848,6 +2852,8 @@ function updateTotal(){
             $('#price_map_ht_7').text(`${getWithoutTax(total)} €`)
             $('#price_map_ttc_7').text(`${total.toFixed(2)} €`)
         }
+
+        total += idxrHolesExtraTotal;
            
         //
         $('#price_map_totale_ttc').text(`${total.toFixed(2)} €`)

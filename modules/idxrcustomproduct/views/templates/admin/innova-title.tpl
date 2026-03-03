@@ -36,9 +36,6 @@
                     
                 {/foreach}
             </ul>
-            <a href="{$isoLinks['web']|escape:'htmlall':'UTF-8'}" target="blank">
-                <img class="img-responsive center-block" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/modules/innovatabs_bottom_whmcs.png">
-            </a>
         </div>
     </div> 
 </div>

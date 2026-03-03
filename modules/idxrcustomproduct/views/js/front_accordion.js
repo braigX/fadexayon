@@ -2792,6 +2792,10 @@ const CustomizationModule = (() => {
                     console.error("Invalid hole type");
             }
 
+            // Expose active holes count to front.js pricing.
+            const holesNodeList = holesGroup && typeof holesGroup.selectAll === 'function' ? holesGroup.selectAll('.hole') : [];
+            window.idxr_holes_count = (holesNodeList && typeof holesNodeList.length !== 'undefined') ? parseInt(holesNodeList.length, 10) || 0 : 0;
+
             function drawGridHoles(rows, cols, padding, holeRadius, extra) {
 
                 const spacingX = (scale(holesSettings.width) - 2 * padding) / (cols - 1);

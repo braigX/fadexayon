@@ -362,3 +362,5 @@ $_MODULE['<{idxrcustomproduct}prestashop>account_blockcustomproduct_17_b4a47a2b9
 /* Admin tabs / dashboards */
 $_MODULE['<{idxrcustomproduct}prestashop>idxrcustomproduct_e22ac25b066b201473de7aa700ef5d92'] = 'Tarification';
 $_MODULE['<{idxrcustomproduct}prestashop>idxrcustomproduct_3337eeb2e86fcfa0a3ef1745a555ea2c'] = 'Cartes Mon compte';
+$_MODULE['<{idxrcustomproduct}prestashop>idxrcustomproduct_3d440ff848531229cc9e40c5cc4c0226'] = 'Prix fixe des trous';
+$_MODULE['<{idxrcustomproduct}prestashop>idxrcustomproduct_e73a6bf078bd543709dfe4b7759e7d45'] = 'Montant fixe ajouté lorsque des perçages sont sélectionnés.';

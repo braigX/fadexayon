@@ -24,6 +24,17 @@ require_once(_PS_ROOT_DIR_ . '/modules/idxrcustomproduct/classes/IdxCustomizedPr
 
 class IdxrCustomProduct extends Module
 {
+    protected function hasExtraConfigColumn($columnName)
+    {
+        $table = _DB_PREFIX_ . 'idxrcustomproduct_extra_config';
+        $sql = 'SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS
+                WHERE TABLE_SCHEMA = "' . pSQL(_DB_NAME_) . '"
+                  AND TABLE_NAME = "' . pSQL($table) . '"
+                  AND COLUMN_NAME = "' . pSQL($columnName) . '"';
+
+        return (int) Db::getInstance()->getValue($sql) > 0;
+    }
+
     /*Add with team wassim novatis*/
     public function getProductWeight($product_id)
     {
@@ -58,12 +69,14 @@ class IdxrCustomProduct extends Module
     }
 
     public function fetchLatestExtraConfig() {
+        $hasHolesFixedPrice = $this->hasExtraConfigColumn('holes_fixed_price');
+        $holesFixedPriceSelect = $hasHolesFixedPrice ? ', `holes_fixed_price`' : '';
         // Fetch all rows ordered by `id` in descending order
         $sql = 'SELECT `prix_de_decoupe`, `demensions`, `prix_de_collage`, `prix_fixe`, `prix_fixe_vitrine`, 
                        `cut_price_4mm`, `cut_price_5mm`, `cut_price_6mm`, `cut_price_8mm`, `cut_price_10mm`, 
                        `glue_price_4mm`, `glue_price_5mm`, `glue_price_6mm`, `glue_price_8mm`, `glue_price_10mm`,
-                       `polish_price_4mm`, `polish_price_5mm`, `polish_price_6mm`, `polish_price_8mm`, `polish_price_10mm`
-                FROM `ps_idxrcustomproduct_extra_config` 
+                       `polish_price_4mm`, `polish_price_5mm`, `polish_price_6mm`, `polish_price_8mm`, `polish_price_10mm`' . $holesFixedPriceSelect . '
+                FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_extra_config` 
                 ORDER BY `id` DESC';
     
         $config = Db::getInstance()->executeS($sql);
@@ -77,6 +90,7 @@ class IdxrCustomProduct extends Module
                 'prix_de_collage' => 0.0,
                 'prix_fixe' => 5,
                 'prix_fixe_vitrine' => 90,
+                'holes_fixed_price' => 0.0,
                 'cut_prices' => [
                     '4mm' => 0.004,
                     '5mm' => 0.004,
@@ -133,6 +147,7 @@ class IdxrCustomProduct extends Module
             'prix_de_collage' => $config[0]['prix_de_collage'],
             'prix_fixe' => $config[0]['prix_fixe'],
             'prix_fixe_vitrine' => $config[0]['prix_fixe_vitrine'],
+            'holes_fixed_price' => isset($config[0]['holes_fixed_price']) ? (float) $config[0]['holes_fixed_price'] : 0.0,
             'cut_prices' => $cut_prices,
             'glue_prices' => $glue_prices,
             'polish_prices' => $polish_prices
@@ -411,7 +426,9 @@ class IdxrCustomProduct extends Module
             $prixdecollage = str_replace(',', '.', Tools::getValue('prixdecollage'));
             $prix_fixe = str_replace(',', '.', Tools::getValue('prix_fixe'));
             $prix_fixe_vitrine = str_replace(',', '.', Tools::getValue('prix_fixe_vitrine'));
+            $holes_fixed_price = str_replace(',', '.', Tools::getValue('holes_fixed_price'));
             $maximumdememnsions = Tools::getValue('maximumdememnsions', '800x800x800');
+            $hasHolesFixedPrice = $this->hasExtraConfigColumn('holes_fixed_price');
 
             // Retrieve cut, glue, and polish prices for each thickness level
             $cut_price_4mm = str_replace(',', '.', Tools::getValue('cut_price_4mm'));
@@ -433,12 +450,13 @@ class IdxrCustomProduct extends Module
             $polish_price_10mm = str_replace(',', '.', Tools::getValue('polish_price_10mm'));
 
             // Check if the record already exists
-            $sqlCheck = 'SELECT COUNT(*) as count FROM `ps_idxrcustomproduct_extra_config`';
+            $sqlCheck = 'SELECT COUNT(*) as count FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_extra_config`';
             $exists = (int) Db::getInstance()->getValue($sqlCheck);
 
             if ($exists > 0) {
                 // Update existing record
-                $sqlUpdate = 'UPDATE `ps_idxrcustomproduct_extra_config`
+                $holesFixedPriceUpdateSql = $hasHolesFixedPrice ? ', `holes_fixed_price` = ' . (float) $holes_fixed_price : '';
+                $sqlUpdate = 'UPDATE `' . _DB_PREFIX_ . 'idxrcustomproduct_extra_config`
                     SET `prix_de_decoupe` = ' . (float) $prixdepecoupe . ',
                         `prix_de_collage` = ' . (float) $prixdecollage . ',
                         `demensions` = "' . pSQL($maximumdememnsions) . '",
@@ -458,7 +476,7 @@ class IdxrCustomProduct extends Module
                         `polish_price_5mm` = ' . (float) $polish_price_5mm . ',
                         `polish_price_6mm` = ' . (float) $polish_price_6mm . ',
                         `polish_price_8mm` = ' . (float) $polish_price_8mm . ',
-                        `polish_price_10mm` = ' . (float) $polish_price_10mm . '
+                        `polish_price_10mm` = ' . (float) $polish_price_10mm . $holesFixedPriceUpdateSql . '
                     WHERE `id` = 1';
 
                 if (!Db::getInstance()->execute($sqlUpdate)) {
@@ -466,11 +484,13 @@ class IdxrCustomProduct extends Module
                 }
             } else {
                 // Insert a new record
-                $sqlInsert = 'INSERT INTO `ps_idxrcustomproduct_extra_config`
+                $holesFixedPriceInsertColumns = $hasHolesFixedPrice ? ', `holes_fixed_price`' : '';
+                $holesFixedPriceInsertValues = $hasHolesFixedPrice ? ', ' . (float) $holes_fixed_price : '';
+                $sqlInsert = 'INSERT INTO `' . _DB_PREFIX_ . 'idxrcustomproduct_extra_config`
                               (`id`, `prix_de_decoupe`, `prix_de_collage`, `demensions`, `prix_fixe`, `prix_fixe_vitrine`, 
                                `cut_price_4mm`, `cut_price_5mm`, `cut_price_6mm`, `cut_price_8mm`, `cut_price_10mm`,
                                `glue_price_4mm`, `glue_price_5mm`, `glue_price_6mm`, `glue_price_8mm`, `glue_price_10mm`,
-                               `polish_price_4mm`, `polish_price_5mm`, `polish_price_6mm`, `polish_price_8mm`, `polish_price_10mm`)
+                               `polish_price_4mm`, `polish_price_5mm`, `polish_price_6mm`, `polish_price_8mm`, `polish_price_10mm`' . $holesFixedPriceInsertColumns . ')
                               VALUES (1, ' . (float) $prixdepecoupe . ', ' . (float) $prixdecollage . ', 
                                       "' . pSQL($maximumdememnsions) . '", ' . (float) $prix_fixe . ', ' . (float) $prix_fixe_vitrine . ',
                                       ' . (float) $cut_price_4mm . ', ' . (float) $cut_price_5mm . ', 
@@ -478,7 +498,7 @@ class IdxrCustomProduct extends Module
                                       ' . (float) $glue_price_4mm . ', ' . (float) $glue_price_5mm . ', 
                                       ' . (float) $glue_price_6mm . ', ' . (float) $glue_price_8mm . ', ' . (float) $glue_price_10mm . ',
                                       ' . (float) $polish_price_4mm . ', ' . (float) $polish_price_5mm . ', 
-                                      ' . (float) $polish_price_6mm . ', ' . (float) $polish_price_8mm . ', ' . (float) $polish_price_10mm . ')';
+                                      ' . (float) $polish_price_6mm . ', ' . (float) $polish_price_8mm . ', ' . (float) $polish_price_10mm . $holesFixedPriceInsertValues . ')';
 
                 if (!Db::getInstance()->execute($sqlInsert)) {
                     $this->context->controller->errors[] = $this->l('Failed to insert the pricing values');
@@ -818,6 +838,7 @@ class IdxrCustomProduct extends Module
                     $idxr_prix_de_decoupe_cube = $extraConfig['prix_de_decoupe'];
                     $idxr_prix_fixe = $extraConfig['prix_fixe'];
                     $idxr_prix_fixe_vitrine = $extraConfig['prix_fixe_vitrine'];
+                    $idxr_holes_fixed_price = isset($extraConfig['holes_fixed_price']) ? (float) $extraConfig['holes_fixed_price'] : 0.0;
                     $cutPrices = $extraConfig['cut_prices'];
                     $gluePrices = $extraConfig['glue_prices'];
                     $polishPrices = $extraConfig['polish_prices'];
@@ -829,6 +850,7 @@ class IdxrCustomProduct extends Module
                             'idxcp_originaltax' => $current_tax,
                             'idxr_prix_fixe' => $idxr_prix_fixe,
                             'idxr_prix_fixe_vitrine' => $idxr_prix_fixe_vitrine,
+                            'idxr_holes_fixed_price' => $idxr_holes_fixed_price,
                             'idxr_skipped_product_ids' => $skippedIds,
                             'idxr_prix_de_decoupe_cube' => $idxr_prix_de_decoupe_cube,
                             'idxcp_console_state' => 0,
@@ -1001,6 +1023,7 @@ class IdxrCustomProduct extends Module
                 $idxr_skipped_product_ids = json_decode(Configuration::get('idxr_skipped_product_ids'), true);
                 $idxr_prix_fixe = $extraConfig['prix_fixe'];
                 $idxr_prix_fixe_vitrine = $extraConfig['prix_fixe_vitrine'];
+                $idxr_holes_fixed_price = isset($extraConfig['holes_fixed_price']) ? (float) $extraConfig['holes_fixed_price'] : 0.0;
                 $idxr_prix_de_decoupe_cube = $extraConfig['prix_de_decoupe'];
                 $cutPrices = $extraConfig['cut_prices'];
                 $gluePrices = $extraConfig['glue_prices'];
@@ -1015,6 +1038,7 @@ class IdxrCustomProduct extends Module
                         'idxcp_polish_prices' => $polishPrices,
                         'idxr_skipped_product_ids' => $idxr_skipped_product_ids,
                         'idxr_prix_de_decoupe_cube' => $idxr_prix_de_decoupe_cube,
+                        'idxr_holes_fixed_price' => $idxr_holes_fixed_price,
                         'url_ajax' => $this->context->link->getModuleLink($this->name, 'ajax', array('token' => $front_token,'ajax' => true)),
                         'send_text' => $this->l('Send to cart'),
                         'favbutton' => $this->l('Save in my wishlist'),
@@ -2233,6 +2257,13 @@ class IdxrCustomProduct extends Module
                     ),
                     array(
                         'type' => 'text',
+                        'label' => $this->l('Prix fixe perçages'),
+                        'name' => 'holes_fixed_price',
+                        'class' => 'idxr-pricing-field idxr-pricing-fixed',
+                        'desc' => $this->l('Montant fixe ajouté lorsque des perçages sont sélectionnés.'),
+                    ),
+                    array(
+                        'type' => 'text',
                         'label' => $this->l('Prix de découpe pour 4mm'),
                         'name' => 'cut_price_4mm',
                         'class' => 'idxr-pricing-field idxr-pricing-cutting',
@@ -3127,6 +3158,7 @@ class IdxrCustomProduct extends Module
 
         $idxr_prix_fixe = $extraConfig['prix_fixe'] ?? '0.0000';
         $idxr_prix_fixe_vitrine = $extraConfig['prix_fixe_vitrine'] ?? '0.0000';
+        $idxr_holes_fixed_price = $extraConfig['holes_fixed_price'] ?? '0.0000';
         $idxr_prix_de_decoupe_cube = $extraConfig['prix_de_decoupe'] ?? '0.0000';
         $idxr_prix_de_collage = $extraConfig['prix_de_collage'] ?? '0.0000';
         
@@ -3179,6 +3211,7 @@ class IdxrCustomProduct extends Module
         // Basic fields
         $fields['prix_fixe'] = $idxr_prix_fixe;
         $fields['prix_fixe_vitrine'] = $idxr_prix_fixe_vitrine;
+        $fields['holes_fixed_price'] = $idxr_holes_fixed_price;
         $fields['idxr_skipped_product_ids'] = $idxr_skipped_product_ids;
         $fields['idxr_prix_de_decoupe_cube'] = $idxr_prix_de_decoupe_cube;
         $fields['prixdecollage'] = $idxr_prix_de_collage;
@@ -5649,13 +5682,6 @@ class IdxrCustomProduct extends Module
             }
         }
 
-        $this->innovatabs[] = array(
-            "title" => $this->l('Our Modules'),
-            "icon" => "cubes",
-            "link" => $isoLinks["ourmodules"],
-            "type" => "url",
-            "show" => "both",
-        );
     }
 
     public function innovaTitle()
