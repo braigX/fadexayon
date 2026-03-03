@@ -125,6 +125,10 @@ CREATE TABLE IF NOT EXISTS `ps_idxrcustomproduct_thickness_rates` (
 ALTER TABLE ps_idxrcustomproduct_extra_config
 ADD COLUMN holes_fixed_price DECIMAL(20,6) NOT NULL DEFAULT 0;
 
+ALTER TABLE `ps_idxrcustomproduct_saved_customisations`
+ADD COLUMN `thumbnail_svg` LONGTEXT NULL AFTER `preview_html`;
+
+
 
 /module/idxrcustomproduct/simulations
 
