@@ -10,16 +10,20 @@
 *}
 
 
+{if $idxr_show_favorite_card}
 <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" title="{l s='Customized products' mod='idxrcustomproduct'}" href="{$link->getModuleLink('idxrcustomproduct','favorite')|escape:'htmlall':'UTF-8'}">
 	<span class="link-item">
 	    <i class="material-icons">save</i>
 	{l s='Customized products' mod='idxrcustomproduct'}
 	</span>
 </a>
+{/if}
 
+{if $idxr_show_simulations_card}
 <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" title="{l s='My simulations' mod='idxrcustomproduct'}" href="{$link->getModuleLink('idxrcustomproduct','simulations')|escape:'htmlall':'UTF-8'}">
 	<span class="link-item">
-	    <i class="material-icons">science</i>
+	    <i class="material-icons">history</i>
 	{l s='My simulations' mod='idxrcustomproduct'}
 	</span>
 </a>
+{/if}

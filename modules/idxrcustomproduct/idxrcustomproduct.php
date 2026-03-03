@@ -277,6 +277,8 @@ class IdxrCustomProduct extends Module
         }
 
         Configuration::updateValue(Tools::strtoupper($this->name) . '_SHOWFAV', true);
+        Configuration::updateValue(Tools::strtoupper($this->name) . '_SHOWFAV_FAVORITE', true);
+        Configuration::updateValue(Tools::strtoupper($this->name) . '_SHOWFAV_SIMULATIONS', true);
         Configuration::updateValue(Tools::strtoupper($this->name) . '_PRICEIMPACTTAX', true);
 
         if ($this->es17) {
@@ -328,7 +330,9 @@ class IdxrCustomProduct extends Module
         Configuration::deleteByName(Tools::strtoupper($this->name) . '_MIMGTYPE');
         Configuration::deleteByName(Tools::strtoupper($this->name) . '_TIMGTYPE');
         Configuration::deleteByName(Tools::strtoupper($this->name) . '_COVERID');
-        Configuration::deleteByName(Tools::strtoupper($this->name) - '_SHOWFAV');
+        Configuration::deleteByName(Tools::strtoupper($this->name) . '_SHOWFAV');
+        Configuration::deleteByName(Tools::strtoupper($this->name) . '_SHOWFAV_FAVORITE');
+        Configuration::deleteByName(Tools::strtoupper($this->name) . '_SHOWFAV_SIMULATIONS');
         return parent::uninstall();
     }
 
@@ -481,7 +485,7 @@ class IdxrCustomProduct extends Module
                 }
             }
 
-            return $this->displayConfirmation($this->l('Pricing configuration saved'));
+            return $this->displayConfirmation($this->l('Configuration de tarification enregistrée'));
         }
         if (Tools::isSubmit('submitModConfiguration')) {
             // save IDs:
@@ -507,6 +511,8 @@ class IdxrCustomProduct extends Module
             Configuration::updateValue(Tools::strtoupper($this->name) . '_COVERID', $coverimageid);
             $showfav = Tools::getValue('show_fav');
             Configuration::updateValue(Tools::strtoupper($this->name) . '_SHOWFAV', $showfav);
+            Configuration::updateValue(Tools::strtoupper($this->name) . '_SHOWFAV_FAVORITE', $showfav);
+            Configuration::updateValue(Tools::strtoupper($this->name) . '_SHOWFAV_SIMULATIONS', $showfav);
             $price_impact_taxinclude = Tools::getValue('price_impact_taxinclude');
             Configuration::updateValue(Tools::strtoupper($this->name) . '_PRICEIMPACTTAX', $price_impact_taxinclude);
             $discount_line = Tools::getValue('discount_line');
@@ -523,6 +529,16 @@ class IdxrCustomProduct extends Module
             Configuration::updateValue(Tools::strtoupper($this->name) . '_ADMINPRODUCTINFOBLOCK', $adminproductinfoblock);
             
             return $this->displayConfirmation($this->l('Configuration saved'));
+        }
+        if (Tools::isSubmit('submitIdxrAccountCardConfiguration')) {
+            $showFavFavoriteAllShops = (int) Tools::getValue('show_fav_favorite_all_shops');
+            $showFavSimulationsAllShops = (int) Tools::getValue('show_fav_simulations_all_shops');
+
+            $this->updateBooleanConfigForAllShops(Tools::strtoupper($this->name . '_SHOWFAV_FAVORITE'), $showFavFavoriteAllShops);
+            $this->updateBooleanConfigForAllShops(Tools::strtoupper($this->name . '_SHOWFAV_SIMULATIONS'), $showFavSimulationsAllShops);
+            $this->updateBooleanConfigForAllShops(Tools::strtoupper($this->name . '_SHOWFAV'), ($showFavFavoriteAllShops || $showFavSimulationsAllShops) ? 1 : 0);
+
+            return $this->displayConfirmation($this->l('Configuration des cartes Mon compte enregistrée'));
         }
         if (Tools::isSubmit('submitConfiguration') || Tools::isSubmit('submitConfigurationStay')) {
             $name = Tools::getValue('addconftitle');
@@ -1257,11 +1273,24 @@ class IdxrCustomProduct extends Module
 
     public function hookDisplayCustomerAccount($params)
     {
-        if (!Configuration::get(Tools::strtoupper($this->name . '_SHOWFAV'))) {
+        $showFavoriteCard = (bool) Configuration::get(Tools::strtoupper($this->name . '_SHOWFAV_FAVORITE'));
+        $showSimulationsCard = (bool) Configuration::get(Tools::strtoupper($this->name . '_SHOWFAV_SIMULATIONS'));
+
+        if (!$showFavoriteCard && !$showSimulationsCard) {
+            $legacyShowFav = (bool) Configuration::get(Tools::strtoupper($this->name . '_SHOWFAV'));
+            $showFavoriteCard = $legacyShowFav;
+            $showSimulationsCard = $legacyShowFav;
+        }
+
+        if (!$showFavoriteCard && !$showSimulationsCard) {
             return;
         }
         $id_customer = $this->context->customer->id;
         if ($id_customer) {
+            $this->context->smarty->assign(array(
+                'idxr_show_favorite_card' => $showFavoriteCard ? 1 : 0,
+                'idxr_show_simulations_card' => $showSimulationsCard ? 1 : 0,
+            ));
             if ($this->es17) {
                 return $this->display(__FILE__, 'views/templates/front/account_blockcustomproduct_17.tpl', $this->getCacheId());
             } else {
@@ -2159,18 +2188,18 @@ class IdxrCustomProduct extends Module
         $this->context->controller->addJS($this->_path . 'views/js/back-pricing-tabs.js', false);
         Media::addJsDef(array(
             'idxr_pricing_tabs_labels' => array(
-                'title' => $this->l('Pricing groups'),
-                'fixed' => $this->l('Fixed prices'),
-                'cutting' => $this->l('Cutting pricing'),
-                'gluing' => $this->l('Gluing pricing'),
-                'polishing' => $this->l('Polishing pricing'),
+                'title' => $this->l('Groupes de tarification'),
+                'fixed' => $this->l('Prix fixes'),
+                'cutting' => $this->l('Tarification découpe'),
+                'gluing' => $this->l('Tarification collage'),
+                'polishing' => $this->l('Tarification polissage'),
             )
         ));
 
         $fields_form = array(
             'form' => array(
                 'legend' => array(
-                    'title' => $this->l('Pricing dashboard'),
+                    'title' => $this->l('Tarification'),
                     'icon' => 'icon-eur'
                 ),
                 'input' => array(
@@ -2307,6 +2336,80 @@ class IdxrCustomProduct extends Module
         $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') ? Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') : 0;
         $helper->identifier = $this->identifier;
         $helper->submit_action = 'submitIdxrPricingConfiguration';
+        $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false) . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
+        $helper->token = Tools::getAdminTokenLite('AdminModules');
+        $helper->tpl_vars = array(
+            'fields_value' => $this->getConfigFieldsValues(),
+            'languages' => $this->context->controller->getLanguages(),
+            'id_language' => $this->context->language->id
+        );
+
+        return $helper->generateForm(array($fields_form));
+    }
+
+    public function renderAccountCardDashboard()
+    {
+        $fields_form = array(
+            'form' => array(
+                'legend' => array(
+                    'title' => $this->l('Cartes Mon compte'),
+                    'icon' => 'icon-user'
+                ),
+                'description' => $this->l('Activez ou désactivez les cartes "Mes simulations" et "Produits personnalisés" pour toutes les boutiques en un seul enregistrement.'),
+                'input' => array(
+                    array(
+                        'type' => 'switch',
+                        'label' => $this->l('Afficher la carte "Produits personnalisés" dans toutes les boutiques'),
+                        'name' => 'show_fav_favorite_all_shops',
+                        'is_bool' => true,
+                        'values' => array(
+                            array(
+                                'id' => 'show_fav_favorite_all_shops_on',
+                                'value' => 1,
+                                'label' => $this->l('Yes')
+                            ),
+                            array(
+                                'id' => 'show_fav_favorite_all_shops_off',
+                                'value' => 0,
+                                'label' => $this->l('No')
+                            )
+                        ),
+                        'desc' => $this->l('Met à jour IDXRCUSTOMPRODUCT_SHOWFAV_FAVORITE pour toutes les boutiques.')
+                    ),
+                    array(
+                        'type' => 'switch',
+                        'label' => $this->l('Afficher la carte "Mes simulations" dans toutes les boutiques'),
+                        'name' => 'show_fav_simulations_all_shops',
+                        'is_bool' => true,
+                        'values' => array(
+                            array(
+                                'id' => 'show_fav_simulations_all_shops_on',
+                                'value' => 1,
+                                'label' => $this->l('Yes')
+                            ),
+                            array(
+                                'id' => 'show_fav_simulations_all_shops_off',
+                                'value' => 0,
+                                'label' => $this->l('No')
+                            )
+                        ),
+                        'desc' => $this->l('Met à jour IDXRCUSTOMPRODUCT_SHOWFAV_SIMULATIONS pour toutes les boutiques.')
+                    ),
+                ),
+                'submit' => array(
+                    'title' => $this->l('Save'),
+                    'name' => 'submitIdxrAccountCardConfiguration',
+                )
+            ),
+        );
+
+        $helper = new HelperForm();
+        $helper->show_toolbar = false;
+        $lang = new Language((int) Configuration::get('PS_LANG_DEFAULT'));
+        $helper->default_form_language = $lang->id;
+        $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') ? Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') : 0;
+        $helper->identifier = $this->identifier;
+        $helper->submit_action = 'submitIdxrAccountCardConfiguration';
         $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false) . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
         $helper->token = Tools::getAdminTokenLite('AdminModules');
         $helper->tpl_vars = array(
@@ -3068,6 +3171,8 @@ class IdxrCustomProduct extends Module
         $fields['tablet_image_type'] = Configuration::get(Tools::strtoupper($this->name . '_TIMGTYPE'));
         $fields['coverimageid'] = Configuration::get(Tools::strtoupper($this->name . '_COVERID'));
         $fields['show_fav'] = Configuration::get(Tools::strtoupper($this->name . '_SHOWFAV'));
+        $fields['show_fav_favorite_all_shops'] = $this->getBooleanConfigAllShopsValue(Tools::strtoupper($this->name . '_SHOWFAV_FAVORITE'));
+        $fields['show_fav_simulations_all_shops'] = $this->getBooleanConfigAllShopsValue(Tools::strtoupper($this->name . '_SHOWFAV_SIMULATIONS'));
         $fields['price_impact_taxinclude'] = Configuration::get(Tools::strtoupper($this->name . '_PRICEIMPACTTAX'));
         $fields['discount_line'] = Configuration::get(Tools::strtoupper($this->name . '_DISCOUNTLINE'));
         $fields['maxheightdescription'] = Configuration::get(Tools::strtoupper($this->name . '_MAXHEIGHTDESCRIPTION'));
@@ -3172,6 +3277,50 @@ class IdxrCustomProduct extends Module
         }
 
         return $fields;
+    }
+
+    protected function getBooleanConfigAllShopsValue($key)
+    {
+        $shops = Shop::getShops(false, null, false);
+        if (!is_array($shops) || !count($shops)) {
+            return (int) Configuration::get($key);
+        }
+
+        foreach ($shops as $shop) {
+            $idShop = isset($shop['id_shop']) ? (int) $shop['id_shop'] : 0;
+            $idShopGroup = isset($shop['id_shop_group']) ? (int) $shop['id_shop_group'] : 0;
+            if (!$idShop) {
+                continue;
+            }
+            $shopValue = (int) Configuration::get($key, null, $idShopGroup, $idShop);
+            if ($shopValue !== 1) {
+                return 0;
+            }
+        }
+
+        return 1;
+    }
+
+    protected function updateBooleanConfigForAllShops($key, $enabled)
+    {
+        $enabled = (int) ((bool) $enabled);
+
+        Configuration::updateGlobalValue($key, $enabled);
+
+        $shops = Shop::getShops(false, null, false);
+        if (!is_array($shops) || !count($shops)) {
+            Configuration::updateValue($key, $enabled);
+            return;
+        }
+
+        foreach ($shops as $shop) {
+            $idShop = isset($shop['id_shop']) ? (int) $shop['id_shop'] : 0;
+            $idShopGroup = isset($shop['id_shop_group']) ? (int) $shop['id_shop_group'] : 0;
+            if (!$idShop) {
+                continue;
+            }
+            Configuration::updateValue($key, $enabled, false, $idShopGroup, $idShop);
+        }
     }
 
     public function addConfiguration($name, $id_configuration = null)
@@ -5391,6 +5540,9 @@ class IdxrCustomProduct extends Module
         if (Tools::isSubmit('submitIdxrPricingConfiguration')) {
             $current_cat = 'renderPricingDashboard';
         }
+        if (Tools::isSubmit('submitIdxrAccountCardConfiguration')) {
+            $current_cat = 'renderAccountCardDashboard';
+        }
 
         $this->innovatabs = array();
 
@@ -5404,12 +5556,21 @@ class IdxrCustomProduct extends Module
         );
 
         $this->innovatabs [] = array(
-            "title" => $this->l('Pricing dashboard'),
+            "title" => $this->l('Pricing'),
             "icon" => "eur",
             "link" => "renderPricingDashboard",
             "type" => "tab",
             "show" => "both",
             "active" => ($current_cat == 'renderPricingDashboard') ? true : false
+        );
+
+        $this->innovatabs [] = array(
+            "title" => $this->l('My Account cards'),
+            "icon" => "user",
+            "link" => "renderAccountCardDashboard",
+            "type" => "tab",
+            "show" => "both",
+            "active" => ($current_cat == 'renderAccountCardDashboard') ? true : false
         );
 
         if (!$locked) {
