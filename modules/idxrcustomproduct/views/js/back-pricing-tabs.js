@@ -11,7 +11,7 @@
 
     function addPricingTabs() {
         var groups = {
-            fixed: ['idxr_prix_de_decoupe_cube', 'prixdecollage', 'prix_fixe', 'prix_fixe_vitrine'],
+            fixed: ['idxr_prix_de_decoupe_cube', 'prixdecollage', 'prix_fixe', 'prix_fixe_vitrine', 'holes_fixed_price'],
             cutting: ['cut_price_4mm', 'cut_price_5mm', 'cut_price_6mm', 'cut_price_8mm', 'cut_price_10mm'],
             gluing: ['glue_price_4mm', 'glue_price_5mm', 'glue_price_6mm', 'glue_price_8mm', 'glue_price_10mm'],
             polishing: ['polish_price_4mm', 'polish_price_5mm', 'polish_price_6mm', 'polish_price_8mm', 'polish_price_10mm']
