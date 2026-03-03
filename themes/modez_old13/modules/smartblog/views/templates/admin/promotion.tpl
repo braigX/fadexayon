@@ -1,1 +1,0 @@
-<div style="overflow: hidden;">{if isset($smartpromotion)}{$smartpromotion}{/if}</div>
