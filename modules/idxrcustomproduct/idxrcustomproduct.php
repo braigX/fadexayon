@@ -372,6 +372,9 @@ class IdxrCustomProduct extends Module
         if ($error = $this->checkTables()){
             return $this->displayError($error);
         }
+        if ((string) Tools::getValue('idxr_ajax') === '1') {
+            $this->handleAdminPricingAjax();
+        }
         $default_cat = (Configuration::get(Tools::strtoupper($this->name . '_CATEGORY')) || Tools::getValue('customizable_category'));
         $locked = true;
         if ($default_cat) {
@@ -678,7 +681,152 @@ class IdxrCustomProduct extends Module
             Db::getInstance()->execute('ALTER TABLE ' . _DB_PREFIX_ . 'idxrcustomproduct_components_opt_impact ADD price_impact_type varchar(255) DEFAULT "fixed";');
             Db::getInstance()->execute('ALTER TABLE ' . _DB_PREFIX_ . 'idxrcustomproduct_components_opt_impact ADD price_impact_calc varchar(255);');
         }
+        Db::getInstance()->execute(
+            'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'idxrcustomproduct_thickness_rates` (
+                `id_rate` INT(11) NOT NULL AUTO_INCREMENT,
+                `id_shop` INT(11) NOT NULL,
+                `thickness_mm` DECIMAL(10,3) NOT NULL,
+                `cut_rate` DECIMAL(20,6) NOT NULL DEFAULT 0,
+                `glue_rate` DECIMAL(20,6) NOT NULL DEFAULT 0,
+                `polish_rate` DECIMAL(20,6) NOT NULL DEFAULT 0,
+                `active` TINYINT(1) NOT NULL DEFAULT 1,
+                `position` INT(11) NOT NULL DEFAULT 0,
+                `date_add` DATETIME NULL,
+                `date_upd` DATETIME NULL,
+                PRIMARY KEY (`id_rate`),
+                UNIQUE KEY `uniq_shop_thickness` (`id_shop`, `thickness_mm`),
+                KEY `idx_shop_active` (`id_shop`, `active`)
+            ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;'
+        );
         return IdxOption::fixOptionProducts();
+    }
+
+    protected function getThicknessRatesTableName()
+    {
+        return _DB_PREFIX_ . 'idxrcustomproduct_thickness_rates';
+    }
+
+    protected function jsonAdminResponse($payload, $statusCode = 200)
+    {
+        if (!headers_sent()) {
+            header('Content-Type: application/json; charset=utf-8', true, (int) $statusCode);
+        }
+        echo json_encode($payload);
+        exit;
+    }
+
+    protected function handleAdminPricingAjax()
+    {
+        $expectedToken = Tools::getAdminTokenLite('AdminModules');
+        $token = (string) Tools::getValue('token');
+        if (!$expectedToken || !$token || !hash_equals($expectedToken, $token)) {
+            $this->jsonAdminResponse(array('success' => false, 'message' => $this->l('Invalid admin token.')), 403);
+        }
+
+        $action = (string) Tools::getValue('idxr_action');
+        $idShop = (int) $this->context->shop->id;
+        $table = $this->getThicknessRatesTableName();
+
+        if ($action === 'list_thickness_rates') {
+            $rows = Db::getInstance()->executeS(
+                'SELECT id_rate, thickness_mm, cut_rate, glue_rate, polish_rate, active, position
+                 FROM `' . bqSQL($table) . '`
+                 WHERE id_shop = ' . (int) $idShop . '
+                 ORDER BY thickness_mm ASC, position ASC, id_rate ASC'
+            );
+            $this->jsonAdminResponse(array('success' => true, 'rows' => $rows ? $rows : array()));
+        }
+
+        if ($action === 'save_thickness_rate') {
+            $idRate = (int) Tools::getValue('id_rate');
+            $thickness = (float) str_replace(',', '.', (string) Tools::getValue('thickness_mm'));
+            $cut = (float) str_replace(',', '.', (string) Tools::getValue('cut_rate'));
+            $glue = (float) str_replace(',', '.', (string) Tools::getValue('glue_rate'));
+            $polish = (float) str_replace(',', '.', (string) Tools::getValue('polish_rate'));
+            $active = (int) Tools::getValue('active', 1) ? 1 : 0;
+
+            if ($thickness <= 0) {
+                $this->jsonAdminResponse(array('success' => false, 'message' => $this->l('Thickness must be greater than 0.')), 400);
+            }
+
+            $duplicateSql = 'SELECT id_rate FROM `' . bqSQL($table) . '`
+                             WHERE id_shop=' . (int) $idShop . '
+                               AND ABS(thickness_mm - ' . (float) $thickness . ') < 0.000001';
+            if ($idRate > 0) {
+                $duplicateSql .= ' AND id_rate != ' . (int) $idRate;
+            }
+            $duplicate = Db::getInstance()->getValue($duplicateSql);
+            if ($duplicate) {
+                $this->jsonAdminResponse(array('success' => false, 'message' => $this->l('This thickness already exists for this shop.')), 409);
+            }
+
+            if ($idRate > 0) {
+                $updated = Db::getInstance()->update(
+                    bqSQL($table),
+                    array(
+                        'thickness_mm' => (float) $thickness,
+                        'cut_rate' => (float) $cut,
+                        'glue_rate' => (float) $glue,
+                        'polish_rate' => (float) $polish,
+                        'active' => (int) $active,
+                        'date_upd' => date('Y-m-d H:i:s'),
+                    ),
+                    'id_rate=' . (int) $idRate . ' AND id_shop=' . (int) $idShop,
+                    0,
+                    false,
+                    true,
+                    false
+                );
+                if (!$updated) {
+                    $this->jsonAdminResponse(array('success' => false, 'message' => $this->l('Unable to update thickness rate.')), 500);
+                }
+            } else {
+                $nextPosition = (int) Db::getInstance()->getValue('SELECT COALESCE(MAX(position),0)+1 FROM `' . bqSQL($table) . '` WHERE id_shop=' . (int) $idShop);
+                $inserted = Db::getInstance()->insert(
+                    bqSQL($table),
+                    array(
+                        'id_shop' => (int) $idShop,
+                        'thickness_mm' => (float) $thickness,
+                        'cut_rate' => (float) $cut,
+                        'glue_rate' => (float) $glue,
+                        'polish_rate' => (float) $polish,
+                        'active' => (int) $active,
+                        'position' => (int) $nextPosition,
+                        'date_add' => date('Y-m-d H:i:s'),
+                        'date_upd' => date('Y-m-d H:i:s'),
+                    ),
+                    false,
+                    true,
+                    Db::INSERT,
+                    false
+                );
+                if (!$inserted) {
+                    $this->jsonAdminResponse(array('success' => false, 'message' => $this->l('Unable to create thickness rate.')), 500);
+                }
+            }
+
+            $this->jsonAdminResponse(array('success' => true));
+        }
+
+        if ($action === 'delete_thickness_rate') {
+            $idRate = (int) Tools::getValue('id_rate');
+            if ($idRate <= 0) {
+                $this->jsonAdminResponse(array('success' => false, 'message' => $this->l('Invalid rate ID.')), 400);
+            }
+            $deleted = Db::getInstance()->delete(
+                bqSQL($table),
+                'id_rate=' . (int) $idRate . ' AND id_shop=' . (int) $idShop,
+                0,
+                true,
+                false
+            );
+            if (!$deleted) {
+                $this->jsonAdminResponse(array('success' => false, 'message' => $this->l('Unable to delete thickness rate.')), 500);
+            }
+            $this->jsonAdminResponse(array('success' => true));
+        }
+
+        $this->jsonAdminResponse(array('success' => false, 'message' => $this->l('Unknown action.')), 400);
     }
 
     public function hookDisplayRightColumnProduct($params)
@@ -2210,6 +2358,13 @@ class IdxrCustomProduct extends Module
     {
         $this->context->controller->addCSS($this->_path . 'views/css/back-pricing-tabs.css', 'all');
         $this->context->controller->addJS($this->_path . 'views/js/back-pricing-tabs.js', false);
+        $this->context->controller->addJS($this->_path . 'views/js/back-pricing-grid.js', false);
+        $ajaxUrl = $this->context->link->getAdminLink('AdminModules', false)
+            . '&configure=' . $this->name
+            . '&tab_module=' . $this->tab
+            . '&module_name=' . $this->name
+            . '&token=' . Tools::getAdminTokenLite('AdminModules')
+            . '&idxr_ajax=1';
         Media::addJsDef(array(
             'idxr_pricing_tabs_labels' => array(
                 'title' => $this->l('Groupes de tarification'),
@@ -2217,7 +2372,26 @@ class IdxrCustomProduct extends Module
                 'cutting' => $this->l('Tarification découpe'),
                 'gluing' => $this->l('Tarification collage'),
                 'polishing' => $this->l('Tarification polissage'),
-            )
+            ),
+            'idxr_pricing_rates_ajax_url' => $ajaxUrl,
+            'idxr_pricing_rates_labels' => array(
+                'title' => $this->l('Grille dynamique par épaisseur'),
+                'add' => $this->l('Ajouter une épaisseur'),
+                'edit' => $this->l('Modifier'),
+                'delete' => $this->l('Supprimer'),
+                'save' => $this->l('Enregistrer'),
+                'cancel' => $this->l('Annuler'),
+                'thickness' => $this->l('Épaisseur (mm)'),
+                'cutting' => $this->l('Découpe'),
+                'gluing' => $this->l('Collage'),
+                'polishing' => $this->l('Polissage'),
+                'active' => $this->l('Actif'),
+                'actions' => $this->l('Actions'),
+                'loading' => $this->l('Chargement...'),
+                'empty' => $this->l('Aucune épaisseur enregistrée.'),
+                'confirmDelete' => $this->l('Supprimer cette épaisseur ?'),
+                'error' => $this->l('Une erreur est survenue.')
+            ),
         ));
 
         $fields_form = array(
@@ -2375,7 +2549,58 @@ class IdxrCustomProduct extends Module
             'id_language' => $this->context->language->id
         );
 
-        return $helper->generateForm(array($fields_form));
+        return $helper->generateForm(array($fields_form)) . $this->renderThicknessRatesGrid();
+    }
+
+    protected function renderThicknessRatesGrid()
+    {
+        return '
+        <div class="panel">
+            <h3><i class="icon icon-th-list"></i> ' . $this->l('Grille dynamique par épaisseur') . '</h3>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered" id="idxr-thickness-rates-table">
+                    <thead>
+                        <tr>
+                            <th style="width:140px;">' . $this->l('Épaisseur (mm)') . '</th>
+                            <th style="width:140px;">' . $this->l('Découpe') . '</th>
+                            <th style="width:140px;">' . $this->l('Collage') . '</th>
+                            <th style="width:140px;">' . $this->l('Polissage') . '</th>
+                            <th style="width:90px;">' . $this->l('Actif') . '</th>
+                            <th style="width:180px;">' . $this->l('Actions') . '</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="6">' . $this->l('Chargement...') . '</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="well">
+                <form id="idxr-thickness-rate-form" class="form-inline" onsubmit="return false;">
+                    <input type="hidden" id="idxr-rate-id" value="">
+                    <div class="form-group" style="margin-right:8px;">
+                        <label for="idxr-rate-thickness">' . $this->l('Épaisseur (mm)') . '</label>
+                        <input type="text" class="form-control" id="idxr-rate-thickness" style="width:110px;">
+                    </div>
+                    <div class="form-group" style="margin-right:8px;">
+                        <label for="idxr-rate-cut">' . $this->l('Découpe') . '</label>
+                        <input type="text" class="form-control" id="idxr-rate-cut" style="width:110px;">
+                    </div>
+                    <div class="form-group" style="margin-right:8px;">
+                        <label for="idxr-rate-glue">' . $this->l('Collage') . '</label>
+                        <input type="text" class="form-control" id="idxr-rate-glue" style="width:110px;">
+                    </div>
+                    <div class="form-group" style="margin-right:8px;">
+                        <label for="idxr-rate-polish">' . $this->l('Polissage') . '</label>
+                        <input type="text" class="form-control" id="idxr-rate-polish" style="width:110px;">
+                    </div>
+                    <div class="checkbox" style="margin-right:12px;">
+                        <label><input type="checkbox" id="idxr-rate-active" checked> ' . $this->l('Actif') . '</label>
+                    </div>
+                    <button type="button" class="btn btn-primary" id="idxr-rate-save">' . $this->l('Enregistrer') . '</button>
+                    <button type="button" class="btn btn-default" id="idxr-rate-cancel" style="display:none;">' . $this->l('Annuler') . '</button>
+                </form>
+            </div>
+        </div>';
     }
 
     public function renderAccountCardDashboard()

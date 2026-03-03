@@ -106,6 +106,25 @@ CREATE TABLE IF NOT EXISTS `ps_idxrcustomproduct_saved_customisations` (
   KEY `idxr_saved_customer_date` (`id_customer`, `date_add`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `ps_idxrcustomproduct_thickness_rates` (
+  `id_rate` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_shop` INT(11) NOT NULL,
+  `thickness_mm` DECIMAL(10,3) NOT NULL,
+  `cut_rate` DECIMAL(20,6) NOT NULL DEFAULT 0,
+  `glue_rate` DECIMAL(20,6) NOT NULL DEFAULT 0,
+  `polish_rate` DECIMAL(20,6) NOT NULL DEFAULT 0,
+  `active` TINYINT(1) NOT NULL DEFAULT 1,
+  `position` INT(11) NOT NULL DEFAULT 0,
+  `date_add` DATETIME NULL,
+  `date_upd` DATETIME NULL,
+  PRIMARY KEY (`id_rate`),
+  UNIQUE KEY `uniq_shop_thickness` (`id_shop`, `thickness_mm`),
+  KEY `idx_shop_active` (`id_shop`, `active`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE ps_idxrcustomproduct_extra_config
+ADD COLUMN holes_fixed_price DECIMAL(20,6) NOT NULL DEFAULT 0;
+
 
 /module/idxrcustomproduct/simulations
 
