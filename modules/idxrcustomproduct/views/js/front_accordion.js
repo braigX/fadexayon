@@ -3552,7 +3552,8 @@ const CustomizationModule = (() => {
                 `${idxr_tr_width}: `,
                 `${width} mm`,
                 '',
-                type
+                type,
+                'below'
             );
 
             drawDimensionWithText(
@@ -3648,7 +3649,8 @@ const CustomizationModule = (() => {
                 `${idxr_tr_width}: `,
                 `${width} mm`,
                 '',
-                type
+                type,
+                'below'
             );
         
             drawDimensionWithText(
@@ -3799,7 +3801,8 @@ const CustomizationModule = (() => {
                 `${idxr_tr_diameter}: `,
                 `${mainRadius} mm`,
                 '',
-                type
+                type,
+                'below'
             );
         }
 
@@ -3835,7 +3838,8 @@ const CustomizationModule = (() => {
                 `${idxr_tr_diameter}: `,
                 `${mainRadius} mm`,
                 '',
-                type
+                type,
+                'below'
             );
         }
 
@@ -3876,7 +3880,8 @@ const CustomizationModule = (() => {
                 `${idxr_tr_width}: `,
                 `${width} mm`,
                 '',
-                type
+                type,
+                'below'
             );
 
             drawDimensionWithText(
@@ -3931,7 +3936,7 @@ const CustomizationModule = (() => {
                 offSet -= 10;
             }
 
-            drawDimensionWithText(x1, y1 + offSet, x2, y1 + offSet, `${idxr_tr_width}: `, `${baseWidth} mm`, '', type);
+            drawDimensionWithText(x1, y1 + offSet, x2, y1 + offSet, `${idxr_tr_width}: `, `${baseWidth} mm`, '', type, 'below');
             drawDimensionWithText(x1, y3 - offSet, x3, y3 - offSet, 'Longueur: ', `${height} mm`, 'horizontal', type);
             drawDimensionWithText(x1 - offSet, y3, x1 - offSet, y1, `${idxr_tr_height}: `, `${topWidth} mm`, 'vertical', type);
         }
@@ -3979,7 +3984,7 @@ const CustomizationModule = (() => {
                 offSet -= 10;
             }
         
-            drawDimensionWithText(x1, y1 + offSet, x2, y1 + offSet, `${idxr_tr_width}: `, `${baseWidth} mm`, '', type);
+            drawDimensionWithText(x1, y1 + offSet, x2, y1 + offSet, `${idxr_tr_width}: `, `${baseWidth} mm`, '', type, 'below');
             drawDimensionWithText(x4, y3 - offSet, x3, y3 - offSet, `${idxr_tr_width}: `, `${topWidth} mm`, 'horizontal', type);
             drawDimensionWithText(x1 - startX - offSet, y3, x1 - startX - offSet, y1, `${idxr_tr_height}: `, `${height} mm`, 'vertical', type);
         }
@@ -4040,7 +4045,8 @@ const CustomizationModule = (() => {
                 `${idxr_tr_width}: `,
                 `${width} mm`,
                 '',
-                type
+                type,
+                'below'
             );
             drawDimensionWithText(
                 startX - offSet,
@@ -4112,7 +4118,8 @@ const CustomizationModule = (() => {
                 `${idxr_tr_base}: `,
                 `${width} mm`,
                 '',
-                type
+                type,
+                'below'
             );
             drawDimensionWithText(
                 startX - offSet,
@@ -4166,7 +4173,8 @@ const CustomizationModule = (() => {
                 `${idxr_tr_side}: `,
                 `${sideLength} mm`,
                 '',
-                type
+                type,
+                'below'
             );
             drawDimensionWithText(
                 startX ,
@@ -4392,7 +4400,8 @@ const CustomizationModule = (() => {
                 `${idxr_tr_width}: `,
                 `${width} mm`,
                 '',
-                type
+                type,
+                'below'
             );
         
             drawDimensionWithText(
@@ -4518,7 +4527,7 @@ const CustomizationModule = (() => {
             $("#svgLoader").remove(); // Remove loader if it exists
         }
 
-        function drawDimensionWithText(x1, y1, x2, y2, text = '', boldText = '', orientation = 'horizontal', type = 1) {
+        function drawDimensionWithText(x1, y1, x2, y2, text = '', boldText = '', orientation = 'horizontal', type = 1, labelPosition = 'auto') {
             if (suppressCutInternalDimensions && type === 2 && arrows === cutoutDems) {
                 return;
             }
@@ -4530,7 +4539,7 @@ const CustomizationModule = (() => {
                 addText(text, boldText, midX, midY, () => ({
                     'font-size': fontt,
                     'fill': '#065075'
-                }), orientation, midX, midY, type);
+                }), orientation, midX, midY, type, labelPosition);
             }
         }
 
@@ -4597,7 +4606,7 @@ const CustomizationModule = (() => {
             }
         }
 
-        function addText(text, boldText, x, y, textAttrFunc, orientation = 'horizontal', originX = 0, originY = 0, type) {
+        function addText(text, boldText, x, y, textAttrFunc, orientation = 'horizontal', originX = 0, originY = 0, type, labelPosition = 'auto') {
             const padding = 2;
             const fill = type === 1 ? 'rgba(97, 241, 150, 0.73)' : (type === 3 ? 'rgba(255, 165, 0, 0.73)' : 'rgba(83, 246, 181, 0.73)');
             const paddings = 9;
@@ -4623,7 +4632,18 @@ const CustomizationModule = (() => {
                     y: textCenterY + moveUpBy
                 });
 
-                const centeredBBox = textBlock.getBBox();
+                let centeredBBox = textBlock.getBBox();
+                if (labelPosition === 'below') {
+                    // Guarantee the full label box is below the arrow line.
+                    const minTop = y + 4;
+                    if (centeredBBox.y < minTop) {
+                        const deltaY = minTop - centeredBBox.y;
+                        textBlock.attr({
+                            y: (textCenterY + moveUpBy + deltaY)
+                        });
+                        centeredBBox = textBlock.getBBox();
+                    }
+                }
                 const rectWidth = centeredBBox.width + 2 * padding;
                 const rectHeight = ((centeredBBox.height + 3 * padding) * 2) / 3;
 

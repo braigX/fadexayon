@@ -15,6 +15,8 @@ P1 - Blocking / Critical
   - text
 - Normalize numeric input: remove commas (example: 12,5 -> 12.5).✅
 
+2.2) Price per hole
+
 3) Fix diameter / radius display
 - Standardize and stabilize display for diameter/radius dimensions.✅
 
