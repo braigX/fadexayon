@@ -2571,9 +2571,9 @@ function safeParseFloat(value, defaultValue = 0) {
 function getPricesByThickness(thicknessValue) {
     const requestedThickness = safeParseFloat(thicknessValue);
     const fallbackPrices = {
-        decoupe: 0.0040,
-        collage: 0.0700,
-        polissage: 0.0050,
+        decoupe: 4.0000,
+        collage: 70.0000,
+        polissage: 5.0000,
     };
 
     const rawRates = Array.isArray(window.idxr_active_thickness_rates) ? window.idxr_active_thickness_rates : [];
@@ -2664,8 +2664,10 @@ function updateTotal(){
     if((typeof DefineCubeShapeToDraw === 'number') && (DefineCubeShapeToDraw === 1)){
         var totaleWithTax = 0;
         var totaleWithoutTax = 0;
-        var prixDecoupeSocle = idxcp_cut_prices['10mm'];
-        var prixCollageSocle = idxcp_glue_prices['10mm'];
+        // Socle is modeled as 10mm in the configurator: use the same new €/m lookup path.
+        var soclePrices = getPricesByThickness(10);
+        var prixDecoupeSocle = safeParseFloat(soclePrices.decoupe, idxcp_prix_de_decoupe);
+        var prixCollageSocle = safeParseFloat(soclePrices.collage, idxcp_prix_de_collage);
 
         if (!isNaN(surface) && surface > 0) {
             var surfaceCost = (basePricePerSquareMeter * surface).toFixed(2);
@@ -2705,15 +2707,15 @@ function updateTotal(){
         $('#price_map_ttc_3').text(getWithTax(prixEpaulment).toFixed(2) + ' €');
 
         var diameter_capot = parseFloat($('#cube_diameter_capot').val().replace(',', '.'));
-        const unifiedDiameter = parseFloat(diameter_capot) * 1000;
+        const unifiedDiameter = parseFloat(diameter_capot);
         const price_8023234 = getWithTax(parseFloat(idxcp_prix_de_decoupe) * unifiedDiameter) || 0;
         const price_80232334 = getWithTax(parseFloat(idxcp_prix_de_collage) * unifiedDiameter) || 0;
         $('#p_d_d_map_1').text(`${diameter_capot} m`)
-        $('#price_map_4').text(`${parseFloat(idxcp_prix_de_decoupe)*1000} €/m² HT`)
+        $('#price_map_4').text(`${parseFloat(idxcp_prix_de_decoupe).toFixed(4)} €/m HT`)
         $('#price_map_ht_4').text(`${(parseFloat(idxcp_prix_de_decoupe) * unifiedDiameter).toFixed(2)} €`)
         $('#price_map_ttc_4').text(`${price_8023234.toFixed(2)} €`)
         $('#p_d_c_map_1').text(`${diameter_capot} m`)
-        $('#price_map_5').text(`${parseFloat(idxcp_prix_de_collage)*1000} €/m² HT`)
+        $('#price_map_5').text(`${parseFloat(idxcp_prix_de_collage).toFixed(4)} €/m HT`)
         $('#price_map_ht_5').text(`${(parseFloat(idxcp_prix_de_collage) * unifiedDiameter).toFixed(2)} €`)
         $('#price_map_ttc_5').text(`${price_80232334.toFixed(2)} €`)
 
@@ -2727,15 +2729,15 @@ function updateTotal(){
         $('#tr_resume_prix_de_capot').text(`${total_price_capot.toFixed(2)} €`);
 
         var diameter_socle = parseFloat($('#cube_diameter_socle').val().replace(',', '.'));
-        const unifiedDiameterSocle = parseFloat(diameter_socle) * 1000;
+        const unifiedDiameterSocle = parseFloat(diameter_socle);
         const price_0923525 = getWithTax(parseFloat(prixDecoupeSocle) * unifiedDiameterSocle) || 0;
         const price_923525 = getWithTax(parseFloat(prixCollageSocle) * unifiedDiameterSocle) || 0;
         $('#p_d_d_map_2').text(`${diameter_socle} m`)
-        $('#price_map_6').text(`${parseFloat(prixDecoupeSocle)*1000} €/m² HT`)
+        $('#price_map_6').text(`${parseFloat(prixDecoupeSocle).toFixed(4)} €/m HT`)
         $('#price_map_ht_6').text(`${parseFloat(prixDecoupeSocle) * unifiedDiameterSocle} €`)
         $('#price_map_ttc_6').text(`${price_0923525.toFixed(2)} €`)
         $('#p_d_c_map_2').text(`${diameter_socle} m`)
-        $('#price_map_7').text(`${(parseFloat(prixCollageSocle)*1000).toFixed(2)} €/m² HT`)
+        $('#price_map_7').text(`${parseFloat(prixCollageSocle).toFixed(4)} €/m HT`)
         $('#price_map_ht_7').text(`${(parseFloat(prixCollageSocle) * unifiedDiameterSocle).toFixed(2)} €`)
         $('#price_map_ttc_7').text(`${price_923525.toFixed(2)} €`)
 
@@ -2788,7 +2790,7 @@ function updateTotal(){
                 total = parseFloat(surfaceCost);
                 $("#js_resume_price_surface").html(''); // Effacer le contenu s'il n'y a pas de coût basé sur la surface
             }
-            $('#price_map_7').text(`0 €/m² HT`)
+            $('#price_map_7').text(`0 €/m HT`)
             $('#price_map_ht_7').text(`0 €`)
             $('#price_map_ttc_7').text(`0 €`)
 
@@ -2814,40 +2816,42 @@ function updateTotal(){
                 // Parse and validate the price input
                 // const prixDecoupeRaw = pholder.val().replace(',', '.');
                 const prixDecoupe = parseFloat(pholder);
-        
+                const prixDecoupeM = prixDecoupe / 1000;
+                const prixDecoupe2M = prixDecoupe2 / 1000;
+
                 if (!isNaN(prixDecoupe)) {
                     // Calculate the price with tax
                     let decoupePriceWithTax = 0;
                     
-                    if (is_rectangle === 'true') decoupePriceWithTax = getWithTax(prixDecoupe2 * parseFloat(idxcp_prix_de_decoupe));
-                    else decoupePriceWithTax = getWithTax(prixDecoupe * parseFloat(idxcp_prix_de_decoupe));
+                    if (is_rectangle === 'true') decoupePriceWithTax = getWithTax(prixDecoupe2M * parseFloat(idxcp_prix_de_decoupe));
+                    else decoupePriceWithTax = getWithTax(prixDecoupeM * parseFloat(idxcp_prix_de_decoupe));
         
                     if (!isNaN(decoupePriceWithTax)) {
                         total += decoupePriceWithTax;
                     }
         
                     if (is_rectangle_polissage === 'true') {
-                        const polishPriceWithTax = getWithTax(prixDecoupe * parseFloat(idxcp_prix_de_polissage));
+                        const polishPriceWithTax = getWithTax(prixDecoupeM * parseFloat(idxcp_prix_de_polissage));
         
                         if (!isNaN(polishPriceWithTax)) {
                             total += polishPriceWithTax;
                         }
 
-                        $('#p_d_c_map_1').text(`${prixDecoupe.toFixed(4)} m`);
-                        $('#price_map_5').text(`${parseFloat(idxcp_prix_de_polissage).toFixed(4)} €/mm HT`);
+                        $('#p_d_c_map_1').text(`${prixDecoupeM.toFixed(4)} m`);
+                        $('#price_map_5').text(`${parseFloat(idxcp_prix_de_polissage).toFixed(4)} €/m HT`);
                         $('#price_map_ht_5').text(`${getWithoutTax(polishPriceWithTax).toFixed(2)} €`);
                         $('#price_map_ttc_5').text(`${polishPriceWithTax.toFixed(2)} €`);
         
                     } else {
                         $('#p_d_c_map_1').text(`0.00 m`);
-                        $('#price_map_5').text(`${(parseFloat(idxcp_prix_de_polissage)).toFixed(4)} €/mm HT`);
+                        $('#price_map_5').text(`${(parseFloat(idxcp_prix_de_polissage)).toFixed(4)} €/m HT`);
                         $('#price_map_ht_5').text(`0.00 €`);
                         $('#price_map_ttc_5').text(`0.00 €`);
                     }
         
                     $('#resume_prix_de_decoupe_price').val(decoupePriceWithTax.toFixed(2));
         
-                    $('#price_map_4').text(`${(parseFloat(idxcp_prix_de_decoupe) * 1000).toFixed(2)} €/m² HT`);
+                    $('#price_map_4').text(`${parseFloat(idxcp_prix_de_decoupe).toFixed(4)} €/m HT`);
                     $('#price_map_ht_4').text(`${getWithoutTax(decoupePriceWithTax).toFixed(2)} €`);
                     $('#price_map_ttc_4').text(`${decoupePriceWithTax.toFixed(2)} €`);
                 }

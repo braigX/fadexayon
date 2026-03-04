@@ -2398,9 +2398,9 @@ class IdxrCustomProduct extends Module
                 'save' => $this->l('Enregistrer'),
                 'cancel' => $this->l('Annuler'),
                 'thickness' => $this->l('Épaisseur (mm)'),
-                'cutting' => $this->l('Découpe'),
-                'gluing' => $this->l('Collage'),
-                'polishing' => $this->l('Polissage'),
+                'cutting' => $this->l('Découpe (€/m)'),
+                'gluing' => $this->l('Collage (€/m)'),
+                'polishing' => $this->l('Polissage (€/m)'),
                 'active' => $this->l('Actif'),
                 'actions' => $this->l('Actions'),
                 'loading' => $this->l('Chargement...'),
@@ -2419,14 +2419,14 @@ class IdxrCustomProduct extends Module
                 'input' => array(
                     array(
                         'type' => 'text',
-                        'label' => $this->l('Prix de decoupe pour le rectangle sur mesure.'),
+                        'label' => $this->l('Prix de découpe pour le rectangle sur mesure (€/m).'),
                         'name' => 'idxr_prix_de_decoupe_cube',
                         'class' => 'idxr-pricing-field idxr-pricing-fixed',
                         'desc' => $this->l('Ce montant est le même pour tout les produits sur mesure.'),
                     ),
                     array(
                         'type' => 'text',
-                        'label' => $this->l('Prix de collage global (legacy)'),
+                        'label' => $this->l('Prix de collage global (legacy) (€/m)'),
                         'name' => 'prixdecollage',
                         'class' => 'idxr-pricing-field idxr-pricing-fixed',
                         'desc' => $this->l('Ce montant est conservé pour compatibilité avec les anciens calculs.'),
@@ -2488,9 +2488,9 @@ class IdxrCustomProduct extends Module
                     <thead>
                         <tr>
                             <th style="width:140px;">' . $this->l('Épaisseur (mm)') . '</th>
-                            <th style="width:140px;">' . $this->l('Découpe') . '</th>
-                            <th style="width:140px;">' . $this->l('Collage') . '</th>
-                            <th style="width:140px;">' . $this->l('Polissage') . '</th>
+                            <th style="width:140px;">' . $this->l('Découpe (€/m)') . '</th>
+                            <th style="width:140px;">' . $this->l('Collage (€/m)') . '</th>
+                            <th style="width:140px;">' . $this->l('Polissage (€/m)') . '</th>
                             <th style="width:90px;">' . $this->l('Actif') . '</th>
                             <th style="width:180px;">' . $this->l('Actions') . '</th>
                         </tr>
@@ -2508,15 +2508,15 @@ class IdxrCustomProduct extends Module
                         <input type="text" class="form-control" id="idxr-rate-thickness" style="width:110px;">
                     </div>
                     <div class="form-group" style="margin-right:8px;">
-                        <label for="idxr-rate-cut">' . $this->l('Découpe') . '</label>
+                        <label for="idxr-rate-cut">' . $this->l('Découpe (€/m)') . '</label>
                         <input type="text" class="form-control" id="idxr-rate-cut" style="width:110px;">
                     </div>
                     <div class="form-group" style="margin-right:8px;">
-                        <label for="idxr-rate-glue">' . $this->l('Collage') . '</label>
+                        <label for="idxr-rate-glue">' . $this->l('Collage (€/m)') . '</label>
                         <input type="text" class="form-control" id="idxr-rate-glue" style="width:110px;">
                     </div>
                     <div class="form-group" style="margin-right:8px;">
-                        <label for="idxr-rate-polish">' . $this->l('Polissage') . '</label>
+                        <label for="idxr-rate-polish">' . $this->l('Polissage (€/m)') . '</label>
                         <input type="text" class="form-control" id="idxr-rate-polish" style="width:110px;">
                     </div>
                     <div class="checkbox" style="margin-right:12px;">
