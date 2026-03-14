@@ -1,61 +1,69 @@
 # PrestaLoad Performance Plan
 
-Source audit: `modules/prestaload/plexi.local.test-20260314T180057.json`  
-Fetched at: `2026-03-14T18:00:57.632Z`  
-Target URL: `https://plexi.local.test/`
+Source audit: `modules/prestaload/plexi.local.test-20260314T182958.json`  
+Fetched at: `2026-03-14T18:29:58.333Z`  
+Target URL: `https://plexi.local.test/`  
+Lighthouse performance score: `55`
 
-## Audit Reliability
+## Plexi Errors
 
-- [ ] Re-run Lighthouse in a clean incognito session because the current report is invalidated by `runtimeError.code = NO_FCP`.
-- [ ] Verify why the homepage failed to paint any content during the audit before trusting FCP, LCP, TBT, CLS, Speed Index, or TTI.
-- [ ] Confirm whether the failure is caused by a PHP fatal error, a stalled backend response, a redirect loop, blocking JavaScript, or browser-only local environment behavior.
-- [ ] Capture the next run with browser console errors, PHP logs, and network waterfall alongside Lighthouse so future fixes are evidence-based.
+- [ ] Reduce initial server response time for the homepage. Lighthouse measured the root document at `9.7 s` TTFB (`server-response-time`, `document-latency-insight`).
+- [ ] Improve the homepage rendering path. Current metrics are `FCP 1.8 s`, `LCP 2.2 s`, `TTI 4.3 s`, `TBT 410 ms`, `Max Potential FID 230 ms`, and `Speed Index 8.2 s`.
+- [ ] Reduce main-thread work on local assets and page code. Lighthouse reports `3.8 s` main-thread work, with heavy script evaluation and layout (`mainthread-work-breakdown`).
+- [ ] Reduce JavaScript execution cost from Plexi-owned files, especially `themes/core.js`, `themes/modez/assets/js/theme.js`, and `js/jquery/ui/jquery-ui.min.js` (`bootup-time`, `unused-javascript`, `forced-reflow-insight`).
+- [ ] Remove or defer unused JavaScript from Plexi assets. Largest Plexi offenders include `themes/modez/assets/js/theme.js` and `js/jquery/ui/jquery-ui.min.js` (`unused-javascript`).
+- [ ] Remove or split unused CSS from Plexi assets. Largest offenders include:
+  - `themes/modez/assets/css/theme.css`
+  - `themes/modez/assets/css/custom.css`
+  - `modules/crazyelements/assets/css/frontend.min.css`
+  - `modules/crazyelements/assets/css/editor-preview.min.css`
+  - `modules/crazyelements/assets/lib/font-awesome/css/fontawesome.min.css`
+- [ ] Minify Plexi CSS that is still shipped unminified, especially:
+  - `themes/modez/assets/css/custom.css`
+  - `modules/roy_customizer/css/rt_customizer_1.css`
+  - `themes/modez/modules/ets_megamenu/views/css/megamenu.css`
+- [ ] Review JavaScript minification coverage. Lighthouse still reports `121 KiB` potential JavaScript savings (`unminified-javascript`).
+- [ ] Remove render-blocking CSS from the homepage critical path, especially:
+  - `modules/crazyelements/assets/css/frontend/css/post-page-25-1-1.css`
+  - `modules/crazyelements/assets/css/frontend/css/post-page-2-1-1.css`
+  - `modules/idxrcustomproduct/views/css/17/front_accordion.css`
+  - `modules/idxrcustomproduct/views/css/17/front.css`
+- [ ] Fix forced reflows coming from `themes/core.js`, `themes/modez/assets/js/theme.js`, `themes/modez/assets/js/custom.js`, and `modules/crazyelements/assets/js/frontend.min.js` (`forced-reflow-insight`).
+- [ ] Improve image delivery for Plexi-owned media and same-brand media currently used on the page. Top flagged images include:
+  - `www.plexi-cindar.com/img/cms/plexiglass-sur-mesure.webp`
+  - `www.plexi-cindar.com/img/cms/plexiglas sur mesure avec machine laser.webp`
+  - `www.plexi-cindar.com/img/cms/plexiglass.webp`
+  - `www.plexi-cindar.com/img/cms/polyester.webp`
+- [ ] Add explicit `width` and `height` attributes to flagged images. Lighthouse found `11` unsized images, including SVG feature icons, product-category visuals, and the local header icon `themes/modez/assets/img/user.svg` where `with=\"32\"` is misspelled instead of `width=\"32\"` (`unsized-images`).
+- [ ] Reduce total page weight. The page currently transfers `2,724 KiB`, with notable Plexi-owned payloads including:
+  - `img/cms/commandez-plaque-de-plexiglas.mp4`
+  - `themes/modez/assets/js/theme.js`
+  - large CMS images served from `www.plexi-cindar.com`
+- [ ] Add efficient cache lifetimes for Plexi-owned assets. Lighthouse reports `1,559 KiB` potential savings and shows zero cache lifetime on assets such as:
+  - `img/cms/commandez-plaque-de-plexiglas.mp4`
+  - `themes/modez/assets/js/theme.js`
+  - `js/jquery/ui/jquery-ui.min.js`
+  - `modules/roy_customizer/upload/logo-plexi.svg`
+  - local Font Awesome webfonts from `modules/crazyelements`
+- [ ] Review homepage response headers for back/forward cache compatibility. The page is blocked by `Cache-Control: no-store` on the main resource and JS-network-related responses (`bf-cache`).
+- [ ] Move local delivery away from `http/1.1` where possible. Lighthouse flagged the document and multiple local CSS assets as non-modern delivery (`modern-http-insight`).
+- [ ] Investigate the LCP path. Lighthouse identifies the homepage `<h1>` as the LCP element and attributes most delay to `TTFB 9710 ms` plus `element render delay 2568 ms` (`lcp-breakdown-insight`).
 
-## Server And Document Delivery
+## Outside Plexi Errors
 
-- [ ] Check for homepage redirect chains because Lighthouse flagged `redirects`, but the current run could not measure the chain due to `NO_FCP`.
-- [ ] Reduce main document latency and backend processing time for the homepage request (`document-latency-insight`, `server-response-time`, `network-server-latency`).
-- [ ] Review cache headers and TTL strategy for HTML, CSS, JS, fonts, and images (`cache-insight`).
-- [ ] Confirm HTTP delivery path is modern and efficient for the local stack and production stack (`modern-http-insight`).
+- [ ] Remove audit noise from browser extensions before using results as a baseline. Lighthouse captured `chrome-extension://bnjjngeaknajbdcgpfkgnonkmififhfo/src/content-script.js` in the report.
+- [ ] Re-run with a fully clean browser profile if possible. The report still contains the warning: `There may be stored data affecting loading performance in this location: IndexedDB.`
+- [ ] Reduce or delay the Charla chat widget. It is one of the heaviest third-party offenders:
+  - `https://app.getcharla.com/widget/widget.js`
+  - also opens WebSocket-related behavior that hurts `bf-cache`
+- [ ] Reduce Google Tag Manager / Google Ads script cost. Lighthouse flags:
+  - `https://www.googletagmanager.com/gtag/js?id=G-QLZ7D75TBJ`
+  - `https://www.googletagmanager.com/gtag/js?id=AW-996312213`
+  - `https://www.googletagmanager.com/gtag/js?id=AW-996312213&cx=c&gtm=4e63b1`
+- [ ] Reduce Google Sign-In / Google API payload on the homepage:
+  - `https://accounts.google.com/gsi/client`
+- [ ] Reduce Google Fonts render-blocking and font-display impact from:
+  - `fonts.googleapis.com`
+  - `fonts.gstatic.com`
+- [ ] Review whether externally hosted same-brand assets on `www.plexi-cindar.com` should be considered third-party for this environment, because they add cross-origin requests and are flagged separately from `plexi.local.test`.
 
-## CSS, JavaScript, And Main Thread
-
-- [ ] Remove render-blocking CSS and JavaScript from the initial homepage render (`render-blocking-insight`).
-- [ ] Reduce unused CSS shipped to the homepage (`unused-css-rules`).
-- [ ] Reduce unused JavaScript and delay non-critical bundles (`unused-javascript`).
-- [ ] Minify CSS assets that are still served unminified (`unminified-css`).
-- [ ] Minify JavaScript assets that are still served unminified (`unminified-javascript`).
-- [ ] Cut JavaScript boot time and execution cost on the main thread (`bootup-time`, `mainthread-work-breakdown`, `long-tasks`).
-- [ ] Remove duplicated JavaScript payloads and overlapping libraries (`duplicated-javascript-insight`).
-- [ ] Eliminate legacy JavaScript sent to modern browsers (`legacy-javascript-insight`).
-- [ ] Investigate forced synchronous layouts and reflows triggered during page startup (`forced-reflow-insight`).
-
-## Images, Fonts, And Layout Stability
-
-- [ ] Improve image delivery strategy for the homepage hero, category, and product imagery (`image-delivery-insight`).
-- [ ] Add explicit `width` and `height` attributes to rendered images to reduce CLS (`unsized-images`).
-- [ ] Identify and fix the largest layout shift culprits (`cls-culprits-insight`, `layout-shifts`).
-- [ ] Ensure the LCP element is discoverable early and not lazy-loaded incorrectly (`lcp-breakdown-insight`, `lcp-discovery-insight`).
-- [ ] Use `font-display` and audit webfont loading behavior (`font-display-insight`).
-- [ ] Remove non-composited animations that can increase jank and layout instability (`non-composited-animations`).
-
-## Page Structure And Third Parties
-
-- [ ] Reduce DOM size on the homepage if builders, sliders, or mega menus are inflating the initial render tree (`dom-size-insight`).
-- [ ] Audit third-party scripts, widgets, trackers, and embeds for startup cost (`third-parties-insight`).
-- [ ] Improve back/forward cache compatibility to speed up repeat navigations (`bf-cache`).
-- [ ] Validate mobile viewport configuration and front theme behavior on small screens (`viewport-insight`).
-
-## Instrumentation And Verification
-
-- [ ] Add repeatable before/after benchmarks for homepage TTFB, HTML size, total transferred bytes, JS execution time, and CLS once the page paints again.
-- [ ] Add User Timing markers around critical Prestashop render phases if deeper profiling is needed (`user-timings`).
-- [ ] After each optimization batch, re-run Lighthouse and keep the raw JSON beside this plan for traceability.
-
-## Module Execution Track
-
-- [x] Create an installable Prestashop module skeleton in `modules/prestaload`.
-- [ ] Add asset-governance logic inside the module to disable or defer non-critical front-office assets.
-- [ ] Add HTML post-processing only if targeted fixes cannot be achieved at the theme or module source level.
-- [ ] Add safe configuration toggles so each optimization can be enabled progressively and rolled back independently.
-- [ ] Document every implemented optimization in this file as items move from unchecked to checked.
