@@ -2,8 +2,8 @@
 <module>
 	<name>prestaload</name>
 	<displayName><![CDATA[PrestaLoad]]></displayName>
-	<version><![CDATA[0.1.0]]></version>
-	<description><![CDATA[Performance remediation workspace for Lighthouse-driven Prestashop optimization.]]></description>
+	<version><![CDATA[0.4.0]]></version>
+	<description><![CDATA[Minimal placeholder module.]]></description>
 	<author><![CDATA[Acrosoft]]></author>
 	<is_configurable>1</is_configurable>
 	<need_instance>0</need_instance>
