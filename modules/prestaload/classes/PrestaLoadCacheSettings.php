@@ -58,6 +58,11 @@ class PrestaLoadCacheSettings
         return $this->modulePath . '/cache/pages';
     }
 
+    public function getLogFile()
+    {
+        return $this->modulePath . '/cache/prestaload-requests.log';
+    }
+
     public function updateFromRequest()
     {
         $enabled = (int) Tools::getValue(self::CONFIG_ENABLED, 0);

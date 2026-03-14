@@ -19,44 +19,54 @@ class PrestaLoadCacheEligibility
      */
     public function isCacheable(array $dispatcherParams = [])
     {
+        $decision = $this->getDecision($dispatcherParams);
+
+        return $decision['cacheable'];
+    }
+
+    /**
+     * Returns the cacheability decision with a human-readable reason.
+     */
+    public function getDecision(array $dispatcherParams = [])
+    {
         if (!$this->settings->isEnabled()) {
-            return false;
+            return ['cacheable' => false, 'reason' => 'cache-disabled', 'controller' => $this->getControllerName($dispatcherParams)];
         }
 
         if (_PS_MODE_DEV_ || _PS_DEBUG_PROFILING_) {
-            return false;
+            return ['cacheable' => false, 'reason' => 'debug-mode', 'controller' => $this->getControllerName($dispatcherParams)];
         }
 
         if (!isset($_SERVER['REQUEST_METHOD']) || Tools::strtoupper((string) $_SERVER['REQUEST_METHOD']) !== 'GET') {
-            return false;
+            return ['cacheable' => false, 'reason' => 'non-get-request', 'controller' => $this->getControllerName($dispatcherParams)];
         }
 
         if ((bool) Tools::getValue('ajax', false)) {
-            return false;
+            return ['cacheable' => false, 'reason' => 'ajax-request', 'controller' => $this->getControllerName($dispatcherParams)];
         }
 
         if (Tools::getValue('fc') === 'module') {
-            return false;
+            return ['cacheable' => false, 'reason' => 'module-front-controller', 'controller' => $this->getControllerName($dispatcherParams)];
         }
 
         if (!empty($dispatcherParams) && (!isset($dispatcherParams['controller_type']) || Dispatcher::FC_FRONT !== $dispatcherParams['controller_type'])) {
-            return false;
+            return ['cacheable' => false, 'reason' => 'non-front-controller', 'controller' => $this->getControllerName($dispatcherParams)];
         }
 
         if ($this->isLoggedCustomer()) {
-            return false;
+            return ['cacheable' => false, 'reason' => 'logged-customer', 'controller' => $this->getControllerName($dispatcherParams)];
         }
 
         if ($this->hasCartProducts()) {
-            return false;
+            return ['cacheable' => false, 'reason' => 'cart-not-empty', 'controller' => $this->getControllerName($dispatcherParams)];
         }
 
         $controllerName = $this->getControllerName($dispatcherParams);
         if ($controllerName === '' || !in_array($controllerName, $this->settings->getAllowedControllers(), true)) {
-            return false;
+            return ['cacheable' => false, 'reason' => 'controller-not-allowed', 'controller' => $controllerName];
         }
 
-        return true;
+        return ['cacheable' => true, 'reason' => 'cacheable', 'controller' => $controllerName];
     }
 
     public function getControllerName(array $dispatcherParams = [])

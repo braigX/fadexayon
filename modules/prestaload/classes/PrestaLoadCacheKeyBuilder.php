@@ -12,7 +12,10 @@ class PrestaLoadCacheKeyBuilder
         $this->context = $context;
     }
 
-    public function buildKey()
+    /**
+     * Returns the exact dimensions the cache key relies on plus the final hash.
+     */
+    public function buildContext()
     {
         $parts = [
             'scheme' => $this->isSecureRequest() ? 'https' : 'http',
@@ -25,7 +28,17 @@ class PrestaLoadCacheKeyBuilder
             'device' => method_exists($this->context, 'getDevice') ? (string) $this->context->getDevice() : 'desktop',
         ];
 
-        return sha1(json_encode($parts));
+        return [
+            'parts' => $parts,
+            'key' => sha1(json_encode($parts)),
+        ];
+    }
+
+    public function buildKey()
+    {
+        $context = $this->buildContext();
+
+        return $context['key'];
     }
 
     private function isSecureRequest()

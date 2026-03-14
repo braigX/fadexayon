@@ -10,19 +10,23 @@ class PrestaLoadPageCache
     private $eligibility;
     private $keyBuilder;
     private $store;
+    private $logger;
+    private $requestCacheContext;
 
     public function __construct(
         Context $context,
         PrestaLoadCacheSettings $settings,
         PrestaLoadCacheEligibility $eligibility,
         PrestaLoadCacheKeyBuilder $keyBuilder,
-        PrestaLoadCacheStore $store
+        PrestaLoadCacheStore $store,
+        PrestaLoadCacheLogger $logger
     ) {
         $this->context = $context;
         $this->settings = $settings;
         $this->eligibility = $eligibility;
         $this->keyBuilder = $keyBuilder;
         $this->store = $store;
+        $this->logger = $logger;
     }
 
     /**
@@ -30,14 +34,39 @@ class PrestaLoadPageCache
      */
     public function maybeServe(array $dispatcherParams)
     {
-        if (!$this->eligibility->isCacheable($dispatcherParams)) {
+        $decision = $this->eligibility->getDecision($dispatcherParams);
+        $cacheContext = $this->getRequestCacheContext();
+        $key = $cacheContext['key'];
+
+        if (!$this->shouldLogOrHandleFrontRequest($dispatcherParams)) {
             return;
         }
 
-        $payload = $this->store->get($this->keyBuilder->buildKey());
-        if ($payload === null) {
+        if (!$decision['cacheable']) {
             return;
         }
+
+        $payload = $this->store->get($key);
+        if ($payload === null) {
+            $this->logger->log([
+                'cache_key' => $key,
+                'cache_parts' => $cacheContext['parts'],
+                'controller' => $decision['controller'],
+                'cacheable' => true,
+                'reason' => $decision['reason'],
+                'result' => 'miss',
+            ]);
+            return;
+        }
+
+        $this->logger->log([
+            'cache_key' => $key,
+            'cache_parts' => $cacheContext['parts'],
+            'controller' => $decision['controller'],
+            'cacheable' => true,
+            'reason' => $decision['reason'],
+            'result' => 'hit',
+        ]);
 
         while (ob_get_level() > 0) {
             @ob_end_clean();
@@ -61,7 +90,15 @@ class PrestaLoadPageCache
      */
     public function maybeStore($html)
     {
-        if (!$this->eligibility->isCacheable()) {
+        $decision = $this->eligibility->getDecision();
+        $cacheContext = $this->getRequestCacheContext();
+        $key = $cacheContext['key'];
+
+        if (!$this->isCurrentControllerFront()) {
+            return;
+        }
+
+        if (!$decision['cacheable']) {
             return;
         }
 
@@ -76,12 +113,22 @@ class PrestaLoadPageCache
 
         $headers = $this->filterHeaders(headers_list());
 
-        $this->store->put($this->keyBuilder->buildKey(), [
+        $stored = $this->store->put($key, [
             'body' => $html,
             'headers' => $headers,
             'status_code' => $statusCode ?: 200,
             'controller' => $this->eligibility->getControllerName(),
         ], $this->settings->getTtl());
+
+        $this->logger->log([
+            'cache_key' => $key,
+            'cache_parts' => $cacheContext['parts'],
+            'controller' => $decision['controller'],
+            'cacheable' => true,
+            'reason' => $decision['reason'],
+            'result' => $stored ? 'store' : 'store-failed',
+            'status_code' => $statusCode ?: 200,
+        ]);
 
         if (!headers_sent()) {
             header('X-PrestaLoad-Cache: MISS-STORE');
@@ -139,5 +186,30 @@ class PrestaLoadPageCache
         foreach ($headers as $header) {
             header($header, true);
         }
+    }
+
+    /**
+     * The cache module is only concerned with front-office requests.
+     */
+    private function shouldLogOrHandleFrontRequest(array $dispatcherParams)
+    {
+        return isset($dispatcherParams['controller_type']) && Dispatcher::FC_FRONT === $dispatcherParams['controller_type'];
+    }
+
+    private function isCurrentControllerFront()
+    {
+        return isset($this->context->controller) && is_object($this->context->controller) && is_subclass_of($this->context->controller, 'FrontController');
+    }
+
+    /**
+     * The cache key must be computed once per request and reused in both hooks.
+     */
+    private function getRequestCacheContext()
+    {
+        if ($this->requestCacheContext === null) {
+            $this->requestCacheContext = $this->keyBuilder->buildContext();
+        }
+
+        return $this->requestCacheContext;
     }
 }

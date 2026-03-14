@@ -12,6 +12,7 @@ if (!defined('_PS_VERSION_')) {
 require_once __DIR__ . '/classes/PrestaLoadCacheSettings.php';
 require_once __DIR__ . '/classes/PrestaLoadCacheEligibility.php';
 require_once __DIR__ . '/classes/PrestaLoadCacheKeyBuilder.php';
+require_once __DIR__ . '/classes/PrestaLoadCacheLogger.php';
 require_once __DIR__ . '/classes/PrestaLoadCacheStore.php';
 require_once __DIR__ . '/classes/PrestaLoadPageCache.php';
 
@@ -152,9 +153,10 @@ class PrestaLoad extends Module
     {
         $eligibility = new PrestaLoadCacheEligibility($this->context, $this->settings);
         $keyBuilder = new PrestaLoadCacheKeyBuilder($this->context);
+        $logger = new PrestaLoadCacheLogger($this->settings->getLogFile());
         $store = new PrestaLoadCacheStore($this->settings->getCacheDirectory());
 
-        return new PrestaLoadPageCache($this->context, $this->settings, $eligibility, $keyBuilder, $store);
+        return new PrestaLoadPageCache($this->context, $this->settings, $eligibility, $keyBuilder, $store, $logger);
     }
 
     private function registerHooks(array $hooks)
