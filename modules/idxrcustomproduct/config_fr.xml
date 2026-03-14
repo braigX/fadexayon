@@ -2,7 +2,7 @@
 <module>
     <name>idxrcustomproduct</name>
     <displayName><![CDATA[Produit personnalis&eacute;]]></displayName>
-    <version><![CDATA[1.7.5]]></version>
+    <version><![CDATA[1.7.7]]></version>
     <description><![CDATA[Cr&eacute;er des options de personnalisation pour des produits personnalisables]]></description>
     <author><![CDATA[Innovadeluxe]]></author>
     <tab><![CDATA[checkout]]></tab>
