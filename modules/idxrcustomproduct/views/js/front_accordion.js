@@ -3566,110 +3566,86 @@ const CustomizationModule = (() => {
                 type
             );
         
-            // Add dashed lines and text for each radius if any radius is greater than 1
-            if (scaledTopLeftRadius > 1) {
-                // Top-left corner dashed lines
-                const cornerX1 = adjustedX + scaledTopLeftRadius;
-                const cornerY1 = adjustedY + scaledTopLeftRadius;
-        
-                shaper.line(cornerX1, cornerY1, cornerX1 - scaledTopLeftRadius - 10, cornerY1).attr({
-                    stroke: "green",
-                    "stroke-width": 1,
-                    "stroke-dasharray": "2, 2"
+            function drawOutsideRadiusDimension(radiusValue, scaledRadiusValue, centerX, centerY, align, side, cornerX) {
+                if (scaledRadiusValue <= 1) {
+                    return;
+                }
+
+                const connectorOffset = 24;
+                const labelLineLength = Math.max(scaledRadiusValue + 18, 42);
+                const dimensionY = side === 'top'
+                    ? adjustedY - connectorOffset
+                    : adjustedY + scaledHeight + connectorOffset;
+                const startX = align === 'left'
+                    ? centerX - labelLineLength
+                    : centerX;
+                const endX = align === 'left'
+                    ? centerX
+                    : centerX + labelLineLength;
+
+                shaper.line(centerX, centerY, centerX, dimensionY).attr({
+                    stroke: '#9ca3af',
+                    'stroke-width': 1,
+                    'stroke-dasharray': '3, 3'
                 });
-                shaper.line(cornerX1, adjustedY, cornerX1, cornerY1).attr({
-                    stroke: "green",
-                    "stroke-width": 1,
-                    "stroke-dasharray": "2, 2"
+                shaper.line(cornerX, centerY, centerX, centerY).attr({
+                    stroke: '#9ca3af',
+                    'stroke-width': 1,
+                    'stroke-dasharray': '3, 3'
                 });
-        
+
                 drawDimensionWithText(
-                    cornerX1 - scaledTopLeftRadius - 10, cornerY1,
-                    cornerX1, cornerY1,
+                    startX,
+                    dimensionY,
+                    endX,
+                    dimensionY,
                     `${idxr_tr_radius}: `,
-                    `${topLeftRadius} mm`,
+                    `${radiusValue} mm`,
                     'horizontal',
-                    2
+                    2,
+                    side === 'bottom' ? 'below' : 'auto'
                 );
             }
-        
-            if (scaledTopRightRadius > 1) {
-                // Top-right corner dashed lines
-                const cornerX2 = adjustedX + scaledWidth - scaledTopRightRadius;
-                const cornerY2 = adjustedY + scaledTopRightRadius;
-        
-                shaper.line(cornerX2, cornerY2, cornerX2 + scaledTopRightRadius + 10, cornerY2).attr({
-                    stroke: "red",
-                    "stroke-width": 1,
-                    "stroke-dasharray": "2, 2"
-                });
-                shaper.line(cornerX2, adjustedY, cornerX2, cornerY2).attr({
-                    stroke: "red",
-                    "stroke-width": 1,
-                    "stroke-dasharray": "2, 2"
-                });
-        
-                drawDimensionWithText(
-                    cornerX2 + scaledTopRightRadius + 10, cornerY2,
-                    cornerX2, cornerY2,
-                    `${idxr_tr_radius}: `,
-                    `${topRightRadius} mm`,
-                    'horizontal',
-                    2
-                );
-            }
-        
-            if (scaledBottomLeftRadius > 1) {
-                // Bottom-left corner dashed lines
-                const cornerX3 = adjustedX + scaledBottomLeftRadius;
-                const cornerY3 = adjustedY + scaledHeight - scaledBottomLeftRadius;
-        
-                shaper.line(cornerX3, cornerY3, cornerX3 - scaledBottomLeftRadius - 10, cornerY3).attr({
-                    stroke: "red",
-                    "stroke-width": 1,
-                    "stroke-dasharray": "2, 2"
-                });
-                shaper.line(cornerX3, adjustedY + scaledHeight, cornerX3, cornerY3).attr({
-                    stroke: "red",
-                    "stroke-width": 1,
-                    "stroke-dasharray": "2, 2"
-                });
-        
-                drawDimensionWithText(
-                    cornerX3 - scaledBottomLeftRadius - 10, cornerY3,
-                    cornerX3, cornerY3,
-                    `${idxr_tr_radius}: `,
-                    `${bottomLeftRadius} mm`,
-                    'horizontal',
-                    2
-                );
-            }
-        
-            if (scaledBottomRightRadius > 1) {
-                // Bottom-right corner dashed lines
-                const cornerX4 = adjustedX + scaledWidth - scaledBottomRightRadius;
-                const cornerY4 = adjustedY + scaledHeight - scaledBottomRightRadius;
-        
-                shaper.line(cornerX4, cornerY4, cornerX4 + scaledBottomRightRadius + 10, cornerY4).attr({
-                    stroke: "red",
-                    "stroke-width": 1,
-                    "stroke-dasharray": "2, 2"
-                });
-                shaper.line(cornerX4, adjustedY + scaledHeight, cornerX4, cornerY4).attr({
-                    stroke: "red",
-                    "stroke-width": 1,
-                    "stroke-dasharray": "2, 2"
-                });
-        
-                drawDimensionWithText(
-                    cornerX4 + scaledBottomRightRadius + 10, cornerY4,
-                    cornerX4, cornerY4,
-                    `${idxr_tr_radius}: `,
-                    `${bottomRightRadius} mm`,
-                    'horizontal',
-                    2
-                );
-            }
+
+            drawOutsideRadiusDimension(
+                topLeftRadius,
+                scaledTopLeftRadius,
+                adjustedX + scaledTopLeftRadius,
+                adjustedY + scaledTopLeftRadius,
+                'left',
+                'top',
+                adjustedX
+            );
+
+            drawOutsideRadiusDimension(
+                topRightRadius,
+                scaledTopRightRadius,
+                adjustedX + scaledWidth - scaledTopRightRadius,
+                adjustedY + scaledTopRightRadius,
+                'right',
+                'top',
+                adjustedX + scaledWidth
+            );
+
+            drawOutsideRadiusDimension(
+                bottomLeftRadius,
+                scaledBottomLeftRadius,
+                adjustedX + scaledBottomLeftRadius,
+                adjustedY + scaledHeight - scaledBottomLeftRadius,
+                'left',
+                'bottom',
+                adjustedX
+            );
+
+            drawOutsideRadiusDimension(
+                bottomRightRadius,
+                scaledBottomRightRadius,
+                adjustedX + scaledWidth - scaledBottomRightRadius,
+                adjustedY + scaledHeight - scaledBottomRightRadius,
+                'right',
+                'bottom',
+                adjustedX + scaledWidth
+            );
         }
         
         function circle(mainRadius, type = 1, xx = 0, yy = 0) {
