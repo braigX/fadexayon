@@ -21,6 +21,11 @@ class PrestaLoadFontOptimizer
     private const FONT_EXTENSIONS_PATTERN = '/\.(woff2|woff|ttf|otf|eot)(\?|#|$)/i';
 
     /**
+     * Matches Google Fonts stylesheet tags so we can consolidate them safely.
+     */
+    private const GOOGLE_FONTS_LINK_PATTERN = '/<link\b[^>]*rel=(["\'])stylesheet\1[^>]*href=(["\'])([^"\']+)\2[^>]*>/i';
+
+    /**
      * Module settings control whether optimization is active.
      *
      * @var PrestaLoadCacheSettings
@@ -51,6 +56,7 @@ class PrestaLoadFontOptimizer
 
         $fontOrigins = [];
         $optimizedHtml = $this->normalizeGoogleFontStylesheets($html, $fontOrigins);
+        $optimizedHtml = $this->consolidateGoogleFontStylesheets($optimizedHtml, $fontOrigins);
 
         return $this->injectPreconnectHints($optimizedHtml, $fontOrigins);
     }
@@ -93,6 +99,144 @@ class PrestaLoadFontOptimizer
 
             return $tag;
         }, $html);
+    }
+
+    /**
+     * Combines duplicate Google text-font stylesheet requests into a smaller set
+     * of canonical requests. This reduces render-blocking while staying generic.
+     *
+     * Current scope:
+     * - merge classic `/css?family=...` requests into one canonical URL
+     * - deduplicate exact `/css2?...` requests
+     * - leave non-Google font CSS untouched
+     */
+    private function consolidateGoogleFontStylesheets($html, array &$fontOrigins)
+    {
+        if (!preg_match_all(self::GOOGLE_FONTS_LINK_PATTERN, $html, $matches, PREG_SET_ORDER)) {
+            return $html;
+        }
+
+        $collectedCssFamilies = [];
+        $collectedCss2Urls = [];
+        $matchedGoogleTags = [];
+
+        foreach ($matches as $match) {
+            $tag = $match[0];
+            $href = html_entity_decode($match[3], ENT_QUOTES, 'UTF-8');
+            $urlParts = @parse_url($href);
+
+            if (!is_array($urlParts) || empty($urlParts['host'])) {
+                continue;
+            }
+
+            if (Tools::strtolower((string) $urlParts['host']) !== self::GOOGLE_FONTS_HOST) {
+                continue;
+            }
+
+            $normalizedHref = $this->ensureDisplaySwap($href);
+            $matchedGoogleTags[$tag] = true;
+            $fontOrigins['https://' . self::GOOGLE_FONTS_HOST] = true;
+            $fontOrigins['https://' . self::GOOGLE_STATIC_HOST] = true;
+
+            if ($this->isClassicGoogleFontsRequest($urlParts)) {
+                foreach ($this->extractClassicFamilies($normalizedHref) as $family) {
+                    $collectedCssFamilies[$family] = true;
+                }
+                continue;
+            }
+
+            $collectedCss2Urls[$normalizedHref] = true;
+        }
+
+        if (empty($matchedGoogleTags)) {
+            return $html;
+        }
+
+        $replacementTags = [];
+
+        if (!empty($collectedCssFamilies)) {
+            $replacementTags[] = '<link rel="stylesheet" href="'
+                . htmlspecialchars($this->buildClassicGoogleFontsUrl(array_keys($collectedCssFamilies)), ENT_QUOTES, 'UTF-8')
+                . '">';
+        }
+
+        foreach (array_keys($collectedCss2Urls) as $css2Url) {
+            $replacementTags[] = '<link rel="stylesheet" href="' . htmlspecialchars($css2Url, ENT_QUOTES, 'UTF-8') . '">';
+        }
+
+        $injectedBlock = implode("\n", $replacementTags);
+        $firstReplacementDone = false;
+
+        $html = preg_replace_callback(self::GOOGLE_FONTS_LINK_PATTERN, function ($match) use ($matchedGoogleTags, $injectedBlock, &$firstReplacementDone) {
+            $tag = $match[0];
+
+            if (!isset($matchedGoogleTags[$tag])) {
+                return $tag;
+            }
+
+            if ($firstReplacementDone) {
+                return '';
+            }
+
+            $firstReplacementDone = true;
+
+            return $injectedBlock;
+        }, $html);
+
+        return $html;
+    }
+
+    /**
+     * The legacy Google Fonts endpoint uses one `family` query value. Multiple
+     * families can be merged with the pipe separator.
+     */
+    private function isClassicGoogleFontsRequest(array $urlParts)
+    {
+        $path = isset($urlParts['path']) ? $urlParts['path'] : '';
+
+        return $path === '/css';
+    }
+
+    /**
+     * Extracts classic `family=` values while preserving names as requested.
+     */
+    private function extractClassicFamilies($href)
+    {
+        $parts = @parse_url($href);
+        if (!is_array($parts) || empty($parts['query'])) {
+            return [];
+        }
+
+        $families = [];
+        foreach (explode('&', (string) $parts['query']) as $pair) {
+            $segments = explode('=', $pair, 2);
+            if (count($segments) !== 2 || $segments[0] !== 'family') {
+                continue;
+            }
+
+            foreach (explode('|', rawurldecode($segments[1])) as $family) {
+                $family = trim((string) $family);
+                if ($family === '') {
+                    continue;
+                }
+
+                $families[$family] = true;
+            }
+        }
+
+        return array_keys($families);
+    }
+
+    /**
+     * Builds one canonical classic Google Fonts request from multiple families.
+     */
+    private function buildClassicGoogleFontsUrl(array $families)
+    {
+        sort($families, SORT_NATURAL | SORT_FLAG_CASE);
+
+        return 'https://' . self::GOOGLE_FONTS_HOST . '/css?family='
+            . rawurlencode(implode('|', $families))
+            . '&display=swap';
     }
 
     /**
