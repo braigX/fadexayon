@@ -2410,12 +2410,20 @@ const CustomizationModule = (() => {
                 return;
             }
 
-            const axisExtension = Math.max(18, Math.min(34, Math.max(bbox.width, bbox.height) * 0.08));
+            const axisExtension = Math.max(18, Math.min(34, Math.max(bbox.width, bbox.height) * 0.08)) + 12;
             const labelOffset = 12;
             const originX = bbox.x;
             const originY = bbox.y;
-            const endX = bbox.x2 + axisExtension;
-            const endY = bbox.y2 + axisExtension;
+            let axisWidth = bbox.width;
+            let axisHeight = bbox.height;
+
+            if (shapeSettings.type === 1) {
+                axisWidth = scale(getValue('text_3', 200));
+                axisHeight = scale(getValue('text_4', 100));
+            }
+
+            const endX = originX + axisWidth + axisExtension;
+            const endY = originY + axisHeight + axisExtension;
             const axisColor = '#6b7280';
             const axisAttrs = {
                 stroke: axisColor,
@@ -2452,7 +2460,7 @@ const CustomizationModule = (() => {
             });
             drawAxisArrow(originX, originY, endX, originY);
             drawAxisArrow(originX, originY, originX, endY);
-            arrowsGroup.text(endX + labelOffset, originY + 3, 'X').attr(labelAttrs);
+            arrowsGroup.text(endX, originY - labelOffset + 2, 'X').attr(labelAttrs);
             arrowsGroup.text(originX - labelOffset, endY + 3, 'Y').attr(labelAttrs);
         }
 
