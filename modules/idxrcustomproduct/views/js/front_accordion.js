@@ -3577,16 +3577,11 @@ const CustomizationModule = (() => {
                     strokeDasharray: "1, 1"
                 };
                 const connectorOffset = offset * 2;
-                const labelLineLength = Math.max(scaledRadiusValue + 18, 42);
                 const dimensionY = side === 'top'
                     ? adjustedY - connectorOffset
                     : adjustedY + scaledHeight + connectorOffset;
-                const startX = align === 'left'
-                    ? centerX - labelLineLength
-                    : centerX;
-                const endX = align === 'left'
-                    ? centerX
-                    : centerX + labelLineLength;
+                const startX = align === 'left' ? cornerX : centerX;
+                const endX = align === 'left' ? centerX : cornerX;
 
                 drawDimensionWithText(
                     startX,
