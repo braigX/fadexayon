@@ -2141,7 +2141,25 @@ class IdxrCustomProduct extends Module
                     'icon' => 'icon-cogs'
                 ),
                 'input' => array(
-                    
+                    array(
+                        'type' => 'switch',
+                        'label' => $this->l('Activer le mode développement du SVG'),
+                        'name' => 'front_accordion_dev',
+                        'is_bool' => true,
+                        'values' => array(
+                            array(
+                                'id' => 'front_accordion_dev_on',
+                                'value' => 1,
+                                'label' => $this->l('Yes')
+                            ),
+                            array(
+                                'id' => 'front_accordion_dev_off',
+                                'value' => 0,
+                                'label' => $this->l('No')
+                            )
+                        ),
+                        'desc' => $this->l('Choisissez Oui pour utiliser le mode développement dans `front_accordion.js`. Choisissez Non pour rester en production.')
+                    ),
                     array(
                         'type' => 'text',
                         'label' => $this->l('Afficher les déclinaisons des produits :'),
@@ -2236,25 +2254,6 @@ class IdxrCustomProduct extends Module
                             )
                         ),
                         'desc' => $this->l('Show save customization and saved customizations product in a new section in customer account')
-                    ),
-                    array(
-                        'type' => 'switch',
-                        'label' => $this->l('Activer le mode développement du SVG'),
-                        'name' => 'front_accordion_dev',
-                        'is_bool' => true,
-                        'values' => array(
-                            array(
-                                'id' => 'front_accordion_dev_on',
-                                'value' => 1,
-                                'label' => $this->l('Yes')
-                            ),
-                            array(
-                                'id' => 'front_accordion_dev_off',
-                                'value' => 0,
-                                'label' => $this->l('No')
-                            )
-                        ),
-                        'desc' => $this->l('Choisissez Oui pour utiliser le mode développement dans `front_accordion.js`. Choisissez Non pour rester en production.')
                     ),
                     array(
                         'type' => 'switch',
