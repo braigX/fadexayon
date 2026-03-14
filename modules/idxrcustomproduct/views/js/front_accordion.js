@@ -2,8 +2,7 @@
 var CustomizationModuleStarted = false;
 const CustomizationModule = (() => {
 
-    const invirement = 'production';
-    // const invirement = 'development';
+    const invirement = window.idxr_front_accordion_environment || 'production';
 
     var svg, shapeGroup;
     var suppressCutInternalDimensions = false;
@@ -1673,6 +1672,7 @@ const CustomizationModule = (() => {
         }
 
         function createCollapsibleTable() {
+            $('#fixedTable').remove();
             // Main container for the fixed table
             const $fixedTable = $('<div></div>').css({
                 position: 'fixed',
@@ -1760,6 +1760,7 @@ const CustomizationModule = (() => {
         }
 
         function createCollapsibleTable2() {
+            $('#fixedTable').remove();
             // Main container for the fixed table
             const $fixedTable = $('<div></div>').css({
                 position: 'fixed',
@@ -2558,12 +2559,75 @@ const CustomizationModule = (() => {
         var extraInfo = drow(shapeSettings.type);
         holes(holesSettings.type, extraInfo);
         cut(cutSettings.type);
+        drawReferenceAxes();
         scheduleFitViewBox();
 
         function calculateScaleFactor(dimension, target = 400) {
             const maxDimension = Math.max(...dimension);
             const targetSize = target;
             return maxDimension == 0 ? 1 : targetSize / maxDimension;
+        }
+
+        function drawReferenceAxes() {
+            if (!shapeGroup) {
+                return;
+            }
+
+            let bbox;
+            try {
+                bbox = shapeGroup.getBBox();
+            } catch (e) {
+                return;
+            }
+
+            if (!bbox || !isFinite(bbox.x) || !isFinite(bbox.y) || !isFinite(bbox.x2) || !isFinite(bbox.y2)) {
+                return;
+            }
+
+            const axisExtension = Math.max(18, Math.min(34, Math.max(bbox.width, bbox.height) * 0.08));
+            const labelOffset = 12;
+            const originX = bbox.x;
+            const originY = bbox.y;
+            const endX = bbox.x2 + axisExtension;
+            const endY = bbox.y2 + axisExtension;
+            const axisColor = '#6b7280';
+            const axisAttrs = {
+                stroke: axisColor,
+                strokeWidth: 1.2,
+            };
+            const labelAttrs = {
+                'font-size': 10,
+                'font-weight': 'bold',
+                fill: axisColor,
+                'text-anchor': 'middle'
+            };
+
+            function drawAxisArrow(x1, y1, x2, y2) {
+                const arrowLength = 5;
+                const angle = Math.atan2(y2 - y1, x2 - x1);
+                arrowsGroup.line(x1, y1, x2, y2).attr(axisAttrs);
+                arrowsGroup.line(
+                    x2,
+                    y2,
+                    x2 - arrowLength * Math.cos(angle - Math.PI / 6),
+                    y2 - arrowLength * Math.sin(angle - Math.PI / 6)
+                ).attr(axisAttrs);
+                arrowsGroup.line(
+                    x2,
+                    y2,
+                    x2 - arrowLength * Math.cos(angle + Math.PI / 6),
+                    y2 - arrowLength * Math.sin(angle + Math.PI / 6)
+                ).attr(axisAttrs);
+            }
+
+            arrowsGroup.circle(originX, originY, 2).attr({
+                fill: axisColor,
+                stroke: axisColor
+            });
+            drawAxisArrow(originX, originY, endX, originY);
+            drawAxisArrow(originX, originY, originX, endY);
+            arrowsGroup.text(endX + labelOffset, originY + 3, 'X').attr(labelAttrs);
+            arrowsGroup.text(originX - labelOffset, endY + 3, 'Y').attr(labelAttrs);
         }
 
         function mainAttrs(type = 1) {
