@@ -15,6 +15,7 @@ require_once __DIR__ . '/classes/PrestaLoadCacheKeyBuilder.php';
 require_once __DIR__ . '/classes/PrestaLoadCacheLogger.php';
 require_once __DIR__ . '/classes/PrestaLoadCacheStore.php';
 require_once __DIR__ . '/classes/PrestaLoadPageCache.php';
+require_once __DIR__ . '/classes/PrestaLoadFontOptimizer.php';
 
 class PrestaLoad extends Module
 {
@@ -106,6 +107,7 @@ class PrestaLoad extends Module
 
         if (Tools::isSubmit('submitPrestaLoadSettings')) {
             $this->settings->updateFromRequest();
+            $this->pageCache->clear();
             $output .= $this->displayConfirmation($this->trans('Settings updated.', [], 'Admin.Notifications.Success'));
         }
 
@@ -136,6 +138,12 @@ class PrestaLoad extends Module
     public function hookActionOutputHTMLBefore($params)
     {
         $html = isset($params['html']) ? $params['html'] : '';
+        $html = $this->pageCache->optimizeHtml($html);
+
+        if (is_array($params) && array_key_exists('html', $params)) {
+            $params['html'] = $html;
+        }
+
         $this->pageCache->maybeStore($html);
     }
 
@@ -155,8 +163,9 @@ class PrestaLoad extends Module
         $keyBuilder = new PrestaLoadCacheKeyBuilder($this->context);
         $logger = new PrestaLoadCacheLogger($this->settings->getLogFile());
         $store = new PrestaLoadCacheStore($this->settings->getCacheDirectory());
+        $fontOptimizer = new PrestaLoadFontOptimizer($this->settings);
 
-        return new PrestaLoadPageCache($this->context, $this->settings, $eligibility, $keyBuilder, $store, $logger);
+        return new PrestaLoadPageCache($this->context, $this->settings, $eligibility, $keyBuilder, $store, $logger, $fontOptimizer);
     }
 
     private function registerHooks(array $hooks)
@@ -216,11 +225,22 @@ class PrestaLoad extends Module
                         'desc' => 'Only anonymous GET requests can be cached.',
                     ],
                     [
+                        'type' => 'switch',
+                        'label' => 'Optimize fonts',
+                        'name' => PrestaLoadCacheSettings::CONFIG_FONT_OPTIMIZATION_ENABLED,
+                        'is_bool' => true,
+                        'values' => [
+                            ['id' => 'prestaload_fonts_on', 'value' => 1, 'label' => $this->trans('Yes', [], 'Admin.Global')],
+                            ['id' => 'prestaload_fonts_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
+                        ],
+                        'desc' => 'Adds safe font-loading optimizations to cached public HTML.',
+                    ],
+                    [
                         'type' => 'text',
                         'label' => 'TTL seconds',
                         'name' => PrestaLoadCacheSettings::CONFIG_TTL,
-                        'class' => 'fixed-width-sm',
-                        'desc' => 'How long one cached page stays valid before it expires.',
+                        'class' => 'fixed-width-xl',
+                        'desc' => 'How long one cached page stays valid before it expires. Default: 15 days.',
                     ],
                     [
                         'type' => 'text',

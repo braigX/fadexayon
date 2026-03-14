@@ -5,7 +5,13 @@
 
 class PrestaLoadCacheSettings
 {
+    /**
+     * Fifteen days is a reasonable default for anonymous full-page cache entries.
+     */
+    private const DEFAULT_TTL = 1296000;
+
     public const CONFIG_ENABLED = 'PRESTALOAD_CACHE_ENABLED';
+    public const CONFIG_FONT_OPTIMIZATION_ENABLED = 'PRESTALOAD_FONT_OPTIMIZATION_ENABLED';
     public const CONFIG_TTL = 'PRESTALOAD_CACHE_TTL';
     public const CONFIG_ALLOWED_CONTROLLERS = 'PRESTALOAD_CACHE_ALLOWED_CONTROLLERS';
 
@@ -24,13 +30,15 @@ class PrestaLoadCacheSettings
     public function installDefaults()
     {
         return Configuration::updateValue(self::CONFIG_ENABLED, 1)
-            && Configuration::updateValue(self::CONFIG_TTL, 300)
+            && Configuration::updateValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1)
+            && Configuration::updateValue(self::CONFIG_TTL, self::DEFAULT_TTL)
             && Configuration::updateValue(self::CONFIG_ALLOWED_CONTROLLERS, 'index,category,product,cms');
     }
 
     public function uninstallDefaults()
     {
         return Configuration::deleteByName(self::CONFIG_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_FONT_OPTIMIZATION_ENABLED)
             && Configuration::deleteByName(self::CONFIG_TTL)
             && Configuration::deleteByName(self::CONFIG_ALLOWED_CONTROLLERS);
     }
@@ -42,7 +50,12 @@ class PrestaLoadCacheSettings
 
     public function getTtl()
     {
-        return max(60, (int) Configuration::get(self::CONFIG_TTL, 300));
+        return max(60, (int) Configuration::get(self::CONFIG_TTL, self::DEFAULT_TTL));
+    }
+
+    public function isFontOptimizationEnabled()
+    {
+        return (bool) Configuration::get(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1);
     }
 
     public function getAllowedControllers()
@@ -66,10 +79,12 @@ class PrestaLoadCacheSettings
     public function updateFromRequest()
     {
         $enabled = (int) Tools::getValue(self::CONFIG_ENABLED, 0);
-        $ttl = max(60, (int) Tools::getValue(self::CONFIG_TTL, 300));
+        $fontOptimizationEnabled = (int) Tools::getValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 0);
+        $ttl = max(60, (int) Tools::getValue(self::CONFIG_TTL, self::DEFAULT_TTL));
         $controllers = trim((string) Tools::getValue(self::CONFIG_ALLOWED_CONTROLLERS, 'index,category,product,cms'));
 
         return Configuration::updateValue(self::CONFIG_ENABLED, $enabled)
+            && Configuration::updateValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, $fontOptimizationEnabled)
             && Configuration::updateValue(self::CONFIG_TTL, $ttl)
             && Configuration::updateValue(self::CONFIG_ALLOWED_CONTROLLERS, $controllers);
     }
@@ -78,7 +93,8 @@ class PrestaLoadCacheSettings
     {
         return [
             self::CONFIG_ENABLED => (int) Configuration::get(self::CONFIG_ENABLED, 1),
-            self::CONFIG_TTL => (int) Configuration::get(self::CONFIG_TTL, 300),
+            self::CONFIG_FONT_OPTIMIZATION_ENABLED => (int) Configuration::get(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1),
+            self::CONFIG_TTL => (int) Configuration::get(self::CONFIG_TTL, self::DEFAULT_TTL),
             self::CONFIG_ALLOWED_CONTROLLERS => (string) Configuration::get(self::CONFIG_ALLOWED_CONTROLLERS, 'index,category,product,cms'),
         ];
     }

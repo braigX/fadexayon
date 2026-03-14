@@ -11,6 +11,7 @@ class PrestaLoadPageCache
     private $keyBuilder;
     private $store;
     private $logger;
+    private $fontOptimizer;
     private $requestCacheContext;
 
     public function __construct(
@@ -19,7 +20,8 @@ class PrestaLoadPageCache
         PrestaLoadCacheEligibility $eligibility,
         PrestaLoadCacheKeyBuilder $keyBuilder,
         PrestaLoadCacheStore $store,
-        PrestaLoadCacheLogger $logger
+        PrestaLoadCacheLogger $logger,
+        PrestaLoadFontOptimizer $fontOptimizer
     ) {
         $this->context = $context;
         $this->settings = $settings;
@@ -27,6 +29,7 @@ class PrestaLoadPageCache
         $this->keyBuilder = $keyBuilder;
         $this->store = $store;
         $this->logger = $logger;
+        $this->fontOptimizer = $fontOptimizer;
     }
 
     /**
@@ -106,6 +109,8 @@ class PrestaLoadPageCache
             return;
         }
 
+        $html = $this->optimizeHtml($html);
+
         $statusCode = http_response_code();
         if (!empty($statusCode) && (int) $statusCode !== 200) {
             return;
@@ -143,6 +148,14 @@ class PrestaLoadPageCache
     public function getStats()
     {
         return $this->store->getStats();
+    }
+
+    /**
+     * Applies reusable HTML optimizations before output or cache storage.
+     */
+    public function optimizeHtml($html)
+    {
+        return $this->fontOptimizer->optimize($html);
     }
 
     /**
