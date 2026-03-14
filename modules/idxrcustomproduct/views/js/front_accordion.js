@@ -4458,6 +4458,8 @@ const CustomizationModule = (() => {
             arrowsGroup.line(p2.x, p2.y, p2.x, - extra - offset/2).attr(attrs);
             drawDimensionWithText(p1.x, - extra - offset/2, p2.x,  - extra - offset/2, 'Diam : ', `${unScale(diameter)} mm`, 'horizontal', 3);
             if(isRadial !== 0){
+                const firstHoleCenterX = centerX + isRadial;
+                const firstHoleCenterY = centerY - extra;
                 arrowsGroup.circle(centerX, centerY - extra, 2);
                 arrowsGroup.line(centerX, - extra, centerX, centerY - extra).attr(attrs);
                 drawDimensionWithText(- offset/3, centerY - extra, - offset/3, - extra, 'Y: ', `${unScale(centerY)} mm`, 'vertical', 3);
@@ -4465,9 +4467,7 @@ const CustomizationModule = (() => {
                 arrowsGroup.line(centerX, centerY- extra, 0, centerY- extra ).attr(attrs);
                 drawDimensionWithText(centerX, - offset/3 - extra, 0, - offset/3 - extra, 'X: ', `${unScale(centerX)} mm`, 'horizontal', 3);
                 
-                arrowsGroup.line(centerX, centerY- extra, centerX, centerY- extra + isRadial ).attr(attrs);
-                arrowsGroup.line(centerX, centerY + isRadial - extra, 0, centerY + isRadial - extra).attr(attrs);
-                drawDimensionWithText(- offset/3, centerY - extra + isRadial, - offset/3, centerY + - extra , 'D: ', `${unScale(isRadial)} mm`, 'vertical', 3);
+                drawDimensionWithText(centerX, centerY - extra, firstHoleCenterX, firstHoleCenterY, 'D: ', `${unScale(isRadial)} mm`, '', 3);
             }else{
                 arrowsGroup.line(cx, cy, 0, cy).attr(attrs);
                 drawDimensionWithText(- offset/3, cy, - offset/3, - extra, 'Dist: ', `${unScale(space)} mm`, 'vertical', 3);
