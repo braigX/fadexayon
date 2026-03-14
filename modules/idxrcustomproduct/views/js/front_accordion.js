@@ -1671,178 +1671,6 @@ const CustomizationModule = (() => {
               });
         }
 
-        function createCollapsibleTable() {
-            $('#fixedTable').remove();
-            // Main container for the fixed table
-            const $fixedTable = $('<div></div>').css({
-                position: 'fixed',
-                bottom: '0',
-                left: '0',
-                backgroundColor: '#f9f9f9',
-                borderTop: '1px solid #ccc',
-                borderRight: '1px solid #ccc',
-                boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.2)',
-                fontFamily: 'Arial, sans-serif',
-                zIndex: '199'
-            }).attr('id', 'fixedTable');
-            
-            // Header for the title and subtitle
-            const $tableHeader = $('<div></div>').css({
-                padding: '10px',
-                backgroundColor: '#333',
-                color: '#fff',
-                cursor: 'pointer',
-                textAlign: 'center'
-            }).attr('id', 'tableHeader').appendTo($fixedTable);
-    
-            // Title
-            const tableTitle = $('<p></p>').text('Schéma de tarification (réduire) ').css({
-                margin: '0',
-                fontSize: '18px',
-                fontweight: 'bold',
-                color: 'white'
-            }).appendTo($tableHeader);
-            
-            $('<img src="https://icons.iconarchive.com/icons/paomedia/small-n-flat/256/sign-down-icon.png" width="30px" height="30px"/>').appendTo(tableTitle);
-
-            // Subtitle
-            $('<p></p>').text('Ce tableau n\'est affiché qu\'en développement, pas pour les clients.').css({
-                margin: '0',
-                fontSize: '14px',
-                color: 'white'
-            }).appendTo($tableHeader);
-    
-            // Table content (initially visible)
-            const $tableContent = $('<div></div>').css({
-                display: 'block',
-                padding: '10px'
-            }).attr('id', 'tableContent').appendTo($fixedTable);
-    
-            // Table element
-            const $table = $('<table></table>').css({
-                width: '100%',
-                borderCollapse: 'collapse'
-            }).appendTo($tableContent);
-            
-            const tableContent = [
-                ['<b>Element</b>', '<b>Price generale HT</b>', '<b>Prix HT</b>', 'Prix TTC'],
-
-                ['Surface de capot: <span id="s_d_capot"></span>', '<span id="price_map_1">0 €/m²</span>', '<span id="price_map_ht_1">0 €</span>', '<span id="price_map_ttc_1">0 €</span>'],
-                ['Prix de découpe de capot: <span id="p_d_d_map_1"></span>', '<span id="price_map_4">0 €/m²</span>', '<span id="price_map_ht_4">0 €</span>', '<span id="price_map_ttc_4">0 €</span>'],
-                ['Prix de collage de capot: <span id="p_d_c_map_1"></span>', '<span id="price_map_5">0 €/m²</span>', '<span id="price_map_ht_5">0 €</span>', '<span id="price_map_ttc_5">0 €</span>'],
-
-                ['Surface de socle: <span id="s_d_socle"></span>', '<span id="price_map_2">0 €/m²</span>', '<span id="price_map_ht_2">0 €</span>', '<span id="price_map_ttc_2">0 €</span>'],
-                ['Prix de découpe de socle: <span id="p_d_c_map_2"></span>', '<span id="price_map_6">0 €/m²</span>', '<span id="price_map_ht_6">0 €</span>', '<span id="price_map_ttc_6">0 €</span>'],
-                ['Prix de collage de socle: <span id="p_d_c_map_2"></span>', '<span id="price_map_7">0 €/m²</span>', '<span id="price_map_ht_7">0 €</span>', '<span id="price_map_ttc_7">0 €</span>'],
-
-                ['Avec épaulement', '<span id="price_map_3">0 €/m²</span>', '<span id="price_map_ht_3">0 €</span>', '<span id="price_map_ttc_3">0 €</span>'],
-                ['<b>Totale</b>', '<b>--</b>', '<b><span id="price_map_totale_ht">0 €/m²</span></b>', '<b><span id="price_map_totale_ttc">0 €/m²</span></b>'],
-            ];  
-            // 3x6 Table body creation 
-            for (let i = 0; i < 9; i++) {
-                const $row = $('<tr></tr>').appendTo($table);
-                for (let j = 0; j < 4; j++) {
-                    $('<td></td>').html(tableContent[i][j]).css({
-                        border: '1px solid #ddd',
-                        padding: '8px',
-                        textAlign: 'center'
-                    }).appendTo($row);
-                }
-            }
-    
-            // Toggle functionality
-            $tableHeader.on('click', function() {
-                $tableContent.toggle();
-            });
-    
-            // Append the table to the body
-            $('body').append($fixedTable);
-        }
-
-        function createCollapsibleTable2() {
-            $('#fixedTable').remove();
-            // Main container for the fixed table
-            const $fixedTable = $('<div></div>').css({
-                position: 'fixed',
-                bottom: '0',
-                left: '0',
-                backgroundColor: '#f9f9f9',
-                borderTop: '1px solid #ccc',
-                borderRight: '1px solid #ccc',
-                boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.2)',
-                fontFamily: 'Arial, sans-serif',
-                zIndex: '199'
-            }).attr('id', 'fixedTable');
-            
-            // Header for the title and subtitle
-            const $tableHeader = $('<div></div>').css({
-                padding: '10px',
-                backgroundColor: '#333',
-                color: '#fff',
-                cursor: 'pointer',
-                textAlign: 'center'
-            }).attr('id', 'tableHeader').appendTo($fixedTable);
-    
-            // Title
-            const tableTitle = $('<p></p>').text('Schéma de tarification (réduire) ').css({
-                margin: '0',
-                fontSize: '18px',
-                fontweight: 'bold',
-                color: 'white'
-            }).appendTo($tableHeader);
-            
-            $('<img src="https://icons.iconarchive.com/icons/paomedia/small-n-flat/256/sign-down-icon.png" width="30px" height="30px"/>').appendTo(tableTitle);
-
-            // Subtitle
-            $('<p></p>').text('Ce tableau n\'est affiché qu\'en développement, pas pour les clients.').css({
-                margin: '0',
-                fontSize: '14px',
-                color: 'white'
-            }).appendTo($tableHeader);
-    
-            // Table content (initially visible)
-            const $tableContent = $('<div></div>').css({
-                display: 'block',
-                padding: '10px'
-            }).attr('id', 'tableContent').appendTo($fixedTable);
-    
-            // Table element
-            const $table = $('<table></table>').css({
-                width: '100%',
-                borderCollapse: 'collapse'
-            }).appendTo($tableContent);
-            
-            const tableContent = [
-                ['<b>Element</b>', '<b>Price generale HT</b>', '<b>Prix HT</b>', 'Prix TTC'],
-
-                ['Surface: <span id="s_d_capot"></span>', '<span id="price_map_1">0 €/m²</span>', '<span id="price_map_ht_1">0 €</span>', '<span id="price_map_ttc_1">0 €</span>'],
-                ['Prix des découpes: <span id="p_d_d_map_1"></span>', '<span id="price_map_4">0 €/m²</span>', '<span id="price_map_ht_4">0 €</span>', '<span id="price_map_ttc_4">0 €</span>'],
-                ['Prix de polissage: <span id="p_d_c_map_1"></span>', '<span id="price_map_5">0 €/m²</span>', '<span id="price_map_ht_5">0 €</span>', '<span id="price_map_ttc_5">0 €</span>'],
-                ['Plaques predecoupees:', '<span id="price_map_7">0 €/m²</span>', '<span id="price_map_ht_7">0 €</span>', '<span id="price_map_ttc_7">0 €</span>'],
-
-                ['<b>Totale</b>', '<b>--</b>', '<b><span id="price_map_totale_ht">0 €/m²</span></b>', '<b><span id="price_map_totale_ttc">0 €/m²</span></b>'],
-            ];  
-            // 3x6 Table body creation 
-            for (let i = 0; i < 5; i++) {
-                const $row = $('<tr></tr>').appendTo($table);
-                for (let j = 0; j < 4; j++) {
-                    $('<td></td>').html(tableContent[i][j]).css({
-                        border: '1px solid #ddd',
-                        padding: '8px',
-                        textAlign: 'center'
-                    }).appendTo($row);
-                }
-            }
-    
-            // Toggle functionality
-            $tableHeader.on('click', function() {
-                $tableContent.toggle();
-            });
-    
-            // Append the table to the body
-            $('body').append($fixedTable);
-        }
-
         function showPrices() {
             const newRow = `
                 <tr>
@@ -1868,14 +1696,12 @@ const CustomizationModule = (() => {
             topButtons();
             openFirst();
             textConfig();
-            if(invirement && invirement === 'development') createCollapsibleTable2();
         } else {
             showPrices();
             openFirstCube();
             appendUnitsCube();
             topButtonsCube();
             changeDivsToUrls();
-            if(invirement && invirement === 'development') createCollapsibleTable();
             $('.price-information').hide();
         
         }
@@ -4867,7 +4693,6 @@ const CustomizationModule = (() => {
             // let diameter_de_decoupe = (parseFloat(perimeter) + parseFloat(perimeter2));
             $('#diameter_de_decoupe_price').val(parseFloat(perimeter).toFixed(2));
             $('#diameter_de_decoupe_price2').val(parseFloat(perimeter2).toFixed(2));
-            $('#p_d_d_map_1').text(`${perimeter.toFixed(2)} + ${perimeter2.toFixed(2)} mm`)
         }
 
         var thickness_mm = 0;

@@ -2631,6 +2631,208 @@ function getPricesByThickness(thicknessValue) {
     return result;
 }
 
+function isPricingDebugEnabled() {
+    return window.idxr_front_accordion_environment === 'development';
+}
+
+function formatDebugMoney(value) {
+    return `${safeParseFloat(value).toFixed(2)} €`;
+}
+
+function formatDebugUnitPrice(value, unit) {
+    return `${safeParseFloat(value).toFixed(4)} ${unit}`;
+}
+
+function formatDebugQuantity(value, unit, decimals) {
+    const precision = typeof decimals === 'number' ? decimals : 2;
+    return `${safeParseFloat(value).toFixed(precision)} ${unit}`;
+}
+
+function getPricingDebugTableElements() {
+    let $fixedTable = $('#fixedTable');
+    if ($fixedTable.length) {
+        return {
+            container: $fixedTable,
+            subtitle: $fixedTable.find('[data-role="pricing-debug-subtitle"]'),
+            tbody: $fixedTable.find('tbody')
+        };
+    }
+
+    $fixedTable = $('<div id="fixedTable"></div>').css({
+        position: 'fixed',
+        bottom: '0',
+        left: '0',
+        backgroundColor: '#f9f9f9',
+        borderTop: '1px solid #ccc',
+        borderRight: '1px solid #ccc',
+        boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.2)',
+        fontFamily: 'Arial, sans-serif',
+        zIndex: '199',
+        minWidth: '540px',
+        maxWidth: '760px'
+    });
+
+    const $tableHeader = $('<div></div>').css({
+        padding: '10px',
+        backgroundColor: '#333',
+        color: '#fff',
+        cursor: 'pointer',
+        textAlign: 'center'
+    }).appendTo($fixedTable);
+
+    const $tableTitle = $('<p></p>').text('Schéma de tarification (réduire)').css({
+        margin: '0',
+        fontSize: '18px',
+        fontWeight: 'bold',
+        color: 'white'
+    }).appendTo($tableHeader);
+
+    $('<img src="https://icons.iconarchive.com/icons/paomedia/small-n-flat/256/sign-down-icon.png" width="30" height="30" alt="toggle"/>').appendTo($tableTitle);
+
+    const $subtitle = $('<p data-role="pricing-debug-subtitle"></p>').css({
+        margin: '0',
+        fontSize: '14px',
+        color: 'white'
+    }).appendTo($tableHeader);
+
+    const $tableContent = $('<div></div>').css({
+        display: 'block',
+        padding: '10px'
+    }).attr('id', 'tableContent').appendTo($fixedTable);
+
+    const $table = $('<table></table>').css({
+        width: '100%',
+        borderCollapse: 'collapse'
+    }).appendTo($tableContent);
+
+    const headers = ['Element', 'Tarif HT', 'Prix HT', 'Prix TTC'];
+    const $theadRow = $('<tr></tr>').appendTo($('<thead></thead>').appendTo($table));
+    headers.forEach(function (header) {
+        $('<th></th>').text(header).css({
+            border: '1px solid #ddd',
+            padding: '8px',
+            textAlign: 'center',
+            backgroundColor: '#efefef'
+        }).appendTo($theadRow);
+    });
+
+    const $tbody = $('<tbody></tbody>').appendTo($table);
+
+    $tableHeader.on('click', function () {
+        $tableContent.toggle();
+    });
+
+    $('body').append($fixedTable);
+
+    return {
+        container: $fixedTable,
+        subtitle: $subtitle,
+        tbody: $tbody
+    };
+}
+
+function renderPricingDebugTable(payload) {
+    if (!isPricingDebugEnabled()) {
+        $('#fixedTable').remove();
+        return;
+    }
+
+    const elements = getPricingDebugTableElements();
+    const thicknessLabel = safeParseFloat(payload && payload.thickness, 0);
+    elements.subtitle.html(`Tableau de test pour <strong>épaisseur : ${thicknessLabel} mm</strong>`);
+    elements.tbody.empty();
+
+    (payload.rows || []).forEach(function (row) {
+        const $row = $('<tr></tr>');
+        const detail = row.detail ? `: ${row.detail}` : '';
+        [
+            `${row.label}${detail}`,
+            row.unitPrice || '--',
+            row.ht || '0.00 €',
+            row.ttc || '0.00 €'
+        ].forEach(function (cell) {
+            $('<td></td>').html(cell).css({
+                border: '1px solid #ddd',
+                padding: '8px',
+                textAlign: 'center'
+            }).appendTo($row);
+        });
+        elements.tbody.append($row);
+    });
+
+    const totalRow = $('<tr></tr>');
+    [
+        '<strong>Total</strong>',
+        '<strong>--</strong>',
+        `<strong>${payload.totalHt || '0.00 €'}</strong>`,
+        `<strong>${payload.totalTtc || '0.00 €'}</strong>`
+    ].forEach(function (cell) {
+        $('<td></td>').html(cell).css({
+            border: '1px solid #ddd',
+            padding: '8px',
+            textAlign: 'center',
+            backgroundColor: '#fafafa'
+        }).appendTo(totalRow);
+    });
+    elements.tbody.append(totalRow);
+}
+
+function buildDebugRow(label, detail, unitPrice, ht, ttc) {
+    return {
+        label: label,
+        detail: detail,
+        unitPrice: unitPrice,
+        ht: ht,
+        ttc: ttc
+    };
+}
+
+function buildCubePricingDebugPayload(context) {
+    const rows = [
+        buildDebugRow('Surface de capot', formatDebugQuantity(context.surface, 'm²'), formatDebugUnitPrice(getWithoutTax(context.basePricePerSquareMeter), '€/m²'), formatDebugMoney(getWithoutTax(context.capotSurfaceTtc)), formatDebugMoney(context.capotSurfaceTtc)),
+        buildDebugRow('Prix de découpe de capot', formatDebugQuantity(context.capotDiameter, 'm', 3), formatDebugUnitPrice(context.capotCutRate, '€/m HT'), formatDebugMoney(context.capotCutHt), formatDebugMoney(context.capotCutTtc)),
+        buildDebugRow('Prix de collage de capot', formatDebugQuantity(context.capotDiameter, 'm', 3), formatDebugUnitPrice(context.capotGlueRate, '€/m HT'), formatDebugMoney(context.capotGlueHt), formatDebugMoney(context.capotGlueTtc)),
+        buildDebugRow('Surface de socle', formatDebugQuantity(context.secondSurface, 'm²'), formatDebugUnitPrice(context.materielPrice, '€/m²'), formatDebugMoney(context.socleSurfaceHt), formatDebugMoney(context.socleSurfaceTtc)),
+        buildDebugRow('Prix de découpe de socle', formatDebugQuantity(context.socleDiameter, 'm', 3), formatDebugUnitPrice(context.socleCutRate, '€/m HT'), formatDebugMoney(context.socleCutHt), formatDebugMoney(context.socleCutTtc)),
+        buildDebugRow('Prix de collage de socle', formatDebugQuantity(context.socleDiameter, 'm', 3), formatDebugUnitPrice(context.socleGlueRate, '€/m HT'), formatDebugMoney(context.socleGlueHt), formatDebugMoney(context.socleGlueTtc)),
+        buildDebugRow('Avec épaulement', context.epaulmentEnabled ? 'Oui' : 'Non', formatDebugMoney(context.epaulmentHt), formatDebugMoney(context.epaulmentHt), formatDebugMoney(context.epaulmentTtc))
+    ];
+
+    if (context.holesExtraTotal > 0) {
+        rows.push(buildDebugRow('Prix fixe trous', `${context.holesCount} x ${formatDebugMoney(context.holesUnitPrice)}`, formatDebugMoney(context.holesUnitPrice), formatDebugMoney(getWithoutTax(context.holesExtraTotal)), formatDebugMoney(context.holesExtraTotal)));
+    }
+
+    return {
+        thickness: context.thickness,
+        rows: rows,
+        totalHt: formatDebugMoney(getWithoutTax(context.totalTtc)),
+        totalTtc: formatDebugMoney(context.totalTtc)
+    };
+}
+
+function buildFlatPricingDebugPayload(context) {
+    const rows = [
+        buildDebugRow('Surface', formatDebugQuantity(context.surface, 'm²'), formatDebugUnitPrice(getWithoutTax(context.basePricePerSquareMeter), '€/m²'), formatDebugMoney(getWithoutTax(context.surfaceTtc)), formatDebugMoney(context.surfaceTtc))
+    ];
+
+    if (context.isPredecoupe) {
+        rows.push(buildDebugRow('Plaques predecoupees', '', formatDebugUnitPrice(context.totalTtc, '€/m² HT'), formatDebugMoney(getWithoutTax(context.totalTtc)), formatDebugMoney(context.totalTtc)));
+    } else {
+        rows.push(buildDebugRow('Prix des découpes', formatDebugQuantity(context.cutLengthMeters, 'm', 4), formatDebugUnitPrice(context.cutRate, '€/m HT'), formatDebugMoney(context.cutHt), formatDebugMoney(context.cutTtc)));
+        rows.push(buildDebugRow('Prix de polissage', formatDebugQuantity(context.polishLengthMeters, 'm', 4), formatDebugUnitPrice(context.polishRate, '€/m HT'), formatDebugMoney(context.polishHt), formatDebugMoney(context.polishTtc)));
+    }
+
+    if (context.holesExtraTotal > 0) {
+        rows.push(buildDebugRow('Prix fixe trous', `${context.holesCount} x ${formatDebugMoney(context.holesUnitPrice)}`, formatDebugMoney(context.holesUnitPrice), formatDebugMoney(getWithoutTax(context.holesExtraTotal)), formatDebugMoney(context.holesExtraTotal)));
+    }
+
+    return {
+        thickness: context.thickness,
+        rows: rows,
+        totalHt: formatDebugMoney(getWithoutTax(context.totalTtc)),
+        totalTtc: formatDebugMoney(context.totalTtc)
+    };
+}
 
 function updateTotal(){
     total = 0;
@@ -2651,6 +2853,7 @@ function updateTotal(){
     var idxcp_prix_de_decoupe = prices.decoupe;
     var idxcp_prix_de_collage = prices.collage;
     var idxcp_prix_de_polissage = prices.polissage;
+    let pricingDebugPayload = null;
     const idxrHolesCount = parseInt(window.idxr_holes_count, 10) || 0;
     const idxrHolesUnitPrice = safeParseFloat(typeof idxr_holes_fixed_price !== 'undefined' ? idxr_holes_fixed_price : 0);
     const idxrHolesExtraTotal = (idxrHolesCount > 0 && idxrHolesUnitPrice > 0) ? (idxrHolesCount * idxrHolesUnitPrice) : 0;
@@ -2680,81 +2883,55 @@ function updateTotal(){
             $("#js_resume_price_surface").html(''); // Effacer le contenu s'il n'y a pas de coût basé sur la surface
         }
 
-        (!isNaN(surface) && surface > 0) ? $('#s_d_capot').text(`${surface} m²`) : $('#s_d_capot').text('0 m²');
         const price_87345 = parseFloat(basePricePerSquareMeter)*parseFloat(surface) || 0;
-        $('#price_map_1').text(`${getWithoutTax(basePricePerSquareMeter)} €/m²`);
-        $('#price_map_ht_1').text(`${getWithoutTax(price_87345).toFixed(2)} €`);
-        $('#price_map_ttc_1').text(`${price_87345.toFixed(2)} €`);
         
         var materiel_price = parseFloat($('#cube_materiaux_price').val().replace(',', '.'));
-        const second_surface = $('#cube_second_surface').val();
+        const second_surface = safeParseFloat($('#cube_second_surface').val());
         totaleWithTax += getWithTax(parseFloat(materiel_price)*parseFloat(second_surface));
         totaleWithoutTax += parseFloat(materiel_price)*parseFloat(second_surface);
-        $('#s_d_socle').text(`${second_surface} m²`); // price_map_4
-        $('#price_map_2').text(`${materiel_price.toFixed(2)} €/m²`);
-        $('#price_map_ht_2').text(`${totaleWithoutTax.toFixed(2)} €`);
-        $('#price_map_ttc_2').text(`${totaleWithTax.toFixed(2)} €`);
 
 
         var prixEpaulment = 0;
         const epaulment = $('#cube_modele_de_socle').val();
         if (epaulment === 'true') prixEpaulment = 15;
         totaleWithTax += getWithTax(prixEpaulment);
-        const price_09832423 = totaleWithTax;
+        const price_09832423 = getWithTax(prixEpaulment);
         totaleWithoutTax += prixEpaulment;
-        $('#price_map_3').text(prixEpaulment + ' €/m² HT');
-        $('#price_map_ht_3').text(prixEpaulment.toFixed(2) + ' €');
-        $('#price_map_ttc_3').text(getWithTax(prixEpaulment).toFixed(2) + ' €');
 
         var diameter_capot = parseFloat($('#cube_diameter_capot').val().replace(',', '.'));
         const unifiedDiameter = parseFloat(diameter_capot);
+        const capotCutHt = parseFloat(idxcp_prix_de_decoupe) * unifiedDiameter;
         const price_8023234 = getWithTax(parseFloat(idxcp_prix_de_decoupe) * unifiedDiameter) || 0;
+        const capotGlueHt = parseFloat(idxcp_prix_de_collage) * unifiedDiameter;
         const price_80232334 = getWithTax(parseFloat(idxcp_prix_de_collage) * unifiedDiameter) || 0;
-        $('#p_d_d_map_1').text(`${diameter_capot} m`)
-        $('#price_map_4').text(`${parseFloat(idxcp_prix_de_decoupe).toFixed(4)} €/m HT`)
-        $('#price_map_ht_4').text(`${(parseFloat(idxcp_prix_de_decoupe) * unifiedDiameter).toFixed(2)} €`)
-        $('#price_map_ttc_4').text(`${price_8023234.toFixed(2)} €`)
-        $('#p_d_c_map_1').text(`${diameter_capot} m`)
-        $('#price_map_5').text(`${parseFloat(idxcp_prix_de_collage).toFixed(4)} €/m HT`)
-        $('#price_map_ht_5').text(`${(parseFloat(idxcp_prix_de_collage) * unifiedDiameter).toFixed(2)} €`)
-        $('#price_map_ttc_5').text(`${price_80232334.toFixed(2)} €`)
 
         totaleWithTax += price_8023234;
-        totaleWithoutTax += parseFloat(idxcp_prix_de_decoupe) * unifiedDiameter;
+        totaleWithoutTax += capotCutHt;
         
         totaleWithTax += price_80232334;
-        totaleWithoutTax += parseFloat(idxcp_prix_de_collage) * unifiedDiameter;
+        totaleWithoutTax += capotGlueHt;
 
         const total_price_capot = price_87345+ price_8023234 + price_80232334;
         $('#tr_resume_prix_de_capot').text(`${total_price_capot.toFixed(2)} €`);
 
         var diameter_socle = parseFloat($('#cube_diameter_socle').val().replace(',', '.'));
         const unifiedDiameterSocle = parseFloat(diameter_socle);
+        const socleCutHt = parseFloat(prixDecoupeSocle) * unifiedDiameterSocle;
         const price_0923525 = getWithTax(parseFloat(prixDecoupeSocle) * unifiedDiameterSocle) || 0;
+        const socleGlueHt = parseFloat(prixCollageSocle) * unifiedDiameterSocle;
         const price_923525 = getWithTax(parseFloat(prixCollageSocle) * unifiedDiameterSocle) || 0;
-        $('#p_d_d_map_2').text(`${diameter_socle} m`)
-        $('#price_map_6').text(`${parseFloat(prixDecoupeSocle).toFixed(4)} €/m HT`)
-        $('#price_map_ht_6').text(`${parseFloat(prixDecoupeSocle) * unifiedDiameterSocle} €`)
-        $('#price_map_ttc_6').text(`${price_0923525.toFixed(2)} €`)
-        $('#p_d_c_map_2').text(`${diameter_socle} m`)
-        $('#price_map_7').text(`${parseFloat(prixCollageSocle).toFixed(4)} €/m HT`)
-        $('#price_map_ht_7').text(`${(parseFloat(prixCollageSocle) * unifiedDiameterSocle).toFixed(2)} €`)
-        $('#price_map_ttc_7').text(`${price_923525.toFixed(2)} €`)
 
         totaleWithTax += price_0923525;
-        totaleWithoutTax += parseFloat(prixDecoupeSocle) * unifiedDiameterSocle;
+        totaleWithoutTax += socleCutHt;
         
         totaleWithTax += price_923525;
-        totaleWithoutTax += parseFloat(prixCollageSocle) * unifiedDiameterSocle;
+        totaleWithoutTax += socleGlueHt;
 
         const total_price_socel = price_0923525+ price_923525 + price_09832423;
         $('#tr_resume_prix_de_socle').text(`${total_price_socel.toFixed(2)} €`);
 
         total = total + parseFloat(totaleWithTax);
         total += idxrHolesExtraTotal;
-        
-        $('#price_map_totale_ttc').text(`${total.toFixed(2)} €`)
-        $('#price_map_totale_ht').text(`${getWithoutTax(total)} €`)
         try{
             if (typeof updateInlinePrices === 'function') {
                 var basePricePerSquareMeter = parseFloat($('.js_base_price').val().replace(',', '.'));
@@ -2775,9 +2952,39 @@ function updateTotal(){
                 total = parseFloat(idxr_prix_fixe_vitrine);
             }
         }
+
+        pricingDebugPayload = buildCubePricingDebugPayload({
+            thickness: productThicknessElement,
+            basePricePerSquareMeter: basePricePerSquareMeter,
+            surface: surface,
+            capotSurfaceTtc: price_87345,
+            materielPrice: materiel_price,
+            secondSurface: second_surface,
+            socleSurfaceHt: parseFloat(materiel_price) * parseFloat(second_surface),
+            socleSurfaceTtc: getWithTax(parseFloat(materiel_price) * parseFloat(second_surface)),
+            epaulmentEnabled: epaulment === 'true',
+            epaulmentHt: prixEpaulment,
+            epaulmentTtc: getWithTax(prixEpaulment),
+            capotDiameter: diameter_capot,
+            capotCutRate: idxcp_prix_de_decoupe,
+            capotCutHt: capotCutHt,
+            capotCutTtc: price_8023234,
+            capotGlueRate: idxcp_prix_de_collage,
+            capotGlueHt: capotGlueHt,
+            capotGlueTtc: price_80232334,
+            socleDiameter: diameter_socle,
+            socleCutRate: prixDecoupeSocle,
+            socleCutHt: socleCutHt,
+            socleCutTtc: price_0923525,
+            socleGlueRate: prixCollageSocle,
+            socleGlueHt: socleGlueHt,
+            socleGlueTtc: price_923525,
+            holesCount: idxrHolesCount,
+            holesUnitPrice: idxrHolesUnitPrice,
+            holesExtraTotal: idxrHolesExtraTotal,
+            totalTtc: total
+        });
     }else {
-        $('#price_map_ht_7').text(`0 €`);
-        $('#price_map_ttc_7').text(`0 €`);
         const is_predcoper = $('#idxr_is_predecoupe').val() === "true";
         if(!is_predcoper){
             if (!isNaN(surface) && surface > 0) {
@@ -2790,23 +2997,17 @@ function updateTotal(){
                 total = parseFloat(surfaceCost);
                 $("#js_resume_price_surface").html(''); // Effacer le contenu s'il n'y a pas de coût basé sur la surface
             }
-            $('#price_map_7').text(`0 €/m HT`)
-            $('#price_map_ht_7').text(`0 €`)
-            $('#price_map_ttc_7').text(`0 €`)
 
             const pholder1 = $('#diameter_de_decoupe_price');
             const pholder2 = $('#diameter_de_decoupe_price2');
             const is_rectangle = $('#idxr_is_rectangle').val();
             const is_rectangle_polissage = $('#idxr_is_rectangle_polissage').val();
             // if (is_rectangle === 'true') idxcp_prix_de_decoupe = safeParseFloat(idxr_prix_de_decoupe_cube);
-            
-            (!isNaN(surface) && surface > 0) 
-                ? $('#s_d_capot').text(`${surface.toFixed(2)} m²`) 
-                : $('#s_d_capot').text('0.00 m²');
-        
-            $('#price_map_1').text(`${getWithoutTax(basePricePerSquareMeter).toFixed(2)} €/m²`);
-            $('#price_map_ht_1').text(`${getWithoutTax(parseFloat(basePricePerSquareMeter) * parseFloat(surface)).toFixed(2)} €`);
-            $('#price_map_ttc_1').text(`${(parseFloat(basePricePerSquareMeter) * parseFloat(surface)).toFixed(2)} €`);
+
+            let prixDecoupeM = 0;
+            let polishLengthMeters = 0;
+            let decoupePriceWithTax = 0;
+            let polishPriceWithTax = 0;
         
             if ((pholder1.length > 0) && (pholder2.length > 0)) {
                 const prixDecoupe1 = safeParseFloat(pholder1.val());
@@ -2816,13 +3017,14 @@ function updateTotal(){
                 // Parse and validate the price input
                 // const prixDecoupeRaw = pholder.val().replace(',', '.');
                 const prixDecoupe = parseFloat(pholder);
-                const prixDecoupeM = prixDecoupe / 1000;
+                prixDecoupeM = prixDecoupe / 1000;
                 const prixDecoupe2M = prixDecoupe2 / 1000;
+                polishLengthMeters = prixDecoupeM;
 
                 if (!isNaN(prixDecoupe)) {
                     // Calculate the price with tax
-                    let decoupePriceWithTax = 0;
-                    
+                    decoupePriceWithTax = 0;
+
                     if (is_rectangle === 'true') decoupePriceWithTax = getWithTax(prixDecoupe2M * parseFloat(idxcp_prix_de_decoupe));
                     else decoupePriceWithTax = getWithTax(prixDecoupeM * parseFloat(idxcp_prix_de_decoupe));
         
@@ -2831,39 +3033,41 @@ function updateTotal(){
                     }
         
                     if (is_rectangle_polissage === 'true') {
-                        const polishPriceWithTax = getWithTax(prixDecoupeM * parseFloat(idxcp_prix_de_polissage));
+                        polishPriceWithTax = getWithTax(prixDecoupeM * parseFloat(idxcp_prix_de_polissage));
         
                         if (!isNaN(polishPriceWithTax)) {
                             total += polishPriceWithTax;
                         }
-
-                        $('#p_d_c_map_1').text(`${prixDecoupeM.toFixed(4)} m`);
-                        $('#price_map_5').text(`${parseFloat(idxcp_prix_de_polissage).toFixed(4)} €/m HT`);
-                        $('#price_map_ht_5').text(`${getWithoutTax(polishPriceWithTax).toFixed(2)} €`);
-                        $('#price_map_ttc_5').text(`${polishPriceWithTax.toFixed(2)} €`);
-        
-                    } else {
-                        $('#p_d_c_map_1').text(`0.00 m`);
-                        $('#price_map_5').text(`${(parseFloat(idxcp_prix_de_polissage)).toFixed(4)} €/m HT`);
-                        $('#price_map_ht_5').text(`0.00 €`);
-                        $('#price_map_ttc_5').text(`0.00 €`);
                     }
         
                     $('#resume_prix_de_decoupe_price').val(decoupePriceWithTax.toFixed(2));
-        
-                    $('#price_map_4').text(`${parseFloat(idxcp_prix_de_decoupe).toFixed(4)} €/m HT`);
-                    $('#price_map_ht_4').text(`${getWithoutTax(decoupePriceWithTax).toFixed(2)} €`);
-                    $('#price_map_ttc_4').text(`${decoupePriceWithTax.toFixed(2)} €`);
                 }
             }
-        
-        
-            
+
             // discount = getDiscount(total);
             // if (discount) {
             //     total = total - discount;
             // }  
-            
+
+            pricingDebugPayload = buildFlatPricingDebugPayload({
+                thickness: productThicknessElement,
+                basePricePerSquareMeter: basePricePerSquareMeter,
+                surface: surface,
+                surfaceTtc: safeParseFloat(surfaceCost),
+                isPredecoupe: false,
+                cutLengthMeters: prixDecoupeM,
+                cutRate: idxcp_prix_de_decoupe,
+                cutHt: getWithoutTax(decoupePriceWithTax),
+                cutTtc: decoupePriceWithTax,
+                polishLengthMeters: is_rectangle_polissage === 'true' ? polishLengthMeters : 0,
+                polishRate: idxcp_prix_de_polissage,
+                polishHt: getWithoutTax(polishPriceWithTax),
+                polishTtc: polishPriceWithTax,
+                holesCount: idxrHolesCount,
+                holesUnitPrice: idxrHolesUnitPrice,
+                holesExtraTotal: idxrHolesExtraTotal,
+                totalTtc: total + idxrHolesExtraTotal
+            });
                     
         }else{
             if (!isNaN(surface) && surface > 0) {
@@ -2879,17 +3083,21 @@ function updateTotal(){
             
             // const prix_predecouppe = safeParseFloat($('#idxr_prix_de_predecoupe').val());
             // total = prix_predecouppe;
-            $('#price_map_7').text(`${total.toFixed(2)} €/m² HT`)
-            $('#price_map_ht_7').text(`${getWithoutTax(total)} €`)
-            $('#price_map_ttc_7').text(`${total.toFixed(2)} €`)
+            pricingDebugPayload = buildFlatPricingDebugPayload({
+                thickness: productThicknessElement,
+                basePricePerSquareMeter: basePricePerSquareMeter,
+                surface: surface,
+                surfaceTtc: safeParseFloat(surfaceCost),
+                isPredecoupe: true,
+                holesCount: idxrHolesCount,
+                holesUnitPrice: idxrHolesUnitPrice,
+                holesExtraTotal: idxrHolesExtraTotal,
+                totalTtc: total + idxrHolesExtraTotal
+            });
         }
 
         total += idxrHolesExtraTotal;
-           
-        //
-        $('#price_map_totale_ttc').text(`${total.toFixed(2)} €`)
-        $('#price_map_totale_ht').text(`${getWithoutTax(total)} €`)
-        //
+
         // check if total is under minimun amount:
         if (typeof idxr_prix_fixe !== 'undefined' && idxr_prix_fixe && !isNaN(idxr_prix_fixe)) {
             if (!isNaN(total) && parseFloat(total) < parseFloat(idxr_prix_fixe)) {
@@ -2897,7 +3105,17 @@ function updateTotal(){
             }
         }
     }
-    
+
+    if (pricingDebugPayload) {
+        pricingDebugPayload.totalHt = formatDebugMoney(getWithoutTax(total));
+        pricingDebugPayload.totalTtc = formatDebugMoney(total);
+    }
+    renderPricingDebugTable(pricingDebugPayload || {
+        thickness: productThicknessElement,
+        rows: [],
+        totalHt: formatDebugMoney(getWithoutTax(total)),
+        totalTtc: formatDebugMoney(total)
+    });
 
     $('#resume_price_from_cube').val(getWithoutTax(total));
 
