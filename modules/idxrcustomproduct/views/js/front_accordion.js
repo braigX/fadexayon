@@ -3571,7 +3571,12 @@ const CustomizationModule = (() => {
                     return;
                 }
 
-                const connectorOffset = 24;
+                const connectorAttrs = {
+                    stroke: "#000",
+                    strokeWidth: 1,
+                    strokeDasharray: "1, 1"
+                };
+                const connectorOffset = offset * 2;
                 const labelLineLength = Math.max(scaledRadiusValue + 18, 42);
                 const dimensionY = side === 'top'
                     ? adjustedY - connectorOffset
@@ -3583,17 +3588,6 @@ const CustomizationModule = (() => {
                     ? centerX
                     : centerX + labelLineLength;
 
-                shaper.line(centerX, centerY, centerX, dimensionY).attr({
-                    stroke: '#9ca3af',
-                    'stroke-width': 1,
-                    'stroke-dasharray': '3, 3'
-                });
-                shaper.line(cornerX, centerY, centerX, centerY).attr({
-                    stroke: '#9ca3af',
-                    'stroke-width': 1,
-                    'stroke-dasharray': '3, 3'
-                });
-
                 drawDimensionWithText(
                     startX,
                     dimensionY,
@@ -3601,10 +3595,12 @@ const CustomizationModule = (() => {
                     dimensionY,
                     `${idxr_tr_radius}: `,
                     `${radiusValue} mm`,
-                    'horizontal',
+                    '',
                     2,
                     side === 'bottom' ? 'below' : 'auto'
                 );
+                arrowsGroup.line(centerX, centerY, centerX, dimensionY).attr(connectorAttrs);
+                arrowsGroup.line(cornerX, centerY, centerX, centerY).attr(connectorAttrs);
             }
 
             drawOutsideRadiusDimension(
