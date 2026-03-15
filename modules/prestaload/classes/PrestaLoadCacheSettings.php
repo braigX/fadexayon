@@ -21,6 +21,19 @@ class PrestaLoadCacheSettings
     public const CONFIG_TTL = 'PRESTALOAD_CACHE_TTL';
     public const CONFIG_ALLOWED_CONTROLLERS = 'PRESTALOAD_CACHE_ALLOWED_CONTROLLERS';
 
+    private const CONFIG_DEFAULTS = [
+        self::CONFIG_ENABLED => 1,
+        self::CONFIG_FONT_OPTIMIZATION_ENABLED => 1,
+        self::CONFIG_CSS_OPTIMIZATION_ENABLED => 0,
+        self::CONFIG_IMAGE_OPTIMIZATION_ENABLED => 0,
+        self::CONFIG_IMGPROXY_BASE_URL => 'http://127.0.0.1:8094',
+        self::CONFIG_IMGPROXY_QUALITY => 82,
+        self::CONFIG_IMGPROXY_KEY => '',
+        self::CONFIG_IMGPROXY_SALT => '',
+        self::CONFIG_TTL => self::DEFAULT_TTL,
+        self::CONFIG_ALLOWED_CONTROLLERS => 'index,category,product,cms',
+    ];
+
     private $moduleName;
     private $modulePath;
 
@@ -126,27 +139,24 @@ class PrestaLoadCacheSettings
 
     public function updateFromRequest()
     {
-        $enabled = (int) Tools::getValue(self::CONFIG_ENABLED, 0);
-        $fontOptimizationEnabled = (int) Tools::getValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 0);
-        $cssOptimizationEnabled = (int) Tools::getValue(self::CONFIG_CSS_OPTIMIZATION_ENABLED, 0);
-        $imageOptimizationEnabled = (int) Tools::getValue(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED, 0);
-        $imgProxyBaseUrl = trim((string) Tools::getValue(self::CONFIG_IMGPROXY_BASE_URL, 'http://127.0.0.1:8094'));
-        $imgProxyQuality = max(30, min(95, (int) Tools::getValue(self::CONFIG_IMGPROXY_QUALITY, 82)));
-        $imgProxyKey = trim((string) Tools::getValue(self::CONFIG_IMGPROXY_KEY, ''));
-        $imgProxySalt = trim((string) Tools::getValue(self::CONFIG_IMGPROXY_SALT, ''));
-        $ttl = max(60, (int) Tools::getValue(self::CONFIG_TTL, self::DEFAULT_TTL));
-        $controllers = trim((string) Tools::getValue(self::CONFIG_ALLOWED_CONTROLLERS, 'index,category,product,cms'));
+        return $this->updateSubsetFromRequest(array_keys(self::CONFIG_DEFAULTS));
+    }
 
-        return Configuration::updateValue(self::CONFIG_ENABLED, $enabled)
-            && Configuration::updateValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, $fontOptimizationEnabled)
-            && Configuration::updateValue(self::CONFIG_CSS_OPTIMIZATION_ENABLED, $cssOptimizationEnabled)
-            && Configuration::updateValue(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED, $imageOptimizationEnabled)
-            && Configuration::updateValue(self::CONFIG_IMGPROXY_BASE_URL, $imgProxyBaseUrl)
-            && Configuration::updateValue(self::CONFIG_IMGPROXY_QUALITY, $imgProxyQuality)
-            && Configuration::updateValue(self::CONFIG_IMGPROXY_KEY, $imgProxyKey)
-            && Configuration::updateValue(self::CONFIG_IMGPROXY_SALT, $imgProxySalt)
-            && Configuration::updateValue(self::CONFIG_TTL, $ttl)
-            && Configuration::updateValue(self::CONFIG_ALLOWED_CONTROLLERS, $controllers);
+    /**
+     * Updates only the requested configuration keys. This is used by the admin
+     * tabs so each feature can be saved independently.
+     */
+    public function updateSubsetFromRequest(array $keys)
+    {
+        foreach ($keys as $key) {
+            $normalizedValue = $this->normalizeRequestValue($key);
+
+            if (!Configuration::updateValue($key, $normalizedValue)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public function getFormValues()
@@ -174,5 +184,36 @@ class PrestaLoadCacheSettings
         $value = Configuration::get($key);
 
         return $value === false ? $default : $value;
+    }
+
+    /**
+     * Normalizes each configuration field according to its expected type.
+     */
+    private function normalizeRequestValue($key)
+    {
+        switch ($key) {
+            case self::CONFIG_ENABLED:
+            case self::CONFIG_FONT_OPTIMIZATION_ENABLED:
+            case self::CONFIG_CSS_OPTIMIZATION_ENABLED:
+            case self::CONFIG_IMAGE_OPTIMIZATION_ENABLED:
+                return (int) Tools::getValue($key, (int) self::CONFIG_DEFAULTS[$key]);
+
+            case self::CONFIG_IMGPROXY_QUALITY:
+                return max(30, min(95, (int) Tools::getValue($key, (int) self::CONFIG_DEFAULTS[$key])));
+
+            case self::CONFIG_TTL:
+                return max(60, (int) Tools::getValue($key, (int) self::CONFIG_DEFAULTS[$key]));
+
+            case self::CONFIG_ALLOWED_CONTROLLERS:
+                return trim((string) Tools::getValue($key, (string) self::CONFIG_DEFAULTS[$key]));
+
+            case self::CONFIG_IMGPROXY_BASE_URL:
+            case self::CONFIG_IMGPROXY_KEY:
+            case self::CONFIG_IMGPROXY_SALT:
+                return trim((string) Tools::getValue($key, (string) self::CONFIG_DEFAULTS[$key]));
+
+            default:
+                return Tools::getValue($key, isset(self::CONFIG_DEFAULTS[$key]) ? self::CONFIG_DEFAULTS[$key] : '');
+        }
     }
 }
