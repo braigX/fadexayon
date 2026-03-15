@@ -85,7 +85,11 @@ class PrestaLoadPageCache
             http_response_code((int) $payload['status_code']);
         }
 
-        exit(isset($payload['body']) ? $payload['body'] : '');
+        $body = isset($payload['body']) ? $payload['body'] : '';
+
+        // Re-apply lightweight HTML optimizations on cache hits so improved
+        // optimizer logic takes effect even before old cache files are rebuilt.
+        exit($this->optimizeHtml($body));
     }
 
     /**

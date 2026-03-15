@@ -21,9 +21,10 @@ class PrestaLoadFontOptimizer
     private const FONT_EXTENSIONS_PATTERN = '/\.(woff2|woff|ttf|otf|eot)(\?|#|$)/i';
 
     /**
-     * Matches Google Fonts stylesheet tags so we can consolidate them safely.
+     * Matches raw link tags. Attributes are parsed separately so markup order
+     * does not matter.
      */
-    private const GOOGLE_FONTS_LINK_PATTERN = '/<link\b[^>]*rel=(["\'])stylesheet\1[^>]*href=(["\'])([^"\']+)\2[^>]*>/i';
+    private const LINK_TAG_PATTERN = '/<link\b[^>]*>/i';
 
     /**
      * Module settings control whether optimization is active.
@@ -67,11 +68,16 @@ class PrestaLoadFontOptimizer
      */
     private function normalizeGoogleFontStylesheets($html, array &$fontOrigins)
     {
-        $pattern = '/<link\b[^>]*rel=(["\'])(?:stylesheet|preload)\1[^>]*href=(["\'])([^"\']+)\2[^>]*>/i';
-
-        return preg_replace_callback($pattern, function ($matches) use (&$fontOrigins) {
+        return preg_replace_callback(self::LINK_TAG_PATTERN, function ($matches) use (&$fontOrigins) {
             $tag = $matches[0];
-            $href = html_entity_decode($matches[3], ENT_QUOTES, 'UTF-8');
+            $attributes = $this->extractLinkAttributes($tag);
+            $href = isset($attributes['href']) ? html_entity_decode($attributes['href'], ENT_QUOTES, 'UTF-8') : '';
+            $rel = isset($attributes['rel']) ? Tools::strtolower((string) $attributes['rel']) : '';
+
+            if ($href === '' || ($rel !== 'stylesheet' && $rel !== 'preload')) {
+                return $tag;
+            }
+
             $urlParts = @parse_url($href);
 
             if (!is_array($urlParts) || empty($urlParts['host'])) {
@@ -86,7 +92,7 @@ class PrestaLoadFontOptimizer
                 $fontOrigins['https://' . self::GOOGLE_STATIC_HOST] = true;
 
                 if ($updatedHref !== $href) {
-                    return str_replace($matches[3], htmlspecialchars($updatedHref, ENT_QUOTES, 'UTF-8'), $tag);
+                    return $this->replaceLinkHref($tag, $attributes['href'], $updatedHref);
                 }
 
                 return $tag;
@@ -112,7 +118,7 @@ class PrestaLoadFontOptimizer
      */
     private function consolidateGoogleFontStylesheets($html, array &$fontOrigins)
     {
-        if (!preg_match_all(self::GOOGLE_FONTS_LINK_PATTERN, $html, $matches, PREG_SET_ORDER)) {
+        if (!preg_match_all(self::LINK_TAG_PATTERN, $html, $matches, PREG_SET_ORDER)) {
             return $html;
         }
 
@@ -122,7 +128,14 @@ class PrestaLoadFontOptimizer
 
         foreach ($matches as $match) {
             $tag = $match[0];
-            $href = html_entity_decode($match[3], ENT_QUOTES, 'UTF-8');
+            $attributes = $this->extractLinkAttributes($tag);
+            $href = isset($attributes['href']) ? html_entity_decode($attributes['href'], ENT_QUOTES, 'UTF-8') : '';
+            $rel = isset($attributes['rel']) ? Tools::strtolower((string) $attributes['rel']) : '';
+
+            if ($href === '' || $rel !== 'stylesheet') {
+                continue;
+            }
+
             $urlParts = @parse_url($href);
 
             if (!is_array($urlParts) || empty($urlParts['host'])) {
@@ -167,7 +180,7 @@ class PrestaLoadFontOptimizer
         $injectedBlock = implode("\n", $replacementTags);
         $firstReplacementDone = false;
 
-        $html = preg_replace_callback(self::GOOGLE_FONTS_LINK_PATTERN, function ($match) use ($matchedGoogleTags, $injectedBlock, &$firstReplacementDone) {
+        $html = preg_replace_callback(self::LINK_TAG_PATTERN, function ($match) use ($matchedGoogleTags, $injectedBlock, &$firstReplacementDone) {
             $tag = $match[0];
 
             if (!isset($matchedGoogleTags[$tag])) {
@@ -184,6 +197,37 @@ class PrestaLoadFontOptimizer
         }, $html);
 
         return $html;
+    }
+
+    /**
+     * Extracts quoted link attributes without assuming any ordering.
+     */
+    private function extractLinkAttributes($tag)
+    {
+        $attributes = [];
+
+        if (!preg_match_all('/([a-zA-Z_:][a-zA-Z0-9_:\-]*)\s*=\s*(["\'])(.*?)\2/s', $tag, $matches, PREG_SET_ORDER)) {
+            return $attributes;
+        }
+
+        foreach ($matches as $match) {
+            $attributes[Tools::strtolower((string) $match[1])] = $match[3];
+        }
+
+        return $attributes;
+    }
+
+    /**
+     * Rewrites the href value while preserving the original tag structure.
+     */
+    private function replaceLinkHref($tag, $oldHref, $newHref)
+    {
+        return preg_replace(
+            '/(\bhref\s*=\s*)(["\'])' . preg_quote($oldHref, '/') . '(\2)/i',
+            '$1$2' . htmlspecialchars($newHref, ENT_QUOTES, 'UTF-8') . '$3',
+            $tag,
+            1
+        );
     }
 
     /**
