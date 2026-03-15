@@ -27,6 +27,30 @@
 
     <div style="flex: 1 1 640px; min-width: 320px;">
       {$prestaload_settings_form nofilter}
+
+      {if $prestaload_active_tab === 'cache_lifetimes'}
+        <div class="panel" style="margin-top: 16px;">
+          <h3>Browser Cache Lifetime Helper</h3>
+          <p>
+            This feature manages Apache browser cache rules through the shop root <code>.htaccess</code> file.
+            If the file cannot be updated automatically, use the generated block below.
+          </p>
+
+          <div class="well">
+            <p><strong>.htaccess path:</strong> {$prestaload_browser_cache_status.path|escape:'htmlall':'UTF-8'}</p>
+            <p><strong>File exists:</strong> {if $prestaload_browser_cache_status.exists}Yes{else}No{/if}</p>
+            <p><strong>Writable:</strong> {if $prestaload_browser_cache_status.writable}Yes{else}No{/if}</p>
+            <p><strong>Managed block present:</strong> {if $prestaload_browser_cache_status.managed_block_present}Yes{else}No{/if}</p>
+          </div>
+
+          <div class="alert alert-info">
+            <p style="margin-bottom: 8px;">
+              Use this snippet if automatic writing is not possible, or if you prefer to review the server rule before applying it.
+            </p>
+            <pre style="white-space: pre-wrap; word-break: break-word; margin: 0;">{$prestaload_browser_cache_status.snippet|escape:'htmlall':'UTF-8'}</pre>
+          </div>
+        </div>
+      {/if}
     </div>
   </div>
 </div>

@@ -15,6 +15,7 @@ require_once __DIR__ . '/classes/PrestaLoadCacheKeyBuilder.php';
 require_once __DIR__ . '/classes/PrestaLoadCacheLogger.php';
 require_once __DIR__ . '/classes/PrestaLoadCacheStore.php';
 require_once __DIR__ . '/classes/PrestaLoadPageCache.php';
+require_once __DIR__ . '/classes/PrestaLoadBrowserCacheManager.php';
 require_once __DIR__ . '/classes/PrestaLoadFontOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadCssOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadImgProxyUrlBuilder.php';
@@ -24,6 +25,7 @@ require_once __DIR__ . '/classes/PrestaLoadHtmlOptimizer.php';
 class PrestaLoad extends Module
 {
     private const TAB_GENERAL = 'general';
+    private const TAB_CACHE_LIFETIMES = 'cache_lifetimes';
     private const TAB_FONTS = 'fonts';
     private const TAB_CSS = 'css';
     private const TAB_IMAGES = 'images';
@@ -54,6 +56,7 @@ class PrestaLoad extends Module
 
     private $settings;
     private $pageCache;
+    private $browserCacheManager;
 
     public function __construct()
     {
@@ -75,6 +78,7 @@ class PrestaLoad extends Module
 
         $this->settings = new PrestaLoadCacheSettings($this->name, __DIR__);
         $this->pageCache = $this->buildPageCache();
+        $this->browserCacheManager = new PrestaLoadBrowserCacheManager($this->settings);
     }
 
     /**
@@ -125,6 +129,26 @@ class PrestaLoad extends Module
             $output .= $this->displayConfirmation($this->trans('General settings updated.', [], 'Admin.Notifications.Success'));
         }
 
+        if (Tools::isSubmit('submitPrestaLoadBrowserCacheSettings')) {
+            $this->settings->updateSubsetFromRequest([
+                PrestaLoadCacheSettings::CONFIG_BROWSER_CACHE_ENABLED,
+                PrestaLoadCacheSettings::CONFIG_BROWSER_CACHE_ASSET_TTL,
+                PrestaLoadCacheSettings::CONFIG_BROWSER_CACHE_MEDIA_TTL,
+            ]);
+
+            $browserCacheSync = $this->browserCacheManager->sync();
+
+            if (!empty($browserCacheSync['success'])) {
+                $output .= $this->displayConfirmation($this->trans('Browser cache settings updated.', [], 'Admin.Notifications.Success'));
+            } else {
+                $output .= $this->displayWarning($this->trans('Browser cache settings were saved, but the .htaccess file needs a manual update.', [], 'Admin.Notifications.Warning'));
+            }
+
+            if (!empty($browserCacheSync['message'])) {
+                $output .= $this->displayInformation($browserCacheSync['message']);
+            }
+        }
+
         if (Tools::isSubmit('submitPrestaLoadFontSettings')) {
             $this->settings->updateSubsetFromRequest([
                 PrestaLoadCacheSettings::CONFIG_FONT_OPTIMIZATION_ENABLED,
@@ -163,6 +187,7 @@ class PrestaLoad extends Module
             'prestaload_tabs' => $this->getAdminTabs(),
             'prestaload_stats' => $this->pageCache->getStats(),
             'prestaload_settings_form' => $this->renderSettingsForm($activeTab),
+            'prestaload_browser_cache_status' => $this->browserCacheManager->getStatus(),
         ]);
 
         return $output . $this->display(__FILE__, 'views/templates/admin/configure.tpl');
@@ -323,6 +348,45 @@ class PrestaLoad extends Module
                     ],
                 ],
             ],
+            self::TAB_CACHE_LIFETIMES => [
+                'form' => [
+                    'legend' => [
+                        'title' => $this->trans('Cache Lifetimes', [], 'Admin.Global'),
+                        'icon' => 'icon-time',
+                    ],
+                    'input' => [
+                        [
+                            'type' => 'switch',
+                            'label' => 'Enable browser cache lifetime rules',
+                            'name' => PrestaLoadCacheSettings::CONFIG_BROWSER_CACHE_ENABLED,
+                            'is_bool' => true,
+                            'values' => [
+                                ['id' => 'prestaload_browser_cache_on', 'value' => 1, 'label' => $this->trans('Yes', [], 'Admin.Global')],
+                                ['id' => 'prestaload_browser_cache_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
+                            ],
+                            'desc' => 'Adds or removes a managed .htaccess block for long-lived browser caching of static files.',
+                        ],
+                        [
+                            'type' => 'text',
+                            'label' => 'Static asset TTL seconds',
+                            'name' => PrestaLoadCacheSettings::CONFIG_BROWSER_CACHE_ASSET_TTL,
+                            'class' => 'fixed-width-xl',
+                            'desc' => 'Applies to CSS, JavaScript, fonts, and images. Default: 31536000 seconds.',
+                        ],
+                        [
+                            'type' => 'text',
+                            'label' => 'Media TTL seconds',
+                            'name' => PrestaLoadCacheSettings::CONFIG_BROWSER_CACHE_MEDIA_TTL,
+                            'class' => 'fixed-width-xl',
+                            'desc' => 'Applies to media files such as MP4, WebM, and MP3. Default: 2592000 seconds.',
+                        ],
+                    ],
+                    'submit' => [
+                        'title' => $this->trans('Save', [], 'Admin.Actions'),
+                        'name' => 'submitPrestaLoadBrowserCacheSettings',
+                    ],
+                ],
+            ],
             self::TAB_CSS => [
                 'form' => [
                     'legend' => [
@@ -424,6 +488,10 @@ class PrestaLoad extends Module
             self::TAB_FONTS => [
                 'label' => 'Fonts',
                 'link' => $this->getAdminConfigurationLink(self::TAB_FONTS),
+            ],
+            self::TAB_CACHE_LIFETIMES => [
+                'label' => 'Cache Lifetimes',
+                'link' => $this->getAdminConfigurationLink(self::TAB_CACHE_LIFETIMES),
             ],
             self::TAB_CSS => [
                 'label' => 'CSS',

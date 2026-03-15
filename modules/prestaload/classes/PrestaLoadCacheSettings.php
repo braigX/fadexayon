@@ -14,6 +14,9 @@ class PrestaLoadCacheSettings
     public const CONFIG_FONT_OPTIMIZATION_ENABLED = 'PRESTALOAD_FONT_OPTIMIZATION_ENABLED';
     public const CONFIG_CSS_OPTIMIZATION_ENABLED = 'PRESTALOAD_CSS_OPTIMIZATION_ENABLED';
     public const CONFIG_IMAGE_OPTIMIZATION_ENABLED = 'PRESTALOAD_IMAGE_OPTIMIZATION_ENABLED';
+    public const CONFIG_BROWSER_CACHE_ENABLED = 'PRESTALOAD_BROWSER_CACHE_ENABLED';
+    public const CONFIG_BROWSER_CACHE_ASSET_TTL = 'PRESTALOAD_BROWSER_CACHE_ASSET_TTL';
+    public const CONFIG_BROWSER_CACHE_MEDIA_TTL = 'PRESTALOAD_BROWSER_CACHE_MEDIA_TTL';
     public const CONFIG_IMGPROXY_BASE_URL = 'PRESTALOAD_IMGPROXY_BASE_URL';
     public const CONFIG_IMGPROXY_QUALITY = 'PRESTALOAD_IMGPROXY_QUALITY';
     public const CONFIG_IMGPROXY_KEY = 'PRESTALOAD_IMGPROXY_KEY';
@@ -26,6 +29,9 @@ class PrestaLoadCacheSettings
         self::CONFIG_FONT_OPTIMIZATION_ENABLED => 1,
         self::CONFIG_CSS_OPTIMIZATION_ENABLED => 0,
         self::CONFIG_IMAGE_OPTIMIZATION_ENABLED => 0,
+        self::CONFIG_BROWSER_CACHE_ENABLED => 0,
+        self::CONFIG_BROWSER_CACHE_ASSET_TTL => 31536000,
+        self::CONFIG_BROWSER_CACHE_MEDIA_TTL => 2592000,
         self::CONFIG_IMGPROXY_BASE_URL => 'http://127.0.0.1:8094',
         self::CONFIG_IMGPROXY_QUALITY => 82,
         self::CONFIG_IMGPROXY_KEY => '',
@@ -52,6 +58,9 @@ class PrestaLoadCacheSettings
             && Configuration::updateValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1)
             && Configuration::updateValue(self::CONFIG_CSS_OPTIMIZATION_ENABLED, 0)
             && Configuration::updateValue(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED, 0)
+            && Configuration::updateValue(self::CONFIG_BROWSER_CACHE_ENABLED, 0)
+            && Configuration::updateValue(self::CONFIG_BROWSER_CACHE_ASSET_TTL, 31536000)
+            && Configuration::updateValue(self::CONFIG_BROWSER_CACHE_MEDIA_TTL, 2592000)
             && Configuration::updateValue(self::CONFIG_IMGPROXY_BASE_URL, 'http://127.0.0.1:8094')
             && Configuration::updateValue(self::CONFIG_IMGPROXY_QUALITY, 82)
             && Configuration::updateValue(self::CONFIG_IMGPROXY_KEY, '')
@@ -66,6 +75,9 @@ class PrestaLoadCacheSettings
             && Configuration::deleteByName(self::CONFIG_FONT_OPTIMIZATION_ENABLED)
             && Configuration::deleteByName(self::CONFIG_CSS_OPTIMIZATION_ENABLED)
             && Configuration::deleteByName(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_BROWSER_CACHE_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_BROWSER_CACHE_ASSET_TTL)
+            && Configuration::deleteByName(self::CONFIG_BROWSER_CACHE_MEDIA_TTL)
             && Configuration::deleteByName(self::CONFIG_IMGPROXY_BASE_URL)
             && Configuration::deleteByName(self::CONFIG_IMGPROXY_QUALITY)
             && Configuration::deleteByName(self::CONFIG_IMGPROXY_KEY)
@@ -97,6 +109,21 @@ class PrestaLoadCacheSettings
     public function isImageOptimizationEnabled()
     {
         return (bool) $this->getStoredValue(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED, 0);
+    }
+
+    public function isBrowserCacheEnabled()
+    {
+        return (bool) $this->getStoredValue(self::CONFIG_BROWSER_CACHE_ENABLED, 0);
+    }
+
+    public function getBrowserCacheAssetTtl()
+    {
+        return max(3600, (int) $this->getStoredValue(self::CONFIG_BROWSER_CACHE_ASSET_TTL, 31536000));
+    }
+
+    public function getBrowserCacheMediaTtl()
+    {
+        return max(3600, (int) $this->getStoredValue(self::CONFIG_BROWSER_CACHE_MEDIA_TTL, 2592000));
     }
 
     public function getImgProxyBaseUrl()
@@ -166,6 +193,9 @@ class PrestaLoadCacheSettings
             self::CONFIG_FONT_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1),
             self::CONFIG_CSS_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_CSS_OPTIMIZATION_ENABLED, 0),
             self::CONFIG_IMAGE_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED, 0),
+            self::CONFIG_BROWSER_CACHE_ENABLED => (int) $this->getStoredValue(self::CONFIG_BROWSER_CACHE_ENABLED, 0),
+            self::CONFIG_BROWSER_CACHE_ASSET_TTL => (int) $this->getStoredValue(self::CONFIG_BROWSER_CACHE_ASSET_TTL, 31536000),
+            self::CONFIG_BROWSER_CACHE_MEDIA_TTL => (int) $this->getStoredValue(self::CONFIG_BROWSER_CACHE_MEDIA_TTL, 2592000),
             self::CONFIG_IMGPROXY_BASE_URL => (string) $this->getStoredValue(self::CONFIG_IMGPROXY_BASE_URL, 'http://127.0.0.1:8094'),
             self::CONFIG_IMGPROXY_QUALITY => (int) $this->getStoredValue(self::CONFIG_IMGPROXY_QUALITY, 82),
             self::CONFIG_IMGPROXY_KEY => (string) $this->getStoredValue(self::CONFIG_IMGPROXY_KEY, ''),
@@ -196,12 +226,15 @@ class PrestaLoadCacheSettings
             case self::CONFIG_FONT_OPTIMIZATION_ENABLED:
             case self::CONFIG_CSS_OPTIMIZATION_ENABLED:
             case self::CONFIG_IMAGE_OPTIMIZATION_ENABLED:
+            case self::CONFIG_BROWSER_CACHE_ENABLED:
                 return (int) Tools::getValue($key, (int) self::CONFIG_DEFAULTS[$key]);
 
             case self::CONFIG_IMGPROXY_QUALITY:
                 return max(30, min(95, (int) Tools::getValue($key, (int) self::CONFIG_DEFAULTS[$key])));
 
             case self::CONFIG_TTL:
+            case self::CONFIG_BROWSER_CACHE_ASSET_TTL:
+            case self::CONFIG_BROWSER_CACHE_MEDIA_TTL:
                 return max(60, (int) Tools::getValue($key, (int) self::CONFIG_DEFAULTS[$key]));
 
             case self::CONFIG_ALLOWED_CONTROLLERS:
