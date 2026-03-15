@@ -26,6 +26,7 @@ require_once __DIR__ . '/classes/PrestaLoadAssetRuleApplier.php';
 require_once __DIR__ . '/classes/PrestaLoadFontOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadCssOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadImgProxyUrlBuilder.php';
+require_once __DIR__ . '/classes/PrestaLoadImageLoadingOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadImageOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadHtmlCompressor.php';
 require_once __DIR__ . '/classes/PrestaLoadHtmlOptimizer.php';
@@ -195,6 +196,8 @@ class PrestaLoad extends Module
 
         if (Tools::isSubmit('submitPrestaLoadImageSettings')) {
             $this->settings->updateSubsetFromRequest([
+                PrestaLoadCacheSettings::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED,
+                PrestaLoadCacheSettings::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED,
                 PrestaLoadCacheSettings::CONFIG_IMAGE_OPTIMIZATION_ENABLED,
                 PrestaLoadCacheSettings::CONFIG_IMGPROXY_BASE_URL,
                 PrestaLoadCacheSettings::CONFIG_IMGPROXY_QUALITY,
@@ -294,7 +297,8 @@ class PrestaLoad extends Module
         $fontOptimizer = new PrestaLoadFontOptimizer($this->settings);
         $cssOptimizer = new PrestaLoadCssOptimizer($this->settings);
         $imgProxyUrlBuilder = new PrestaLoadImgProxyUrlBuilder($this->settings);
-        $imageOptimizer = new PrestaLoadImageOptimizer($this->settings, $imgProxyUrlBuilder);
+        $imageLoadingOptimizer = new PrestaLoadImageLoadingOptimizer($this->settings);
+        $imageOptimizer = new PrestaLoadImageOptimizer($this->settings, $imgProxyUrlBuilder, $imageLoadingOptimizer);
         $assetRuleApplier = new PrestaLoadAssetRuleApplier($this->assetRuleStore, $cssOptimizer);
         $htmlCompressor = new PrestaLoadHtmlCompressor($this->settings);
         $htmlOptimizer = new PrestaLoadHtmlOptimizer($fontOptimizer, $cssOptimizer, $imageOptimizer, $assetRuleApplier, $htmlCompressor);
@@ -527,6 +531,28 @@ class PrestaLoad extends Module
                         'icon' => 'icon-picture',
                     ],
                     'input' => [
+                        [
+                            'type' => 'switch',
+                            'label' => 'Optimize image loading',
+                            'name' => PrestaLoadCacheSettings::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED,
+                            'is_bool' => true,
+                            'values' => [
+                                ['id' => 'prestaload_image_loading_on', 'value' => 1, 'label' => $this->trans('Yes', [], 'Admin.Global')],
+                                ['id' => 'prestaload_image_loading_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
+                            ],
+                            'desc' => 'Keeps likely above-the-fold images eager and lazy-loads the remaining images.',
+                        ],
+                        [
+                            'type' => 'switch',
+                            'label' => 'Lazy load background images',
+                            'name' => PrestaLoadCacheSettings::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED,
+                            'is_bool' => true,
+                            'values' => [
+                                ['id' => 'prestaload_background_images_on', 'value' => 1, 'label' => $this->trans('Yes', [], 'Admin.Global')],
+                                ['id' => 'prestaload_background_images_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
+                            ],
+                            'desc' => 'Conservatively delays inline HTML background images outside obvious hero or slider sections.',
+                        ],
                         [
                             'type' => 'switch',
                             'label' => 'Optimize images with ImgProxy',

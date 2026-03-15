@@ -19,12 +19,19 @@ class PrestaLoadImageOptimizer
      */
     private $urlBuilder;
 
+    /**
+     * @var PrestaLoadImageLoadingOptimizer
+     */
+    private $loadingOptimizer;
+
     public function __construct(
         PrestaLoadCacheSettings $settings,
-        PrestaLoadImgProxyUrlBuilder $urlBuilder
+        PrestaLoadImgProxyUrlBuilder $urlBuilder,
+        PrestaLoadImageLoadingOptimizer $loadingOptimizer
     ) {
         $this->settings = $settings;
         $this->urlBuilder = $urlBuilder;
+        $this->loadingOptimizer = $loadingOptimizer;
     }
 
     /**
@@ -32,11 +39,13 @@ class PrestaLoadImageOptimizer
      */
     public function optimize($html)
     {
-        if (!$this->settings->isImageOptimizationEnabled()) {
+        if (!is_string($html) || trim($html) === '') {
             return $html;
         }
 
-        if (!is_string($html) || trim($html) === '') {
+        $html = $this->loadingOptimizer->optimize($html);
+
+        if (!$this->settings->isImageOptimizationEnabled()) {
             return $html;
         }
 

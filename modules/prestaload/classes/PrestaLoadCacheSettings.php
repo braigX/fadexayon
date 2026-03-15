@@ -14,6 +14,8 @@ class PrestaLoadCacheSettings
     public const CONFIG_HTML_COMPRESSION_ENABLED = 'PRESTALOAD_HTML_COMPRESSION_ENABLED';
     public const CONFIG_FONT_OPTIMIZATION_ENABLED = 'PRESTALOAD_FONT_OPTIMIZATION_ENABLED';
     public const CONFIG_CSS_OPTIMIZATION_ENABLED = 'PRESTALOAD_CSS_OPTIMIZATION_ENABLED';
+    public const CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED = 'PRESTALOAD_IMAGE_LOADING_OPTIMIZATION_ENABLED';
+    public const CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED = 'PRESTALOAD_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED';
     public const CONFIG_IMAGE_OPTIMIZATION_ENABLED = 'PRESTALOAD_IMAGE_OPTIMIZATION_ENABLED';
     public const CONFIG_ASSET_SCANNER_BASE_URL = 'PRESTALOAD_ASSET_SCANNER_BASE_URL';
     public const CONFIG_ASSET_SCAN_TARGET_BASE_URL = 'PRESTALOAD_ASSET_SCAN_TARGET_BASE_URL';
@@ -32,6 +34,8 @@ class PrestaLoadCacheSettings
         self::CONFIG_HTML_COMPRESSION_ENABLED => 0,
         self::CONFIG_FONT_OPTIMIZATION_ENABLED => 1,
         self::CONFIG_CSS_OPTIMIZATION_ENABLED => 0,
+        self::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED => 0,
+        self::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED => 0,
         self::CONFIG_IMAGE_OPTIMIZATION_ENABLED => 0,
         self::CONFIG_ASSET_SCANNER_BASE_URL => 'https://scanner.prestaload.com',
         self::CONFIG_ASSET_SCAN_TARGET_BASE_URL => '',
@@ -64,6 +68,8 @@ class PrestaLoadCacheSettings
             && Configuration::updateValue(self::CONFIG_HTML_COMPRESSION_ENABLED, 0)
             && Configuration::updateValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1)
             && Configuration::updateValue(self::CONFIG_CSS_OPTIMIZATION_ENABLED, 0)
+            && Configuration::updateValue(self::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED, 0)
+            && Configuration::updateValue(self::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED, 0)
             && Configuration::updateValue(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED, 0)
             && Configuration::updateValue(self::CONFIG_ASSET_SCANNER_BASE_URL, 'https://scanner.prestaload.com')
             && Configuration::updateValue(self::CONFIG_ASSET_SCAN_TARGET_BASE_URL, '')
@@ -84,6 +90,8 @@ class PrestaLoadCacheSettings
             && Configuration::deleteByName(self::CONFIG_HTML_COMPRESSION_ENABLED)
             && Configuration::deleteByName(self::CONFIG_FONT_OPTIMIZATION_ENABLED)
             && Configuration::deleteByName(self::CONFIG_CSS_OPTIMIZATION_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED)
             && Configuration::deleteByName(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED)
             && Configuration::deleteByName(self::CONFIG_ASSET_SCANNER_BASE_URL)
             && Configuration::deleteByName(self::CONFIG_ASSET_SCAN_TARGET_BASE_URL)
@@ -126,6 +134,16 @@ class PrestaLoadCacheSettings
     public function isImageOptimizationEnabled()
     {
         return (bool) $this->getStoredValue(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED, 0);
+    }
+
+    public function isImageLoadingOptimizationEnabled()
+    {
+        return (bool) $this->getStoredValue(self::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED, 0);
+    }
+
+    public function isBackgroundImageLazyLoadingEnabled()
+    {
+        return (bool) $this->getStoredValue(self::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED, 0);
     }
 
     public function getAssetScannerBaseUrl()
@@ -220,6 +238,8 @@ class PrestaLoadCacheSettings
             self::CONFIG_HTML_COMPRESSION_ENABLED => (int) $this->getStoredValue(self::CONFIG_HTML_COMPRESSION_ENABLED, 0),
             self::CONFIG_FONT_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1),
             self::CONFIG_CSS_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_CSS_OPTIMIZATION_ENABLED, 0),
+            self::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED, 0),
+            self::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED => (int) $this->getStoredValue(self::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED, 0),
             self::CONFIG_IMAGE_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED, 0),
             self::CONFIG_ASSET_SCANNER_BASE_URL => (string) $this->getStoredValue(self::CONFIG_ASSET_SCANNER_BASE_URL, 'https://scanner.prestaload.com'),
             self::CONFIG_ASSET_SCAN_TARGET_BASE_URL => (string) $this->getStoredValue(self::CONFIG_ASSET_SCAN_TARGET_BASE_URL, ''),
@@ -256,6 +276,8 @@ class PrestaLoadCacheSettings
             case self::CONFIG_HTML_COMPRESSION_ENABLED:
             case self::CONFIG_FONT_OPTIMIZATION_ENABLED:
             case self::CONFIG_CSS_OPTIMIZATION_ENABLED:
+            case self::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED:
+            case self::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED:
             case self::CONFIG_IMAGE_OPTIMIZATION_ENABLED:
             case self::CONFIG_BROWSER_CACHE_ENABLED:
                 return (int) Tools::getValue($key, (int) self::CONFIG_DEFAULTS[$key]);
