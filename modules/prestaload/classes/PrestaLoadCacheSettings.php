@@ -12,6 +12,7 @@ class PrestaLoadCacheSettings
 
     public const CONFIG_ENABLED = 'PRESTALOAD_CACHE_ENABLED';
     public const CONFIG_FONT_OPTIMIZATION_ENABLED = 'PRESTALOAD_FONT_OPTIMIZATION_ENABLED';
+    public const CONFIG_CSS_OPTIMIZATION_ENABLED = 'PRESTALOAD_CSS_OPTIMIZATION_ENABLED';
     public const CONFIG_TTL = 'PRESTALOAD_CACHE_TTL';
     public const CONFIG_ALLOWED_CONTROLLERS = 'PRESTALOAD_CACHE_ALLOWED_CONTROLLERS';
 
@@ -31,6 +32,7 @@ class PrestaLoadCacheSettings
     {
         return Configuration::updateValue(self::CONFIG_ENABLED, 1)
             && Configuration::updateValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1)
+            && Configuration::updateValue(self::CONFIG_CSS_OPTIMIZATION_ENABLED, 0)
             && Configuration::updateValue(self::CONFIG_TTL, self::DEFAULT_TTL)
             && Configuration::updateValue(self::CONFIG_ALLOWED_CONTROLLERS, 'index,category,product,cms');
     }
@@ -39,28 +41,34 @@ class PrestaLoadCacheSettings
     {
         return Configuration::deleteByName(self::CONFIG_ENABLED)
             && Configuration::deleteByName(self::CONFIG_FONT_OPTIMIZATION_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_CSS_OPTIMIZATION_ENABLED)
             && Configuration::deleteByName(self::CONFIG_TTL)
             && Configuration::deleteByName(self::CONFIG_ALLOWED_CONTROLLERS);
     }
 
     public function isEnabled()
     {
-        return (bool) Configuration::get(self::CONFIG_ENABLED, 1);
+        return (bool) $this->getStoredValue(self::CONFIG_ENABLED, 1);
     }
 
     public function getTtl()
     {
-        return max(60, (int) Configuration::get(self::CONFIG_TTL, self::DEFAULT_TTL));
+        return max(60, (int) $this->getStoredValue(self::CONFIG_TTL, self::DEFAULT_TTL));
     }
 
     public function isFontOptimizationEnabled()
     {
-        return (bool) Configuration::get(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1);
+        return (bool) $this->getStoredValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1);
+    }
+
+    public function isCssOptimizationEnabled()
+    {
+        return (bool) $this->getStoredValue(self::CONFIG_CSS_OPTIMIZATION_ENABLED, 0);
     }
 
     public function getAllowedControllers()
     {
-        $raw = (string) Configuration::get(self::CONFIG_ALLOWED_CONTROLLERS, 'index,category,product,cms');
+        $raw = (string) $this->getStoredValue(self::CONFIG_ALLOWED_CONTROLLERS, 'index,category,product,cms');
         $parts = preg_split('/[\s,]+/', Tools::strtolower($raw), -1, PREG_SPLIT_NO_EMPTY);
 
         return array_values(array_unique(is_array($parts) ? $parts : []));
@@ -80,11 +88,13 @@ class PrestaLoadCacheSettings
     {
         $enabled = (int) Tools::getValue(self::CONFIG_ENABLED, 0);
         $fontOptimizationEnabled = (int) Tools::getValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 0);
+        $cssOptimizationEnabled = (int) Tools::getValue(self::CONFIG_CSS_OPTIMIZATION_ENABLED, 0);
         $ttl = max(60, (int) Tools::getValue(self::CONFIG_TTL, self::DEFAULT_TTL));
         $controllers = trim((string) Tools::getValue(self::CONFIG_ALLOWED_CONTROLLERS, 'index,category,product,cms'));
 
         return Configuration::updateValue(self::CONFIG_ENABLED, $enabled)
             && Configuration::updateValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, $fontOptimizationEnabled)
+            && Configuration::updateValue(self::CONFIG_CSS_OPTIMIZATION_ENABLED, $cssOptimizationEnabled)
             && Configuration::updateValue(self::CONFIG_TTL, $ttl)
             && Configuration::updateValue(self::CONFIG_ALLOWED_CONTROLLERS, $controllers);
     }
@@ -92,10 +102,22 @@ class PrestaLoadCacheSettings
     public function getFormValues()
     {
         return [
-            self::CONFIG_ENABLED => (int) Configuration::get(self::CONFIG_ENABLED, 1),
-            self::CONFIG_FONT_OPTIMIZATION_ENABLED => (int) Configuration::get(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1),
-            self::CONFIG_TTL => (int) Configuration::get(self::CONFIG_TTL, self::DEFAULT_TTL),
-            self::CONFIG_ALLOWED_CONTROLLERS => (string) Configuration::get(self::CONFIG_ALLOWED_CONTROLLERS, 'index,category,product,cms'),
+            self::CONFIG_ENABLED => (int) $this->getStoredValue(self::CONFIG_ENABLED, 1),
+            self::CONFIG_FONT_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1),
+            self::CONFIG_CSS_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_CSS_OPTIMIZATION_ENABLED, 0),
+            self::CONFIG_TTL => (int) $this->getStoredValue(self::CONFIG_TTL, self::DEFAULT_TTL),
+            self::CONFIG_ALLOWED_CONTROLLERS => (string) $this->getStoredValue(self::CONFIG_ALLOWED_CONTROLLERS, 'index,category,product,cms'),
         ];
+    }
+
+    /**
+     * Prestashop's Configuration::get does not take the default value as the
+     * second argument, so this helper provides an explicit fallback.
+     */
+    private function getStoredValue($key, $default)
+    {
+        $value = Configuration::get($key);
+
+        return $value === false ? $default : $value;
     }
 }

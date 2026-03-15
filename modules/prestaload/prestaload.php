@@ -16,6 +16,8 @@ require_once __DIR__ . '/classes/PrestaLoadCacheLogger.php';
 require_once __DIR__ . '/classes/PrestaLoadCacheStore.php';
 require_once __DIR__ . '/classes/PrestaLoadPageCache.php';
 require_once __DIR__ . '/classes/PrestaLoadFontOptimizer.php';
+require_once __DIR__ . '/classes/PrestaLoadCssOptimizer.php';
+require_once __DIR__ . '/classes/PrestaLoadHtmlOptimizer.php';
 
 class PrestaLoad extends Module
 {
@@ -164,8 +166,10 @@ class PrestaLoad extends Module
         $logger = new PrestaLoadCacheLogger($this->settings->getLogFile());
         $store = new PrestaLoadCacheStore($this->settings->getCacheDirectory());
         $fontOptimizer = new PrestaLoadFontOptimizer($this->settings);
+        $cssOptimizer = new PrestaLoadCssOptimizer($this->settings);
+        $htmlOptimizer = new PrestaLoadHtmlOptimizer($fontOptimizer, $cssOptimizer);
 
-        return new PrestaLoadPageCache($this->context, $this->settings, $eligibility, $keyBuilder, $store, $logger, $fontOptimizer);
+        return new PrestaLoadPageCache($this->context, $this->settings, $eligibility, $keyBuilder, $store, $logger, $htmlOptimizer);
     }
 
     private function registerHooks(array $hooks)
@@ -234,6 +238,17 @@ class PrestaLoad extends Module
                             ['id' => 'prestaload_fonts_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
                         ],
                         'desc' => 'Adds safe font-loading optimizations to cached public HTML.',
+                    ],
+                    [
+                        'type' => 'switch',
+                        'label' => 'Experimental CSS deferral',
+                        'name' => PrestaLoadCacheSettings::CONFIG_CSS_OPTIMIZATION_ENABLED,
+                        'is_bool' => true,
+                        'values' => [
+                            ['id' => 'prestaload_css_on', 'value' => 1, 'label' => $this->trans('Yes', [], 'Admin.Global')],
+                            ['id' => 'prestaload_css_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
+                        ],
+                        'desc' => 'Disabled by default. Can improve render-blocking in some shops but may increase layout shifts when modules inject visible CSS late.',
                     ],
                     [
                         'type' => 'text',
