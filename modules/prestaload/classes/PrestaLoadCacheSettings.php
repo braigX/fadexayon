@@ -14,6 +14,8 @@ class PrestaLoadCacheSettings
     public const CONFIG_FONT_OPTIMIZATION_ENABLED = 'PRESTALOAD_FONT_OPTIMIZATION_ENABLED';
     public const CONFIG_CSS_OPTIMIZATION_ENABLED = 'PRESTALOAD_CSS_OPTIMIZATION_ENABLED';
     public const CONFIG_IMAGE_OPTIMIZATION_ENABLED = 'PRESTALOAD_IMAGE_OPTIMIZATION_ENABLED';
+    public const CONFIG_ASSET_SCANNER_BASE_URL = 'PRESTALOAD_ASSET_SCANNER_BASE_URL';
+    public const CONFIG_ASSET_SCAN_TARGET_BASE_URL = 'PRESTALOAD_ASSET_SCAN_TARGET_BASE_URL';
     public const CONFIG_BROWSER_CACHE_ENABLED = 'PRESTALOAD_BROWSER_CACHE_ENABLED';
     public const CONFIG_BROWSER_CACHE_ASSET_TTL = 'PRESTALOAD_BROWSER_CACHE_ASSET_TTL';
     public const CONFIG_BROWSER_CACHE_MEDIA_TTL = 'PRESTALOAD_BROWSER_CACHE_MEDIA_TTL';
@@ -29,6 +31,8 @@ class PrestaLoadCacheSettings
         self::CONFIG_FONT_OPTIMIZATION_ENABLED => 1,
         self::CONFIG_CSS_OPTIMIZATION_ENABLED => 0,
         self::CONFIG_IMAGE_OPTIMIZATION_ENABLED => 0,
+        self::CONFIG_ASSET_SCANNER_BASE_URL => 'https://scanner.prestaload.com',
+        self::CONFIG_ASSET_SCAN_TARGET_BASE_URL => '',
         self::CONFIG_BROWSER_CACHE_ENABLED => 0,
         self::CONFIG_BROWSER_CACHE_ASSET_TTL => 31536000,
         self::CONFIG_BROWSER_CACHE_MEDIA_TTL => 2592000,
@@ -58,6 +62,8 @@ class PrestaLoadCacheSettings
             && Configuration::updateValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1)
             && Configuration::updateValue(self::CONFIG_CSS_OPTIMIZATION_ENABLED, 0)
             && Configuration::updateValue(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED, 0)
+            && Configuration::updateValue(self::CONFIG_ASSET_SCANNER_BASE_URL, 'https://scanner.prestaload.com')
+            && Configuration::updateValue(self::CONFIG_ASSET_SCAN_TARGET_BASE_URL, '')
             && Configuration::updateValue(self::CONFIG_BROWSER_CACHE_ENABLED, 0)
             && Configuration::updateValue(self::CONFIG_BROWSER_CACHE_ASSET_TTL, 31536000)
             && Configuration::updateValue(self::CONFIG_BROWSER_CACHE_MEDIA_TTL, 2592000)
@@ -75,6 +81,8 @@ class PrestaLoadCacheSettings
             && Configuration::deleteByName(self::CONFIG_FONT_OPTIMIZATION_ENABLED)
             && Configuration::deleteByName(self::CONFIG_CSS_OPTIMIZATION_ENABLED)
             && Configuration::deleteByName(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_ASSET_SCANNER_BASE_URL)
+            && Configuration::deleteByName(self::CONFIG_ASSET_SCAN_TARGET_BASE_URL)
             && Configuration::deleteByName(self::CONFIG_BROWSER_CACHE_ENABLED)
             && Configuration::deleteByName(self::CONFIG_BROWSER_CACHE_ASSET_TTL)
             && Configuration::deleteByName(self::CONFIG_BROWSER_CACHE_MEDIA_TTL)
@@ -109,6 +117,16 @@ class PrestaLoadCacheSettings
     public function isImageOptimizationEnabled()
     {
         return (bool) $this->getStoredValue(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED, 0);
+    }
+
+    public function getAssetScannerBaseUrl()
+    {
+        return rtrim((string) $this->getStoredValue(self::CONFIG_ASSET_SCANNER_BASE_URL, 'https://scanner.prestaload.com'), '/');
+    }
+
+    public function getAssetScanTargetBaseUrl()
+    {
+        return rtrim(trim((string) $this->getStoredValue(self::CONFIG_ASSET_SCAN_TARGET_BASE_URL, '')), '/');
     }
 
     public function isBrowserCacheEnabled()
@@ -193,6 +211,8 @@ class PrestaLoadCacheSettings
             self::CONFIG_FONT_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1),
             self::CONFIG_CSS_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_CSS_OPTIMIZATION_ENABLED, 0),
             self::CONFIG_IMAGE_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED, 0),
+            self::CONFIG_ASSET_SCANNER_BASE_URL => (string) $this->getStoredValue(self::CONFIG_ASSET_SCANNER_BASE_URL, 'https://scanner.prestaload.com'),
+            self::CONFIG_ASSET_SCAN_TARGET_BASE_URL => (string) $this->getStoredValue(self::CONFIG_ASSET_SCAN_TARGET_BASE_URL, ''),
             self::CONFIG_BROWSER_CACHE_ENABLED => (int) $this->getStoredValue(self::CONFIG_BROWSER_CACHE_ENABLED, 0),
             self::CONFIG_BROWSER_CACHE_ASSET_TTL => (int) $this->getStoredValue(self::CONFIG_BROWSER_CACHE_ASSET_TTL, 31536000),
             self::CONFIG_BROWSER_CACHE_MEDIA_TTL => (int) $this->getStoredValue(self::CONFIG_BROWSER_CACHE_MEDIA_TTL, 2592000),
@@ -240,6 +260,8 @@ class PrestaLoadCacheSettings
             case self::CONFIG_ALLOWED_CONTROLLERS:
                 return trim((string) Tools::getValue($key, (string) self::CONFIG_DEFAULTS[$key]));
 
+            case self::CONFIG_ASSET_SCANNER_BASE_URL:
+            case self::CONFIG_ASSET_SCAN_TARGET_BASE_URL:
             case self::CONFIG_IMGPROXY_BASE_URL:
             case self::CONFIG_IMGPROXY_KEY:
             case self::CONFIG_IMGPROXY_SALT:

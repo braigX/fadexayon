@@ -28,14 +28,24 @@ class PrestaLoadHtmlOptimizer
      */
     private $imageOptimizer;
 
+    /**
+     * Applies explicit admin-selected asset rules last so those rules win over
+     * automatic optimizations.
+     *
+     * @var PrestaLoadAssetRuleApplier
+     */
+    private $assetRuleApplier;
+
     public function __construct(
         PrestaLoadFontOptimizer $fontOptimizer,
         PrestaLoadCssOptimizer $cssOptimizer,
-        PrestaLoadImageOptimizer $imageOptimizer
+        PrestaLoadImageOptimizer $imageOptimizer,
+        PrestaLoadAssetRuleApplier $assetRuleApplier
     ) {
         $this->fontOptimizer = $fontOptimizer;
         $this->cssOptimizer = $cssOptimizer;
         $this->imageOptimizer = $imageOptimizer;
+        $this->assetRuleApplier = $assetRuleApplier;
     }
 
     /**
@@ -45,7 +55,8 @@ class PrestaLoadHtmlOptimizer
     {
         $html = $this->fontOptimizer->optimize($html);
         $html = $this->cssOptimizer->optimize($html);
+        $html = $this->imageOptimizer->optimize($html);
 
-        return $this->imageOptimizer->optimize($html);
+        return $this->assetRuleApplier->optimize($html);
     }
 }

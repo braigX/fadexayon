@@ -18,6 +18,11 @@ require_once __DIR__ . '/classes/PrestaLoadPageCache.php';
 require_once __DIR__ . '/classes/PrestaLoadBrowserCacheManager.php';
 require_once __DIR__ . '/classes/PrestaLoadEarlyCacheKeyBuilder.php';
 require_once __DIR__ . '/classes/PrestaLoadRuntimeConfig.php';
+require_once __DIR__ . '/classes/PrestaLoadAssetPageRegistry.php';
+require_once __DIR__ . '/classes/PrestaLoadAssetScannerClient.php';
+require_once __DIR__ . '/classes/PrestaLoadAssetScanStore.php';
+require_once __DIR__ . '/classes/PrestaLoadAssetRuleStore.php';
+require_once __DIR__ . '/classes/PrestaLoadAssetRuleApplier.php';
 require_once __DIR__ . '/classes/PrestaLoadFontOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadCssOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadImgProxyUrlBuilder.php';
@@ -27,6 +32,7 @@ require_once __DIR__ . '/classes/PrestaLoadHtmlOptimizer.php';
 class PrestaLoad extends Module
 {
     private const TAB_GENERAL = 'general';
+    private const TAB_ASSETS = 'assets';
     private const TAB_CACHE_LIFETIMES = 'cache_lifetimes';
     private const TAB_FONTS = 'fonts';
     private const TAB_CSS = 'css';
@@ -60,6 +66,10 @@ class PrestaLoad extends Module
     private $pageCache;
     private $browserCacheManager;
     private $runtimeConfig;
+    private $assetPageRegistry;
+    private $assetScannerClient;
+    private $assetScanStore;
+    private $assetRuleStore;
 
     public function __construct()
     {
@@ -80,9 +90,13 @@ class PrestaLoad extends Module
         $this->description = 'Anonymous full-page cache for selected Prestashop pages.';
 
         $this->settings = new PrestaLoadCacheSettings($this->name, __DIR__);
-        $this->pageCache = $this->buildPageCache();
         $this->browserCacheManager = new PrestaLoadBrowserCacheManager($this->settings);
         $this->runtimeConfig = new PrestaLoadRuntimeConfig($this->settings, __DIR__);
+        $this->assetPageRegistry = new PrestaLoadAssetPageRegistry($this->context, $this->settings);
+        $this->assetScannerClient = new PrestaLoadAssetScannerClient($this->settings);
+        $this->assetScanStore = new PrestaLoadAssetScanStore(__DIR__);
+        $this->assetRuleStore = new PrestaLoadAssetRuleStore(__DIR__);
+        $this->pageCache = $this->buildPageCache();
     }
 
     /**
@@ -122,6 +136,8 @@ class PrestaLoad extends Module
      */
     public function getContent()
     {
+        $this->handleAjaxRequest();
+
         $output = '';
         $activeTab = $this->getActiveTab();
 
@@ -188,10 +204,48 @@ class PrestaLoad extends Module
             $output .= $this->displayConfirmation($this->trans('Image settings updated.', [], 'Admin.Notifications.Success'));
         }
 
+        if (Tools::isSubmit('submitPrestaLoadAssetSettings')) {
+            $this->settings->updateSubsetFromRequest([
+                PrestaLoadCacheSettings::CONFIG_ASSET_SCANNER_BASE_URL,
+                PrestaLoadCacheSettings::CONFIG_ASSET_SCAN_TARGET_BASE_URL,
+            ]);
+            $output .= $this->displayConfirmation($this->trans('Asset scanner settings updated.', [], 'Admin.Notifications.Success'));
+        }
+
+        if (Tools::isSubmit('submitPrestaLoadSaveAssetRule')) {
+            $page = $this->getSelectedAssetPage();
+            if (!empty($page)) {
+                $action = Tools::getValue('prestaload_asset_action', 'keep');
+                $assetUrl = trim((string) Tools::getValue('prestaload_asset_url', ''));
+                $assetType = trim((string) Tools::getValue('prestaload_asset_type', 'other'));
+
+                if ($assetUrl !== '') {
+                    $this->assetRuleStore->saveRule([
+                        'page_key' => $page['key'],
+                        'page_url' => $page['url'],
+                        'asset_url' => $assetUrl,
+                        'asset_type' => $assetType,
+                        'action' => $action,
+                    ]);
+                    $this->pageCache->clear();
+                    $output .= $this->displayConfirmation($this->trans('Asset rule updated.', [], 'Admin.Notifications.Success'));
+                }
+            }
+        }
+
         if (Tools::isSubmit('submitPrestaLoadClearCache')) {
             $this->pageCache->clear();
             $output .= $this->displayConfirmation($this->trans('Full-page cache cleared.', [], 'Admin.Notifications.Success'));
         }
+
+        $assetPages = $this->assetPageRegistry->getPages();
+        $selectedAssetPage = $this->getSelectedAssetPage();
+        $selectedAssetScan = !empty($selectedAssetPage) ? $this->assetScanStore->getLatestAssetSummary($selectedAssetPage['key']) : null;
+        $selectedAssetRules = !empty($selectedAssetPage) ? $this->assetRuleStore->getRulesForPage($selectedAssetPage['key']) : [];
+        $detectedShopBaseUrl = $this->getDetectedShopBaseUrl();
+        $effectiveScanBaseUrl = $this->settings->getAssetScanTargetBaseUrl() !== ''
+            ? $this->settings->getAssetScanTargetBaseUrl()
+            : $detectedShopBaseUrl;
 
         $this->context->smarty->assign([
             'prestaload_active_tab' => $activeTab,
@@ -199,6 +253,13 @@ class PrestaLoad extends Module
             'prestaload_stats' => $this->pageCache->getStats(),
             'prestaload_settings_form' => $this->renderSettingsForm($activeTab),
             'prestaload_browser_cache_status' => $this->browserCacheManager->getStatus(),
+            'prestaload_asset_pages' => $assetPages,
+            'prestaload_selected_asset_page' => $selectedAssetPage,
+            'prestaload_selected_asset_scan' => $this->decorateAssetScan($selectedAssetScan),
+            'prestaload_selected_asset_rules' => $this->indexRulesByUrl($selectedAssetRules),
+            'prestaload_asset_scan_ajax_url' => $this->getAjaxConfigurationLink('runAssetScan'),
+            'prestaload_detected_shop_base_url' => $detectedShopBaseUrl,
+            'prestaload_effective_asset_scan_base_url' => $effectiveScanBaseUrl,
         ]);
 
         return $output . $this->display(__FILE__, 'views/templates/admin/configure.tpl');
@@ -251,7 +312,8 @@ class PrestaLoad extends Module
         $cssOptimizer = new PrestaLoadCssOptimizer($this->settings);
         $imgProxyUrlBuilder = new PrestaLoadImgProxyUrlBuilder($this->settings);
         $imageOptimizer = new PrestaLoadImageOptimizer($this->settings, $imgProxyUrlBuilder);
-        $htmlOptimizer = new PrestaLoadHtmlOptimizer($fontOptimizer, $cssOptimizer, $imageOptimizer);
+        $assetRuleApplier = new PrestaLoadAssetRuleApplier($this->assetRuleStore, $cssOptimizer);
+        $htmlOptimizer = new PrestaLoadHtmlOptimizer($fontOptimizer, $cssOptimizer, $imageOptimizer, $assetRuleApplier);
 
         return new PrestaLoadPageCache($this->context, $this->settings, $eligibility, $keyBuilder, $store, $logger, $htmlOptimizer);
     }
@@ -289,6 +351,14 @@ class PrestaLoad extends Module
         $helper->tpl_vars = [
             'fields_value' => $this->settings->getFormValues(),
         ];
+
+        if ($activeTab === self::TAB_ASSETS) {
+            $fieldsValue = $helper->tpl_vars['fields_value'];
+            if (empty($fieldsValue[PrestaLoadCacheSettings::CONFIG_ASSET_SCAN_TARGET_BASE_URL])) {
+                $fieldsValue[PrestaLoadCacheSettings::CONFIG_ASSET_SCAN_TARGET_BASE_URL] = $this->getDetectedShopBaseUrl();
+            }
+            $helper->tpl_vars['fields_value'] = $fieldsValue;
+        }
 
         $forms = [
             self::TAB_GENERAL => [
@@ -402,6 +472,34 @@ class PrestaLoad extends Module
                     ],
                 ],
             ],
+            self::TAB_ASSETS => [
+                'form' => [
+                    'legend' => [
+                        'title' => $this->trans('Assets', [], 'Admin.Global'),
+                        'icon' => 'icon-sitemap',
+                    ],
+                    'input' => [
+                        [
+                            'type' => 'text',
+                            'label' => 'Scanner base URL',
+                            'name' => PrestaLoadCacheSettings::CONFIG_ASSET_SCANNER_BASE_URL,
+                            'class' => 'fixed-width-xxl',
+                            'desc' => 'Remote scanner used for page-level CSS and JS analysis.',
+                        ],
+                        [
+                            'type' => 'text',
+                            'label' => 'Public scan base URL',
+                            'name' => PrestaLoadCacheSettings::CONFIG_ASSET_SCAN_TARGET_BASE_URL,
+                            'class' => 'fixed-width-xxl',
+                            'desc' => 'Optional. Use this when the back office runs on a local domain but scans must target a public shop URL, for example https://plexi-cindar.novprojet.com',
+                        ],
+                    ],
+                    'submit' => [
+                        'title' => $this->trans('Save', [], 'Admin.Actions'),
+                        'name' => 'submitPrestaLoadAssetSettings',
+                    ],
+                ],
+            ],
             self::TAB_CSS => [
                 'form' => [
                     'legend' => [
@@ -504,6 +602,10 @@ class PrestaLoad extends Module
                 'label' => 'Fonts',
                 'link' => $this->getAdminConfigurationLink(self::TAB_FONTS),
             ],
+            self::TAB_ASSETS => [
+                'label' => 'Assets',
+                'link' => $this->getAdminConfigurationLink(self::TAB_ASSETS),
+            ],
             self::TAB_CACHE_LIFETIMES => [
                 'label' => 'Cache Lifetimes',
                 'link' => $this->getAdminConfigurationLink(self::TAB_CACHE_LIFETIMES),
@@ -526,5 +628,239 @@ class PrestaLoad extends Module
             . '&tab_module=' . $this->tab
             . '&module_name=' . $this->name
             . '&prestaload_tab=' . urlencode((string) $tab);
+    }
+
+    private function getSelectedAssetPage()
+    {
+        $selectedKey = (string) Tools::getValue('prestaload_asset_page', 'home');
+
+        foreach ($this->assetPageRegistry->getPages() as $page) {
+            if ($page['key'] === $selectedKey) {
+                return $page;
+            }
+        }
+
+        return [];
+    }
+
+    /**
+     * The back-office context URL is a good default for scans until the admin
+     * overrides it with a public hostname.
+     */
+    private function getDetectedShopBaseUrl()
+    {
+        $ssl = $this->context->shop && method_exists($this->context->shop, 'getBaseURL')
+            ? $this->context->shop->getBaseURL(true)
+            : $this->context->link->getPageLink('index', true);
+
+        $parts = parse_url((string) $ssl);
+        if ($parts === false || empty($parts['scheme']) || empty($parts['host'])) {
+            return rtrim((string) $ssl, '/');
+        }
+
+        $baseUrl = $parts['scheme'] . '://' . $parts['host'];
+        if (!empty($parts['port'])) {
+            $baseUrl .= ':' . (int) $parts['port'];
+        }
+
+        return $baseUrl;
+    }
+
+    /**
+     * Adds UI metadata so the template can render score colors and grouped
+     * asset tabs without duplicating Lighthouse threshold logic in Smarty.
+     */
+    private function decorateAssetScan($scan)
+    {
+        if (!is_array($scan)) {
+            return $scan;
+        }
+
+        $metrics = isset($scan['metrics']) && is_array($scan['metrics']) ? $scan['metrics'] : [];
+        foreach ($metrics as $metricKey => $metric) {
+            $metrics[$metricKey]['label'] = $this->getMetricLabel($metricKey);
+            $metrics[$metricKey]['status'] = $this->getMetricStatus($metricKey, isset($metric['numeric_value']) ? $metric['numeric_value'] : null);
+        }
+
+        $scan['metrics'] = $metrics;
+        $scan['score_cards'] = $this->buildScoreCards($scan);
+        $scan['asset_groups'] = $this->groupAssetsForDisplay(isset($scan['assets']) && is_array($scan['assets']) ? $scan['assets'] : []);
+
+        return $scan;
+    }
+
+    private function buildScoreCards(array $scan)
+    {
+        $cards = [];
+        $mobileScore = isset($scan['mobile_score']) ? $scan['mobile_score'] : null;
+        $cards[] = [
+            'key' => 'mobile_score',
+            'label' => 'Performance score',
+            'display_value' => $mobileScore === null ? '-' : (string) round(((float) $mobileScore) * 100),
+            'status' => $this->getScoreStatus($mobileScore),
+        ];
+
+        foreach (isset($scan['metrics']) && is_array($scan['metrics']) ? $scan['metrics'] : [] as $metricKey => $metric) {
+            $cards[] = [
+                'key' => $metricKey,
+                'label' => isset($metric['label']) ? $metric['label'] : $metricKey,
+                'display_value' => isset($metric['display_value']) && $metric['display_value'] !== null ? $metric['display_value'] : '-',
+                'status' => isset($metric['status']) ? $metric['status'] : 'neutral',
+            ];
+        }
+
+        return $cards;
+    }
+
+    private function getScoreStatus($score)
+    {
+        if ($score === null || $score === '') {
+            return 'neutral';
+        }
+
+        $normalizedScore = (float) $score;
+        if ($normalizedScore >= 0.9) {
+            return 'good';
+        }
+        if ($normalizedScore >= 0.5) {
+            return 'warning';
+        }
+
+        return 'bad';
+    }
+
+    private function getMetricLabel($metricKey)
+    {
+        $labels = [
+            'first-contentful-paint' => 'First Contentful Paint',
+            'largest-contentful-paint' => 'Largest Contentful Paint',
+            'speed-index' => 'Speed Index',
+            'interactive' => 'Time to Interactive',
+            'total-blocking-time' => 'Total Blocking Time',
+            'cumulative-layout-shift' => 'Cumulative Layout Shift',
+        ];
+
+        return isset($labels[$metricKey]) ? $labels[$metricKey] : $metricKey;
+    }
+
+    private function getMetricStatus($metricKey, $value)
+    {
+        if ($value === null || $value === '') {
+            return 'neutral';
+        }
+
+        $numericValue = (float) $value;
+        $thresholds = [
+            'first-contentful-paint' => [1800, 3000],
+            'largest-contentful-paint' => [2500, 4000],
+            'speed-index' => [3400, 5800],
+            'interactive' => [3800, 7300],
+            'total-blocking-time' => [200, 600],
+            'cumulative-layout-shift' => [0.1, 0.25],
+        ];
+
+        if (!isset($thresholds[$metricKey])) {
+            return 'neutral';
+        }
+
+        if ($numericValue <= $thresholds[$metricKey][0]) {
+            return 'good';
+        }
+        if ($numericValue <= $thresholds[$metricKey][1]) {
+            return 'warning';
+        }
+
+        return 'bad';
+    }
+
+    private function groupAssetsForDisplay(array $assets)
+    {
+        $groups = [
+            'css' => ['key' => 'css', 'label' => 'CSS', 'assets' => []],
+            'js' => ['key' => 'js', 'label' => 'JavaScript', 'assets' => []],
+            'media' => ['key' => 'media', 'label' => 'Media', 'assets' => []],
+            'other' => ['key' => 'other', 'label' => 'Other', 'assets' => []],
+        ];
+
+        foreach ($assets as $asset) {
+            $type = isset($asset['type']) ? (string) $asset['type'] : 'other';
+            if (!isset($groups[$type])) {
+                $type = 'other';
+            }
+            $groups[$type]['assets'][] = $asset;
+        }
+
+        return array_values(array_filter($groups, function ($group) {
+            return !empty($group['assets']);
+        }));
+    }
+
+    private function indexRulesByUrl(array $rules)
+    {
+        $indexedRules = [];
+
+        foreach ($rules as $rule) {
+            if (!isset($rule['asset_url'])) {
+                continue;
+            }
+
+            $indexedRules[$rule['asset_url']] = $rule;
+        }
+
+        return $indexedRules;
+    }
+
+    /**
+     * Handles lightweight AJAX actions for the admin UI.
+     */
+    private function handleAjaxRequest()
+    {
+        if (!Tools::getValue('ajax') || Tools::getValue('action') !== 'runAssetScan') {
+            return;
+        }
+
+        try {
+            $page = $this->getSelectedAssetPage();
+            if (empty($page)) {
+                throw new Exception('Selected page was not found.');
+            }
+
+            $paths = $this->assetScanStore->saveScan($page, $this->assetScannerClient->scanPage($page['url']));
+
+            $this->jsonResponse([
+                'success' => true,
+                'message' => 'Asset scan completed.',
+                'reload_url' => $this->getAdminConfigurationLink(self::TAB_ASSETS) . '&prestaload_asset_page=' . urlencode((string) $page['key']),
+                'paths' => $paths,
+            ]);
+        } catch (Exception $exception) {
+            $this->jsonResponse([
+                'success' => false,
+                'message' => $exception->getMessage(),
+            ]);
+        }
+    }
+
+    private function getAjaxConfigurationLink($action)
+    {
+        return $this->getAdminConfigurationLink($this->getActiveTab())
+            . '&ajax=1&action=' . urlencode((string) $action);
+    }
+
+    private function jsonResponse(array $payload)
+    {
+        if (!headers_sent()) {
+            header('Content-Type: application/json; charset=utf-8');
+        }
+
+        $encoded = json_encode($payload);
+        if ($encoded === false) {
+            $encoded = json_encode([
+                'success' => false,
+                'message' => 'JSON encoding failed.',
+            ]);
+        }
+
+        exit($encoded);
     }
 }

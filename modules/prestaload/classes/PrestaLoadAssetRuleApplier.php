@@ -1,0 +1,189 @@
+<?php
+/**
+ * Applies admin-defined asset rules to the rendered HTML.
+ *
+ * Rules are page-scoped by request path and intentionally exact-match the
+ * asset URL from the scan. That keeps V1 predictable and avoids broad pattern
+ * rewrites that could break unrelated pages.
+ */
+
+class PrestaLoadAssetRuleApplier
+{
+    private const SCRIPT_TAG_PATTERN = '/<script\b[^>]*\bsrc=(["\'])(.*?)\1[^>]*>\s*<\/script>/is';
+    private const LINK_TAG_PATTERN = '/<link\b[^>]*>/i';
+
+    /**
+     * @var PrestaLoadAssetRuleStore
+     */
+    private $ruleStore;
+
+    /**
+     * @var PrestaLoadCssOptimizer
+     */
+    private $cssOptimizer;
+
+    public function __construct(PrestaLoadAssetRuleStore $ruleStore, PrestaLoadCssOptimizer $cssOptimizer)
+    {
+        $this->ruleStore = $ruleStore;
+        $this->cssOptimizer = $cssOptimizer;
+    }
+
+    public function optimize($html)
+    {
+        if (!is_string($html) || trim($html) === '') {
+            return $html;
+        }
+
+        $pageKey = $this->resolveCurrentPageKey();
+        if ($pageKey === '') {
+            return $html;
+        }
+
+        $rules = $this->ruleStore->getRulesForPage($pageKey);
+        if (empty($rules)) {
+            return $html;
+        }
+
+        $html = $this->applyScriptRules($html, $rules);
+
+        return $this->applyLinkRules($html, $rules);
+    }
+
+    private function applyScriptRules($html, array $rules)
+    {
+        return preg_replace_callback(self::SCRIPT_TAG_PATTERN, function ($matches) use ($rules) {
+            $tag = $matches[0];
+            $src = html_entity_decode($matches[2], ENT_QUOTES, 'UTF-8');
+            $rule = $this->findRuleForUrl($rules, $src, 'js');
+
+            if ($rule === null) {
+                return $tag;
+            }
+
+            if ($rule['action'] === 'disable') {
+                return '';
+            }
+
+            if ($rule['action'] === 'defer') {
+                return $this->replaceOrAppendAttribute($tag, 'defer', 'defer');
+            }
+
+            return $tag;
+        }, $html);
+    }
+
+    private function applyLinkRules($html, array $rules)
+    {
+        if (!preg_match_all(self::LINK_TAG_PATTERN, $html, $matches, PREG_OFFSET_CAPTURE)) {
+            return $html;
+        }
+
+        $result = '';
+        $cursor = 0;
+
+        foreach ($matches[0] as $match) {
+            $tag = $match[0];
+            $offset = (int) $match[1];
+            $attributes = $this->extractAttributes($tag);
+            $href = isset($attributes['href']) ? html_entity_decode($attributes['href'], ENT_QUOTES, 'UTF-8') : '';
+            $rel = isset($attributes['rel']) ? Tools::strtolower((string) $attributes['rel']) : '';
+            $rule = $href !== '' ? $this->findRuleForUrl($rules, $href, 'css') : null;
+
+            $replacement = $tag;
+            if ($rule !== null && $rel === 'stylesheet') {
+                if ($rule['action'] === 'disable') {
+                    $replacement = '';
+                } elseif ($rule['action'] === 'defer') {
+                    $replacement = $this->buildDeferredStylesheetTag($tag);
+                }
+            }
+
+            $result .= substr($html, $cursor, $offset - $cursor);
+            $result .= $replacement;
+            $cursor = $offset + strlen($tag);
+        }
+
+        $result .= substr($html, $cursor);
+
+        return $result;
+    }
+
+    private function findRuleForUrl(array $rules, $url, $type)
+    {
+        foreach ($rules as $rule) {
+            if (
+                isset($rule['asset_url'], $rule['asset_type'], $rule['action'])
+                && $rule['asset_url'] === $url
+                && $rule['asset_type'] === $type
+                && $rule['action'] !== 'keep'
+            ) {
+                return $rule;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Maps the current request to the same page keys used by the admin scan
+     * registry.
+     */
+    private function resolveCurrentPageKey()
+    {
+        $controller = Tools::strtolower((string) Tools::getValue('controller', 'index'));
+
+        switch ($controller) {
+            case 'index':
+                return 'home';
+            case 'category':
+                return 'category:' . (int) Tools::getValue('id_category');
+            case 'product':
+                return 'product:' . (int) Tools::getValue('id_product');
+            case 'cms':
+                return 'cms:' . (int) Tools::getValue('id_cms');
+            default:
+                return '';
+        }
+    }
+
+    private function extractAttributes($tag)
+    {
+        $attributes = [];
+
+        if (!preg_match_all('/([a-zA-Z_:][a-zA-Z0-9_:\-]*)\s*=\s*(["\'])(.*?)\2/s', $tag, $matches, PREG_SET_ORDER)) {
+            return $attributes;
+        }
+
+        foreach ($matches as $match) {
+            $attributes[Tools::strtolower((string) $match[1])] = $match[3];
+        }
+
+        return $attributes;
+    }
+
+    /**
+     * CSS deferral here mirrors the module's existing conservative preload
+     * pattern but applies only to admin-selected assets.
+     */
+    private function buildDeferredStylesheetTag($tag)
+    {
+        $tag = $this->replaceOrAppendAttribute($tag, 'rel', 'preload');
+        $tag = $this->replaceOrAppendAttribute($tag, 'as', 'style');
+        $tag = $this->replaceOrAppendAttribute($tag, 'onload', "this.onload=null;this.rel='stylesheet'");
+        $tag = $this->replaceOrAppendAttribute($tag, 'data-prestaload-rule-deferred', '1');
+
+        return $tag . '<noscript>' . preg_replace('/\sdata-prestaload-rule-deferred=(["\']).*?\1/i', '', $this->replaceOrAppendAttribute($tag, 'rel', 'stylesheet')) . '</noscript>';
+    }
+
+    private function replaceOrAppendAttribute($tag, $attribute, $value)
+    {
+        $pattern = '/(\b' . preg_quote($attribute, '/') . '\s*=\s*)(["\']).*?\2/i';
+        $replacement = '$1"' . htmlspecialchars($value, ENT_QUOTES, 'UTF-8') . '"';
+
+        if (preg_match($pattern, $tag)) {
+            return preg_replace($pattern, $replacement, $tag, 1);
+        }
+
+        return preg_replace('/\s*\/?>$/', ' ' . $attribute . '="' . htmlspecialchars($value, ENT_QUOTES, 'UTF-8') . '"$0', $tag, 1);
+    }
+}
