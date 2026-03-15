@@ -65,6 +65,7 @@
           </div>
 
           <div id="prestaload-asset-scan-feedback" style="display: none; margin-bottom: 16px;" class="alert"></div>
+          <div id="prestaload-asset-toast" class="prestaload-toast" style="display: none;"></div>
 
           <form method="post" action="" style="margin-bottom: 16px;" id="prestaload-asset-scan-form">
             <div style="display: flex; gap: 12px; align-items: end; flex-wrap: wrap;">
@@ -137,13 +138,30 @@
                 data-prestaload-asset-panel="{$asset_group.key|escape:'htmlall':'UTF-8'}"
                 {if !$smarty.foreach.asset_panels.first}style="display: none;"{/if}
               >
+                <div class="prestaload-asset-bulk-actions">
+                  <label class="prestaload-asset-bulk-actions__select-all">
+                    <input type="checkbox" class="prestaload-asset-select-all" data-prestaload-group="{$asset_group.key|escape:'htmlall':'UTF-8'}">
+                    <span>Select all</span>
+                  </label>
+                  <button
+                    type="button"
+                    class="btn btn-default prestaload-bulk-defer"
+                    data-prestaload-group="{$asset_group.key|escape:'htmlall':'UTF-8'}"
+                    data-default-label="Defer all"
+                    data-loading-label="Deferring..."
+                  >
+                    <span class="prestaload-bulk-defer__label">Defer all</span>
+                  </button>
+                </div>
                 <div style="overflow-x: auto;">
                   <table class="table">
                     <thead>
                       <tr>
+                        <th style="width: 46px;"></th>
                         <th>Asset</th>
                         <th>Type</th>
                         <th>Transfer size</th>
+                        <th>Usage</th>
                         <th>Unused bytes</th>
                         <th>Blocking ms</th>
                         <th>Signals</th>
@@ -154,11 +172,29 @@
                       {foreach from=$asset_group.assets item=asset}
                         {assign var=asset_rule value=$prestaload_selected_asset_rules[$asset.url]|default:null}
                         <tr>
+                          <td style="text-align: center;">
+                            <input
+                              type="checkbox"
+                              class="prestaload-asset-checkbox"
+                              data-prestaload-group="{$asset_group.key|escape:'htmlall':'UTF-8'}"
+                              value="{$asset.url|escape:'htmlall':'UTF-8'}"
+                              data-asset-type="{$asset.type|escape:'htmlall':'UTF-8'}"
+                            >
+                          </td>
                           <td style="min-width: 360px;">
                             <div style="font-weight: 600; word-break: break-word;">{$asset.url|escape:'htmlall':'UTF-8'}</div>
                           </td>
                           <td>{$asset.type|escape:'htmlall':'UTF-8'}</td>
                           <td>{$asset.transfer_size|default:0|intval}</td>
+                          <td>
+                            {if $asset.usage_percent !== null}
+                              {$asset.usage_percent|escape:'htmlall':'UTF-8'}% used
+                            {elseif $asset.discovered_from|default:'' === 'page_html'}
+                              <span style="color: #6c868e;">Detected in source</span>
+                            {else}
+                              <span style="color: #6c868e;">Unknown</span>
+                            {/if}
+                          </td>
                           <td>{$asset.unused_bytes|default:0|intval}</td>
                           <td>{$asset.render_blocking_ms|default:0|intval}</td>
                           <td>
@@ -169,7 +205,7 @@
                             {/foreach}
                           </td>
                           <td style="min-width: 260px;">
-                            <form method="post" action="">
+                            <form method="post" action="" class="prestaload-asset-rule-form">
                               <input type="hidden" name="prestaload_asset_page" value="{$prestaload_selected_asset_page.key|escape:'htmlall':'UTF-8'}">
                               <input type="hidden" name="prestaload_asset_url" value="{$asset.url|escape:'htmlall':'UTF-8'}">
                               <input type="hidden" name="prestaload_asset_type" value="{$asset.type|escape:'htmlall':'UTF-8'}">
@@ -179,8 +215,13 @@
                                   <option value="defer" {if $asset_rule.action|default:'' === 'defer'}selected="selected"{/if}>Defer</option>
                                   <option value="disable" {if $asset_rule.action|default:'' === 'disable'}selected="selected"{/if}>Disable</option>
                                 </select>
-                                <button type="submit" name="submitPrestaLoadSaveAssetRule" class="btn btn-default">
-                                  Save
+                                <button
+                                  type="button"
+                                  class="btn btn-default prestaload-asset-rule-save"
+                                  data-default-label="Save"
+                                  data-loading-label="Saving..."
+                                >
+                                  <span class="prestaload-asset-rule-save__label">Save</span>
                                 </button>
                               </div>
                             </form>
@@ -288,6 +329,109 @@
     .prestaload-asset-tabs__link.is-active {
       background: #f5f8fb;
       color: #25b9d7;
+      border-bottom: 0;
+      margin-bottom: -1px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .prestaload-asset-panel {
+      border: 1px solid #d3d8db;
+      border-radius: 0 0 6px 6px;
+      background: #fff;
+      padding: 16px;
+      margin-top: -1px;
+    }
+
+    .prestaload-asset-panel .table {
+      margin-bottom: 0;
+      border: 1px solid #d3d8db;
+    }
+
+    .prestaload-asset-panel .table > thead > tr > th,
+    .prestaload-asset-panel .table > tbody > tr > td {
+      border: 1px solid #d3d8db;
+    }
+
+    .prestaload-asset-bulk-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .prestaload-asset-bulk-actions__select-all {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      font-weight: 600;
+      color: #495057;
+    }
+
+    .prestaload-asset-rule-save.is-loading {
+      position: relative;
+      pointer-events: none;
+      opacity: 0.85;
+      padding-left: 34px;
+    }
+
+    .prestaload-asset-rule-save.is-loading::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      width: 14px;
+      height: 14px;
+      margin-top: -7px;
+      border: 2px solid #b8c7d1;
+      border-top-color: #25b9d7;
+      border-radius: 50%;
+      animation: prestaload-spin 0.8s linear infinite;
+    }
+
+    .prestaload-toast {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 9999;
+      min-width: 280px;
+      max-width: 420px;
+      padding: 14px 16px;
+      border-radius: 6px;
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(54, 58, 65, 0.18);
+      font-weight: 600;
+    }
+
+    .prestaload-toast--success {
+      background: #1f8b4c;
+    }
+
+    .prestaload-toast--error {
+      background: #c23434;
+    }
+
+    .prestaload-bulk-defer.is-loading {
+      position: relative;
+      pointer-events: none;
+      opacity: 0.85;
+      padding-left: 34px;
+    }
+
+    .prestaload-bulk-defer.is-loading::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      width: 14px;
+      height: 14px;
+      margin-top: -7px;
+      border: 2px solid #b8c7d1;
+      border-top-color: #25b9d7;
+      border-radius: 50%;
+      animation: prestaload-spin 0.8s linear infinite;
     }
   </style>
   <script>
@@ -296,9 +440,16 @@
       var pageSelect = document.getElementById('prestaload-asset-page');
       var overlay = document.getElementById('prestaload-asset-scan-overlay');
       var feedback = document.getElementById('prestaload-asset-scan-feedback');
+      var toast = document.getElementById('prestaload-asset-toast');
       var ajaxUrl = {$prestaload_asset_scan_ajax_url|json_encode nofilter};
+      var assetRuleAjaxUrl = {$prestaload_asset_rule_ajax_url|json_encode nofilter};
+      var assetBulkRuleAjaxUrl = {$prestaload_asset_bulk_rule_ajax_url|json_encode nofilter};
       var assetTabLinks = document.querySelectorAll('[data-prestaload-asset-tab]');
       var assetPanels = document.querySelectorAll('[data-prestaload-asset-panel]');
+      var assetRuleButtons = document.querySelectorAll('.prestaload-asset-rule-save');
+      var bulkDeferButtons = document.querySelectorAll('.prestaload-bulk-defer');
+      var selectAllCheckboxes = document.querySelectorAll('.prestaload-asset-select-all');
+      var toastTimer = null;
 
       if (!button || !pageSelect || !ajaxUrl) {
         button = null;
@@ -312,6 +463,24 @@
         feedback.className = 'alert ' + (type === 'error' ? 'alert-danger' : 'alert-success');
         feedback.textContent = message;
         feedback.style.display = 'block';
+      };
+
+      var showToast = function (message, type) {
+        if (!toast) {
+          return;
+        }
+
+        toast.className = 'prestaload-toast prestaload-toast--' + (type === 'error' ? 'error' : 'success');
+        toast.textContent = message;
+        toast.style.display = 'block';
+
+        if (toastTimer) {
+          window.clearTimeout(toastTimer);
+        }
+
+        toastTimer = window.setTimeout(function () {
+          toast.style.display = 'none';
+        }, 3200);
       };
 
       var activateAssetTab = function (key) {
@@ -328,6 +497,135 @@
         link.addEventListener('click', function (event) {
           event.preventDefault();
           activateAssetTab(link.getAttribute('data-prestaload-asset-tab'));
+        });
+      });
+
+      Array.prototype.forEach.call(assetRuleButtons, function (saveButton) {
+        saveButton.addEventListener('click', function () {
+          if (!assetRuleAjaxUrl) {
+            return;
+          }
+
+          var form = saveButton.closest('form');
+          if (!form) {
+            return;
+          }
+
+          var formData = new FormData(form);
+          var params = new URLSearchParams();
+          formData.forEach(function (value, key) {
+            params.append(key, value);
+          });
+
+          var label = saveButton.querySelector('.prestaload-asset-rule-save__label');
+          var defaultLabel = saveButton.getAttribute('data-default-label') || 'Save';
+          var loadingLabel = saveButton.getAttribute('data-loading-label') || 'Saving...';
+
+          saveButton.disabled = true;
+          saveButton.classList.add('is-loading');
+          if (label) {
+            label.textContent = loadingLabel;
+          }
+
+          fetch(assetRuleAjaxUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            body: params.toString(),
+            credentials: 'same-origin'
+          }).then(function (response) {
+            return response.json();
+          }).then(function (payload) {
+            if (!payload || !payload.success) {
+              throw new Error(payload && payload.message ? payload.message : 'Asset rule update failed.');
+            }
+
+            showToast(payload.message || 'Asset rule updated.', 'success');
+          }).catch(function (error) {
+            showToast(error.message || 'Asset rule update failed.', 'error');
+          }).finally(function () {
+            saveButton.disabled = false;
+            saveButton.classList.remove('is-loading');
+            if (label) {
+              label.textContent = defaultLabel;
+            }
+          });
+        });
+      });
+
+      var getGroupCheckboxes = function (group) {
+        return document.querySelectorAll('.prestaload-asset-checkbox[data-prestaload-group=\"' + group + '\"]');
+      };
+
+      Array.prototype.forEach.call(selectAllCheckboxes, function (selectAll) {
+        selectAll.addEventListener('change', function () {
+          Array.prototype.forEach.call(getGroupCheckboxes(selectAll.getAttribute('data-prestaload-group')), function (checkbox) {
+            checkbox.checked = selectAll.checked;
+          });
+        });
+      });
+
+      Array.prototype.forEach.call(bulkDeferButtons, function (bulkButton) {
+        bulkButton.addEventListener('click', function () {
+          if (!assetBulkRuleAjaxUrl) {
+            return;
+          }
+
+          var group = bulkButton.getAttribute('data-prestaload-group');
+          var checkboxes = getGroupCheckboxes(group);
+          var selected = Array.prototype.filter.call(checkboxes, function (checkbox) {
+            return checkbox.checked;
+          });
+
+          if (!selected.length) {
+            showToast('Select at least one asset.', 'error');
+            return;
+          }
+
+          var params = new URLSearchParams();
+          params.append('prestaload_asset_page', pageSelect ? pageSelect.value : '');
+          params.append('prestaload_asset_action', 'defer');
+
+          selected.forEach(function (checkbox, index) {
+            params.append('prestaload_asset_urls[' + index + ']', checkbox.value);
+            params.append('prestaload_asset_types[' + index + ']', checkbox.getAttribute('data-asset-type') || 'other');
+          });
+
+          var label = bulkButton.querySelector('.prestaload-bulk-defer__label');
+          var defaultLabel = bulkButton.getAttribute('data-default-label') || 'Defer all';
+          var loadingLabel = bulkButton.getAttribute('data-loading-label') || 'Deferring...';
+
+          bulkButton.disabled = true;
+          bulkButton.classList.add('is-loading');
+          if (label) {
+            label.textContent = loadingLabel;
+          }
+
+          fetch(assetBulkRuleAjaxUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            body: params.toString(),
+            credentials: 'same-origin'
+          }).then(function (response) {
+            return response.json();
+          }).then(function (payload) {
+            if (!payload || !payload.success) {
+              throw new Error(payload && payload.message ? payload.message : 'Bulk update failed.');
+            }
+
+            showToast(payload.message || 'Asset rules updated.', 'success');
+          }).catch(function (error) {
+            showToast(error.message || 'Bulk update failed.', 'error');
+          }).finally(function () {
+            bulkButton.disabled = false;
+            bulkButton.classList.remove('is-loading');
+            if (label) {
+              label.textContent = defaultLabel;
+            }
+          });
         });
       });
 

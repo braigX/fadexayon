@@ -65,7 +65,7 @@ class PrestaLoadAssetRuleApplier
             }
 
             if ($rule['action'] === 'defer') {
-                return $this->replaceOrAppendAttribute($tag, 'defer', 'defer');
+                return $this->buildDeferredScriptTag($tag);
             }
 
             return $tag;
@@ -175,6 +175,23 @@ class PrestaLoadAssetRuleApplier
         return $tag . '<noscript>' . preg_replace('/\sdata-prestaload-rule-deferred=(["\']).*?\1/i', '', $this->replaceOrAppendAttribute($tag, 'rel', 'stylesheet')) . '</noscript>';
     }
 
+    /**
+     * Script deferral must modify only the opening tag, otherwise the browser
+     * receives invalid markup such as `</script defer="defer">`.
+     */
+    private function buildDeferredScriptTag($tag)
+    {
+        if (!preg_match('/^<script\b[^>]*>/i', $tag, $match)) {
+            return $tag;
+        }
+
+        $openingTag = $match[0];
+        $deferredOpeningTag = $this->replaceOrAppendBooleanAttribute($openingTag, 'defer');
+        $deferredOpeningTag = $this->replaceOrAppendAttribute($deferredOpeningTag, 'data-prestaload-rule-deferred', '1');
+
+        return $deferredOpeningTag . substr($tag, strlen($openingTag));
+    }
+
     private function replaceOrAppendAttribute($tag, $attribute, $value)
     {
         $pattern = '/(\b' . preg_quote($attribute, '/') . '\s*=\s*)(["\']).*?\2/i';
@@ -185,5 +202,15 @@ class PrestaLoadAssetRuleApplier
         }
 
         return preg_replace('/\s*\/?>$/', ' ' . $attribute . '="' . htmlspecialchars($value, ENT_QUOTES, 'UTF-8') . '"$0', $tag, 1);
+    }
+
+    private function replaceOrAppendBooleanAttribute($tag, $attribute)
+    {
+        $pattern = '/\s' . preg_quote($attribute, '/') . '(?:\s*=\s*(["\']).*?\1)?/i';
+        if (preg_match($pattern, $tag)) {
+            return preg_replace($pattern, ' ' . $attribute, $tag, 1);
+        }
+
+        return preg_replace('/\s*>$/', ' ' . $attribute . '>', $tag, 1);
     }
 }

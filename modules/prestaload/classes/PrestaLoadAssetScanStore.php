@@ -72,15 +72,16 @@ class PrestaLoadAssetScanStore
         $mobile = isset($payload['mobile']) && is_array($payload['mobile']) ? $payload['mobile'] : [];
         $lhr = isset($mobile['raw_lhr']) && is_array($mobile['raw_lhr']) ? $mobile['raw_lhr'] : [];
         $audits = isset($lhr['audits']) && is_array($lhr['audits']) ? $lhr['audits'] : [];
+        $pageUrl = isset($payload['url']) ? $payload['url'] : (isset($page['url']) ? $page['url'] : '');
 
         $summary = [
             'page' => $page,
             'source_report' => $sourceReport,
-            'url' => isset($payload['url']) ? $payload['url'] : (isset($page['url']) ? $page['url'] : ''),
+            'url' => $pageUrl,
             'scanned_at' => isset($payload['scanned_at']) ? $payload['scanned_at'] : date('c'),
             'mobile_score' => isset($mobile['categories']['performance']['score']) ? $mobile['categories']['performance']['score'] : null,
             'metrics' => [],
-            'assets' => $this->collectAssets($audits),
+            'assets' => $this->collectAssets($pageUrl, $audits),
         ];
 
         foreach (['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'interactive', 'total-blocking-time', 'cumulative-layout-shift'] as $metricId) {
@@ -99,9 +100,9 @@ class PrestaLoadAssetScanStore
      * Builds a flat asset list keyed by URL so the admin UI can show one row
      * per asset with merged signals from several Lighthouse audits.
      */
-    private function collectAssets(array $audits)
+    private function collectAssets($pageUrl, array $audits)
     {
-        $assetMap = [];
+        $assetMap = $this->collectAssetsFromPageHtml($pageUrl);
         $definitions = [
             'render-blocking-insight' => 'render_blocking',
             'unused-javascript' => 'unused_javascript',
@@ -126,10 +127,13 @@ class PrestaLoadAssetScanStore
                         'url' => $url,
                         'type' => $this->guessAssetType($url),
                         'transfer_size' => null,
+                        'used_bytes' => null,
+                        'usage_percent' => null,
                         'render_blocking_ms' => null,
                         'unused_bytes' => null,
                         'cache_lifetime_ms' => null,
                         'signals' => [],
+                        'discovered_from' => 'lighthouse',
                     ];
                 }
 
@@ -148,15 +152,171 @@ class PrestaLoadAssetScanStore
             }
         }
 
+        foreach ($assetMap as &$asset) {
+            $asset['signals'] = array_values(array_unique($asset['signals']));
+            if ($asset['transfer_size'] !== null && $asset['unused_bytes'] !== null) {
+                $asset['used_bytes'] = max(0, (int) $asset['transfer_size'] - (int) $asset['unused_bytes']);
+                if ((int) $asset['transfer_size'] > 0) {
+                    $asset['usage_percent'] = round(($asset['used_bytes'] / (int) $asset['transfer_size']) * 100, 1);
+                }
+            }
+        }
+        unset($asset);
+
         $assets = array_values($assetMap);
         usort($assets, function ($left, $right) {
-            $leftScore = ((int) $left['unused_bytes']) + (((int) $left['render_blocking_ms']) * 1000);
-            $rightScore = ((int) $right['unused_bytes']) + (((int) $right['render_blocking_ms']) * 1000);
+            $leftScore = ((int) $left['unused_bytes']) + (((int) $left['render_blocking_ms']) * 1000) + (!empty($left['signals']) ? 1000000 : 0);
+            $rightScore = ((int) $right['unused_bytes']) + (((int) $right['render_blocking_ms']) * 1000) + (!empty($right['signals']) ? 1000000 : 0);
 
             return $rightScore <=> $leftScore;
         });
 
         return $assets;
+    }
+
+    /**
+     * Lighthouse only reports a subset of assets in byte-efficiency audits.
+     * We fetch the page HTML directly so the UI can also list assets that were
+     * used but not flagged by those audits.
+     */
+    private function collectAssetsFromPageHtml($pageUrl)
+    {
+        $html = $this->fetchPageHtml($pageUrl);
+        if ($html === '') {
+            return [];
+        }
+
+        $assetMap = [];
+
+        if (preg_match_all('/<script\b[^>]*\bsrc=(["\'])(.*?)\1[^>]*>/is', $html, $scriptMatches)) {
+            foreach ($scriptMatches[2] as $src) {
+                $this->appendDiscoveredAsset($assetMap, $this->resolveUrl($pageUrl, html_entity_decode((string) $src, ENT_QUOTES, 'UTF-8')), 'js');
+            }
+        }
+
+        if (preg_match_all('/<link\b[^>]*\brel=(["\'])(.*?)\1[^>]*\bhref=(["\'])(.*?)\3[^>]*>/is', $html, $linkMatches, PREG_SET_ORDER)) {
+            foreach ($linkMatches as $match) {
+                $rel = Tools::strtolower(trim((string) $match[2]));
+                if (strpos($rel, 'stylesheet') === false) {
+                    continue;
+                }
+
+                $this->appendDiscoveredAsset($assetMap, $this->resolveUrl($pageUrl, html_entity_decode((string) $match[4], ENT_QUOTES, 'UTF-8')), 'css');
+            }
+        }
+
+        if (preg_match_all('/<link\b[^>]*\bhref=(["\'])(.*?)\1[^>]*\brel=(["\'])(.*?)\3[^>]*>/is', $html, $reverseLinkMatches, PREG_SET_ORDER)) {
+            foreach ($reverseLinkMatches as $match) {
+                $rel = Tools::strtolower(trim((string) $match[4]));
+                if (strpos($rel, 'stylesheet') === false) {
+                    continue;
+                }
+
+                $this->appendDiscoveredAsset($assetMap, $this->resolveUrl($pageUrl, html_entity_decode((string) $match[2], ENT_QUOTES, 'UTF-8')), 'css');
+            }
+        }
+
+        return $assetMap;
+    }
+
+    private function appendDiscoveredAsset(array &$assetMap, $url, $type = null)
+    {
+        if ($url === '' || strpos($url, 'data:') === 0) {
+            return;
+        }
+
+        if (!isset($assetMap[$url])) {
+            $assetMap[$url] = [
+                'url' => $url,
+                'type' => $type !== null ? $type : $this->guessAssetType($url),
+                'transfer_size' => null,
+                'used_bytes' => null,
+                'usage_percent' => null,
+                'render_blocking_ms' => null,
+                'unused_bytes' => null,
+                'cache_lifetime_ms' => null,
+                'signals' => [],
+                'discovered_from' => 'page_html',
+            ];
+        }
+    }
+
+    private function fetchPageHtml($pageUrl)
+    {
+        $pageUrl = trim((string) $pageUrl);
+        if ($pageUrl === '') {
+            return '';
+        }
+
+        if (function_exists('curl_init')) {
+            $ch = curl_init($pageUrl);
+            curl_setopt_array($ch, [
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_TIMEOUT => 60,
+                CURLOPT_CONNECTTIMEOUT => 15,
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_SSL_VERIFYHOST => false,
+                CURLOPT_USERAGENT => 'PrestaLoad Asset Scanner',
+            ]);
+            $body = curl_exec($ch);
+            curl_close($ch);
+
+            return is_string($body) ? $body : '';
+        }
+
+        $context = stream_context_create([
+            'http' => [
+                'timeout' => 60,
+                'header' => "User-Agent: PrestaLoad Asset Scanner\r\n",
+            ],
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+            ],
+        ]);
+
+        $body = @file_get_contents($pageUrl, false, $context);
+
+        return is_string($body) ? $body : '';
+    }
+
+    private function resolveUrl($baseUrl, $assetUrl)
+    {
+        $assetUrl = trim((string) $assetUrl);
+        if ($assetUrl === '') {
+            return '';
+        }
+
+        if (preg_match('#^https?://#i', $assetUrl)) {
+            return $assetUrl;
+        }
+
+        if (strpos($assetUrl, '//') === 0) {
+            $parts = parse_url((string) $baseUrl);
+            $scheme = isset($parts['scheme']) ? $parts['scheme'] : 'https';
+
+            return $scheme . ':' . $assetUrl;
+        }
+
+        $parts = parse_url((string) $baseUrl);
+        if ($parts === false || empty($parts['scheme']) || empty($parts['host'])) {
+            return $assetUrl;
+        }
+
+        $origin = $parts['scheme'] . '://' . $parts['host'];
+        if (!empty($parts['port'])) {
+            $origin .= ':' . (int) $parts['port'];
+        }
+
+        if (strpos($assetUrl, '/') === 0) {
+            return $origin . $assetUrl;
+        }
+
+        $basePath = isset($parts['path']) ? $parts['path'] : '/';
+        $baseDir = rtrim(str_replace('\\', '/', dirname($basePath)), '/');
+
+        return $origin . ($baseDir !== '' ? $baseDir : '') . '/' . ltrim($assetUrl, '/');
     }
 
     private function guessAssetType($url)
@@ -165,7 +325,12 @@ class PrestaLoadAssetScanStore
         if (preg_match('/\.css(\?|$)/', $normalizedUrl)) {
             return 'css';
         }
-        if (preg_match('/\.js(\?|$)/', $normalizedUrl) || strpos($normalizedUrl, '/gtag/js') !== false) {
+        if (
+            preg_match('/\.js(\?|$)/', $normalizedUrl)
+            || strpos($normalizedUrl, '/gtag/js') !== false
+            || strpos($normalizedUrl, '/gsi/client') !== false
+            || strpos($normalizedUrl, '/_\/gsi\/_/js/') !== false
+        ) {
             return 'js';
         }
         if (preg_match('/\.(png|jpe?g|gif|webp|avif|svg|mp4|webm)(\?|$)/', $normalizedUrl)) {

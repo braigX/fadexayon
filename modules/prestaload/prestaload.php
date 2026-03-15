@@ -212,27 +212,6 @@ class PrestaLoad extends Module
             $output .= $this->displayConfirmation($this->trans('Asset scanner settings updated.', [], 'Admin.Notifications.Success'));
         }
 
-        if (Tools::isSubmit('submitPrestaLoadSaveAssetRule')) {
-            $page = $this->getSelectedAssetPage();
-            if (!empty($page)) {
-                $action = Tools::getValue('prestaload_asset_action', 'keep');
-                $assetUrl = trim((string) Tools::getValue('prestaload_asset_url', ''));
-                $assetType = trim((string) Tools::getValue('prestaload_asset_type', 'other'));
-
-                if ($assetUrl !== '') {
-                    $this->assetRuleStore->saveRule([
-                        'page_key' => $page['key'],
-                        'page_url' => $page['url'],
-                        'asset_url' => $assetUrl,
-                        'asset_type' => $assetType,
-                        'action' => $action,
-                    ]);
-                    $this->pageCache->clear();
-                    $output .= $this->displayConfirmation($this->trans('Asset rule updated.', [], 'Admin.Notifications.Success'));
-                }
-            }
-        }
-
         if (Tools::isSubmit('submitPrestaLoadClearCache')) {
             $this->pageCache->clear();
             $output .= $this->displayConfirmation($this->trans('Full-page cache cleared.', [], 'Admin.Notifications.Success'));
@@ -258,6 +237,8 @@ class PrestaLoad extends Module
             'prestaload_selected_asset_scan' => $this->decorateAssetScan($selectedAssetScan),
             'prestaload_selected_asset_rules' => $this->indexRulesByUrl($selectedAssetRules),
             'prestaload_asset_scan_ajax_url' => $this->getAjaxConfigurationLink('runAssetScan'),
+            'prestaload_asset_rule_ajax_url' => $this->getAjaxConfigurationLink('saveAssetRule'),
+            'prestaload_asset_bulk_rule_ajax_url' => $this->getAjaxConfigurationLink('saveBulkAssetRules'),
             'prestaload_detected_shop_base_url' => $detectedShopBaseUrl,
             'prestaload_effective_asset_scan_base_url' => $effectiveScanBaseUrl,
         ]);
@@ -815,23 +796,51 @@ class PrestaLoad extends Module
      */
     private function handleAjaxRequest()
     {
-        if (!Tools::getValue('ajax') || Tools::getValue('action') !== 'runAssetScan') {
+        if (!Tools::getValue('ajax')) {
             return;
         }
 
         try {
-            $page = $this->getSelectedAssetPage();
-            if (empty($page)) {
-                throw new Exception('Selected page was not found.');
+            $action = (string) Tools::getValue('action');
+            if ($action === 'runAssetScan') {
+                $page = $this->getSelectedAssetPage();
+                if (empty($page)) {
+                    throw new Exception('Selected page was not found.');
+                }
+
+                $paths = $this->assetScanStore->saveScan($page, $this->assetScannerClient->scanPage($page['url']));
+
+                $this->jsonResponse([
+                    'success' => true,
+                    'message' => 'Asset scan completed.',
+                    'reload_url' => $this->getAdminConfigurationLink(self::TAB_ASSETS) . '&prestaload_asset_page=' . urlencode((string) $page['key']),
+                    'paths' => $paths,
+                ]);
             }
 
-            $paths = $this->assetScanStore->saveScan($page, $this->assetScannerClient->scanPage($page['url']));
+            if ($action === 'saveAssetRule') {
+                $savedRule = $this->saveAssetRuleFromRequest();
+
+                $this->jsonResponse([
+                    'success' => true,
+                    'message' => 'Asset rule updated.',
+                    'rule' => $savedRule,
+                ]);
+            }
+
+            if ($action === 'saveBulkAssetRules') {
+                $savedCount = $this->saveBulkAssetRulesFromRequest();
+
+                $this->jsonResponse([
+                    'success' => true,
+                    'message' => sprintf('Updated %d asset rules.', $savedCount),
+                    'saved_count' => $savedCount,
+                ]);
+            }
 
             $this->jsonResponse([
-                'success' => true,
-                'message' => 'Asset scan completed.',
-                'reload_url' => $this->getAdminConfigurationLink(self::TAB_ASSETS) . '&prestaload_asset_page=' . urlencode((string) $page['key']),
-                'paths' => $paths,
+                'success' => false,
+                'message' => 'Unknown AJAX action.',
             ]);
         } catch (Exception $exception) {
             $this->jsonResponse([
@@ -839,6 +848,85 @@ class PrestaLoad extends Module
                 'message' => $exception->getMessage(),
             ]);
         }
+    }
+
+    private function saveAssetRuleFromRequest()
+    {
+        $page = $this->getSelectedAssetPage();
+        if (empty($page)) {
+            throw new Exception('Selected page was not found.');
+        }
+
+        $action = trim((string) Tools::getValue('prestaload_asset_action', 'keep'));
+        $assetUrl = trim((string) Tools::getValue('prestaload_asset_url', ''));
+        $assetType = trim((string) Tools::getValue('prestaload_asset_type', 'other'));
+
+        if ($assetUrl === '') {
+            throw new Exception('Asset URL is required.');
+        }
+
+        if (!in_array($action, ['keep', 'defer', 'disable'], true)) {
+            throw new Exception('Invalid asset action.');
+        }
+
+        $rule = [
+            'page_key' => $page['key'],
+            'page_url' => $page['url'],
+            'asset_url' => $assetUrl,
+            'asset_type' => $assetType,
+            'action' => $action,
+        ];
+
+        $this->assetRuleStore->saveRule($rule);
+        $this->pageCache->clear();
+
+        return $rule;
+    }
+
+    private function saveBulkAssetRulesFromRequest()
+    {
+        $page = $this->getSelectedAssetPage();
+        if (empty($page)) {
+            throw new Exception('Selected page was not found.');
+        }
+
+        $action = trim((string) Tools::getValue('prestaload_asset_action', 'defer'));
+        if (!in_array($action, ['keep', 'defer', 'disable'], true)) {
+            throw new Exception('Invalid asset action.');
+        }
+
+        $assetUrls = Tools::getValue('prestaload_asset_urls', []);
+        $assetTypes = Tools::getValue('prestaload_asset_types', []);
+
+        if (!is_array($assetUrls) || empty($assetUrls)) {
+            throw new Exception('Select at least one asset.');
+        }
+
+        $savedCount = 0;
+        foreach ($assetUrls as $index => $assetUrl) {
+            $assetUrl = trim((string) $assetUrl);
+            if ($assetUrl === '') {
+                continue;
+            }
+
+            $assetType = isset($assetTypes[$index]) ? trim((string) $assetTypes[$index]) : 'other';
+            $this->assetRuleStore->saveRule([
+                'page_key' => $page['key'],
+                'page_url' => $page['url'],
+                'asset_url' => $assetUrl,
+                'asset_type' => $assetType,
+                'action' => $action,
+            ]);
+            ++$savedCount;
+        }
+
+        if ($savedCount === 0) {
+            throw new Exception('Select at least one asset.');
+        }
+
+        $this->pageCache->clear();
+
+        return $savedCount;
     }
 
     private function getAjaxConfigurationLink($action)
