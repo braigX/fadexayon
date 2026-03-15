@@ -164,6 +164,16 @@
                     >
                       <span class="prestaload-bulk-rule__label">Defer all</span>
                     </button>
+                    <button
+                      type="button"
+                      class="btn btn-default prestaload-bulk-rule"
+                      data-prestaload-group="{$asset_group.key|escape:'htmlall':'UTF-8'}"
+                      data-prestaload-action="disable"
+                      data-default-label="Disable all"
+                      data-loading-label="Disabling..."
+                    >
+                      <span class="prestaload-bulk-rule__label">Disable all</span>
+                    </button>
                   </div>
                 </div>
                 <div style="overflow-x: auto;">
