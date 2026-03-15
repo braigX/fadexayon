@@ -36,16 +36,26 @@ class PrestaLoadHtmlOptimizer
      */
     private $assetRuleApplier;
 
+    /**
+     * Final HTML compression runs after other optimizers so it works on the
+     * finished markup that will be cached or served.
+     *
+     * @var PrestaLoadHtmlCompressor
+     */
+    private $htmlCompressor;
+
     public function __construct(
         PrestaLoadFontOptimizer $fontOptimizer,
         PrestaLoadCssOptimizer $cssOptimizer,
         PrestaLoadImageOptimizer $imageOptimizer,
-        PrestaLoadAssetRuleApplier $assetRuleApplier
+        PrestaLoadAssetRuleApplier $assetRuleApplier,
+        PrestaLoadHtmlCompressor $htmlCompressor
     ) {
         $this->fontOptimizer = $fontOptimizer;
         $this->cssOptimizer = $cssOptimizer;
         $this->imageOptimizer = $imageOptimizer;
         $this->assetRuleApplier = $assetRuleApplier;
+        $this->htmlCompressor = $htmlCompressor;
     }
 
     /**
@@ -56,7 +66,8 @@ class PrestaLoadHtmlOptimizer
         $html = $this->fontOptimizer->optimize($html);
         $html = $this->cssOptimizer->optimize($html);
         $html = $this->imageOptimizer->optimize($html);
+        $html = $this->assetRuleApplier->optimize($html);
 
-        return $this->assetRuleApplier->optimize($html);
+        return $this->htmlCompressor->optimize($html);
     }
 }

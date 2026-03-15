@@ -11,6 +11,7 @@ class PrestaLoadCacheSettings
     private const DEFAULT_TTL = 1296000;
 
     public const CONFIG_ENABLED = 'PRESTALOAD_CACHE_ENABLED';
+    public const CONFIG_HTML_COMPRESSION_ENABLED = 'PRESTALOAD_HTML_COMPRESSION_ENABLED';
     public const CONFIG_FONT_OPTIMIZATION_ENABLED = 'PRESTALOAD_FONT_OPTIMIZATION_ENABLED';
     public const CONFIG_CSS_OPTIMIZATION_ENABLED = 'PRESTALOAD_CSS_OPTIMIZATION_ENABLED';
     public const CONFIG_IMAGE_OPTIMIZATION_ENABLED = 'PRESTALOAD_IMAGE_OPTIMIZATION_ENABLED';
@@ -28,6 +29,7 @@ class PrestaLoadCacheSettings
 
     private const CONFIG_DEFAULTS = [
         self::CONFIG_ENABLED => 1,
+        self::CONFIG_HTML_COMPRESSION_ENABLED => 0,
         self::CONFIG_FONT_OPTIMIZATION_ENABLED => 1,
         self::CONFIG_CSS_OPTIMIZATION_ENABLED => 0,
         self::CONFIG_IMAGE_OPTIMIZATION_ENABLED => 0,
@@ -59,6 +61,7 @@ class PrestaLoadCacheSettings
     public function installDefaults()
     {
         return Configuration::updateValue(self::CONFIG_ENABLED, 1)
+            && Configuration::updateValue(self::CONFIG_HTML_COMPRESSION_ENABLED, 0)
             && Configuration::updateValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1)
             && Configuration::updateValue(self::CONFIG_CSS_OPTIMIZATION_ENABLED, 0)
             && Configuration::updateValue(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED, 0)
@@ -78,6 +81,7 @@ class PrestaLoadCacheSettings
     public function uninstallDefaults()
     {
         return Configuration::deleteByName(self::CONFIG_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_HTML_COMPRESSION_ENABLED)
             && Configuration::deleteByName(self::CONFIG_FONT_OPTIMIZATION_ENABLED)
             && Configuration::deleteByName(self::CONFIG_CSS_OPTIMIZATION_ENABLED)
             && Configuration::deleteByName(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED)
@@ -107,6 +111,11 @@ class PrestaLoadCacheSettings
     public function isFontOptimizationEnabled()
     {
         return (bool) $this->getStoredValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1);
+    }
+
+    public function isHtmlCompressionEnabled()
+    {
+        return (bool) $this->getStoredValue(self::CONFIG_HTML_COMPRESSION_ENABLED, 0);
     }
 
     public function isCssOptimizationEnabled()
@@ -208,6 +217,7 @@ class PrestaLoadCacheSettings
     {
         return [
             self::CONFIG_ENABLED => (int) $this->getStoredValue(self::CONFIG_ENABLED, 1),
+            self::CONFIG_HTML_COMPRESSION_ENABLED => (int) $this->getStoredValue(self::CONFIG_HTML_COMPRESSION_ENABLED, 0),
             self::CONFIG_FONT_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1),
             self::CONFIG_CSS_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_CSS_OPTIMIZATION_ENABLED, 0),
             self::CONFIG_IMAGE_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED, 0),
@@ -243,6 +253,7 @@ class PrestaLoadCacheSettings
     {
         switch ($key) {
             case self::CONFIG_ENABLED:
+            case self::CONFIG_HTML_COMPRESSION_ENABLED:
             case self::CONFIG_FONT_OPTIMIZATION_ENABLED:
             case self::CONFIG_CSS_OPTIMIZATION_ENABLED:
             case self::CONFIG_IMAGE_OPTIMIZATION_ENABLED:

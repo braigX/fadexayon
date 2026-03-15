@@ -143,15 +143,28 @@
                     <input type="checkbox" class="prestaload-asset-select-all" data-prestaload-group="{$asset_group.key|escape:'htmlall':'UTF-8'}">
                     <span>Select all</span>
                   </label>
-                  <button
-                    type="button"
-                    class="btn btn-default prestaload-bulk-defer"
-                    data-prestaload-group="{$asset_group.key|escape:'htmlall':'UTF-8'}"
-                    data-default-label="Defer all"
-                    data-loading-label="Deferring..."
-                  >
-                    <span class="prestaload-bulk-defer__label">Defer all</span>
-                  </button>
+                  <div style="display: flex; gap: 8px; align-items: center;">
+                    <button
+                      type="button"
+                      class="btn btn-default prestaload-bulk-rule"
+                      data-prestaload-group="{$asset_group.key|escape:'htmlall':'UTF-8'}"
+                      data-prestaload-action="keep"
+                      data-default-label="Keep all"
+                      data-loading-label="Saving..."
+                    >
+                      <span class="prestaload-bulk-rule__label">Keep all</span>
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-default prestaload-bulk-rule"
+                      data-prestaload-group="{$asset_group.key|escape:'htmlall':'UTF-8'}"
+                      data-prestaload-action="defer"
+                      data-default-label="Defer all"
+                      data-loading-label="Deferring..."
+                    >
+                      <span class="prestaload-bulk-rule__label">Defer all</span>
+                    </button>
+                  </div>
                 </div>
                 <div style="overflow-x: auto;">
                   <table class="table">
@@ -413,14 +426,14 @@
       background: #c23434;
     }
 
-    .prestaload-bulk-defer.is-loading {
+    .prestaload-bulk-rule.is-loading {
       position: relative;
       pointer-events: none;
       opacity: 0.85;
       padding-left: 34px;
     }
 
-    .prestaload-bulk-defer.is-loading::before {
+    .prestaload-bulk-rule.is-loading::before {
       content: '';
       position: absolute;
       left: 12px;
@@ -447,7 +460,7 @@
       var assetTabLinks = document.querySelectorAll('[data-prestaload-asset-tab]');
       var assetPanels = document.querySelectorAll('[data-prestaload-asset-panel]');
       var assetRuleButtons = document.querySelectorAll('.prestaload-asset-rule-save');
-      var bulkDeferButtons = document.querySelectorAll('.prestaload-bulk-defer');
+      var bulkRuleButtons = document.querySelectorAll('.prestaload-bulk-rule');
       var selectAllCheckboxes = document.querySelectorAll('.prestaload-asset-select-all');
       var toastTimer = null;
 
@@ -566,7 +579,7 @@
         });
       });
 
-      Array.prototype.forEach.call(bulkDeferButtons, function (bulkButton) {
+      Array.prototype.forEach.call(bulkRuleButtons, function (bulkButton) {
         bulkButton.addEventListener('click', function () {
           if (!assetBulkRuleAjaxUrl) {
             return;
@@ -585,16 +598,16 @@
 
           var params = new URLSearchParams();
           params.append('prestaload_asset_page', pageSelect ? pageSelect.value : '');
-          params.append('prestaload_asset_action', 'defer');
+          params.append('prestaload_asset_action', bulkButton.getAttribute('data-prestaload-action') || 'defer');
 
           selected.forEach(function (checkbox, index) {
             params.append('prestaload_asset_urls[' + index + ']', checkbox.value);
             params.append('prestaload_asset_types[' + index + ']', checkbox.getAttribute('data-asset-type') || 'other');
           });
 
-          var label = bulkButton.querySelector('.prestaload-bulk-defer__label');
-          var defaultLabel = bulkButton.getAttribute('data-default-label') || 'Defer all';
-          var loadingLabel = bulkButton.getAttribute('data-loading-label') || 'Deferring...';
+          var label = bulkButton.querySelector('.prestaload-bulk-rule__label');
+          var defaultLabel = bulkButton.getAttribute('data-default-label') || 'Save all';
+          var loadingLabel = bulkButton.getAttribute('data-loading-label') || 'Saving...';
 
           bulkButton.disabled = true;
           bulkButton.classList.add('is-loading');

@@ -27,6 +27,7 @@ require_once __DIR__ . '/classes/PrestaLoadFontOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadCssOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadImgProxyUrlBuilder.php';
 require_once __DIR__ . '/classes/PrestaLoadImageOptimizer.php';
+require_once __DIR__ . '/classes/PrestaLoadHtmlCompressor.php';
 require_once __DIR__ . '/classes/PrestaLoadHtmlOptimizer.php';
 
 class PrestaLoad extends Module
@@ -144,6 +145,7 @@ class PrestaLoad extends Module
         if (Tools::isSubmit('submitPrestaLoadGeneralSettings')) {
             $this->settings->updateSubsetFromRequest([
                 PrestaLoadCacheSettings::CONFIG_ENABLED,
+                PrestaLoadCacheSettings::CONFIG_HTML_COMPRESSION_ENABLED,
                 PrestaLoadCacheSettings::CONFIG_TTL,
                 PrestaLoadCacheSettings::CONFIG_ALLOWED_CONTROLLERS,
             ]);
@@ -294,7 +296,8 @@ class PrestaLoad extends Module
         $imgProxyUrlBuilder = new PrestaLoadImgProxyUrlBuilder($this->settings);
         $imageOptimizer = new PrestaLoadImageOptimizer($this->settings, $imgProxyUrlBuilder);
         $assetRuleApplier = new PrestaLoadAssetRuleApplier($this->assetRuleStore, $cssOptimizer);
-        $htmlOptimizer = new PrestaLoadHtmlOptimizer($fontOptimizer, $cssOptimizer, $imageOptimizer, $assetRuleApplier);
+        $htmlCompressor = new PrestaLoadHtmlCompressor($this->settings);
+        $htmlOptimizer = new PrestaLoadHtmlOptimizer($fontOptimizer, $cssOptimizer, $imageOptimizer, $assetRuleApplier, $htmlCompressor);
 
         return new PrestaLoadPageCache($this->context, $this->settings, $eligibility, $keyBuilder, $store, $logger, $htmlOptimizer);
     }
@@ -359,6 +362,17 @@ class PrestaLoad extends Module
                                 ['id' => 'prestaload_enabled_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
                             ],
                             'desc' => 'Only anonymous GET requests can be cached.',
+                        ],
+                        [
+                            'type' => 'switch',
+                            'label' => 'Compress final HTML',
+                            'name' => PrestaLoadCacheSettings::CONFIG_HTML_COMPRESSION_ENABLED,
+                            'is_bool' => true,
+                            'values' => [
+                                ['id' => 'prestaload_html_compression_on', 'value' => 1, 'label' => $this->trans('Yes', [], 'Admin.Global')],
+                                ['id' => 'prestaload_html_compression_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
+                            ],
+                            'desc' => 'Removes safe whitespace and HTML comments from the final cached markup.',
                         ],
                         [
                             'type' => 'text',
