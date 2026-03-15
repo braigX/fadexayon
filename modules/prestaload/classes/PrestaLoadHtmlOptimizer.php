@@ -20,12 +20,22 @@ class PrestaLoadHtmlOptimizer
      */
     private $cssOptimizer;
 
+    /**
+     * Image rewriting runs after structural CSS/font changes so asset URLs are
+     * processed on the final markup shape.
+     *
+     * @var PrestaLoadImageOptimizer
+     */
+    private $imageOptimizer;
+
     public function __construct(
         PrestaLoadFontOptimizer $fontOptimizer,
-        PrestaLoadCssOptimizer $cssOptimizer
+        PrestaLoadCssOptimizer $cssOptimizer,
+        PrestaLoadImageOptimizer $imageOptimizer
     ) {
         $this->fontOptimizer = $fontOptimizer;
         $this->cssOptimizer = $cssOptimizer;
+        $this->imageOptimizer = $imageOptimizer;
     }
 
     /**
@@ -34,7 +44,8 @@ class PrestaLoadHtmlOptimizer
     public function optimize($html)
     {
         $html = $this->fontOptimizer->optimize($html);
+        $html = $this->cssOptimizer->optimize($html);
 
-        return $this->cssOptimizer->optimize($html);
+        return $this->imageOptimizer->optimize($html);
     }
 }

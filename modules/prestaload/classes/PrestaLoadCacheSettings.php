@@ -13,6 +13,11 @@ class PrestaLoadCacheSettings
     public const CONFIG_ENABLED = 'PRESTALOAD_CACHE_ENABLED';
     public const CONFIG_FONT_OPTIMIZATION_ENABLED = 'PRESTALOAD_FONT_OPTIMIZATION_ENABLED';
     public const CONFIG_CSS_OPTIMIZATION_ENABLED = 'PRESTALOAD_CSS_OPTIMIZATION_ENABLED';
+    public const CONFIG_IMAGE_OPTIMIZATION_ENABLED = 'PRESTALOAD_IMAGE_OPTIMIZATION_ENABLED';
+    public const CONFIG_IMGPROXY_BASE_URL = 'PRESTALOAD_IMGPROXY_BASE_URL';
+    public const CONFIG_IMGPROXY_QUALITY = 'PRESTALOAD_IMGPROXY_QUALITY';
+    public const CONFIG_IMGPROXY_KEY = 'PRESTALOAD_IMGPROXY_KEY';
+    public const CONFIG_IMGPROXY_SALT = 'PRESTALOAD_IMGPROXY_SALT';
     public const CONFIG_TTL = 'PRESTALOAD_CACHE_TTL';
     public const CONFIG_ALLOWED_CONTROLLERS = 'PRESTALOAD_CACHE_ALLOWED_CONTROLLERS';
 
@@ -33,6 +38,11 @@ class PrestaLoadCacheSettings
         return Configuration::updateValue(self::CONFIG_ENABLED, 1)
             && Configuration::updateValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1)
             && Configuration::updateValue(self::CONFIG_CSS_OPTIMIZATION_ENABLED, 0)
+            && Configuration::updateValue(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED, 0)
+            && Configuration::updateValue(self::CONFIG_IMGPROXY_BASE_URL, 'http://127.0.0.1:8094')
+            && Configuration::updateValue(self::CONFIG_IMGPROXY_QUALITY, 82)
+            && Configuration::updateValue(self::CONFIG_IMGPROXY_KEY, '')
+            && Configuration::updateValue(self::CONFIG_IMGPROXY_SALT, '')
             && Configuration::updateValue(self::CONFIG_TTL, self::DEFAULT_TTL)
             && Configuration::updateValue(self::CONFIG_ALLOWED_CONTROLLERS, 'index,category,product,cms');
     }
@@ -42,6 +52,11 @@ class PrestaLoadCacheSettings
         return Configuration::deleteByName(self::CONFIG_ENABLED)
             && Configuration::deleteByName(self::CONFIG_FONT_OPTIMIZATION_ENABLED)
             && Configuration::deleteByName(self::CONFIG_CSS_OPTIMIZATION_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_IMGPROXY_BASE_URL)
+            && Configuration::deleteByName(self::CONFIG_IMGPROXY_QUALITY)
+            && Configuration::deleteByName(self::CONFIG_IMGPROXY_KEY)
+            && Configuration::deleteByName(self::CONFIG_IMGPROXY_SALT)
             && Configuration::deleteByName(self::CONFIG_TTL)
             && Configuration::deleteByName(self::CONFIG_ALLOWED_CONTROLLERS);
     }
@@ -64,6 +79,31 @@ class PrestaLoadCacheSettings
     public function isCssOptimizationEnabled()
     {
         return (bool) $this->getStoredValue(self::CONFIG_CSS_OPTIMIZATION_ENABLED, 0);
+    }
+
+    public function isImageOptimizationEnabled()
+    {
+        return (bool) $this->getStoredValue(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED, 0);
+    }
+
+    public function getImgProxyBaseUrl()
+    {
+        return trim((string) $this->getStoredValue(self::CONFIG_IMGPROXY_BASE_URL, 'http://127.0.0.1:8094'));
+    }
+
+    public function getImgProxyQuality()
+    {
+        return max(30, min(95, (int) $this->getStoredValue(self::CONFIG_IMGPROXY_QUALITY, 82)));
+    }
+
+    public function getImgProxyKey()
+    {
+        return trim((string) $this->getStoredValue(self::CONFIG_IMGPROXY_KEY, ''));
+    }
+
+    public function getImgProxySalt()
+    {
+        return trim((string) $this->getStoredValue(self::CONFIG_IMGPROXY_SALT, ''));
     }
 
     public function getAllowedControllers()
@@ -89,12 +129,22 @@ class PrestaLoadCacheSettings
         $enabled = (int) Tools::getValue(self::CONFIG_ENABLED, 0);
         $fontOptimizationEnabled = (int) Tools::getValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 0);
         $cssOptimizationEnabled = (int) Tools::getValue(self::CONFIG_CSS_OPTIMIZATION_ENABLED, 0);
+        $imageOptimizationEnabled = (int) Tools::getValue(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED, 0);
+        $imgProxyBaseUrl = trim((string) Tools::getValue(self::CONFIG_IMGPROXY_BASE_URL, 'http://127.0.0.1:8094'));
+        $imgProxyQuality = max(30, min(95, (int) Tools::getValue(self::CONFIG_IMGPROXY_QUALITY, 82)));
+        $imgProxyKey = trim((string) Tools::getValue(self::CONFIG_IMGPROXY_KEY, ''));
+        $imgProxySalt = trim((string) Tools::getValue(self::CONFIG_IMGPROXY_SALT, ''));
         $ttl = max(60, (int) Tools::getValue(self::CONFIG_TTL, self::DEFAULT_TTL));
         $controllers = trim((string) Tools::getValue(self::CONFIG_ALLOWED_CONTROLLERS, 'index,category,product,cms'));
 
         return Configuration::updateValue(self::CONFIG_ENABLED, $enabled)
             && Configuration::updateValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, $fontOptimizationEnabled)
             && Configuration::updateValue(self::CONFIG_CSS_OPTIMIZATION_ENABLED, $cssOptimizationEnabled)
+            && Configuration::updateValue(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED, $imageOptimizationEnabled)
+            && Configuration::updateValue(self::CONFIG_IMGPROXY_BASE_URL, $imgProxyBaseUrl)
+            && Configuration::updateValue(self::CONFIG_IMGPROXY_QUALITY, $imgProxyQuality)
+            && Configuration::updateValue(self::CONFIG_IMGPROXY_KEY, $imgProxyKey)
+            && Configuration::updateValue(self::CONFIG_IMGPROXY_SALT, $imgProxySalt)
             && Configuration::updateValue(self::CONFIG_TTL, $ttl)
             && Configuration::updateValue(self::CONFIG_ALLOWED_CONTROLLERS, $controllers);
     }
@@ -105,6 +155,11 @@ class PrestaLoadCacheSettings
             self::CONFIG_ENABLED => (int) $this->getStoredValue(self::CONFIG_ENABLED, 1),
             self::CONFIG_FONT_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1),
             self::CONFIG_CSS_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_CSS_OPTIMIZATION_ENABLED, 0),
+            self::CONFIG_IMAGE_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED, 0),
+            self::CONFIG_IMGPROXY_BASE_URL => (string) $this->getStoredValue(self::CONFIG_IMGPROXY_BASE_URL, 'http://127.0.0.1:8094'),
+            self::CONFIG_IMGPROXY_QUALITY => (int) $this->getStoredValue(self::CONFIG_IMGPROXY_QUALITY, 82),
+            self::CONFIG_IMGPROXY_KEY => (string) $this->getStoredValue(self::CONFIG_IMGPROXY_KEY, ''),
+            self::CONFIG_IMGPROXY_SALT => (string) $this->getStoredValue(self::CONFIG_IMGPROXY_SALT, ''),
             self::CONFIG_TTL => (int) $this->getStoredValue(self::CONFIG_TTL, self::DEFAULT_TTL),
             self::CONFIG_ALLOWED_CONTROLLERS => (string) $this->getStoredValue(self::CONFIG_ALLOWED_CONTROLLERS, 'index,category,product,cms'),
         ];

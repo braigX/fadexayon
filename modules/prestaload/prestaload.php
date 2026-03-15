@@ -17,6 +17,8 @@ require_once __DIR__ . '/classes/PrestaLoadCacheStore.php';
 require_once __DIR__ . '/classes/PrestaLoadPageCache.php';
 require_once __DIR__ . '/classes/PrestaLoadFontOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadCssOptimizer.php';
+require_once __DIR__ . '/classes/PrestaLoadImgProxyUrlBuilder.php';
+require_once __DIR__ . '/classes/PrestaLoadImageOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadHtmlOptimizer.php';
 
 class PrestaLoad extends Module
@@ -167,7 +169,9 @@ class PrestaLoad extends Module
         $store = new PrestaLoadCacheStore($this->settings->getCacheDirectory());
         $fontOptimizer = new PrestaLoadFontOptimizer($this->settings);
         $cssOptimizer = new PrestaLoadCssOptimizer($this->settings);
-        $htmlOptimizer = new PrestaLoadHtmlOptimizer($fontOptimizer, $cssOptimizer);
+        $imgProxyUrlBuilder = new PrestaLoadImgProxyUrlBuilder($this->settings);
+        $imageOptimizer = new PrestaLoadImageOptimizer($this->settings, $imgProxyUrlBuilder);
+        $htmlOptimizer = new PrestaLoadHtmlOptimizer($fontOptimizer, $cssOptimizer, $imageOptimizer);
 
         return new PrestaLoadPageCache($this->context, $this->settings, $eligibility, $keyBuilder, $store, $logger, $htmlOptimizer);
     }
@@ -249,6 +253,45 @@ class PrestaLoad extends Module
                             ['id' => 'prestaload_css_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
                         ],
                         'desc' => 'Disabled by default. Can improve render-blocking in some shops but may increase layout shifts when modules inject visible CSS late.',
+                    ],
+                    [
+                        'type' => 'switch',
+                        'label' => 'Optimize images with ImgProxy',
+                        'name' => PrestaLoadCacheSettings::CONFIG_IMAGE_OPTIMIZATION_ENABLED,
+                        'is_bool' => true,
+                        'values' => [
+                            ['id' => 'prestaload_images_on', 'value' => 1, 'label' => $this->trans('Yes', [], 'Admin.Global')],
+                            ['id' => 'prestaload_images_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
+                        ],
+                        'desc' => 'Disabled by default. Rewrites raster image URLs to the configured ImgProxy service.',
+                    ],
+                    [
+                        'type' => 'text',
+                        'label' => 'ImgProxy base URL',
+                        'name' => PrestaLoadCacheSettings::CONFIG_IMGPROXY_BASE_URL,
+                        'class' => 'fixed-width-xxl',
+                        'desc' => 'Example: http://127.0.0.1:8094',
+                    ],
+                    [
+                        'type' => 'text',
+                        'label' => 'ImgProxy quality',
+                        'name' => PrestaLoadCacheSettings::CONFIG_IMGPROXY_QUALITY,
+                        'class' => 'fixed-width-sm',
+                        'desc' => 'WebP quality used in generated ImgProxy URLs.',
+                    ],
+                    [
+                        'type' => 'text',
+                        'label' => 'ImgProxy key',
+                        'name' => PrestaLoadCacheSettings::CONFIG_IMGPROXY_KEY,
+                        'class' => 'fixed-width-xxl',
+                        'desc' => 'Hex-encoded imgproxy signing key. Leave empty only if your ImgProxy server allows unsafe URLs.',
+                    ],
+                    [
+                        'type' => 'text',
+                        'label' => 'ImgProxy salt',
+                        'name' => PrestaLoadCacheSettings::CONFIG_IMGPROXY_SALT,
+                        'class' => 'fixed-width-xxl',
+                        'desc' => 'Hex-encoded imgproxy signing salt used together with the key.',
                     ],
                     [
                         'type' => 'text',
