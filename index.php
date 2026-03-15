@@ -24,6 +24,13 @@
  * @license   https://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  */
 
+// PrestaLoad early static cache bootstrap. This runs before Prestashop boots
+// so anonymous homepage hits can be served directly from disk.
+$prestaLoadStaticCacheScript = __DIR__ . '/prestaload-static-cache.php';
+if (file_exists($prestaLoadStaticCacheScript)) {
+    require_once $prestaLoadStaticCacheScript;
+}
+
 
 // ~~start-pagecacheultimate~~ Do not remove this comment, jprestaspeedpack will update it automatically
 $staticCacheScript = dirname(__FILE__).'/modules/jprestaspeedpack/static.config.php';

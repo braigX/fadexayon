@@ -129,6 +129,13 @@ class PrestaLoadPageCache
             'controller' => $this->eligibility->getControllerName(),
         ], $this->settings->getTtl());
 
+        $this->maybeStoreEarlyAlias([
+            'body' => $html,
+            'headers' => $headers,
+            'status_code' => $statusCode ?: 200,
+            'controller' => $this->eligibility->getControllerName(),
+        ]);
+
         $this->logger->log([
             'cache_key' => $key,
             'cache_parts' => $cacheContext['parts'],
@@ -228,5 +235,21 @@ class PrestaLoadPageCache
         }
 
         return $this->requestCacheContext;
+    }
+
+    /**
+     * The early bootstrap can only compute a raw request key, so we store a
+     * second alias for very safe homepage-style requests. This keeps the early
+     * index.php path independent from Prestashop Context.
+     */
+    private function maybeStoreEarlyAlias(array $payload)
+    {
+        $path = isset($_SERVER['REQUEST_URI']) ? (string) parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) : '/';
+        if ($path === false || ($path !== '/' && $path !== '/index.php')) {
+            return;
+        }
+
+        $earlyContext = PrestaLoadEarlyCacheKeyBuilder::buildContextFromServer();
+        $this->store->put($earlyContext['key'], $payload, $this->settings->getTtl());
     }
 }

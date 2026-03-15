@@ -16,6 +16,8 @@ require_once __DIR__ . '/classes/PrestaLoadCacheLogger.php';
 require_once __DIR__ . '/classes/PrestaLoadCacheStore.php';
 require_once __DIR__ . '/classes/PrestaLoadPageCache.php';
 require_once __DIR__ . '/classes/PrestaLoadBrowserCacheManager.php';
+require_once __DIR__ . '/classes/PrestaLoadEarlyCacheKeyBuilder.php';
+require_once __DIR__ . '/classes/PrestaLoadRuntimeConfig.php';
 require_once __DIR__ . '/classes/PrestaLoadFontOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadCssOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadImgProxyUrlBuilder.php';
@@ -57,6 +59,7 @@ class PrestaLoad extends Module
     private $settings;
     private $pageCache;
     private $browserCacheManager;
+    private $runtimeConfig;
 
     public function __construct()
     {
@@ -79,6 +82,7 @@ class PrestaLoad extends Module
         $this->settings = new PrestaLoadCacheSettings($this->name, __DIR__);
         $this->pageCache = $this->buildPageCache();
         $this->browserCacheManager = new PrestaLoadBrowserCacheManager($this->settings);
+        $this->runtimeConfig = new PrestaLoadRuntimeConfig($this->settings, __DIR__);
     }
 
     /**
@@ -88,6 +92,7 @@ class PrestaLoad extends Module
     {
         return parent::install()
             && $this->settings->installDefaults()
+            && $this->runtimeConfig->write()
             && $this->registerHook('actionDispatcher')
             && $this->registerHook('actionOutputHTMLBefore')
             && $this->registerHooks(self::INVALIDATION_HOOKS);
@@ -99,6 +104,7 @@ class PrestaLoad extends Module
     public function uninstall()
     {
         $this->pageCache->clear();
+        $this->runtimeConfig->delete();
 
         return $this->unregisterHook('actionDispatcher')
             && $this->unregisterHook('actionOutputHTMLBefore')
@@ -125,6 +131,7 @@ class PrestaLoad extends Module
                 PrestaLoadCacheSettings::CONFIG_TTL,
                 PrestaLoadCacheSettings::CONFIG_ALLOWED_CONTROLLERS,
             ]);
+            $this->runtimeConfig->write();
             $this->pageCache->clear();
             $output .= $this->displayConfirmation($this->trans('General settings updated.', [], 'Admin.Notifications.Success'));
         }
@@ -135,6 +142,7 @@ class PrestaLoad extends Module
                 PrestaLoadCacheSettings::CONFIG_BROWSER_CACHE_ASSET_TTL,
                 PrestaLoadCacheSettings::CONFIG_BROWSER_CACHE_MEDIA_TTL,
             ]);
+            $this->runtimeConfig->write();
 
             $browserCacheSync = $this->browserCacheManager->sync();
 
@@ -153,6 +161,7 @@ class PrestaLoad extends Module
             $this->settings->updateSubsetFromRequest([
                 PrestaLoadCacheSettings::CONFIG_FONT_OPTIMIZATION_ENABLED,
             ]);
+            $this->runtimeConfig->write();
             $this->pageCache->clear();
             $output .= $this->displayConfirmation($this->trans('Font settings updated.', [], 'Admin.Notifications.Success'));
         }
@@ -161,6 +170,7 @@ class PrestaLoad extends Module
             $this->settings->updateSubsetFromRequest([
                 PrestaLoadCacheSettings::CONFIG_CSS_OPTIMIZATION_ENABLED,
             ]);
+            $this->runtimeConfig->write();
             $this->pageCache->clear();
             $output .= $this->displayConfirmation($this->trans('CSS settings updated.', [], 'Admin.Notifications.Success'));
         }
@@ -173,6 +183,7 @@ class PrestaLoad extends Module
                 PrestaLoadCacheSettings::CONFIG_IMGPROXY_KEY,
                 PrestaLoadCacheSettings::CONFIG_IMGPROXY_SALT,
             ]);
+            $this->runtimeConfig->write();
             $this->pageCache->clear();
             $output .= $this->displayConfirmation($this->trans('Image settings updated.', [], 'Admin.Notifications.Success'));
         }
@@ -198,6 +209,10 @@ class PrestaLoad extends Module
      */
     public function hookActionDispatcher($params)
     {
+        if (!headers_sent()) {
+            header('X-PrestaLoad-Boot: prestashop');
+        }
+
         $this->pageCache->maybeServe(is_array($params) ? $params : []);
     }
 
