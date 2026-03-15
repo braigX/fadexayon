@@ -15,6 +15,11 @@ class PrestaLoadImageOptimizer
     private $settings;
 
     /**
+     * @var Context
+     */
+    private $context;
+
+    /**
      * @var PrestaLoadImgProxyUrlBuilder
      */
     private $urlBuilder;
@@ -25,10 +30,12 @@ class PrestaLoadImageOptimizer
     private $loadingOptimizer;
 
     public function __construct(
+        Context $context,
         PrestaLoadCacheSettings $settings,
         PrestaLoadImgProxyUrlBuilder $urlBuilder,
         PrestaLoadImageLoadingOptimizer $loadingOptimizer
     ) {
+        $this->context = $context;
         $this->settings = $settings;
         $this->urlBuilder = $urlBuilder;
         $this->loadingOptimizer = $loadingOptimizer;
@@ -70,7 +77,7 @@ class PrestaLoadImageOptimizer
             return $tag;
         }
 
-        $rewrittenUrl = $this->urlBuilder->buildUrl($src, $this->extractDimensions($attributes));
+        $rewrittenUrl = $this->urlBuilder->buildUrl($this->resolveAssetUrl($src), $this->extractDimensions($attributes));
 
         return $this->replaceOrAppendAttribute($tag, 'src', $rewrittenUrl);
     }
@@ -105,7 +112,7 @@ class PrestaLoadImageOptimizer
             }
 
             $candidateDimensions = $this->extractDimensionsFromDescriptor($descriptor);
-            $rewrittenUrl = $this->urlBuilder->buildUrl($candidateUrl, $candidateDimensions);
+            $rewrittenUrl = $this->urlBuilder->buildUrl($this->resolveAssetUrl($candidateUrl), $candidateDimensions);
             $rewrittenCandidates[] = trim($rewrittenUrl . ' ' . $descriptor);
         }
 
@@ -137,6 +144,55 @@ class PrestaLoadImageOptimizer
         }
 
         return (bool) preg_match(self::RASTER_EXTENSIONS_PATTERN, $normalizedUrl);
+    }
+
+    /**
+     * ImgProxy must always receive an absolute source URL it can fetch itself.
+     */
+    private function resolveAssetUrl($url)
+    {
+        $url = trim((string) $url);
+        if ($url === '' || preg_match('#^https?://#i', $url)) {
+            return $url;
+        }
+
+        if (strpos($url, '//') === 0) {
+            $shopBase = $this->getShopBaseUrl();
+            $parts = parse_url($shopBase);
+            $scheme = isset($parts['scheme']) ? $parts['scheme'] : 'https';
+
+            return $scheme . ':' . $url;
+        }
+
+        $shopBase = rtrim($this->getShopBaseUrl(), '/');
+        if (strpos($url, '/') === 0) {
+            return $shopBase . $url;
+        }
+
+        return $shopBase . '/' . ltrim($url, '/');
+    }
+
+    private function getShopBaseUrl()
+    {
+        $baseUrl = $this->context->shop && method_exists($this->context->shop, 'getBaseURL')
+            ? $this->context->shop->getBaseURL(true)
+            : '';
+
+        if ($baseUrl === '' && isset($this->context->link)) {
+            $baseUrl = (string) $this->context->link->getPageLink('index', true);
+        }
+
+        $parts = parse_url((string) $baseUrl);
+        if ($parts === false || empty($parts['scheme']) || empty($parts['host'])) {
+            return rtrim((string) $baseUrl, '/');
+        }
+
+        $origin = $parts['scheme'] . '://' . $parts['host'];
+        if (!empty($parts['port'])) {
+            $origin .= ':' . (int) $parts['port'];
+        }
+
+        return $origin;
     }
 
     /**

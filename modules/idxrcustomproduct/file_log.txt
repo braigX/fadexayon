@@ -175941,3 +175941,12 @@
 [2026-03-01 17:08:13]in add_base 
 [2026-03-01 17:08:13]id_product: 357
 [2026-03-01 17:08:13]id_product_attribute: 2
+[2026-03-16 00:33:18]in add_base 
+[2026-03-16 00:33:18]id_product: 357
+[2026-03-16 00:33:18]id_product_attribute: 2
+[2026-03-16 00:40:54]in add_base 
+[2026-03-16 00:40:54]id_product: 357
+[2026-03-16 00:40:54]id_product_attribute: 2
+[2026-03-16 00:43:22]in add_base 
+[2026-03-16 00:43:22]id_product: 357
+[2026-03-16 00:43:22]id_product_attribute: 2

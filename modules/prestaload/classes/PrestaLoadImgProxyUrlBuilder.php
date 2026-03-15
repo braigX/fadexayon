@@ -66,11 +66,19 @@ class PrestaLoadImgProxyUrlBuilder
      */
     private function encodePlainSourceUrl($sourceUrl)
     {
-        return str_replace(
-            ['%', '?', '@'],
-            ['%25', '%3F', '%40'],
-            $sourceUrl
+        $encoded = rawurlencode((string) $sourceUrl);
+
+        // ImgProxy plain-source signing must use the exact same byte sequence
+        // as the helper script. Keep the URL structure readable, but double-
+        // escape percent signs so already encoded characters such as spaces
+        // remain stable inside the signed path.
+        $encoded = str_replace(
+            ['%3A', '%2F'],
+            [':', '/'],
+            $encoded
         );
+
+        return str_replace('%', '%25', $encoded);
     }
 
     /**

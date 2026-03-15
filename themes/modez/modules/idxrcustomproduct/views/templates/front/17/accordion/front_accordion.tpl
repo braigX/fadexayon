@@ -25,11 +25,11 @@
                         <p id="product-size-unique-12345">.. x .. cm</p>
                         <div id="toggleTableLinkDiv" class="price-structure-link-unique-12345" style="cursor: pointer;">
                             <i class="braig_i i-left">
-                                <img src="/modules/idxrcustomproduct/img/icon/i_left.png" alt=">">    
+                                <img src="/modules/idxrcustomproduct/img/icon/i_left.png" alt="ⓘ">    
                             </i>
                             <span id="front_tr_show_struct">{l s='Afficher la structure de prix' mod='idxrcustomproduct'}</span>
                             <i class="braig_i i-right">
-                                <img src="/modules/idxrcustomproduct/img/icon/i_right.png" alt=">">
+                                <img src="/modules/idxrcustomproduct/img/icon/i_right.png" alt="➜">
                             </i>
                         </div>
                     </div>

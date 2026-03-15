@@ -25,11 +25,11 @@
                         <p id="product-size-unique-12345">.. x .. cm</p>
                         <a href="#show_table" class="price-structure-link-unique-12345" id="toggleTableLink">
                             <i class="braig_i i-left">
-                                <img src="/modules/idxrcustomproduct/img/icon/i_left.png" alt=">">    
+                                <img src="/modules/idxrcustomproduct/img/icon/i_left.png" alt="ⓘ">    
                             </i>
                             Afficher la structure de prix
                             <i class="braig_i i-right">
-                                <img src="/modules/idxrcustomproduct/img/icon/i_right.png" alt=">">
+                                <img src="/modules/idxrcustomproduct/img/icon/i_right.png" alt="➜">
                             </i>
                         </a>
                     </div>

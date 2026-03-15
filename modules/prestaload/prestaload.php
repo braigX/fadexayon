@@ -298,7 +298,7 @@ class PrestaLoad extends Module
         $cssOptimizer = new PrestaLoadCssOptimizer($this->settings);
         $imgProxyUrlBuilder = new PrestaLoadImgProxyUrlBuilder($this->settings);
         $imageLoadingOptimizer = new PrestaLoadImageLoadingOptimizer($this->settings);
-        $imageOptimizer = new PrestaLoadImageOptimizer($this->settings, $imgProxyUrlBuilder, $imageLoadingOptimizer);
+        $imageOptimizer = new PrestaLoadImageOptimizer($this->context, $this->settings, $imgProxyUrlBuilder, $imageLoadingOptimizer);
         $assetRuleApplier = new PrestaLoadAssetRuleApplier($this->assetRuleStore, $cssOptimizer);
         $htmlCompressor = new PrestaLoadHtmlCompressor($this->settings);
         $htmlOptimizer = new PrestaLoadHtmlOptimizer($fontOptimizer, $cssOptimizer, $imageOptimizer, $assetRuleApplier, $htmlCompressor);
