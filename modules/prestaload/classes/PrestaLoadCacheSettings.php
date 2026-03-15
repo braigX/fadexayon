@@ -32,7 +32,7 @@ class PrestaLoadCacheSettings
         self::CONFIG_BROWSER_CACHE_ENABLED => 0,
         self::CONFIG_BROWSER_CACHE_ASSET_TTL => 31536000,
         self::CONFIG_BROWSER_CACHE_MEDIA_TTL => 2592000,
-        self::CONFIG_IMGPROXY_BASE_URL => 'http://127.0.0.1:8094',
+        self::CONFIG_IMGPROXY_BASE_URL => 'https://imgcdn.prestaload.com/',
         self::CONFIG_IMGPROXY_QUALITY => 82,
         self::CONFIG_IMGPROXY_KEY => '',
         self::CONFIG_IMGPROXY_SALT => '',
@@ -61,7 +61,7 @@ class PrestaLoadCacheSettings
             && Configuration::updateValue(self::CONFIG_BROWSER_CACHE_ENABLED, 0)
             && Configuration::updateValue(self::CONFIG_BROWSER_CACHE_ASSET_TTL, 31536000)
             && Configuration::updateValue(self::CONFIG_BROWSER_CACHE_MEDIA_TTL, 2592000)
-            && Configuration::updateValue(self::CONFIG_IMGPROXY_BASE_URL, 'http://127.0.0.1:8094')
+            && Configuration::updateValue(self::CONFIG_IMGPROXY_BASE_URL, 'https://imgcdn.prestaload.com/')
             && Configuration::updateValue(self::CONFIG_IMGPROXY_QUALITY, 82)
             && Configuration::updateValue(self::CONFIG_IMGPROXY_KEY, '')
             && Configuration::updateValue(self::CONFIG_IMGPROXY_SALT, '')
@@ -128,7 +128,7 @@ class PrestaLoadCacheSettings
 
     public function getImgProxyBaseUrl()
     {
-        return trim((string) $this->getStoredValue(self::CONFIG_IMGPROXY_BASE_URL, 'http://127.0.0.1:8094'));
+        return trim((string) $this->getStoredValue(self::CONFIG_IMGPROXY_BASE_URL, 'https://imgcdn.prestaload.com/'));
     }
 
     public function getImgProxyQuality()
@@ -196,7 +196,7 @@ class PrestaLoadCacheSettings
             self::CONFIG_BROWSER_CACHE_ENABLED => (int) $this->getStoredValue(self::CONFIG_BROWSER_CACHE_ENABLED, 0),
             self::CONFIG_BROWSER_CACHE_ASSET_TTL => (int) $this->getStoredValue(self::CONFIG_BROWSER_CACHE_ASSET_TTL, 31536000),
             self::CONFIG_BROWSER_CACHE_MEDIA_TTL => (int) $this->getStoredValue(self::CONFIG_BROWSER_CACHE_MEDIA_TTL, 2592000),
-            self::CONFIG_IMGPROXY_BASE_URL => (string) $this->getStoredValue(self::CONFIG_IMGPROXY_BASE_URL, 'http://127.0.0.1:8094'),
+            self::CONFIG_IMGPROXY_BASE_URL => (string) $this->getStoredValue(self::CONFIG_IMGPROXY_BASE_URL, 'https://imgcdn.prestaload.com/'),
             self::CONFIG_IMGPROXY_QUALITY => (int) $this->getStoredValue(self::CONFIG_IMGPROXY_QUALITY, 82),
             self::CONFIG_IMGPROXY_KEY => (string) $this->getStoredValue(self::CONFIG_IMGPROXY_KEY, ''),
             self::CONFIG_IMGPROXY_SALT => (string) $this->getStoredValue(self::CONFIG_IMGPROXY_SALT, ''),

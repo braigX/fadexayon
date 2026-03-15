@@ -435,7 +435,7 @@ class PrestaLoad extends Module
                             'label' => 'ImgProxy base URL',
                             'name' => PrestaLoadCacheSettings::CONFIG_IMGPROXY_BASE_URL,
                             'class' => 'fixed-width-xxl',
-                            'desc' => 'Example: http://127.0.0.1:8094',
+                            'desc' => 'Example: https://imgcdn.prestaload.com/',
                         ],
                         [
                             'type' => 'text',
