@@ -76,6 +76,10 @@ class PrestaLoadAssetRuleApplier
                 return '';
             }
 
+            if ($rule['action'] === 'load_after_window_load') {
+                return $this->buildWindowLoadScriptTag($src);
+            }
+
             if ($rule['action'] === 'minify') {
                 $minifiedUrl = $this->assetMinifier->getMinifiedAssetUrl($src, 'js');
 
@@ -225,6 +229,20 @@ class PrestaLoadAssetRuleApplier
         $updatedOpeningTag = $this->replaceOrAppendAttribute($openingTag, 'src', $value);
 
         return $updatedOpeningTag . substr($tag, strlen($openingTag));
+    }
+
+    /**
+     * Replaces the original script tag with a small loader that waits until
+     * the page `load` event before injecting the script dynamically.
+     */
+    private function buildWindowLoadScriptTag($src)
+    {
+        $escapedSrc = json_encode($src);
+        if ($escapedSrc === false) {
+            return '';
+        }
+
+        return '<script data-prestaload-window-load="1">(function(){var loadScript=function(){var s=document.createElement("script");s.src=' . $escapedSrc . ';s.async=true;document.body.appendChild(s);};if(document.readyState==="complete"){loadScript();return;}window.addEventListener("load",loadScript,{once:true});}());</script>';
     }
 
     /**

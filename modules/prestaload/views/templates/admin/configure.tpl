@@ -298,6 +298,9 @@
                                 <select name="prestaload_asset_action" class="form-control">
                                   <option value="keep" {if $asset_rule.action|default:'keep' === 'keep'}selected="selected"{/if}>Keep</option>
                                   <option value="defer" {if $asset_rule.action|default:'' === 'defer'}selected="selected"{/if}>Defer</option>
+                                  {if $asset.type === 'js'}
+                                    <option value="load_after_window_load" {if $asset_rule.action|default:'' === 'load_after_window_load'}selected="selected"{/if}>Load after window.load</option>
+                                  {/if}
                                   <option value="disable" {if $asset_rule.action|default:'' === 'disable'}selected="selected"{/if}>Disable</option>
                                 </select>
                                 <button

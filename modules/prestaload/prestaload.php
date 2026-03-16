@@ -949,7 +949,7 @@ class PrestaLoad extends Module
             throw new Exception('Asset URL is required.');
         }
 
-        if (!in_array($action, ['keep', 'defer', 'disable', 'minify'], true)) {
+        if (!in_array($action, ['keep', 'defer', 'disable', 'minify', 'load_after_window_load'], true)) {
             throw new Exception('Invalid asset action.');
         }
 
@@ -975,7 +975,7 @@ class PrestaLoad extends Module
         }
 
         $action = trim((string) Tools::getValue('prestaload_asset_action', 'defer'));
-        if (!in_array($action, ['keep', 'defer', 'disable', 'minify'], true)) {
+        if (!in_array($action, ['keep', 'defer', 'disable', 'minify', 'load_after_window_load'], true)) {
             throw new Exception('Invalid asset action.');
         }
 
