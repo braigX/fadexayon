@@ -2348,6 +2348,7 @@ const CustomizationModule = (() => {
         holesGroup.clear();
         cutoutGroup.clear();
         cutoutDems.clear();
+        let dimensionHoleTarget = null;
         var shaper = shapeGroup;
         var arrows = arrowsGroup;
         let fitViewBoxTimer = null;
@@ -2553,10 +2554,30 @@ const CustomizationModule = (() => {
             shapeGroup.node.setAttribute('opacity', '0');
             holeNodes.forEach(function (hole) {
                 hole.attr({
-                    fill: '#dff7cf',
+                    fill: 'none',
                     stroke: 'none'
                 });
             });
+            if (dimensionHoleTarget) {
+                let targetHole = null;
+                let targetDistance = Infinity;
+                holeNodes.forEach(function (hole) {
+                    const cx = safeParseFloat(hole.attr('cx'));
+                    const cy = safeParseFloat(hole.attr('cy'));
+                    const dx = cx - dimensionHoleTarget.x;
+                    const dy = cy - dimensionHoleTarget.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < targetDistance) {
+                        targetDistance = distance;
+                        targetHole = hole;
+                    }
+                });
+                if (targetHole) {
+                    targetHole.attr({
+                        fill: '#dff7cf'
+                    });
+                }
+            }
             holeBorderGroup.selectAll('*').forEach(function (node) {
                 node.attr({
                     fill: 'none',
@@ -4625,6 +4646,12 @@ const CustomizationModule = (() => {
         }
 
         function holeDems(cx, cy, diameter, extra, isRadial, space = 0, centerX = 0, centerY = 0) {
+            if (!dimensionHoleTarget) {
+                dimensionHoleTarget = {
+                    x: safeParseFloat(cx),
+                    y: safeParseFloat(cy)
+                };
+            }
             let attrs = {
                 stroke: "#000", 
                 strokeWidth: 1,
