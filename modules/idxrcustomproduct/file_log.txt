@@ -175950,3 +175950,12 @@
 [2026-03-16 00:43:22]in add_base 
 [2026-03-16 00:43:22]id_product: 357
 [2026-03-16 00:43:22]id_product_attribute: 2
+[2026-03-16 10:54:50]in add_base 
+[2026-03-16 10:54:50]id_product: 357
+[2026-03-16 10:54:50]id_product_attribute: 2
+[2026-03-16 10:58:53]in add_base 
+[2026-03-16 10:58:53]id_product: 357
+[2026-03-16 10:58:53]id_product_attribute: 2
+[2026-03-16 10:59:53]in add_base 
+[2026-03-16 10:59:53]id_product: 357
+[2026-03-16 10:59:53]id_product_attribute: 2
