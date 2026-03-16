@@ -1410,8 +1410,11 @@ const CustomizationModule = (() => {
 
             const svgElement = `
                 <svg id="actualSvg" width="400" height="400" style="width: 100%; height: 100%;">
-                    <g id="shapeContainer"></g>
+                    <defs id="svgDefs"></defs>
                     <g id="holesContainer"></g>
+                    <g id="holeBorderContainer"></g>
+                    <g id="shapePreviewContainer"></g>
+                    <g id="shapeContainer"></g>
                     <g id="couOutMain">
                         <g id="cutoutContainer"></g>
                         <g id="cutoutDems" class="activeDemensions"></g>
@@ -2317,12 +2320,30 @@ const CustomizationModule = (() => {
 
     function drawShape() { 
         svg = Snap("#actualSvg");
+        const svgNode = svg.node;
         shapeGroup = svg.select('#shapeContainer');
+        const holeBorderGroup = svg.select('#holeBorderContainer');
+        const shapePreviewGroup = svg.select('#shapePreviewContainer');
         const arrowsGroup = svg.select('#arrowsContainer');
         const holesGroup = svg.select('#holesContainer');
         const cutoutGroup = svg.select('#cutoutContainer');
         const cutoutDems = svg.select('#cutoutDems');
+        if (shapeGroup && shapeGroup.node) {
+            shapeGroup.node.removeAttribute('mask');
+            shapeGroup.node.removeAttribute('opacity');
+        }
+        if (holesGroup && holesGroup.node) {
+            holesGroup.node.removeAttribute('mask');
+        }
+        if (holeBorderGroup && holeBorderGroup.node) {
+            holeBorderGroup.node.removeAttribute('mask');
+        }
+        if (shapePreviewGroup && shapePreviewGroup.node) {
+            shapePreviewGroup.node.removeAttribute('mask');
+        }
         shapeGroup.clear();
+        holeBorderGroup.clear();
+        shapePreviewGroup.clear();
         arrowsGroup.clear();
         holesGroup.clear();
         cutoutGroup.clear();
@@ -2381,9 +2402,173 @@ const CustomizationModule = (() => {
                 copySvgOnly();
             }, 0);
         }
+
+        function clearGroupMask(group) {
+            if (group && group.node) {
+                group.node.removeAttribute('mask');
+            }
+        }
+
+        function setMaskPaint(node, color) {
+            if (!node || node.nodeType !== 1) {
+                return;
+            }
+            node.setAttribute('fill', color);
+            node.setAttribute('stroke', color);
+            node.setAttribute('fill-opacity', '1');
+            node.setAttribute('stroke-opacity', '1');
+            node.setAttribute('opacity', '1');
+            Array.prototype.forEach.call(node.children || [], function (child) {
+                setMaskPaint(child, color);
+            });
+        }
+
+        function ensureMask(maskId) {
+            const defsNode = svgNode.querySelector('#svgDefs');
+            if (!defsNode) {
+                return null;
+            }
+
+            let maskNode = defsNode.querySelector(`#${maskId}`);
+            if (!maskNode) {
+                maskNode = document.createElementNS('http://www.w3.org/2000/svg', 'mask');
+                maskNode.setAttribute('id', maskId);
+                defsNode.appendChild(maskNode);
+            }
+
+            while (maskNode.firstChild) {
+                maskNode.removeChild(maskNode.firstChild);
+            }
+
+            return maskNode;
+        }
+
+        function clearPreviewMasks() {
+            const defsNode = svgNode.querySelector('#svgDefs');
+            if (!defsNode) {
+                return;
+            }
+            ['idxr-shape-hole-mask', 'idxr-hole-outside-mask', 'idxr-hole-inside-mask'].forEach(function (maskId) {
+                const maskNode = defsNode.querySelector(`#${maskId}`);
+                if (maskNode && maskNode.parentNode) {
+                    maskNode.parentNode.removeChild(maskNode);
+                }
+            });
+        }
+
+        function createMaskRect(color) {
+            const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            rect.setAttribute('x', '-5000');
+            rect.setAttribute('y', '-5000');
+            rect.setAttribute('width', '10000');
+            rect.setAttribute('height', '10000');
+            rect.setAttribute('fill', color);
+            return rect;
+        }
+
+        function resetHolePreviewStyle() {
+            clearGroupMask(shapeGroup);
+            clearGroupMask(shapePreviewGroup);
+            clearGroupMask(holesGroup);
+            clearGroupMask(holeBorderGroup);
+            clearPreviewMasks();
+            if (shapeGroup && shapeGroup.node) {
+                shapeGroup.node.removeAttribute('opacity');
+            }
+            if (shapePreviewGroup) {
+                shapePreviewGroup.clear();
+            }
+            if (holesGroup) {
+                holesGroup.selectAll('.hole').forEach(function (hole) {
+                    hole.attr({
+                        fill: '#FFFFFF',
+                        stroke: '#065075'
+                    });
+                });
+            }
+            if (holeBorderGroup) {
+                holeBorderGroup.clear();
+            }
+        }
+
+        function applyHoleCutMask() {
+            if (!holesSettings.type) {
+                resetHolePreviewStyle();
+                return;
+            }
+            const holeNodes = holesGroup && typeof holesGroup.selectAll === 'function' ? holesGroup.selectAll('.hole') : [];
+            const hasLiveHoleNode = !!(holesGroup && holesGroup.node && holesGroup.node.querySelector('.hole'));
+            if (!holeNodes || !holeNodes.length || !hasLiveHoleNode || !shapeGroup || !shapePreviewGroup || !holeBorderGroup || !shapeGroup.node || !shapeGroup.node.childNodes.length) {
+                resetHolePreviewStyle();
+                return;
+            }
+
+            const shapeMask = ensureMask('idxr-shape-hole-mask');
+            const outsideHoleMask = ensureMask('idxr-hole-outside-mask');
+            const insideHoleMask = ensureMask('idxr-hole-inside-mask');
+            if (!shapeMask || !outsideHoleMask || !insideHoleMask) {
+                return;
+            }
+
+            shapeMask.appendChild(createMaskRect('#ffffff'));
+            holeNodes.forEach(function (hole) {
+                const clone = hole.node.cloneNode(true);
+                clone.removeAttribute('class');
+                clone.removeAttribute('mask');
+                setMaskPaint(clone, '#000000');
+                shapeMask.appendChild(clone);
+            });
+
+            outsideHoleMask.appendChild(createMaskRect('#ffffff'));
+            const shapeClone = shapeGroup.node.cloneNode(true);
+            shapeClone.removeAttribute('mask');
+            setMaskPaint(shapeClone, '#000000');
+            outsideHoleMask.appendChild(shapeClone);
+
+            insideHoleMask.appendChild(createMaskRect('#000000'));
+            const insideShapeClone = shapeGroup.node.cloneNode(true);
+            insideShapeClone.removeAttribute('mask');
+            setMaskPaint(insideShapeClone, '#ffffff');
+            insideHoleMask.appendChild(insideShapeClone);
+
+            while (shapePreviewGroup.node.firstChild) {
+                shapePreviewGroup.node.removeChild(shapePreviewGroup.node.firstChild);
+            }
+            while (holeBorderGroup.node.firstChild) {
+                holeBorderGroup.node.removeChild(holeBorderGroup.node.firstChild);
+            }
+            Array.prototype.forEach.call(shapeGroup.node.childNodes || [], function (child) {
+                shapePreviewGroup.node.appendChild(child.cloneNode(true));
+            });
+            holeNodes.forEach(function (hole) {
+                const borderClone = hole.node.cloneNode(true);
+                borderClone.removeAttribute('class');
+                borderClone.removeAttribute('mask');
+                holeBorderGroup.node.appendChild(borderClone);
+            });
+
+            shapePreviewGroup.node.setAttribute('mask', 'url(#idxr-shape-hole-mask)');
+            holesGroup.node.setAttribute('mask', 'url(#idxr-hole-outside-mask)');
+            holeBorderGroup.node.setAttribute('mask', 'url(#idxr-hole-inside-mask)');
+            shapeGroup.node.setAttribute('opacity', '0');
+            holeNodes.forEach(function (hole) {
+                hole.attr({
+                    fill: '#dff7cf',
+                    stroke: 'none'
+                });
+            });
+            holeBorderGroup.selectAll('*').forEach(function (node) {
+                node.attr({
+                    fill: 'none',
+                    stroke: '#70d1f5',
+                    strokeWidth: 1
+                });
+            });
+        }
         
         var extraInfo = drow(shapeSettings.type);
         holes(holesSettings.type, extraInfo);
+        applyHoleCutMask();
         cut(cutSettings.type);
         drawReferenceAxes();
         scheduleFitViewBox();
@@ -2467,11 +2652,11 @@ const CustomizationModule = (() => {
         function mainAttrs(type = 1) {
             if (type == 2) return {
                 fill: '#e2ffc1',
-                stroke: "#065075"
+                stroke: "#4fa4d6"
             };
             return {
                 fill: '#F0FAFF',
-                stroke: "#065075",
+                stroke: "#4fa4d6",
                 id: 'shapeHolder'
             };
         };
