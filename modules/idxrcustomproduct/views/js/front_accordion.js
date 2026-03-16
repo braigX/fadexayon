@@ -2360,7 +2360,7 @@ const CustomizationModule = (() => {
         }
 
         function fitViewBoxToContent() {
-            const groups = [shapeGroup, holesGroup, cutoutGroup, arrowsGroup, cutoutDems];
+            const groups = [shapeGroup, shapePreviewGroup, cutoutGroup, cutoutDems];
             let minX = Infinity;
             let minY = Infinity;
             let maxX = -Infinity;

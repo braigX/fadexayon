@@ -175992,3 +175992,9 @@
 [2026-03-16 11:38:10]in add_base 
 [2026-03-16 11:38:10]id_product: 357
 [2026-03-16 11:38:10]id_product_attribute: 2
+[2026-03-16 11:46:33]in add_base 
+[2026-03-16 11:46:33]id_product: 357
+[2026-03-16 11:46:33]id_product_attribute: 2
+[2026-03-16 11:50:33]in add_base 
+[2026-03-16 11:50:33]id_product: 357
+[2026-03-16 11:50:33]id_product_attribute: 2
