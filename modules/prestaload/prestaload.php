@@ -299,7 +299,7 @@ class PrestaLoad extends Module
     private function buildPageCache()
     {
         $eligibility = new PrestaLoadCacheEligibility($this->context, $this->settings);
-        $keyBuilder = new PrestaLoadCacheKeyBuilder($this->context);
+        $keyBuilder = new PrestaLoadCacheKeyBuilder($this->context, $this->local_path);
         $logger = new PrestaLoadCacheLogger($this->settings->getLogFile());
         $store = new PrestaLoadCacheStore($this->settings->getCacheDirectory());
         $fontOptimizer = new PrestaLoadFontOptimizer($this->settings);
@@ -637,26 +637,32 @@ class PrestaLoad extends Module
         return [
             self::TAB_GENERAL => [
                 'label' => 'Full page caching',
+                'icon' => 'icon-dashboard',
                 'link' => $this->getAdminConfigurationLink(self::TAB_GENERAL),
             ],
             self::TAB_FONTS => [
                 'label' => 'Fonts',
+                'icon' => 'icon-font',
                 'link' => $this->getAdminConfigurationLink(self::TAB_FONTS),
             ],
             self::TAB_ASSETS => [
                 'label' => 'Assets',
+                'icon' => 'icon-sitemap',
                 'link' => $this->getAdminConfigurationLink(self::TAB_ASSETS),
             ],
             self::TAB_CACHE_LIFETIMES => [
                 'label' => 'Cache Lifetimes',
+                'icon' => 'icon-time',
                 'link' => $this->getAdminConfigurationLink(self::TAB_CACHE_LIFETIMES),
             ],
             self::TAB_CSS => [
                 'label' => 'CSS',
+                'icon' => 'icon-code',
                 'link' => $this->getAdminConfigurationLink(self::TAB_CSS),
             ],
             self::TAB_IMAGES => [
                 'label' => 'Images',
+                'icon' => 'icon-picture',
                 'link' => $this->getAdminConfigurationLink(self::TAB_IMAGES),
             ],
         ];
@@ -1006,7 +1012,9 @@ class PrestaLoad extends Module
             'action' => $action,
         ];
 
-        $this->assetRuleStore->saveRule($rule);
+        if (!$this->assetRuleStore->saveRule($rule)) {
+            throw new Exception('Could not save the asset rule.');
+        }
         $this->pageCache->clear();
 
         return $rule;
@@ -1083,7 +1091,9 @@ class PrestaLoad extends Module
             'action' => $this->deriveRuleAction($flags),
         ];
 
-        $this->assetRuleStore->saveRule($rule);
+        if (!$this->assetRuleStore->saveRule($rule)) {
+            throw new Exception('Could not save the asset rule.');
+        }
         $this->pageCache->clear();
 
         return $rule;
@@ -1146,7 +1156,7 @@ class PrestaLoad extends Module
                 $flags['minify'] = true;
             }
 
-            $this->assetRuleStore->saveRule([
+            if (!$this->assetRuleStore->saveRule([
                 'page_key' => $page['key'],
                 'page_url' => $page['url'],
                 'asset_url' => $assetUrl,
@@ -1156,7 +1166,9 @@ class PrestaLoad extends Module
                 'minify' => (int) $flags['minify'],
                 'load_after_window_load' => (int) $flags['load_after_window_load'],
                 'action' => $this->deriveRuleAction($flags),
-            ]);
+            ])) {
+                throw new Exception('Could not save one of the selected asset rules.');
+            }
             ++$savedCount;
         }
 
@@ -1199,7 +1211,9 @@ class PrestaLoad extends Module
             'action' => 'minify',
         ];
 
-        $this->assetRuleStore->saveRule($rule);
+        if (!$this->assetRuleStore->saveRule($rule)) {
+            throw new Exception('Could not save the minify rule.');
+        }
         $this->pageCache->clear();
 
         return [
@@ -1236,7 +1250,7 @@ class PrestaLoad extends Module
                 continue;
             }
 
-            $this->assetRuleStore->saveRule([
+            if (!$this->assetRuleStore->saveRule([
                 'page_key' => $page['key'],
                 'page_url' => $page['url'],
                 'asset_url' => $assetUrl,
@@ -1246,7 +1260,9 @@ class PrestaLoad extends Module
                 'minify' => 1,
                 'load_after_window_load' => 0,
                 'action' => 'minify',
-            ]);
+            ])) {
+                throw new Exception('Could not save one of the selected minify rules.');
+            }
             ++$processed;
         }
 
@@ -1288,7 +1304,7 @@ class PrestaLoad extends Module
             $existingRule = $this->assetRuleStore->getRule($page['key'], $assetUrl);
             $flags = $this->extractRuleFlags($existingRule);
             $flags['minify'] = false;
-            $this->assetRuleStore->saveRule([
+            if (!$this->assetRuleStore->saveRule([
                 'page_key' => $page['key'],
                 'page_url' => $page['url'],
                 'asset_url' => $assetUrl,
@@ -1298,7 +1314,9 @@ class PrestaLoad extends Module
                 'minify' => 0,
                 'load_after_window_load' => (int) $flags['load_after_window_load'],
                 'action' => $this->deriveRuleAction($flags),
-            ]);
+            ])) {
+                throw new Exception('Could not clear minified state for one of the selected assets.');
+            }
             ++$processed;
         }
 

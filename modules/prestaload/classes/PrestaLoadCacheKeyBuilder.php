@@ -6,10 +6,12 @@
 class PrestaLoadCacheKeyBuilder
 {
     private $context;
+    private $modulePath;
 
-    public function __construct(Context $context)
+    public function __construct(Context $context, $modulePath)
     {
         $this->context = $context;
+        $this->modulePath = rtrim((string) $modulePath, '/');
     }
 
     /**
@@ -26,6 +28,11 @@ class PrestaLoadCacheKeyBuilder
             'currency' => isset($this->context->currency->id) ? (int) $this->context->currency->id : 0,
             'country' => isset($this->context->country->id) ? (int) $this->context->country->id : 0,
             'device' => method_exists($this->context, 'getDevice') ? (string) $this->context->getDevice() : 'desktop',
+            // These versions let the cache key move forward when PrestaLoad
+            // settings or asset rules change, even if old cache files cannot
+            // be deleted because of shared-host ownership quirks.
+            'runtime_version' => $this->getFileVersion($this->modulePath . '/cache/runtime-config.php'),
+            'asset_rules_version' => $this->getFileVersion($this->modulePath . '/cache/asset-rules.json'),
         ];
 
         return [
@@ -52,5 +59,10 @@ class PrestaLoadCacheKeyBuilder
         }
 
         return false;
+    }
+
+    private function getFileVersion($path)
+    {
+        return is_file($path) ? (int) @filemtime($path) : 0;
     }
 }
