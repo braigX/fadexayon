@@ -22,6 +22,7 @@ require_once __DIR__ . '/classes/PrestaLoadAssetPageRegistry.php';
 require_once __DIR__ . '/classes/PrestaLoadAssetScannerClient.php';
 require_once __DIR__ . '/classes/PrestaLoadAssetScanStore.php';
 require_once __DIR__ . '/classes/PrestaLoadAssetRuleStore.php';
+require_once __DIR__ . '/classes/PrestaLoadAssetMinifier.php';
 require_once __DIR__ . '/classes/PrestaLoadAssetRuleApplier.php';
 require_once __DIR__ . '/classes/PrestaLoadFontOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadCssOptimizer.php';
@@ -73,6 +74,7 @@ class PrestaLoad extends Module
     private $assetScannerClient;
     private $assetScanStore;
     private $assetRuleStore;
+    private $assetMinifier;
 
     public function __construct()
     {
@@ -99,6 +101,7 @@ class PrestaLoad extends Module
         $this->assetScannerClient = new PrestaLoadAssetScannerClient($this->settings);
         $this->assetScanStore = new PrestaLoadAssetScanStore(__DIR__);
         $this->assetRuleStore = new PrestaLoadAssetRuleStore(__DIR__);
+        $this->assetMinifier = new PrestaLoadAssetMinifier($this->context, __DIR__);
         $this->pageCache = $this->buildPageCache();
     }
 
@@ -246,6 +249,9 @@ class PrestaLoad extends Module
             'prestaload_asset_scan_ajax_url' => $this->getAjaxConfigurationLink('runAssetScan'),
             'prestaload_asset_rule_ajax_url' => $this->getAjaxConfigurationLink('saveAssetRule'),
             'prestaload_asset_bulk_rule_ajax_url' => $this->getAjaxConfigurationLink('saveBulkAssetRules'),
+            'prestaload_asset_minify_ajax_url' => $this->getAjaxConfigurationLink('minifyAsset'),
+            'prestaload_asset_bulk_minify_ajax_url' => $this->getAjaxConfigurationLink('bulkMinifyAssets'),
+            'prestaload_asset_bulk_clear_minified_ajax_url' => $this->getAjaxConfigurationLink('bulkClearMinifiedAssets'),
             'prestaload_detected_shop_base_url' => $detectedShopBaseUrl,
             'prestaload_effective_asset_scan_base_url' => $effectiveScanBaseUrl,
         ]);
@@ -302,7 +308,7 @@ class PrestaLoad extends Module
         $imageDimensionOptimizer = new PrestaLoadImageDimensionOptimizer($this->context, $this->settings);
         $imageLoadingOptimizer = new PrestaLoadImageLoadingOptimizer($this->settings);
         $imageOptimizer = new PrestaLoadImageOptimizer($this->context, $this->settings, $imgProxyUrlBuilder, $imageDimensionOptimizer, $imageLoadingOptimizer);
-        $assetRuleApplier = new PrestaLoadAssetRuleApplier($this->assetRuleStore, $cssOptimizer);
+        $assetRuleApplier = new PrestaLoadAssetRuleApplier($this->context, $this->assetRuleStore, $cssOptimizer, $this->assetMinifier);
         $htmlCompressor = new PrestaLoadHtmlCompressor($this->settings);
         $htmlOptimizer = new PrestaLoadHtmlOptimizer($fontOptimizer, $cssOptimizer, $imageOptimizer, $assetRuleApplier, $htmlCompressor);
 
@@ -892,6 +898,30 @@ class PrestaLoad extends Module
                 ]);
             }
 
+            if ($action === 'minifyAsset') {
+                $result = $this->minifyAssetFromRequest();
+
+                $this->jsonResponse(array_merge([
+                    'success' => true,
+                ], $result));
+            }
+
+            if ($action === 'bulkMinifyAssets') {
+                $result = $this->bulkMinifyAssetsFromRequest();
+
+                $this->jsonResponse(array_merge([
+                    'success' => true,
+                ], $result));
+            }
+
+            if ($action === 'bulkClearMinifiedAssets') {
+                $result = $this->bulkClearMinifiedAssetsFromRequest();
+
+                $this->jsonResponse(array_merge([
+                    'success' => true,
+                ], $result));
+            }
+
             $this->jsonResponse([
                 'success' => false,
                 'message' => 'Unknown AJAX action.',
@@ -919,7 +949,7 @@ class PrestaLoad extends Module
             throw new Exception('Asset URL is required.');
         }
 
-        if (!in_array($action, ['keep', 'defer', 'disable'], true)) {
+        if (!in_array($action, ['keep', 'defer', 'disable', 'minify'], true)) {
             throw new Exception('Invalid asset action.');
         }
 
@@ -945,7 +975,7 @@ class PrestaLoad extends Module
         }
 
         $action = trim((string) Tools::getValue('prestaload_asset_action', 'defer'));
-        if (!in_array($action, ['keep', 'defer', 'disable'], true)) {
+        if (!in_array($action, ['keep', 'defer', 'disable', 'minify'], true)) {
             throw new Exception('Invalid asset action.');
         }
 
@@ -981,6 +1011,140 @@ class PrestaLoad extends Module
         $this->pageCache->clear();
 
         return $savedCount;
+    }
+
+    private function minifyAssetFromRequest()
+    {
+        $page = $this->getSelectedAssetPage();
+        if (empty($page)) {
+            throw new Exception('Selected page was not found.');
+        }
+
+        $assetUrl = trim((string) Tools::getValue('prestaload_asset_url', ''));
+        $assetType = trim((string) Tools::getValue('prestaload_asset_type', ''));
+        if ($assetUrl === '') {
+            throw new Exception('Asset URL is required.');
+        }
+
+        if (!in_array($assetType, ['css', 'js'], true)) {
+            throw new Exception('Only CSS and JavaScript assets can be minified.');
+        }
+
+        $minifiedUrl = $this->assetMinifier->getMinifiedAssetUrl($assetUrl, $assetType);
+        if ($minifiedUrl === '') {
+            throw new Exception('Could not build the minified asset.');
+        }
+
+        $rule = [
+            'page_key' => $page['key'],
+            'page_url' => $page['url'],
+            'asset_url' => $assetUrl,
+            'asset_type' => $assetType,
+            'action' => 'minify',
+        ];
+
+        $this->assetRuleStore->saveRule($rule);
+        $this->pageCache->clear();
+
+        return [
+            'message' => 'Asset minified successfully.',
+            'minified_url' => $minifiedUrl,
+            'rule' => $rule,
+        ];
+    }
+
+    private function bulkMinifyAssetsFromRequest()
+    {
+        $page = $this->getSelectedAssetPage();
+        if (empty($page)) {
+            throw new Exception('Selected page was not found.');
+        }
+
+        $assetUrls = Tools::getValue('prestaload_asset_urls', []);
+        $assetTypes = Tools::getValue('prestaload_asset_types', []);
+        if (!is_array($assetUrls) || empty($assetUrls)) {
+            throw new Exception('Select at least one asset.');
+        }
+
+        $processed = 0;
+        foreach ($assetUrls as $index => $assetUrl) {
+            $assetUrl = trim((string) $assetUrl);
+            $assetType = isset($assetTypes[$index]) ? trim((string) $assetTypes[$index]) : '';
+
+            if ($assetUrl === '' || !in_array($assetType, ['css', 'js'], true)) {
+                continue;
+            }
+
+            $minifiedUrl = $this->assetMinifier->getMinifiedAssetUrl($assetUrl, $assetType);
+            if ($minifiedUrl === '') {
+                continue;
+            }
+
+            $this->assetRuleStore->saveRule([
+                'page_key' => $page['key'],
+                'page_url' => $page['url'],
+                'asset_url' => $assetUrl,
+                'asset_type' => $assetType,
+                'action' => 'minify',
+            ]);
+            ++$processed;
+        }
+
+        if ($processed === 0) {
+            throw new Exception('Could not minify the selected assets.');
+        }
+
+        $this->pageCache->clear();
+
+        return [
+            'message' => sprintf('Minified %d assets.', $processed),
+            'processed_count' => $processed,
+        ];
+    }
+
+    private function bulkClearMinifiedAssetsFromRequest()
+    {
+        $page = $this->getSelectedAssetPage();
+        if (empty($page)) {
+            throw new Exception('Selected page was not found.');
+        }
+
+        $assetUrls = Tools::getValue('prestaload_asset_urls', []);
+        $assetTypes = Tools::getValue('prestaload_asset_types', []);
+        if (!is_array($assetUrls) || empty($assetUrls)) {
+            throw new Exception('Select at least one asset.');
+        }
+
+        $processed = 0;
+        foreach ($assetUrls as $index => $assetUrl) {
+            $assetUrl = trim((string) $assetUrl);
+            $assetType = isset($assetTypes[$index]) ? trim((string) $assetTypes[$index]) : '';
+
+            if ($assetUrl === '' || !in_array($assetType, ['css', 'js'], true)) {
+                continue;
+            }
+
+            $this->assetMinifier->clearMinifiedAsset($assetUrl, $assetType);
+            $this->assetRuleStore->saveRule([
+                'page_key' => $page['key'],
+                'page_url' => $page['url'],
+                'asset_url' => $assetUrl,
+                'asset_type' => $assetType,
+                'action' => 'keep',
+            ]);
+            ++$processed;
+        }
+
+        if ($processed === 0) {
+            throw new Exception('Could not clear the selected minified assets.');
+        }
+
+        $this->pageCache->clear();
+
+        return [
+            'message' => sprintf('Cleared minified state for %d assets.', $processed),
+            'processed_count' => $processed,
+        ];
     }
 
     private function getAjaxConfigurationLink($action)

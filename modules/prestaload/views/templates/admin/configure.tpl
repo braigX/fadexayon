@@ -206,6 +206,26 @@
                     >
                       <span class="prestaload-bulk-rule__label">Defer all</span>
                     </button>
+                    {if $asset_group.key === 'css' || $asset_group.key === 'js'}
+                      <button
+                        type="button"
+                        class="btn btn-default prestaload-bulk-minify"
+                        data-prestaload-group="{$asset_group.key|escape:'htmlall':'UTF-8'}"
+                        data-default-label="Minify all"
+                        data-loading-label="Minifying..."
+                      >
+                        <span class="prestaload-bulk-minify__label">Minify all</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-default prestaload-bulk-clear-minified"
+                        data-prestaload-group="{$asset_group.key|escape:'htmlall':'UTF-8'}"
+                        data-default-label="Clear Minified"
+                        data-loading-label="Clearing..."
+                      >
+                        <span class="prestaload-bulk-clear-minified__label">Clear Minified</span>
+                      </button>
+                    {/if}
                     <button
                       type="button"
                       class="btn btn-default prestaload-bulk-rule"
@@ -288,6 +308,22 @@
                                 >
                                   <span class="prestaload-asset-rule-save__label">Save</span>
                                 </button>
+                                {if $asset.type === 'css' || $asset.type === 'js'}
+                                  <button
+                                    type="button"
+                                    class="btn {if $asset_rule.action|default:'' === 'minify'}btn-success{else}btn-default{/if} prestaload-asset-minify"
+                                    data-default-label="Minify"
+                                    data-loading-label="Minifying..."
+                                  >
+                                    <span class="prestaload-asset-minify__label">
+                                      {if $asset_rule.action|default:'' === 'minify'}
+                                        <i class="icon-check"></i> Minified
+                                      {else}
+                                        Minify
+                                      {/if}
+                                    </span>
+                                  </button>
+                                {/if}
                               </div>
                             </form>
                           </td>
@@ -456,6 +492,27 @@
       animation: prestaload-spin 0.8s linear infinite;
     }
 
+    .prestaload-asset-minify.is-loading {
+      position: relative;
+      pointer-events: none;
+      opacity: 0.85;
+      padding-left: 34px;
+    }
+
+    .prestaload-asset-minify.is-loading::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      width: 14px;
+      height: 14px;
+      margin-top: -7px;
+      border: 2px solid #b8c7d1;
+      border-top-color: #25b9d7;
+      border-radius: 50%;
+      animation: prestaload-spin 0.8s linear infinite;
+    }
+
     .prestaload-toast {
       position: fixed;
       right: 24px;
@@ -498,6 +555,29 @@
       border-radius: 50%;
       animation: prestaload-spin 0.8s linear infinite;
     }
+
+    .prestaload-bulk-minify.is-loading,
+    .prestaload-bulk-clear-minified.is-loading {
+      position: relative;
+      pointer-events: none;
+      opacity: 0.85;
+      padding-left: 34px;
+    }
+
+    .prestaload-bulk-minify.is-loading::before,
+    .prestaload-bulk-clear-minified.is-loading::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      width: 14px;
+      height: 14px;
+      margin-top: -7px;
+      border: 2px solid #b8c7d1;
+      border-top-color: #25b9d7;
+      border-radius: 50%;
+      animation: prestaload-spin 0.8s linear infinite;
+    }
   </style>
   <script>
     (function () {
@@ -509,10 +589,16 @@
       var ajaxUrl = {$prestaload_asset_scan_ajax_url|json_encode nofilter};
       var assetRuleAjaxUrl = {$prestaload_asset_rule_ajax_url|json_encode nofilter};
       var assetBulkRuleAjaxUrl = {$prestaload_asset_bulk_rule_ajax_url|json_encode nofilter};
+      var assetMinifyAjaxUrl = {$prestaload_asset_minify_ajax_url|json_encode nofilter};
+      var assetBulkMinifyAjaxUrl = {$prestaload_asset_bulk_minify_ajax_url|json_encode nofilter};
+      var assetBulkClearMinifiedAjaxUrl = {$prestaload_asset_bulk_clear_minified_ajax_url|json_encode nofilter};
       var assetTabLinks = document.querySelectorAll('[data-prestaload-asset-tab]');
       var assetPanels = document.querySelectorAll('[data-prestaload-asset-panel]');
       var assetRuleButtons = document.querySelectorAll('.prestaload-asset-rule-save');
+      var assetMinifyButtons = document.querySelectorAll('.prestaload-asset-minify');
       var bulkRuleButtons = document.querySelectorAll('.prestaload-bulk-rule');
+      var bulkMinifyButtons = document.querySelectorAll('.prestaload-bulk-minify');
+      var bulkClearMinifiedButtons = document.querySelectorAll('.prestaload-bulk-clear-minified');
       var selectAllCheckboxes = document.querySelectorAll('.prestaload-asset-select-all');
       var toastTimer = null;
 
@@ -565,6 +651,19 @@
         });
       });
 
+      var postForm = function (url, params) {
+        return fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+          },
+          body: params.toString(),
+          credentials: 'same-origin'
+        }).then(function (response) {
+          return response.json();
+        });
+      };
+
       Array.prototype.forEach.call(assetRuleButtons, function (saveButton) {
         saveButton.addEventListener('click', function () {
           if (!assetRuleAjaxUrl) {
@@ -592,16 +691,7 @@
             label.textContent = loadingLabel;
           }
 
-          fetch(assetRuleAjaxUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            },
-            body: params.toString(),
-            credentials: 'same-origin'
-          }).then(function (response) {
-            return response.json();
-          }).then(function (payload) {
+          postForm(assetRuleAjaxUrl, params).then(function (payload) {
             if (!payload || !payload.success) {
               throw new Error(payload && payload.message ? payload.message : 'Asset rule update failed.');
             }
@@ -613,6 +703,56 @@
             saveButton.disabled = false;
             saveButton.classList.remove('is-loading');
             if (label) {
+              label.textContent = defaultLabel;
+            }
+          });
+        });
+      });
+
+      Array.prototype.forEach.call(assetMinifyButtons, function (minifyButton) {
+        minifyButton.addEventListener('click', function () {
+          if (!assetMinifyAjaxUrl) {
+            return;
+          }
+
+          var form = minifyButton.closest('form');
+          if (!form) {
+            return;
+          }
+
+          var formData = new FormData(form);
+          var params = new URLSearchParams();
+          formData.forEach(function (value, key) {
+            params.append(key, value);
+          });
+
+          var label = minifyButton.querySelector('.prestaload-asset-minify__label');
+          var defaultLabel = minifyButton.getAttribute('data-default-label') || 'Minify';
+          var loadingLabel = minifyButton.getAttribute('data-loading-label') || 'Minifying...';
+
+          minifyButton.disabled = true;
+          minifyButton.classList.add('is-loading');
+          if (label) {
+            label.textContent = loadingLabel;
+          }
+
+          postForm(assetMinifyAjaxUrl, params).then(function (payload) {
+            if (!payload || !payload.success) {
+              throw new Error(payload && payload.message ? payload.message : 'Asset minification failed.');
+            }
+
+            showToast(payload.message || 'Asset minified successfully.', 'success');
+            minifyButton.classList.remove('btn-default');
+            minifyButton.classList.add('btn-success');
+            if (label) {
+              label.innerHTML = '<i class="icon-check"></i> Minified';
+            }
+          }).catch(function (error) {
+            showToast(error.message || 'Asset minification failed.', 'error');
+          }).finally(function () {
+            minifyButton.disabled = false;
+            minifyButton.classList.remove('is-loading');
+            if (label && !minifyButton.classList.contains('btn-success')) {
               label.textContent = defaultLabel;
             }
           });
@@ -667,21 +807,15 @@
             label.textContent = loadingLabel;
           }
 
-          fetch(assetBulkRuleAjaxUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            },
-            body: params.toString(),
-            credentials: 'same-origin'
-          }).then(function (response) {
-            return response.json();
-          }).then(function (payload) {
+          postForm(assetBulkRuleAjaxUrl, params).then(function (payload) {
             if (!payload || !payload.success) {
               throw new Error(payload && payload.message ? payload.message : 'Bulk update failed.');
             }
 
             showToast(payload.message || 'Asset rules updated.', 'success');
+            window.setTimeout(function () {
+              window.location.reload();
+            }, 500);
           }).catch(function (error) {
             showToast(error.message || 'Bulk update failed.', 'error');
           }).finally(function () {
@@ -693,6 +827,66 @@
           });
         });
       });
+
+      var runBulkMinifyAction = function (buttons, ajaxUrl, successMessageFallback) {
+        Array.prototype.forEach.call(buttons, function (bulkButton) {
+          bulkButton.addEventListener('click', function () {
+            if (!ajaxUrl) {
+              return;
+            }
+
+            var group = bulkButton.getAttribute('data-prestaload-group');
+            var checkboxes = getGroupCheckboxes(group);
+            var selected = Array.prototype.filter.call(checkboxes, function (checkbox) {
+              return checkbox.checked;
+            });
+
+            if (!selected.length) {
+              showToast('Select at least one asset.', 'error');
+              return;
+            }
+
+            var params = new URLSearchParams();
+            params.append('prestaload_asset_page', pageSelect ? pageSelect.value : '');
+            selected.forEach(function (checkbox, index) {
+              params.append('prestaload_asset_urls[' + index + ']', checkbox.value);
+              params.append('prestaload_asset_types[' + index + ']', checkbox.getAttribute('data-asset-type') || 'other');
+            });
+
+            var label = bulkButton.querySelector('span');
+            var defaultLabel = bulkButton.getAttribute('data-default-label') || 'Run';
+            var loadingLabel = bulkButton.getAttribute('data-loading-label') || 'Running...';
+
+            bulkButton.disabled = true;
+            bulkButton.classList.add('is-loading');
+            if (label) {
+              label.textContent = loadingLabel;
+            }
+
+            postForm(ajaxUrl, params).then(function (payload) {
+              if (!payload || !payload.success) {
+                throw new Error(payload && payload.message ? payload.message : 'Bulk action failed.');
+              }
+
+              showToast(payload.message || successMessageFallback, 'success');
+              window.setTimeout(function () {
+                window.location.reload();
+              }, 500);
+            }).catch(function (error) {
+              showToast(error.message || 'Bulk action failed.', 'error');
+            }).finally(function () {
+              bulkButton.disabled = false;
+              bulkButton.classList.remove('is-loading');
+              if (label) {
+                label.textContent = defaultLabel;
+              }
+            });
+          });
+        });
+      };
+
+      runBulkMinifyAction(bulkMinifyButtons, assetBulkMinifyAjaxUrl, 'Assets minified successfully.');
+      runBulkMinifyAction(bulkClearMinifiedButtons, assetBulkClearMinifiedAjaxUrl, 'Cleared selected minified assets.');
 
       if (button && pageSelect && ajaxUrl) {
         button.addEventListener('click', function () {

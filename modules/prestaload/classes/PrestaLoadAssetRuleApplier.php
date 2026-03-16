@@ -22,10 +22,22 @@ class PrestaLoadAssetRuleApplier
      */
     private $cssOptimizer;
 
-    public function __construct(PrestaLoadAssetRuleStore $ruleStore, PrestaLoadCssOptimizer $cssOptimizer)
+    /**
+     * @var PrestaLoadAssetMinifier
+     */
+    private $assetMinifier;
+
+    /**
+     * @var Context
+     */
+    private $context;
+
+    public function __construct(Context $context, PrestaLoadAssetRuleStore $ruleStore, PrestaLoadCssOptimizer $cssOptimizer, PrestaLoadAssetMinifier $assetMinifier)
     {
+        $this->context = $context;
         $this->ruleStore = $ruleStore;
         $this->cssOptimizer = $cssOptimizer;
+        $this->assetMinifier = $assetMinifier;
     }
 
     public function optimize($html)
@@ -64,6 +76,12 @@ class PrestaLoadAssetRuleApplier
                 return '';
             }
 
+            if ($rule['action'] === 'minify') {
+                $minifiedUrl = $this->assetMinifier->getMinifiedAssetUrl($src, 'js');
+
+                return $minifiedUrl !== '' ? $this->replaceScriptSrc($tag, $minifiedUrl) : $tag;
+            }
+
             if ($rule['action'] === 'defer') {
                 return $this->buildDeferredScriptTag($tag);
             }
@@ -93,6 +111,9 @@ class PrestaLoadAssetRuleApplier
             if ($rule !== null && $rel === 'stylesheet') {
                 if ($rule['action'] === 'disable') {
                     $replacement = '';
+                } elseif ($rule['action'] === 'minify') {
+                    $minifiedUrl = $this->assetMinifier->getMinifiedAssetUrl($href, 'css');
+                    $replacement = $minifiedUrl !== '' ? $this->replaceOrAppendAttribute($tag, 'href', $minifiedUrl) : $tag;
                 } elseif ($rule['action'] === 'defer') {
                     $replacement = $this->buildDeferredStylesheetTag($tag);
                 }
@@ -110,10 +131,12 @@ class PrestaLoadAssetRuleApplier
 
     private function findRuleForUrl(array $rules, $url, $type)
     {
+        $normalizedUrl = $this->normalizeAssetUrl($url);
+
         foreach ($rules as $rule) {
             if (
                 isset($rule['asset_url'], $rule['asset_type'], $rule['action'])
-                && $rule['asset_url'] === $url
+                && $this->normalizeAssetUrl($rule['asset_url']) === $normalizedUrl
                 && $rule['asset_type'] === $type
                 && $rule['action'] !== 'keep'
             ) {
@@ -190,6 +213,76 @@ class PrestaLoadAssetRuleApplier
         $deferredOpeningTag = $this->replaceOrAppendAttribute($deferredOpeningTag, 'data-prestaload-rule-deferred', '1');
 
         return $deferredOpeningTag . substr($tag, strlen($openingTag));
+    }
+
+    private function replaceScriptSrc($tag, $value)
+    {
+        if (!preg_match('/^<script\b[^>]*>/i', $tag, $match)) {
+            return $tag;
+        }
+
+        $openingTag = $match[0];
+        $updatedOpeningTag = $this->replaceOrAppendAttribute($openingTag, 'src', $value);
+
+        return $updatedOpeningTag . substr($tag, strlen($openingTag));
+    }
+
+    /**
+     * Scan results may save absolute asset URLs while the rendered HTML uses
+     * relative or protocol-relative paths. Normalize both to a stable absolute
+     * URL so rule matching remains reliable.
+     */
+    private function normalizeAssetUrl($url)
+    {
+        $url = trim((string) $url);
+        if ($url === '') {
+            return '';
+        }
+
+        if (strpos($url, '//') === 0) {
+            return $this->getShopScheme() . ':' . $url;
+        }
+
+        if (preg_match('#^https?://#i', $url)) {
+            return $url;
+        }
+
+        $baseUrl = rtrim($this->getShopBaseUrl(), '/');
+        if (strpos($url, '/') === 0) {
+            return $baseUrl . $url;
+        }
+
+        return $baseUrl . '/' . ltrim($url, '/');
+    }
+
+    private function getShopBaseUrl()
+    {
+        $baseUrl = $this->context->shop && method_exists($this->context->shop, 'getBaseURL')
+            ? $this->context->shop->getBaseURL(true)
+            : '';
+
+        if ($baseUrl === '' && isset($this->context->link)) {
+            $baseUrl = (string) $this->context->link->getPageLink('index', true);
+        }
+
+        $parts = parse_url((string) $baseUrl);
+        if ($parts === false || empty($parts['scheme']) || empty($parts['host'])) {
+            return rtrim((string) $baseUrl, '/');
+        }
+
+        $origin = $parts['scheme'] . '://' . $parts['host'];
+        if (!empty($parts['port'])) {
+            $origin .= ':' . (int) $parts['port'];
+        }
+
+        return $origin;
+    }
+
+    private function getShopScheme()
+    {
+        $scheme = parse_url($this->getShopBaseUrl(), PHP_URL_SCHEME);
+
+        return is_string($scheme) && $scheme !== '' ? $scheme : 'https';
     }
 
     private function replaceOrAppendAttribute($tag, $attribute, $value)
