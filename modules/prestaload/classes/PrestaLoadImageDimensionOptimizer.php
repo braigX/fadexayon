@@ -99,11 +99,19 @@ class PrestaLoadImageDimensionOptimizer
         $path = '';
         if (preg_match('#^https?://#i', $src)) {
             $parts = parse_url($src);
-            if ($parts === false || empty($parts['host']) || !$this->isShopHost($parts['host'])) {
+            if ($parts === false) {
                 return '';
             }
 
             $path = isset($parts['path']) ? (string) $parts['path'] : '';
+
+            // Some shops render media from a public domain that differs from
+            // the current back-office host. If the URL path clearly points to
+            // a local Prestashop asset and the file exists, we can still map it
+            // back to the filesystem safely without relying on the hostname.
+            if (!$this->isShopHost(isset($parts['host']) ? $parts['host'] : '') && !$this->isSupportedLocalAssetPath($path)) {
+                return '';
+            }
         } else {
             $path = strpos($src, '/') === 0 ? $src : '/' . ltrim($src, '/');
         }
@@ -114,6 +122,15 @@ class PrestaLoadImageDimensionOptimizer
         }
 
         return rtrim(_PS_ROOT_DIR_, '/') . $path;
+    }
+
+    private function isSupportedLocalAssetPath($path)
+    {
+        if (!is_string($path) || $path === '') {
+            return false;
+        }
+
+        return (bool) preg_match('#^/(img|modules|themes|upload)/#i', $path);
     }
 
     private function isShopHost($host)
