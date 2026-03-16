@@ -4775,7 +4775,7 @@ const CustomizationModule = (() => {
 
         function addText(text, boldText, x, y, textAttrFunc, orientation = 'horizontal', originX = 0, originY = 0, type, labelPosition = 'auto') {
             const padding = 2;
-            const fill = type === 1 ? 'rgba(97, 241, 150, 0.73)' : (type === 3 ? 'rgba(255, 165, 0, 0.73)' : 'rgba(83, 246, 181, 0.73)');
+            const fill = type === 3 ? 'rgba(255, 165, 0, 0.73)' : 'rgba(97, 241, 150, 0.73)';
             const paddings = 9;
             const moveUpBy = 0;
         
