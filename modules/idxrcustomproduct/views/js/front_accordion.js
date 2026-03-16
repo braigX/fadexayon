@@ -2465,7 +2465,7 @@ const CustomizationModule = (() => {
             if (!defsNode) {
                 return;
             }
-            ['idxr-shape-hole-mask', 'idxr-hole-outside-mask', 'idxr-hole-inside-mask'].forEach(function (maskId) {
+            ['idxr-shape-hole-mask', 'idxr-hole-outside-mask', 'idxr-hole-inside-mask', 'idxr-hole-border-mask', 'idxr-cutout-border-mask'].forEach(function (maskId) {
                 const maskNode = defsNode.querySelector(`#${maskId}`);
                 if (maskNode && maskNode.parentNode) {
                     maskNode.parentNode.removeChild(maskNode);
@@ -2548,7 +2548,9 @@ const CustomizationModule = (() => {
             const shapeMask = ensureMask('idxr-shape-hole-mask');
             const outsideHoleMask = ensureMask('idxr-hole-outside-mask');
             const insideHoleMask = ensureMask('idxr-hole-inside-mask');
-            if (!shapeMask || !outsideHoleMask || !insideHoleMask) {
+            const holeBorderMask = ensureMask('idxr-hole-border-mask');
+            const cutoutBorderMask = ensureMask('idxr-cutout-border-mask');
+            if (!shapeMask || !outsideHoleMask || !insideHoleMask || !holeBorderMask || !cutoutBorderMask) {
                 return;
             }
 
@@ -2579,6 +2581,32 @@ const CustomizationModule = (() => {
             insideShapeClone.removeAttribute('mask');
             setMaskPaint(insideShapeClone, '#ffffff');
             insideHoleMask.appendChild(insideShapeClone);
+
+            holeBorderMask.appendChild(createMaskRect('#000000'));
+            const holeInsideShapeClone = shapeGroup.node.cloneNode(true);
+            holeInsideShapeClone.removeAttribute('mask');
+            setMaskPaint(holeInsideShapeClone, '#ffffff');
+            holeBorderMask.appendChild(holeInsideShapeClone);
+            cutoutNodes.forEach(function (cutoutNode) {
+                const clone = cutoutNode.cloneNode(true);
+                clone.removeAttribute('class');
+                clone.removeAttribute('mask');
+                setMaskPaint(clone, '#000000');
+                holeBorderMask.appendChild(clone);
+            });
+
+            cutoutBorderMask.appendChild(createMaskRect('#000000'));
+            const cutoutInsideShapeClone = shapeGroup.node.cloneNode(true);
+            cutoutInsideShapeClone.removeAttribute('mask');
+            setMaskPaint(cutoutInsideShapeClone, '#ffffff');
+            cutoutBorderMask.appendChild(cutoutInsideShapeClone);
+            holeNodes.forEach(function (hole) {
+                const clone = hole.node.cloneNode(true);
+                clone.removeAttribute('class');
+                clone.removeAttribute('mask');
+                setMaskPaint(clone, '#000000');
+                cutoutBorderMask.appendChild(clone);
+            });
 
             while (shapePreviewGroup.node.firstChild) {
                 shapePreviewGroup.node.removeChild(shapePreviewGroup.node.firstChild);
@@ -2615,9 +2643,9 @@ const CustomizationModule = (() => {
 
             shapePreviewGroup.node.setAttribute('mask', 'url(#idxr-shape-hole-mask)');
             holesGroup.node.setAttribute('mask', 'url(#idxr-hole-outside-mask)');
-            holeBorderGroup.node.setAttribute('mask', 'url(#idxr-hole-inside-mask)');
+            holeBorderGroup.node.setAttribute('mask', 'url(#idxr-hole-border-mask)');
             cutoutPreviewGroup.node.setAttribute('mask', 'url(#idxr-hole-outside-mask)');
-            cutoutBorderGroup.node.setAttribute('mask', 'url(#idxr-hole-inside-mask)');
+            cutoutBorderGroup.node.setAttribute('mask', 'url(#idxr-cutout-border-mask)');
             shapeGroup.node.setAttribute('opacity', '0');
             cutoutGroup.node.setAttribute('opacity', '0');
             holeNodes.forEach(function (hole) {
