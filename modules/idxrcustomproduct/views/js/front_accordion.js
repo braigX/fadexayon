@@ -1416,7 +1416,9 @@ const CustomizationModule = (() => {
                     <g id="shapePreviewContainer"></g>
                     <g id="shapeContainer"></g>
                     <g id="couOutMain">
+                        <g id="cutoutPreviewContainer"></g>
                         <g id="cutoutContainer"></g>
+                        <g id="cutoutBorderContainer"></g>
                         <g id="cutoutDems" class="activeDemensions"></g>
                     </g>
                     <g id="arrowsContainer" class="activeDemensions"></g>
@@ -2326,7 +2328,9 @@ const CustomizationModule = (() => {
         const shapePreviewGroup = svg.select('#shapePreviewContainer');
         const arrowsGroup = svg.select('#arrowsContainer');
         const holesGroup = svg.select('#holesContainer');
+        const cutoutPreviewGroup = svg.select('#cutoutPreviewContainer');
         const cutoutGroup = svg.select('#cutoutContainer');
+        const cutoutBorderGroup = svg.select('#cutoutBorderContainer');
         const cutoutDems = svg.select('#cutoutDems');
         if (shapeGroup && shapeGroup.node) {
             shapeGroup.node.removeAttribute('mask');
@@ -2338,6 +2342,16 @@ const CustomizationModule = (() => {
         if (holeBorderGroup && holeBorderGroup.node) {
             holeBorderGroup.node.removeAttribute('mask');
         }
+        if (cutoutGroup && cutoutGroup.node) {
+            cutoutGroup.node.removeAttribute('mask');
+            cutoutGroup.node.removeAttribute('opacity');
+        }
+        if (cutoutBorderGroup && cutoutBorderGroup.node) {
+            cutoutBorderGroup.node.removeAttribute('mask');
+        }
+        if (cutoutPreviewGroup && cutoutPreviewGroup.node) {
+            cutoutPreviewGroup.node.removeAttribute('mask');
+        }
         if (shapePreviewGroup && shapePreviewGroup.node) {
             shapePreviewGroup.node.removeAttribute('mask');
         }
@@ -2346,7 +2360,9 @@ const CustomizationModule = (() => {
         shapePreviewGroup.clear();
         arrowsGroup.clear();
         holesGroup.clear();
+        cutoutPreviewGroup.clear();
         cutoutGroup.clear();
+        cutoutBorderGroup.clear();
         cutoutDems.clear();
         let dimensionHoleTarget = null;
         var shaper = shapeGroup;
@@ -2472,9 +2488,14 @@ const CustomizationModule = (() => {
             clearGroupMask(shapePreviewGroup);
             clearGroupMask(holesGroup);
             clearGroupMask(holeBorderGroup);
+            clearGroupMask(cutoutPreviewGroup);
+            clearGroupMask(cutoutBorderGroup);
             clearPreviewMasks();
             if (shapeGroup && shapeGroup.node) {
                 shapeGroup.node.removeAttribute('opacity');
+            }
+            if (cutoutGroup && cutoutGroup.node) {
+                cutoutGroup.node.removeAttribute('opacity');
             }
             if (shapePreviewGroup) {
                 shapePreviewGroup.clear();
@@ -2490,16 +2511,36 @@ const CustomizationModule = (() => {
             if (holeBorderGroup) {
                 holeBorderGroup.clear();
             }
+            if (cutoutGroup) {
+                cutoutGroup.selectAll('*').forEach(function (cutoutNode) {
+                    cutoutNode.attr({
+                        fill: '#dff7cf',
+                        stroke: '#4fa4d6'
+                    });
+                });
+            }
+            if (cutoutPreviewGroup) {
+                cutoutPreviewGroup.clear();
+            }
+            if (cutoutBorderGroup) {
+                cutoutBorderGroup.clear();
+            }
         }
 
         function applyHoleCutMask() {
-            if (!holesSettings.type) {
+            const holeNodes = holesGroup && typeof holesGroup.selectAll === 'function' ? holesGroup.selectAll('.hole') : [];
+            const cutoutNodes = cutoutGroup && cutoutGroup.node
+                ? Array.prototype.slice.call(cutoutGroup.node.childNodes || []).filter(function (node) { return node.nodeType === 1; })
+                : [];
+            const hasLiveHoleNode = !!(holesGroup && holesGroup.node && holesGroup.node.querySelector('.hole'));
+            const hasLiveCutoutNode = !!(cutoutGroup && cutoutGroup.node && cutoutGroup.node.children && cutoutGroup.node.children.length);
+            const hasMaskingSource = (holesSettings.type && holeNodes && holeNodes.length && hasLiveHoleNode) || (cutSettings.type && cutoutNodes.length && hasLiveCutoutNode);
+
+            if (!hasMaskingSource) {
                 resetHolePreviewStyle();
                 return;
             }
-            const holeNodes = holesGroup && typeof holesGroup.selectAll === 'function' ? holesGroup.selectAll('.hole') : [];
-            const hasLiveHoleNode = !!(holesGroup && holesGroup.node && holesGroup.node.querySelector('.hole'));
-            if (!holeNodes || !holeNodes.length || !hasLiveHoleNode || !shapeGroup || !shapePreviewGroup || !holeBorderGroup || !shapeGroup.node || !shapeGroup.node.childNodes.length) {
+            if (!shapeGroup || !shapePreviewGroup || !holeBorderGroup || !cutoutPreviewGroup || !cutoutBorderGroup || !shapeGroup.node || !shapeGroup.node.childNodes.length) {
                 resetHolePreviewStyle();
                 return;
             }
@@ -2514,6 +2555,13 @@ const CustomizationModule = (() => {
             shapeMask.appendChild(createMaskRect('#ffffff'));
             holeNodes.forEach(function (hole) {
                 const clone = hole.node.cloneNode(true);
+                clone.removeAttribute('class');
+                clone.removeAttribute('mask');
+                setMaskPaint(clone, '#000000');
+                shapeMask.appendChild(clone);
+            });
+            cutoutNodes.forEach(function (cutoutNode) {
+                const clone = cutoutNode.cloneNode(true);
                 clone.removeAttribute('class');
                 clone.removeAttribute('mask');
                 setMaskPaint(clone, '#000000');
@@ -2538,6 +2586,12 @@ const CustomizationModule = (() => {
             while (holeBorderGroup.node.firstChild) {
                 holeBorderGroup.node.removeChild(holeBorderGroup.node.firstChild);
             }
+            while (cutoutPreviewGroup.node.firstChild) {
+                cutoutPreviewGroup.node.removeChild(cutoutPreviewGroup.node.firstChild);
+            }
+            while (cutoutBorderGroup.node.firstChild) {
+                cutoutBorderGroup.node.removeChild(cutoutBorderGroup.node.firstChild);
+            }
             Array.prototype.forEach.call(shapeGroup.node.childNodes || [], function (child) {
                 shapePreviewGroup.node.appendChild(child.cloneNode(true));
             });
@@ -2547,14 +2601,34 @@ const CustomizationModule = (() => {
                 borderClone.removeAttribute('mask');
                 holeBorderGroup.node.appendChild(borderClone);
             });
+            cutoutNodes.forEach(function (cutoutNode) {
+                const previewClone = cutoutNode.cloneNode(true);
+                previewClone.removeAttribute('class');
+                previewClone.removeAttribute('mask');
+                cutoutPreviewGroup.node.appendChild(previewClone);
+
+                const borderClone = cutoutNode.cloneNode(true);
+                borderClone.removeAttribute('class');
+                borderClone.removeAttribute('mask');
+                cutoutBorderGroup.node.appendChild(borderClone);
+            });
 
             shapePreviewGroup.node.setAttribute('mask', 'url(#idxr-shape-hole-mask)');
             holesGroup.node.setAttribute('mask', 'url(#idxr-hole-outside-mask)');
             holeBorderGroup.node.setAttribute('mask', 'url(#idxr-hole-inside-mask)');
+            cutoutPreviewGroup.node.setAttribute('mask', 'url(#idxr-hole-outside-mask)');
+            cutoutBorderGroup.node.setAttribute('mask', 'url(#idxr-hole-inside-mask)');
             shapeGroup.node.setAttribute('opacity', '0');
+            cutoutGroup.node.setAttribute('opacity', '0');
             holeNodes.forEach(function (hole) {
                 hole.attr({
                     fill: 'none',
+                    stroke: 'none'
+                });
+            });
+            cutoutPreviewGroup.selectAll('*').forEach(function (node) {
+                node.attr({
+                    fill: '#dff7cf',
                     stroke: 'none'
                 });
             });
@@ -2585,12 +2659,19 @@ const CustomizationModule = (() => {
                     strokeWidth: 1
                 });
             });
+            cutoutBorderGroup.selectAll('*').forEach(function (node) {
+                node.attr({
+                    fill: 'none',
+                    stroke: '#70d1f5',
+                    strokeWidth: 1
+                });
+            });
         }
         
         var extraInfo = drow(shapeSettings.type);
         holes(holesSettings.type, extraInfo);
-        applyHoleCutMask();
         cut(cutSettings.type);
+        applyHoleCutMask();
         drawReferenceAxes();
         scheduleFitViewBox();
 
