@@ -289,41 +289,57 @@
                               </span>
                             {/foreach}
                           </td>
-                          <td style="min-width: 260px;">
+                          <td style="min-width: 420px;">
                             <form method="post" action="" class="prestaload-asset-rule-form">
                               <input type="hidden" name="prestaload_asset_page" value="{$prestaload_selected_asset_page.key|escape:'htmlall':'UTF-8'}">
                               <input type="hidden" name="prestaload_asset_url" value="{$asset.url|escape:'htmlall':'UTF-8'}">
                               <input type="hidden" name="prestaload_asset_type" value="{$asset.type|escape:'htmlall':'UTF-8'}">
-                              <div style="display: flex; gap: 8px; align-items: center;">
-                                <select name="prestaload_asset_action" class="form-control">
-                                  <option value="keep" {if $asset_rule.action|default:'keep' === 'keep'}selected="selected"{/if}>Keep</option>
-                                  <option value="defer" {if $asset_rule.action|default:'' === 'defer'}selected="selected"{/if}>Defer</option>
-                                  {if $asset.type === 'js'}
-                                    <option value="load_after_window_load" {if $asset_rule.action|default:'' === 'load_after_window_load'}selected="selected"{/if}>Load after window.load</option>
-                                  {/if}
-                                  <option value="disable" {if $asset_rule.action|default:'' === 'disable'}selected="selected"{/if}>Disable</option>
-                                </select>
+                              <div class="prestaload-asset-flags">
                                 <button
                                   type="button"
-                                  class="btn btn-default prestaload-asset-rule-save"
-                                  data-default-label="Save"
-                                  data-loading-label="Saving..."
+                                  class="btn prestaload-asset-flag {if $asset_rule.disable|default:false}btn-success is-active{else}btn-danger{/if}"
+                                  data-prestaload-flag="disable"
+                                  data-enabled="{if $asset_rule.disable|default:false}1{else}0{/if}"
                                 >
-                                  <span class="prestaload-asset-rule-save__label">Save</span>
+                                  <span class="prestaload-asset-flag__label">
+                                    <i class="icon-{if $asset_rule.disable|default:false}check{else}close{/if}"></i>
+                                    Disable
+                                  </span>
+                                </button>
+                                <button
+                                  type="button"
+                                  class="btn prestaload-asset-flag {if $asset_rule.defer|default:false}btn-success is-active{else}btn-danger{/if}"
+                                  data-prestaload-flag="defer"
+                                  data-enabled="{if $asset_rule.defer|default:false}1{else}0{/if}"
+                                >
+                                  <span class="prestaload-asset-flag__label">
+                                    <i class="icon-{if $asset_rule.defer|default:false}check{else}close{/if}"></i>
+                                    Defer
+                                  </span>
                                 </button>
                                 {if $asset.type === 'css' || $asset.type === 'js'}
                                   <button
                                     type="button"
-                                    class="btn {if $asset_rule.action|default:'' === 'minify'}btn-success{else}btn-default{/if} prestaload-asset-minify"
-                                    data-default-label="Minify"
-                                    data-loading-label="Minifying..."
+                                    class="btn prestaload-asset-flag {if $asset_rule.minify|default:false}btn-success is-active{else}btn-danger{/if}"
+                                    data-prestaload-flag="minify"
+                                    data-enabled="{if $asset_rule.minify|default:false}1{else}0{/if}"
                                   >
-                                    <span class="prestaload-asset-minify__label">
-                                      {if $asset_rule.action|default:'' === 'minify'}
-                                        <i class="icon-check"></i> Minified
-                                      {else}
-                                        Minify
-                                      {/if}
+                                    <span class="prestaload-asset-flag__label">
+                                      <i class="icon-{if $asset_rule.minify|default:false}check{else}close{/if}"></i>
+                                      Minify
+                                    </span>
+                                  </button>
+                                {/if}
+                                {if $asset.type === 'js'}
+                                  <button
+                                    type="button"
+                                    class="btn prestaload-asset-flag {if $asset_rule.load_after_window_load|default:false}btn-success is-active{else}btn-danger{/if}"
+                                    data-prestaload-flag="load_after_window_load"
+                                    data-enabled="{if $asset_rule.load_after_window_load|default:false}1{else}0{/if}"
+                                  >
+                                    <span class="prestaload-asset-flag__label">
+                                      <i class="icon-{if $asset_rule.load_after_window_load|default:false}check{else}close{/if}"></i>
+                                      After load
                                     </span>
                                   </button>
                                 {/if}
@@ -474,35 +490,33 @@
       color: #495057;
     }
 
-    .prestaload-asset-rule-save.is-loading {
+    .prestaload-asset-flags {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .prestaload-asset-flag {
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .prestaload-asset-flag__label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .prestaload-asset-flag.is-loading {
       position: relative;
       pointer-events: none;
       opacity: 0.85;
       padding-left: 34px;
     }
 
-    .prestaload-asset-rule-save.is-loading::before {
-      content: '';
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      width: 14px;
-      height: 14px;
-      margin-top: -7px;
-      border: 2px solid #b8c7d1;
-      border-top-color: #25b9d7;
-      border-radius: 50%;
-      animation: prestaload-spin 0.8s linear infinite;
-    }
-
-    .prestaload-asset-minify.is-loading {
-      position: relative;
-      pointer-events: none;
-      opacity: 0.85;
-      padding-left: 34px;
-    }
-
-    .prestaload-asset-minify.is-loading::before {
+    .prestaload-asset-flag.is-loading::before {
       content: '';
       position: absolute;
       left: 12px;
@@ -590,15 +604,13 @@
       var feedback = document.getElementById('prestaload-asset-scan-feedback');
       var toast = document.getElementById('prestaload-asset-toast');
       var ajaxUrl = {$prestaload_asset_scan_ajax_url|json_encode nofilter};
-      var assetRuleAjaxUrl = {$prestaload_asset_rule_ajax_url|json_encode nofilter};
+      var assetRuleAjaxUrl = {$prestaload_asset_toggle_flag_ajax_url|json_encode nofilter};
       var assetBulkRuleAjaxUrl = {$prestaload_asset_bulk_rule_ajax_url|json_encode nofilter};
-      var assetMinifyAjaxUrl = {$prestaload_asset_minify_ajax_url|json_encode nofilter};
       var assetBulkMinifyAjaxUrl = {$prestaload_asset_bulk_minify_ajax_url|json_encode nofilter};
       var assetBulkClearMinifiedAjaxUrl = {$prestaload_asset_bulk_clear_minified_ajax_url|json_encode nofilter};
       var assetTabLinks = document.querySelectorAll('[data-prestaload-asset-tab]');
       var assetPanels = document.querySelectorAll('[data-prestaload-asset-panel]');
-      var assetRuleButtons = document.querySelectorAll('.prestaload-asset-rule-save');
-      var assetMinifyButtons = document.querySelectorAll('.prestaload-asset-minify');
+      var assetFlagButtons = document.querySelectorAll('.prestaload-asset-flag');
       var bulkRuleButtons = document.querySelectorAll('.prestaload-bulk-rule');
       var bulkMinifyButtons = document.querySelectorAll('.prestaload-bulk-minify');
       var bulkClearMinifiedButtons = document.querySelectorAll('.prestaload-bulk-clear-minified');
@@ -667,97 +679,70 @@
         });
       };
 
-      Array.prototype.forEach.call(assetRuleButtons, function (saveButton) {
-        saveButton.addEventListener('click', function () {
+      var applyFlagButtonState = function (button, enabled) {
+        button.setAttribute('data-enabled', enabled ? '1' : '0');
+        button.classList.remove('btn-success', 'btn-danger', 'is-active');
+        button.classList.add(enabled ? 'btn-success' : 'btn-danger');
+
+        if (enabled) {
+          button.classList.add('is-active');
+        }
+
+        var label = button.querySelector('.prestaload-asset-flag__label');
+        if (!label) {
+          return;
+        }
+
+        var icon = label.querySelector('i');
+        if (icon) {
+          icon.className = enabled ? 'icon-check' : 'icon-close';
+        }
+      };
+
+      var syncRowFlags = function (form, rule) {
+        if (!form || !rule) {
+          return;
+        }
+
+        Array.prototype.forEach.call(form.querySelectorAll('.prestaload-asset-flag'), function (flagButton) {
+          var flag = flagButton.getAttribute('data-prestaload-flag');
+          applyFlagButtonState(flagButton, !!rule[flag]);
+        });
+      };
+
+      Array.prototype.forEach.call(assetFlagButtons, function (flagButton) {
+        flagButton.addEventListener('click', function () {
           if (!assetRuleAjaxUrl) {
             return;
           }
 
-          var form = saveButton.closest('form');
+          var form = flagButton.closest('form');
           if (!form) {
             return;
           }
 
-          var formData = new FormData(form);
           var params = new URLSearchParams();
-          formData.forEach(function (value, key) {
-            params.append(key, value);
-          });
+          params.append('prestaload_asset_page', pageSelect ? pageSelect.value : '');
+          params.append('prestaload_asset_url', form.querySelector('input[name="prestaload_asset_url"]').value);
+          params.append('prestaload_asset_type', form.querySelector('input[name="prestaload_asset_type"]').value);
+          params.append('prestaload_asset_flag', flagButton.getAttribute('data-prestaload-flag'));
+          params.append('prestaload_asset_enabled', flagButton.getAttribute('data-enabled') === '1' ? '0' : '1');
 
-          var label = saveButton.querySelector('.prestaload-asset-rule-save__label');
-          var defaultLabel = saveButton.getAttribute('data-default-label') || 'Save';
-          var loadingLabel = saveButton.getAttribute('data-loading-label') || 'Saving...';
-
-          saveButton.disabled = true;
-          saveButton.classList.add('is-loading');
-          if (label) {
-            label.textContent = loadingLabel;
-          }
+          flagButton.disabled = true;
+          flagButton.classList.add('is-loading');
 
           postForm(assetRuleAjaxUrl, params).then(function (payload) {
             if (!payload || !payload.success) {
               throw new Error(payload && payload.message ? payload.message : 'Asset rule update failed.');
             }
 
+            syncRowFlags(form, payload.rule || {});
             showToast(payload.message || 'Asset rule updated.', 'success');
           }).catch(function (error) {
             showToast(error.message || 'Asset rule update failed.', 'error');
           }).finally(function () {
-            saveButton.disabled = false;
-            saveButton.classList.remove('is-loading');
-            if (label) {
-              label.textContent = defaultLabel;
-            }
-          });
-        });
-      });
-
-      Array.prototype.forEach.call(assetMinifyButtons, function (minifyButton) {
-        minifyButton.addEventListener('click', function () {
-          if (!assetMinifyAjaxUrl) {
-            return;
-          }
-
-          var form = minifyButton.closest('form');
-          if (!form) {
-            return;
-          }
-
-          var formData = new FormData(form);
-          var params = new URLSearchParams();
-          formData.forEach(function (value, key) {
-            params.append(key, value);
-          });
-
-          var label = minifyButton.querySelector('.prestaload-asset-minify__label');
-          var defaultLabel = minifyButton.getAttribute('data-default-label') || 'Minify';
-          var loadingLabel = minifyButton.getAttribute('data-loading-label') || 'Minifying...';
-
-          minifyButton.disabled = true;
-          minifyButton.classList.add('is-loading');
-          if (label) {
-            label.textContent = loadingLabel;
-          }
-
-          postForm(assetMinifyAjaxUrl, params).then(function (payload) {
-            if (!payload || !payload.success) {
-              throw new Error(payload && payload.message ? payload.message : 'Asset minification failed.');
-            }
-
-            showToast(payload.message || 'Asset minified successfully.', 'success');
-            minifyButton.classList.remove('btn-default');
-            minifyButton.classList.add('btn-success');
-            if (label) {
-              label.innerHTML = '<i class="icon-check"></i> Minified';
-            }
-          }).catch(function (error) {
-            showToast(error.message || 'Asset minification failed.', 'error');
-          }).finally(function () {
-            minifyButton.disabled = false;
-            minifyButton.classList.remove('is-loading');
-            if (label && !minifyButton.classList.contains('btn-success')) {
-              label.textContent = defaultLabel;
-            }
+            flagButton.disabled = false;
+            flagButton.classList.remove('is-loading');
           });
         });
       });

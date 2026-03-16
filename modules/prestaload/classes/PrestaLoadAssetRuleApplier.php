@@ -72,21 +72,24 @@ class PrestaLoadAssetRuleApplier
                 return $tag;
             }
 
-            if ($rule['action'] === 'disable') {
+            if ($this->isFlagEnabled($rule, 'disable')) {
                 return '';
             }
 
-            if ($rule['action'] === 'load_after_window_load') {
-                return $this->buildWindowLoadScriptTag($src);
-            }
-
-            if ($rule['action'] === 'minify') {
+            $effectiveSrc = $src;
+            if ($this->isFlagEnabled($rule, 'minify')) {
                 $minifiedUrl = $this->assetMinifier->getMinifiedAssetUrl($src, 'js');
-
-                return $minifiedUrl !== '' ? $this->replaceScriptSrc($tag, $minifiedUrl) : $tag;
+                if ($minifiedUrl !== '') {
+                    $effectiveSrc = $minifiedUrl;
+                    $tag = $this->replaceScriptSrc($tag, $minifiedUrl);
+                }
             }
 
-            if ($rule['action'] === 'defer') {
+            if ($this->isFlagEnabled($rule, 'load_after_window_load')) {
+                return $this->buildWindowLoadScriptTag($effectiveSrc);
+            }
+
+            if ($this->isFlagEnabled($rule, 'defer')) {
                 return $this->buildDeferredScriptTag($tag);
             }
 
@@ -113,13 +116,22 @@ class PrestaLoadAssetRuleApplier
 
             $replacement = $tag;
             if ($rule !== null && $rel === 'stylesheet') {
-                if ($rule['action'] === 'disable') {
+                if ($this->isFlagEnabled($rule, 'disable')) {
                     $replacement = '';
-                } elseif ($rule['action'] === 'minify') {
+                } else {
+                    $effectiveTag = $tag;
+                    if ($this->isFlagEnabled($rule, 'minify')) {
                     $minifiedUrl = $this->assetMinifier->getMinifiedAssetUrl($href, 'css');
-                    $replacement = $minifiedUrl !== '' ? $this->replaceOrAppendAttribute($tag, 'href', $minifiedUrl) : $tag;
-                } elseif ($rule['action'] === 'defer') {
-                    $replacement = $this->buildDeferredStylesheetTag($tag);
+                        if ($minifiedUrl !== '') {
+                            $effectiveTag = $this->replaceOrAppendAttribute($tag, 'href', $minifiedUrl);
+                        }
+                    }
+
+                    if ($this->isFlagEnabled($rule, 'defer')) {
+                        $replacement = $this->buildDeferredStylesheetTag($effectiveTag);
+                    } else {
+                        $replacement = $effectiveTag;
+                    }
                 }
             }
 
@@ -149,6 +161,15 @@ class PrestaLoadAssetRuleApplier
         }
 
         return null;
+    }
+
+    private function isFlagEnabled(array $rule, $flag)
+    {
+        if (!empty($rule[$flag])) {
+            return true;
+        }
+
+        return isset($rule['action']) && $rule['action'] === $flag;
     }
 
     /**

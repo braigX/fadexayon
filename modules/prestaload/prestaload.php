@@ -248,6 +248,7 @@ class PrestaLoad extends Module
             'prestaload_selected_asset_rules' => $this->indexRulesByUrl($selectedAssetRules),
             'prestaload_asset_scan_ajax_url' => $this->getAjaxConfigurationLink('runAssetScan'),
             'prestaload_asset_rule_ajax_url' => $this->getAjaxConfigurationLink('saveAssetRule'),
+            'prestaload_asset_toggle_flag_ajax_url' => $this->getAjaxConfigurationLink('toggleAssetFlag'),
             'prestaload_asset_bulk_rule_ajax_url' => $this->getAjaxConfigurationLink('saveBulkAssetRules'),
             'prestaload_asset_minify_ajax_url' => $this->getAjaxConfigurationLink('minifyAsset'),
             'prestaload_asset_bulk_minify_ajax_url' => $this->getAjaxConfigurationLink('bulkMinifyAssets'),
@@ -845,6 +846,11 @@ class PrestaLoad extends Module
                 continue;
             }
 
+            $flags = $this->extractRuleFlags($rule);
+            $rule['disable'] = $flags['disable'];
+            $rule['defer'] = $flags['defer'];
+            $rule['minify'] = $flags['minify'];
+            $rule['load_after_window_load'] = $flags['load_after_window_load'];
             $indexedRules[$rule['asset_url']] = $rule;
         }
 
@@ -885,6 +891,16 @@ class PrestaLoad extends Module
                     'success' => true,
                     'message' => 'Asset rule updated.',
                     'rule' => $savedRule,
+                ]);
+            }
+
+            if ($action === 'toggleAssetFlag') {
+                $updatedRule = $this->toggleAssetFlagFromRequest();
+
+                $this->jsonResponse([
+                    'success' => true,
+                    'message' => 'Asset rule updated.',
+                    'rule' => $updatedRule,
                 ]);
             }
 
@@ -967,6 +983,83 @@ class PrestaLoad extends Module
         return $rule;
     }
 
+    private function toggleAssetFlagFromRequest()
+    {
+        $page = $this->getSelectedAssetPage();
+        if (empty($page)) {
+            throw new Exception('Selected page was not found.');
+        }
+
+        $assetUrl = trim((string) Tools::getValue('prestaload_asset_url', ''));
+        $assetType = trim((string) Tools::getValue('prestaload_asset_type', 'other'));
+        $flag = trim((string) Tools::getValue('prestaload_asset_flag', ''));
+        $enabled = (bool) (int) Tools::getValue('prestaload_asset_enabled', 0);
+
+        if ($assetUrl === '') {
+            throw new Exception('Asset URL is required.');
+        }
+
+        if (!in_array($flag, ['disable', 'defer', 'minify', 'load_after_window_load'], true)) {
+            throw new Exception('Invalid asset flag.');
+        }
+
+        if ($flag === 'load_after_window_load' && $assetType !== 'js') {
+            throw new Exception('This flag is only available for JavaScript assets.');
+        }
+
+        $existingRule = $this->assetRuleStore->getRule($page['key'], $assetUrl);
+        $flags = $this->extractRuleFlags($existingRule);
+        $flags[$flag] = $enabled;
+
+        if ($flag === 'disable' && $enabled) {
+            $flags['defer'] = false;
+            $flags['minify'] = false;
+            $flags['load_after_window_load'] = false;
+        }
+
+        if ($flag === 'defer' && $enabled) {
+            $flags['disable'] = false;
+            $flags['load_after_window_load'] = false;
+        }
+
+        if ($flag === 'load_after_window_load' && $enabled) {
+            $flags['disable'] = false;
+            $flags['defer'] = false;
+        }
+
+        if ($flag === 'minify' && $enabled) {
+            $flags['disable'] = false;
+        }
+
+        if ($flag === 'minify') {
+            if ($enabled) {
+                $minifiedUrl = $this->assetMinifier->getMinifiedAssetUrl($assetUrl, $assetType);
+                if ($minifiedUrl === '') {
+                    throw new Exception('Could not build the minified asset.');
+                }
+            } else {
+                $this->assetMinifier->clearMinifiedAsset($assetUrl, $assetType);
+            }
+        }
+
+        $rule = [
+            'page_key' => $page['key'],
+            'page_url' => $page['url'],
+            'asset_url' => $assetUrl,
+            'asset_type' => $assetType,
+            'disable' => (int) $flags['disable'],
+            'defer' => (int) $flags['defer'],
+            'minify' => (int) $flags['minify'],
+            'load_after_window_load' => (int) $flags['load_after_window_load'],
+            'action' => $this->deriveRuleAction($flags),
+        ];
+
+        $this->assetRuleStore->saveRule($rule);
+        $this->pageCache->clear();
+
+        return $rule;
+    }
+
     private function saveBulkAssetRulesFromRequest()
     {
         $page = $this->getSelectedAssetPage();
@@ -994,12 +1087,46 @@ class PrestaLoad extends Module
             }
 
             $assetType = isset($assetTypes[$index]) ? trim((string) $assetTypes[$index]) : 'other';
+            $existingRule = $this->assetRuleStore->getRule($page['key'], $assetUrl);
+            $flags = $this->extractRuleFlags($existingRule);
+
+            if ($action === 'keep') {
+                $flags = [
+                    'disable' => false,
+                    'defer' => false,
+                    'minify' => false,
+                    'load_after_window_load' => false,
+                ];
+            } elseif ($action === 'disable') {
+                $flags = [
+                    'disable' => true,
+                    'defer' => false,
+                    'minify' => false,
+                    'load_after_window_load' => false,
+                ];
+            } elseif ($action === 'defer') {
+                $flags['disable'] = false;
+                $flags['defer'] = true;
+                $flags['load_after_window_load'] = false;
+            } elseif ($action === 'load_after_window_load' && $assetType === 'js') {
+                $flags['disable'] = false;
+                $flags['defer'] = false;
+                $flags['load_after_window_load'] = true;
+            } elseif ($action === 'minify') {
+                $flags['disable'] = false;
+                $flags['minify'] = true;
+            }
+
             $this->assetRuleStore->saveRule([
                 'page_key' => $page['key'],
                 'page_url' => $page['url'],
                 'asset_url' => $assetUrl,
                 'asset_type' => $assetType,
-                'action' => $action,
+                'disable' => (int) $flags['disable'],
+                'defer' => (int) $flags['defer'],
+                'minify' => (int) $flags['minify'],
+                'load_after_window_load' => (int) $flags['load_after_window_load'],
+                'action' => $this->deriveRuleAction($flags),
             ]);
             ++$savedCount;
         }
@@ -1085,6 +1212,10 @@ class PrestaLoad extends Module
                 'page_url' => $page['url'],
                 'asset_url' => $assetUrl,
                 'asset_type' => $assetType,
+                'disable' => 0,
+                'defer' => 0,
+                'minify' => 1,
+                'load_after_window_load' => 0,
                 'action' => 'minify',
             ]);
             ++$processed;
@@ -1125,12 +1256,19 @@ class PrestaLoad extends Module
             }
 
             $this->assetMinifier->clearMinifiedAsset($assetUrl, $assetType);
+            $existingRule = $this->assetRuleStore->getRule($page['key'], $assetUrl);
+            $flags = $this->extractRuleFlags($existingRule);
+            $flags['minify'] = false;
             $this->assetRuleStore->saveRule([
                 'page_key' => $page['key'],
                 'page_url' => $page['url'],
                 'asset_url' => $assetUrl,
                 'asset_type' => $assetType,
-                'action' => 'keep',
+                'disable' => (int) $flags['disable'],
+                'defer' => (int) $flags['defer'],
+                'minify' => 0,
+                'load_after_window_load' => (int) $flags['load_after_window_load'],
+                'action' => $this->deriveRuleAction($flags),
             ]);
             ++$processed;
         }
@@ -1168,5 +1306,29 @@ class PrestaLoad extends Module
         }
 
         exit($encoded);
+    }
+
+    private function extractRuleFlags(array $rule)
+    {
+        return [
+            'disable' => !empty($rule['disable']) || (isset($rule['action']) && $rule['action'] === 'disable'),
+            'defer' => !empty($rule['defer']) || (isset($rule['action']) && $rule['action'] === 'defer'),
+            'minify' => !empty($rule['minify']) || (isset($rule['action']) && $rule['action'] === 'minify'),
+            'load_after_window_load' => !empty($rule['load_after_window_load']) || (isset($rule['action']) && $rule['action'] === 'load_after_window_load'),
+        ];
+    }
+
+    private function deriveRuleAction(array $flags)
+    {
+        $enabledFlags = array_keys(array_filter($flags));
+        if (count($enabledFlags) > 1) {
+            return 'composed';
+        }
+
+        if (empty($enabledFlags)) {
+            return 'keep';
+        }
+
+        return $enabledFlags[0];
     }
 }
