@@ -25,6 +25,11 @@ class PrestaLoadImageOptimizer
     private $urlBuilder;
 
     /**
+     * @var PrestaLoadImageDimensionOptimizer
+     */
+    private $dimensionOptimizer;
+
+    /**
      * @var PrestaLoadImageLoadingOptimizer
      */
     private $loadingOptimizer;
@@ -33,11 +38,13 @@ class PrestaLoadImageOptimizer
         Context $context,
         PrestaLoadCacheSettings $settings,
         PrestaLoadImgProxyUrlBuilder $urlBuilder,
+        PrestaLoadImageDimensionOptimizer $dimensionOptimizer,
         PrestaLoadImageLoadingOptimizer $loadingOptimizer
     ) {
         $this->context = $context;
         $this->settings = $settings;
         $this->urlBuilder = $urlBuilder;
+        $this->dimensionOptimizer = $dimensionOptimizer;
         $this->loadingOptimizer = $loadingOptimizer;
     }
 
@@ -50,6 +57,7 @@ class PrestaLoadImageOptimizer
             return $html;
         }
 
+        $html = $this->dimensionOptimizer->optimize($html);
         $html = $this->loadingOptimizer->optimize($html);
 
         if (!$this->settings->isImageOptimizationEnabled()) {

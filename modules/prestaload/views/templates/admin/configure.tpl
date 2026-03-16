@@ -28,6 +28,48 @@
     <div style="flex: 1 1 640px; min-width: 320px;">
       {$prestaload_settings_form nofilter}
 
+      {if $prestaload_active_tab === 'general'}
+        <div class="panel" style="margin-top: 16px;">
+          <h3>Cached pages</h3>
+          <p>
+            These are the current full-page cache files managed by PrestaLoad.
+          </p>
+
+          {if $prestaload_stats.pages|@count > 0}
+            <div style="overflow-x: auto;">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Controller</th>
+                    <th>Status</th>
+                    <th>Size</th>
+                    <th>Stored at</th>
+                    <th>Expires at</th>
+                    <th>Cache key</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {foreach from=$prestaload_stats.pages item=cache_page}
+                    <tr>
+                      <td>{$cache_page.controller|default:'-'|escape:'htmlall':'UTF-8'}</td>
+                      <td>{$cache_page.status_code|intval}</td>
+                      <td>{$cache_page.size_bytes|intval} bytes</td>
+                      <td>{if $cache_page.stored_at}{$cache_page.stored_at|date_format:'%Y-%m-%d %H:%M:%S'}{else}-{/if}</td>
+                      <td>{if $cache_page.expires_at}{$cache_page.expires_at|date_format:'%Y-%m-%d %H:%M:%S'}{else}-{/if}</td>
+                      <td style="word-break: break-all;">{$cache_page.cache_key|escape:'htmlall':'UTF-8'}</td>
+                    </tr>
+                  {/foreach}
+                </tbody>
+              </table>
+            </div>
+          {else}
+            <div class="alert alert-info" style="margin-bottom: 0;">
+              No cached pages are stored yet.
+            </div>
+          {/if}
+        </div>
+      {/if}
+
       {if $prestaload_active_tab === 'cache_lifetimes'}
         <div class="panel" style="margin-top: 16px;">
           <h3>Browser Cache Lifetime Helper</h3>

@@ -26,6 +26,7 @@ require_once __DIR__ . '/classes/PrestaLoadAssetRuleApplier.php';
 require_once __DIR__ . '/classes/PrestaLoadFontOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadCssOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadImgProxyUrlBuilder.php';
+require_once __DIR__ . '/classes/PrestaLoadImageDimensionOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadImageLoadingOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadImageOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadHtmlCompressor.php';
@@ -152,7 +153,7 @@ class PrestaLoad extends Module
             ]);
             $this->runtimeConfig->write();
             $this->pageCache->clear();
-            $output .= $this->displayConfirmation($this->trans('General settings updated.', [], 'Admin.Notifications.Success'));
+            $output .= $this->displayConfirmation($this->trans('Full page caching settings updated.', [], 'Admin.Notifications.Success'));
         }
 
         if (Tools::isSubmit('submitPrestaLoadBrowserCacheSettings')) {
@@ -198,6 +199,7 @@ class PrestaLoad extends Module
             $this->settings->updateSubsetFromRequest([
                 PrestaLoadCacheSettings::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED,
                 PrestaLoadCacheSettings::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED,
+                PrestaLoadCacheSettings::CONFIG_IMAGE_DIMENSIONS_OPTIMIZATION_ENABLED,
                 PrestaLoadCacheSettings::CONFIG_IMAGE_OPTIMIZATION_ENABLED,
                 PrestaLoadCacheSettings::CONFIG_IMGPROXY_BASE_URL,
                 PrestaLoadCacheSettings::CONFIG_IMGPROXY_QUALITY,
@@ -297,8 +299,9 @@ class PrestaLoad extends Module
         $fontOptimizer = new PrestaLoadFontOptimizer($this->settings);
         $cssOptimizer = new PrestaLoadCssOptimizer($this->settings);
         $imgProxyUrlBuilder = new PrestaLoadImgProxyUrlBuilder($this->settings);
+        $imageDimensionOptimizer = new PrestaLoadImageDimensionOptimizer($this->context, $this->settings);
         $imageLoadingOptimizer = new PrestaLoadImageLoadingOptimizer($this->settings);
-        $imageOptimizer = new PrestaLoadImageOptimizer($this->context, $this->settings, $imgProxyUrlBuilder, $imageLoadingOptimizer);
+        $imageOptimizer = new PrestaLoadImageOptimizer($this->context, $this->settings, $imgProxyUrlBuilder, $imageDimensionOptimizer, $imageLoadingOptimizer);
         $assetRuleApplier = new PrestaLoadAssetRuleApplier($this->assetRuleStore, $cssOptimizer);
         $htmlCompressor = new PrestaLoadHtmlCompressor($this->settings);
         $htmlOptimizer = new PrestaLoadHtmlOptimizer($fontOptimizer, $cssOptimizer, $imageOptimizer, $assetRuleApplier, $htmlCompressor);
@@ -352,7 +355,7 @@ class PrestaLoad extends Module
             self::TAB_GENERAL => [
                 'form' => [
                     'legend' => [
-                        'title' => $this->trans('General', [], 'Admin.Global'),
+                        'title' => 'Full page caching',
                         'icon' => 'icon-cogs',
                     ],
                     'input' => [
@@ -555,6 +558,17 @@ class PrestaLoad extends Module
                         ],
                         [
                             'type' => 'switch',
+                            'label' => 'Add missing width and height',
+                            'name' => PrestaLoadCacheSettings::CONFIG_IMAGE_DIMENSIONS_OPTIMIZATION_ENABLED,
+                            'is_bool' => true,
+                            'values' => [
+                                ['id' => 'prestaload_image_dimensions_on', 'value' => 1, 'label' => $this->trans('Yes', [], 'Admin.Global')],
+                                ['id' => 'prestaload_image_dimensions_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
+                            ],
+                            'desc' => 'Adds width and height attributes to local image tags when the file dimensions can be resolved safely.',
+                        ],
+                        [
+                            'type' => 'switch',
                             'label' => 'Optimize images with ImgProxy',
                             'name' => PrestaLoadCacheSettings::CONFIG_IMAGE_OPTIMIZATION_ENABLED,
                             'is_bool' => true,
@@ -616,7 +630,7 @@ class PrestaLoad extends Module
     {
         return [
             self::TAB_GENERAL => [
-                'label' => 'General',
+                'label' => 'Full page caching',
                 'link' => $this->getAdminConfigurationLink(self::TAB_GENERAL),
             ],
             self::TAB_FONTS => [

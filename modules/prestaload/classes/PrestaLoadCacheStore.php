@@ -84,12 +84,14 @@ class PrestaLoadCacheStore
     {
         $count = 0;
         $size = 0;
+        $pages = [];
 
         if (!is_dir($this->baseDirectory)) {
             return [
                 'directory' => $this->baseDirectory,
                 'count' => 0,
                 'size_bytes' => 0,
+                'pages' => [],
             ];
         }
 
@@ -101,13 +103,28 @@ class PrestaLoadCacheStore
             if ($fileInfo->isFile()) {
                 $count++;
                 $size += (int) $fileInfo->getSize();
+                $payload = json_decode((string) @file_get_contents($fileInfo->getPathname()), true);
+                $pages[] = [
+                    'cache_key' => basename($fileInfo->getFilename(), '.json'),
+                    'path' => $fileInfo->getPathname(),
+                    'size_bytes' => (int) $fileInfo->getSize(),
+                    'controller' => isset($payload['controller']) ? (string) $payload['controller'] : '',
+                    'status_code' => isset($payload['status_code']) ? (int) $payload['status_code'] : 0,
+                    'stored_at' => isset($payload['stored_at']) ? (int) $payload['stored_at'] : 0,
+                    'expires_at' => isset($payload['expires_at']) ? (int) $payload['expires_at'] : 0,
+                ];
             }
         }
+
+        usort($pages, function ($left, $right) {
+            return ($right['stored_at'] ?? 0) <=> ($left['stored_at'] ?? 0);
+        });
 
         return [
             'directory' => $this->baseDirectory,
             'count' => $count,
             'size_bytes' => $size,
+            'pages' => $pages,
         ];
     }
 
