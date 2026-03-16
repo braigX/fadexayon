@@ -176019,3 +176019,6 @@
 [2026-03-16 21:27:41]in add_base 
 [2026-03-16 21:27:41]id_product: 357
 [2026-03-16 21:27:41]id_product_attribute: 2
+[2026-03-16 21:35:13]in add_base 
+[2026-03-16 21:35:13]id_product: 357
+[2026-03-16 21:35:13]id_product_attribute: 2

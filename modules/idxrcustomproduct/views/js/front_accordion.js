@@ -3497,7 +3497,8 @@ const CustomizationModule = (() => {
             }
             
             if(withArrows){
-                arrows = arrowsGroup;
+                arrows = cutoutDems;
+                const cutoutDimGroup = cutoutDems;
                 const outsideOffset = offset + extraSpace;
                 const topGuideY = -outsideOffset;
                 const leftGuideX = -outsideOffset;
@@ -3512,10 +3513,10 @@ const CustomizationModule = (() => {
                 drawDimensionWithText(leftGuideX, 0, leftGuideX, cutoutY, 'Y: ', `${demY} mm`, 'vertical', 2);
 
                 // Dotted connectors from old internal arrow points to new outside dimensions.
-                arrowsGroup.line(0, cutoutY, 0, topGuideY).attr(connectorAttrs);
-                arrowsGroup.line(cutoutX, cutoutY, cutoutX, topGuideY).attr(connectorAttrs);
-                arrowsGroup.line(cutoutX, 0, leftGuideX, 0).attr(connectorAttrs);
-                arrowsGroup.line(cutoutX, cutoutY, leftGuideX, cutoutY).attr(connectorAttrs);
+                cutoutDimGroup.line(0, cutoutY, 0, topGuideY).attr(connectorAttrs);
+                cutoutDimGroup.line(cutoutX, cutoutY, cutoutX, topGuideY).attr(connectorAttrs);
+                cutoutDimGroup.line(cutoutX, 0, leftGuideX, 0).attr(connectorAttrs);
+                cutoutDimGroup.line(cutoutX, cutoutY, leftGuideX, cutoutY).attr(connectorAttrs);
 
                 const cutDimTopY = topGuideY - offset;
                 const cutDimTop2Y = cutDimTopY - offset;
@@ -3533,10 +3534,10 @@ const CustomizationModule = (() => {
                         `${idxr_tr_height}: `, `${outsideCutShapeDims.heightMM} mm`, 'vertical', 2
                     );
 
-                    arrowsGroup.line(outsideCutShapeDims.left, outsideCutShapeDims.top, outsideCutShapeDims.left, cutDimTopY).attr(connectorAttrs);
-                    arrowsGroup.line(outsideCutShapeDims.right, outsideCutShapeDims.top, outsideCutShapeDims.right, cutDimTopY).attr(connectorAttrs);
-                    arrowsGroup.line(outsideCutShapeDims.left, outsideCutShapeDims.top, cutDimLeftX, outsideCutShapeDims.top).attr(connectorAttrs);
-                    arrowsGroup.line(outsideCutShapeDims.left, outsideCutShapeDims.bottom, cutDimLeftX, outsideCutShapeDims.bottom).attr(connectorAttrs);
+                    cutoutDimGroup.line(outsideCutShapeDims.left, outsideCutShapeDims.top, outsideCutShapeDims.left, cutDimTopY).attr(connectorAttrs);
+                    cutoutDimGroup.line(outsideCutShapeDims.right, outsideCutShapeDims.top, outsideCutShapeDims.right, cutDimTopY).attr(connectorAttrs);
+                    cutoutDimGroup.line(outsideCutShapeDims.left, outsideCutShapeDims.top, cutDimLeftX, outsideCutShapeDims.top).attr(connectorAttrs);
+                    cutoutDimGroup.line(outsideCutShapeDims.left, outsideCutShapeDims.bottom, cutDimLeftX, outsideCutShapeDims.bottom).attr(connectorAttrs);
                 } else if (outsideCutShapeDims && outsideCutShapeDims.shape === 'circle') {
                     const lx = outsideCutShapeDims.centerX - outsideCutShapeDims.radius;
                     const rx = outsideCutShapeDims.centerX + outsideCutShapeDims.radius;
@@ -3545,8 +3546,8 @@ const CustomizationModule = (() => {
                         rx, cutDimTopY,
                         `${idxr_tr_diameter}: `, `${outsideCutShapeDims.diameterMM} mm`, '', 2
                     );
-                    arrowsGroup.line(lx, outsideCutShapeDims.centerY, lx, cutDimTopY).attr(connectorAttrs);
-                    arrowsGroup.line(rx, outsideCutShapeDims.centerY, rx, cutDimTopY).attr(connectorAttrs);
+                    cutoutDimGroup.line(lx, outsideCutShapeDims.centerY, lx, cutDimTopY).attr(connectorAttrs);
+                    cutoutDimGroup.line(rx, outsideCutShapeDims.centerY, rx, cutDimTopY).attr(connectorAttrs);
                 } else if (outsideCutShapeDims && outsideCutShapeDims.shape === 'halfcircle') {
                     const lx = outsideCutShapeDims.centerX - outsideCutShapeDims.radius;
                     const rx = outsideCutShapeDims.centerX + outsideCutShapeDims.radius;
@@ -3555,8 +3556,8 @@ const CustomizationModule = (() => {
                         rx, cutDimTopY,
                         `${idxr_tr_diameter}: `, `${outsideCutShapeDims.diameterMM} mm`, '', 2
                     );
-                    arrowsGroup.line(lx, outsideCutShapeDims.centerY, lx, cutDimTopY).attr(connectorAttrs);
-                    arrowsGroup.line(rx, outsideCutShapeDims.centerY, rx, cutDimTopY).attr(connectorAttrs);
+                    cutoutDimGroup.line(lx, outsideCutShapeDims.centerY, lx, cutDimTopY).attr(connectorAttrs);
+                    cutoutDimGroup.line(rx, outsideCutShapeDims.centerY, rx, cutDimTopY).attr(connectorAttrs);
                 } else if (outsideCutShapeDims && outsideCutShapeDims.shape === 'hexagon') {
                     const x0 = outsideCutShapeDims.startX;
                     const y0 = outsideCutShapeDims.startY;
@@ -3579,12 +3580,12 @@ const CustomizationModule = (() => {
                         `${idxr_tr_height}: `, `${outsideCutShapeDims.heightMM} mm`, 'vertical', 2
                     );
 
-                    arrowsGroup.line(x0, y0, x0, cutDimTopY).attr(connectorAttrs);
-                    arrowsGroup.line(x0 + 2 * s, y0, x0 + 2 * s, cutDimTopY).attr(connectorAttrs);
-                    arrowsGroup.line(x0 + s / 2, y0, x0 + s / 2, cutDimTop2Y).attr(connectorAttrs);
-                    arrowsGroup.line(x0 + 1.5 * s, y0, x0 + 1.5 * s, cutDimTop2Y).attr(connectorAttrs);
-                    arrowsGroup.line(x0, y0, cutDimLeftX, y0).attr(connectorAttrs);
-                    arrowsGroup.line(x0, y0 + h, cutDimLeftX, y0 + h).attr(connectorAttrs);
+                    cutoutDimGroup.line(x0, y0, x0, cutDimTopY).attr(connectorAttrs);
+                    cutoutDimGroup.line(x0 + 2 * s, y0, x0 + 2 * s, cutDimTopY).attr(connectorAttrs);
+                    cutoutDimGroup.line(x0 + s / 2, y0, x0 + s / 2, cutDimTop2Y).attr(connectorAttrs);
+                    cutoutDimGroup.line(x0 + 1.5 * s, y0, x0 + 1.5 * s, cutDimTop2Y).attr(connectorAttrs);
+                    cutoutDimGroup.line(x0, y0, cutDimLeftX, y0).attr(connectorAttrs);
+                    cutoutDimGroup.line(x0, y0 + h, cutDimLeftX, y0 + h).attr(connectorAttrs);
                 } else if (outsideCutShapeDims && outsideCutShapeDims.shape === 'trapezoidRight') {
                     drawDimensionWithText(
                         outsideCutShapeDims.x1, cutDimTopY,
@@ -3602,12 +3603,12 @@ const CustomizationModule = (() => {
                         `${idxr_tr_height}: `, `${outsideCutShapeDims.heightMM} mm`, 'vertical', 2
                     );
 
-                    arrowsGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y1, outsideCutShapeDims.x1, cutDimTopY).attr(connectorAttrs);
-                    arrowsGroup.line(outsideCutShapeDims.x2, outsideCutShapeDims.y2, outsideCutShapeDims.x2, cutDimTopY).attr(connectorAttrs);
-                    arrowsGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y3, outsideCutShapeDims.x1, cutDimTop2Y).attr(connectorAttrs);
-                    arrowsGroup.line(outsideCutShapeDims.x3, outsideCutShapeDims.y3, outsideCutShapeDims.x3, cutDimTop2Y).attr(connectorAttrs);
-                    arrowsGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y3, cutDimLeftX, outsideCutShapeDims.y3).attr(connectorAttrs);
-                    arrowsGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y1, cutDimLeftX, outsideCutShapeDims.y1).attr(connectorAttrs);
+                    cutoutDimGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y1, outsideCutShapeDims.x1, cutDimTopY).attr(connectorAttrs);
+                    cutoutDimGroup.line(outsideCutShapeDims.x2, outsideCutShapeDims.y2, outsideCutShapeDims.x2, cutDimTopY).attr(connectorAttrs);
+                    cutoutDimGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y3, outsideCutShapeDims.x1, cutDimTop2Y).attr(connectorAttrs);
+                    cutoutDimGroup.line(outsideCutShapeDims.x3, outsideCutShapeDims.y3, outsideCutShapeDims.x3, cutDimTop2Y).attr(connectorAttrs);
+                    cutoutDimGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y3, cutDimLeftX, outsideCutShapeDims.y3).attr(connectorAttrs);
+                    cutoutDimGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y1, cutDimLeftX, outsideCutShapeDims.y1).attr(connectorAttrs);
                 } else if (outsideCutShapeDims && outsideCutShapeDims.shape === 'trapezoidIso') {
                     drawDimensionWithText(
                         outsideCutShapeDims.x1, cutDimTopY,
@@ -3625,12 +3626,12 @@ const CustomizationModule = (() => {
                         `${idxr_tr_height}: `, `${outsideCutShapeDims.heightMM} mm`, 'vertical', 2
                     );
 
-                    arrowsGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y1, outsideCutShapeDims.x1, cutDimTopY).attr(connectorAttrs);
-                    arrowsGroup.line(outsideCutShapeDims.x2, outsideCutShapeDims.y2, outsideCutShapeDims.x2, cutDimTopY).attr(connectorAttrs);
-                    arrowsGroup.line(outsideCutShapeDims.x4, outsideCutShapeDims.y3, outsideCutShapeDims.x4, cutDimTop2Y).attr(connectorAttrs);
-                    arrowsGroup.line(outsideCutShapeDims.x3, outsideCutShapeDims.y3, outsideCutShapeDims.x3, cutDimTop2Y).attr(connectorAttrs);
-                    arrowsGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y3, cutDimLeftX, outsideCutShapeDims.y3).attr(connectorAttrs);
-                    arrowsGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y1, cutDimLeftX, outsideCutShapeDims.y1).attr(connectorAttrs);
+                    cutoutDimGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y1, outsideCutShapeDims.x1, cutDimTopY).attr(connectorAttrs);
+                    cutoutDimGroup.line(outsideCutShapeDims.x2, outsideCutShapeDims.y2, outsideCutShapeDims.x2, cutDimTopY).attr(connectorAttrs);
+                    cutoutDimGroup.line(outsideCutShapeDims.x4, outsideCutShapeDims.y3, outsideCutShapeDims.x4, cutDimTop2Y).attr(connectorAttrs);
+                    cutoutDimGroup.line(outsideCutShapeDims.x3, outsideCutShapeDims.y3, outsideCutShapeDims.x3, cutDimTop2Y).attr(connectorAttrs);
+                    cutoutDimGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y3, cutDimLeftX, outsideCutShapeDims.y3).attr(connectorAttrs);
+                    cutoutDimGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y1, cutDimLeftX, outsideCutShapeDims.y1).attr(connectorAttrs);
                 } else if (outsideCutShapeDims && outsideCutShapeDims.shape === 'star') {
                     const centerX = outsideCutShapeDims.centerX;
                     const centerY = outsideCutShapeDims.centerY;
@@ -3654,10 +3655,10 @@ const CustomizationModule = (() => {
                         2
                     );
 
-                    arrowsGroup.line(centerX, centerY, centerX, cutDimTopY).attr(connectorAttrs);
-                    arrowsGroup.line(outerX, centerY, outerX, cutDimTopY).attr(connectorAttrs);
-                    arrowsGroup.line(centerX, centerY, centerX, cutDimTop2Y).attr(connectorAttrs);
-                    arrowsGroup.line(innerX, centerY, innerX, cutDimTop2Y).attr(connectorAttrs);
+                    cutoutDimGroup.line(centerX, centerY, centerX, cutDimTopY).attr(connectorAttrs);
+                    cutoutDimGroup.line(outerX, centerY, outerX, cutDimTopY).attr(connectorAttrs);
+                    cutoutDimGroup.line(centerX, centerY, centerX, cutDimTop2Y).attr(connectorAttrs);
+                    cutoutDimGroup.line(innerX, centerY, innerX, cutDimTop2Y).attr(connectorAttrs);
                 } else if (outsideCutShapeDims && outsideCutShapeDims.shape === 'arrow') {
                     const xx = outsideCutShapeDims.xx;
                     const yy = outsideCutShapeDims.yy;
@@ -3673,14 +3674,14 @@ const CustomizationModule = (() => {
                     drawDimensionWithText(leftV1X, yy, leftV1X, yy + outsideCutShapeDims.thS, 'H.Q: ', `${outsideCutShapeDims.thMM} mm`, 'vertical', 2);
                     drawDimensionWithText(leftV2X, yy + outsideCutShapeDims.thS, leftV2X, yy + outsideCutShapeDims.thS + outsideCutShapeDims.hhS, 'H.T: ', `${outsideCutShapeDims.hhMM} mm`, 'vertical', 2);
 
-                    arrowsGroup.line(xx, yy, xx, baseTopY).attr(connectorAttrs);
-                    arrowsGroup.line(tailEndX, yy, tailEndX, baseTopY).attr(connectorAttrs);
-                    arrowsGroup.line(tailEndX, yy - outsideCutShapeDims.hhS, tailEndX, baseTop2Y).attr(connectorAttrs);
-                    arrowsGroup.line(headEndX, yy - outsideCutShapeDims.hhS, headEndX, baseTop2Y).attr(connectorAttrs);
-                    arrowsGroup.line(xx, yy, leftV1X, yy).attr(connectorAttrs);
-                    arrowsGroup.line(xx, yy + outsideCutShapeDims.thS, leftV1X, yy + outsideCutShapeDims.thS).attr(connectorAttrs);
-                    arrowsGroup.line(tailEndX, yy + outsideCutShapeDims.thS, leftV2X, yy + outsideCutShapeDims.thS).attr(connectorAttrs);
-                    arrowsGroup.line(tailEndX, yy + outsideCutShapeDims.thS + outsideCutShapeDims.hhS, leftV2X, yy + outsideCutShapeDims.thS + outsideCutShapeDims.hhS).attr(connectorAttrs);
+                    cutoutDimGroup.line(xx, yy, xx, baseTopY).attr(connectorAttrs);
+                    cutoutDimGroup.line(tailEndX, yy, tailEndX, baseTopY).attr(connectorAttrs);
+                    cutoutDimGroup.line(tailEndX, yy - outsideCutShapeDims.hhS, tailEndX, baseTop2Y).attr(connectorAttrs);
+                    cutoutDimGroup.line(headEndX, yy - outsideCutShapeDims.hhS, headEndX, baseTop2Y).attr(connectorAttrs);
+                    cutoutDimGroup.line(xx, yy, leftV1X, yy).attr(connectorAttrs);
+                    cutoutDimGroup.line(xx, yy + outsideCutShapeDims.thS, leftV1X, yy + outsideCutShapeDims.thS).attr(connectorAttrs);
+                    cutoutDimGroup.line(tailEndX, yy + outsideCutShapeDims.thS, leftV2X, yy + outsideCutShapeDims.thS).attr(connectorAttrs);
+                    cutoutDimGroup.line(tailEndX, yy + outsideCutShapeDims.thS + outsideCutShapeDims.hhS, leftV2X, yy + outsideCutShapeDims.thS + outsideCutShapeDims.hhS).attr(connectorAttrs);
                 } else if (genericOutsideCutTypes.includes(type)) {
                     const cutBBox = cutoutGroup.getBBox();
                     if (cutBBox) {
@@ -3701,12 +3702,13 @@ const CustomizationModule = (() => {
                             2
                         );
 
-                        arrowsGroup.line(cutBBox.x, cutBBox.y, cutBBox.x, cutDimTopY).attr(connectorAttrs);
-                        arrowsGroup.line(cutBBox.x2, cutBBox.y, cutBBox.x2, cutDimTopY).attr(connectorAttrs);
-                        arrowsGroup.line(cutBBox.x, cutBBox.y, cutDimLeftX, cutBBox.y).attr(connectorAttrs);
-                        arrowsGroup.line(cutBBox.x, cutBBox.y2, cutDimLeftX, cutBBox.y2).attr(connectorAttrs);
+                        cutoutDimGroup.line(cutBBox.x, cutBBox.y, cutBBox.x, cutDimTopY).attr(connectorAttrs);
+                        cutoutDimGroup.line(cutBBox.x2, cutBBox.y, cutBBox.x2, cutDimTopY).attr(connectorAttrs);
+                        cutoutDimGroup.line(cutBBox.x, cutBBox.y, cutDimLeftX, cutBBox.y).attr(connectorAttrs);
+                        cutoutDimGroup.line(cutBBox.x, cutBBox.y2, cutDimLeftX, cutBBox.y2).attr(connectorAttrs);
                     }
                 }
+                arrows = arrowsGroup;
             }
         }
 
