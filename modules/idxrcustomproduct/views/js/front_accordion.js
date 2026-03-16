@@ -4802,12 +4802,13 @@ const CustomizationModule = (() => {
         }
 
         function addText(text, boldText, x, y, textAttrFunc, orientation = 'horizontal', originX = 0, originY = 0, type, labelPosition = 'auto') {
+            const labelGroup = arrows;
             const padding = 2;
             const fill = type === 3 ? 'rgba(255, 165, 0, 0.73)' : 'rgba(97, 241, 150, 0.73)';
             const paddings = 9;
             const moveUpBy = 0;
         
-            const textBlock = arrows.text(x, y - paddings, [text, boldText]).attr(textAttrFunc());
+            const textBlock = labelGroup.text(x, y - paddings, [text, boldText]).attr(textAttrFunc());
             textBlock.select('tspan:nth-child(2)').attr({
                 'font-weight': 'bold'
             });
@@ -4842,7 +4843,7 @@ const CustomizationModule = (() => {
                 const rectWidth = centeredBBox.width + 2 * padding;
                 const rectHeight = ((centeredBBox.height + 3 * padding) * 2) / 3;
 
-                const rect = arrows.rect(
+                const rect = labelGroup.rect(
                     centeredBBox.cx - rectWidth / 2,
                     centeredBBox.cy - rectHeight / 2,
                     rectWidth,
