@@ -247,7 +247,6 @@ class PrestaLoad extends Module
             'prestaload_selected_asset_scan' => $this->decorateAssetScan($selectedAssetScan),
             'prestaload_selected_asset_rules' => $this->indexRulesByUrl($selectedAssetRules),
             'prestaload_asset_scan_ajax_url' => $this->getAjaxConfigurationLink('runAssetScan'),
-            'prestaload_asset_rule_ajax_url' => $this->getAjaxConfigurationLink('saveAssetRule'),
             'prestaload_asset_toggle_flag_ajax_url' => $this->getAjaxConfigurationLink('toggleAssetFlag'),
             'prestaload_asset_bulk_rule_ajax_url' => $this->getAjaxConfigurationLink('saveBulkAssetRules'),
             'prestaload_asset_minify_ajax_url' => $this->getAjaxConfigurationLink('minifyAsset'),
@@ -725,6 +724,12 @@ class PrestaLoad extends Module
         }
 
         $scan['metrics'] = $metrics;
+        if (isset($scan['assets']) && is_array($scan['assets'])) {
+            foreach ($scan['assets'] as &$asset) {
+                $asset['normalized_url'] = $this->normalizeAssetUrlForUi(isset($asset['url']) ? $asset['url'] : '');
+            }
+            unset($asset);
+        }
         $scan['score_cards'] = $this->buildScoreCards($scan);
         $scan['asset_groups'] = $this->groupAssetsForDisplay(isset($scan['assets']) && is_array($scan['assets']) ? $scan['assets'] : []);
 
@@ -851,10 +856,34 @@ class PrestaLoad extends Module
             $rule['defer'] = $flags['defer'];
             $rule['minify'] = $flags['minify'];
             $rule['load_after_window_load'] = $flags['load_after_window_load'];
-            $indexedRules[$rule['asset_url']] = $rule;
+            $normalizedUrl = $this->normalizeAssetUrlForUi($rule['asset_url']);
+            $indexedRules[$normalizedUrl] = $rule;
         }
 
         return $indexedRules;
+    }
+
+    private function normalizeAssetUrlForUi($url)
+    {
+        $url = trim((string) $url);
+        if ($url === '') {
+            return '';
+        }
+
+        if (strpos($url, '//') === 0) {
+            return 'https:' . $url;
+        }
+
+        if (preg_match('#^https?://#i', $url)) {
+            return $url;
+        }
+
+        $baseUrl = rtrim($this->getDetectedShopBaseUrl(), '/');
+        if (strpos($url, '/') === 0) {
+            return $baseUrl . $url;
+        }
+
+        return $baseUrl . '/' . ltrim($url, '/');
     }
 
     /**

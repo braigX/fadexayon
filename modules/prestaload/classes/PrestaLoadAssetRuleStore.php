@@ -31,6 +31,27 @@ class PrestaLoadAssetRuleStore
     }
 
     /**
+     * Returns one saved rule for a page/asset pair.
+     *
+     * Asset URLs may be saved in absolute or relative form depending on the
+     * scan source, so we normalize the compared values before matching.
+     */
+    public function getRule($pageKey, $assetUrl)
+    {
+        foreach ($this->getRulesForPage($pageKey) as $rule) {
+            if (!isset($rule['asset_url'])) {
+                continue;
+            }
+
+            if ($this->assetUrlsMatch($rule['asset_url'], $assetUrl)) {
+                return $rule;
+            }
+        }
+
+        return [];
+    }
+
+    /**
      * Upserts a rule by page key and exact asset URL.
      */
     public function saveRule(array $rule)
@@ -42,7 +63,7 @@ class PrestaLoadAssetRuleStore
             if (
                 isset($existingRule['page_key'], $existingRule['asset_url'])
                 && $existingRule['page_key'] === $rule['page_key']
-                && $existingRule['asset_url'] === $rule['asset_url']
+                && $this->assetUrlsMatch($existingRule['asset_url'], isset($rule['asset_url']) ? $rule['asset_url'] : '')
             ) {
                 $existingRule = array_merge($existingRule, $rule, ['updated_at' => date('c')]);
                 $saved = true;
@@ -68,5 +89,51 @@ class PrestaLoadAssetRuleStore
         }
 
         return file_put_contents($this->path, json_encode(array_values($rules), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), LOCK_EX) !== false;
+    }
+
+    private function normalizeAssetUrl($url)
+    {
+        $url = trim((string) $url);
+        if ($url === '') {
+            return '';
+        }
+
+        if (strpos($url, '//') === 0) {
+            return 'https:' . $url;
+        }
+
+        if (preg_match('#^https?://#i', $url)) {
+            return $url;
+        }
+
+        return '/' . ltrim($url, '/');
+    }
+
+    private function assetUrlsMatch($left, $right)
+    {
+        $left = $this->normalizeAssetUrl($left);
+        $right = $this->normalizeAssetUrl($right);
+
+        if ($left === $right) {
+            return true;
+        }
+
+        $leftComparable = $this->buildComparablePathKey($left);
+        $rightComparable = $this->buildComparablePathKey($right);
+
+        return $leftComparable !== '' && $leftComparable === $rightComparable;
+    }
+
+    private function buildComparablePathKey($url)
+    {
+        $parts = parse_url((string) $url);
+        if ($parts === false) {
+            return '';
+        }
+
+        $path = isset($parts['path']) ? (string) $parts['path'] : '';
+        $query = isset($parts['query']) ? '?' . (string) $parts['query'] : '';
+
+        return $path . $query;
     }
 }

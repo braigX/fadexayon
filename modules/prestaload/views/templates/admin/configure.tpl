@@ -255,7 +255,7 @@
                     </thead>
                     <tbody>
                       {foreach from=$asset_group.assets item=asset}
-                        {assign var=asset_rule value=$prestaload_selected_asset_rules[$asset.url]|default:null}
+                        {assign var=asset_rule value=$prestaload_selected_asset_rules[$asset.normalized_url|default:$asset.url]|default:null}
                         <tr>
                           <td style="text-align: center;">
                             <input
