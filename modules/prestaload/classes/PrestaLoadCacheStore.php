@@ -109,6 +109,9 @@ class PrestaLoadCacheStore
                     'path' => $fileInfo->getPathname(),
                     'size_bytes' => (int) $fileInfo->getSize(),
                     'controller' => isset($payload['controller']) ? (string) $payload['controller'] : '',
+                    'request_uri' => isset($payload['request_uri']) ? (string) $payload['request_uri'] : '',
+                    'cache_parts' => isset($payload['cache_parts']) && is_array($payload['cache_parts']) ? $payload['cache_parts'] : [],
+                    'early_alias' => !empty($payload['early_alias']),
                     'status_code' => isset($payload['status_code']) ? (int) $payload['status_code'] : 0,
                     'stored_at' => isset($payload['stored_at']) ? (int) $payload['stored_at'] : 0,
                     'expires_at' => isset($payload['expires_at']) ? (int) $payload['expires_at'] : 0,
@@ -120,12 +123,48 @@ class PrestaLoadCacheStore
             return ($right['stored_at'] ?? 0) <=> ($left['stored_at'] ?? 0);
         });
 
+        $groupedPages = $this->groupPagesByRequest($pages);
+
         return [
             'directory' => $this->baseDirectory,
             'count' => $count,
             'size_bytes' => $size,
             'pages' => $pages,
+            'grouped_pages' => $groupedPages,
         ];
+    }
+
+    private function groupPagesByRequest(array $pages)
+    {
+        $groups = [];
+
+        foreach ($pages as $page) {
+            $requestUri = isset($page['request_uri']) && $page['request_uri'] !== ''
+                ? (string) $page['request_uri']
+                : '/' . (string) ($page['controller'] ?: 'unknown');
+            $groupKey = $requestUri;
+
+            if (!isset($groups[$groupKey])) {
+                $groups[$groupKey] = [
+                    'request_uri' => $requestUri,
+                    'controller' => isset($page['controller']) ? (string) $page['controller'] : '',
+                    'total_size_bytes' => 0,
+                    'variants' => [],
+                ];
+            }
+
+            $groups[$groupKey]['total_size_bytes'] += (int) ($page['size_bytes'] ?? 0);
+            $groups[$groupKey]['variants'][] = $page;
+        }
+
+        foreach ($groups as &$group) {
+            usort($group['variants'], function ($left, $right) {
+                return ($right['stored_at'] ?? 0) <=> ($left['stored_at'] ?? 0);
+            });
+        }
+        unset($group);
+
+        return array_values($groups);
     }
 
     private function buildPath($key)

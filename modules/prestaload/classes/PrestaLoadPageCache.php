@@ -127,6 +127,9 @@ class PrestaLoadPageCache
             'headers' => $headers,
             'status_code' => $statusCode ?: 200,
             'controller' => $this->eligibility->getControllerName(),
+            'request_uri' => isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '/',
+            'cache_parts' => $cacheContext['parts'],
+            'early_alias' => false,
         ], $this->settings->getTtl());
 
         $this->maybeStoreEarlyAlias([
@@ -134,6 +137,9 @@ class PrestaLoadPageCache
             'headers' => $headers,
             'status_code' => $statusCode ?: 200,
             'controller' => $this->eligibility->getControllerName(),
+            'request_uri' => isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '/',
+            'cache_parts' => $cacheContext['parts'],
+            'early_alias' => false,
         ]);
 
         $this->logger->log([
@@ -250,6 +256,11 @@ class PrestaLoadPageCache
         }
 
         $earlyContext = PrestaLoadEarlyCacheKeyBuilder::buildContextFromServer();
+        $payload['early_alias'] = true;
+        $payload['request_uri'] = isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '/';
+        $payload['cache_parts'] = isset($payload['cache_parts']) && is_array($payload['cache_parts'])
+            ? $payload['cache_parts']
+            : $earlyContext['parts'];
         $this->store->put($earlyContext['key'], $payload, $this->settings->getTtl());
     }
 }
