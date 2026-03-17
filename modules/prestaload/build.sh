@@ -23,6 +23,7 @@ find "$FONT_USAGE_DIR" -mindepth 1 -delete
 find "$REPORTS_DIR" -mindepth 1 -delete
 
 printf '[]\n' > "$CACHE_DIR/asset-rules.json"
+printf '[]\n' > "$CACHE_DIR/font-rules.json"
 printf '[]\n' > "$CACHE_DIR/prod_rules.json"
 printf '' > "$CACHE_DIR/prestaload-requests.log"
 printf '<?php return [];%s' $'\n' > "$CACHE_DIR/runtime-config.php"
@@ -34,6 +35,7 @@ echo "- $CRITICAL_CSS_DIR"
 echo "- $FONT_USAGE_DIR"
 echo "- $REPORTS_DIR"
 echo "- $CACHE_DIR/asset-rules.json"
+echo "- $CACHE_DIR/font-rules.json"
 echo "- $CACHE_DIR/prod_rules.json"
 echo "- $CACHE_DIR/prestaload-requests.log"
 echo "- $CACHE_DIR/runtime-config.php"

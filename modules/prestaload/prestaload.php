@@ -31,6 +31,8 @@ require_once __DIR__ . '/classes/PrestaLoadCriticalCssInjector.php';
 require_once __DIR__ . '/classes/PrestaLoadFontOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadFontUsageScannerClient.php';
 require_once __DIR__ . '/classes/PrestaLoadFontUsageStore.php';
+require_once __DIR__ . '/classes/PrestaLoadFontRuleStore.php';
+require_once __DIR__ . '/classes/PrestaLoadFontRuleApplier.php';
 require_once __DIR__ . '/classes/PrestaLoadImgProxyUrlBuilder.php';
 require_once __DIR__ . '/classes/PrestaLoadImageDimensionOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadImageLoadingOptimizer.php';
@@ -85,6 +87,7 @@ class PrestaLoad extends Module
     private $criticalCssStore;
     private $fontUsageScannerClient;
     private $fontUsageStore;
+    private $fontRuleStore;
 
     public function __construct()
     {
@@ -117,6 +120,7 @@ class PrestaLoad extends Module
         $this->criticalCssStore = new PrestaLoadCriticalCssStore(__DIR__);
         $this->fontUsageScannerClient = new PrestaLoadFontUsageScannerClient($this->settings);
         $this->fontUsageStore = new PrestaLoadFontUsageStore(__DIR__);
+        $this->fontRuleStore = new PrestaLoadFontRuleStore(__DIR__);
         $this->pageCache = $this->buildPageCache();
     }
 
@@ -270,6 +274,7 @@ class PrestaLoad extends Module
             'prestaload_critical_css_generate_ajax_url' => $this->getAjaxConfigurationLink('generateCriticalCss'),
             'prestaload_font_usage_pages' => $this->decorateFontUsagePages($this->criticalCssPageRegistry->getPages()),
             'prestaload_font_usage_generate_ajax_url' => $this->getAjaxConfigurationLink('generateFontUsage'),
+            'prestaload_font_rule_toggle_ajax_url' => $this->getAjaxConfigurationLink('toggleFontRule'),
             'prestaload_detected_shop_base_url' => $detectedShopBaseUrl,
             'prestaload_effective_asset_scan_base_url' => $effectiveScanBaseUrl,
         ]);
@@ -320,6 +325,7 @@ class PrestaLoad extends Module
         $keyBuilder = new PrestaLoadCacheKeyBuilder($this->context, $this->local_path);
         $logger = new PrestaLoadCacheLogger($this->settings->getLogFile());
         $store = new PrestaLoadCacheStore($this->settings->getCacheDirectory());
+        $fontRuleApplier = new PrestaLoadFontRuleApplier($this->context, $this->fontRuleStore);
         $fontOptimizer = new PrestaLoadFontOptimizer($this->settings);
         $imgProxyUrlBuilder = new PrestaLoadImgProxyUrlBuilder($this->settings);
         $imageDimensionOptimizer = new PrestaLoadImageDimensionOptimizer($this->context, $this->settings);
@@ -328,7 +334,7 @@ class PrestaLoad extends Module
         $assetRuleApplier = new PrestaLoadAssetRuleApplier($this->context, $this->assetRuleStore, $this->assetMinifier);
         $criticalCssInjector = new PrestaLoadCriticalCssInjector($this->context, $this->criticalCssStore, $this->settings, __DIR__);
         $htmlCompressor = new PrestaLoadHtmlCompressor($this->settings);
-        $htmlOptimizer = new PrestaLoadHtmlOptimizer($criticalCssInjector, $fontOptimizer, $imageOptimizer, $assetRuleApplier, $htmlCompressor);
+        $htmlOptimizer = new PrestaLoadHtmlOptimizer($criticalCssInjector, $fontRuleApplier, $fontOptimizer, $imageOptimizer, $assetRuleApplier, $htmlCompressor);
 
         return new PrestaLoadPageCache($this->context, $this->settings, $eligibility, $keyBuilder, $store, $logger, $htmlOptimizer);
     }
@@ -957,6 +963,16 @@ class PrestaLoad extends Module
                 ]);
             }
 
+            if ($action === 'toggleFontRule') {
+                $result = $this->toggleFontRuleFromRequest();
+
+                $this->jsonResponse([
+                    'success' => true,
+                    'message' => 'Font rule updated.',
+                    'rule' => $result,
+                ]);
+            }
+
             if ($action === 'saveAssetRule') {
                 $savedRule = $this->saveAssetRuleFromRequest();
 
@@ -1084,6 +1100,42 @@ class PrestaLoad extends Module
         $result = $this->fontUsageScannerClient->generate($page['key'], $page['url']);
 
         return $this->fontUsageStore->saveVariants($page, $result['variants']);
+    }
+
+    private function toggleFontRuleFromRequest()
+    {
+        $pageKey = trim((string) Tools::getValue('prestaload_font_page', 'home'));
+        $page = $this->criticalCssPageRegistry->getPageByKey($pageKey);
+        if (empty($page)) {
+            throw new Exception('Selected page type was not found.');
+        }
+
+        $targetUrl = trim((string) Tools::getValue('prestaload_font_target_url', ''));
+        if ($targetUrl === '') {
+            throw new Exception('Font source URL is required.');
+        }
+
+        $label = trim((string) Tools::getValue('prestaload_font_label', ''));
+        $sourceType = trim((string) Tools::getValue('prestaload_font_source_type', 'stylesheet'));
+        $block = (bool) (int) Tools::getValue('prestaload_font_block', 0);
+
+        $rule = [
+            'page_key' => $page['key'],
+            'page_url' => $page['url'],
+            'target_url' => $targetUrl,
+            'label' => $label,
+            'source_type' => $sourceType,
+            'block' => $block ? 1 : 0,
+            'action' => $block ? 'block' : 'keep',
+        ];
+
+        if (!$this->fontRuleStore->saveRule($rule)) {
+            throw new Exception('Could not save the font rule.');
+        }
+
+        $this->pageCache->clear();
+
+        return $rule;
     }
 
     private function toggleAssetFlagFromRequest()
@@ -1495,6 +1547,11 @@ class PrestaLoad extends Module
     private function decorateFontUsagePages(array $pages)
     {
         $entries = $this->fontUsageStore->getEntries();
+        $rulesByPage = [];
+
+        foreach ($pages as $page) {
+            $rulesByPage[$page['key']] = $this->indexFontRulesByUrl($this->fontRuleStore->getRulesForPage($page['key']));
+        }
 
         foreach ($pages as &$page) {
             $entry = isset($entries[$page['key']]) ? $entries[$page['key']] : [];
@@ -1503,6 +1560,7 @@ class PrestaLoad extends Module
                 'mobile' => $this->decorateFontUsageDevice(isset($entry['devices']['mobile']) && is_array($entry['devices']['mobile']) ? $entry['devices']['mobile'] : []),
                 'desktop' => $this->decorateFontUsageDevice(isset($entry['devices']['desktop']) && is_array($entry['devices']['desktop']) ? $entry['devices']['desktop'] : []),
             ];
+            $page['font_usage']['sources'] = $this->buildFontUsageSources($page['font_usage'], isset($rulesByPage[$page['key']]) ? $rulesByPage[$page['key']] : []);
         }
         unset($page);
 
@@ -1534,6 +1592,87 @@ class PrestaLoad extends Module
             'unused_declared_families_text' => $this->joinSummaryList(isset($deviceEntry['unused_declared_families']) && is_array($deviceEntry['unused_declared_families']) ? $deviceEntry['unused_declared_families'] : []),
             'duplicate_icon_text' => $this->joinDuplicateIconSummary($duplicateIconEntries),
         ];
+    }
+
+    private function buildFontUsageSources(array $fontUsage, array $rulesByUrl)
+    {
+        $sources = [];
+
+        foreach (['mobile', 'desktop'] as $device) {
+            $deviceUsage = isset($fontUsage[$device]) && is_array($fontUsage[$device]) ? $fontUsage[$device] : [];
+
+            foreach (isset($deviceUsage['google_fonts_stylesheets']) && is_array($deviceUsage['google_fonts_stylesheets']) ? $deviceUsage['google_fonts_stylesheets'] : [] as $href) {
+                $normalized = $this->normalizeAssetUrlForUi($href);
+                if (!isset($sources[$normalized])) {
+                    $sources[$normalized] = [
+                        'label' => 'Google Fonts stylesheet',
+                        'target_url' => $href,
+                        'source_type' => 'google_stylesheet',
+                        'devices' => [],
+                        'blocked' => !empty($rulesByUrl[$normalized]['block']),
+                    ];
+                }
+                $sources[$normalized]['devices'][$device] = true;
+            }
+
+            foreach (isset($deviceUsage['duplicate_icon_font_stylesheets']) && is_array($deviceUsage['duplicate_icon_font_stylesheets']) ? $deviceUsage['duplicate_icon_font_stylesheets'] : [] as $item) {
+                if (!is_array($item)) {
+                    continue;
+                }
+
+                $href = isset($item['href']) ? trim((string) $item['href']) : '';
+                if ($href === '') {
+                    continue;
+                }
+
+                $family = isset($item['family']) ? trim((string) $item['family']) : 'Icon font stylesheet';
+                $count = isset($item['count']) ? (int) $item['count'] : 0;
+                $label = $family !== '' ? $family : 'Icon font stylesheet';
+                if ($count > 0) {
+                    $label .= ' x' . $count;
+                }
+
+                $normalized = $this->normalizeAssetUrlForUi($href);
+                if (!isset($sources[$normalized])) {
+                    $sources[$normalized] = [
+                        'label' => $label,
+                        'target_url' => $href,
+                        'source_type' => 'duplicate_icon_stylesheet',
+                        'devices' => [],
+                        'blocked' => !empty($rulesByUrl[$normalized]['block']),
+                    ];
+                }
+                $sources[$normalized]['devices'][$device] = true;
+            }
+        }
+
+        foreach ($sources as &$source) {
+            $deviceLabels = [];
+            foreach (['mobile', 'desktop'] as $device) {
+                if (!empty($source['devices'][$device])) {
+                    $deviceLabels[] = $device;
+                }
+            }
+            $source['devices_text'] = implode(', ', $deviceLabels);
+        }
+        unset($source);
+
+        return array_values($sources);
+    }
+
+    private function indexFontRulesByUrl(array $rules)
+    {
+        $indexed = [];
+
+        foreach ($rules as $rule) {
+            if (!isset($rule['target_url'])) {
+                continue;
+            }
+
+            $indexed[$this->normalizeAssetUrlForUi($rule['target_url'])] = $rule;
+        }
+
+        return $indexed;
     }
 
     private function joinSummaryList(array $items)

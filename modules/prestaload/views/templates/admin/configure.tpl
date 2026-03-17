@@ -457,6 +457,47 @@
                       </button>
                     </td>
                   </tr>
+                  {if $font_page.font_usage.sources|@count > 0}
+                    <tr>
+                      <td colspan="6" style="background: #fcfcfd;">
+                        <div style="font-weight: 600; margin-bottom: 8px;">Actionable font sources</div>
+                        <div style="overflow-x: auto;">
+                          <table class="table" style="margin-bottom: 0;">
+                            <thead>
+                              <tr>
+                                <th>Source</th>
+                                <th>URL</th>
+                                <th>Device</th>
+                                <th style="width: 180px;">Rule</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {foreach from=$font_page.font_usage.sources item=font_source}
+                                <tr>
+                                  <td>{$font_source.label|escape:'htmlall':'UTF-8'}</td>
+                                  <td style="word-break: break-all;">{$font_source.target_url|escape:'htmlall':'UTF-8'}</td>
+                                  <td>{$font_source.devices_text|escape:'htmlall':'UTF-8'}</td>
+                                  <td>
+                                    <button
+                                      type="button"
+                                      class="btn {if $font_source.blocked}btn-danger{else}btn-success{/if} prestaload-font-rule-toggle"
+                                      data-page-key="{$font_page.key|escape:'htmlall':'UTF-8'}"
+                                      data-target-url="{$font_source.target_url|escape:'htmlall':'UTF-8'}"
+                                      data-label="{$font_source.label|escape:'htmlall':'UTF-8'}"
+                                      data-source-type="{$font_source.source_type|escape:'htmlall':'UTF-8'}"
+                                      data-blocked="{if $font_source.blocked}1{else}0{/if}"
+                                    >
+                                      <span>{if $font_source.blocked}Blocked{else}Keep{/if}</span>
+                                    </button>
+                                  </td>
+                                </tr>
+                              {/foreach}
+                            </tbody>
+                          </table>
+                        </div>
+                      </td>
+                    </tr>
+                  {/if}
                 {/foreach}
               </tbody>
             </table>
@@ -467,6 +508,7 @@
           (function () {
             var buttons = document.querySelectorAll('.prestaload-font-usage-generate');
             var ajaxUrl = {$prestaload_font_usage_generate_ajax_url|json_encode nofilter};
+            var ruleAjaxUrl = {$prestaload_font_rule_toggle_ajax_url|json_encode nofilter};
             var toast = document.getElementById('prestaload-font-usage-toast');
 
             if (!buttons.length || !ajaxUrl || !toast) {
@@ -529,6 +571,52 @@
                     if (labelNode) {
                       labelNode.textContent = defaultLabel;
                     }
+                  });
+              });
+            });
+
+            document.querySelectorAll('.prestaload-font-rule-toggle').forEach(function (button) {
+              button.addEventListener('click', function () {
+                if (button.classList.contains('is-loading')) {
+                  return;
+                }
+
+                var blocked = button.getAttribute('data-blocked') === '1';
+                var params = new URLSearchParams();
+                params.append('ajax', '1');
+                params.append('action', 'toggleFontRule');
+                params.append('prestaload_font_page', button.getAttribute('data-page-key') || '');
+                params.append('prestaload_font_target_url', button.getAttribute('data-target-url') || '');
+                params.append('prestaload_font_label', button.getAttribute('data-label') || '');
+                params.append('prestaload_font_source_type', button.getAttribute('data-source-type') || 'stylesheet');
+                params.append('prestaload_font_block', blocked ? '0' : '1');
+
+                button.classList.add('is-loading');
+                button.disabled = true;
+
+                fetch(ruleAjaxUrl, {
+                  method: 'POST',
+                  credentials: 'same-origin',
+                  headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                  },
+                  body: params.toString()
+                })
+                  .then(function (response) { return response.json(); })
+                  .then(function (payload) {
+                    if (!payload || !payload.success) {
+                      throw new Error(payload && payload.message ? payload.message : 'Font rule update failed.');
+                    }
+
+                    showToast(payload.message || 'Font rule updated.', 'success');
+                    window.location.reload();
+                  })
+                  .catch(function (error) {
+                    showToast(error.message || 'Font rule update failed.', 'error');
+                  })
+                  .finally(function () {
+                    button.classList.remove('is-loading');
+                    button.disabled = false;
                   });
               });
             });

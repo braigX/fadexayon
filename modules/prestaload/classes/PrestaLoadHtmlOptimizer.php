@@ -14,6 +14,14 @@ class PrestaLoadHtmlOptimizer
     private $criticalCssInjector;
 
     /**
+     * Explicit font block rules apply before generic font normalization so
+     * blocked sources never enter the consolidation path.
+     *
+     * @var PrestaLoadFontRuleApplier
+     */
+    private $fontRuleApplier;
+
+    /**
      * Font delivery is optimized first so later CSS logic works on the final
      * font stylesheet structure.
      *
@@ -47,12 +55,14 @@ class PrestaLoadHtmlOptimizer
 
     public function __construct(
         PrestaLoadCriticalCssInjector $criticalCssInjector,
+        PrestaLoadFontRuleApplier $fontRuleApplier,
         PrestaLoadFontOptimizer $fontOptimizer,
         PrestaLoadImageOptimizer $imageOptimizer,
         PrestaLoadAssetRuleApplier $assetRuleApplier,
         PrestaLoadHtmlCompressor $htmlCompressor
     ) {
         $this->criticalCssInjector = $criticalCssInjector;
+        $this->fontRuleApplier = $fontRuleApplier;
         $this->fontOptimizer = $fontOptimizer;
         $this->imageOptimizer = $imageOptimizer;
         $this->assetRuleApplier = $assetRuleApplier;
@@ -65,6 +75,7 @@ class PrestaLoadHtmlOptimizer
     public function optimize($html)
     {
         $html = $this->criticalCssInjector->optimize($html);
+        $html = $this->fontRuleApplier->optimize($html);
         $html = $this->fontOptimizer->optimize($html);
         $html = $this->imageOptimizer->optimize($html);
         $html = $this->assetRuleApplier->optimize($html);
