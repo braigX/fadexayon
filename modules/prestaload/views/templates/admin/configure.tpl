@@ -194,6 +194,18 @@
                         <span class="label label-success">Generated</span>
                         <div style="margin-top: 6px; color: #6c868e;">{$critical_page.critical_css.mobile.size_bytes|intval} bytes</div>
                         <div style="color: #6c868e;">{$critical_page.critical_css.mobile.generated_at|escape:'htmlall':'UTF-8'}</div>
+                        {if $critical_page.critical_css.mobile.generator_version ne ''}
+                          <div style="color: #6c868e;">Generator v{$critical_page.critical_css.mobile.generator_version|escape:'htmlall':'UTF-8'}</div>
+                        {/if}
+                        {if $critical_page.critical_css.mobile.max_css_bytes}
+                          <div style="color: #6c868e;">Budget {$critical_page.critical_css.mobile.max_css_bytes|intval} bytes{if $critical_page.critical_css.mobile.budget_reached} (reached){/if}</div>
+                        {/if}
+                        {if $critical_page.critical_css.mobile.viewport_element_count !== null || $critical_page.critical_css.mobile.included_element_count !== null}
+                          <div style="color: #6c868e;">Viewport {$critical_page.critical_css.mobile.viewport_element_count|intval} / included {$critical_page.critical_css.mobile.included_element_count|intval}</div>
+                        {/if}
+                        {if $critical_page.critical_css.mobile.stats_summary ne ''}
+                          <div style="color: #6c868e;">{$critical_page.critical_css.mobile.stats_summary|escape:'htmlall':'UTF-8'}</div>
+                        {/if}
                       {else}
                         <span class="label label-default">Not generated</span>
                       {/if}
@@ -203,6 +215,18 @@
                         <span class="label label-success">Generated</span>
                         <div style="margin-top: 6px; color: #6c868e;">{$critical_page.critical_css.desktop.size_bytes|intval} bytes</div>
                         <div style="color: #6c868e;">{$critical_page.critical_css.desktop.generated_at|escape:'htmlall':'UTF-8'}</div>
+                        {if $critical_page.critical_css.desktop.generator_version ne ''}
+                          <div style="color: #6c868e;">Generator v{$critical_page.critical_css.desktop.generator_version|escape:'htmlall':'UTF-8'}</div>
+                        {/if}
+                        {if $critical_page.critical_css.desktop.max_css_bytes}
+                          <div style="color: #6c868e;">Budget {$critical_page.critical_css.desktop.max_css_bytes|intval} bytes{if $critical_page.critical_css.desktop.budget_reached} (reached){/if}</div>
+                        {/if}
+                        {if $critical_page.critical_css.desktop.viewport_element_count !== null || $critical_page.critical_css.desktop.included_element_count !== null}
+                          <div style="color: #6c868e;">Viewport {$critical_page.critical_css.desktop.viewport_element_count|intval} / included {$critical_page.critical_css.desktop.included_element_count|intval}</div>
+                        {/if}
+                        {if $critical_page.critical_css.desktop.stats_summary ne ''}
+                          <div style="color: #6c868e;">{$critical_page.critical_css.desktop.stats_summary|escape:'htmlall':'UTF-8'}</div>
+                        {/if}
                       {else}
                         <span class="label label-default">Not generated</span>
                       {/if}
@@ -344,6 +368,168 @@
                     label.textContent = defaultLabel;
                   }
                 });
+              });
+            });
+          }());
+        </script>
+      {/if}
+
+      {if $prestaload_active_tab === 'fonts'}
+        <div class="panel" style="margin-top: 16px;">
+          <h3>Font usage audit</h3>
+          <p>
+            Generate a per-page-type font audit from the remote scanner and save it locally. This helps identify used families, unused declarations, duplicate icon fonts, and Google Fonts load count by device.
+          </p>
+
+          <div id="prestaload-font-usage-toast" class="prestaload-toast" style="display: none;"></div>
+
+          <div style="overflow-x: auto;">
+            <table class="table" style="border: 1px solid #d3d8db;">
+              <thead>
+                <tr>
+                  <th>Page type</th>
+                  <th>Representative URL</th>
+                  <th>Sample</th>
+                  <th>Mobile</th>
+                  <th>Desktop</th>
+                  <th style="width: 180px;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {foreach from=$prestaload_font_usage_pages item=font_page}
+                  <tr>
+                    <td><strong>{$font_page.label|escape:'htmlall':'UTF-8'}</strong></td>
+                    <td style="word-break: break-all;">{$font_page.url|escape:'htmlall':'UTF-8'}</td>
+                    <td>{$font_page.sample_label|default:'-'|escape:'htmlall':'UTF-8'}</td>
+                    <td>
+                      {if $font_page.font_usage.mobile.generated}
+                        <span class="label label-success">Generated</span>
+                        <div style="margin-top: 6px; color: #6c868e;">Declared {$font_page.font_usage.mobile.declared_count|intval} | used {$font_page.font_usage.mobile.used_count|intval}</div>
+                        <div style="color: #6c868e;">Unused {$font_page.font_usage.mobile.unused_count|intval} | duplicates {$font_page.font_usage.mobile.duplicate_icon_count|intval}</div>
+                        <div style="color: #6c868e;">Google Fonts {$font_page.font_usage.mobile.google_fonts_count|intval}</div>
+                        {if $font_page.font_usage.mobile.used_above_the_fold_text ne ''}
+                          <div style="color: #6c868e;">Above fold: {$font_page.font_usage.mobile.used_above_the_fold_text|escape:'htmlall':'UTF-8'}</div>
+                        {elseif $font_page.font_usage.mobile.used_font_families_text ne ''}
+                          <div style="color: #6c868e;">Used: {$font_page.font_usage.mobile.used_font_families_text|escape:'htmlall':'UTF-8'}</div>
+                        {/if}
+                        {if $font_page.font_usage.mobile.unused_declared_families_text ne ''}
+                          <div style="color: #6c868e;">Unused: {$font_page.font_usage.mobile.unused_declared_families_text|escape:'htmlall':'UTF-8'}</div>
+                        {/if}
+                        {if $font_page.font_usage.mobile.duplicate_icon_text ne ''}
+                          <div style="color: #6c868e;">Duplicate icons: {$font_page.font_usage.mobile.duplicate_icon_text|escape:'htmlall':'UTF-8'}</div>
+                        {/if}
+                        <div style="color: #6c868e;">{$font_page.font_usage.mobile.generated_at|escape:'htmlall':'UTF-8'}{if $font_page.font_usage.mobile.generator_version ne ''} | v{$font_page.font_usage.mobile.generator_version|escape:'htmlall':'UTF-8'}{/if}</div>
+                      {else}
+                        <span class="label label-default">Not generated</span>
+                      {/if}
+                    </td>
+                    <td>
+                      {if $font_page.font_usage.desktop.generated}
+                        <span class="label label-success">Generated</span>
+                        <div style="margin-top: 6px; color: #6c868e;">Declared {$font_page.font_usage.desktop.declared_count|intval} | used {$font_page.font_usage.desktop.used_count|intval}</div>
+                        <div style="color: #6c868e;">Unused {$font_page.font_usage.desktop.unused_count|intval} | duplicates {$font_page.font_usage.desktop.duplicate_icon_count|intval}</div>
+                        <div style="color: #6c868e;">Google Fonts {$font_page.font_usage.desktop.google_fonts_count|intval}</div>
+                        {if $font_page.font_usage.desktop.used_above_the_fold_text ne ''}
+                          <div style="color: #6c868e;">Above fold: {$font_page.font_usage.desktop.used_above_the_fold_text|escape:'htmlall':'UTF-8'}</div>
+                        {elseif $font_page.font_usage.desktop.used_font_families_text ne ''}
+                          <div style="color: #6c868e;">Used: {$font_page.font_usage.desktop.used_font_families_text|escape:'htmlall':'UTF-8'}</div>
+                        {/if}
+                        {if $font_page.font_usage.desktop.unused_declared_families_text ne ''}
+                          <div style="color: #6c868e;">Unused: {$font_page.font_usage.desktop.unused_declared_families_text|escape:'htmlall':'UTF-8'}</div>
+                        {/if}
+                        {if $font_page.font_usage.desktop.duplicate_icon_text ne ''}
+                          <div style="color: #6c868e;">Duplicate icons: {$font_page.font_usage.desktop.duplicate_icon_text|escape:'htmlall':'UTF-8'}</div>
+                        {/if}
+                        <div style="color: #6c868e;">{$font_page.font_usage.desktop.generated_at|escape:'htmlall':'UTF-8'}{if $font_page.font_usage.desktop.generator_version ne ''} | v{$font_page.font_usage.desktop.generator_version|escape:'htmlall':'UTF-8'}{/if}</div>
+                      {else}
+                        <span class="label label-default">Not generated</span>
+                      {/if}
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-primary prestaload-font-usage-generate"
+                        data-page-key="{$font_page.key|escape:'htmlall':'UTF-8'}"
+                        data-default-label="Generate font usage"
+                        data-loading-label="Generating..."
+                      >
+                        <span>Generate font usage</span>
+                      </button>
+                    </td>
+                  </tr>
+                {/foreach}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <script>
+          (function () {
+            var buttons = document.querySelectorAll('.prestaload-font-usage-generate');
+            var ajaxUrl = {$prestaload_font_usage_generate_ajax_url|json_encode nofilter};
+            var toast = document.getElementById('prestaload-font-usage-toast');
+
+            if (!buttons.length || !ajaxUrl || !toast) {
+              return;
+            }
+
+            function showToast(message, type) {
+              toast.className = 'prestaload-toast ' + (type === 'error' ? 'prestaload-toast--error' : 'prestaload-toast--success');
+              toast.textContent = message;
+              toast.style.display = 'block';
+              window.setTimeout(function () {
+                toast.style.display = 'none';
+              }, 4000);
+            }
+
+            buttons.forEach(function (button) {
+              button.addEventListener('click', function () {
+                if (button.classList.contains('is-loading')) {
+                  return;
+                }
+
+                var params = new URLSearchParams();
+                params.append('ajax', '1');
+                params.append('action', 'generateFontUsage');
+                params.append('prestaload_font_usage_page', button.getAttribute('data-page-key') || '');
+
+                var defaultLabel = button.getAttribute('data-default-label') || 'Generate font usage';
+                var loadingLabel = button.getAttribute('data-loading-label') || 'Generating...';
+                var labelNode = button.querySelector('span');
+
+                button.classList.add('is-loading');
+                button.disabled = true;
+                if (labelNode) {
+                  labelNode.textContent = loadingLabel;
+                }
+
+                fetch(ajaxUrl, {
+                  method: 'POST',
+                  credentials: 'same-origin',
+                  headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                  },
+                  body: params.toString()
+                })
+                  .then(function (response) { return response.json(); })
+                  .then(function (payload) {
+                    if (!payload || !payload.success) {
+                      throw new Error(payload && payload.message ? payload.message : 'Font usage generation failed.');
+                    }
+
+                    showToast(payload.message || 'Font usage generated successfully.', 'success');
+                    window.location.reload();
+                  })
+                  .catch(function (error) {
+                    showToast(error.message || 'Font usage generation failed.', 'error');
+                  })
+                  .finally(function () {
+                    button.classList.remove('is-loading');
+                    button.disabled = false;
+                    if (labelNode) {
+                      labelNode.textContent = defaultLabel;
+                    }
+                  });
               });
             });
           }());

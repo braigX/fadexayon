@@ -29,6 +29,8 @@ require_once __DIR__ . '/classes/PrestaLoadCriticalCssScannerClient.php';
 require_once __DIR__ . '/classes/PrestaLoadCriticalCssStore.php';
 require_once __DIR__ . '/classes/PrestaLoadCriticalCssInjector.php';
 require_once __DIR__ . '/classes/PrestaLoadFontOptimizer.php';
+require_once __DIR__ . '/classes/PrestaLoadFontUsageScannerClient.php';
+require_once __DIR__ . '/classes/PrestaLoadFontUsageStore.php';
 require_once __DIR__ . '/classes/PrestaLoadImgProxyUrlBuilder.php';
 require_once __DIR__ . '/classes/PrestaLoadImageDimensionOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadImageLoadingOptimizer.php';
@@ -81,6 +83,8 @@ class PrestaLoad extends Module
     private $criticalCssPageRegistry;
     private $criticalCssScannerClient;
     private $criticalCssStore;
+    private $fontUsageScannerClient;
+    private $fontUsageStore;
 
     public function __construct()
     {
@@ -111,6 +115,8 @@ class PrestaLoad extends Module
         $this->criticalCssPageRegistry = new PrestaLoadCriticalCssPageRegistry($this->context, $this->settings);
         $this->criticalCssScannerClient = new PrestaLoadCriticalCssScannerClient($this->settings);
         $this->criticalCssStore = new PrestaLoadCriticalCssStore(__DIR__);
+        $this->fontUsageScannerClient = new PrestaLoadFontUsageScannerClient($this->settings);
+        $this->fontUsageStore = new PrestaLoadFontUsageStore(__DIR__);
         $this->pageCache = $this->buildPageCache();
     }
 
@@ -262,6 +268,8 @@ class PrestaLoad extends Module
             'prestaload_asset_bulk_clear_minified_ajax_url' => $this->getAjaxConfigurationLink('bulkClearMinifiedAssets'),
             'prestaload_critical_css_pages' => $this->decorateCriticalCssPages($this->criticalCssPageRegistry->getPages()),
             'prestaload_critical_css_generate_ajax_url' => $this->getAjaxConfigurationLink('generateCriticalCss'),
+            'prestaload_font_usage_pages' => $this->decorateFontUsagePages($this->criticalCssPageRegistry->getPages()),
+            'prestaload_font_usage_generate_ajax_url' => $this->getAjaxConfigurationLink('generateFontUsage'),
             'prestaload_detected_shop_base_url' => $detectedShopBaseUrl,
             'prestaload_effective_asset_scan_base_url' => $effectiveScanBaseUrl,
         ]);
@@ -939,6 +947,16 @@ class PrestaLoad extends Module
                 ]);
             }
 
+            if ($action === 'generateFontUsage') {
+                $result = $this->generateFontUsageFromRequest();
+
+                $this->jsonResponse([
+                    'success' => true,
+                    'message' => 'Font usage generated successfully.',
+                    'entry' => $result,
+                ]);
+            }
+
             if ($action === 'saveAssetRule') {
                 $savedRule = $this->saveAssetRuleFromRequest();
 
@@ -1053,6 +1071,19 @@ class PrestaLoad extends Module
         $this->pageCache->clear();
 
         return $entry;
+    }
+
+    private function generateFontUsageFromRequest()
+    {
+        $pageKey = trim((string) Tools::getValue('prestaload_font_usage_page', 'home'));
+        $page = $this->criticalCssPageRegistry->getPageByKey($pageKey);
+        if (empty($page)) {
+            throw new Exception('Selected page type was not found.');
+        }
+
+        $result = $this->fontUsageScannerClient->generate($page['key'], $page['url']);
+
+        return $this->fontUsageStore->saveVariants($page, $result['variants']);
     }
 
     private function toggleAssetFlagFromRequest()
@@ -1408,21 +1439,140 @@ class PrestaLoad extends Module
             $entry = isset($entries[$page['key']]) ? $entries[$page['key']] : [];
             $page['critical_css'] = [
                 'generated' => !empty($entry['devices']),
-                'mobile' => [
-                    'generated' => !empty($entry['devices']['mobile']),
-                    'size_bytes' => isset($entry['devices']['mobile']['size_bytes']) ? (int) $entry['devices']['mobile']['size_bytes'] : 0,
-                    'generated_at' => isset($entry['devices']['mobile']['generated_at']) ? (string) $entry['devices']['mobile']['generated_at'] : '',
-                ],
-                'desktop' => [
-                    'generated' => !empty($entry['devices']['desktop']),
-                    'size_bytes' => isset($entry['devices']['desktop']['size_bytes']) ? (int) $entry['devices']['desktop']['size_bytes'] : 0,
-                    'generated_at' => isset($entry['devices']['desktop']['generated_at']) ? (string) $entry['devices']['desktop']['generated_at'] : '',
-                ],
+                'mobile' => $this->decorateCriticalCssDevice(isset($entry['devices']['mobile']) && is_array($entry['devices']['mobile']) ? $entry['devices']['mobile'] : []),
+                'desktop' => $this->decorateCriticalCssDevice(isset($entry['devices']['desktop']) && is_array($entry['devices']['desktop']) ? $entry['devices']['desktop'] : []),
             ];
         }
         unset($page);
 
         return $pages;
+    }
+
+    private function decorateCriticalCssDevice(array $deviceEntry)
+    {
+        $meta = isset($deviceEntry['meta']) && is_array($deviceEntry['meta']) ? $deviceEntry['meta'] : [];
+        $stats = isset($meta['stats']) && is_array($meta['stats']) ? $meta['stats'] : [];
+
+        return [
+            'generated' => !empty($deviceEntry),
+            'size_bytes' => isset($deviceEntry['size_bytes']) ? (int) $deviceEntry['size_bytes'] : 0,
+            'generated_at' => isset($deviceEntry['generated_at']) ? (string) $deviceEntry['generated_at'] : '',
+            'generator_version' => isset($meta['generator_version'])
+                ? (string) $meta['generator_version']
+                : (isset($deviceEntry['generator_version']) ? (string) $deviceEntry['generator_version'] : ''),
+            'viewport_element_count' => isset($meta['viewport_element_count']) ? (int) $meta['viewport_element_count'] : null,
+            'included_element_count' => isset($meta['included_element_count']) ? (int) $meta['included_element_count'] : null,
+            'style_sheet_count' => isset($meta['style_sheet_count']) ? (int) $meta['style_sheet_count'] : null,
+            'max_css_bytes' => isset($meta['max_css_bytes']) ? (int) $meta['max_css_bytes'] : null,
+            'budget_reached' => !empty($meta['budget_reached']),
+            'stats_summary' => $this->buildCriticalCssStatsSummary($stats),
+        ];
+    }
+
+    private function buildCriticalCssStatsSummary(array $stats)
+    {
+        $summary = [];
+
+        foreach ([
+            'kept_rules' => 'rules',
+            'kept_media_rules' => 'media',
+            'excluded_noisy_stylesheets' => 'noisy sheets',
+            'excluded_rule_type' => 'rule type',
+            'excluded_selector_miss' => 'selector miss',
+            'excluded_media_miss' => 'media miss',
+            'excluded_budget' => 'budget',
+        ] as $key => $label) {
+            if (!isset($stats[$key])) {
+                continue;
+            }
+
+            $summary[] = $label . ': ' . (int) $stats[$key];
+        }
+
+        return implode(' | ', $summary);
+    }
+
+    private function decorateFontUsagePages(array $pages)
+    {
+        $entries = $this->fontUsageStore->getEntries();
+
+        foreach ($pages as &$page) {
+            $entry = isset($entries[$page['key']]) ? $entries[$page['key']] : [];
+            $page['font_usage'] = [
+                'generated' => !empty($entry['devices']),
+                'mobile' => $this->decorateFontUsageDevice(isset($entry['devices']['mobile']) && is_array($entry['devices']['mobile']) ? $entry['devices']['mobile'] : []),
+                'desktop' => $this->decorateFontUsageDevice(isset($entry['devices']['desktop']) && is_array($entry['devices']['desktop']) ? $entry['devices']['desktop'] : []),
+            ];
+        }
+        unset($page);
+
+        return $pages;
+    }
+
+    private function decorateFontUsageDevice(array $deviceEntry)
+    {
+        $duplicateIconEntries = isset($deviceEntry['duplicate_icon_font_stylesheets']) && is_array($deviceEntry['duplicate_icon_font_stylesheets'])
+            ? $deviceEntry['duplicate_icon_font_stylesheets']
+            : [];
+
+        return [
+            'generated' => !empty($deviceEntry),
+            'generated_at' => isset($deviceEntry['generated_at']) ? (string) $deviceEntry['generated_at'] : '',
+            'generator_version' => isset($deviceEntry['generator_version']) ? (string) $deviceEntry['generator_version'] : '',
+            'declared_count' => isset($deviceEntry['declared_count']) ? (int) $deviceEntry['declared_count'] : 0,
+            'used_count' => isset($deviceEntry['used_count']) ? (int) $deviceEntry['used_count'] : 0,
+            'unused_count' => isset($deviceEntry['unused_count']) ? (int) $deviceEntry['unused_count'] : 0,
+            'duplicate_icon_count' => isset($deviceEntry['duplicate_icon_count']) ? (int) $deviceEntry['duplicate_icon_count'] : 0,
+            'google_fonts_count' => isset($deviceEntry['google_fonts_count']) ? (int) $deviceEntry['google_fonts_count'] : 0,
+            'used_font_families' => isset($deviceEntry['used_font_families']) && is_array($deviceEntry['used_font_families']) ? $deviceEntry['used_font_families'] : [],
+            'used_above_the_fold' => isset($deviceEntry['used_above_the_fold']) && is_array($deviceEntry['used_above_the_fold']) ? $deviceEntry['used_above_the_fold'] : [],
+            'unused_declared_families' => isset($deviceEntry['unused_declared_families']) && is_array($deviceEntry['unused_declared_families']) ? $deviceEntry['unused_declared_families'] : [],
+            'duplicate_icon_font_stylesheets' => $duplicateIconEntries,
+            'google_fonts_stylesheets' => isset($deviceEntry['google_fonts_stylesheets']) && is_array($deviceEntry['google_fonts_stylesheets']) ? $deviceEntry['google_fonts_stylesheets'] : [],
+            'used_font_families_text' => $this->joinSummaryList(isset($deviceEntry['used_font_families']) && is_array($deviceEntry['used_font_families']) ? $deviceEntry['used_font_families'] : []),
+            'used_above_the_fold_text' => $this->joinSummaryList(isset($deviceEntry['used_above_the_fold']) && is_array($deviceEntry['used_above_the_fold']) ? $deviceEntry['used_above_the_fold'] : []),
+            'unused_declared_families_text' => $this->joinSummaryList(isset($deviceEntry['unused_declared_families']) && is_array($deviceEntry['unused_declared_families']) ? $deviceEntry['unused_declared_families'] : []),
+            'duplicate_icon_text' => $this->joinDuplicateIconSummary($duplicateIconEntries),
+        ];
+    }
+
+    private function joinSummaryList(array $items)
+    {
+        $items = array_values(array_filter(array_map(function ($item) {
+            return is_scalar($item) ? trim((string) $item) : '';
+        }, $items), function ($item) {
+            return $item !== '';
+        }));
+
+        return implode(', ', $items);
+    }
+
+    private function joinDuplicateIconSummary(array $items)
+    {
+        $summary = [];
+
+        foreach ($items as $item) {
+            if (!is_array($item)) {
+                continue;
+            }
+
+            $family = isset($item['family']) ? trim((string) $item['family']) : '';
+            $href = isset($item['href']) ? trim((string) $item['href']) : '';
+            $count = isset($item['count']) ? (int) $item['count'] : 0;
+
+            if ($family === '' && $href === '') {
+                continue;
+            }
+
+            $label = $family !== '' ? $family : $href;
+            if ($count > 0) {
+                $label .= ' x' . $count;
+            }
+
+            $summary[] = $label;
+        }
+
+        return implode(', ', $summary);
     }
 
     private function deriveRuleAction(array $flags)

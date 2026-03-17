@@ -121,6 +121,7 @@ class PrestaLoadCriticalCssScannerClient
                     'css' => $css,
                     'css_size_bytes' => isset($devicePayload['css_size_bytes']) ? (int) $devicePayload['css_size_bytes'] : strlen($css),
                     'generated_at' => isset($devicePayload['generated_at']) ? (string) $devicePayload['generated_at'] : date('c'),
+                    'generator_version' => isset($devicePayload['generator_version']) ? (string) $devicePayload['generator_version'] : '',
                     'meta' => isset($devicePayload['meta']) && is_array($devicePayload['meta']) ? $devicePayload['meta'] : [],
                 ];
             }
@@ -144,6 +145,7 @@ class PrestaLoadCriticalCssScannerClient
                 'css' => $singleCss,
                 'css_size_bytes' => isset($singlePayload['css_size_bytes']) ? (int) $singlePayload['css_size_bytes'] : strlen($singleCss),
                 'generated_at' => isset($singlePayload['generated_at']) ? (string) $singlePayload['generated_at'] : date('c'),
+                'generator_version' => isset($singlePayload['generator_version']) ? (string) $singlePayload['generator_version'] : '',
                 'meta' => isset($singlePayload['meta']) && is_array($singlePayload['meta']) ? $singlePayload['meta'] : [],
             ],
         ];

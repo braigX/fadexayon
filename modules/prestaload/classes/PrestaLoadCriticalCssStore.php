@@ -45,6 +45,7 @@ class PrestaLoadCriticalCssStore
                 'file' => $cssFile,
                 'size_bytes' => filesize($cssFile) ?: 0,
                 'generated_at' => isset($variant['generated_at']) ? (string) $variant['generated_at'] : date('c'),
+                'generator_version' => isset($variant['generator_version']) ? (string) $variant['generator_version'] : '',
                 'meta' => isset($variant['meta']) && is_array($variant['meta']) ? $variant['meta'] : [],
             ];
         }
