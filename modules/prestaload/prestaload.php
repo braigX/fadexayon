@@ -24,6 +24,10 @@ require_once __DIR__ . '/classes/PrestaLoadAssetScanStore.php';
 require_once __DIR__ . '/classes/PrestaLoadAssetRuleStore.php';
 require_once __DIR__ . '/classes/PrestaLoadAssetMinifier.php';
 require_once __DIR__ . '/classes/PrestaLoadAssetRuleApplier.php';
+require_once __DIR__ . '/classes/PrestaLoadCriticalCssPageRegistry.php';
+require_once __DIR__ . '/classes/PrestaLoadCriticalCssScannerClient.php';
+require_once __DIR__ . '/classes/PrestaLoadCriticalCssStore.php';
+require_once __DIR__ . '/classes/PrestaLoadCriticalCssInjector.php';
 require_once __DIR__ . '/classes/PrestaLoadFontOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadCssOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadImgProxyUrlBuilder.php';
@@ -41,6 +45,7 @@ class PrestaLoad extends Module
     private const TAB_FONTS = 'fonts';
     private const TAB_CSS = 'css';
     private const TAB_IMAGES = 'images';
+    private const TAB_CRITICAL_CSS = 'critical_css';
 
     /**
      * Hooks that should invalidate the full-page cache because content changed.
@@ -75,6 +80,9 @@ class PrestaLoad extends Module
     private $assetScanStore;
     private $assetRuleStore;
     private $assetMinifier;
+    private $criticalCssPageRegistry;
+    private $criticalCssScannerClient;
+    private $criticalCssStore;
 
     public function __construct()
     {
@@ -102,6 +110,9 @@ class PrestaLoad extends Module
         $this->assetScanStore = new PrestaLoadAssetScanStore(__DIR__);
         $this->assetRuleStore = new PrestaLoadAssetRuleStore(__DIR__);
         $this->assetMinifier = new PrestaLoadAssetMinifier($this->context, __DIR__);
+        $this->criticalCssPageRegistry = new PrestaLoadCriticalCssPageRegistry($this->context, $this->settings);
+        $this->criticalCssScannerClient = new PrestaLoadCriticalCssScannerClient($this->settings);
+        $this->criticalCssStore = new PrestaLoadCriticalCssStore(__DIR__);
         $this->pageCache = $this->buildPageCache();
     }
 
@@ -252,6 +263,8 @@ class PrestaLoad extends Module
             'prestaload_asset_minify_ajax_url' => $this->getAjaxConfigurationLink('minifyAsset'),
             'prestaload_asset_bulk_minify_ajax_url' => $this->getAjaxConfigurationLink('bulkMinifyAssets'),
             'prestaload_asset_bulk_clear_minified_ajax_url' => $this->getAjaxConfigurationLink('bulkClearMinifiedAssets'),
+            'prestaload_critical_css_pages' => $this->decorateCriticalCssPages($this->criticalCssPageRegistry->getPages()),
+            'prestaload_critical_css_generate_ajax_url' => $this->getAjaxConfigurationLink('generateCriticalCss'),
             'prestaload_detected_shop_base_url' => $detectedShopBaseUrl,
             'prestaload_effective_asset_scan_base_url' => $effectiveScanBaseUrl,
         ]);
@@ -309,8 +322,9 @@ class PrestaLoad extends Module
         $imageLoadingOptimizer = new PrestaLoadImageLoadingOptimizer($this->settings);
         $imageOptimizer = new PrestaLoadImageOptimizer($this->context, $this->settings, $imgProxyUrlBuilder, $imageDimensionOptimizer, $imageLoadingOptimizer);
         $assetRuleApplier = new PrestaLoadAssetRuleApplier($this->context, $this->assetRuleStore, $cssOptimizer, $this->assetMinifier);
+        $criticalCssInjector = new PrestaLoadCriticalCssInjector($this->context, $this->criticalCssStore);
         $htmlCompressor = new PrestaLoadHtmlCompressor($this->settings);
-        $htmlOptimizer = new PrestaLoadHtmlOptimizer($fontOptimizer, $cssOptimizer, $imageOptimizer, $assetRuleApplier, $htmlCompressor);
+        $htmlOptimizer = new PrestaLoadHtmlOptimizer($criticalCssInjector, $fontOptimizer, $cssOptimizer, $imageOptimizer, $assetRuleApplier, $htmlCompressor);
 
         return new PrestaLoadPageCache($this->context, $this->settings, $eligibility, $keyBuilder, $store, $logger, $htmlOptimizer);
     }
@@ -508,6 +522,15 @@ class PrestaLoad extends Module
                     ],
                 ],
             ],
+            self::TAB_CRITICAL_CSS => [
+                'form' => [
+                    'legend' => [
+                        'title' => $this->trans('Critical CSS', [], 'Admin.Global'),
+                        'icon' => 'icon-flask',
+                    ],
+                    'description' => 'Beta feature. Generate one stored critical CSS payload per page type, then inject it locally on matching pages.',
+                ],
+            ],
             self::TAB_CSS => [
                 'form' => [
                     'legend' => [
@@ -649,6 +672,11 @@ class PrestaLoad extends Module
                 'label' => 'Assets',
                 'icon' => 'icon-sitemap',
                 'link' => $this->getAdminConfigurationLink(self::TAB_ASSETS),
+            ],
+            self::TAB_CRITICAL_CSS => [
+                'label' => 'Critical CSS',
+                'icon' => 'icon-flask',
+                'link' => $this->getAdminConfigurationLink(self::TAB_CRITICAL_CSS),
             ],
             self::TAB_CACHE_LIFETIMES => [
                 'label' => 'Cache Lifetimes',
@@ -919,6 +947,16 @@ class PrestaLoad extends Module
                 ]);
             }
 
+            if ($action === 'generateCriticalCss') {
+                $result = $this->generateCriticalCssFromRequest();
+
+                $this->jsonResponse([
+                    'success' => true,
+                    'message' => 'Critical CSS generated successfully.',
+                    'entry' => $result,
+                ]);
+            }
+
             if ($action === 'saveAssetRule') {
                 $savedRule = $this->saveAssetRuleFromRequest();
 
@@ -1018,6 +1056,21 @@ class PrestaLoad extends Module
         $this->pageCache->clear();
 
         return $rule;
+    }
+
+    private function generateCriticalCssFromRequest()
+    {
+        $pageKey = trim((string) Tools::getValue('prestaload_critical_css_page', 'home'));
+        $page = $this->criticalCssPageRegistry->getPageByKey($pageKey);
+        if (empty($page)) {
+            throw new Exception('Selected page type was not found.');
+        }
+
+        $result = $this->criticalCssScannerClient->generate($page['key'], $page['url']);
+        $entry = $this->criticalCssStore->save($page, $result['css']);
+        $this->pageCache->clear();
+
+        return $entry;
     }
 
     private function toggleAssetFlagFromRequest()
@@ -1363,6 +1416,23 @@ class PrestaLoad extends Module
             'minify' => !empty($rule['minify']) || (isset($rule['action']) && $rule['action'] === 'minify'),
             'load_after_window_load' => !empty($rule['load_after_window_load']) || (isset($rule['action']) && $rule['action'] === 'load_after_window_load'),
         ];
+    }
+
+    private function decorateCriticalCssPages(array $pages)
+    {
+        $entries = $this->criticalCssStore->getEntries();
+
+        foreach ($pages as &$page) {
+            $entry = isset($entries[$page['key']]) ? $entries[$page['key']] : [];
+            $page['critical_css'] = [
+                'generated' => !empty($entry),
+                'size_bytes' => isset($entry['size_bytes']) ? (int) $entry['size_bytes'] : 0,
+                'generated_at' => isset($entry['generated_at']) ? (string) $entry['generated_at'] : '',
+            ];
+        }
+        unset($page);
+
+        return $pages;
     }
 
     private function deriveRuleAction(array $flags)

@@ -6,6 +6,14 @@
 class PrestaLoadHtmlOptimizer
 {
     /**
+     * Stored critical CSS is injected first so the rest of the optimization
+     * chain operates on the final head markup.
+     *
+     * @var PrestaLoadCriticalCssInjector
+     */
+    private $criticalCssInjector;
+
+    /**
      * Font delivery is optimized first so later CSS logic works on the final
      * font stylesheet structure.
      *
@@ -45,12 +53,14 @@ class PrestaLoadHtmlOptimizer
     private $htmlCompressor;
 
     public function __construct(
+        PrestaLoadCriticalCssInjector $criticalCssInjector,
         PrestaLoadFontOptimizer $fontOptimizer,
         PrestaLoadCssOptimizer $cssOptimizer,
         PrestaLoadImageOptimizer $imageOptimizer,
         PrestaLoadAssetRuleApplier $assetRuleApplier,
         PrestaLoadHtmlCompressor $htmlCompressor
     ) {
+        $this->criticalCssInjector = $criticalCssInjector;
         $this->fontOptimizer = $fontOptimizer;
         $this->cssOptimizer = $cssOptimizer;
         $this->imageOptimizer = $imageOptimizer;
@@ -63,6 +73,7 @@ class PrestaLoadHtmlOptimizer
      */
     public function optimize($html)
     {
+        $html = $this->criticalCssInjector->optimize($html);
         $html = $this->fontOptimizer->optimize($html);
         $html = $this->cssOptimizer->optimize($html);
         $html = $this->imageOptimizer->optimize($html);

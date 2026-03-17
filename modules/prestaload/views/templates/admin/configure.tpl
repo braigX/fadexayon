@@ -162,6 +162,186 @@
         </div>
       {/if}
 
+      {if $prestaload_active_tab === 'critical_css'}
+        <div class="panel" style="margin-top: 16px;">
+          <h3>Beta critical CSS generator</h3>
+          <p>
+            Generate one stored critical CSS payload per page type. The generated CSS is saved on disk and injected locally on matching pages, without adding remote API latency to storefront rendering.
+          </p>
+
+          <div id="prestaload-critical-css-toast" class="prestaload-toast" style="display: none;"></div>
+
+          <div style="overflow-x: auto;">
+            <table class="table" style="border: 1px solid #d3d8db;">
+              <thead>
+                <tr>
+                  <th>Page type</th>
+                  <th>Representative URL</th>
+                  <th>Sample</th>
+                  <th>Status</th>
+                  <th>Generated at</th>
+                  <th>Size</th>
+                  <th style="width: 180px;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {foreach from=$prestaload_critical_css_pages item=critical_page}
+                  <tr>
+                    <td><strong>{$critical_page.label|escape:'htmlall':'UTF-8'}</strong></td>
+                    <td style="word-break: break-all;">{$critical_page.url|escape:'htmlall':'UTF-8'}</td>
+                    <td>{$critical_page.sample_label|default:'-'|escape:'htmlall':'UTF-8'}</td>
+                    <td>
+                      {if $critical_page.critical_css.generated}
+                        <span class="label label-success">Generated</span>
+                      {else}
+                        <span class="label label-default">Not generated</span>
+                      {/if}
+                    </td>
+                    <td>{if $critical_page.critical_css.generated_at}{$critical_page.critical_css.generated_at|escape:'htmlall':'UTF-8'}{else}-{/if}</td>
+                    <td>{if $critical_page.critical_css.generated}{$critical_page.critical_css.size_bytes|intval} bytes{else}-{/if}</td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-primary prestaload-critical-css-generate"
+                        data-page-key="{$critical_page.key|escape:'htmlall':'UTF-8'}"
+                        data-default-label="Generate Critical CSS"
+                        data-loading-label="Generating..."
+                      >
+                        <span>Generate Critical CSS</span>
+                      </button>
+                    </td>
+                  </tr>
+                {/foreach}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <style>
+          .prestaload-toast {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            z-index: 9999;
+            min-width: 280px;
+            max-width: 420px;
+            padding: 14px 16px;
+            border-radius: 6px;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(54, 58, 65, 0.18);
+            font-weight: 600;
+          }
+
+          .prestaload-toast--success {
+            background: #1f8b4c;
+          }
+
+          .prestaload-toast--error {
+            background: #c23434;
+          }
+
+          .prestaload-critical-css-generate.is-loading {
+            position: relative;
+            pointer-events: none;
+            opacity: 0.85;
+            padding-left: 34px;
+          }
+
+          .prestaload-critical-css-generate.is-loading::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            width: 14px;
+            height: 14px;
+            margin-top: -7px;
+            border: 2px solid #b8c7d1;
+            border-top-color: #25b9d7;
+            border-radius: 50%;
+            animation: prestaload-spin 0.8s linear infinite;
+          }
+        </style>
+        <script>
+          (function () {
+            var buttons = document.querySelectorAll('.prestaload-critical-css-generate');
+            var ajaxUrl = {$prestaload_critical_css_generate_ajax_url|json_encode nofilter};
+            var toast = document.getElementById('prestaload-critical-css-toast');
+            var toastTimer = null;
+
+            if (!buttons.length || !ajaxUrl) {
+              return;
+            }
+
+            var showToast = function (message, type) {
+              if (!toast) {
+                return;
+              }
+
+              toast.className = 'prestaload-toast prestaload-toast--' + (type === 'error' ? 'error' : 'success');
+              toast.textContent = message;
+              toast.style.display = 'block';
+
+              if (toastTimer) {
+                window.clearTimeout(toastTimer);
+              }
+
+              toastTimer = window.setTimeout(function () {
+                toast.style.display = 'none';
+              }, 3200);
+            };
+
+            var postForm = function (url, params) {
+              return fetch(url, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                body: params.toString(),
+                credentials: 'same-origin'
+              }).then(function (response) {
+                return response.json();
+              });
+            };
+
+            Array.prototype.forEach.call(buttons, function (button) {
+              button.addEventListener('click', function () {
+                var params = new URLSearchParams();
+                params.append('prestaload_critical_css_page', button.getAttribute('data-page-key') || '');
+
+                var label = button.querySelector('span');
+                var defaultLabel = button.getAttribute('data-default-label') || 'Generate Critical CSS';
+                var loadingLabel = button.getAttribute('data-loading-label') || 'Generating...';
+
+                button.disabled = true;
+                button.classList.add('is-loading');
+                if (label) {
+                  label.textContent = loadingLabel;
+                }
+
+                postForm(ajaxUrl, params).then(function (payload) {
+                  if (!payload || !payload.success) {
+                    throw new Error(payload && payload.message ? payload.message : 'Critical CSS generation failed.');
+                  }
+
+                  showToast(payload.message || 'Critical CSS generated successfully.', 'success');
+                  window.setTimeout(function () {
+                    window.location.reload();
+                  }, 500);
+                }).catch(function (error) {
+                  showToast(error.message || 'Critical CSS generation failed.', 'error');
+                }).finally(function () {
+                  button.disabled = false;
+                  button.classList.remove('is-loading');
+                  if (label) {
+                    label.textContent = defaultLabel;
+                  }
+                });
+              });
+            });
+          }());
+        </script>
+      {/if}
+
       {if $prestaload_active_tab === 'cache_lifetimes'}
         <div class="panel" style="margin-top: 16px;">
           <h3>Browser Cache Lifetime Helper</h3>
