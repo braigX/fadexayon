@@ -1182,10 +1182,6 @@ class PrestaLoad extends Module
             $flags['defer'] = false;
         }
 
-        if ($flag === 'minify' && $enabled) {
-            $flags['disable'] = false;
-        }
-
         if ($flag === 'minify') {
             if ($enabled) {
                 $minifiedUrl = $this->assetMinifier->getMinifiedAssetUrl($assetUrl, $assetType);
@@ -1321,12 +1317,20 @@ class PrestaLoad extends Module
             throw new Exception('Could not build the minified asset.');
         }
 
+        $existingRule = $this->assetRuleStore->getRule($page['key'], $assetUrl);
+        $flags = $this->extractRuleFlags($existingRule);
+        $flags['minify'] = true;
+
         $rule = [
             'page_key' => $page['key'],
             'page_url' => $page['url'],
             'asset_url' => $assetUrl,
             'asset_type' => $assetType,
-            'action' => 'minify',
+            'disable' => (int) $flags['disable'],
+            'defer' => (int) $flags['defer'],
+            'minify' => 1,
+            'load_after_window_load' => (int) $flags['load_after_window_load'],
+            'action' => $this->deriveRuleAction($flags),
         ];
 
         if (!$this->assetRuleStore->saveRule($rule)) {
@@ -1368,16 +1372,20 @@ class PrestaLoad extends Module
                 continue;
             }
 
+            $existingRule = $this->assetRuleStore->getRule($page['key'], $assetUrl);
+            $flags = $this->extractRuleFlags($existingRule);
+            $flags['minify'] = true;
+
             if (!$this->assetRuleStore->saveRule([
                 'page_key' => $page['key'],
                 'page_url' => $page['url'],
                 'asset_url' => $assetUrl,
                 'asset_type' => $assetType,
-                'disable' => 0,
-                'defer' => 0,
+                'disable' => (int) $flags['disable'],
+                'defer' => (int) $flags['defer'],
                 'minify' => 1,
-                'load_after_window_load' => 0,
-                'action' => 'minify',
+                'load_after_window_load' => (int) $flags['load_after_window_load'],
+                'action' => $this->deriveRuleAction($flags),
             ])) {
                 throw new Exception('Could not save one of the selected minify rules.');
             }
