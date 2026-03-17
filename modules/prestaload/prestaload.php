@@ -322,7 +322,7 @@ class PrestaLoad extends Module
         $imageLoadingOptimizer = new PrestaLoadImageLoadingOptimizer($this->settings);
         $imageOptimizer = new PrestaLoadImageOptimizer($this->context, $this->settings, $imgProxyUrlBuilder, $imageDimensionOptimizer, $imageLoadingOptimizer);
         $assetRuleApplier = new PrestaLoadAssetRuleApplier($this->context, $this->assetRuleStore, $cssOptimizer, $this->assetMinifier);
-        $criticalCssInjector = new PrestaLoadCriticalCssInjector($this->context, $this->criticalCssStore);
+        $criticalCssInjector = new PrestaLoadCriticalCssInjector($this->context, $this->criticalCssStore, __DIR__);
         $htmlCompressor = new PrestaLoadHtmlCompressor($this->settings);
         $htmlOptimizer = new PrestaLoadHtmlOptimizer($criticalCssInjector, $fontOptimizer, $cssOptimizer, $imageOptimizer, $assetRuleApplier, $htmlCompressor);
 
@@ -1067,7 +1067,7 @@ class PrestaLoad extends Module
         }
 
         $result = $this->criticalCssScannerClient->generate($page['key'], $page['url']);
-        $entry = $this->criticalCssStore->save($page, $result['css']);
+        $entry = $this->criticalCssStore->saveVariants($page, $result['variants']);
         $this->pageCache->clear();
 
         return $entry;
@@ -1425,9 +1425,17 @@ class PrestaLoad extends Module
         foreach ($pages as &$page) {
             $entry = isset($entries[$page['key']]) ? $entries[$page['key']] : [];
             $page['critical_css'] = [
-                'generated' => !empty($entry),
-                'size_bytes' => isset($entry['size_bytes']) ? (int) $entry['size_bytes'] : 0,
-                'generated_at' => isset($entry['generated_at']) ? (string) $entry['generated_at'] : '',
+                'generated' => !empty($entry['devices']),
+                'mobile' => [
+                    'generated' => !empty($entry['devices']['mobile']),
+                    'size_bytes' => isset($entry['devices']['mobile']['size_bytes']) ? (int) $entry['devices']['mobile']['size_bytes'] : 0,
+                    'generated_at' => isset($entry['devices']['mobile']['generated_at']) ? (string) $entry['devices']['mobile']['generated_at'] : '',
+                ],
+                'desktop' => [
+                    'generated' => !empty($entry['devices']['desktop']),
+                    'size_bytes' => isset($entry['devices']['desktop']['size_bytes']) ? (int) $entry['devices']['desktop']['size_bytes'] : 0,
+                    'generated_at' => isset($entry['devices']['desktop']['generated_at']) ? (string) $entry['devices']['desktop']['generated_at'] : '',
+                ],
             ];
         }
         unset($page);

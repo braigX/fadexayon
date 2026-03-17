@@ -178,9 +178,8 @@
                   <th>Page type</th>
                   <th>Representative URL</th>
                   <th>Sample</th>
-                  <th>Status</th>
-                  <th>Generated at</th>
-                  <th>Size</th>
+                  <th>Mobile</th>
+                  <th>Desktop</th>
                   <th style="width: 180px;">Action</th>
                 </tr>
               </thead>
@@ -191,14 +190,23 @@
                     <td style="word-break: break-all;">{$critical_page.url|escape:'htmlall':'UTF-8'}</td>
                     <td>{$critical_page.sample_label|default:'-'|escape:'htmlall':'UTF-8'}</td>
                     <td>
-                      {if $critical_page.critical_css.generated}
+                      {if $critical_page.critical_css.mobile.generated}
                         <span class="label label-success">Generated</span>
+                        <div style="margin-top: 6px; color: #6c868e;">{$critical_page.critical_css.mobile.size_bytes|intval} bytes</div>
+                        <div style="color: #6c868e;">{$critical_page.critical_css.mobile.generated_at|escape:'htmlall':'UTF-8'}</div>
                       {else}
                         <span class="label label-default">Not generated</span>
                       {/if}
                     </td>
-                    <td>{if $critical_page.critical_css.generated_at}{$critical_page.critical_css.generated_at|escape:'htmlall':'UTF-8'}{else}-{/if}</td>
-                    <td>{if $critical_page.critical_css.generated}{$critical_page.critical_css.size_bytes|intval} bytes{else}-{/if}</td>
+                    <td>
+                      {if $critical_page.critical_css.desktop.generated}
+                        <span class="label label-success">Generated</span>
+                        <div style="margin-top: 6px; color: #6c868e;">{$critical_page.critical_css.desktop.size_bytes|intval} bytes</div>
+                        <div style="color: #6c868e;">{$critical_page.critical_css.desktop.generated_at|escape:'htmlall':'UTF-8'}</div>
+                      {else}
+                        <span class="label label-default">Not generated</span>
+                      {/if}
+                    </td>
                     <td>
                       <button
                         type="button"

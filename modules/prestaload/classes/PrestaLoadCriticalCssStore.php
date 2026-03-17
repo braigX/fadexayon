@@ -14,7 +14,7 @@ class PrestaLoadCriticalCssStore
         $this->indexFile = $this->directory . '/index.json';
     }
 
-    public function save(array $page, $css)
+    public function saveVariants(array $page, array $variants)
     {
         $this->ensureDirectory();
 
@@ -23,36 +23,49 @@ class PrestaLoadCriticalCssStore
             throw new Exception('Critical CSS page type is missing.');
         }
 
-        $cssFile = $this->directory . '/' . preg_replace('/[^a-z0-9_-]+/i', '-', $pageType) . '.css';
-        if (@file_put_contents($cssFile, (string) $css) === false) {
-            throw new Exception('Could not write the critical CSS file.');
-        }
-
         $index = $this->loadIndex();
         $index[$pageType] = [
             'page_key' => $pageType,
             'label' => isset($page['label']) ? (string) $page['label'] : $pageType,
             'sample_label' => isset($page['sample_label']) ? (string) $page['sample_label'] : '',
             'url' => isset($page['url']) ? (string) $page['url'] : '',
-            'file' => $cssFile,
-            'size_bytes' => filesize($cssFile) ?: 0,
-            'generated_at' => date('c'),
+            'devices' => [],
         ];
+
+        foreach ($variants as $device => $variant) {
+            $normalizedDevice = $device === 'desktop' ? 'desktop' : 'mobile';
+            $cssFile = $this->directory . '/' . preg_replace('/[^a-z0-9_-]+/i', '-', $pageType) . '-' . $normalizedDevice . '.css';
+            $css = isset($variant['css']) ? (string) $variant['css'] : '';
+            if ($css === '' || @file_put_contents($cssFile, $css) === false) {
+                throw new Exception('Could not write the critical CSS file for ' . $normalizedDevice . '.');
+            }
+
+            $index[$pageType]['devices'][$normalizedDevice] = [
+                'device' => $normalizedDevice,
+                'file' => $cssFile,
+                'size_bytes' => filesize($cssFile) ?: 0,
+                'generated_at' => isset($variant['generated_at']) ? (string) $variant['generated_at'] : date('c'),
+                'meta' => isset($variant['meta']) && is_array($variant['meta']) ? $variant['meta'] : [],
+            ];
+        }
 
         $this->saveIndex($index);
 
         return $index[$pageType];
     }
 
-    public function get($pageType)
+    public function get($pageType, $device)
     {
         $index = $this->loadIndex();
-        if (empty($index[$pageType]['file']) || !is_file($index[$pageType]['file'])) {
+        if (empty($index[$pageType]['devices'][$device]['file']) || !is_file($index[$pageType]['devices'][$device]['file'])) {
             return [];
         }
 
         $entry = $index[$pageType];
-        $entry['css'] = (string) @file_get_contents($entry['file']);
+        $entry['device'] = $device;
+        $entry['css'] = (string) @file_get_contents($entry['devices'][$device]['file']);
+        $entry['size_bytes'] = (int) $entry['devices'][$device]['size_bytes'];
+        $entry['generated_at'] = (string) $entry['devices'][$device]['generated_at'];
 
         return $entry;
     }

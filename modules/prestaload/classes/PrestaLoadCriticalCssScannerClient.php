@@ -21,6 +21,7 @@ class PrestaLoadCriticalCssScannerClient
         $payload = json_encode([
             'url' => (string) $url,
             'page_type' => (string) $pageType,
+            'device' => 'both',
         ]);
 
         if ($payload === false) {
@@ -31,13 +32,13 @@ class PrestaLoadCriticalCssScannerClient
             ? $this->sendWithCurl($endpoint, $payload)
             : $this->sendWithStreams($endpoint, $payload);
 
-        $css = $this->extractCss($response);
-        if ($css === '') {
+        $variants = $this->extractVariants($response);
+        if (empty($variants)) {
             throw new Exception('The scanner did not return any critical CSS.');
         }
 
         return [
-            'css' => $css,
+            'variants' => $variants,
             'raw' => $response,
         ];
     }
@@ -104,13 +105,56 @@ class PrestaLoadCriticalCssScannerClient
         return $decoded;
     }
 
-    private function extractCss(array $response)
+    private function extractVariants(array $response)
+    {
+        $variants = [];
+
+        foreach (['mobile', 'desktop'] as $device) {
+            $devicePayload = isset($response['data'][$device]) && is_array($response['data'][$device])
+                ? $response['data'][$device]
+                : [];
+
+            $css = $this->extractCssFromPayload($devicePayload);
+            if ($css !== '') {
+                $variants[$device] = [
+                    'device' => $device,
+                    'css' => $css,
+                    'css_size_bytes' => isset($devicePayload['css_size_bytes']) ? (int) $devicePayload['css_size_bytes'] : strlen($css),
+                    'generated_at' => isset($devicePayload['generated_at']) ? (string) $devicePayload['generated_at'] : date('c'),
+                    'meta' => isset($devicePayload['meta']) && is_array($devicePayload['meta']) ? $devicePayload['meta'] : [],
+                ];
+            }
+        }
+
+        if (!empty($variants)) {
+            return $variants;
+        }
+
+        $singlePayload = isset($response['data']) && is_array($response['data']) ? $response['data'] : $response;
+        $singleCss = $this->extractCssFromPayload($singlePayload);
+        if ($singleCss === '') {
+            return [];
+        }
+
+        $device = isset($singlePayload['device']) && $singlePayload['device'] === 'desktop' ? 'desktop' : 'mobile';
+
+        return [
+            $device => [
+                'device' => $device,
+                'css' => $singleCss,
+                'css_size_bytes' => isset($singlePayload['css_size_bytes']) ? (int) $singlePayload['css_size_bytes'] : strlen($singleCss),
+                'generated_at' => isset($singlePayload['generated_at']) ? (string) $singlePayload['generated_at'] : date('c'),
+                'meta' => isset($singlePayload['meta']) && is_array($singlePayload['meta']) ? $singlePayload['meta'] : [],
+            ],
+        ];
+    }
+
+    private function extractCssFromPayload(array $payload)
     {
         $candidates = [
-            isset($response['css']) ? $response['css'] : '',
-            isset($response['critical_css']) ? $response['critical_css'] : '',
-            isset($response['data']['css']) ? $response['data']['css'] : '',
-            isset($response['data']['critical_css']) ? $response['data']['critical_css'] : '',
+            isset($payload['css_content']) ? $payload['css_content'] : '',
+            isset($payload['css']) ? $payload['css'] : '',
+            isset($payload['critical_css']) ? $payload['critical_css'] : '',
         ];
 
         foreach ($candidates as $candidate) {
