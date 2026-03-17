@@ -14,23 +14,25 @@ class PrestaLoadCriticalCssInjector
      * @var PrestaLoadCriticalCssStore
      */
     private $store;
+    private $settings;
 
     /**
      * @var string
      */
     private $logFile;
 
-    public function __construct(Context $context, PrestaLoadCriticalCssStore $store, $modulePath = '')
+    public function __construct(Context $context, PrestaLoadCriticalCssStore $store, PrestaLoadCacheSettings $settings, $modulePath = '')
     {
         $this->context = $context;
         $this->store = $store;
+        $this->settings = $settings;
         $modulePath = rtrim((string) $modulePath, '/');
         $this->logFile = ($modulePath !== '' ? $modulePath : dirname(__DIR__)) . '/cache/prestaload-critical-css.log';
     }
 
     public function optimize($html)
     {
-        if (!is_string($html) || stripos($html, '</head>') === false) {
+        if (!$this->settings->isCriticalCssEnabled() || !is_string($html) || stripos($html, '</head>') === false) {
             return $html;
         }
 
@@ -56,6 +58,7 @@ class PrestaLoadCriticalCssInjector
             return $html;
         }
 
+        $html = preg_replace('#<!--\s*PrestaLoad Critical CSS:[\s\S]*?-->#i', '', $html);
         $html = preg_replace('#<style[^>]*id="prestaload-critical-css"[^>]*>.*?</style>#is', '', $html);
 
         $marker = '<!-- PrestaLoad Critical CSS: ' . htmlspecialchars($pageType, ENT_QUOTES, 'UTF-8') . ' (' . htmlspecialchars($device, ENT_QUOTES, 'UTF-8') . ') -->';

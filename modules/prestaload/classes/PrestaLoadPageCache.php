@@ -113,8 +113,6 @@ class PrestaLoadPageCache
             return;
         }
 
-        $html = $this->optimizeHtml($html);
-
         $statusCode = http_response_code();
         if (!empty($statusCode) && (int) $statusCode !== 200) {
             return;

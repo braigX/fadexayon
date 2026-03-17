@@ -170,6 +170,14 @@ class PrestaLoad extends Module
             $output .= $this->displayConfirmation($this->trans('Full page caching settings updated.', [], 'Admin.Notifications.Success'));
         }
 
+        if (Tools::isSubmit('submitPrestaLoadCriticalCssSettings')) {
+            $this->settings->updateSubsetFromRequest([
+                PrestaLoadCacheSettings::CONFIG_CRITICAL_CSS_ENABLED,
+            ]);
+            $this->pageCache->clear();
+            $output .= $this->displayConfirmation($this->trans('Critical CSS settings updated.', [], 'Admin.Notifications.Success'));
+        }
+
         if (Tools::isSubmit('submitPrestaLoadBrowserCacheSettings')) {
             $this->settings->updateSubsetFromRequest([
                 PrestaLoadCacheSettings::CONFIG_BROWSER_CACHE_ENABLED,
@@ -322,7 +330,7 @@ class PrestaLoad extends Module
         $imageLoadingOptimizer = new PrestaLoadImageLoadingOptimizer($this->settings);
         $imageOptimizer = new PrestaLoadImageOptimizer($this->context, $this->settings, $imgProxyUrlBuilder, $imageDimensionOptimizer, $imageLoadingOptimizer);
         $assetRuleApplier = new PrestaLoadAssetRuleApplier($this->context, $this->assetRuleStore, $cssOptimizer, $this->assetMinifier);
-        $criticalCssInjector = new PrestaLoadCriticalCssInjector($this->context, $this->criticalCssStore, __DIR__);
+        $criticalCssInjector = new PrestaLoadCriticalCssInjector($this->context, $this->criticalCssStore, $this->settings, __DIR__);
         $htmlCompressor = new PrestaLoadHtmlCompressor($this->settings);
         $htmlOptimizer = new PrestaLoadHtmlOptimizer($criticalCssInjector, $fontOptimizer, $cssOptimizer, $imageOptimizer, $assetRuleApplier, $htmlCompressor);
 
@@ -528,7 +536,23 @@ class PrestaLoad extends Module
                         'title' => $this->trans('Critical CSS', [], 'Admin.Global'),
                         'icon' => 'icon-flask',
                     ],
-                    'description' => 'Beta feature. Generate one stored critical CSS payload per page type, then inject it locally on matching pages.',
+                    'input' => [
+                        [
+                            'type' => 'switch',
+                            'label' => 'Enable beta critical CSS injection',
+                            'name' => PrestaLoadCacheSettings::CONFIG_CRITICAL_CSS_ENABLED,
+                            'is_bool' => true,
+                            'values' => [
+                                ['id' => 'prestaload_critical_css_on', 'value' => 1, 'label' => $this->trans('Yes', [], 'Admin.Global')],
+                                ['id' => 'prestaload_critical_css_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
+                            ],
+                            'desc' => 'When enabled, stored critical CSS is injected locally by page type and device. Beta feature.',
+                        ],
+                    ],
+                    'submit' => [
+                        'title' => $this->trans('Save', [], 'Admin.Actions'),
+                        'name' => 'submitPrestaLoadCriticalCssSettings',
+                    ],
                 ],
             ],
             self::TAB_CSS => [
