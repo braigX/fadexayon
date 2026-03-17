@@ -22,13 +22,6 @@ class PrestaLoadHtmlOptimizer
     private $fontOptimizer;
 
     /**
-     * CSS deferral runs after font cleanup and only targets safe late styles.
-     *
-     * @var PrestaLoadCssOptimizer
-     */
-    private $cssOptimizer;
-
-    /**
      * Image rewriting runs after structural CSS/font changes so asset URLs are
      * processed on the final markup shape.
      *
@@ -55,14 +48,12 @@ class PrestaLoadHtmlOptimizer
     public function __construct(
         PrestaLoadCriticalCssInjector $criticalCssInjector,
         PrestaLoadFontOptimizer $fontOptimizer,
-        PrestaLoadCssOptimizer $cssOptimizer,
         PrestaLoadImageOptimizer $imageOptimizer,
         PrestaLoadAssetRuleApplier $assetRuleApplier,
         PrestaLoadHtmlCompressor $htmlCompressor
     ) {
         $this->criticalCssInjector = $criticalCssInjector;
         $this->fontOptimizer = $fontOptimizer;
-        $this->cssOptimizer = $cssOptimizer;
         $this->imageOptimizer = $imageOptimizer;
         $this->assetRuleApplier = $assetRuleApplier;
         $this->htmlCompressor = $htmlCompressor;
@@ -75,7 +66,6 @@ class PrestaLoadHtmlOptimizer
     {
         $html = $this->criticalCssInjector->optimize($html);
         $html = $this->fontOptimizer->optimize($html);
-        $html = $this->cssOptimizer->optimize($html);
         $html = $this->imageOptimizer->optimize($html);
         $html = $this->assetRuleApplier->optimize($html);
 

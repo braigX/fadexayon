@@ -29,7 +29,6 @@ require_once __DIR__ . '/classes/PrestaLoadCriticalCssScannerClient.php';
 require_once __DIR__ . '/classes/PrestaLoadCriticalCssStore.php';
 require_once __DIR__ . '/classes/PrestaLoadCriticalCssInjector.php';
 require_once __DIR__ . '/classes/PrestaLoadFontOptimizer.php';
-require_once __DIR__ . '/classes/PrestaLoadCssOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadImgProxyUrlBuilder.php';
 require_once __DIR__ . '/classes/PrestaLoadImageDimensionOptimizer.php';
 require_once __DIR__ . '/classes/PrestaLoadImageLoadingOptimizer.php';
@@ -43,7 +42,6 @@ class PrestaLoad extends Module
     private const TAB_ASSETS = 'assets';
     private const TAB_CACHE_LIFETIMES = 'cache_lifetimes';
     private const TAB_FONTS = 'fonts';
-    private const TAB_CSS = 'css';
     private const TAB_IMAGES = 'images';
     private const TAB_CRITICAL_CSS = 'critical_css';
 
@@ -208,15 +206,6 @@ class PrestaLoad extends Module
             $output .= $this->displayConfirmation($this->trans('Font settings updated.', [], 'Admin.Notifications.Success'));
         }
 
-        if (Tools::isSubmit('submitPrestaLoadCssSettings')) {
-            $this->settings->updateSubsetFromRequest([
-                PrestaLoadCacheSettings::CONFIG_CSS_OPTIMIZATION_ENABLED,
-            ]);
-            $this->runtimeConfig->write();
-            $this->pageCache->clear();
-            $output .= $this->displayConfirmation($this->trans('CSS settings updated.', [], 'Admin.Notifications.Success'));
-        }
-
         if (Tools::isSubmit('submitPrestaLoadImageSettings')) {
             $this->settings->updateSubsetFromRequest([
                 PrestaLoadCacheSettings::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED,
@@ -324,15 +313,14 @@ class PrestaLoad extends Module
         $logger = new PrestaLoadCacheLogger($this->settings->getLogFile());
         $store = new PrestaLoadCacheStore($this->settings->getCacheDirectory());
         $fontOptimizer = new PrestaLoadFontOptimizer($this->settings);
-        $cssOptimizer = new PrestaLoadCssOptimizer($this->settings);
         $imgProxyUrlBuilder = new PrestaLoadImgProxyUrlBuilder($this->settings);
         $imageDimensionOptimizer = new PrestaLoadImageDimensionOptimizer($this->context, $this->settings);
         $imageLoadingOptimizer = new PrestaLoadImageLoadingOptimizer($this->settings);
         $imageOptimizer = new PrestaLoadImageOptimizer($this->context, $this->settings, $imgProxyUrlBuilder, $imageDimensionOptimizer, $imageLoadingOptimizer);
-        $assetRuleApplier = new PrestaLoadAssetRuleApplier($this->context, $this->assetRuleStore, $cssOptimizer, $this->assetMinifier);
+        $assetRuleApplier = new PrestaLoadAssetRuleApplier($this->context, $this->assetRuleStore, $this->assetMinifier);
         $criticalCssInjector = new PrestaLoadCriticalCssInjector($this->context, $this->criticalCssStore, $this->settings, __DIR__);
         $htmlCompressor = new PrestaLoadHtmlCompressor($this->settings);
-        $htmlOptimizer = new PrestaLoadHtmlOptimizer($criticalCssInjector, $fontOptimizer, $cssOptimizer, $imageOptimizer, $assetRuleApplier, $htmlCompressor);
+        $htmlOptimizer = new PrestaLoadHtmlOptimizer($criticalCssInjector, $fontOptimizer, $imageOptimizer, $assetRuleApplier, $htmlCompressor);
 
         return new PrestaLoadPageCache($this->context, $this->settings, $eligibility, $keyBuilder, $store, $logger, $htmlOptimizer);
     }
@@ -555,31 +543,6 @@ class PrestaLoad extends Module
                     ],
                 ],
             ],
-            self::TAB_CSS => [
-                'form' => [
-                    'legend' => [
-                        'title' => $this->trans('CSS', [], 'Admin.Global'),
-                        'icon' => 'icon-code',
-                    ],
-                    'input' => [
-                        [
-                            'type' => 'switch',
-                            'label' => 'Experimental CSS deferral',
-                            'name' => PrestaLoadCacheSettings::CONFIG_CSS_OPTIMIZATION_ENABLED,
-                            'is_bool' => true,
-                            'values' => [
-                                ['id' => 'prestaload_css_on', 'value' => 1, 'label' => $this->trans('Yes', [], 'Admin.Global')],
-                                ['id' => 'prestaload_css_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
-                            ],
-                            'desc' => 'Disabled by default. Can improve render-blocking in some shops but may increase layout shifts when modules inject visible CSS late.',
-                        ],
-                    ],
-                    'submit' => [
-                        'title' => $this->trans('Save', [], 'Admin.Actions'),
-                        'name' => 'submitPrestaLoadCssSettings',
-                    ],
-                ],
-            ],
             self::TAB_IMAGES => [
                 'form' => [
                     'legend' => [
@@ -706,11 +669,6 @@ class PrestaLoad extends Module
                 'label' => 'Cache Lifetimes',
                 'icon' => 'icon-time',
                 'link' => $this->getAdminConfigurationLink(self::TAB_CACHE_LIFETIMES),
-            ],
-            self::TAB_CSS => [
-                'label' => 'CSS',
-                'icon' => 'icon-code',
-                'link' => $this->getAdminConfigurationLink(self::TAB_CSS),
             ],
             self::TAB_IMAGES => [
                 'label' => 'Images',

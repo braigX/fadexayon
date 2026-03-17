@@ -18,11 +18,6 @@ class PrestaLoadAssetRuleApplier
     private $ruleStore;
 
     /**
-     * @var PrestaLoadCssOptimizer
-     */
-    private $cssOptimizer;
-
-    /**
      * @var PrestaLoadAssetMinifier
      */
     private $assetMinifier;
@@ -32,11 +27,10 @@ class PrestaLoadAssetRuleApplier
      */
     private $context;
 
-    public function __construct(Context $context, PrestaLoadAssetRuleStore $ruleStore, PrestaLoadCssOptimizer $cssOptimizer, PrestaLoadAssetMinifier $assetMinifier)
+    public function __construct(Context $context, PrestaLoadAssetRuleStore $ruleStore, PrestaLoadAssetMinifier $assetMinifier)
     {
         $this->context = $context;
         $this->ruleStore = $ruleStore;
-        $this->cssOptimizer = $cssOptimizer;
         $this->assetMinifier = $assetMinifier;
     }
 
