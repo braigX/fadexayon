@@ -121,7 +121,7 @@
                   <th>Language</th>
                   <th>URL</th>
                   <th>Variants</th>
-                  <th style="width: 180px;">Action</th>
+                  <th style="width: 260px;">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -457,6 +457,17 @@
                       >
                         <span>Generate Critical CSS</span>
                       </button>
+                      <button
+                        type="button"
+                        class="btn btn-default prestaload-critical-css-remove"
+                        data-page-key="{$critical_page.key|escape:'htmlall':'UTF-8'}"
+                        data-default-label="Remove Critical CSS"
+                        data-loading-label="Removing..."
+                        {if !$critical_page.critical_css.generated}disabled="disabled"{/if}
+                        style="margin-left: 8px;"
+                      >
+                        <span>Remove Critical CSS</span>
+                      </button>
                     </td>
                   </tr>
                 {/foreach}
@@ -511,12 +522,14 @@
         </style>
         <script>
           (function () {
-            var buttons = document.querySelectorAll('.prestaload-critical-css-generate');
+            var generateButtons = document.querySelectorAll('.prestaload-critical-css-generate');
+            var removeButtons = document.querySelectorAll('.prestaload-critical-css-remove');
             var ajaxUrl = {$prestaload_critical_css_generate_ajax_url|json_encode nofilter};
+            var removeAjaxUrl = {$prestaload_critical_css_remove_ajax_url|json_encode nofilter};
             var toast = document.getElementById('prestaload-critical-css-toast');
             var toastTimer = null;
 
-            if (!buttons.length || !ajaxUrl) {
+            if ((!generateButtons.length && !removeButtons.length) || !ajaxUrl || !removeAjaxUrl) {
               return;
             }
 
@@ -551,7 +564,7 @@
               });
             };
 
-            Array.prototype.forEach.call(buttons, function (button) {
+            var bindAction = function (button, url, successMessage, errorMessage) {
               button.addEventListener('click', function () {
                 var params = new URLSearchParams();
                 params.append('prestaload_critical_css_page', button.getAttribute('data-page-key') || '');
@@ -566,17 +579,17 @@
                   label.textContent = loadingLabel;
                 }
 
-                postForm(ajaxUrl, params).then(function (payload) {
+                postForm(url, params).then(function (payload) {
                   if (!payload || !payload.success) {
-                    throw new Error(payload && payload.message ? payload.message : 'Critical CSS generation failed.');
+                    throw new Error(payload && payload.message ? payload.message : errorMessage);
                   }
 
-                  showToast(payload.message || 'Critical CSS generated successfully.', 'success');
+                  showToast(payload.message || successMessage, 'success');
                   window.setTimeout(function () {
                     window.location.reload();
                   }, 500);
                 }).catch(function (error) {
-                  showToast(error.message || 'Critical CSS generation failed.', 'error');
+                  showToast(error.message || errorMessage, 'error');
                 }).finally(function () {
                   button.disabled = false;
                   button.classList.remove('is-loading');
@@ -585,6 +598,14 @@
                   }
                 });
               });
+            };
+
+            Array.prototype.forEach.call(generateButtons, function (button) {
+              bindAction(button, ajaxUrl, 'Critical CSS generated successfully.', 'Critical CSS generation failed.');
+            });
+
+            Array.prototype.forEach.call(removeButtons, function (button) {
+              bindAction(button, removeAjaxUrl, 'Critical CSS removed successfully.', 'Critical CSS removal failed.');
             });
           }());
         </script>

@@ -76,6 +76,34 @@ class PrestaLoadCriticalCssStore
         return $this->loadIndex();
     }
 
+    public function remove($pageType)
+    {
+        $pageType = (string) $pageType;
+        if ($pageType === '') {
+            throw new Exception('Critical CSS page type is missing.');
+        }
+
+        $index = $this->loadIndex();
+        if (empty($index[$pageType])) {
+            return false;
+        }
+
+        $entry = $index[$pageType];
+        if (!empty($entry['devices']) && is_array($entry['devices'])) {
+            foreach ($entry['devices'] as $deviceEntry) {
+                $file = isset($deviceEntry['file']) ? (string) $deviceEntry['file'] : '';
+                if ($file !== '' && is_file($file)) {
+                    @unlink($file);
+                }
+            }
+        }
+
+        unset($index[$pageType]);
+        $this->saveIndex($index);
+
+        return true;
+    }
+
     private function ensureDirectory()
     {
         if (is_dir($this->directory)) {

@@ -283,6 +283,7 @@ class PrestaLoad extends Module
             'prestaload_asset_bulk_clear_minified_ajax_url' => $this->getAjaxConfigurationLink('bulkClearMinifiedAssets'),
             'prestaload_critical_css_pages' => $this->decorateCriticalCssPages($this->criticalCssPageRegistry->getPages()),
             'prestaload_critical_css_generate_ajax_url' => $this->getAjaxConfigurationLink('generateCriticalCss'),
+            'prestaload_critical_css_remove_ajax_url' => $this->getAjaxConfigurationLink('removeCriticalCss'),
             'prestaload_font_usage_pages' => $this->decorateFontUsagePages($this->criticalCssPageRegistry->getPages()),
             'prestaload_font_usage_generate_ajax_url' => $this->getAjaxConfigurationLink('generateFontUsage'),
             'prestaload_font_rule_toggle_ajax_url' => $this->getAjaxConfigurationLink('toggleFontRule'),
@@ -1043,6 +1044,16 @@ class PrestaLoad extends Module
                 ]);
             }
 
+            if ($action === 'removeCriticalCss') {
+                $result = $this->removeCriticalCssFromRequest();
+
+                $this->jsonResponse([
+                    'success' => true,
+                    'message' => 'Critical CSS removed successfully.',
+                    'entry' => $result,
+                ]);
+            }
+
             if ($action === 'generateFontUsage') {
                 $result = $this->generateFontUsageFromRequest();
 
@@ -1177,6 +1188,23 @@ class PrestaLoad extends Module
         $this->pageCache->clear();
 
         return $entry;
+    }
+
+    private function removeCriticalCssFromRequest()
+    {
+        $pageKey = trim((string) Tools::getValue('prestaload_critical_css_page', 'home'));
+        $page = $this->criticalCssPageRegistry->getPageByKey($pageKey);
+        if (empty($page)) {
+            throw new Exception('Selected page type was not found.');
+        }
+
+        $removed = $this->criticalCssStore->remove($page['key']);
+        $this->pageCache->clear();
+
+        return [
+            'page_key' => $page['key'],
+            'removed' => $removed ? 1 : 0,
+        ];
     }
 
     private function generateFontUsageFromRequest()
