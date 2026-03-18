@@ -114,6 +114,7 @@ vendor-bin/
 /modules/**/tmp/*
 /modules/**/temp/*
 /modules/**/cache/*
+!/modules/prestaload/cache/asset-rules.json
 
 # Theme assets cache (generated)
 /themes/modez/assets/cache/*

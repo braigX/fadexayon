@@ -955,12 +955,14 @@ class IdxrCustomProduct extends Module
             return '';
         }
         $controller = isset($this->context->controller->php_self) ? (string) $this->context->controller->php_self : '';
-        Media::addJsDef(
-            array(
-                'custom_products' => IdxConfiguration::getCustomProducts(),
-                'configure_text' => $this->l('Configure')
-            )
-        );
+        if (!in_array($controller, array('index', 'category'), true)) {
+            Media::addJsDef(
+                array(
+                    'custom_products' => IdxConfiguration::getCustomProducts(),
+                    'configure_text' => $this->l('Configure')
+                )
+            );
+        }
         if ($this->es17) {
             // $controller = $this->context->controller->php_self;
 
