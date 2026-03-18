@@ -51,12 +51,12 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "keep",
+        "action": "minify",
         "id": "772b2bbcd68d3008b95cefd434f03bddc27f7abd",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T12:07:02+01:00",
+        "updated_at": "2026-03-18T12:11:09+01:00",
         "load_after_first_interaction": 0
     },
     {
@@ -125,12 +125,12 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "keep",
+        "action": "minify",
         "id": "1a6cb29c8eb1d30c6dabdd98488f5f30f3c9f208",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T12:07:02+01:00",
+        "updated_at": "2026-03-18T12:11:17+01:00",
         "load_after_first_interaction": 0
     },
     {
@@ -683,12 +683,12 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "keep",
+        "action": "minify",
         "id": "dc48d0ef6b77628ca6c7528b07ea4b9e8289eaeb",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T12:07:02+01:00",
+        "updated_at": "2026-03-18T12:11:26+01:00",
         "load_after_first_interaction": 0
     },
     {
