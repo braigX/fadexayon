@@ -64,6 +64,7 @@ class PrestaLoadPageCache
                 'stage' => 'page_cache',
                 'step' => 'miss',
                 'cache_key' => $key,
+                'cache_parts' => $cacheContext['parts'],
                 'controller' => $decision['controller'],
             ]);
             $this->logger->log([
@@ -89,6 +90,7 @@ class PrestaLoadPageCache
             'stage' => 'page_cache',
             'step' => 'hit',
             'cache_key' => $key,
+            'cache_parts' => $cacheContext['parts'],
             'controller' => $decision['controller'],
         ]);
 
@@ -180,6 +182,7 @@ class PrestaLoadPageCache
             'stage' => 'page_cache',
             'step' => $stored ? 'store' : 'store-failed',
             'cache_key' => $key,
+            'cache_parts' => $cacheContext['parts'],
             'controller' => $decision['controller'],
             'status_code' => $statusCode ?: 200,
         ]);
