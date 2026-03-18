@@ -14,6 +14,8 @@ class PrestaLoadCacheSettings
     public const CONFIG_EDGE_CACHE_ENABLED = 'PRESTALOAD_EDGE_CACHE_ENABLED';
     public const CONFIG_HTML_COMPRESSION_ENABLED = 'PRESTALOAD_HTML_COMPRESSION_ENABLED';
     public const CONFIG_CRITICAL_CSS_ENABLED = 'PRESTALOAD_CRITICAL_CSS_ENABLED';
+    public const CONFIG_CRITICAL_CSS_MIN_BYTES = 'PRESTALOAD_CRITICAL_CSS_MIN_BYTES';
+    public const CONFIG_CRITICAL_CSS_MAX_BYTES = 'PRESTALOAD_CRITICAL_CSS_MAX_BYTES';
     public const CONFIG_FONT_OPTIMIZATION_ENABLED = 'PRESTALOAD_FONT_OPTIMIZATION_ENABLED';
     public const CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED = 'PRESTALOAD_IMAGE_LOADING_OPTIMIZATION_ENABLED';
     public const CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED = 'PRESTALOAD_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED';
@@ -36,6 +38,8 @@ class PrestaLoadCacheSettings
         self::CONFIG_EDGE_CACHE_ENABLED => 0,
         self::CONFIG_HTML_COMPRESSION_ENABLED => 0,
         self::CONFIG_CRITICAL_CSS_ENABLED => 0,
+        self::CONFIG_CRITICAL_CSS_MIN_BYTES => 2048,
+        self::CONFIG_CRITICAL_CSS_MAX_BYTES => 24576,
         self::CONFIG_FONT_OPTIMIZATION_ENABLED => 1,
         self::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED => 0,
         self::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED => 0,
@@ -72,6 +76,8 @@ class PrestaLoadCacheSettings
             && Configuration::updateValue(self::CONFIG_EDGE_CACHE_ENABLED, 0)
             && Configuration::updateValue(self::CONFIG_HTML_COMPRESSION_ENABLED, 0)
             && Configuration::updateValue(self::CONFIG_CRITICAL_CSS_ENABLED, 0)
+            && Configuration::updateValue(self::CONFIG_CRITICAL_CSS_MIN_BYTES, 2048)
+            && Configuration::updateValue(self::CONFIG_CRITICAL_CSS_MAX_BYTES, 24576)
             && Configuration::updateValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1)
             && Configuration::updateValue(self::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED, 0)
             && Configuration::updateValue(self::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED, 0)
@@ -96,6 +102,8 @@ class PrestaLoadCacheSettings
             && Configuration::deleteByName(self::CONFIG_EDGE_CACHE_ENABLED)
             && Configuration::deleteByName(self::CONFIG_HTML_COMPRESSION_ENABLED)
             && Configuration::deleteByName(self::CONFIG_CRITICAL_CSS_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_CRITICAL_CSS_MIN_BYTES)
+            && Configuration::deleteByName(self::CONFIG_CRITICAL_CSS_MAX_BYTES)
             && Configuration::deleteByName(self::CONFIG_FONT_OPTIMIZATION_ENABLED)
             && Configuration::deleteByName(self::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED)
             && Configuration::deleteByName(self::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED)
@@ -137,6 +145,16 @@ class PrestaLoadCacheSettings
     public function isCriticalCssEnabled()
     {
         return (bool) $this->getStoredValue(self::CONFIG_CRITICAL_CSS_ENABLED, 0);
+    }
+
+    public function getCriticalCssMinBytes()
+    {
+        return max(256, (int) $this->getStoredValue(self::CONFIG_CRITICAL_CSS_MIN_BYTES, 2048));
+    }
+
+    public function getCriticalCssMaxBytes()
+    {
+        return max($this->getCriticalCssMinBytes(), (int) $this->getStoredValue(self::CONFIG_CRITICAL_CSS_MAX_BYTES, 24576));
     }
 
     public function isHtmlCompressionEnabled()
@@ -256,6 +274,8 @@ class PrestaLoadCacheSettings
             self::CONFIG_EDGE_CACHE_ENABLED => (int) $this->getStoredValue(self::CONFIG_EDGE_CACHE_ENABLED, 0),
             self::CONFIG_HTML_COMPRESSION_ENABLED => (int) $this->getStoredValue(self::CONFIG_HTML_COMPRESSION_ENABLED, 0),
             self::CONFIG_CRITICAL_CSS_ENABLED => (int) $this->getStoredValue(self::CONFIG_CRITICAL_CSS_ENABLED, 0),
+            self::CONFIG_CRITICAL_CSS_MIN_BYTES => (int) $this->getStoredValue(self::CONFIG_CRITICAL_CSS_MIN_BYTES, 2048),
+            self::CONFIG_CRITICAL_CSS_MAX_BYTES => (int) $this->getStoredValue(self::CONFIG_CRITICAL_CSS_MAX_BYTES, 24576),
             self::CONFIG_FONT_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1),
             self::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED, 0),
             self::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED => (int) $this->getStoredValue(self::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED, 0),
@@ -300,6 +320,7 @@ class PrestaLoadCacheSettings
             case self::CONFIG_ENABLED:
             case self::CONFIG_EDGE_CACHE_ENABLED:
             case self::CONFIG_HTML_COMPRESSION_ENABLED:
+            case self::CONFIG_CRITICAL_CSS_ENABLED:
             case self::CONFIG_FONT_OPTIMIZATION_ENABLED:
             case self::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED:
             case self::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED:
@@ -315,6 +336,12 @@ class PrestaLoadCacheSettings
             case self::CONFIG_BROWSER_CACHE_ASSET_TTL:
             case self::CONFIG_BROWSER_CACHE_MEDIA_TTL:
                 return max(60, (int) Tools::getValue($key, (int) self::CONFIG_DEFAULTS[$key]));
+
+            case self::CONFIG_CRITICAL_CSS_MIN_BYTES:
+                return max(256, (int) Tools::getValue($key, (int) self::CONFIG_DEFAULTS[$key]));
+
+            case self::CONFIG_CRITICAL_CSS_MAX_BYTES:
+                return max(256, (int) Tools::getValue($key, (int) self::CONFIG_DEFAULTS[$key]));
 
             case self::CONFIG_ALLOWED_CONTROLLERS:
                 return trim((string) Tools::getValue($key, (string) self::CONFIG_DEFAULTS[$key]));

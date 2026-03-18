@@ -395,8 +395,9 @@
                   <th>Representative URL</th>
                   <th>Sample</th>
                   <th>Mobile</th>
+                  <th>Tablet</th>
                   <th>Desktop</th>
-                  <th style="width: 180px;">Action</th>
+                  <th style="width: 260px;">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -421,6 +422,27 @@
                         {/if}
                         {if $critical_page.critical_css.mobile.stats_summary ne ''}
                           <div style="color: #6c868e;">{$critical_page.critical_css.mobile.stats_summary|escape:'htmlall':'UTF-8'}</div>
+                        {/if}
+                      {else}
+                        <span class="label label-default">Not generated</span>
+                      {/if}
+                    </td>
+                    <td>
+                      {if $critical_page.critical_css.tablet.generated}
+                        <span class="label label-success">Generated</span>
+                        <div style="margin-top: 6px; color: #6c868e;">{$critical_page.critical_css.tablet.size_bytes|intval} bytes</div>
+                        <div style="color: #6c868e;">{$critical_page.critical_css.tablet.generated_at|escape:'htmlall':'UTF-8'}</div>
+                        {if $critical_page.critical_css.tablet.generator_version ne ''}
+                          <div style="color: #6c868e;">Generator v{$critical_page.critical_css.tablet.generator_version|escape:'htmlall':'UTF-8'}</div>
+                        {/if}
+                        {if $critical_page.critical_css.tablet.max_css_bytes}
+                          <div style="color: #6c868e;">Budget {$critical_page.critical_css.tablet.max_css_bytes|intval} bytes{if $critical_page.critical_css.tablet.budget_reached} (reached){/if}</div>
+                        {/if}
+                        {if $critical_page.critical_css.tablet.viewport_element_count !== null || $critical_page.critical_css.tablet.included_element_count !== null}
+                          <div style="color: #6c868e;">Viewport {$critical_page.critical_css.tablet.viewport_element_count|intval} / included {$critical_page.critical_css.tablet.included_element_count|intval}</div>
+                        {/if}
+                        {if $critical_page.critical_css.tablet.stats_summary ne ''}
+                          <div style="color: #6c868e;">{$critical_page.critical_css.tablet.stats_summary|escape:'htmlall':'UTF-8'}</div>
                         {/if}
                       {else}
                         <span class="label label-default">Not generated</span>

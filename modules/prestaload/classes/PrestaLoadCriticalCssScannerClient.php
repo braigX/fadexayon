@@ -109,7 +109,7 @@ class PrestaLoadCriticalCssScannerClient
     {
         $variants = [];
 
-        foreach (['mobile', 'desktop'] as $device) {
+        foreach (['mobile', 'tablet', 'desktop'] as $device) {
             $devicePayload = isset($response['data'][$device]) && is_array($response['data'][$device])
                 ? $response['data'][$device]
                 : [];
@@ -137,7 +137,10 @@ class PrestaLoadCriticalCssScannerClient
             return [];
         }
 
-        $device = isset($singlePayload['device']) && $singlePayload['device'] === 'desktop' ? 'desktop' : 'mobile';
+        $device = 'mobile';
+        if (isset($singlePayload['device']) && in_array($singlePayload['device'], ['mobile', 'tablet', 'desktop'], true)) {
+            $device = (string) $singlePayload['device'];
+        }
 
         return [
             $device => [

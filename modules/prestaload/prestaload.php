@@ -188,6 +188,8 @@ class PrestaLoad extends Module
         if (Tools::isSubmit('submitPrestaLoadCriticalCssSettings')) {
             $this->settings->updateSubsetFromRequest([
                 PrestaLoadCacheSettings::CONFIG_CRITICAL_CSS_ENABLED,
+                PrestaLoadCacheSettings::CONFIG_CRITICAL_CSS_MIN_BYTES,
+                PrestaLoadCacheSettings::CONFIG_CRITICAL_CSS_MAX_BYTES,
             ]);
             $this->pageCache->clear();
             $output .= $this->displayConfirmation($this->trans('Critical CSS settings updated.', [], 'Admin.Notifications.Success'));
@@ -604,6 +606,22 @@ class PrestaLoad extends Module
                                 ['id' => 'prestaload_critical_css_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
                             ],
                             'desc' => 'When enabled, stored critical CSS is injected locally by page type and device. Beta feature.',
+                        ],
+                        [
+                            'type' => 'text',
+                            'label' => 'Reject if smaller than',
+                            'name' => PrestaLoadCacheSettings::CONFIG_CRITICAL_CSS_MIN_BYTES,
+                            'class' => 'fixed-width-sm',
+                            'suffix' => 'bytes',
+                            'desc' => 'Rejects suspiciously tiny critical CSS outputs. Recommended default: 2048 bytes.',
+                        ],
+                        [
+                            'type' => 'text',
+                            'label' => 'Reject if larger than',
+                            'name' => PrestaLoadCacheSettings::CONFIG_CRITICAL_CSS_MAX_BYTES,
+                            'class' => 'fixed-width-sm',
+                            'suffix' => 'bytes',
+                            'desc' => 'Rejects oversized critical CSS outputs before saving. Recommended default: 24576 bytes.',
                         ],
                     ],
                     'submit' => [
@@ -1184,10 +1202,38 @@ class PrestaLoad extends Module
         }
 
         $result = $this->criticalCssScannerClient->generate($page['key'], $page['url']);
+        $this->assertCriticalCssWithinThresholds($result['variants']);
         $entry = $this->criticalCssStore->saveVariants($page, $result['variants']);
         $this->pageCache->clear();
 
         return $entry;
+    }
+
+    private function assertCriticalCssWithinThresholds(array $variants)
+    {
+        $minBytes = $this->settings->getCriticalCssMinBytes();
+        $maxBytes = $this->settings->getCriticalCssMaxBytes();
+        $errors = [];
+
+        foreach ($variants as $device => $variant) {
+            $css = isset($variant['css']) ? (string) $variant['css'] : '';
+            $sizeBytes = isset($variant['css_size_bytes'])
+                ? (int) $variant['css_size_bytes']
+                : strlen($css);
+
+            if ($sizeBytes < $minBytes) {
+                $errors[] = sprintf('%s critical CSS was rejected because it is too small (%d bytes < %d bytes).', ucfirst((string) $device), $sizeBytes, $minBytes);
+                continue;
+            }
+
+            if ($sizeBytes > $maxBytes) {
+                $errors[] = sprintf('%s critical CSS was rejected because it is too large (%d bytes > %d bytes).', ucfirst((string) $device), $sizeBytes, $maxBytes);
+            }
+        }
+
+        if (!empty($errors)) {
+            throw new Exception(implode(' ', $errors));
+        }
     }
 
     private function removeCriticalCssFromRequest()
@@ -1618,6 +1664,7 @@ class PrestaLoad extends Module
             $page['critical_css'] = [
                 'generated' => !empty($entry['devices']),
                 'mobile' => $this->decorateCriticalCssDevice(isset($entry['devices']['mobile']) && is_array($entry['devices']['mobile']) ? $entry['devices']['mobile'] : []),
+                'tablet' => $this->decorateCriticalCssDevice(isset($entry['devices']['tablet']) && is_array($entry['devices']['tablet']) ? $entry['devices']['tablet'] : []),
                 'desktop' => $this->decorateCriticalCssDevice(isset($entry['devices']['desktop']) && is_array($entry['devices']['desktop']) ? $entry['devices']['desktop'] : []),
             ];
         }

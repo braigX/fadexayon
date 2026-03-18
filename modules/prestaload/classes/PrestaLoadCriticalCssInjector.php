@@ -77,7 +77,11 @@ class PrestaLoadCriticalCssInjector
 
     private function resolveDevice()
     {
-        if (method_exists($this->context, 'isMobile') && $this->context->isMobile() && (!method_exists($this->context, 'isTablet') || !$this->context->isTablet())) {
+        if (method_exists($this->context, 'isTablet') && $this->context->isTablet()) {
+            return 'tablet';
+        }
+
+        if (method_exists($this->context, 'isMobile') && $this->context->isMobile()) {
             return 'mobile';
         }
 

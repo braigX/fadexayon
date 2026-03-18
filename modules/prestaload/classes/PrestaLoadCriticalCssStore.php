@@ -33,7 +33,7 @@ class PrestaLoadCriticalCssStore
         ];
 
         foreach ($variants as $device => $variant) {
-            $normalizedDevice = $device === 'desktop' ? 'desktop' : 'mobile';
+            $normalizedDevice = in_array($device, ['mobile', 'tablet', 'desktop'], true) ? (string) $device : 'mobile';
             $cssFile = $this->directory . '/' . preg_replace('/[^a-z0-9_-]+/i', '-', $pageType) . '-' . $normalizedDevice . '.css';
             $css = isset($variant['css']) ? (string) $variant['css'] : '';
             if ($css === '' || @file_put_contents($cssFile, $css) === false) {
