@@ -6,12 +6,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "4a4789137820690ffb9e87e91c6d021d798e0de6",
         "created_at": "2026-03-17T03:09:16+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:16+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -20,12 +21,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "de3421ad2e1db6b39406aadf3309248e92a46703",
         "created_at": "2026-03-17T03:09:16+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -34,12 +36,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "01f68a40f204cd59e14142f891b3e30d5d87a4a6",
         "created_at": "2026-03-17T03:09:16+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -48,12 +51,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "772b2bbcd68d3008b95cefd434f03bddc27f7abd",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -62,12 +66,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "0563701c10adeee6b8b0ecd3027f8b3501a4f105",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -76,12 +81,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "164dee8e3a850ae8516c73859dd4a49c64736737",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -104,12 +110,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "53a8cb37447e3ff1ebc65f6d17bda91f5e1938b3",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -118,12 +125,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "1a6cb29c8eb1d30c6dabdd98488f5f30f3c9f208",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -174,12 +182,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "88f0307542b4b493148e6a16f50316dee22c7a90",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -188,12 +197,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "f1850b9ee3c26a919478fee9b528a86835a68f6a",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -202,12 +212,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "2005cc30785bb4a0a10a01d8eda320910336cfcf",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -230,12 +241,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "6a9c5551f7a5c4a1064626f1b0aa0a8ad37141af",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -314,12 +326,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "eaf54664a47ff6d35759a8cb082c9cfe800e370e",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -328,12 +341,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "595b4b6b859905784367a6425891dec39fd9db61",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -354,14 +368,15 @@
         "page_url": "https://plexi.local.test/",
         "asset_url": "https://plexi.local.test/modules/wksampleproduct/views/css/wkspsample.css",
         "asset_type": "css",
-        "disable": 1,
+        "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "composed",
+        "action": "keep",
         "id": "61cdd2ab3d4eeb544e4b6b848b4cde8c4243f5cc",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -398,12 +413,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "0b392fb4a60c75507e9b57679de883d9bd028a12",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -426,12 +442,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "ca4ada6fd83c1f92820350d98a11a7c666a89a2b",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -594,12 +611,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "8d0050cef59c0465eaefd56eeecbbae3869f8efa",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -636,12 +654,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "9a5341f28de84356255bf2ad6143689b3b0ab7bf",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -664,12 +683,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "dc48d0ef6b77628ca6c7528b07ea4b9e8289eaeb",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -706,12 +726,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "73b4c6cdc00ed747f386e48ef3ca61fcc374931d",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -734,12 +755,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "1eac19ac9d2fcb75e820191fa569f6adba4a5414",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -762,12 +784,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "be620fd1c9a54d594c58d34c8dc29bac8c9a4957",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -776,12 +799,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "4eb7d95ee6e6285919ddcefd311edcb18261fc5c",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -832,12 +856,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "8356c7f81d2db288c84703dbbbe8d6226c94f769",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -846,12 +871,13 @@
         "asset_type": "css",
         "disable": 0,
         "defer": 0,
-        "minify": 1,
+        "minify": 0,
         "load_after_window_load": 0,
-        "action": "minify",
+        "action": "keep",
         "id": "ff3c6efd8adeedf877511076313f290d56e8af48",
         "created_at": "2026-03-17T03:09:17+01:00",
-        "updated_at": "2026-03-18T11:30:33+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -1656,14 +1682,15 @@
         "page_url": "https://plexi.local.test/",
         "asset_url": "https://app.getcharla.com/widget/widget.js",
         "asset_type": "js",
-        "disable": 0,
+        "disable": 1,
         "defer": 0,
         "minify": 0,
-        "load_after_window_load": 1,
-        "action": "load_after_window_load",
+        "load_after_window_load": 0,
+        "action": "disable",
         "id": "97e7640228e28b4f273ec323e22bbcfe1f1552b7",
         "created_at": "2026-03-17T03:09:47+01:00",
-        "updated_at": "2026-03-17T03:27:13+01:00"
+        "updated_at": "2026-03-18T12:07:32+01:00",
+        "load_after_first_interaction": 0
     },
     {
         "page_key": "home",
@@ -1687,11 +1714,12 @@
         "disable": 0,
         "defer": 0,
         "minify": 0,
-        "load_after_window_load": 1,
-        "action": "load_after_window_load",
+        "load_after_window_load": 0,
+        "action": "load_after_first_interaction",
         "id": "f28870dbb4d13d93594a503f2dd77a8ede1e537c",
         "created_at": "2026-03-17T03:10:06+01:00",
-        "updated_at": "2026-03-17T03:27:13+01:00"
+        "updated_at": "2026-03-18T12:07:47+01:00",
+        "load_after_first_interaction": 1
     },
     {
         "page_key": "home",
@@ -1701,11 +1729,12 @@
         "disable": 0,
         "defer": 0,
         "minify": 0,
-        "load_after_window_load": 1,
-        "action": "load_after_window_load",
+        "load_after_window_load": 0,
+        "action": "load_after_first_interaction",
         "id": "6c2a102a3ef57a6e710ef3dfc144c961fe4d5e02",
         "created_at": "2026-03-17T03:10:12+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T12:07:44+01:00",
+        "load_after_first_interaction": 1
     },
     {
         "page_key": "home",
@@ -1715,11 +1744,12 @@
         "disable": 0,
         "defer": 0,
         "minify": 0,
-        "load_after_window_load": 1,
-        "action": "load_after_window_load",
+        "load_after_window_load": 0,
+        "action": "load_after_first_interaction",
         "id": "6ecc660f9693f66474e6f10d10e182b4b47f2cb3",
         "created_at": "2026-03-17T03:10:16+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T12:07:49+01:00",
+        "load_after_first_interaction": 1
     },
     {
         "page_key": "home",
@@ -1733,6 +1763,22 @@
         "action": "keep",
         "id": "78ff13e005e5462f1ecb4ea56dcc85d626d8d10f",
         "created_at": "2026-03-17T03:26:57+01:00",
-        "updated_at": "2026-03-17T03:26:57+01:00"
+        "updated_at": "2026-03-18T12:07:02+01:00",
+        "load_after_first_interaction": 0
+    },
+    {
+        "page_key": "home",
+        "page_url": "https://plexi.local.test/",
+        "asset_url": "https://www.googletagmanager.com/gtag/js?id=G-QLZ7D75TBJ&cx=c&gtm=4e63g1",
+        "asset_type": "js",
+        "disable": 0,
+        "defer": 0,
+        "minify": 0,
+        "load_after_window_load": 0,
+        "load_after_first_interaction": 1,
+        "action": "load_after_first_interaction",
+        "id": "669ea23bb50676cc2570d91248a696d79983c042",
+        "created_at": "2026-03-18T12:07:41+01:00",
+        "updated_at": "2026-03-18T12:07:41+01:00"
     }
 ]

@@ -9,15 +9,10 @@ class PrestaLoadCriticalCssScannerClient
      * @var PrestaLoadCacheSettings
      */
     private $settings;
-    /**
-     * @var PrestaLoadCriticalCssLogger|null
-     */
-    private $logger;
 
-    public function __construct(PrestaLoadCacheSettings $settings, $logger = null)
+    public function __construct(PrestaLoadCacheSettings $settings)
     {
         $this->settings = $settings;
-        $this->logger = $logger;
     }
 
     public function generate($pageType, $url)
@@ -33,27 +28,11 @@ class PrestaLoadCriticalCssScannerClient
             throw new Exception('Could not encode the critical CSS payload.');
         }
 
-        $this->log([
-            'stage' => 'scanner_request',
-            'page_type' => (string) $pageType,
-            'url' => (string) $url,
-            'endpoint' => $endpoint,
-            'payload' => json_decode($payload, true),
-        ]);
-
         $response = function_exists('curl_init')
             ? $this->sendWithCurl($endpoint, $payload)
             : $this->sendWithStreams($endpoint, $payload);
 
         $variants = $this->extractVariants($response);
-        $this->log([
-            'stage' => 'scanner_response',
-            'page_type' => (string) $pageType,
-            'success' => isset($response['success']) ? (bool) $response['success'] : null,
-            'message' => isset($response['message']) ? (string) $response['message'] : '',
-            'devices' => array_keys($variants),
-            'variant_sizes' => $this->collectVariantSizes($variants),
-        ]);
 
         if (empty($variants)) {
             throw new Exception('The scanner did not return any critical CSS.');
@@ -119,13 +98,6 @@ class PrestaLoadCriticalCssScannerClient
         if (!is_array($decoded)) {
             throw new Exception('Critical CSS scanner returned invalid JSON.');
         }
-
-        $this->log([
-            'stage' => 'scanner_http',
-            'http_code' => (int) $httpCode,
-            'success' => isset($decoded['success']) ? (bool) $decoded['success'] : null,
-            'message' => isset($decoded['message']) ? (string) $decoded['message'] : '',
-        ]);
 
         if ($httpCode >= 400 || (isset($decoded['success']) && empty($decoded['success']))) {
             throw new Exception(isset($decoded['message']) ? (string) $decoded['message'] : 'Critical CSS request failed.');
@@ -200,20 +172,4 @@ class PrestaLoadCriticalCssScannerClient
         return '';
     }
 
-    private function collectVariantSizes(array $variants)
-    {
-        $sizes = [];
-        foreach ($variants as $device => $variant) {
-            $sizes[$device] = isset($variant['css_size_bytes']) ? (int) $variant['css_size_bytes'] : strlen(isset($variant['css']) ? (string) $variant['css'] : '');
-        }
-
-        return $sizes;
-    }
-
-    private function log(array $entry)
-    {
-        if ($this->logger) {
-            $this->logger->log($entry);
-        }
-    }
 }

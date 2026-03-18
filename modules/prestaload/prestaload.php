@@ -27,7 +27,6 @@ require_once __DIR__ . '/classes/PrestaLoadAssetRuleStore.php';
 require_once __DIR__ . '/classes/PrestaLoadAssetMinifier.php';
 require_once __DIR__ . '/classes/PrestaLoadAssetRuleApplier.php';
 require_once __DIR__ . '/classes/PrestaLoadCriticalCssPageRegistry.php';
-require_once __DIR__ . '/classes/PrestaLoadCriticalCssLogger.php';
 require_once __DIR__ . '/classes/PrestaLoadCriticalCssScannerClient.php';
 require_once __DIR__ . '/classes/PrestaLoadCriticalCssStore.php';
 require_once __DIR__ . '/classes/PrestaLoadCriticalCssInjector.php';
@@ -88,7 +87,6 @@ class PrestaLoad extends Module
     private $assetRuleStore;
     private $assetMinifier;
     private $criticalCssPageRegistry;
-    private $criticalCssLogger;
     private $criticalCssScannerClient;
     private $criticalCssStore;
     private $fontUsageScannerClient;
@@ -124,9 +122,8 @@ class PrestaLoad extends Module
         $this->assetRuleStore = new PrestaLoadAssetRuleStore(__DIR__);
         $this->assetMinifier = new PrestaLoadAssetMinifier($this->context, __DIR__);
         $this->criticalCssPageRegistry = new PrestaLoadCriticalCssPageRegistry($this->context, $this->settings);
-        $this->criticalCssLogger = new PrestaLoadCriticalCssLogger(__DIR__ . '/cache/prestaload-critical-css.json');
-        $this->criticalCssScannerClient = new PrestaLoadCriticalCssScannerClient($this->settings, $this->criticalCssLogger);
-        $this->criticalCssStore = new PrestaLoadCriticalCssStore(__DIR__, $this->criticalCssLogger);
+        $this->criticalCssScannerClient = new PrestaLoadCriticalCssScannerClient($this->settings);
+        $this->criticalCssStore = new PrestaLoadCriticalCssStore(__DIR__);
         $this->fontUsageScannerClient = new PrestaLoadFontUsageScannerClient($this->settings);
         $this->fontUsageStore = new PrestaLoadFontUsageStore(__DIR__);
         $this->fontRuleStore = new PrestaLoadFontRuleStore(__DIR__);
@@ -1155,13 +1152,6 @@ class PrestaLoad extends Module
                 'message' => 'Unknown AJAX action.',
             ]);
         } catch (Exception $exception) {
-            if ((string) Tools::getValue('action') === 'generateCriticalCss' && $this->criticalCssLogger) {
-                $this->criticalCssLogger->log([
-                    'stage' => 'generate_exception',
-                    'message' => $exception->getMessage(),
-                    'page_key' => (string) Tools::getValue('prestaload_critical_css_page', ''),
-                ]);
-            }
             $this->jsonResponse([
                 'success' => false,
                 'message' => $exception->getMessage(),
@@ -1207,18 +1197,8 @@ class PrestaLoad extends Module
     private function generateCriticalCssFromRequest()
     {
         $pageKey = trim((string) Tools::getValue('prestaload_critical_css_page', 'home'));
-        $this->criticalCssLogger->log([
-            'stage' => 'generate_start',
-            'page_key' => $pageKey,
-            'request_controller' => isset($this->context->controller->php_self) ? (string) $this->context->controller->php_self : '',
-        ]);
         $page = $this->criticalCssPageRegistry->getPageByKey($pageKey);
         if (empty($page)) {
-            $this->criticalCssLogger->log([
-                'stage' => 'generate_error',
-                'page_key' => $pageKey,
-                'message' => 'Selected page type was not found.',
-            ]);
             throw new Exception('Selected page type was not found.');
         }
 
@@ -1226,13 +1206,6 @@ class PrestaLoad extends Module
         $this->assertCriticalCssWithinThresholds($result['variants']);
         $entry = $this->criticalCssStore->saveVariants($page, $result['variants']);
         $this->pageCache->clear();
-
-        $this->criticalCssLogger->log([
-            'stage' => 'generate_complete',
-            'page_key' => $page['key'],
-            'url' => isset($page['url']) ? (string) $page['url'] : '',
-            'devices' => array_keys(isset($entry['devices']) && is_array($entry['devices']) ? $entry['devices'] : []),
-        ]);
 
         return $entry;
     }
@@ -1249,14 +1222,6 @@ class PrestaLoad extends Module
                 ? (int) $variant['css_size_bytes']
                 : strlen($css);
 
-            $this->criticalCssLogger->log([
-                'stage' => 'threshold_check',
-                'device' => (string) $device,
-                'size_bytes' => $sizeBytes,
-                'min_bytes' => $minBytes,
-                'max_bytes' => $maxBytes,
-            ]);
-
             if ($sizeBytes < $minBytes) {
                 $errors[] = sprintf('%s critical CSS was rejected because it is too small (%d bytes < %d bytes).', ucfirst((string) $device), $sizeBytes, $minBytes);
                 continue;
@@ -1268,17 +1233,8 @@ class PrestaLoad extends Module
         }
 
         if (!empty($errors)) {
-            $this->criticalCssLogger->log([
-                'stage' => 'threshold_rejected',
-                'errors' => $errors,
-            ]);
             throw new Exception(implode(' ', $errors));
         }
-
-        $this->criticalCssLogger->log([
-            'stage' => 'threshold_passed',
-            'devices' => array_keys($variants),
-        ]);
     }
 
     private function removeCriticalCssFromRequest()

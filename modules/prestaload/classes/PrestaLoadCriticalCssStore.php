@@ -7,16 +7,11 @@ class PrestaLoadCriticalCssStore
 {
     private $directory;
     private $indexFile;
-    /**
-     * @var PrestaLoadCriticalCssLogger|null
-     */
-    private $logger;
 
-    public function __construct($modulePath, $logger = null)
+    public function __construct($modulePath)
     {
         $this->directory = rtrim((string) $modulePath, '/') . '/cache/critical-css';
         $this->indexFile = $this->directory . '/index.json';
-        $this->logger = $logger;
     }
 
     public function saveVariants(array $page, array $variants)
@@ -53,26 +48,9 @@ class PrestaLoadCriticalCssStore
                 'generator_version' => isset($variant['generator_version']) ? (string) $variant['generator_version'] : '',
                 'meta' => isset($variant['meta']) && is_array($variant['meta']) ? $variant['meta'] : [],
             ];
-
-            $this->log([
-                'stage' => 'store_variant',
-                'page_type' => $pageType,
-                'device' => $normalizedDevice,
-                'file' => $cssFile,
-                'size_bytes' => $index[$pageType]['devices'][$normalizedDevice]['size_bytes'],
-                'generated_at' => $index[$pageType]['devices'][$normalizedDevice]['generated_at'],
-                'generator_version' => $index[$pageType]['devices'][$normalizedDevice]['generator_version'],
-            ]);
         }
 
         $this->saveIndex($index);
-
-        $this->log([
-            'stage' => 'store_complete',
-            'page_type' => $pageType,
-            'devices' => array_keys($index[$pageType]['devices']),
-            'index_file' => $this->indexFile,
-        ]);
 
         return $index[$pageType];
     }
@@ -150,13 +128,6 @@ class PrestaLoadCriticalCssStore
     {
         if (@file_put_contents($this->indexFile, json_encode($index, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n") === false) {
             throw new Exception('Could not update the critical CSS index.');
-        }
-    }
-
-    private function log(array $entry)
-    {
-        if ($this->logger) {
-            $this->logger->log($entry);
         }
     }
 }
