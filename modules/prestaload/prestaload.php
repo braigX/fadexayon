@@ -138,17 +138,15 @@ class PrestaLoad extends Module
     }
 
     /**
-     * Remove settings and clear cached files.
+     * Remove generated caches but preserve saved settings and rules.
      */
     public function uninstall()
     {
-        $this->pageCache->clear();
-        $this->runtimeConfig->delete();
+        $this->clearGeneratedArtifacts();
 
         return $this->unregisterHook('actionDispatcher')
             && $this->unregisterHook('actionOutputHTMLBefore')
             && $this->unregisterHooks(self::INVALIDATION_HOOKS)
-            && $this->settings->uninstallDefaults()
             && parent::uninstall();
     }
 
@@ -1734,5 +1732,58 @@ class PrestaLoad extends Module
         }
 
         return $enabledFlags[0];
+    }
+
+    private function clearGeneratedArtifacts()
+    {
+        $this->pageCache->clear();
+
+        foreach ([
+            $this->localPath . 'cache/minified',
+            $this->localPath . 'cache/minified/backups',
+            $this->localPath . 'cache/critical-css',
+            $this->localPath . 'cache/font-usage',
+            $this->localPath . 'reports',
+        ] as $directory) {
+            $this->deleteDirectoryContents($directory);
+        }
+
+        foreach ([
+            $this->localPath . 'cache/prestaload-critical-css.log',
+            $this->localPath . 'cache/prestaload-requests.log',
+            $this->localPath . 'cache/source.html',
+            $this->localPath . 'cache/runtime-config.php',
+        ] as $filePath) {
+            if (is_file($filePath)) {
+                @unlink($filePath);
+            }
+        }
+    }
+
+    private function deleteDirectoryContents($directory)
+    {
+        if (!is_dir($directory)) {
+            return;
+        }
+
+        $items = @scandir($directory);
+        if (!is_array($items)) {
+            return;
+        }
+
+        foreach ($items as $item) {
+            if ($item === '.' || $item === '..' || $item === 'index.php') {
+                continue;
+            }
+
+            $path = $directory . DIRECTORY_SEPARATOR . $item;
+            if (is_dir($path)) {
+                $this->deleteDirectoryContents($path);
+                @rmdir($path);
+                continue;
+            }
+
+            @unlink($path);
+        }
     }
 }
