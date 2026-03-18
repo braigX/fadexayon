@@ -61,6 +61,10 @@
 </div>
 
 <div id="is_media"></div>
+{*
+
 {literal}
  <script> window.addEventListener('load', function() { var widgetElement = document.createElement('charla-widget'); widgetElement.setAttribute("p", "58d653bb-c2c5-406b-8c76-83ed98746339"); document.body.appendChild(widgetElement) ; var widgetCode = document.createElement('script'); widgetCode.src = 'https://app.getcharla.com/widget/widget.js'; document.body.appendChild(widgetCode); }) </script> 
 {/literal}
+
+*}
