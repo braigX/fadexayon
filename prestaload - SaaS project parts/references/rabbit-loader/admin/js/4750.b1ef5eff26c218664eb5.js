@@ -1,0 +1,1 @@
+"use strict";(this.webpackChunkRLAdmin=this.webpackChunkRLAdmin||[]).push([[4750],{24750:(e,t,n)=>{n.r(t),n.d(t,{default:()=>i});var a=n(15189),c=n(65990);const i=function(){return React.createElement(a.A,{sx:{height:"100%",display:"flex",alignItems:"center",width:"50%"}},React.createElement(c.A,{variant:"h5",color:"textSecondary"},"Something went wrong."))}}}]);
