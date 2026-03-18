@@ -860,12 +860,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "4e57a8ab803bb916037881aa033b6dc44950229a",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:13+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -874,12 +874,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "4f8db59e80269c2d6b41f0a056a479cdce99cdc2",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:13+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -888,12 +888,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "698c52cec28ac52af10fe00f297177df3cf3bb8f",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:13+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -902,12 +902,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "9450e8895dec27b6092e797b45bca3965bddbd40",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:13+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -916,12 +916,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "e3f90428267e8f4bfe762ec1265eea07f7a40606",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:13+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -930,12 +930,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "cff144d4d53df42728fbb3406cf37cab1f875389",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:13+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -944,12 +944,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "41930a45afb9eb0d6542521f35ee2ff6c1502c1f",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:13+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -958,12 +958,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "5aa467bf0ea1cb7b51a36e8c61692b6ef9b29229",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:13+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -972,12 +972,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "8b8deb7974f350213d3c2e437858c7d9d1bd7543",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:13+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -986,12 +986,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "71cb1b836c3a873cb5dda54d756fe4f1a30a980e",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:13+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1000,12 +1000,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "8684f44afe44ca7ab4ca1e4919ed3d1826b5466a",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:13+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1014,12 +1014,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "50f3d709067574845ee4eeab38f4f621e41bd987",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:13+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1028,12 +1028,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "428b9b640193d819b258f6e83a3707eee9a42a98",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:13+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1042,12 +1042,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "a9357066d2c152a6a68ce5cecdd7e60f7f8fe62b",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:13+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1056,12 +1056,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "feb6a4e7b2d653c77e0e386ea91840df45857bbf",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:13+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1070,12 +1070,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "079471e4154dc2db47e1fa154d28479196946159",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:13+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1084,12 +1084,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "bf4b685d9aff5048d58841351c045f9c9e6cb1a2",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:13+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1098,12 +1098,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "85c827107d5cf174c3c0633a0ee99b8d3f60d3b7",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:13+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1112,12 +1112,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "ffe75cec7a1e3985fdb66713536ce1ebd4631599",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:13+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1126,12 +1126,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "57d8e119006f77dfd6d70bb37f4b3e4fdbee7279",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1140,12 +1140,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "e969e8cd566c69db336e62ee0a548dfeed40591b",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1154,12 +1154,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "d9968f23b66cfe1bee8df1334599a6e379a44a67",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1168,12 +1168,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "6f12da9eb5b5d0fe5e0cc1e4f5dad7a047c88902",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1182,12 +1182,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "517cfd5e06d7ba65e77a6fc34c59853838d6df9c",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1196,12 +1196,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "c7f61ba5f7eefcdfbe1a0bf443b376649df32f9d",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1210,12 +1210,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "f9b832463f913b387f76c5e7754daeef80f55d4d",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1224,12 +1224,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "ecb6c1ab1cc74495a98d39f1760467427da4e574",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1238,12 +1238,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "e19fa6767b066d576452c0a8e9fec426b3cac244",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1252,12 +1252,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "c2d0317dd28cdeccba372e51c92609862f7ea83a",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1266,12 +1266,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "65a30f81d95238fad7858864241cc6e40615dbaa",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1280,12 +1280,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "72dee22d482a567269a869d0c5efa9ee1e534402",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1294,12 +1294,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "7ae75a38feed515b9365287e791876f75c60291b",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1308,12 +1308,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "f055b5952d93bcf33b5b3b1163555cd5a377ffef",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1322,12 +1322,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "19633f441ff533ea323b0691dbc3ffdedb9a30f8",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1336,12 +1336,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "9aac1d34b496a99345f3b1a0746b7fe63506bc26",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1350,12 +1350,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "575d254e9593d89b53389b7a3e644e172a61c5c0",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1364,12 +1364,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "ee5bbc50736d7d29d79b78249f8b2d64ff417446",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1378,12 +1378,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "02906301aa46f49f1fc7950cdfb4eb92b10f82a1",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1392,12 +1392,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "67b592176755e50f56721af8a2ed708d8e1067ed",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1406,12 +1406,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "f40738d6e4b57152a08c24006fb8bf1738739d74",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1420,12 +1420,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "0a993988e92e0f04a3a176ba45034ac54b52f599",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1434,12 +1434,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "bf466f9ed70ea31cc21e51c604b09fdd637e1f88",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1448,12 +1448,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "7a5fd93d8daa88c44b09c4fc2f9b20421be387bf",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1462,12 +1462,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "ce38f5d0665e63fac445ed68919b13ad69ec1d18",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1476,12 +1476,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "87f5039e9b37fbca52b53da9199c0b3e3286b68f",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1490,12 +1490,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "0f218f4fc1f21ff2344e5176257e8d6e07b20d21",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1504,12 +1504,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "25e479e8232f94e29069a577a75e3272cc76f6a6",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1518,12 +1518,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "2b8392d218e8e2d14751e8a7fadcbce72070bad0",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1532,12 +1532,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "6fb280fd776471939daa854d4c4e16cb909f98bb",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1546,12 +1546,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "36b13a74a716218ee4a1a33aa27128ff9d87ba1c",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1560,12 +1560,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "33e731bc51bc61a8de191df7d8fe08fdc464509c",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1574,12 +1574,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "1d1369eb5f159d905559f257741b6d7da526b704",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1588,12 +1588,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "fd3024b574547a93b9e52fcf17f072563f86ce69",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1602,12 +1602,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "9d093276b53c529472f255ffe2a652ea39d59ed1",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1616,12 +1616,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "e4a610fab1a68edbe75daf7d6a91915cd209cdf7",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1630,12 +1630,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "473b0c04398cbcd4cd91c97939b23ec9308e8dc1",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",
@@ -1644,12 +1644,12 @@
         "asset_type": "js",
         "disable": 0,
         "defer": 1,
-        "minify": 0,
+        "minify": 1,
         "load_after_window_load": 0,
-        "action": "defer",
+        "action": "composed",
         "id": "49c15d1b287d05034e29752eb67ded8b60ff21c5",
         "created_at": "2026-03-17T03:09:30+01:00",
-        "updated_at": "2026-03-17T03:27:14+01:00"
+        "updated_at": "2026-03-18T11:34:12+01:00"
     },
     {
         "page_key": "home",

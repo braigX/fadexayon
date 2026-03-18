@@ -10,5 +10,5 @@ return array (
     2 => 'product',
     3 => 'cms',
   ),
-  'written_at' => 1773805891,
+  'written_at' => 1773829933,
 );
