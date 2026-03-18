@@ -29,7 +29,8 @@ class PrestaLoadRuntimeConfig
         }
 
         $payload = [
-            'enabled' => $this->settings->isEnabled(),
+            'enabled' => $this->settings->isEnabled() && $this->settings->isEdgeCacheEnabled(),
+            'edge_cache_enabled' => $this->settings->isEdgeCacheEnabled(),
             'cache_directory' => $this->settings->getCacheDirectory(),
             'allowed_controllers' => $this->settings->getAllowedControllers(),
             'written_at' => time(),
@@ -47,8 +48,23 @@ class PrestaLoadRuntimeConfig
         return !is_file($path) || @unlink($path);
     }
 
+    public function isValid()
+    {
+        $path = $this->getPath();
+        if (!is_file($path)) {
+            return false;
+        }
+
+        $payload = require $path;
+
+        return is_array($payload)
+            && array_key_exists('enabled', $payload)
+            && array_key_exists('cache_directory', $payload)
+            && array_key_exists('allowed_controllers', $payload);
+    }
+
     public function getPath()
     {
-        return $this->modulePath . '/cache/runtime-config.php';
+        return $this->modulePath . '/runtime-config.php';
     }
 }

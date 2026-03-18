@@ -17,13 +17,45 @@ if (!defined('_PS_ROOT_DIR_')) {
     define('_PS_ROOT_DIR_', __DIR__);
 }
 
-$prestaLoadRuntimePath = __DIR__ . '/modules/prestaload/cache/runtime-config.php';
+if (!function_exists('prestaload_log_early_boot')) {
+    function prestaload_log_early_boot(array $payload)
+    {
+        $path = isset($_SERVER['REQUEST_URI']) ? (string) parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) : '/';
+        if ($path === false || $path === '') {
+            $path = '/';
+        }
+
+        if ($path !== '/' && $path !== '/index.php') {
+            return;
+        }
+
+        $logFile = __DIR__ . '/modules/prestaload/cache/prestaload-features.log';
+        $directory = dirname($logFile);
+        if (!is_dir($directory)) {
+            @mkdir($directory, 0775, true);
+        }
+
+        $payload['stage'] = 'early_bootstrap';
+        $payload['logged_at'] = gmdate('c');
+        $payload['request_uri'] = isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '';
+        $payload['method'] = isset($_SERVER['REQUEST_METHOD']) ? (string) $_SERVER['REQUEST_METHOD'] : '';
+
+        $line = json_encode($payload);
+        if ($line !== false) {
+            @file_put_contents($logFile, $line . PHP_EOL, FILE_APPEND | LOCK_EX);
+        }
+    }
+}
+
+$prestaLoadRuntimePath = __DIR__ . '/modules/prestaload/runtime-config.php';
 if (!is_file($prestaLoadRuntimePath)) {
+    prestaload_log_early_boot(['step' => 'skip', 'reason' => 'runtime-config-missing']);
     return;
 }
 
 $prestaLoadRuntime = require $prestaLoadRuntimePath;
 if (!is_array($prestaLoadRuntime) || empty($prestaLoadRuntime['enabled'])) {
+    prestaload_log_early_boot(['step' => 'skip', 'reason' => 'runtime-disabled']);
     return;
 }
 
@@ -31,14 +63,21 @@ require_once __DIR__ . '/modules/prestaload/classes/PrestaLoadCacheStore.php';
 require_once __DIR__ . '/modules/prestaload/classes/PrestaLoadEarlyCacheKeyBuilder.php';
 
 if (!function_exists('prestaload_should_serve_early_cache')) {
-    function prestaload_should_serve_early_cache(array $runtime)
+    function prestaload_get_early_cache_eligibility(array $runtime)
     {
         if (!isset($_SERVER['REQUEST_METHOD']) || strtoupper((string) $_SERVER['REQUEST_METHOD']) !== 'GET') {
-            return false;
+            return [
+                'eligible' => false,
+                'reason' => 'method-not-get',
+                'method' => isset($_SERVER['REQUEST_METHOD']) ? (string) $_SERVER['REQUEST_METHOD'] : '',
+            ];
         }
 
         if (isset($_GET['ajax']) && $_GET['ajax']) {
-            return false;
+            return [
+                'eligible' => false,
+                'reason' => 'ajax-request',
+            ];
         }
 
         $path = isset($_SERVER['REQUEST_URI']) ? (string) parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) : '/';
@@ -50,15 +89,43 @@ if (!function_exists('prestaload_should_serve_early_cache')) {
         // leak personalized content. We can widen this later once invalidation
         // and cookie detection are stronger.
         if ($path !== '/' && $path !== '/index.php') {
-            return false;
+            return [
+                'eligible' => false,
+                'reason' => 'path-not-supported',
+                'path' => $path,
+            ];
         }
 
         $cookieHeader = isset($_SERVER['HTTP_COOKIE']) ? (string) $_SERVER['HTTP_COOKIE'] : '';
-        if ($cookieHeader !== '' && preg_match('/(?:PrestaShop-|PHPSESSID|id_cart|logged|customer|checkout|admin)/i', $cookieHeader)) {
-            return false;
+        if ($cookieHeader !== '' && preg_match('/(?:PrestaShop-|id_cart|logged|customer|checkout|admin)/i', $cookieHeader, $matches)) {
+            return [
+                'eligible' => false,
+                'reason' => 'cookie-blocked',
+                'matched_cookie_fragment' => isset($matches[0]) ? (string) $matches[0] : '',
+            ];
         }
 
-        return in_array('index', isset($runtime['allowed_controllers']) && is_array($runtime['allowed_controllers']) ? $runtime['allowed_controllers'] : [], true);
+        $allowedControllers = isset($runtime['allowed_controllers']) && is_array($runtime['allowed_controllers']) ? $runtime['allowed_controllers'] : [];
+        if (!in_array('index', $allowedControllers, true)) {
+            return [
+                'eligible' => false,
+                'reason' => 'controller-not-allowed',
+                'allowed_controllers' => $allowedControllers,
+            ];
+        }
+
+        return [
+            'eligible' => true,
+            'reason' => 'ok',
+            'path' => $path,
+        ];
+    }
+
+    function prestaload_should_serve_early_cache(array $runtime)
+    {
+        $eligibility = prestaload_get_early_cache_eligibility($runtime);
+
+        return !empty($eligibility['eligible']);
     }
 
     function prestaload_send_cached_headers(array $payload)
@@ -82,6 +149,10 @@ if (!function_exists('prestaload_should_serve_early_cache')) {
 }
 
 if (!prestaload_should_serve_early_cache($prestaLoadRuntime)) {
+    $prestaLoadEligibility = prestaload_get_early_cache_eligibility($prestaLoadRuntime);
+    unset($prestaLoadEligibility['eligible']);
+    $prestaLoadEligibility['step'] = 'skip';
+    prestaload_log_early_boot($prestaLoadEligibility);
     return;
 }
 
@@ -90,8 +161,18 @@ $prestaLoadKeyContext = PrestaLoadEarlyCacheKeyBuilder::buildContextFromServer()
 $prestaLoadPayload = $prestaLoadStore->get($prestaLoadKeyContext['key']);
 
 if (!is_array($prestaLoadPayload) || !isset($prestaLoadPayload['body'])) {
+    prestaload_log_early_boot([
+        'step' => 'miss',
+        'cache_key' => $prestaLoadKeyContext['key'],
+        'cache_parts' => $prestaLoadKeyContext['parts'],
+    ]);
     return;
 }
 
 prestaload_send_cached_headers($prestaLoadPayload);
+prestaload_log_early_boot([
+    'step' => 'hit',
+    'cache_key' => $prestaLoadKeyContext['key'],
+    'cache_parts' => $prestaLoadKeyContext['parts'],
+]);
 exit($prestaLoadPayload['body']);

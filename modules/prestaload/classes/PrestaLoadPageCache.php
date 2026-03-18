@@ -11,6 +11,7 @@ class PrestaLoadPageCache
     private $keyBuilder;
     private $store;
     private $logger;
+    private $featureLogger;
     private $htmlOptimizer;
     private $requestCacheContext;
 
@@ -21,7 +22,8 @@ class PrestaLoadPageCache
         PrestaLoadCacheKeyBuilder $keyBuilder,
         PrestaLoadCacheStore $store,
         PrestaLoadCacheLogger $logger,
-        PrestaLoadHtmlOptimizer $htmlOptimizer
+        PrestaLoadHtmlOptimizer $htmlOptimizer,
+        PrestaLoadFeatureLogger $featureLogger
     ) {
         $this->context = $context;
         $this->settings = $settings;
@@ -30,6 +32,7 @@ class PrestaLoadPageCache
         $this->store = $store;
         $this->logger = $logger;
         $this->htmlOptimizer = $htmlOptimizer;
+        $this->featureLogger = $featureLogger;
     }
 
     /**
@@ -46,11 +49,23 @@ class PrestaLoadPageCache
         }
 
         if (!$decision['cacheable']) {
+            $this->featureLogger->log([
+                'stage' => 'page_cache',
+                'step' => 'bypass',
+                'reason' => $decision['reason'],
+                'controller' => $decision['controller'],
+            ]);
             return;
         }
 
         $payload = $this->store->get($key);
         if ($payload === null) {
+            $this->featureLogger->log([
+                'stage' => 'page_cache',
+                'step' => 'miss',
+                'cache_key' => $key,
+                'controller' => $decision['controller'],
+            ]);
             $this->logger->log([
                 'cache_key' => $key,
                 'cache_parts' => $cacheContext['parts'],
@@ -69,6 +84,12 @@ class PrestaLoadPageCache
             'cacheable' => true,
             'reason' => $decision['reason'],
             'result' => 'hit',
+        ]);
+        $this->featureLogger->log([
+            'stage' => 'page_cache',
+            'step' => 'hit',
+            'cache_key' => $key,
+            'controller' => $decision['controller'],
         ]);
 
         while (ob_get_level() > 0) {
@@ -106,6 +127,12 @@ class PrestaLoadPageCache
         }
 
         if (!$decision['cacheable']) {
+            $this->featureLogger->log([
+                'stage' => 'page_cache',
+                'step' => 'store-skip',
+                'reason' => $decision['reason'],
+                'controller' => $decision['controller'],
+            ]);
             return;
         }
 
@@ -147,6 +174,13 @@ class PrestaLoadPageCache
             'cacheable' => true,
             'reason' => $decision['reason'],
             'result' => $stored ? 'store' : 'store-failed',
+            'status_code' => $statusCode ?: 200,
+        ]);
+        $this->featureLogger->log([
+            'stage' => 'page_cache',
+            'step' => $stored ? 'store' : 'store-failed',
+            'cache_key' => $key,
+            'controller' => $decision['controller'],
             'status_code' => $statusCode ?: 200,
         ]);
 

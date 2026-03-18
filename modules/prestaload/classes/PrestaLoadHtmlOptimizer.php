@@ -52,6 +52,10 @@ class PrestaLoadHtmlOptimizer
      * @var PrestaLoadHtmlCompressor
      */
     private $htmlCompressor;
+    /**
+     * @var PrestaLoadFeatureLogger
+     */
+    private $featureLogger;
 
     public function __construct(
         PrestaLoadCriticalCssInjector $criticalCssInjector,
@@ -59,7 +63,8 @@ class PrestaLoadHtmlOptimizer
         PrestaLoadFontOptimizer $fontOptimizer,
         PrestaLoadImageOptimizer $imageOptimizer,
         PrestaLoadAssetRuleApplier $assetRuleApplier,
-        PrestaLoadHtmlCompressor $htmlCompressor
+        PrestaLoadHtmlCompressor $htmlCompressor,
+        PrestaLoadFeatureLogger $featureLogger
     ) {
         $this->criticalCssInjector = $criticalCssInjector;
         $this->fontRuleApplier = $fontRuleApplier;
@@ -67,6 +72,7 @@ class PrestaLoadHtmlOptimizer
         $this->imageOptimizer = $imageOptimizer;
         $this->assetRuleApplier = $assetRuleApplier;
         $this->htmlCompressor = $htmlCompressor;
+        $this->featureLogger = $featureLogger;
     }
 
     /**
@@ -74,12 +80,43 @@ class PrestaLoadHtmlOptimizer
      */
     public function optimize($html)
     {
-        $html = $this->criticalCssInjector->optimize($html);
-        $html = $this->fontRuleApplier->optimize($html);
-        $html = $this->fontOptimizer->optimize($html);
-        $html = $this->imageOptimizer->optimize($html);
-        $html = $this->assetRuleApplier->optimize($html);
+        $this->featureLogger->log([
+            'stage' => 'optimizer',
+            'step' => 'start',
+            'size_before' => is_string($html) ? strlen($html) : 0,
+        ]);
 
-        return $this->htmlCompressor->optimize($html);
+        $html = $this->applyStep('critical_css', $html, [$this->criticalCssInjector, 'optimize']);
+        $html = $this->applyStep('font_rules', $html, [$this->fontRuleApplier, 'optimize']);
+        $html = $this->applyStep('font_optimizer', $html, [$this->fontOptimizer, 'optimize']);
+        $html = $this->applyStep('image_optimizer', $html, [$this->imageOptimizer, 'optimize']);
+        $html = $this->applyStep('asset_rules', $html, [$this->assetRuleApplier, 'optimize']);
+        $html = $this->applyStep('html_compressor', $html, [$this->htmlCompressor, 'optimize']);
+
+        $this->featureLogger->log([
+            'stage' => 'optimizer',
+            'step' => 'finish',
+            'size_after' => is_string($html) ? strlen($html) : 0,
+        ]);
+
+        return $html;
+    }
+
+    private function applyStep($name, $html, callable $optimizer)
+    {
+        $before = is_string($html) ? strlen($html) : 0;
+        $optimized = call_user_func($optimizer, $html);
+        $after = is_string($optimized) ? strlen($optimized) : 0;
+
+        $this->featureLogger->log([
+            'stage' => 'optimizer',
+            'step' => $name,
+            'changed' => $optimized !== $html,
+            'size_before' => $before,
+            'size_after' => $after,
+            'delta_bytes' => $after - $before,
+        ]);
+
+        return $optimized;
     }
 }

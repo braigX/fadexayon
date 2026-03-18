@@ -13,6 +13,7 @@ require_once __DIR__ . '/classes/PrestaLoadCacheSettings.php';
 require_once __DIR__ . '/classes/PrestaLoadCacheEligibility.php';
 require_once __DIR__ . '/classes/PrestaLoadCacheKeyBuilder.php';
 require_once __DIR__ . '/classes/PrestaLoadCacheLogger.php';
+require_once __DIR__ . '/classes/PrestaLoadFeatureLogger.php';
 require_once __DIR__ . '/classes/PrestaLoadCacheStore.php';
 require_once __DIR__ . '/classes/PrestaLoadPageCache.php';
 require_once __DIR__ . '/classes/PrestaLoadBrowserCacheManager.php';
@@ -77,6 +78,7 @@ class PrestaLoad extends Module
     private $pageCache;
     private $browserCacheManager;
     private $runtimeConfig;
+    private $featureLogger;
     private $assetPageRegistry;
     private $assetScannerClient;
     private $assetScanStore;
@@ -110,6 +112,7 @@ class PrestaLoad extends Module
         $this->settings = new PrestaLoadCacheSettings($this->name, __DIR__);
         $this->browserCacheManager = new PrestaLoadBrowserCacheManager($this->settings);
         $this->runtimeConfig = new PrestaLoadRuntimeConfig($this->settings, __DIR__);
+        $this->featureLogger = new PrestaLoadFeatureLogger(__DIR__ . '/cache/prestaload-features.log');
         $this->assetPageRegistry = new PrestaLoadAssetPageRegistry($this->context, $this->settings);
         $this->assetScannerClient = new PrestaLoadAssetScannerClient($this->settings);
         $this->assetScanStore = new PrestaLoadAssetScanStore(__DIR__);
@@ -131,20 +134,19 @@ class PrestaLoad extends Module
     {
         return parent::install()
             && $this->settings->installDefaults()
-            && $this->runtimeConfig->write()
             && $this->registerHook('actionDispatcher')
+            && $this->registerHook('actionFrontControllerInitAfter')
             && $this->registerHook('actionOutputHTMLBefore')
             && $this->registerHooks(self::INVALIDATION_HOOKS);
     }
 
     /**
-     * Remove generated caches but preserve saved settings and rules.
+     * Unregister hooks only. Generated files and saved settings are left intact.
      */
     public function uninstall()
     {
-        $this->clearGeneratedArtifacts();
-
         return $this->unregisterHook('actionDispatcher')
+            && $this->unregisterHook('actionFrontControllerInitAfter')
             && $this->unregisterHook('actionOutputHTMLBefore')
             && $this->unregisterHooks(self::INVALIDATION_HOOKS)
             && parent::uninstall();
@@ -167,13 +169,17 @@ class PrestaLoad extends Module
         if (Tools::isSubmit('submitPrestaLoadGeneralSettings')) {
             $this->settings->updateSubsetFromRequest([
                 PrestaLoadCacheSettings::CONFIG_ENABLED,
+                PrestaLoadCacheSettings::CONFIG_EDGE_CACHE_ENABLED,
                 PrestaLoadCacheSettings::CONFIG_HTML_COMPRESSION_ENABLED,
                 PrestaLoadCacheSettings::CONFIG_TTL,
                 PrestaLoadCacheSettings::CONFIG_ALLOWED_CONTROLLERS,
             ]);
-            $this->runtimeConfig->write();
+            $runtimeConfigWritten = $this->runtimeConfig->write();
             $this->pageCache->clear();
             $output .= $this->displayConfirmation($this->trans('Full page caching settings updated.', [], 'Admin.Notifications.Success'));
+            if (!$runtimeConfigWritten) {
+                $output .= $this->displayWarning($this->trans('Settings were saved, but the edge runtime config could not be written.', [], 'Admin.Notifications.Warning'));
+            }
         }
 
         if (Tools::isSubmit('submitPrestaLoadCriticalCssSettings')) {
@@ -289,7 +295,39 @@ class PrestaLoad extends Module
             header('X-PrestaLoad-Boot: prestashop');
         }
 
+        $this->ensureRuntimeConfigFresh();
+
+        $this->logConfigurationSnapshot('actionDispatcher');
         $this->pageCache->maybeServe(is_array($params) ? $params : []);
+    }
+
+    public function hookActionFrontControllerInitAfter($params)
+    {
+        $this->logConfigurationSnapshot('actionFrontControllerInitAfter');
+    }
+
+    private function logConfigurationSnapshot($hookName)
+    {
+        $this->featureLogger->log([
+            'stage' => 'configuration',
+            'step' => 'snapshot',
+            'hook' => $hookName,
+            'values' => $this->settings->getConfigurationSnapshot(),
+        ]);
+    }
+
+    private function ensureRuntimeConfigFresh()
+    {
+        if ($this->runtimeConfig->isValid()) {
+            return;
+        }
+
+        $written = $this->runtimeConfig->write();
+        $this->featureLogger->log([
+            'stage' => 'configuration',
+            'step' => $written ? 'runtime_config_rebuilt' : 'runtime_config_rebuild_failed',
+            'path' => $this->runtimeConfig->getPath(),
+        ]);
     }
 
     /**
@@ -332,9 +370,9 @@ class PrestaLoad extends Module
         $assetRuleApplier = new PrestaLoadAssetRuleApplier($this->context, $this->assetRuleStore, $this->assetMinifier);
         $criticalCssInjector = new PrestaLoadCriticalCssInjector($this->context, $this->criticalCssStore, $this->settings, __DIR__);
         $htmlCompressor = new PrestaLoadHtmlCompressor($this->settings);
-        $htmlOptimizer = new PrestaLoadHtmlOptimizer($criticalCssInjector, $fontRuleApplier, $fontOptimizer, $imageOptimizer, $assetRuleApplier, $htmlCompressor);
+        $htmlOptimizer = new PrestaLoadHtmlOptimizer($criticalCssInjector, $fontRuleApplier, $fontOptimizer, $imageOptimizer, $assetRuleApplier, $htmlCompressor, $this->featureLogger);
 
-        return new PrestaLoadPageCache($this->context, $this->settings, $eligibility, $keyBuilder, $store, $logger, $htmlOptimizer);
+        return new PrestaLoadPageCache($this->context, $this->settings, $eligibility, $keyBuilder, $store, $logger, $htmlOptimizer, $this->featureLogger);
     }
 
     private function registerHooks(array $hooks)
@@ -397,6 +435,17 @@ class PrestaLoad extends Module
                                 ['id' => 'prestaload_enabled_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
                             ],
                             'desc' => 'Only anonymous GET requests can be cached.',
+                        ],
+                        [
+                            'type' => 'switch',
+                            'label' => 'Enable edge cache bootstrap',
+                            'name' => PrestaLoadCacheSettings::CONFIG_EDGE_CACHE_ENABLED,
+                            'is_bool' => true,
+                            'values' => [
+                                ['id' => 'prestaload_edge_cache_on', 'value' => 1, 'label' => $this->trans('Yes', [], 'Admin.Global')],
+                                ['id' => 'prestaload_edge_cache_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
+                            ],
+                            'desc' => 'Allows the root index.php bootstrap to serve cached homepage HTML before Prestashop starts.',
                         ],
                         [
                             'type' => 'switch',
@@ -1734,56 +1783,4 @@ class PrestaLoad extends Module
         return $enabledFlags[0];
     }
 
-    private function clearGeneratedArtifacts()
-    {
-        $this->pageCache->clear();
-
-        foreach ([
-            $this->localPath . 'cache/minified',
-            $this->localPath . 'cache/minified/backups',
-            $this->localPath . 'cache/critical-css',
-            $this->localPath . 'cache/font-usage',
-            $this->localPath . 'reports',
-        ] as $directory) {
-            $this->deleteDirectoryContents($directory);
-        }
-
-        foreach ([
-            $this->localPath . 'cache/prestaload-critical-css.log',
-            $this->localPath . 'cache/prestaload-requests.log',
-            $this->localPath . 'cache/source.html',
-            $this->localPath . 'cache/runtime-config.php',
-        ] as $filePath) {
-            if (is_file($filePath)) {
-                @unlink($filePath);
-            }
-        }
-    }
-
-    private function deleteDirectoryContents($directory)
-    {
-        if (!is_dir($directory)) {
-            return;
-        }
-
-        $items = @scandir($directory);
-        if (!is_array($items)) {
-            return;
-        }
-
-        foreach ($items as $item) {
-            if ($item === '.' || $item === '..' || $item === 'index.php') {
-                continue;
-            }
-
-            $path = $directory . DIRECTORY_SEPARATOR . $item;
-            if (is_dir($path)) {
-                $this->deleteDirectoryContents($path);
-                @rmdir($path);
-                continue;
-            }
-
-            @unlink($path);
-        }
-    }
 }

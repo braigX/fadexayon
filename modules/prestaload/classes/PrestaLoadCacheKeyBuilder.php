@@ -31,7 +31,7 @@ class PrestaLoadCacheKeyBuilder
             // These versions let the cache key move forward when PrestaLoad
             // settings or asset rules change, even if old cache files cannot
             // be deleted because of shared-host ownership quirks.
-            'runtime_version' => $this->getFileVersion($this->modulePath . '/cache/runtime-config.php'),
+            'runtime_version' => $this->getFileVersion($this->modulePath . '/runtime-config.php'),
             'asset_rules_version' => $this->getFileVersion($this->modulePath . '/cache/asset-rules.json'),
         ];
 

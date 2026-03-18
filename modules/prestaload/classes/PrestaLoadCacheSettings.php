@@ -11,6 +11,7 @@ class PrestaLoadCacheSettings
     private const DEFAULT_TTL = 1296000;
  
     public const CONFIG_ENABLED = 'PRESTALOAD_CACHE_ENABLED';
+    public const CONFIG_EDGE_CACHE_ENABLED = 'PRESTALOAD_EDGE_CACHE_ENABLED';
     public const CONFIG_HTML_COMPRESSION_ENABLED = 'PRESTALOAD_HTML_COMPRESSION_ENABLED';
     public const CONFIG_CRITICAL_CSS_ENABLED = 'PRESTALOAD_CRITICAL_CSS_ENABLED';
     public const CONFIG_FONT_OPTIMIZATION_ENABLED = 'PRESTALOAD_FONT_OPTIMIZATION_ENABLED';
@@ -32,6 +33,7 @@ class PrestaLoadCacheSettings
 
     private const CONFIG_DEFAULTS = [
         self::CONFIG_ENABLED => 1,
+        self::CONFIG_EDGE_CACHE_ENABLED => 0,
         self::CONFIG_HTML_COMPRESSION_ENABLED => 0,
         self::CONFIG_CRITICAL_CSS_ENABLED => 0,
         self::CONFIG_FONT_OPTIMIZATION_ENABLED => 1,
@@ -67,6 +69,7 @@ class PrestaLoadCacheSettings
     public function installDefaults()
     {
         return Configuration::updateValue(self::CONFIG_ENABLED, 1)
+            && Configuration::updateValue(self::CONFIG_EDGE_CACHE_ENABLED, 0)
             && Configuration::updateValue(self::CONFIG_HTML_COMPRESSION_ENABLED, 0)
             && Configuration::updateValue(self::CONFIG_CRITICAL_CSS_ENABLED, 0)
             && Configuration::updateValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1)
@@ -90,6 +93,7 @@ class PrestaLoadCacheSettings
     public function uninstallDefaults()
     {
         return Configuration::deleteByName(self::CONFIG_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_EDGE_CACHE_ENABLED)
             && Configuration::deleteByName(self::CONFIG_HTML_COMPRESSION_ENABLED)
             && Configuration::deleteByName(self::CONFIG_CRITICAL_CSS_ENABLED)
             && Configuration::deleteByName(self::CONFIG_FONT_OPTIMIZATION_ENABLED)
@@ -118,6 +122,11 @@ class PrestaLoadCacheSettings
     public function getTtl()
     {
         return max(60, (int) $this->getStoredValue(self::CONFIG_TTL, self::DEFAULT_TTL));
+    }
+
+    public function isEdgeCacheEnabled()
+    {
+        return (bool) $this->getStoredValue(self::CONFIG_EDGE_CACHE_ENABLED, 0);
     }
 
     public function isFontOptimizationEnabled()
@@ -244,6 +253,7 @@ class PrestaLoadCacheSettings
     {
         return [
             self::CONFIG_ENABLED => (int) $this->getStoredValue(self::CONFIG_ENABLED, 1),
+            self::CONFIG_EDGE_CACHE_ENABLED => (int) $this->getStoredValue(self::CONFIG_EDGE_CACHE_ENABLED, 0),
             self::CONFIG_HTML_COMPRESSION_ENABLED => (int) $this->getStoredValue(self::CONFIG_HTML_COMPRESSION_ENABLED, 0),
             self::CONFIG_CRITICAL_CSS_ENABLED => (int) $this->getStoredValue(self::CONFIG_CRITICAL_CSS_ENABLED, 0),
             self::CONFIG_FONT_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1),
@@ -265,6 +275,11 @@ class PrestaLoadCacheSettings
         ];
     }
 
+    public function getConfigurationSnapshot()
+    {
+        return $this->getFormValues();
+    }
+
     /**
      * Prestashop's Configuration::get does not take the default value as the
      * second argument, so this helper provides an explicit fallback.
@@ -283,6 +298,7 @@ class PrestaLoadCacheSettings
     {
         switch ($key) {
             case self::CONFIG_ENABLED:
+            case self::CONFIG_EDGE_CACHE_ENABLED:
             case self::CONFIG_HTML_COMPRESSION_ENABLED:
             case self::CONFIG_FONT_OPTIMIZATION_ENABLED:
             case self::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED:
