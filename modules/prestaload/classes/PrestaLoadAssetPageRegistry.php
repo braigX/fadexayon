@@ -26,22 +26,29 @@ class PrestaLoadAssetPageRegistry
      */
     public function getPages()
     {
+        return $this->getPagesForLanguage((int) $this->context->language->id);
+    }
+
+    public function getPagesForLanguage($languageId)
+    {
+        $languageId = max(1, (int) $languageId);
         $pages = [];
         $pages[] = [
             'key' => 'home',
             'type' => 'home',
             'label' => 'Homepage',
-            'url' => $this->normalizeScanUrl($this->context->link->getPageLink('index', true)),
+            'url' => $this->normalizeScanUrl($this->context->link->getPageLink('index', true, $languageId)),
+            'language_id' => $languageId,
         ];
 
-        $pages = array_merge($pages, $this->buildCategoryPages());
-        $pages = array_merge($pages, $this->buildProductPages());
-        $pages = array_merge($pages, $this->buildCmsPages());
+        $pages = array_merge($pages, $this->buildCategoryPages($languageId));
+        $pages = array_merge($pages, $this->buildProductPages($languageId));
+        $pages = array_merge($pages, $this->buildCmsPages($languageId));
 
         return $pages;
     }
 
-    private function buildCategoryPages()
+    private function buildCategoryPages($languageId)
     {
         $rows = Db::getInstance()->executeS(
             'SELECT c.id_category
@@ -54,7 +61,7 @@ class PrestaLoadAssetPageRegistry
 
         $pages = [];
         foreach ($rows as $row) {
-            $category = new Category((int) $row['id_category'], (int) $this->context->language->id, (int) $this->context->shop->id);
+            $category = new Category((int) $row['id_category'], (int) $languageId, (int) $this->context->shop->id);
             if (!Validate::isLoadedObject($category)) {
                 continue;
             }
@@ -63,14 +70,15 @@ class PrestaLoadAssetPageRegistry
                 'key' => 'category:' . (int) $category->id,
                 'type' => 'category',
                 'label' => 'Category: ' . $category->name,
-                'url' => $this->normalizeScanUrl($this->context->link->getCategoryLink($category)),
+                'url' => $this->normalizeScanUrl($this->context->link->getCategoryLink($category, null, (int) $languageId, null)),
+                'language_id' => (int) $languageId,
             ];
         }
 
         return $pages;
     }
 
-    private function buildProductPages()
+    private function buildProductPages($languageId)
     {
         $rows = Db::getInstance()->executeS(
             'SELECT p.id_product
@@ -83,7 +91,7 @@ class PrestaLoadAssetPageRegistry
 
         $pages = [];
         foreach ($rows as $row) {
-            $product = new Product((int) $row['id_product'], false, (int) $this->context->language->id, (int) $this->context->shop->id);
+            $product = new Product((int) $row['id_product'], false, (int) $languageId, (int) $this->context->shop->id);
             if (!Validate::isLoadedObject($product)) {
                 continue;
             }
@@ -92,14 +100,15 @@ class PrestaLoadAssetPageRegistry
                 'key' => 'product:' . (int) $product->id,
                 'type' => 'product',
                 'label' => 'Product: ' . $product->name,
-                'url' => $this->normalizeScanUrl($this->context->link->getProductLink($product)),
+                'url' => $this->normalizeScanUrl($this->context->link->getProductLink($product, null, null, null, (int) $languageId, (int) $this->context->shop->id)),
+                'language_id' => (int) $languageId,
             ];
         }
 
         return $pages;
     }
 
-    private function buildCmsPages()
+    private function buildCmsPages($languageId)
     {
         $rows = Db::getInstance()->executeS(
             'SELECT c.id_cms
@@ -112,7 +121,7 @@ class PrestaLoadAssetPageRegistry
 
         $pages = [];
         foreach ($rows as $row) {
-            $cms = new CMS((int) $row['id_cms'], (int) $this->context->language->id, (int) $this->context->shop->id);
+            $cms = new CMS((int) $row['id_cms'], (int) $languageId, (int) $this->context->shop->id);
             if (!Validate::isLoadedObject($cms)) {
                 continue;
             }
@@ -121,7 +130,8 @@ class PrestaLoadAssetPageRegistry
                 'key' => 'cms:' . (int) $cms->id,
                 'type' => 'cms',
                 'label' => 'CMS: ' . $cms->meta_title,
-                'url' => $this->normalizeScanUrl($this->context->link->getCMSLink($cms)),
+                'url' => $this->normalizeScanUrl($this->context->link->getCMSLink($cms, null, true, (int) $languageId, (int) $this->context->shop->id)),
+                'language_id' => (int) $languageId,
             ];
         }
 

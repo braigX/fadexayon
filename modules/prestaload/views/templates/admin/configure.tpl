@@ -95,6 +95,83 @@
 
       {if $prestaload_active_tab === 'general'}
         <div class="panel" style="margin-top: 16px;">
+          <h3>Cache warmer</h3>
+          <p>
+            Warm homepage, category, product, and CMS cache variants across the dimensions that change cache keys. This includes language, currency, country, and device variants, plus an anonymous homepage request for the early bootstrap alias.
+          </p>
+
+          <div id="prestaload-cache-warmer-toast" class="prestaload-toast" style="display: none;"></div>
+
+          <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 16px;">
+            <button
+              type="button"
+              class="btn btn-primary prestaload-cache-warmer-run"
+              data-default-label="Warm all cache variants"
+              data-loading-label="Warming..."
+            >
+              <span>Warm all cache variants</span>
+            </button>
+          </div>
+
+          <div style="overflow-x: auto; margin-bottom: 16px;">
+            <table class="table" style="border: 1px solid #d3d8db;">
+              <thead>
+                <tr>
+                  <th>Page</th>
+                  <th>Language</th>
+                  <th>URL</th>
+                  <th>Variants</th>
+                  <th style="width: 180px;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {foreach from=$prestaload_cache_warmer_pages item=warm_page}
+                  <tr>
+                    <td>{$warm_page.label|escape:'htmlall':'UTF-8'}</td>
+                    <td>{$warm_page.language_iso|default:'-'|escape:'htmlall':'UTF-8'}</td>
+                    <td style="word-break: break-all;">{$warm_page.url|escape:'htmlall':'UTF-8'}</td>
+                    <td>{$warm_page.variant_count|intval}</td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-default prestaload-cache-warmer-page"
+                        data-page-key="{$warm_page.key|escape:'htmlall':'UTF-8'}"
+                        data-language-id="{$warm_page.language_id|intval}"
+                        data-default-label="Warm this page"
+                        data-loading-label="Warming..."
+                      >
+                        <span>Warm this page</span>
+                      </button>
+                    </td>
+                  </tr>
+                {/foreach}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="panel" style="margin-bottom: 0;">
+            <h4 style="margin-top: 0;">Last warmer report</h4>
+            {if $prestaload_cache_warmer_report.summary|default:false}
+              <div id="prestaload-cache-warmer-summary">
+                <div><strong>Started:</strong> <span data-prestaload-warmer-field="started_at">{$prestaload_cache_warmer_report.started_at|default:'-'|escape:'htmlall':'UTF-8'}</span></div>
+                <div><strong>Finished:</strong> <span data-prestaload-warmer-field="finished_at">{$prestaload_cache_warmer_report.finished_at|default:'-'|escape:'htmlall':'UTF-8'}</span></div>
+                <div><strong>Pages:</strong> <span data-prestaload-warmer-field="pages">{$prestaload_cache_warmer_report.summary.pages|intval}</span></div>
+                <div><strong>Variants per page:</strong> <span data-prestaload-warmer-field="variants">{$prestaload_cache_warmer_report.summary.variants|intval}</span></div>
+                <div><strong>Total requests:</strong> <span data-prestaload-warmer-field="requests_total">{$prestaload_cache_warmer_report.summary.requests_total|intval}</span></div>
+                <div><strong>Successful:</strong> <span data-prestaload-warmer-field="requests_ok">{$prestaload_cache_warmer_report.summary.requests_ok|intval}</span></div>
+                <div><strong>Failed:</strong> <span data-prestaload-warmer-field="requests_failed">{$prestaload_cache_warmer_report.summary.requests_failed|intval}</span></div>
+                <div><strong>Early alias requests:</strong> <span data-prestaload-warmer-field="early_requests">{$prestaload_cache_warmer_report.summary.early_requests|intval}</span></div>
+                <div><strong>Average time:</strong> <span data-prestaload-warmer-field="avg_time_ms">{$prestaload_cache_warmer_report.summary.avg_time_ms|intval}</span> ms</div>
+              </div>
+            {else}
+              <div id="prestaload-cache-warmer-summary" class="alert alert-info" style="margin-bottom: 0;">
+                No warmer report has been generated yet.
+              </div>
+            {/if}
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top: 16px;">
           <h3>Cached pages ({$prestaload_stats.size_bytes|intval} bytes)</h3>
           <p>
             These are the current full-page cache files managed by PrestaLoad.
@@ -160,6 +237,145 @@
             </div>
           {/if}
         </div>
+      {/if}
+
+      {if $prestaload_active_tab === 'general'}
+        <script>
+          (function () {
+            var button = document.querySelector('.prestaload-cache-warmer-run');
+            var pageButtons = document.querySelectorAll('.prestaload-cache-warmer-page');
+            var toast = document.getElementById('prestaload-cache-warmer-toast');
+            var summary = document.getElementById('prestaload-cache-warmer-summary');
+            var ajaxUrl = {$prestaload_cache_warmer_ajax_url|json_encode nofilter};
+            var pageAjaxUrl = {$prestaload_cache_warmer_page_ajax_url|json_encode nofilter};
+            var toastTimer = null;
+
+            var showToast = function (message, type) {
+              if (!toast) {
+                return;
+              }
+
+              toast.className = 'prestaload-toast prestaload-toast--' + (type === 'error' ? 'error' : 'success');
+              toast.textContent = message;
+              toast.style.display = 'block';
+
+              if (toastTimer) {
+                window.clearTimeout(toastTimer);
+              }
+
+              toastTimer = window.setTimeout(function () {
+                toast.style.display = 'none';
+              }, 3200);
+            };
+
+            var postForm = function (url, params) {
+              return fetch(url, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                body: params.toString(),
+                credentials: 'same-origin'
+              }).then(function (response) {
+                return response.json();
+              });
+            };
+
+            var updateSummary = function (report) {
+              if (!summary || !report || !report.summary) {
+                return;
+              }
+
+              var setField = function (field, value) {
+                var node = summary.querySelector('[data-prestaload-warmer-field="' + field + '"]');
+                if (node) {
+                  node.textContent = value;
+                }
+              };
+
+              if (summary.classList.contains('alert')) {
+                summary.className = '';
+                summary.style.marginBottom = '0';
+                summary.innerHTML = ''
+                  + '<div><strong>Started:</strong> <span data-prestaload-warmer-field="started_at">-</span></div>'
+                  + '<div><strong>Finished:</strong> <span data-prestaload-warmer-field="finished_at">-</span></div>'
+                  + '<div><strong>Pages:</strong> <span data-prestaload-warmer-field="pages">0</span></div>'
+                  + '<div><strong>Variants per page:</strong> <span data-prestaload-warmer-field="variants">0</span></div>'
+                  + '<div><strong>Total requests:</strong> <span data-prestaload-warmer-field="requests_total">0</span></div>'
+                  + '<div><strong>Successful:</strong> <span data-prestaload-warmer-field="requests_ok">0</span></div>'
+                  + '<div><strong>Failed:</strong> <span data-prestaload-warmer-field="requests_failed">0</span></div>'
+                  + '<div><strong>Early alias requests:</strong> <span data-prestaload-warmer-field="early_requests">0</span></div>'
+                  + '<div><strong>Average time:</strong> <span data-prestaload-warmer-field="avg_time_ms">0</span> ms</div>';
+              }
+
+              setField('started_at', report.started_at || '-');
+              setField('finished_at', report.finished_at || '-');
+              setField('pages', String(report.summary.pages || 0));
+              setField('variants', String(report.summary.variants || 0));
+              setField('requests_total', String(report.summary.requests_total || 0));
+              setField('requests_ok', String(report.summary.requests_ok || 0));
+              setField('requests_failed', String(report.summary.requests_failed || 0));
+              setField('early_requests', String(report.summary.early_requests || 0));
+              setField('avg_time_ms', String(report.summary.avg_time_ms || 0));
+            };
+
+            var runWarmer = function (triggerButton, params, successFallback) {
+              if (!triggerButton) {
+                return;
+              }
+
+              var label = triggerButton.querySelector('span');
+              var defaultLabel = triggerButton.getAttribute('data-default-label') || 'Run';
+              var loadingLabel = triggerButton.getAttribute('data-loading-label') || 'Running...';
+
+              triggerButton.disabled = true;
+              triggerButton.classList.add('is-loading');
+              if (label) {
+                label.textContent = loadingLabel;
+              }
+
+              postForm(params.get('action') === 'warmCachePage' ? pageAjaxUrl : ajaxUrl, params).then(function (payload) {
+                if (!payload || !payload.success) {
+                  throw new Error(payload && payload.message ? payload.message : 'Cache warmer failed.');
+                }
+
+                if (payload.report) {
+                  updateSummary(payload.report);
+                }
+
+                showToast(payload.message || successFallback, 'success');
+              }).catch(function (error) {
+                showToast(error.message || 'Cache warmer failed.', 'error');
+              }).finally(function () {
+                triggerButton.disabled = false;
+                triggerButton.classList.remove('is-loading');
+                if (label) {
+                  label.textContent = defaultLabel;
+                }
+              });
+            };
+
+            if (!button || !ajaxUrl || !pageAjaxUrl) {
+              return;
+            }
+
+            button.addEventListener('click', function () {
+              var params = new URLSearchParams();
+              params.append('action', 'warmCache');
+              runWarmer(button, params, 'Cache warming completed.');
+            });
+
+            Array.prototype.forEach.call(pageButtons, function (pageButton) {
+              pageButton.addEventListener('click', function () {
+                var params = new URLSearchParams();
+                params.append('action', 'warmCachePage');
+                params.append('prestaload_page_key', pageButton.getAttribute('data-page-key') || '');
+                params.append('prestaload_language_id', pageButton.getAttribute('data-language-id') || '');
+                runWarmer(pageButton, params, 'Page cache warming completed.');
+              });
+            });
+          }());
+        </script>
       {/if}
 
       {if $prestaload_active_tab === 'critical_css'}

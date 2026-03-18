@@ -16,6 +16,7 @@ require_once __DIR__ . '/classes/PrestaLoadCacheLogger.php';
 require_once __DIR__ . '/classes/PrestaLoadFeatureLogger.php';
 require_once __DIR__ . '/classes/PrestaLoadCacheStore.php';
 require_once __DIR__ . '/classes/PrestaLoadPageCache.php';
+require_once __DIR__ . '/classes/PrestaLoadCacheWarmer.php';
 require_once __DIR__ . '/classes/PrestaLoadBrowserCacheManager.php';
 require_once __DIR__ . '/classes/PrestaLoadEarlyCacheKeyBuilder.php';
 require_once __DIR__ . '/classes/PrestaLoadRuntimeConfig.php';
@@ -79,6 +80,7 @@ class PrestaLoad extends Module
     private $browserCacheManager;
     private $runtimeConfig;
     private $featureLogger;
+    private $cacheWarmer;
     private $assetPageRegistry;
     private $assetScannerClient;
     private $assetScanStore;
@@ -114,6 +116,7 @@ class PrestaLoad extends Module
         $this->runtimeConfig = new PrestaLoadRuntimeConfig($this->settings, __DIR__);
         $this->featureLogger = new PrestaLoadFeatureLogger(__DIR__ . '/cache/prestaload-features.json');
         $this->assetPageRegistry = new PrestaLoadAssetPageRegistry($this->context, $this->settings);
+        $this->cacheWarmer = new PrestaLoadCacheWarmer($this->context, $this->settings, $this->assetPageRegistry, __DIR__);
         $this->assetScannerClient = new PrestaLoadAssetScannerClient($this->settings);
         $this->assetScanStore = new PrestaLoadAssetScanStore(__DIR__);
         $this->assetRuleStore = new PrestaLoadAssetRuleStore(__DIR__);
@@ -264,6 +267,10 @@ class PrestaLoad extends Module
             'prestaload_stats' => $this->pageCache->getStats(),
             'prestaload_settings_form' => $this->renderSettingsForm($activeTab),
             'prestaload_browser_cache_status' => $this->browserCacheManager->getStatus(),
+            'prestaload_cache_warmer_report' => $this->cacheWarmer->getLastReport(),
+            'prestaload_cache_warmer_ajax_url' => $this->getAjaxConfigurationLink('warmCache'),
+            'prestaload_cache_warmer_page_ajax_url' => $this->getAjaxConfigurationLink('warmCachePage'),
+            'prestaload_cache_warmer_pages' => $this->cacheWarmer->getWarmablePages(),
             'prestaload_asset_pages' => $assetPages,
             'prestaload_selected_asset_page' => $selectedAssetPage,
             'prestaload_selected_asset_scan' => $this->decorateAssetScan($selectedAssetScan),
@@ -987,6 +994,42 @@ class PrestaLoad extends Module
                     'message' => 'Asset scan completed.',
                     'reload_url' => $this->getAdminConfigurationLink(self::TAB_ASSETS) . '&prestaload_asset_page=' . urlencode((string) $page['key']),
                     'paths' => $paths,
+                ]);
+            }
+
+            if ($action === 'warmCache') {
+                $result = $this->cacheWarmer->warmAll();
+
+                $this->jsonResponse([
+                    'success' => true,
+                    'message' => sprintf(
+                        'Cache warmer finished: %d requests, %d ok, %d failed.',
+                        (int) ($result['summary']['requests_total'] ?? 0),
+                        (int) ($result['summary']['requests_ok'] ?? 0),
+                        (int) ($result['summary']['requests_failed'] ?? 0)
+                    ),
+                    'report' => $result,
+                ]);
+            }
+
+            if ($action === 'warmCachePage') {
+                $pageKey = (string) Tools::getValue('prestaload_page_key');
+                $languageId = (int) Tools::getValue('prestaload_language_id');
+                $result = $this->cacheWarmer->warmPage($pageKey, $languageId);
+
+                $page = isset($result['pages'][0]) ? $result['pages'][0] : [];
+
+                $this->jsonResponse([
+                    'success' => true,
+                    'message' => sprintf(
+                        'Cache warmed for %s (%s): %d requests, %d ok, %d failed.',
+                        (string) ($page['page_label'] ?? 'page'),
+                        (string) ($page['language_iso'] ?? '-'),
+                        (int) ($result['summary']['requests_total'] ?? 0),
+                        (int) ($result['summary']['requests_ok'] ?? 0),
+                        (int) ($result['summary']['requests_failed'] ?? 0)
+                    ),
+                    'report' => $result,
                 ]);
             }
 
