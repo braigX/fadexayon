@@ -954,6 +954,7 @@ class IdxrCustomProduct extends Module
         if (Tools::getValue('ajax')) {
             return '';
         }
+        $controller = isset($this->context->controller->php_self) ? (string) $this->context->controller->php_self : '';
         Media::addJsDef(
             array(
                 'custom_products' => IdxConfiguration::getCustomProducts(),
@@ -1107,20 +1108,22 @@ class IdxrCustomProduct extends Module
                 $this->context->controller->registerStylesheet('modules-idxcpfront-cart.css', 'modules/' . $this->name . '/views/css/17/front_cart.css', array('media' => 'all', 'priority' => 150));
                 $this->context->controller->registerJavascript('modules-idxcpcartjs', 'modules/' . $this->name . '/views/js/icp_order17.js', array('position' => 'bottom', 'priority' => 150));
             }
-            $this->context->controller->addCSS($this->_path . 'views/css/16/front_header.css', 'all');
-            $front_token = Configuration::get(Tools::strtoupper($this->name .'_TOKEN'));
-            Media::addJsDef(
-                array(
-                    'url_ajax' => $this->context->link->getModuleLink($this->name, 'ajax', array('token' => $front_token, 'ajax' => true)),
-                    'add_text' => $this->l('Customize'),
-                    'show_conf_text' => $this->l('Show customization'),
-                    'min_price_text' => $this->l('Price from'),
-                    'idxcp_show_price_list' => Configuration::get(Tools::strtoupper($this->name . '_PRICEPRODUCTLIST')),
-                    'idxcp_show_breakdowninfo' => Configuration::get(Tools::strtoupper($this->name . '_BREAKDOWNBLOCK')),
-                )
-            );
-            $this->context->controller->registerStylesheet('modules-idxcpfront-idxopc.css', 'modules/' . $this->name . '/views/css/17/idxopc.css', array('media' => 'all', 'priority' => 150));
-            $this->context->controller->registerJavascript('modules-idxcpajaxcartjs', 'modules/' . $this->name . '/views/js/icp_cart17.js', array('position' => 'bottom', 'priority' => 150));
+            if ($controller !== 'index') {
+                $this->context->controller->addCSS($this->_path . 'views/css/16/front_header.css', 'all');
+                $front_token = Configuration::get(Tools::strtoupper($this->name .'_TOKEN'));
+                Media::addJsDef(
+                    array(
+                        'url_ajax' => $this->context->link->getModuleLink($this->name, 'ajax', array('token' => $front_token, 'ajax' => true)),
+                        'add_text' => $this->l('Customize'),
+                        'show_conf_text' => $this->l('Show customization'),
+                        'min_price_text' => $this->l('Price from'),
+                        'idxcp_show_price_list' => Configuration::get(Tools::strtoupper($this->name . '_PRICEPRODUCTLIST')),
+                        'idxcp_show_breakdowninfo' => Configuration::get(Tools::strtoupper($this->name . '_BREAKDOWNBLOCK')),
+                    )
+                );
+                $this->context->controller->registerStylesheet('modules-idxcpfront-idxopc.css', 'modules/' . $this->name . '/views/css/17/idxopc.css', array('media' => 'all', 'priority' => 150));
+                $this->context->controller->registerJavascript('modules-idxcpajaxcartjs', 'modules/' . $this->name . '/views/js/icp_cart17.js', array('position' => 'bottom', 'priority' => 150));
+            }
         } else {
             $this->context->controller->addJS($this->_path . 'views/js/icp_cart16.js', false);
             if ($this->context->controller->php_self == 'order-opc' && isset($this->context->controller->name_module) && $this->context->controller->name_module == 'onepagecheckoutps') {

@@ -873,6 +873,12 @@ class CustomShippingRate extends CarrierModule
 
     public function hookDisplayHeader($params)
     {
+        $controller = isset($this->context->controller->php_self) ? (string) $this->context->controller->php_self : '';
+
+        if (!in_array($controller, array('product', 'cart', 'order'), true)) {
+            return;
+        }
+
         $this->context->cookie->availableCarriers = $this->checkIfCarrierMatch();
         $id_cart = Context::getContext()->cart->id;
         $id_address_delivery = Context::getContext()->cart->id_address_delivery;
@@ -924,31 +930,27 @@ class CustomShippingRate extends CarrierModule
                 )
             )
         );
-        if (isset($this->context->controller->php_self) && ($this->context->controller->php_self == 'product'
-        || $this->context->controller->php_self == 'cart'
-        || $this->context->controller->php_self == 'order')) {
-            if (_PS_VERSION_ > 1.6) {
-                $this->context->controller->registerJavascript(
-                    'module-customshippingrate-js',
-                    'modules/'.$this->name.'/views/js/customshippingrate17.js',
-                    array(
-                      'position' => 'bottom',
-                      'inline' => false,
-                      'priority' => 20,
-                    )
-                );
-                $this->context->controller->registerStylesheet(
-                    'module-customshippingrate-style',
-                    'modules/'.$this->name.'/views/css/customshippingrate17.css',
-                    array(
-                      'media' => 'all',
-                      'priority' => 200,
-                    )
-                );
-            } else {
-                $this->context->controller->addCSS($this->_path.'views/css/customshippingrate16.css');
-                $this->context->controller->addJS($this->_path.'views/js/customshippingrate16.js');
-            }
+        if (_PS_VERSION_ > 1.6) {
+            $this->context->controller->registerJavascript(
+                'module-customshippingrate-js',
+                'modules/'.$this->name.'/views/js/customshippingrate17.js',
+                array(
+                  'position' => 'bottom',
+                  'inline' => false,
+                  'priority' => 20,
+                )
+            );
+            $this->context->controller->registerStylesheet(
+                'module-customshippingrate-style',
+                'modules/'.$this->name.'/views/css/customshippingrate17.css',
+                array(
+                  'media' => 'all',
+                  'priority' => 200,
+                )
+            );
+        } else {
+            $this->context->controller->addCSS($this->_path.'views/css/customshippingrate16.css');
+            $this->context->controller->addJS($this->_path.'views/js/customshippingrate16.js');
         }
     }
 
