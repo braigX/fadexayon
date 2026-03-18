@@ -112,7 +112,7 @@ class PrestaLoad extends Module
         $this->settings = new PrestaLoadCacheSettings($this->name, __DIR__);
         $this->browserCacheManager = new PrestaLoadBrowserCacheManager($this->settings);
         $this->runtimeConfig = new PrestaLoadRuntimeConfig($this->settings, __DIR__);
-        $this->featureLogger = new PrestaLoadFeatureLogger(__DIR__ . '/cache/prestaload-features.log');
+        $this->featureLogger = new PrestaLoadFeatureLogger(__DIR__ . '/cache/prestaload-features.json');
         $this->assetPageRegistry = new PrestaLoadAssetPageRegistry($this->context, $this->settings);
         $this->assetScannerClient = new PrestaLoadAssetScannerClient($this->settings);
         $this->assetScanStore = new PrestaLoadAssetScanStore(__DIR__);

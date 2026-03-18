@@ -17,6 +17,8 @@ if (!defined('_PS_ROOT_DIR_')) {
     define('_PS_ROOT_DIR_', __DIR__);
 }
 
+require_once __DIR__ . '/modules/prestaload/classes/PrestaLoadFeatureLogger.php';
+
 if (!function_exists('prestaload_log_early_boot')) {
     function prestaload_log_early_boot(array $payload)
     {
@@ -29,21 +31,8 @@ if (!function_exists('prestaload_log_early_boot')) {
             return;
         }
 
-        $logFile = __DIR__ . '/modules/prestaload/cache/prestaload-features.log';
-        $directory = dirname($logFile);
-        if (!is_dir($directory)) {
-            @mkdir($directory, 0775, true);
-        }
-
         $payload['stage'] = 'early_bootstrap';
-        $payload['logged_at'] = gmdate('c');
-        $payload['request_uri'] = isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '';
-        $payload['method'] = isset($_SERVER['REQUEST_METHOD']) ? (string) $_SERVER['REQUEST_METHOD'] : '';
-
-        $line = json_encode($payload);
-        if ($line !== false) {
-            @file_put_contents($logFile, $line . PHP_EOL, FILE_APPEND | LOCK_EX);
-        }
+        PrestaLoadFeatureLogger::logStatic(__DIR__ . '/modules/prestaload/cache/prestaload-features.json', $payload);
     }
 }
 
@@ -148,16 +137,19 @@ if (!function_exists('prestaload_should_serve_early_cache')) {
     }
 }
 
+$prestaLoadKeyContext = PrestaLoadEarlyCacheKeyBuilder::buildContextFromServer();
+
 if (!prestaload_should_serve_early_cache($prestaLoadRuntime)) {
     $prestaLoadEligibility = prestaload_get_early_cache_eligibility($prestaLoadRuntime);
     unset($prestaLoadEligibility['eligible']);
     $prestaLoadEligibility['step'] = 'skip';
+    $prestaLoadEligibility['cache_parts'] = isset($prestaLoadKeyContext['parts']) ? $prestaLoadKeyContext['parts'] : [];
+    $prestaLoadEligibility['request_factors'] = isset($prestaLoadKeyContext['request_factors']) ? $prestaLoadKeyContext['request_factors'] : [];
     prestaload_log_early_boot($prestaLoadEligibility);
     return;
 }
 
 $prestaLoadStore = new PrestaLoadCacheStore(isset($prestaLoadRuntime['cache_directory']) ? $prestaLoadRuntime['cache_directory'] : __DIR__ . '/modules/prestaload/cache/pages');
-$prestaLoadKeyContext = PrestaLoadEarlyCacheKeyBuilder::buildContextFromServer();
 $prestaLoadPayload = $prestaLoadStore->get($prestaLoadKeyContext['key']);
 
 if (!is_array($prestaLoadPayload) || !isset($prestaLoadPayload['body'])) {
@@ -165,6 +157,7 @@ if (!is_array($prestaLoadPayload) || !isset($prestaLoadPayload['body'])) {
         'step' => 'miss',
         'cache_key' => $prestaLoadKeyContext['key'],
         'cache_parts' => $prestaLoadKeyContext['parts'],
+        'request_factors' => isset($prestaLoadKeyContext['request_factors']) ? $prestaLoadKeyContext['request_factors'] : [],
     ]);
     return;
 }
@@ -174,5 +167,6 @@ prestaload_log_early_boot([
     'step' => 'hit',
     'cache_key' => $prestaLoadKeyContext['key'],
     'cache_parts' => $prestaLoadKeyContext['parts'],
+    'request_factors' => isset($prestaLoadKeyContext['request_factors']) ? $prestaLoadKeyContext['request_factors'] : [],
 ]);
 exit($prestaLoadPayload['body']);
