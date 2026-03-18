@@ -1155,6 +1155,17 @@
                                       After load
                                     </span>
                                   </button>
+                                  <button
+                                    type="button"
+                                    class="btn prestaload-asset-flag {if $asset_rule.load_after_first_interaction|default:false}btn-success is-active{else}btn-danger{/if}"
+                                    data-prestaload-flag="load_after_first_interaction"
+                                    data-enabled="{if $asset_rule.load_after_first_interaction|default:false}1{else}0{/if}"
+                                  >
+                                    <span class="prestaload-asset-flag__label">
+                                      <i class="icon-{if $asset_rule.load_after_first_interaction|default:false}check{else}close{/if}"></i>
+                                      After interaction
+                                    </span>
+                                  </button>
                                 {/if}
                               </div>
                             </form>

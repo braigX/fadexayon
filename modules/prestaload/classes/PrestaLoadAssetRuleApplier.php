@@ -83,6 +83,10 @@ class PrestaLoadAssetRuleApplier
                 return $this->buildWindowLoadScriptTag($effectiveSrc);
             }
 
+            if ($this->isFlagEnabled($rule, 'load_after_first_interaction')) {
+                return $this->buildInteractionLoadScriptTag($effectiveSrc);
+            }
+
             if ($this->isFlagEnabled($rule, 'defer')) {
                 return $this->buildDeferredScriptTag($tag);
             }
@@ -258,6 +262,19 @@ class PrestaLoadAssetRuleApplier
         }
 
         return '<script data-prestaload-window-load="1">(function(){var loadScript=function(){var s=document.createElement("script");s.src=' . $escapedSrc . ';s.async=true;document.body.appendChild(s);};if(document.readyState==="complete"){loadScript();return;}window.addEventListener("load",loadScript,{once:true});}());</script>';
+    }
+
+    /**
+     * Loads the script only after the first meaningful user interaction.
+     */
+    private function buildInteractionLoadScriptTag($src)
+    {
+        $escapedSrc = json_encode($src);
+        if ($escapedSrc === false) {
+            return '';
+        }
+
+        return '<script data-prestaload-interaction-load="1">(function(){var loaded=false;var cleanup=function(){["pointerdown","keydown","touchstart","scroll"].forEach(function(eventName){window.removeEventListener(eventName,onFirstInteraction,listenerOptions);});};var loadScript=function(){if(loaded){return;}loaded=true;cleanup();var s=document.createElement("script");s.src=' . $escapedSrc . ';s.async=true;document.body.appendChild(s);};var onFirstInteraction=function(){loadScript();};var listenerOptions={once:true,passive:true};["pointerdown","keydown","touchstart","scroll"].forEach(function(eventName){window.addEventListener(eventName,onFirstInteraction,listenerOptions);});window.addEventListener("load",function(){window.setTimeout(loadScript,10000);},{once:true});}());</script>';
     }
 
     /**

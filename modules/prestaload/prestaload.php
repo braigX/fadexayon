@@ -962,6 +962,7 @@ class PrestaLoad extends Module
             $rule['defer'] = $flags['defer'];
             $rule['minify'] = $flags['minify'];
             $rule['load_after_window_load'] = $flags['load_after_window_load'];
+            $rule['load_after_first_interaction'] = $flags['load_after_first_interaction'];
             $normalizedUrl = $this->normalizeAssetUrlForUi($rule['asset_url']);
             $indexedRules[$normalizedUrl] = $rule;
         }
@@ -1183,7 +1184,7 @@ class PrestaLoad extends Module
             throw new Exception('Asset URL is required.');
         }
 
-        if (!in_array($action, ['keep', 'defer', 'disable', 'minify', 'load_after_window_load'], true)) {
+        if (!in_array($action, ['keep', 'defer', 'disable', 'minify', 'load_after_window_load', 'load_after_first_interaction'], true)) {
             throw new Exception('Invalid asset action.');
         }
 
@@ -1362,11 +1363,11 @@ class PrestaLoad extends Module
             throw new Exception('Asset URL is required.');
         }
 
-        if (!in_array($flag, ['disable', 'defer', 'minify', 'load_after_window_load'], true)) {
+        if (!in_array($flag, ['disable', 'defer', 'minify', 'load_after_window_load', 'load_after_first_interaction'], true)) {
             throw new Exception('Invalid asset flag.');
         }
 
-        if ($flag === 'load_after_window_load' && $assetType !== 'js') {
+        if (in_array($flag, ['load_after_window_load', 'load_after_first_interaction'], true) && $assetType !== 'js') {
             throw new Exception('This flag is only available for JavaScript assets.');
         }
 
@@ -1378,16 +1379,25 @@ class PrestaLoad extends Module
             $flags['defer'] = false;
             $flags['minify'] = false;
             $flags['load_after_window_load'] = false;
+            $flags['load_after_first_interaction'] = false;
         }
 
         if ($flag === 'defer' && $enabled) {
             $flags['disable'] = false;
             $flags['load_after_window_load'] = false;
+            $flags['load_after_first_interaction'] = false;
         }
 
         if ($flag === 'load_after_window_load' && $enabled) {
             $flags['disable'] = false;
             $flags['defer'] = false;
+            $flags['load_after_first_interaction'] = false;
+        }
+
+        if ($flag === 'load_after_first_interaction' && $enabled) {
+            $flags['disable'] = false;
+            $flags['defer'] = false;
+            $flags['load_after_window_load'] = false;
         }
 
         if ($flag === 'minify') {
@@ -1410,6 +1420,7 @@ class PrestaLoad extends Module
             'defer' => (int) $flags['defer'],
             'minify' => (int) $flags['minify'],
             'load_after_window_load' => (int) $flags['load_after_window_load'],
+            'load_after_first_interaction' => (int) $flags['load_after_first_interaction'],
             'action' => $this->deriveRuleAction($flags),
         ];
 
@@ -1429,7 +1440,7 @@ class PrestaLoad extends Module
         }
 
         $action = trim((string) Tools::getValue('prestaload_asset_action', 'defer'));
-        if (!in_array($action, ['keep', 'defer', 'disable', 'minify', 'load_after_window_load'], true)) {
+        if (!in_array($action, ['keep', 'defer', 'disable', 'minify', 'load_after_window_load', 'load_after_first_interaction'], true)) {
             throw new Exception('Invalid asset action.');
         }
 
@@ -1457,6 +1468,7 @@ class PrestaLoad extends Module
                     'defer' => false,
                     'minify' => false,
                     'load_after_window_load' => false,
+                    'load_after_first_interaction' => false,
                 ];
             } elseif ($action === 'disable') {
                 $flags = [
@@ -1464,17 +1476,24 @@ class PrestaLoad extends Module
                     'defer' => false,
                     'minify' => false,
                     'load_after_window_load' => false,
+                    'load_after_first_interaction' => false,
                 ];
             } elseif ($action === 'defer') {
                 $flags['disable'] = false;
                 $flags['defer'] = true;
                 $flags['load_after_window_load'] = false;
+                $flags['load_after_first_interaction'] = false;
             } elseif ($action === 'load_after_window_load' && $assetType === 'js') {
                 $flags['disable'] = false;
                 $flags['defer'] = false;
                 $flags['load_after_window_load'] = true;
-            } elseif ($action === 'minify') {
+                $flags['load_after_first_interaction'] = false;
+            } elseif ($action === 'load_after_first_interaction' && $assetType === 'js') {
                 $flags['disable'] = false;
+                $flags['defer'] = false;
+                $flags['load_after_window_load'] = false;
+                $flags['load_after_first_interaction'] = true;
+            } elseif ($action === 'minify') {
                 $flags['minify'] = true;
             }
 
@@ -1487,6 +1506,7 @@ class PrestaLoad extends Module
                 'defer' => (int) $flags['defer'],
                 'minify' => (int) $flags['minify'],
                 'load_after_window_load' => (int) $flags['load_after_window_load'],
+                'load_after_first_interaction' => (int) $flags['load_after_first_interaction'],
                 'action' => $this->deriveRuleAction($flags),
             ])) {
                 throw new Exception('Could not save one of the selected asset rules.');
@@ -1538,6 +1558,7 @@ class PrestaLoad extends Module
             'defer' => (int) $flags['defer'],
             'minify' => 1,
             'load_after_window_load' => (int) $flags['load_after_window_load'],
+            'load_after_first_interaction' => (int) $flags['load_after_first_interaction'],
             'action' => $this->deriveRuleAction($flags),
         ];
 
@@ -1593,6 +1614,7 @@ class PrestaLoad extends Module
                 'defer' => (int) $flags['defer'],
                 'minify' => 1,
                 'load_after_window_load' => (int) $flags['load_after_window_load'],
+                'load_after_first_interaction' => (int) $flags['load_after_first_interaction'],
                 'action' => $this->deriveRuleAction($flags),
             ])) {
                 throw new Exception('Could not save one of the selected minify rules.');
@@ -1647,6 +1669,7 @@ class PrestaLoad extends Module
                 'defer' => (int) $flags['defer'],
                 'minify' => 0,
                 'load_after_window_load' => (int) $flags['load_after_window_load'],
+                'load_after_first_interaction' => (int) $flags['load_after_first_interaction'],
                 'action' => $this->deriveRuleAction($flags),
             ])) {
                 throw new Exception('Could not clear minified state for one of the selected assets.');
@@ -1696,6 +1719,7 @@ class PrestaLoad extends Module
             'defer' => !empty($rule['defer']) || (isset($rule['action']) && $rule['action'] === 'defer'),
             'minify' => !empty($rule['minify']) || (isset($rule['action']) && $rule['action'] === 'minify'),
             'load_after_window_load' => !empty($rule['load_after_window_load']) || (isset($rule['action']) && $rule['action'] === 'load_after_window_load'),
+            'load_after_first_interaction' => !empty($rule['load_after_first_interaction']) || (isset($rule['action']) && $rule['action'] === 'load_after_first_interaction'),
         ];
     }
 

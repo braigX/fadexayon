@@ -251,10 +251,43 @@
     loadCharla(project);
   }
 
+  function bootOnInteraction() {
+    var started = false;
+    var interactionEvents = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
+    var listenerOptions = { once: true, passive: true };
+
+    function cleanup() {
+      interactionEvents.forEach(function (eventName) {
+        window.removeEventListener(eventName, onFirstInteraction, listenerOptions);
+      });
+    }
+
+    function start() {
+      if (started) {
+        return;
+      }
+      started = true;
+      cleanup();
+      init();
+    }
+
+    function onFirstInteraction() {
+      start();
+    }
+
+    interactionEvents.forEach(function (eventName) {
+      window.addEventListener(eventName, onFirstInteraction, listenerOptions);
+    });
+
+    window.addEventListener('load', function () {
+      window.setTimeout(start, 10000);
+    }, { once: true });
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init, { once: true });
+    document.addEventListener('DOMContentLoaded', bootOnInteraction, { once: true });
   } else {
-    init();
+    bootOnInteraction();
   }
 
 })();
