@@ -3002,6 +3002,7 @@ function updateTotal(){
             const pholder2 = $('#diameter_de_decoupe_price2');
             const is_rectangle = $('#idxr_is_rectangle').val();
             const is_rectangle_polissage = $('#idxr_is_rectangle_polissage').val();
+            const skipRectangleCuttingPrice = !!window.idxr_skip_rectangle_cutting_price;
             // if (is_rectangle === 'true') idxcp_prix_de_decoupe = safeParseFloat(idxr_prix_de_decoupe_cube);
 
             let prixDecoupeM = 0;
@@ -3025,7 +3026,7 @@ function updateTotal(){
                     // Calculate the price with tax
                     decoupePriceWithTax = 0;
 
-                    if (is_rectangle === 'true') decoupePriceWithTax = getWithTax(prixDecoupe2M * parseFloat(idxcp_prix_de_decoupe));
+                    if (is_rectangle === 'true' && skipRectangleCuttingPrice) decoupePriceWithTax = getWithTax(prixDecoupe2M * parseFloat(idxcp_prix_de_decoupe));
                     else decoupePriceWithTax = getWithTax(prixDecoupeM * parseFloat(idxcp_prix_de_decoupe));
         
                     if (!isNaN(decoupePriceWithTax)) {

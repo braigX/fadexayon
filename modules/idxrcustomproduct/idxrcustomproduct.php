@@ -297,6 +297,7 @@ class IdxrCustomProduct extends Module
         Configuration::updateValue(Tools::strtoupper($this->name) . '_SHOWFAV_FAVORITE', true);
         Configuration::updateValue(Tools::strtoupper($this->name) . '_SHOWFAV_SIMULATIONS', true);
         Configuration::updateValue(Tools::strtoupper($this->name) . '_FRONT_ACCORDION_DEV', false);
+        Configuration::updateValue(Tools::strtoupper($this->name) . '_SKIP_RECTANGLE_CUTTING_PRICE', false);
         Configuration::updateValue(Tools::strtoupper($this->name) . '_PRICEIMPACTTAX', true);
 
         if ($this->es17) {
@@ -351,6 +352,7 @@ class IdxrCustomProduct extends Module
         Configuration::deleteByName(Tools::strtoupper($this->name) . '_SHOWFAV');
         Configuration::deleteByName(Tools::strtoupper($this->name) . '_SHOWFAV_FAVORITE');
         Configuration::deleteByName(Tools::strtoupper($this->name) . '_SHOWFAV_SIMULATIONS');
+        Configuration::deleteByName(Tools::strtoupper($this->name) . '_SKIP_RECTANGLE_CUTTING_PRICE');
         Configuration::deleteByName(Tools::strtoupper($this->name) . '_FRONT_ACCORDION_DEV');
         return parent::uninstall();
     }
@@ -543,6 +545,8 @@ class IdxrCustomProduct extends Module
             Configuration::updateValue(Tools::strtoupper($this->name) . '_SHOWFAV_SIMULATIONS', $showfav);
             $frontAccordionDev = (int) Tools::getValue('front_accordion_dev');
             Configuration::updateValue(Tools::strtoupper($this->name) . '_FRONT_ACCORDION_DEV', $frontAccordionDev);
+            $skipRectangleCuttingPrice = (int) Tools::getValue('skip_rectangle_cutting_price');
+            Configuration::updateValue(Tools::strtoupper($this->name) . '_SKIP_RECTANGLE_CUTTING_PRICE', $skipRectangleCuttingPrice);
             $price_impact_taxinclude = Tools::getValue('price_impact_taxinclude');
             Configuration::updateValue(Tools::strtoupper($this->name) . '_PRICEIMPACTTAX', $price_impact_taxinclude);
             $discount_line = Tools::getValue('discount_line');
@@ -1019,6 +1023,7 @@ class IdxrCustomProduct extends Module
                     $polishPrices = $extraConfig['polish_prices'];
                     $activeThicknessRates = $this->getActiveThicknessRatesByShop((int) $this->context->shop->id);
                     $frontAccordionEnvironment = Configuration::get(Tools::strtoupper($this->name . '_FRONT_ACCORDION_DEV')) ? 'development' : 'production';
+                    $skipRectangleCuttingPrice = (bool) Configuration::get(Tools::strtoupper($this->name . '_SKIP_RECTANGLE_CUTTING_PRICE'));
                     
                     $this->passTranslationsToJs();
 
@@ -1038,6 +1043,7 @@ class IdxrCustomProduct extends Module
                             'idxcp_polish_prices' => $polishPrices,
                             'idxr_active_thickness_rates' => $activeThicknessRates,
                             'idxr_front_accordion_environment' => $frontAccordionEnvironment,
+                            'idxr_skip_rectangle_cutting_price' => $skipRectangleCuttingPrice,
                             'url_ajax' => $this->context->link->getModuleLink($this->name, 'ajax', array('token' => $front_token, 'ajax' => true)),
                             'send_text' => $this->l('Send to cart'),
                             'favbutton' => $this->l('Save in my wishlist'),
@@ -1211,6 +1217,7 @@ class IdxrCustomProduct extends Module
                 $polishPrices = $extraConfig['polish_prices'];
                 $activeThicknessRates = $this->getActiveThicknessRatesByShop((int) $this->context->shop->id);
                 $frontAccordionEnvironment = Configuration::get(Tools::strtoupper($this->name . '_FRONT_ACCORDION_DEV')) ? 'development' : 'production';
+                $skipRectangleCuttingPrice = (bool) Configuration::get(Tools::strtoupper($this->name . '_SKIP_RECTANGLE_CUTTING_PRICE'));
                 
                 Media::addJsDef(
                     array(
@@ -1221,6 +1228,7 @@ class IdxrCustomProduct extends Module
                         'idxcp_polish_prices' => $polishPrices,
                         'idxr_active_thickness_rates' => $activeThicknessRates,
                         'idxr_front_accordion_environment' => $frontAccordionEnvironment,
+                        'idxr_skip_rectangle_cutting_price' => $skipRectangleCuttingPrice,
                         'idxr_skipped_product_ids' => $idxr_skipped_product_ids,
                         'idxr_prix_de_decoupe_cube' => $idxr_prix_de_decoupe_cube,
                         'idxr_holes_fixed_price' => $idxr_holes_fixed_price,
@@ -2164,6 +2172,25 @@ class IdxrCustomProduct extends Module
                             )
                         ),
                         'desc' => $this->l('Choisissez Oui pour utiliser le mode développement dans `front_accordion.js`. Choisissez Non pour rester en production.')
+                    ),
+                    array(
+                        'type' => 'switch',
+                        'label' => $this->l('Ignorer le prix de découpe pour le rectangle'),
+                        'name' => 'skip_rectangle_cutting_price',
+                        'is_bool' => true,
+                        'values' => array(
+                            array(
+                                'id' => 'skip_rectangle_cutting_price_on',
+                                'value' => 1,
+                                'label' => $this->l('Oui')
+                            ),
+                            array(
+                                'id' => 'skip_rectangle_cutting_price_off',
+                                'value' => 0,
+                                'label' => $this->l('Non')
+                            )
+                        ),
+                        'desc' => $this->l('Choisissez Oui pour ignorer le prix de découpe du contour principal pour les rectangles.')
                     ),
                     array(
                         'type' => 'text',
@@ -3369,6 +3396,7 @@ class IdxrCustomProduct extends Module
         $fields['show_fav_favorite_all_shops'] = $this->getBooleanConfigAllShopsValue(Tools::strtoupper($this->name . '_SHOWFAV_FAVORITE'));
         $fields['show_fav_simulations_all_shops'] = $this->getBooleanConfigAllShopsValue(Tools::strtoupper($this->name . '_SHOWFAV_SIMULATIONS'));
         $fields['front_accordion_dev'] = Configuration::get(Tools::strtoupper($this->name . '_FRONT_ACCORDION_DEV'));
+        $fields['skip_rectangle_cutting_price'] = Configuration::get(Tools::strtoupper($this->name . '_SKIP_RECTANGLE_CUTTING_PRICE'));
         $fields['price_impact_taxinclude'] = Configuration::get(Tools::strtoupper($this->name . '_PRICEIMPACTTAX'));
         $fields['discount_line'] = Configuration::get(Tools::strtoupper($this->name . '_DISCOUNTLINE'));
         $fields['maxheightdescription'] = Configuration::get(Tools::strtoupper($this->name . '_MAXHEIGHTDESCRIPTION'));
