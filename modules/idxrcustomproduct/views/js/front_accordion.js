@@ -570,6 +570,19 @@ const CustomizationModule = (() => {
                             svgClone.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
                         }
 
+                        var viewBoxAttr = svgClone.getAttribute('viewBox') || '';
+                        var viewBoxParts = viewBoxAttr.trim().split(/\s+/).map(parseFloat);
+                        var exportScaleFactor = (typeof scaleFactor === 'number' && isFinite(scaleFactor) && scaleFactor > 0) ? scaleFactor : 1;
+                        if (viewBoxParts.length === 4 && viewBoxParts.every(function (num) { return isFinite(num); })) {
+                            var exportWidthMm = (viewBoxParts[2] / exportScaleFactor).toFixed(2);
+                            var exportHeightMm = (viewBoxParts[3] / exportScaleFactor).toFixed(2);
+                            svgClone.setAttribute('width', exportWidthMm + 'mm');
+                            svgClone.setAttribute('height', exportHeightMm + 'mm');
+                            svgClone.setAttribute('data-export-unit', 'mm');
+                        }
+                        svgClone.style.width = '';
+                        svgClone.style.height = '';
+
                         var serializer = new XMLSerializer();
                         var svgContent = serializer.serializeToString(svgClone);
                         if (!svgContent.match(/^<svg[^>]+xmlns=/)) {
