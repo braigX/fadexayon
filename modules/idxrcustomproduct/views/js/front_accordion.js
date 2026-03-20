@@ -468,6 +468,46 @@ const CustomizationModule = (() => {
             }
         }
 
+        function keepActiveAccordionStepInView() {
+            const container = $('#component_steps_container');
+
+            function scrollToStepCard($panel) {
+                if (!$panel || !$panel.length) {
+                    return;
+                }
+
+                const $stepCard = $panel.closest('.step_content');
+                if (!$stepCard.length) {
+                    return;
+                }
+
+                const cardTop = Math.max(0, ($stepCard.offset().top || 0) - 140);
+                const viewportTop = $(window).scrollTop();
+                const viewportBottom = viewportTop + $(window).height();
+                const cardBottom = cardTop + $stepCard.outerHeight();
+                const needsScroll = cardTop < viewportTop + 10 || cardBottom > viewportBottom - 40;
+
+                if (!needsScroll) {
+                    return;
+                }
+
+                $('html, body').stop(true).animate({
+                    scrollTop: cardTop
+                }, 220);
+            }
+
+            container
+                .off('shown.bs.collapse.idxrAccordionViewport', '[id^="step_title_"]')
+                .on('shown.bs.collapse.idxrAccordionViewport', '[id^="step_title_"]', function () {
+                    const $panel = $(this);
+                    window.requestAnimationFrame(function () {
+                        setTimeout(function () {
+                            scrollToStepCard($panel);
+                        }, 20);
+                    });
+                });
+        }
+
         function controllers() {
 
             $('.zoom-in').click(function() {
@@ -615,6 +655,7 @@ const CustomizationModule = (() => {
 
         // addToCart();
         controllers();
+        keepActiveAccordionStepInView();
         // updateExistingQuantity();
         moveAlert();
         // appendHtmlBasedOnScreenWidth();
