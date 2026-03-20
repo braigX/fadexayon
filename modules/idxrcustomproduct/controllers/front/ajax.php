@@ -488,8 +488,6 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
         $md5filename = md5('idxrcustomproduct_' . $id_product . '_' . $id_component . '_' . (int)Context::getContext()->cart->id . '_' . $fileName) . '.' . $fileType;
         $fileTarget = $uploadDir . DIRECTORY_SEPARATOR . $md5filename;
 
-        file_put_contents(__DIR__ . '/logfiles.txt', "path 1 : ".$fileTarget."\n", FILE_APPEND);
-
         if (move_uploaded_file($_FILES["file"]["tmp_name"], $fileTarget)) {
             $exist_q = 'SELECT id_file FROM ' . _DB_PREFIX_ . 'idxrcustomproduct_files WHERE target_name = "' . pSQL($md5filename) . '"';
             $exist = Db::getInstance()->getRow($exist_q);
@@ -505,8 +503,6 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
             }
             die('ok');
         } else {
-            $errorMessage = 'Error uploading file from ' . $_FILES["file"]["tmp_name"] . ' to ' . $fileTarget;
-            file_put_contents(__DIR__ . '/logfiles.txt', $errorMessage . "\n", FILE_APPEND);
             die($this->module->l('Error uploading file.', 'ajax'));
         }
     }
@@ -713,10 +709,6 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
         try {
             $this->module->createProduct($product_id, $snaps, $attribute_id, $customization, $extra, $quantity, $productWeight, $productVolume, $productWidth, $productHeight, $productDeptht, $prix_de_decouper, $price_from_cube);
         } catch (\Throwable $th) {
-            $moduleLogFile = __DIR__ . '/logfiles.txt';
-            if ((file_exists($moduleLogFile) && is_writable($moduleLogFile)) || (!file_exists($moduleLogFile) && is_writable(__DIR__))) {
-                @file_put_contents($moduleLogFile, "error : " . $th . "\n", FILE_APPEND);
-            }
         }
         /*End */
         die();

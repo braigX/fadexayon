@@ -82,3 +82,6 @@
 [2026-03-20 05:30:58]in add_base 
 [2026-03-20 05:30:58]id_product: 357
 [2026-03-20 05:30:58]id_product_attribute: 2
+[2026-03-20 12:41:40]in add_base 
+[2026-03-20 12:41:40]id_product: 357
+[2026-03-20 12:41:40]id_product_attribute: 2

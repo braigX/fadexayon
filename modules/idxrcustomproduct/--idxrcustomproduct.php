@@ -980,11 +980,6 @@ class IdxrCustomProduct extends Module
 
             // Pricing
             if ($steps['add_base']) {
-                file_put_contents(__DIR__ . '/file_log.txt', "[" . date('Y-m-d H:i:s') . "]in add_base \n", FILE_APPEND);
-                file_put_contents(__DIR__ . '/file_log.txt', "[" . date('Y-m-d H:i:s') . "]id_product: " . $id_product . "\n", FILE_APPEND);
-                file_put_contents(__DIR__ . '/file_log.txt', "[" . date('Y-m-d H:i:s') . "]id_product_attribute: " . $id_product_attribute . "\n", FILE_APPEND);
-                if($use_attribute_price) file_put_contents(__DIR__ . '/file_log.txt', "[" . date('Y-m-d H:i:s') . "]use_attribute_price: \n", FILE_APPEND);
-
                 if ($use_attribute_price && $id_product_attribute) {
                     // ✅ Use variant price (without specific price or reduction)
                     $base_price = Product::getPriceStatic($id_product, true, $id_product_attribute, 6, null, false, false);

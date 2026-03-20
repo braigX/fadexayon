@@ -2594,7 +2594,6 @@ function getPricesByThickness(thicknessValue) {
         });
 
     if (!rates.length) {
-        console.log('[idxr-pricing] requested thickness:', requestedThickness, '| no active rates in JS, using fallback:', fallbackPrices);
         return fallbackPrices;
     }
 
@@ -2611,14 +2610,8 @@ function getPricesByThickness(thicknessValue) {
         return lower.length ? lower[lower.length - 1] : null;
     })();
 
-    console.log('[idxr-pricing] requested thickness:', requestedThickness);
-    console.log('[idxr-pricing] exact match exists:', !!exact, exact);
-    console.log('[idxr-pricing] next biggest:', nextBiggest);
-    console.log('[idxr-pricing] next slowest(lower):', nextSmallest);
-
     const selected = exact || nextBiggest || nextSmallest;
     if (!selected) {
-        console.log('[idxr-pricing] no selected rate, fallback:', fallbackPrices);
         return fallbackPrices;
     }
 
@@ -2627,7 +2620,6 @@ function getPricesByThickness(thicknessValue) {
         collage: safeParseFloat(selected.collage, fallbackPrices.collage),
         polissage: safeParseFloat(selected.polissage, fallbackPrices.polissage),
     };
-    console.log('[idxr-pricing] selected thickness rate:', selected, '| applied:', result);
     return result;
 }
 
