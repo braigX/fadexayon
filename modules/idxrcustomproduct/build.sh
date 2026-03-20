@@ -45,13 +45,17 @@ build_one() {
   mkdir -p "$(dirname "${target}")"
 
   echo "Obfuscating ${rel}"
-  # `--mangle toplevel` aggressively shortens variable/function names, usually to single letters.
-  # We keep quoted property names untouched to reduce runtime breakage with DOM/data access.
+  rm -f "${target}"
+  # Safe profile for legacy/jQuery-heavy files:
+  # - no property mangling
+  # - keep compression moderate
+  # - avoid top-level mangling because these legacy files reuse many block-scoped names
   eval "${TERSER_BIN} \"${src}\" \
-    --compress passes=2,keep_fargs=false,pure_getters=false \
-    --mangle toplevel \
-    --mangle-props keep_quoted,reserved=['jQuery','prestashop','ajaxCart','Snap','XMLSerializer','FormData','Promise','Context','window','document'] \
+    --compress passes=1,keep_fargs=false \
+    --mangle reserved=['jQuery','prestashop','ajaxCart','Snap','XMLSerializer','FormData','Promise','Context','window','document','$'] \
     --output \"${target}\""
+
+  node --check "${target}" >/dev/null
 }
 
 main() {
