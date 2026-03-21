@@ -15,6 +15,82 @@ use Symfony\Component\Serializer\Encoder\JsonEncode;
 
 class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
 {
+    private function logModuleMessage($message, $context = array())
+    {
+        if ($this->module && method_exists($this->module, 'logMessage')) {
+            $this->module->logMessage($message, $context);
+        }
+    }
+
+    private function ensureActiveCartId($stage = '')
+    {
+        $context = Context::getContext();
+        $currentCartId = (int) ($context->cart ? $context->cart->id : 0);
+        $cookieCartId = (int) (($context->cookie && !empty($context->cookie->id_cart)) ? $context->cookie->id_cart : 0);
+        $guestId = (int) (($context->cookie && !empty($context->cookie->id_guest)) ? $context->cookie->id_guest : 0);
+        $customerId = (int) ($context->customer ? $context->customer->id : 0);
+
+        $this->logModuleMessage('ensureActiveCartId:start', array(
+            'stage' => (string) $stage,
+            'current_cart_id' => $currentCartId,
+            'cookie_cart_id' => $cookieCartId,
+            'guest_id' => $guestId,
+            'customer_id' => $customerId,
+        ));
+
+        if ($currentCartId > 0 && Validate::isLoadedObject($context->cart)) {
+            $this->logModuleMessage('ensureActiveCartId:using-context-cart', array(
+                'stage' => (string) $stage,
+                'cart_id' => $currentCartId,
+            ));
+            return $currentCartId;
+        }
+
+        if ($cookieCartId > 0) {
+            $cookieCart = new Cart($cookieCartId);
+            if (Validate::isLoadedObject($cookieCart)) {
+                $context->cart = $cookieCart;
+                $this->logModuleMessage('ensureActiveCartId:using-cookie-cart', array(
+                    'stage' => (string) $stage,
+                    'cart_id' => (int) $cookieCart->id,
+                ));
+                return (int) $cookieCart->id;
+            }
+        }
+
+        $cart = new Cart();
+        $cart->id_lang = (int) $context->language->id;
+        $cart->id_currency = (int) $context->currency->id;
+        $cart->id_shop = (int) $context->shop->id;
+        $cart->id_shop_group = (int) $context->shop->id_shop_group;
+        $cart->id_customer = $customerId;
+        $cart->id_guest = $guestId;
+        if ($customerId > 0 && !empty($context->customer->secure_key)) {
+            $cart->secure_key = pSQL($context->customer->secure_key);
+        } elseif ($context->cookie && !empty($context->cookie->secure_key)) {
+            $cart->secure_key = pSQL($context->cookie->secure_key);
+        }
+
+        $created = $cart->add();
+        if ($created && Validate::isLoadedObject($cart)) {
+            $context->cart = $cart;
+            if ($context->cookie) {
+                $context->cookie->id_cart = (int) $cart->id;
+                $context->cookie->write();
+            }
+            $this->logModuleMessage('ensureActiveCartId:created-cart', array(
+                'stage' => (string) $stage,
+                'cart_id' => (int) $cart->id,
+            ));
+            return (int) $cart->id;
+        }
+
+        $this->logModuleMessage('ensureActiveCartId:failed', array(
+            'stage' => (string) $stage,
+            'db_error' => Db::getInstance()->getMsgError(),
+        ));
+        return 0;
+    }
 
     public function initContent()
     {
@@ -131,8 +207,13 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
     private function saveRuntimeCustomizationSnapshot($idSnap = 0)
     {
         $context = Context::getContext();
+        $idCart = (int) $this->ensureActiveCartId('saveRuntimeCustomizationSnapshot');
         $idProduct = (int) Tools::getValue('product');
         if ($idProduct <= 0) {
+            $this->logModuleMessage('saveRuntimeCustomizationSnapshot:invalid-product', array(
+                'id_snap' => (int) $idSnap,
+                'id_cart' => $idCart,
+            ));
             return 0;
         }
 
@@ -149,7 +230,7 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
         $data = array(
             'id_customer' => (int) ($context->customer ? $context->customer->id : 0),
             'id_guest' => (int) ($context->cookie && !empty($context->cookie->id_guest) ? $context->cookie->id_guest : 0),
-            'id_cart' => (int) ($context->cart ? $context->cart->id : 0),
+            'id_cart' => $idCart,
             'id_product' => $idProduct,
             'id_product_attribute' => (int) Tools::getValue('attribute'),
             'customization' => pSQL((string) Tools::getValue('custom'), true),
@@ -164,10 +245,24 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
 
         $saved = Db::getInstance()->insert('idxrcustomproduct_runtime_customisations', $data);
         if (!$saved) {
+            $this->logModuleMessage('saveRuntimeCustomizationSnapshot:insert-failed', array(
+                'id_snap' => (int) $idSnap,
+                'id_cart' => $idCart,
+                'id_product' => $idProduct,
+                'db_error' => Db::getInstance()->getMsgError(),
+            ));
             return 0;
         }
 
-        return (int) Db::getInstance()->Insert_ID();
+        $insertedId = (int) Db::getInstance()->Insert_ID();
+        $this->logModuleMessage('saveRuntimeCustomizationSnapshot:inserted', array(
+            'id_runtime_customisation' => $insertedId,
+            'id_snap' => (int) $idSnap,
+            'id_cart' => $idCart,
+            'id_product' => $idProduct,
+        ));
+
+        return $insertedId;
     }
 
     public function ajaxProcessSavefav()
@@ -625,6 +720,11 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
     {
         $responses = [];
         $id_product = (int) Tools::getValue('product');
+        $idCart = (int) $this->ensureActiveCartId('ajaxHandleSnaps');
+        $this->logModuleMessage('ajaxHandleSnaps:start', array(
+            'id_cart' => $idCart,
+            'id_product' => $id_product,
+        ));
 
         // Upload directory setup for SVG files
         $path0 = DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'idxrcustomproduct' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m');
@@ -656,7 +756,7 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
 
         if ($svgFileURL !== '') {
             $data = [
-                'id_cart' => (int)Context::getContext()->cart->id,
+                'id_cart' => $idCart,
                 'id_product' => (int)$id_product,
                 'svg_file' => '',
                 'png_file' => '',
@@ -670,12 +770,22 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
             // Check if the insert was successful
             if ($insertResult) {
                 $insertedId = Db::getInstance()->Insert_ID();  // Retrieves the last inserted ID
+                $this->logModuleMessage('ajaxHandleSnaps:snap-inserted', array(
+                    'id_snap' => (int) $insertedId,
+                    'id_cart' => $idCart,
+                    'id_product' => $id_product,
+                ));
                 $runtimeCustomizationId = $this->saveRuntimeCustomizationSnapshot((int) $insertedId);
                 $responses['id'] = $insertedId;
                 $responses['snap_id'] = $insertedId;
                 $responses['runtime_customisation_id'] = $runtimeCustomizationId;
                 $responses['db'] = 'Insert successful';
             } else {
+                $this->logModuleMessage('ajaxHandleSnaps:snap-insert-failed', array(
+                    'id_cart' => $idCart,
+                    'id_product' => $id_product,
+                    'db_error' => Db::getInstance()->getMsgError(),
+                ));
                 $responses['db'] = 'Insert failed';
                 // Optionally, log last SQL error
                 $responses['db_error'] = Db::getInstance()->getMsgError();
@@ -693,6 +803,7 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
 
     public function ajaxProcessCreateproduct()
     {
+        $idCart = (int) $this->ensureActiveCartId('ajaxProcessCreateproduct');
         $product_id = Tools::getValue('product');
         $attribute_id = Tools::getValue('attribute');
         // === PrestaShop Context for customer info ===
@@ -731,6 +842,7 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
         // === Prepare log entry ===
         $logData = [
             'timestamp' => $timestamp,
+            'cart_id' => $idCart,
             'customer_id' => $customerId,
             'customer_email' => $customerEmail,
             'product_id' => $product_id,
@@ -778,8 +890,19 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
 
         /*Edit with team wassim novatis*/
         try {
+            $this->logModuleMessage('ajaxProcessCreateproduct:start', array(
+                'id_cart' => $idCart,
+                'product_id' => (int) $product_id,
+                'snaps' => (int) $snaps,
+            ));
             $this->module->createProduct($product_id, $snaps, $attribute_id, $customization, $extra, $quantity, $productWeight, $productVolume, $productWidth, $productHeight, $productDeptht, $prix_de_decouper, $price_from_cube);
         } catch (\Throwable $th) {
+            $this->logModuleMessage('ajaxProcessCreateproduct:error', array(
+                'id_cart' => $idCart,
+                'product_id' => (int) $product_id,
+                'snaps' => (int) $snaps,
+                'message' => $th->getMessage(),
+            ));
         }
         /*End */
         die();
