@@ -10,6 +10,8 @@
 
 <h1>{l s='My simulations' mod='idxrcustomproduct'}</h1>
 
+<h2 style="font-size:1.1rem; margin:0 0 12px 0;">{l s='My simulations' mod='idxrcustomproduct'}</h2>
+
 {if $simulations|@count}
   <style>
     h1 {
@@ -71,4 +73,41 @@
   </div>
 {else}
   <p>{l s='No saved simulations yet.' mod='idxrcustomproduct'}</p>
+{/if}
+
+<h2 style="font-size:1.1rem; margin:28px 0 12px 0;">{l s='Personnalisations issues du panier' mod='idxrcustomproduct'}</h2>
+
+{if $cart_customisations|@count}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{l s='Preview' mod='idxrcustomproduct'}</th>
+        <th>{l s='Name' mod='idxrcustomproduct'}</th>
+        <th>{l s='Product' mod='idxrcustomproduct'}</th>
+        <th>{l s='Saved on' mod='idxrcustomproduct'}</th>
+        <th>{l s='Open product' mod='idxrcustomproduct'}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {foreach from=$cart_customisations item=simulation}
+        <tr id="idxr-cart-sim-row-{$simulation.id_runtime_customisation|intval}">
+          <td>
+            {if $simulation.thumbnail_svg}
+              <button type="button" class="idxr-sim-thumb-btn idxr-sim-thumb-open">
+                <div class="idxr-sim-thumb-svg">{$simulation.thumbnail_svg nofilter}</div>
+              </button>
+            {else}
+              <span>{l s='No preview' mod='idxrcustomproduct'}</span>
+            {/if}
+          </td>
+          <td>{$simulation.display_name|escape:'htmlall':'UTF-8'}</td>
+          <td>{$simulation.product_name|escape:'htmlall':'UTF-8'}</td>
+          <td>{$simulation.date_add|escape:'htmlall':'UTF-8'}</td>
+          <td><a class="btn btn-default" href="{$simulation.product_link|escape:'htmlall':'UTF-8'}" target="_blank" rel="noopener noreferrer">{l s='Open product' mod='idxrcustomproduct'}</a></td>
+        </tr>
+      {/foreach}
+    </tbody>
+  </table>
+{else}
+  <p>{l s='Aucune personnalisation issue du panier pour le moment.' mod='idxrcustomproduct'}</p>
 {/if}

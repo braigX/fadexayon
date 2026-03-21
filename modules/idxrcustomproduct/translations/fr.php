@@ -343,6 +343,9 @@ $_MODULE['<{idxrcustomproduct}prestashop>simulations17_904a8304056d77e4547744781
 $_MODULE['<{idxrcustomproduct}prestashop>simulations17_ed75712b0eb1913c28a3872731ffd48d'] = 'Dupliquer';
 $_MODULE['<{idxrcustomproduct}prestashop>simulations17_f2a6c498fb90ee345d997f888fce3b18'] = 'Supprimer';
 $_MODULE['<{idxrcustomproduct}prestashop>simulations17_76a0c9eff11d1d50ba84efe19875487e'] = 'Aucune simulation enregistrée pour le moment.';
+$_MODULE['<{idxrcustomproduct}prestashop>simulations17_935f8ed5d5b29bb556b20f6251c02795'] = 'Personnalisations issues du panier';
+$_MODULE['<{idxrcustomproduct}prestashop>simulations17_61d7f7c0821a602abe3a5eeebf53171c'] = 'Aucune personnalisation issue du panier pour le moment.';
+$_MODULE['<{idxrcustomproduct}prestashop>simulations17_9d7b341d63669be3e6387d15f5c71a22'] = 'Configuration panier #%d';
 $_MODULE['<{idxrcustomproduct}prestashop>simulations_b4a47a2b99207f55ef62ced8b2de548d'] = 'Mes simulations';
 $_MODULE['<{idxrcustomproduct}prestashop>simulations_31fde7b05ac8952dacf4af8a704074ec'] = 'Aperçu';
 $_MODULE['<{idxrcustomproduct}prestashop>simulations_49ee3087348e8d44e1feda1917443987'] = 'Nom';
@@ -356,6 +359,9 @@ $_MODULE['<{idxrcustomproduct}prestashop>simulations_904a8304056d77e4547744781b7
 $_MODULE['<{idxrcustomproduct}prestashop>simulations_ed75712b0eb1913c28a3872731ffd48d'] = 'Dupliquer';
 $_MODULE['<{idxrcustomproduct}prestashop>simulations_f2a6c498fb90ee345d997f888fce3b18'] = 'Supprimer';
 $_MODULE['<{idxrcustomproduct}prestashop>simulations_76a0c9eff11d1d50ba84efe19875487e'] = 'Aucune simulation enregistrée pour le moment.';
+$_MODULE['<{idxrcustomproduct}prestashop>simulations_935f8ed5d5b29bb556b20f6251c02795'] = 'Personnalisations issues du panier';
+$_MODULE['<{idxrcustomproduct}prestashop>simulations_61d7f7c0821a602abe3a5eeebf53171c'] = 'Aucune personnalisation issue du panier pour le moment.';
+$_MODULE['<{idxrcustomproduct}prestashop>simulations_9d7b341d63669be3e6387d15f5c71a22'] = 'Configuration panier #%d';
 $_MODULE['<{idxrcustomproduct}prestashop>account_blockcustomproduct_b4a47a2b99207f55ef62ced8b2de548d'] = 'Mes simulations';
 $_MODULE['<{idxrcustomproduct}prestashop>account_blockcustomproduct_17_b4a47a2b99207f55ef62ced8b2de548d'] = 'Mes simulations';
 

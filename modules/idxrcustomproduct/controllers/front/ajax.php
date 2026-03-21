@@ -124,6 +124,48 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
         die(json_encode($data));
     }
 
+    private function saveRuntimeCustomizationSnapshot($idSnap = 0)
+    {
+        $context = Context::getContext();
+        $idProduct = (int) Tools::getValue('product');
+        if ($idProduct <= 0) {
+            return 0;
+        }
+
+        $snapshotJson = (string) Tools::getValue('snapshot_json');
+        $thumbnailSvg = (string) Tools::getValue('svg_thumbnail');
+        if (Tools::strlen($snapshotJson) > 5000000) {
+            $snapshotJson = Tools::substr($snapshotJson, 0, 5000000);
+        }
+        if (Tools::strlen($thumbnailSvg) > 700000) {
+            $thumbnailSvg = Tools::substr($thumbnailSvg, 0, 700000);
+        }
+
+        $now = date('Y-m-d H:i:s');
+        $data = array(
+            'id_customer' => (int) ($context->customer ? $context->customer->id : 0),
+            'id_guest' => (int) ($context->cookie && !empty($context->cookie->id_guest) ? $context->cookie->id_guest : 0),
+            'id_cart' => (int) ($context->cart ? $context->cart->id : 0),
+            'id_product' => $idProduct,
+            'id_product_attribute' => (int) Tools::getValue('attribute'),
+            'customization' => pSQL((string) Tools::getValue('custom'), true),
+            'extra_info' => pSQL((string) Tools::getValue('extra'), true),
+            'snapshot_json' => pSQL($snapshotJson, true),
+            'thumbnail_svg' => pSQL($thumbnailSvg, true),
+            'id_snap' => (int) $idSnap,
+            'source' => pSQL((string) (Tools::getValue('source') ?: 'cart')),
+            'date_add' => pSQL($now),
+            'date_upd' => pSQL($now),
+        );
+
+        $saved = Db::getInstance()->insert('idxrcustomproduct_runtime_customisations', $data);
+        if (!$saved) {
+            return 0;
+        }
+
+        return (int) Db::getInstance()->Insert_ID();
+    }
+
     public function ajaxProcessSavefav()
     {
         $product_id = Tools::getValue('product');
@@ -602,7 +644,10 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
             // Check if the insert was successful
             if ($insertResult) {
                 $insertedId = Db::getInstance()->Insert_ID();  // Retrieves the last inserted ID
+                $runtimeCustomizationId = $this->saveRuntimeCustomizationSnapshot((int) $insertedId);
                 $responses['id'] = $insertedId;
+                $responses['snap_id'] = $insertedId;
+                $responses['runtime_customisation_id'] = $runtimeCustomizationId;
                 $responses['db'] = 'Insert successful';
             } else {
                 $responses['db'] = 'Insert failed';

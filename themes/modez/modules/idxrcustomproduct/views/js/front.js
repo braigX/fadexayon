@@ -2448,6 +2448,7 @@ function sendSnaps(product, attribute, custom, extra, quantity, product_weight, 
     svg.css('transform', 'none');
     $('.activeDemensions').show();
     var svgElement = document.getElementById('actualSvg');
+    var runtimeSnapshot = idxrCollectCurrentSnapshot('cart_' + Date.now());
     // var divElement = document.getElementById('component_step_last');
     var svgMarkup = new XMLSerializer().serializeToString(svgElement);
 
@@ -2467,6 +2468,12 @@ function sendSnaps(product, attribute, custom, extra, quantity, product_weight, 
         data.append("console", idxcp_console_state);
         data.append("action", "handlesnaps");
         data.append("product", id_product);
+        data.append("attribute", attribute || 0);
+        data.append("custom", custom || '');
+        data.append("extra", extra || '');
+        data.append("snapshot_json", JSON.stringify(runtimeSnapshot || {}));
+        data.append("svg_thumbnail", (runtimeSnapshot && runtimeSnapshot.svg_thumbnail) ? runtimeSnapshot.svg_thumbnail : '');
+        data.append("source", "cart");
 
         var xhr = new XMLHttpRequest();
         xhr.open("POST", url_ajax, true);

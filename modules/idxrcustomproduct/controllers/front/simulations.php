@@ -33,9 +33,20 @@ class IdxrcustomproductSimulationsModuleFrontController extends ModuleFrontContr
              ORDER BY sc.date_add DESC
              LIMIT 200'
         );
+        $runtimeRows = Db::getInstance()->executeS(
+            'SELECT rc.id_runtime_customisation, rc.id_product, rc.id_product_attribute, rc.thumbnail_svg, rc.date_add
+             FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_runtime_customisations` rc
+             WHERE rc.id_customer = ' . $idCustomer . '
+               AND rc.source = "cart"
+             ORDER BY rc.date_add DESC
+             LIMIT 200'
+        );
 
         if (!is_array($rows)) {
             $rows = array();
+        }
+        if (!is_array($runtimeRows)) {
+            $runtimeRows = array();
         }
 
         foreach ($rows as &$row) {
@@ -48,6 +59,19 @@ class IdxrcustomproductSimulationsModuleFrontController extends ModuleFrontContr
                 $row['thumbnail_svg_b64'] = base64_encode((string) $row['thumbnail_svg']);
             }
         }
+        unset($row);
+
+        foreach ($runtimeRows as &$row) {
+            $idProduct = (int) $row['id_product'];
+            $row['display_name'] = sprintf($this->module->l('Configuration panier #%d', 'simulations'), (int) $row['id_runtime_customisation']);
+            $row['product_name'] = Product::getProductName($idProduct);
+            $row['product_link'] = $this->context->link->getProductLink($idProduct, null, null, null, null, null, (int) $row['id_product_attribute']);
+            $row['thumbnail_svg_b64'] = '';
+            if (!empty($row['thumbnail_svg'])) {
+                $row['thumbnail_svg_b64'] = base64_encode((string) $row['thumbnail_svg']);
+            }
+        }
+        unset($row);
 
         $this->context->controller->addJS($this->module->getLocalPath() . 'views/js/simulations.js');
         Media::addJsDef(array(
@@ -60,6 +84,7 @@ class IdxrcustomproductSimulationsModuleFrontController extends ModuleFrontContr
 
         $this->context->smarty->assign(array(
             'simulations' => $rows,
+            'cart_customisations' => $runtimeRows,
         ));
 
         if (_PS_VERSION_ >= '1.7') {
