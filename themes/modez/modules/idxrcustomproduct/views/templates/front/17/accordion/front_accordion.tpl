@@ -135,9 +135,85 @@
 	<div id="preloader-overlay-xyz123" class="preloader-overlay">
     	<div id="spinner-abc456" class="spinner"></div>
 	</div>
+    <div id="idxr-addtocart-error-modal" class="idxr-inline-modal" aria-hidden="true">
+        <div class="idxr-inline-modal__backdrop" data-idxr-close-error-modal="1"></div>
+        <div class="idxr-inline-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="idxr-addtocart-error-title">
+            <div class="idxr-inline-modal__icon">
+                <i class="material-icons">error_outline</i>
+            </div>
+            <h3 id="idxr-addtocart-error-title" class="idxr-inline-modal__title">{l s='Une erreur est survenue' mod='idxrcustomproduct'}</h3>
+            <p id="idxr-addtocart-error-message" class="idxr-inline-modal__message">{l s='Une erreur a empêché l’ajout de votre personnalisation au panier. Veuillez réessayer.' mod='idxrcustomproduct'}</p>
+            <div class="idxr-inline-modal__actions">
+                <button type="button" class="idxr-inline-modal__button" data-idxr-close-error-modal="1">{l s='Fermer' mod='idxrcustomproduct'}</button>
+            </div>
+        </div>
+    </div>
     <style>
             .idxr-c-item-name input {
             height: .8em;
+        }
+        .idxr-inline-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 12050;
+            display: none;
+        }
+        .idxr-inline-modal.is-open {
+            display: block;
+        }
+        .idxr-inline-modal__backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(18, 26, 51, 0.58);
+        }
+        .idxr-inline-modal__dialog {
+            position: relative;
+            width: min(440px, calc(100vw - 32px));
+            margin: 10vh auto 0;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 18px 48px rgba(16, 22, 48, 0.24);
+            padding: 22px 22px 18px;
+            text-align: center;
+        }
+        .idxr-inline-modal__icon {
+            width: 52px;
+            height: 52px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            background: #fff2ef;
+            color: #d9472f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .idxr-inline-modal__icon .material-icons {
+            font-size: 30px;
+        }
+        .idxr-inline-modal__title {
+            margin: 0 0 10px;
+            font-size: 19px;
+            color: #1c2240;
+        }
+        .idxr-inline-modal__message {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #4f5879;
+        }
+        .idxr-inline-modal__actions {
+            margin-top: 18px;
+        }
+        .idxr-inline-modal__button {
+            min-width: 120px;
+            height: 40px;
+            border: 0;
+            border-radius: 8px;
+            background: #2e48c4;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
         }
         #save-customization-button-unique-12345 span,
         #restore-customization-button-unique-12345 span {
@@ -244,6 +320,12 @@
       .on('click.idxr', function (e) {
         e.preventDefault();
         $('#collapsibleSection').toggle();
+      });
+
+    $('[data-idxr-close-error-modal]')
+      .off('click.idxr')
+      .on('click.idxr', function () {
+        $('#idxr-addtocart-error-modal').removeClass('is-open').attr('aria-hidden', 'true');
       });
 
     // optional: one-time log (won't spam because we rebind with .off/.on)

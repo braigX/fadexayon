@@ -1531,7 +1531,7 @@ $(document).ready(function() {
         } catch (error) {
             $('#idxrcustomproduct_send').prop('disabled', false);
             reseto();
-            alert('An error occurred while processing your request. Please try again.');
+            showAddToCartErrorModal();
         }
         $('.side_close').addClass('relaod-custum');
         reloadPageProduit();
@@ -1722,6 +1722,21 @@ function removePreloader() {
     $(this).remove(); // Remove from DOM after fade-out
     });
     $('#preloader-wrapper').remove();
+}
+
+function showAddToCartErrorModal(message) {
+    removePreloader();
+    $('#add-to-cart-button-unique-12345').prop('disabled', false);
+    $('#add-to-cart-button-unique-12345').removeClass('disabled');
+    $('#idxrcustomproduct_send').prop('disabled', false);
+    isAddingToCart = false;
+
+    var defaultTitle = window.idxr_tr_add_to_cart_error_title || 'Une erreur est survenue';
+    var defaultMessage = window.idxr_tr_add_to_cart_error_message || 'Une erreur a empêché l’ajout de votre personnalisation au panier. Veuillez réessayer.';
+
+    $('#idxr-addtocart-error-title').text(defaultTitle);
+    $('#idxr-addtocart-error-message').text(message || defaultMessage);
+    $('#idxr-addtocart-error-modal').addClass('is-open').attr('aria-hidden', 'false');
 }
 
 function get_status_string()
@@ -2347,7 +2362,7 @@ function ajaxFileUpload(id_component){
     xhr.onload = function() {
         if (this.readyState == 4 && this.status == 200) {
             if(this.responseText!="ok"){
-                alert(this.responseText);
+                showAddToCartErrorModal(this.responseText);
                 resultado = false;
             }
         } else {
@@ -2536,6 +2551,8 @@ function sendSnaps(product, attribute, custom, extra, quantity, product_weight, 
 
                                     reseto();
                                 }
+                            }).fail(function() {
+                                showAddToCartErrorModal();
                             });
 
                         }
@@ -2544,22 +2561,26 @@ function sendSnaps(product, attribute, custom, extra, quantity, product_weight, 
                             location.reload();
                         }
                         
+                    }).fail(function(xhr) {
+                        var message = xhr && xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : null;
+                        showAddToCartErrorModal(message);
                     });
                 } else {
-                    // console.log(response);
-                    // alert('Error occurred: ' + response.message);
-                    reseto()
+                    showAddToCartErrorModal(response && response.message ? response.message : null);
                 }
             } else {
                 console.error('An error occurred during the AJAX request');
+                showAddToCartErrorModal();
             }
+        };
+        xhr.onerror = function() {
+            showAddToCartErrorModal();
         };
         xhr.send(data);
     })
     .catch(function(error) {
         console.error('Error during SVG conversion:', error.message);
-        alert('An error occurred while processing your request. Please try again.');
-        reseto();
+        showAddToCartErrorModal();
     });
 
 }

@@ -223,6 +223,9 @@ class IdxrCustomProduct extends Module
         $this->l('Action failed, please try again');
         $this->l('Connectez-vous pour utiliser la sauvegarde, la restauration et vos simulations enregistrées.');
         $this->l('Se connecter');
+        $this->l('Une erreur est survenue');
+        $this->l('Une erreur a empêché l’ajout de votre personnalisation au panier. Veuillez réessayer.');
+        $this->l('Fermer');
     }
     
     // /*End*/
@@ -948,6 +951,9 @@ class IdxrCustomProduct extends Module
             'idxr_tr_unable_apply_saved_customization' => $this->l('Unable to apply saved customization.'),
             'idxr_tr_saved_payload_invalid' => $this->l('Saved customization payload is invalid.'),
             'idxr_tr_request_failed' => $this->l('Request failed.'),
+            'idxr_tr_add_to_cart_error_title' => $this->l('Une erreur est survenue'),
+            'idxr_tr_add_to_cart_error_message' => $this->l('Une erreur a empêché l’ajout de votre personnalisation au panier. Veuillez réessayer.'),
+            'idxr_tr_close' => $this->l('Fermer'),
         ];
 
         Media::addJsDef($translations);
