@@ -624,64 +624,19 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
     public function ajaxHandleSnaps()
     {
         $responses = [];
-        $uploadedFiles = [];
         $id_product = (int) Tools::getValue('product');
 
-        // Upload directory setup (shared for files + SVG)
+        // Upload directory setup for SVG files
         $path0 = DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'idxrcustomproduct' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m');
         $uploadDir = _PS_ROOT_DIR_ . $path0;
         if (!is_dir($uploadDir) && !@mkdir($uploadDir, 0777, true) && !is_dir($uploadDir)) {
             $responses['dir'] = $this->module->l('Upload directory is not writable.', 'ajax');
             die(json_encode($responses));
         }
-    
-        // File types expected
-        $requiredFiles = ['file1' => 'png'];
-        $index = 1;
-        foreach ($requiredFiles as $inputName => $expectedType) {
-            if (!isset($_FILES[$inputName])) {
-                $responses[$inputName] = $this->module->l('No file uploaded.', 'ajax');
-                continue;
-            }
-    
-            $fileName = $_FILES[$inputName]['name'];
-            $actualFileType = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-            $fileSizeMB = ($_FILES[$inputName]['size'] / 1024) / 1024; // Convert bytes to MB
-
-            // Validate file size
-            if ($fileSizeMB > 11) { // 11 MB max size
-                $responses[$inputName] = $this->module->l('File too big.', 'ajax');
-                continue;
-            }
-    
-            // Validate file extension
-            if ($actualFileType !== $expectedType) {
-                $responses[$inputName] = $this->module->l('Invalid format. Expected ' . $expectedType, 'ajax');
-                continue;
-            }
-    
-            // File saving process
-            $timestamp = microtime(true); // Current time in microseconds
-            $randomNumber = rand(10000, 99999); // A random 4-digit number
-            
-            $md5filename = md5('idxrcustomproduct_' . $id_product . '_' . $timestamp . '_' . $randomNumber) . '.' . $actualFileType;
-
-            // $md5filename = md5('idxrcustomproduct_' . $id_product . '_' . (int)Context::getContext()->cart->id . '_' . $fileName) . '.' . $actualFileType;
-            $fileTarget = $uploadDir . DIRECTORY_SEPARATOR . $md5filename;
-            $fileURL = $this->context->link->getBaseLink() . trim($path0, '/') . '/' . $md5filename;
-    
-            if (move_uploaded_file($_FILES[$inputName]["tmp_name"], $fileTarget)) {
-                $uploadedFiles[$index] = $fileTarget;
-                $index++;
-                $responses[$inputName] = 'ok';
-            } else {
-                $responses[$inputName] = $this->module->l('Error uploading file.', 'ajax');
-            }
-        }
-    
 
         // Handle SVG markup
         $svgMarkup = Tools::getValue('svgMarkup');
+        $svgFileURL = '';
         if ($svgMarkup) {
             $timestamp = microtime(true); // Current time in microseconds
             $randomNumber = rand(1000, 9999); // A random 4-digit number
@@ -689,9 +644,8 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
 
             // $svgFileName = 'design_' . md5('idxrcustomproduct_' . $id_product . '_' . (int)Context::getContext()->cart->id) . '.svg';
             $svgFilePath = $uploadDir . DIRECTORY_SEPARATOR . $svgFileName;
-            $svgFileURL = $this->context->link->getBaseLink() . trim($path0, '/') . '/' . $svgFileName; // Construct the URL
+            $svgFileURL = $this->context->link->getBaseLink() . trim($path0, '/') . '/' . $svgFileName;
             if (file_put_contents($svgFilePath, $svgMarkup) !== false) {
-                $uploadedFiles['svg'] = $svgFileURL;
                 $responses['svg'] = 'ok';
             } else {
                 $responses['svg'] = 'Error saving SVG file';
@@ -700,13 +654,13 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
             $responses['svg'] = 'No SVG markup provided';
         }
 
-        // Debugging output
-        if (isset($uploadedFiles[1])) {
+        if ($svgFileURL !== '') {
             $data = [
                 'id_cart' => (int)Context::getContext()->cart->id,
                 'id_product' => (int)$id_product,
-                'svg_file' => pSQL($uploadedFiles[1]),
-                'svg_code' => pSQL($uploadedFiles['svg']),
+                'svg_file' => '',
+                'png_file' => '',
+                'svg_code' => pSQL($svgFileURL),
                 'console' => pSQL(Tools::getValue('console')),
             ];
 

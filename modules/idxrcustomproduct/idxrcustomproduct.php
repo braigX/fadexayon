@@ -1573,7 +1573,7 @@ class IdxrCustomProduct extends Module
                     }
                 }
 
-                $svgUrlQuery = "SELECT svg_file, svg_code, console FROM " . _DB_PREFIX_ . "idxrcustomproduct_snaps WHERE id_product = " . (int)$product['id_product'];
+                $svgUrlQuery = "SELECT svg_code, console FROM " . _DB_PREFIX_ . "idxrcustomproduct_snaps WHERE id_product = " . (int)$product['id_product'];
 
                 $svgUrls = Db::getInstance()->executeS($svgUrlQuery);
                 if (!$svgUrls) {
@@ -1594,15 +1594,6 @@ class IdxrCustomProduct extends Module
                         $data['private'] .= $svgImgTag;
                         $data['public'] .= $svgImgTag;
                     }
-
-                    //svg file
-                    $svgUrl = $svgUrls[0]['svg_file'];
-                    if($svgUrl){
-                        $svgImgTag = '<p>Aperçu: <img class="perviewImageSketch" src="' . $svgUrl . '" width="400px" height="400px"></p>';
-                        $data['private'] .= $svgImgTag;
-                        $data['public'] .= $svgImgTag;
-                    }
-                    
                 }
 
                 $extra_info[] = $data;
@@ -1811,7 +1802,7 @@ class IdxrCustomProduct extends Module
                 $data['public'] .= $line;
             }
 
-            $svgUrlQuery = 'SELECT svg_file, svg_code, console FROM ' . _DB_PREFIX_ . 'idxrcustomproduct_snaps WHERE id_product = ' . $id_product;
+            $svgUrlQuery = 'SELECT svg_code, console FROM ' . _DB_PREFIX_ . 'idxrcustomproduct_snaps WHERE id_product = ' . $id_product;
             $svgUrls = Db::getInstance()->executeS($svgUrlQuery);
             if (!empty($svgUrls)) {
                 $console = $svgUrls[0]['console'];

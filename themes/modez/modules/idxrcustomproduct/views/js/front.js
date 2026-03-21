@@ -1807,7 +1807,6 @@ function createAddToCartTimer() {
     var last = start;
     var stageMap = {
         start: { percent: 5 },
-        'png-generated': { percent: 22 },
         'snap-saved': { percent: 48 },
         'product-created': { percent: 74 },
         'cart-updated': { percent: 96 },
@@ -2469,59 +2468,6 @@ function ajaxFileUpload(id_component){
     return resultado;
 }
 
-function convertSvgToPng(svgElement, callback) {
-    if (!svgElement) {
-        callback(null, new Error("SVG element not found"));
-        return;
-    }
-    
-    var serializer = new XMLSerializer();
-    var svgStr = serializer.serializeToString(svgElement);
-    var img = new Image();
-    var canvas = document.createElement('canvas');
-    var ctx = canvas.getContext('2d');
-    var svgBlob = new Blob([svgStr], {type: 'image/svg+xml;charset=utf-8'});
-    var url = URL.createObjectURL(svgBlob);
-
-    // Desired output width (400px), keep aspect ratio
-    var outputWidth = 1080;
-
-    img.onload = function() {
-        // Calculate the aspect ratio to maintain it while resizing
-        var aspectRatio = img.height / img.width;
-        var outputHeight = outputWidth * aspectRatio;
-
-        // Set canvas dimensions based on the desired output width and aspect ratio
-        canvas.width = outputWidth;
-        canvas.height = outputHeight;
-
-        // Scale up the quality by increasing the size of the canvas temporarily
-        var scaleFactor = 2;  // Increase this to make the PNG more detailed (e.g., 2x or 3x)
-        canvas.width = outputWidth * scaleFactor;
-        canvas.height = outputHeight * scaleFactor;
-
-        // Draw the image onto the canvas at the scaled size
-        ctx.scale(scaleFactor, scaleFactor);
-        ctx.drawImage(img, 0, 0, outputWidth, outputHeight);
-
-        URL.revokeObjectURL(url);
-
-        // Convert canvas to blob with 'image/png' format
-        canvas.toBlob(function(blob) {
-            callback(blob, null);
-        }, 'image/png');
-    };
-    
-    img.onerror = function(e) {
-        callback(null, new Error("Failed to load SVG image"));
-        URL.revokeObjectURL(url);
-    };
-
-    // Set image source to the generated SVG data URL
-    img.src = url;
-}
-
-
 function reseto(){
     removePreloader();
     $('#add-to-cart-button-unique-12345').prop('disabled', false);
@@ -2564,21 +2510,10 @@ function sendSnaps(product, attribute, custom, extra, quantity, product_weight, 
     // var divElement = document.getElementById('component_step_last');
     var svgMarkup = new XMLSerializer().serializeToString(svgElement);
 
-    // Function to handle SVG conversion and send the result to the server
-    new Promise((resolve, reject) => {
-        convertSvgToPng(svgElement, function(blob, error) {
-            if (error) reject(error);
-            else {
-                addToCartTimer.logStep('png-generated');
-                resolve(blob);
-            }
-        });
-    })
-    .then(function(svgBlob) {
+    Promise.resolve().then(function() {
         var id_product = product;
 
         var data = new FormData();
-        data.append('file1', svgBlob, 'design.png');
         data.append('svgMarkup', svgMarkup);
         data.append("console", idxcp_console_state);
         data.append("action", "handlesnaps");
