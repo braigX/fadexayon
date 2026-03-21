@@ -66,6 +66,7 @@ class IdxrcustomproductSimulationsModuleFrontController extends ModuleFrontContr
             $row['display_name'] = sprintf($this->module->l('Configuration panier #%d', 'simulations'), (int) $row['id_runtime_customisation']);
             $row['product_name'] = Product::getProductName($idProduct);
             $row['product_link'] = $this->context->link->getProductLink($idProduct, null, null, null, null, null, (int) $row['id_product_attribute']);
+            $row['use_product_link'] = $row['product_link'] . (strpos($row['product_link'], '?') === false ? '?' : '&') . 'idxr_restore_runtime_sim=' . (int) $row['id_runtime_customisation'];
             $row['thumbnail_svg_b64'] = '';
             if (!empty($row['thumbnail_svg'])) {
                 $row['thumbnail_svg_b64'] = base64_encode((string) $row['thumbnail_svg']);

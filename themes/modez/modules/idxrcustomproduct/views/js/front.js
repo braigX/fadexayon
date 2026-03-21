@@ -405,6 +405,7 @@ function idxrApplyRestoreItem(item) {
     return idxrApplySnapshot(snapshot).then(function () {
         idxrSetGlobalPreloader(false);
         idxrRemoveUrlParam('idxr_restore_sim');
+        idxrRemoveUrlParam('idxr_restore_runtime_sim');
         return true;
     }).catch(function (e) {
         idxrSetGlobalPreloader(false);
@@ -425,15 +426,17 @@ function idxrRenderUrlRestorePrompt(item) {
 
 function idxrAutoRestoreFromUrlIfNeeded() {
     var savedId = parseInt(idxrGetUrlParam('idxr_restore_sim'), 10);
-    if (!savedId || idxrUrlRestorePromptShown) {
+    var runtimeId = parseInt(idxrGetUrlParam('idxr_restore_runtime_sim'), 10);
+    var restoreAction = savedId ? 'getServerCustomization' : (runtimeId ? 'getRuntimeCustomization' : '');
+    var requestData = savedId ? { id_saved_customisation: savedId } : (runtimeId ? { id_runtime_customisation: runtimeId } : null);
+
+    if (!restoreAction || idxrUrlRestorePromptShown) {
         return;
     }
 
     idxrWaitForConfiguratorReady(14000).then(function () {
         idxrSetGlobalPreloader(true);
-        return idxrServerRequest('getServerCustomization', {
-            id_saved_customisation: savedId
-        });
+        return idxrServerRequest(restoreAction, requestData);
     }).then(function (response) {
         idxrSetGlobalPreloader(false);
         if (!response || !response.item) {
@@ -1739,6 +1742,23 @@ function showAddToCartErrorModal(message) {
     $('#idxr-addtocart-error-modal').addClass('is-open').attr('aria-hidden', 'false');
 }
 
+function createAddToCartTimer() {
+    var start = performance.now();
+    var last = start;
+
+    return {
+        logStep: function(label) {
+            var now = performance.now();
+            console.info('[idxr-add-to-cart]', label, '| step:', Math.round(now - last) + 'ms', '| total:', Math.round(now - start) + 'ms');
+            last = now;
+        },
+        logEnd: function(label) {
+            var now = performance.now();
+            console.info('[idxr-add-to-cart]', label, '| total:', Math.round(now - start) + 'ms');
+        }
+    };
+}
+
 function get_status_string()
 {
     var status_string = '';
@@ -2438,6 +2458,8 @@ function sendSnaps(product, attribute, custom, extra, quantity, product_weight, 
     
     if (isAddingToCart) return;
     isAddingToCart = true;
+    var addToCartTimer = createAddToCartTimer();
+    addToCartTimer.logStep('start');
 
     var prix_de_decouper = 0;
     var prix_de_decoupe = 0;
@@ -2471,7 +2493,10 @@ function sendSnaps(product, attribute, custom, extra, quantity, product_weight, 
     new Promise((resolve, reject) => {
         convertSvgToPng(svgElement, function(blob, error) {
             if (error) reject(error);
-            else resolve(blob);
+            else {
+                addToCartTimer.logStep('png-generated');
+                resolve(blob);
+            }
         });
     })
     .then(function(svgBlob) {
@@ -2494,6 +2519,7 @@ function sendSnaps(product, attribute, custom, extra, quantity, product_weight, 
         xhr.open("POST", url_ajax, true);
         xhr.onload = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
+                addToCartTimer.logStep('snap-saved');
                 var response = JSON.parse(xhr.responseText);
                 if (response.id) {
                     $.post(url_ajax, { 
@@ -2512,6 +2538,7 @@ function sendSnaps(product, attribute, custom, extra, quantity, product_weight, 
                         prix_de_decoupe: prix_de_decouper,
                         price_from_cube: price_from_cube,
                     }).done(function(data) {
+                        addToCartTimer.logStep('product-created');
                         if (icp_editing) {
                             removeFromCart(icp_editing);
                         }
@@ -2533,6 +2560,7 @@ function sendSnaps(product, attribute, custom, extra, quantity, product_weight, 
                                 dataType: 'json',
                                 data: 'action=update&add=1&ajax=true&qty=' + (quantity ? quantity : '1') + '&id_product=' + data + '&token=' + prestashop.static_token + '&ipa=0',
                                 success: function(response) {
+                                    addToCartTimer.logStep('cart-updated');
                                     $('#add-to-cart-button-unique-12345').prop('disabled', false);
                                     enviado = true;
                                     prestashop.emit('updateCart', {
@@ -2549,6 +2577,7 @@ function sendSnaps(product, attribute, custom, extra, quantity, product_weight, 
                                             setTimeout(refreshFeeLine, 1000);
                                         }
 
+                                    addToCartTimer.logEnd('completed');
                                     reseto();
                                 }
                             }).fail(function() {
@@ -2557,7 +2586,9 @@ function sendSnaps(product, attribute, custom, extra, quantity, product_weight, 
 
                         }
                         if (!enviado && typeof cart_link !== "undefined") {
+                            addToCartTimer.logStep('legacy-cart-post');
                             $.post(cart_link, { token: cart_token, id_product: data, add: 1, id_product_attribute: 0 });
+                            addToCartTimer.logEnd('redirecting');
                             location.reload();
                         }
                         

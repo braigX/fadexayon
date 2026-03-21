@@ -102,6 +102,10 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
             $this->ajaxProcessGetServerCustomization();
         }
 
+        if (Tools::getValue('action') == 'getRuntimeCustomization') {
+            $this->ajaxProcessGetRuntimeCustomization();
+        }
+
         if (Tools::getValue('action') == 'renameServerCustomization') {
             $this->ajaxProcessRenameServerCustomization();
         }
@@ -378,6 +382,74 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
                 'extra_info' => (string) $row['extra_info'],
                 'snapshot_json' => (string) $row['snapshot_json'],
                 'preview_html' => (string) $row['preview_html'],
+                'created_at' => (string) $row['date_add'],
+            ),
+        ));
+    }
+
+    public function ajaxProcessGetRuntimeCustomization()
+    {
+        $context = Context::getContext();
+        $idRuntime = (int) Tools::getValue('id_runtime_customisation');
+        if ($idRuntime <= 0) {
+            $this->jsonResponse(array(
+                'success' => false,
+                'message' => $this->module->l('Invalid customization id.', 'ajax'),
+            ), 400);
+        }
+
+        $idCustomer = (int) ($context->customer ? $context->customer->id : 0);
+        $idGuest = (int) ($context->cookie && !empty($context->cookie->id_guest) ? $context->cookie->id_guest : 0);
+        if ($idCustomer <= 0 && $idGuest <= 0) {
+            $this->jsonResponse(array(
+                'success' => false,
+                'message' => $this->module->l('Customization not found.', 'ajax'),
+            ), 404);
+        }
+
+        $whereOwner = array();
+        if ($idCustomer > 0) {
+            $whereOwner[] = 'id_customer=' . (int) $idCustomer;
+        }
+        if ($idGuest > 0) {
+            $whereOwner[] = 'id_guest=' . (int) $idGuest;
+        }
+
+        $row = Db::getInstance()->getRow(
+            'SELECT id_runtime_customisation, id_product, id_product_attribute, customization, extra_info, snapshot_json, thumbnail_svg, date_add
+             FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_runtime_customisations`
+             WHERE id_runtime_customisation=' . (int) $idRuntime . '
+               AND source = "cart"
+               AND (' . implode(' OR ', $whereOwner) . ')'
+        );
+
+        if (!$row) {
+            $this->jsonResponse(array(
+                'success' => false,
+                'message' => $this->module->l('Customization not found.', 'ajax'),
+            ), 404);
+        }
+
+        Db::getInstance()->update(
+            'idxrcustomproduct_runtime_customisations',
+            array('date_upd' => pSQL(date('Y-m-d H:i:s'))),
+            'id_runtime_customisation=' . (int) $idRuntime
+        );
+
+        $displayName = sprintf($this->module->l('Configuration panier #%d', 'ajax'), (int) $row['id_runtime_customisation']);
+
+        $this->jsonResponse(array(
+            'success' => true,
+            'item' => array(
+                'id' => (int) $row['id_runtime_customisation'],
+                'id_product' => (int) $row['id_product'],
+                'id_product_attribute' => (int) $row['id_product_attribute'],
+                'name' => $displayName,
+                'customization' => (string) $row['customization'],
+                'extra_info' => (string) $row['extra_info'],
+                'snapshot_json' => (string) $row['snapshot_json'],
+                'preview_html' => (string) $row['thumbnail_svg'],
+                'thumbnail_svg' => (string) $row['thumbnail_svg'],
                 'created_at' => (string) $row['date_add'],
             ),
         ));

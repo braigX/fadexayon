@@ -177,8 +177,8 @@
                 <td>{$simulation.product_name|escape:'htmlall':'UTF-8'}</td>
                 <td>{$simulation.date_add|escape:'htmlall':'UTF-8'}</td>
                 <td>
-                  <a class="btn btn-default" href="{$simulation.product_link|escape:'htmlall':'UTF-8'}" target="_blank" rel="noopener noreferrer">
-                    {l s='Open product' mod='idxrcustomproduct'}
+                  <a class="btn btn-primary" href="{$simulation.use_product_link|escape:'htmlall':'UTF-8'}" target="_blank" rel="noopener noreferrer">
+                    {l s='Apply' mod='idxrcustomproduct'}
                   </a>
                 </td>
               </tr>
