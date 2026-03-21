@@ -203,6 +203,7 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
             'id_guest' => (int) ($context->cookie && !empty($context->cookie->id_guest) ? $context->cookie->id_guest : 0),
             'id_cart' => $idCart,
             'id_product' => $idProduct,
+            'id_customized_product' => 0,
             'id_product_attribute' => (int) Tools::getValue('attribute'),
             'customization' => pSQL((string) Tools::getValue('custom'), true),
             'extra_info' => pSQL((string) Tools::getValue('extra'), true),
@@ -468,7 +469,7 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
         }
 
         $row = Db::getInstance()->getRow(
-            'SELECT id_runtime_customisation, id_product, id_product_attribute, customization, extra_info, snapshot_json, thumbnail_svg, date_add
+            'SELECT id_runtime_customisation, id_product, id_customized_product, id_product_attribute, customization, extra_info, snapshot_json, thumbnail_svg, date_add
              FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_runtime_customisations`
              WHERE id_runtime_customisation=' . (int) $idRuntime . '
                AND source = "cart"
@@ -495,6 +496,7 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
             'item' => array(
                 'id' => (int) $row['id_runtime_customisation'],
                 'id_product' => (int) $row['id_product'],
+                'id_customized_product' => (int) $row['id_customized_product'],
                 'id_product_attribute' => (int) $row['id_product_attribute'],
                 'name' => $displayName,
                 'customization' => (string) $row['customization'],

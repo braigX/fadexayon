@@ -34,7 +34,7 @@ class IdxrcustomproductSimulationsModuleFrontController extends ModuleFrontContr
              LIMIT 200'
         );
         $runtimeRows = Db::getInstance()->executeS(
-            'SELECT rc.id_runtime_customisation, rc.id_product, rc.id_product_attribute, rc.thumbnail_svg, rc.date_add
+            'SELECT rc.id_runtime_customisation, rc.id_product, rc.id_customized_product, rc.id_product_attribute, rc.thumbnail_svg, rc.date_add
              FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_runtime_customisations` rc
              WHERE rc.id_customer = ' . $idCustomer . '
                AND rc.source = "cart"

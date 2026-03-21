@@ -1714,22 +1714,53 @@ class IdxrCustomProduct extends Module
         return '';
     }
 
-    private function getRuntimeCustomizationRestoreLink($idCart, $idBaseProduct)
+    private function getRuntimeCustomizationRestoreLink($idCart, $idBaseProduct, $idCustomizedProduct = 0)
     {
         $idCart = (int) $idCart;
         $idBaseProduct = (int) $idBaseProduct;
+        $idCustomizedProduct = (int) $idCustomizedProduct;
         if ($idCart <= 0 || $idBaseProduct <= 0) {
             return '';
         }
 
-        $row = Db::getInstance()->getRow(
-            'SELECT id_runtime_customisation, id_product_attribute
-             FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_runtime_customisations`
-             WHERE id_cart = ' . $idCart . '
-               AND id_product = ' . $idBaseProduct . '
-               AND source = "cart"
-             ORDER BY date_add DESC, id_runtime_customisation DESC'
-        );
+        $row = false;
+        if ($idCustomizedProduct > 0) {
+            $row = Db::getInstance()->getRow(
+                'SELECT rc.id_runtime_customisation, rc.id_product_attribute
+                 FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_runtime_customisations` rc
+                 WHERE rc.id_cart = ' . $idCart . '
+                   AND rc.id_product = ' . $idBaseProduct . '
+                   AND rc.source = "cart"
+                   AND rc.id_customized_product = ' . $idCustomizedProduct . '
+                 ORDER BY rc.date_add DESC, rc.id_runtime_customisation DESC'
+            );
+        }
+
+        if (empty($row['id_runtime_customisation'])) {
+            if ($idCustomizedProduct > 0) {
+                $row = Db::getInstance()->getRow(
+                    'SELECT rc.id_runtime_customisation, rc.id_product_attribute
+                     FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_runtime_customisations` rc
+                     INNER JOIN `' . _DB_PREFIX_ . 'idxrcustomproduct_snaps` s ON (s.id_snap = rc.id_snap)
+                     WHERE rc.id_cart = ' . $idCart . '
+                       AND rc.id_product = ' . $idBaseProduct . '
+                       AND rc.source = "cart"
+                       AND s.id_product = ' . $idCustomizedProduct . '
+                     ORDER BY rc.date_add DESC, rc.id_runtime_customisation DESC'
+                );
+            }
+        }
+
+        if (empty($row['id_runtime_customisation'])) {
+            $row = Db::getInstance()->getRow(
+                'SELECT id_runtime_customisation, id_product_attribute
+                 FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_runtime_customisations`
+                 WHERE id_cart = ' . $idCart . '
+                   AND id_product = ' . $idBaseProduct . '
+                   AND source = "cart"
+                 ORDER BY date_add DESC, id_runtime_customisation DESC'
+            );
+        }
 
         if (empty($row['id_runtime_customisation'])) {
             return '';
@@ -1821,7 +1852,7 @@ class IdxrCustomProduct extends Module
                     $data['public'] .= $svgLine;
                 }
 
-                $runtimeRestoreLink = $this->getRuntimeCustomizationRestoreLink((int) $cart->id, $id_original);
+                $runtimeRestoreLink = $this->getRuntimeCustomizationRestoreLink((int) $cart->id, $id_original, (int) $product['id_product']);
                 if ($runtimeRestoreLink) {
                     $simulationLine = '<p>'
                         . $this->l('Simulation du configurateur')
@@ -4813,7 +4844,19 @@ class IdxrCustomProduct extends Module
     public function createProduct($product_id, $snaps, $attribute_id, $customization, $extra = false, $quantity = false, $product_weight = 0, $product_volume = 0, $product_width = 0, $product_height = 0, $product_depth = 0, $prix_de_decouper = 0, $price_from_cube = 0 )
     {
         $customproduct = new IdxCustomizedProduct();
-        return $customproduct->createInPs($product_id, $snaps, $attribute_id, $customization, $extra, $quantity, $product_weight, $product_volume, $product_width, $product_height, $product_depth, $prix_de_decouper, $price_from_cube );
+        $newProductId = (int) $customproduct->createInPs($product_id, $snaps, $attribute_id, $customization, $extra, $quantity, $product_weight, $product_volume, $product_width, $product_height, $product_depth, $prix_de_decouper, $price_from_cube);
+        if ((int) $snaps > 0 && $newProductId > 0) {
+            Db::getInstance()->update(
+                'idxrcustomproduct_runtime_customisations',
+                array(
+                    'id_customized_product' => (int) $newProductId,
+                    'date_upd' => pSQL(date('Y-m-d H:i:s')),
+                ),
+                'id_snap = ' . (int) $snaps
+            );
+        }
+
+        return $newProductId;
     }
     /*End*/
     
@@ -5195,7 +5238,7 @@ class IdxrCustomProduct extends Module
                 }
 
                 $idOriginal = (int) $this->getProductoOriginal((int) $note['id_cart_product']);
-                $runtimeRestoreLink = $this->getRuntimeCustomizationRestoreLink((int) $note['id_cart'], $idOriginal);
+                $runtimeRestoreLink = $this->getRuntimeCustomizationRestoreLink((int) $note['id_cart'], $idOriginal, (int) $note['id_cart_product']);
                 if ($runtimeRestoreLink) {
                     $notes_array_out[] = '<strong>' . $this->l('Simulation du configurateur') . '</strong>: '
                         . '<a target="_blank" href="' . $runtimeRestoreLink . '">'
