@@ -1806,7 +1806,7 @@ function createAddToCartTimer() {
     var start = performance.now();
     var last = start;
     var stageMap = {
-        start: { percent: 5 },
+        start: { percent: 30 },
         'snap-saved': { percent: 48 },
         'product-created': { percent: 74 },
         'cart-updated': { percent: 96 },
