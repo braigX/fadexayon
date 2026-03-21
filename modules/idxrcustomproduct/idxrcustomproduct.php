@@ -1852,7 +1852,7 @@ class IdxrCustomProduct extends Module
                     $data['public'] .= $svgLine;
                 }
 
-                $runtimeRestoreLink = $this->getRuntimeCustomizationRestoreLink((int) $cart->id, $id_original, (int) $product['id_product']);
+                $runtimeRestoreLink = $this->getRuntimeCustomizationRestoreLink((int) $cart->id, $id_original, $id_product);
                 if ($runtimeRestoreLink) {
                     $simulationLine = '<p>'
                         . $this->l('Simulation du configurateur')
