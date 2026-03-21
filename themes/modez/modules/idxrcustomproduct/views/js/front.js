@@ -1729,13 +1729,6 @@ function createPreloader() {
     lineHeight: '1'
     });
 
-    const preloaderStage = $('<div>', { id: 'idxr-preloader-stage', text: 'Preparation de votre personnalisation...' }).css({
-    color: '#5d6785',
-    fontSize: '13px',
-    textAlign: 'center',
-    minHeight: '18px'
-    });
-
     const preloaderBar = $('<div>', { id: 'idxr-preloader-bar' }).css({
     width: '100%',
     maxWidth: '320px',
@@ -1759,7 +1752,6 @@ function createPreloader() {
     preloaderPanel.append(loader);
     preloaderPanel.append(preloaderPercent);
     preloaderPanel.append(preloaderTitle);
-    preloaderPanel.append(preloaderStage);
     preloaderPanel.append(preloaderBar);
     preloaderWrapper.append(preloaderPanel);
 
@@ -1774,7 +1766,7 @@ function createPreloader() {
     }
     `;
     $('<style>').text(keyframes).appendTo('head');
-    updatePreloaderProgress(5, 'Preparation de votre personnalisation...');
+    updatePreloaderProgress(5);
 }
 
 // Function to remove the preloader
@@ -1800,7 +1792,7 @@ function showAddToCartErrorModal(message) {
     $('#idxr-addtocart-error-modal').addClass('is-open').attr('aria-hidden', 'false');
 }
 
-function updatePreloaderProgress(percent, stageText) {
+function updatePreloaderProgress(percent) {
     var safePercent = Math.max(0, Math.min(100, parseInt(percent, 10) || 0));
     if ($('#idxr-preloader-percent').length) {
         $('#idxr-preloader-percent').text(safePercent + '%');
@@ -1808,29 +1800,26 @@ function updatePreloaderProgress(percent, stageText) {
     if ($('#idxr-preloader-bar-fill').length) {
         $('#idxr-preloader-bar-fill').css('width', safePercent + '%');
     }
-    if (stageText && $('#idxr-preloader-stage').length) {
-        $('#idxr-preloader-stage').text(stageText);
-    }
 }
 
 function createAddToCartTimer() {
     var start = performance.now();
     var last = start;
     var stageMap = {
-        start: { percent: 5, text: 'Preparation de votre personnalisation...' },
-        'png-generated': { percent: 22, text: 'Preparation de votre personnalisation...' },
-        'snap-saved': { percent: 48, text: 'Preparation de votre personnalisation...' },
-        'product-created': { percent: 74, text: 'Preparation de votre personnalisation...' },
-        'cart-updated': { percent: 96, text: 'Preparation de votre personnalisation...' },
-        completed: { percent: 100, text: 'Preparation de votre personnalisation...' },
-        redirecting: { percent: 100, text: 'Preparation de votre personnalisation...' }
+        start: { percent: 5 },
+        'png-generated': { percent: 22 },
+        'snap-saved': { percent: 48 },
+        'product-created': { percent: 74 },
+        'cart-updated': { percent: 96 },
+        completed: { percent: 100 },
+        redirecting: { percent: 100 }
     };
 
     return {
         logStep: function(label) {
             var now = performance.now();
             if (stageMap[label]) {
-                updatePreloaderProgress(stageMap[label].percent, stageMap[label].text);
+                updatePreloaderProgress(stageMap[label].percent);
             }
             console.info('[idxr-add-to-cart]', label, '| step:', Math.round(now - last) + 'ms', '| total:', Math.round(now - start) + 'ms');
             last = now;
@@ -1838,7 +1827,7 @@ function createAddToCartTimer() {
         logEnd: function(label) {
             var now = performance.now();
             if (stageMap[label]) {
-                updatePreloaderProgress(stageMap[label].percent, stageMap[label].text);
+                updatePreloaderProgress(stageMap[label].percent);
             }
             console.info('[idxr-add-to-cart]', label, '| total:', Math.round(now - start) + 'ms');
         }

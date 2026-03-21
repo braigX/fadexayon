@@ -1710,6 +1710,42 @@ class IdxrCustomProduct extends Module
         return '';
     }
 
+    private function getRuntimeCustomizationRestoreLink($idCart, $idBaseProduct)
+    {
+        $idCart = (int) $idCart;
+        $idBaseProduct = (int) $idBaseProduct;
+        if ($idCart <= 0 || $idBaseProduct <= 0) {
+            return '';
+        }
+
+        $row = Db::getInstance()->getRow(
+            'SELECT id_runtime_customisation, id_product_attribute
+             FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_runtime_customisations`
+             WHERE id_cart = ' . $idCart . '
+               AND id_product = ' . $idBaseProduct . '
+               AND source = "cart"
+             ORDER BY date_add DESC, id_runtime_customisation DESC'
+        );
+
+        if (empty($row['id_runtime_customisation'])) {
+            return '';
+        }
+
+        $productLink = $this->context->link->getProductLink(
+            $idBaseProduct,
+            null,
+            null,
+            null,
+            null,
+            null,
+            (int) $row['id_product_attribute']
+        );
+
+        return $productLink
+            . (strpos($productLink, '?') === false ? '?' : '&')
+            . 'idxr_restore_runtime_sim=' . (int) $row['id_runtime_customisation'];
+    }
+
     private function buildOrderNotesFromCart(Cart $cart, Order $order)
     {
         $notes = array();
@@ -1781,8 +1817,19 @@ class IdxrCustomProduct extends Module
                     $data['public'] .= $svgLine;
                 }
 
-                if (!empty($svgUrls[0]['svg_file'])) {
-                    $imgLine = '<p>Aperçu: <img class="perviewImageSketch" src="' . $svgUrls[0]['svg_file'] . '" width="400px" height="400px"></p>';
+                $runtimeRestoreLink = $this->getRuntimeCustomizationRestoreLink((int) $cart->id, $id_original);
+                if ($runtimeRestoreLink) {
+                    $simulationLine = '<p>'
+                        . $this->l('Simulation du configurateur')
+                        . ': <a target="_blank" href="' . $runtimeRestoreLink . '">'
+                        . $this->l('Ouvrir cette personnalisation dans le configurateur')
+                        . '</a></p>';
+                    $data['private'] .= $simulationLine;
+                    $data['public'] .= $simulationLine;
+                }
+
+                if (!empty($svgUrls[0]['svg_code'])) {
+                    $imgLine = '<p>Aperçu: <img class="perviewImageSketch" src="' . $svgUrls[0]['svg_code'] . '" width="400px" height="400px"></p>';
                     $data['private'] .= $imgLine;
                     $data['public'] .= $imgLine;
                 }
@@ -4989,16 +5036,17 @@ class IdxrCustomProduct extends Module
                     $notes_in_p = urldecode($note['public_note']);
                     $notes_array = explode('</p>', str_replace('<p>', '', $notes_in_p));
                     foreach ($notes_array as $key => &$line) {                        
-                        if (strpos($line, '<a')) {
+                        if (is_string($line) && strpos($line, '<a') !== false) {
                             $line = $this->formatFileLink($line);
                         }
-                        if (strpos($line, '<hr')) {
+                        if (is_string($line) && strpos($line, '<hr') !== false) {
                             $line = $this->formatMultiText($line);
                         }
                         if (!$line) {
                             unset($notes_array[$key]);
+                            continue;
                         }
-                        if ((stripos($line, 'Console') !== false) || (stripos($line, '') !== false)) {
+                        if (is_string($line) && stripos($line, 'Console') !== false) {
                             $line = '';
                         }
                     }
@@ -5140,6 +5188,15 @@ class IdxrCustomProduct extends Module
 
                 if (!$thickness_inserted && $thickness !== null && $thickness !== '') {
                     $notes_array_out[] = '<strong>Epaisseur: </strong> ' . $thickness;
+                }
+
+                $idOriginal = (int) $this->getProductoOriginal((int) $note['id_cart_product']);
+                $runtimeRestoreLink = $this->getRuntimeCustomizationRestoreLink((int) $note['id_cart'], $idOriginal);
+                if ($runtimeRestoreLink) {
+                    $notes_array_out[] = '<strong>' . $this->l('Simulation du configurateur') . '</strong>: '
+                        . '<a target="_blank" href="' . $runtimeRestoreLink . '">'
+                        . $this->l('Ouvrir cette personnalisation dans le configurateur')
+                        . '</a>';
                 }
 
                 $note['notes_a'] = $notes_array_out;
