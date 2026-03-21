@@ -94,15 +94,6 @@ class IdxCustomizedProduct
             $add_shortdesc[$lang['id_lang']] = '';
         }
         $module = Module::getInstanceByName('idxrcustomproduct');
-        if ($module && method_exists($module, 'logMessage')) {
-            $module->logMessage('createInPs:start', array(
-                'context_cart_id' => (int) ($this->context->cart ? $this->context->cart->id : 0),
-                'cookie_cart_id' => (int) (($this->context->cookie && !empty($this->context->cookie->id_cart)) ? $this->context->cookie->id_cart : 0),
-                'product_id' => (int) $product_id,
-                'snaps' => (int) $snaps,
-                'attribute_id' => (int) $attribute_id,
-            ));
-        }
         $id_configuration = $module->getConfigurationByProduct($product_id);
         $configuration = new IdxConfiguration($id_configuration, true);
         $this->checkConstraints($customization, $id_configuration);
@@ -332,14 +323,6 @@ foreach ((array)$extra as $opt_extra) {
         Db::getInstance()->insert('idxrcustomproduct_customer_extra', $data);
         $insertedExtraId = (int) Db::getInstance()->Insert_ID();
         $extra_ids[] = $insertedExtraId;
-        if ($module && method_exists($module, 'logMessage')) {
-            $module->logMessage('createInPs:extra-inserted', array(
-                'context_cart_id' => (int) ($this->context->cart ? $this->context->cart->id : 0),
-                'id_product_pending' => (int) $exist,
-                'id_component' => (int) $compId,
-                'id_extra' => $insertedExtraId,
-            ));
-        }
     }
 }
 
@@ -414,13 +397,6 @@ foreach ((array)$extra as $opt_extra) {
             if ($extra_ids) {
                 $extra_sql = 'Update ' . _DB_PREFIX_ . 'idxrcustomproduct_customer_extra set id_product = ' . (int) $exist . ' where id_extra in (' . pSQL(implode(',', $extra_ids)) . ')';
                 Db::getInstance()->execute($extra_sql);
-                if ($module && method_exists($module, 'logMessage')) {
-                    $module->logMessage('createInPs:extra-bound-existing-product', array(
-                        'context_cart_id' => (int) ($this->context->cart ? $this->context->cart->id : 0),
-                        'id_product' => (int) $exist,
-                        'extra_ids' => $extra_ids,
-                    ));
-                }
             }
             $this->checkIntegrity($exist);
             $actual_stock = Product::getQuantity((int) $exist);
@@ -560,13 +536,6 @@ foreach ((array)$extra as $opt_extra) {
         if ($extra_ids) {
             $extra_sql = 'Update ' . _DB_PREFIX_ . 'idxrcustomproduct_customer_extra set id_product = ' . (int) $product->id . ' where id_extra in (' . pSQL(implode(',', $extra_ids)) . ')';
             Db::getInstance()->execute($extra_sql);
-            if ($module && method_exists($module, 'logMessage')) {
-                $module->logMessage('createInPs:extra-bound-new-product', array(
-                    'context_cart_id' => (int) ($this->context->cart ? $this->context->cart->id : 0),
-                    'id_product' => (int) $product->id,
-                    'extra_ids' => $extra_ids,
-                ));
-            }
         }
         $module->setQty($product_max_stock, $product->id);
         Image::duplicateProductImages($id_product_old, $product->id, 0);

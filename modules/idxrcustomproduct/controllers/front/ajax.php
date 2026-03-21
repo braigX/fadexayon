@@ -30,19 +30,7 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
         $guestId = (int) (($context->cookie && !empty($context->cookie->id_guest)) ? $context->cookie->id_guest : 0);
         $customerId = (int) ($context->customer ? $context->customer->id : 0);
 
-        $this->logModuleMessage('ensureActiveCartId:start', array(
-            'stage' => (string) $stage,
-            'current_cart_id' => $currentCartId,
-            'cookie_cart_id' => $cookieCartId,
-            'guest_id' => $guestId,
-            'customer_id' => $customerId,
-        ));
-
         if ($currentCartId > 0 && Validate::isLoadedObject($context->cart)) {
-            $this->logModuleMessage('ensureActiveCartId:using-context-cart', array(
-                'stage' => (string) $stage,
-                'cart_id' => $currentCartId,
-            ));
             return $currentCartId;
         }
 
@@ -50,10 +38,6 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
             $cookieCart = new Cart($cookieCartId);
             if (Validate::isLoadedObject($cookieCart)) {
                 $context->cart = $cookieCart;
-                $this->logModuleMessage('ensureActiveCartId:using-cookie-cart', array(
-                    'stage' => (string) $stage,
-                    'cart_id' => (int) $cookieCart->id,
-                ));
                 return (int) $cookieCart->id;
             }
         }
@@ -78,17 +62,8 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
                 $context->cookie->id_cart = (int) $cart->id;
                 $context->cookie->write();
             }
-            $this->logModuleMessage('ensureActiveCartId:created-cart', array(
-                'stage' => (string) $stage,
-                'cart_id' => (int) $cart->id,
-            ));
             return (int) $cart->id;
         }
-
-        $this->logModuleMessage('ensureActiveCartId:failed', array(
-            'stage' => (string) $stage,
-            'db_error' => Db::getInstance()->getMsgError(),
-        ));
         return 0;
     }
 
@@ -210,10 +185,6 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
         $idCart = (int) $this->ensureActiveCartId('saveRuntimeCustomizationSnapshot');
         $idProduct = (int) Tools::getValue('product');
         if ($idProduct <= 0) {
-            $this->logModuleMessage('saveRuntimeCustomizationSnapshot:invalid-product', array(
-                'id_snap' => (int) $idSnap,
-                'id_cart' => $idCart,
-            ));
             return 0;
         }
 
@@ -245,24 +216,10 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
 
         $saved = Db::getInstance()->insert('idxrcustomproduct_runtime_customisations', $data);
         if (!$saved) {
-            $this->logModuleMessage('saveRuntimeCustomizationSnapshot:insert-failed', array(
-                'id_snap' => (int) $idSnap,
-                'id_cart' => $idCart,
-                'id_product' => $idProduct,
-                'db_error' => Db::getInstance()->getMsgError(),
-            ));
             return 0;
         }
 
-        $insertedId = (int) Db::getInstance()->Insert_ID();
-        $this->logModuleMessage('saveRuntimeCustomizationSnapshot:inserted', array(
-            'id_runtime_customisation' => $insertedId,
-            'id_snap' => (int) $idSnap,
-            'id_cart' => $idCart,
-            'id_product' => $idProduct,
-        ));
-
-        return $insertedId;
+        return (int) Db::getInstance()->Insert_ID();
     }
 
     public function ajaxProcessSavefav()
@@ -721,10 +678,6 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
         $responses = [];
         $id_product = (int) Tools::getValue('product');
         $idCart = (int) $this->ensureActiveCartId('ajaxHandleSnaps');
-        $this->logModuleMessage('ajaxHandleSnaps:start', array(
-            'id_cart' => $idCart,
-            'id_product' => $id_product,
-        ));
 
         // Upload directory setup for SVG files
         $path0 = DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'idxrcustomproduct' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m');
@@ -770,22 +723,12 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
             // Check if the insert was successful
             if ($insertResult) {
                 $insertedId = Db::getInstance()->Insert_ID();  // Retrieves the last inserted ID
-                $this->logModuleMessage('ajaxHandleSnaps:snap-inserted', array(
-                    'id_snap' => (int) $insertedId,
-                    'id_cart' => $idCart,
-                    'id_product' => $id_product,
-                ));
                 $runtimeCustomizationId = $this->saveRuntimeCustomizationSnapshot((int) $insertedId);
                 $responses['id'] = $insertedId;
                 $responses['snap_id'] = $insertedId;
                 $responses['runtime_customisation_id'] = $runtimeCustomizationId;
                 $responses['db'] = 'Insert successful';
             } else {
-                $this->logModuleMessage('ajaxHandleSnaps:snap-insert-failed', array(
-                    'id_cart' => $idCart,
-                    'id_product' => $id_product,
-                    'db_error' => Db::getInstance()->getMsgError(),
-                ));
                 $responses['db'] = 'Insert failed';
                 // Optionally, log last SQL error
                 $responses['db_error'] = Db::getInstance()->getMsgError();
@@ -835,40 +778,6 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
 
         $quantity = Tools::getValue('quantity')?:1;
 
-        // log backup:
-        // === Timestamp ===
-        $timestamp = date('Y-m-d H:i:s');
-
-        // === Prepare log entry ===
-        $logData = [
-            'timestamp' => $timestamp,
-            'cart_id' => $idCart,
-            'customer_id' => $customerId,
-            'customer_email' => $customerEmail,
-            'product_id' => $product_id,
-            'attribute_id' => $attribute_id,
-            'weight' => $productWeight,
-            'volume' => $productVolume,
-            'width' => $productWidth,
-            'height' => $productHeight,
-            'depth' => $productDeptht,
-            'prix_de_decouper' => $prix_de_decouper,
-            'price_from_cube' => $price_from_cube,
-            'snaps' => $snaps,
-            'quantity' => $quantity,
-            'customization' => $customization,
-            'extra' => $extra,
-            'ip_address' => $_SERVER['REMOTE_ADDR'] ?? 'unknown',
-            'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'unknown',
-        ];
-
-        // === Write to log file ===
-        $backupDir = __DIR__ . '/backups';
-        if ((is_dir($backupDir) || @mkdir($backupDir, 0777, true)) && is_writable($backupDir)) {
-            $logFile = $backupDir . '/backup-products-' . date('Y-m') . '.log';
-            @file_put_contents($logFile, json_encode($logData, JSON_PRETTY_PRINT) . PHP_EOL, FILE_APPEND);
-        }
-
         foreach ($customization as &$option) {
             $option = explode('_', $option);
             if (substr_count($option[0],'x')) {
@@ -890,11 +799,6 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
 
         /*Edit with team wassim novatis*/
         try {
-            $this->logModuleMessage('ajaxProcessCreateproduct:start', array(
-                'id_cart' => $idCart,
-                'product_id' => (int) $product_id,
-                'snaps' => (int) $snaps,
-            ));
             $this->module->createProduct($product_id, $snaps, $attribute_id, $customization, $extra, $quantity, $productWeight, $productVolume, $productWidth, $productHeight, $productDeptht, $prix_de_decouper, $price_from_cube);
         } catch (\Throwable $th) {
             $this->logModuleMessage('ajaxProcessCreateproduct:error', array(

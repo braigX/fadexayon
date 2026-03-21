@@ -1722,7 +1722,7 @@ function createPreloader() {
     textAlign: 'center'
     });
 
-    const preloaderPercent = $('<div>', { id: 'idxr-preloader-percent', text: '5%' }).css({
+    const preloaderPercent = $('<div>', { id: 'idxr-preloader-percent', text: '30%' }).css({
     color: '#2e48c4',
     fontSize: '26px',
     fontWeight: '700',
@@ -1739,7 +1739,7 @@ function createPreloader() {
     });
 
     const preloaderBarFill = $('<div>', { id: 'idxr-preloader-bar-fill' }).css({
-    width: '5%',
+    width: '30%',
     height: '100%',
     background: 'linear-gradient(90deg, #2e48c4 0%, #4fa4d6 100%)',
     borderRadius: '999px',
