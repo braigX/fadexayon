@@ -24,6 +24,19 @@ require_once(_PS_ROOT_DIR_ . '/modules/idxrcustomproduct/classes/IdxCustomizedPr
 
 class IdxrCustomProduct extends Module
 {
+    public function logMessage($message, $context = array())
+    {
+        $logFile = rtrim($this->getLocalPath(), '/') . '/message.log';
+        $line = '[' . date('Y-m-d H:i:s') . '] ' . (string) $message;
+        if (!empty($context)) {
+            $json = json_encode($context, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            if ($json !== false) {
+                $line .= ' ' . $json;
+            }
+        }
+        @file_put_contents($logFile, $line . PHP_EOL, FILE_APPEND);
+    }
+
     protected function hasExtraConfigColumn($columnName)
     {
         $table = _DB_PREFIX_ . 'idxrcustomproduct_extra_config';
@@ -988,6 +1001,12 @@ class IdxrCustomProduct extends Module
             if ($this->context->controller->php_self == 'product') {
                 $id_product = (int) Tools::getValue('id_product');
                 $id_configuration = $this->getConfigurationByProduct($id_product);
+                $this->logMessage('product page asset registration check', array(
+                    'ps_version_branch' => 'es17',
+                    'controller' => (string) $this->context->controller->php_self,
+                    'id_product' => $id_product,
+                    'id_configuration' => (int) $id_configuration,
+                ));
                 if ($id_configuration) {
                     $minimal_qty = Db::getInstance()->getValue('select minimal_quantity from ' . _DB_PREFIX_ . 'product_attribute where id_product = ' . (int) $id_product . ' and default_on = 1');
                     if (!$minimal_qty) {
@@ -1088,6 +1107,14 @@ class IdxrCustomProduct extends Module
                     $this->context->controller->registerStylesheet('modules-idxcpfront' . $steps['visualization'] . 'css', 'modules/' . $this->name . '/views/css/17/front_' . $steps['visualization'] . '.css', array('media' => 'all', 'priority' => 150));
                     $visualizationJsUri = 'modules/' . $this->name . '/views/js/front_' . $steps['visualization'] . '.js';
                     $visualizationJsPath = _PS_MODULE_DIR_ . $this->name . '/views/js/front_' . $steps['visualization'] . '.js';
+                    $this->logMessage('product page visualization asset resolved', array(
+                        'ps_version_branch' => 'es17',
+                        'id_product' => $id_product,
+                        'visualization' => isset($steps['visualization']) ? (string) $steps['visualization'] : '',
+                        'js_uri' => $visualizationJsUri,
+                        'js_path' => $visualizationJsPath,
+                        'file_exists' => file_exists($visualizationJsPath) ? 1 : 0,
+                    ));
                     $isJsThemeCacheEnabled = (bool) Configuration::get('PS_JS_THEME_CACHE');
                     if (_PS_MODE_DEV_ && !$isJsThemeCacheEnabled && file_exists($visualizationJsPath)) {
                         $visualizationJsUri .= '?v=' . (int) filemtime($visualizationJsPath);
@@ -1097,6 +1124,11 @@ class IdxrCustomProduct extends Module
                         $visualizationJsUri,
                         array('position' => 'bottom', 'priority' => 100)
                     );
+                    $this->logMessage('product page visualization asset registered', array(
+                        'ps_version_branch' => 'es17',
+                        'handle' => 'modules-idxcpfront' . $steps['visualization'] . 'js',
+                        'js_uri' => $visualizationJsUri,
+                    ));
 
                     if ($steps['visualization'] == 'minified') {
                         $this->context->controller->registerStylesheet('modules-idxcpfront-bootstrap-select.min.css', 'modules/' . $this->name . '/views/css/bootstrap-select.min.css', array('media' => 'all', 'priority' => 150));
@@ -1171,6 +1203,12 @@ class IdxrCustomProduct extends Module
         $id_configuration = $this->getConfigurationByProduct($id_product, $hook);
         $favorite = Tools::getValue('icp');
         if ($id_configuration) {
+            $this->logMessage('product page asset registration check', array(
+                'ps_version_branch' => 'legacy',
+                'controller' => isset($this->context->controller->php_self) ? (string) $this->context->controller->php_self : '',
+                'id_product' => $id_product,
+                'id_configuration' => (int) $id_configuration,
+            ));
             $minimal_qty = Db::getInstance()->getValue('select minimal_quantity from ' . _DB_PREFIX_ . 'product_attribute where id_product = ' . (int) $id_product . ' and default_on = 1');
             if (!$minimal_qty) {
                 $minimal_qty = Db::getInstance()->getValue('select minimal_quantity from ' . _DB_PREFIX_ . 'product where id_product = ' . (int) $id_product);
@@ -1282,11 +1320,23 @@ class IdxrCustomProduct extends Module
                 $this->context->controller->addJS($this->_path . 'views/js/front.js', false);
                 $visualizationJsLegacyUri = $this->_path . 'views/js/front_' . $steps['visualization'] . '.js';
                 $visualizationJsLegacyPath = _PS_MODULE_DIR_ . $this->name . '/views/js/front_' . $steps['visualization'] . '.js';
+                $this->logMessage('product page visualization asset resolved', array(
+                    'ps_version_branch' => 'legacy',
+                    'id_product' => $id_product,
+                    'visualization' => isset($steps['visualization']) ? (string) $steps['visualization'] : '',
+                    'js_uri' => $visualizationJsLegacyUri,
+                    'js_path' => $visualizationJsLegacyPath,
+                    'file_exists' => file_exists($visualizationJsLegacyPath) ? 1 : 0,
+                ));
                 $isJsThemeCacheEnabledLegacy = (bool) Configuration::get('PS_JS_THEME_CACHE');
                 if (_PS_MODE_DEV_ && !$isJsThemeCacheEnabledLegacy && file_exists($visualizationJsLegacyPath)) {
                     $visualizationJsLegacyUri .= '?v=' . (int) filemtime($visualizationJsLegacyPath);
                 }
                 $this->context->controller->addJS($visualizationJsLegacyUri, false);
+                $this->logMessage('product page visualization asset registered', array(
+                    'ps_version_branch' => 'legacy',
+                    'js_uri' => $visualizationJsLegacyUri,
+                ));
                 $this->context->controller->addCSS($this->_path . 'views/css/idxrcustomproduct.css', 'all');
                 $this->context->controller->addCSS($this->_path . 'views/css/16/front.css', 'all');
                 $this->context->controller->addCSS($this->_path . 'views/css/16/front_' . $steps['visualization'] . '.css', 'all');
@@ -1715,8 +1765,17 @@ class IdxrCustomProduct extends Module
         $idCart = (int) $idCart;
         $idBaseProduct = (int) $idBaseProduct;
         if ($idCart <= 0 || $idBaseProduct <= 0) {
+            $this->logMessage('runtime restore link skipped: invalid identifiers', array(
+                'id_cart' => $idCart,
+                'id_base_product' => $idBaseProduct,
+            ));
             return '';
         }
+
+        $this->logMessage('runtime restore link lookup start', array(
+            'id_cart' => $idCart,
+            'id_base_product' => $idBaseProduct,
+        ));
 
         $row = Db::getInstance()->getRow(
             'SELECT id_runtime_customisation, id_product_attribute
@@ -1728,6 +1787,11 @@ class IdxrCustomProduct extends Module
         );
 
         if (empty($row['id_runtime_customisation'])) {
+            $this->logMessage('runtime restore link not found', array(
+                'id_cart' => $idCart,
+                'id_base_product' => $idBaseProduct,
+                'db_error' => Db::getInstance()->getMsgError(),
+            ));
             return '';
         }
 
@@ -1818,6 +1882,12 @@ class IdxrCustomProduct extends Module
                 }
 
                 $runtimeRestoreLink = $this->getRuntimeCustomizationRestoreLink((int) $cart->id, $id_original);
+                $this->logMessage('order note runtime restore link result', array(
+                    'id_cart' => (int) $cart->id,
+                    'id_customized_product' => $id_product,
+                    'id_base_product' => $id_original,
+                    'link_found' => !empty($runtimeRestoreLink),
+                ));
                 if ($runtimeRestoreLink) {
                     $simulationLine = '<p>'
                         . $this->l('Simulation du configurateur')
@@ -5192,6 +5262,12 @@ class IdxrCustomProduct extends Module
 
                 $idOriginal = (int) $this->getProductoOriginal((int) $note['id_cart_product']);
                 $runtimeRestoreLink = $this->getRuntimeCustomizationRestoreLink((int) $note['id_cart'], $idOriginal);
+                $this->logMessage('front order detail runtime restore link result', array(
+                    'id_cart' => (int) $note['id_cart'],
+                    'id_cart_product' => (int) $note['id_cart_product'],
+                    'id_base_product' => $idOriginal,
+                    'link_found' => !empty($runtimeRestoreLink),
+                ));
                 if ($runtimeRestoreLink) {
                     $notes_array_out[] = '<strong>' . $this->l('Simulation du configurateur') . '</strong>: '
                         . '<a target="_blank" href="' . $runtimeRestoreLink . '">'
