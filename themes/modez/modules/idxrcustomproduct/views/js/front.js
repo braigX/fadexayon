@@ -1678,6 +1678,10 @@ $(document).ready(function() {
 });
 // Function to create and show the preloader
 function createPreloader() {
+    if ($('#preloader-wrapper').length) {
+        return;
+    }
+
     // Create the preloader structure using jQuery
     const preloaderWrapper = $('<div>', { id: 'preloader-wrapper' }).css({
     position: 'fixed',
@@ -1703,8 +1707,61 @@ function createPreloader() {
     animation: 'spin 1s linear infinite' // Spinner animation
     });
 
+    const preloaderPanel = $('<div>', { id: 'idxr-preloader-panel' }).css({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '14px',
+    minWidth: '320px'
+    });
+
+    const preloaderTitle = $('<div>', { id: 'idxr-preloader-title', text: 'Preparation de votre personnalisation...' }).css({
+    color: '#1c2240',
+    fontSize: '15px',
+    fontWeight: '600',
+    textAlign: 'center'
+    });
+
+    const preloaderPercent = $('<div>', { id: 'idxr-preloader-percent', text: '5%' }).css({
+    color: '#2e48c4',
+    fontSize: '26px',
+    fontWeight: '700',
+    lineHeight: '1'
+    });
+
+    const preloaderStage = $('<div>', { id: 'idxr-preloader-stage', text: 'Preparation de votre personnalisation...' }).css({
+    color: '#5d6785',
+    fontSize: '13px',
+    textAlign: 'center',
+    minHeight: '18px'
+    });
+
+    const preloaderBar = $('<div>', { id: 'idxr-preloader-bar' }).css({
+    width: '100%',
+    maxWidth: '320px',
+    height: '8px',
+    backgroundColor: '#e8edf7',
+    borderRadius: '999px',
+    overflow: 'hidden'
+    });
+
+    const preloaderBarFill = $('<div>', { id: 'idxr-preloader-bar-fill' }).css({
+    width: '5%',
+    height: '100%',
+    background: 'linear-gradient(90deg, #2e48c4 0%, #4fa4d6 100%)',
+    borderRadius: '999px',
+    transition: 'width 420ms ease'
+    });
+
+    preloaderBar.append(preloaderBarFill);
+
     // Append loader to the wrapper
-    preloaderWrapper.append(loader);
+    preloaderPanel.append(loader);
+    preloaderPanel.append(preloaderPercent);
+    preloaderPanel.append(preloaderTitle);
+    preloaderPanel.append(preloaderStage);
+    preloaderPanel.append(preloaderBar);
+    preloaderWrapper.append(preloaderPanel);
 
     // Add the preloader wrapper to the body
     $('body').append(preloaderWrapper);
@@ -1717,6 +1774,7 @@ function createPreloader() {
     }
     `;
     $('<style>').text(keyframes).appendTo('head');
+    updatePreloaderProgress(5, 'Preparation de votre personnalisation...');
 }
 
 // Function to remove the preloader
@@ -1742,18 +1800,46 @@ function showAddToCartErrorModal(message) {
     $('#idxr-addtocart-error-modal').addClass('is-open').attr('aria-hidden', 'false');
 }
 
+function updatePreloaderProgress(percent, stageText) {
+    var safePercent = Math.max(0, Math.min(100, parseInt(percent, 10) || 0));
+    if ($('#idxr-preloader-percent').length) {
+        $('#idxr-preloader-percent').text(safePercent + '%');
+    }
+    if ($('#idxr-preloader-bar-fill').length) {
+        $('#idxr-preloader-bar-fill').css('width', safePercent + '%');
+    }
+    if (stageText && $('#idxr-preloader-stage').length) {
+        $('#idxr-preloader-stage').text(stageText);
+    }
+}
+
 function createAddToCartTimer() {
     var start = performance.now();
     var last = start;
+    var stageMap = {
+        start: { percent: 5, text: 'Preparation de votre personnalisation...' },
+        'png-generated': { percent: 22, text: 'Preparation de votre personnalisation...' },
+        'snap-saved': { percent: 48, text: 'Preparation de votre personnalisation...' },
+        'product-created': { percent: 74, text: 'Preparation de votre personnalisation...' },
+        'cart-updated': { percent: 96, text: 'Preparation de votre personnalisation...' },
+        completed: { percent: 100, text: 'Preparation de votre personnalisation...' },
+        redirecting: { percent: 100, text: 'Preparation de votre personnalisation...' }
+    };
 
     return {
         logStep: function(label) {
             var now = performance.now();
+            if (stageMap[label]) {
+                updatePreloaderProgress(stageMap[label].percent, stageMap[label].text);
+            }
             console.info('[idxr-add-to-cart]', label, '| step:', Math.round(now - last) + 'ms', '| total:', Math.round(now - start) + 'ms');
             last = now;
         },
         logEnd: function(label) {
             var now = performance.now();
+            if (stageMap[label]) {
+                updatePreloaderProgress(stageMap[label].percent, stageMap[label].text);
+            }
             console.info('[idxr-add-to-cart]', label, '| total:', Math.round(now - start) + 'ms');
         }
     };
