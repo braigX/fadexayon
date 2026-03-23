@@ -142,6 +142,8 @@ class PrestaLoadPageCache
             return;
         }
 
+        $html = $this->annotateCacheOrigin($html);
+
         $statusCode = http_response_code();
         if (!empty($statusCode) && (int) $statusCode !== 200) {
             return;
@@ -297,5 +299,27 @@ class PrestaLoadPageCache
             ? $payload['cache_parts']
             : $earlyContext['parts'];
         $this->store->put($earlyContext['key'], $payload, $this->settings->getTtl());
+    }
+
+    private function annotateCacheOrigin($html)
+    {
+        if (!is_string($html) || trim($html) === '') {
+            return $html;
+        }
+
+        $html = preg_replace('#<!--\s*PrestaLoad Cache Source:\s*(?:beta-generator|auto-full-cache)\s*-->#i', '', $html);
+
+        $source = 'auto-full-cache';
+        if (class_exists('PrestaLoadInternalAuth') && PrestaLoadInternalAuth::isAuthorizedBetaGenerateRequest()) {
+            $source = 'beta-generator';
+        }
+
+        $marker = '<!-- PrestaLoad Cache Source: ' . $source . ' -->';
+
+        if (stripos($html, '<body') !== false) {
+            return preg_replace('#<body\b#i', $marker . '<body', $html, 1);
+        }
+
+        return $marker . $html;
     }
 }

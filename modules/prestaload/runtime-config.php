@@ -10,5 +10,6 @@ return array (
     2 => 'product',
     3 => 'cms',
   ),
-  'written_at' => 1774244094,
+  'beta_generate_token' => '18837e60afd954e64681dcabe18e114b22ea2fa96ebee2d5f9b47b1ffaf039f0',
+  'written_at' => 1774245485,
 );
