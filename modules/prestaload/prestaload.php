@@ -14,9 +14,11 @@ require_once __DIR__ . '/classes/PrestaLoadCacheEligibility.php';
 require_once __DIR__ . '/classes/PrestaLoadCacheKeyBuilder.php';
 require_once __DIR__ . '/classes/PrestaLoadCacheLogger.php';
 require_once __DIR__ . '/classes/PrestaLoadFeatureLogger.php';
+require_once __DIR__ . '/classes/PrestaLoadInternalAuth.php';
 require_once __DIR__ . '/classes/PrestaLoadCacheStore.php';
 require_once __DIR__ . '/classes/PrestaLoadPageCache.php';
 require_once __DIR__ . '/classes/PrestaLoadCacheWarmer.php';
+require_once __DIR__ . '/classes/PrestaLoadBetaCacheGenerator.php';
 require_once __DIR__ . '/classes/PrestaLoadBrowserCacheManager.php';
 require_once __DIR__ . '/classes/PrestaLoadEarlyCacheKeyBuilder.php';
 require_once __DIR__ . '/classes/PrestaLoadRuntimeConfig.php';
@@ -47,6 +49,7 @@ class PrestaLoad extends Module
     private const TAB_GENERAL = 'general';
     private const TAB_ASSETS = 'assets';
     private const TAB_CACHE_LIFETIMES = 'cache_lifetimes';
+    private const TAB_BETA_CACHE_GENERATING = 'beta_cache_generating';
     private const TAB_FONTS = 'fonts';
     private const TAB_IMAGES = 'images';
     private const TAB_CRITICAL_CSS = 'critical_css';
@@ -81,6 +84,7 @@ class PrestaLoad extends Module
     private $runtimeConfig;
     private $featureLogger;
     private $cacheWarmer;
+    private $betaCacheGenerator;
     private $assetPageRegistry;
     private $assetScannerClient;
     private $assetScanStore;
@@ -117,6 +121,7 @@ class PrestaLoad extends Module
         $this->featureLogger = new PrestaLoadFeatureLogger(__DIR__ . '/cache/prestaload-features.json');
         $this->assetPageRegistry = new PrestaLoadAssetPageRegistry($this->context, $this->settings);
         $this->cacheWarmer = new PrestaLoadCacheWarmer($this->context, $this->settings, $this->assetPageRegistry, __DIR__);
+        $this->betaCacheGenerator = new PrestaLoadBetaCacheGenerator($this->context, $this->settings, $this->assetPageRegistry, __DIR__);
         $this->assetScannerClient = new PrestaLoadAssetScannerClient($this->settings);
         $this->assetScanStore = new PrestaLoadAssetScanStore(__DIR__);
         $this->assetRuleStore = new PrestaLoadAssetRuleStore(__DIR__);
@@ -273,6 +278,10 @@ class PrestaLoad extends Module
             'prestaload_cache_warmer_ajax_url' => $this->getAjaxConfigurationLink('warmCache'),
             'prestaload_cache_warmer_page_ajax_url' => $this->getAjaxConfigurationLink('warmCachePage'),
             'prestaload_cache_warmer_pages' => $this->cacheWarmer->getWarmablePages(),
+            'prestaload_beta_cache_report' => $this->betaCacheGenerator->getLastReport(),
+            'prestaload_beta_cache_ajax_url' => $this->getAjaxConfigurationLink('generateBetaCache'),
+            'prestaload_beta_cache_page_ajax_url' => $this->getAjaxConfigurationLink('generateBetaCachePage'),
+            'prestaload_beta_cache_pages' => $this->betaCacheGenerator->getPages(),
             'prestaload_asset_pages' => $assetPages,
             'prestaload_selected_asset_page' => $selectedAssetPage,
             'prestaload_selected_asset_scan' => $this->decorateAssetScan($selectedAssetScan),
@@ -308,6 +317,16 @@ class PrestaLoad extends Module
         $this->ensureRuntimeConfigFresh();
 
         $this->logConfigurationSnapshot('actionDispatcher');
+        if ($this->isAuthorizedBetaGenerateRequest()) {
+            if (!headers_sent()) {
+                header('X-PrestaLoad-Generate: BYPASS-READ');
+            }
+            $this->featureLogger->log([
+                'stage' => 'page_cache',
+                'step' => 'beta-generate-bypass',
+            ]);
+            return;
+        }
         $this->pageCache->maybeServe(is_array($params) ? $params : []);
     }
 
@@ -497,6 +516,7 @@ class PrestaLoad extends Module
                     ],
                 ],
             ],
+            self::TAB_BETA_CACHE_GENERATING => null,
             self::TAB_FONTS => [
                 'form' => [
                     'legend' => [
@@ -718,6 +738,10 @@ class PrestaLoad extends Module
             ],
         ];
 
+        if (!isset($forms[$activeTab]) || empty($forms[$activeTab])) {
+            return '';
+        }
+
         return $helper->generateForm([$forms[$activeTab]]);
     }
 
@@ -741,6 +765,11 @@ class PrestaLoad extends Module
                 'label' => 'Fonts',
                 'icon' => 'icon-font',
                 'link' => $this->getAdminConfigurationLink(self::TAB_FONTS),
+            ],
+            self::TAB_BETA_CACHE_GENERATING => [
+                'label' => 'Beta cache generating',
+                'icon' => 'icon-magic',
+                'link' => $this->getAdminConfigurationLink(self::TAB_BETA_CACHE_GENERATING),
             ],
             self::TAB_ASSETS => [
                 'label' => 'Assets',
@@ -1043,6 +1072,42 @@ class PrestaLoad extends Module
                     'success' => true,
                     'message' => sprintf(
                         'Cache warmed for %s (%s): %d requests, %d ok, %d failed.',
+                        (string) ($page['page_label'] ?? 'page'),
+                        (string) ($page['language_iso'] ?? '-'),
+                        (int) ($result['summary']['requests_total'] ?? 0),
+                        (int) ($result['summary']['requests_ok'] ?? 0),
+                        (int) ($result['summary']['requests_failed'] ?? 0)
+                    ),
+                    'report' => $result,
+                ]);
+            }
+
+            if ($action === 'generateBetaCache') {
+                $result = $this->betaCacheGenerator->generateAll();
+
+                $this->jsonResponse([
+                    'success' => true,
+                    'message' => sprintf(
+                        'Beta cache generation finished: %d requests, %d ok, %d failed.',
+                        (int) ($result['summary']['requests_total'] ?? 0),
+                        (int) ($result['summary']['requests_ok'] ?? 0),
+                        (int) ($result['summary']['requests_failed'] ?? 0)
+                    ),
+                    'report' => $result,
+                ]);
+            }
+
+            if ($action === 'generateBetaCachePage') {
+                $pageKey = (string) Tools::getValue('prestaload_page_key');
+                $languageId = (int) Tools::getValue('prestaload_language_id');
+                $result = $this->betaCacheGenerator->generatePage($pageKey, $languageId);
+
+                $page = isset($result['pages'][0]) ? $result['pages'][0] : [];
+
+                $this->jsonResponse([
+                    'success' => true,
+                    'message' => sprintf(
+                        'Beta cache generated for %s (%s): %d requests, %d ok, %d failed.',
                         (string) ($page['page_label'] ?? 'page'),
                         (string) ($page['language_iso'] ?? '-'),
                         (int) ($result['summary']['requests_total'] ?? 0),
@@ -1666,6 +1731,11 @@ class PrestaLoad extends Module
         }
 
         exit($encoded);
+    }
+
+    private function isAuthorizedBetaGenerateRequest()
+    {
+        return PrestaLoadInternalAuth::isAuthorizedBetaGenerateRequest();
     }
 
     private function extractRuleFlags(array $rule)

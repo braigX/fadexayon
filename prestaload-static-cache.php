@@ -18,6 +18,7 @@ if (!defined('_PS_ROOT_DIR_')) {
 }
 
 require_once __DIR__ . '/modules/prestaload/classes/PrestaLoadFeatureLogger.php';
+require_once __DIR__ . '/modules/prestaload/classes/PrestaLoadInternalAuth.php';
 
 if (!function_exists('prestaload_log_early_boot')) {
     function prestaload_log_early_boot(array $payload)
@@ -54,6 +55,13 @@ require_once __DIR__ . '/modules/prestaload/classes/PrestaLoadEarlyCacheKeyBuild
 if (!function_exists('prestaload_should_serve_early_cache')) {
     function prestaload_get_early_cache_eligibility(array $runtime)
     {
+        if (PrestaLoadInternalAuth::isAuthorizedBetaGenerateRequest($runtime)) {
+            return [
+                'eligible' => false,
+                'reason' => 'beta-generate-bypass',
+            ];
+        }
+
         if (!isset($_SERVER['REQUEST_METHOD']) || strtoupper((string) $_SERVER['REQUEST_METHOD']) !== 'GET') {
             return [
                 'eligible' => false,

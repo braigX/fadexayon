@@ -33,6 +33,7 @@ class PrestaLoadRuntimeConfig
             'edge_cache_enabled' => $this->settings->isEdgeCacheEnabled(),
             'cache_directory' => $this->settings->getCacheDirectory(),
             'allowed_controllers' => $this->settings->getAllowedControllers(),
+            'beta_generate_token' => PrestaLoadInternalAuth::buildBetaGenerateToken(),
             'written_at' => time(),
         ];
 
@@ -60,7 +61,8 @@ class PrestaLoadRuntimeConfig
         return is_array($payload)
             && array_key_exists('enabled', $payload)
             && array_key_exists('cache_directory', $payload)
-            && array_key_exists('allowed_controllers', $payload);
+            && array_key_exists('allowed_controllers', $payload)
+            && array_key_exists('beta_generate_token', $payload);
     }
 
     public function getPath()

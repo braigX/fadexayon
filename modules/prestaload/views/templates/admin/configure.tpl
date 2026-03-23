@@ -378,6 +378,243 @@
         </script>
       {/if}
 
+      {if $prestaload_active_tab === 'beta_cache_generating'}
+        <div class="panel" style="margin-top: 16px;">
+          <h3>Beta cache generating</h3>
+          <p>
+            This generates real optimized cache files by requesting the front-office pages with a signed internal header. Each request bypasses cache reads, renders the page normally, applies the active optimization pipeline, and stores the final HTML in the same cache files used by storefront traffic.
+          </p>
+
+          <div id="prestaload-beta-cache-toast" class="prestaload-toast" style="display: none;"></div>
+
+          <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 16px;">
+            <button
+              type="button"
+              class="btn btn-primary prestaload-beta-cache-run"
+              data-default-label="Generate all beta cache variants"
+              data-loading-label="Generating..."
+            >
+              <span>Generate all beta cache variants</span>
+            </button>
+          </div>
+
+          <div style="overflow-x: auto; margin-bottom: 16px;">
+            <table class="table" style="border: 1px solid #d3d8db;">
+              <thead>
+                <tr>
+                  <th>Page</th>
+                  <th>Language</th>
+                  <th>URL</th>
+                  <th>Variants</th>
+                  <th style="width: 260px;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {foreach from=$prestaload_beta_cache_pages item=beta_page}
+                  <tr>
+                    <td>{$beta_page.label|escape:'htmlall':'UTF-8'}</td>
+                    <td>{$beta_page.language_iso|default:'-'|escape:'htmlall':'UTF-8'}</td>
+                    <td style="word-break: break-all;">{$beta_page.url|escape:'htmlall':'UTF-8'}</td>
+                    <td>{$beta_page.variant_count|intval}</td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-default prestaload-beta-cache-page"
+                        data-page-key="{$beta_page.key|escape:'htmlall':'UTF-8'}"
+                        data-language-id="{$beta_page.language_id|intval}"
+                        data-default-label="Cache this page"
+                        data-loading-label="Generating..."
+                      >
+                        <span>Cache this page</span>
+                      </button>
+                    </td>
+                  </tr>
+                {/foreach}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="panel" style="margin-bottom: 0;">
+            <h4 style="margin-top: 0;">Last beta cache generation report</h4>
+            {if $prestaload_beta_cache_report.summary|default:false}
+              <div id="prestaload-beta-cache-summary">
+                <div><strong>Started:</strong> <span data-prestaload-beta-field="started_at">{$prestaload_beta_cache_report.started_at|default:'-'|escape:'htmlall':'UTF-8'}</span></div>
+                <div><strong>Finished:</strong> <span data-prestaload-beta-field="finished_at">{$prestaload_beta_cache_report.finished_at|default:'-'|escape:'htmlall':'UTF-8'}</span></div>
+                <div><strong>Pages:</strong> <span data-prestaload-beta-field="pages">{$prestaload_beta_cache_report.summary.pages|intval}</span></div>
+                <div><strong>Variants per page:</strong> <span data-prestaload-beta-field="variants">{$prestaload_beta_cache_report.summary.variants|intval}</span></div>
+                <div><strong>Total requests:</strong> <span data-prestaload-beta-field="requests_total">{$prestaload_beta_cache_report.summary.requests_total|intval}</span></div>
+                <div><strong>Successful:</strong> <span data-prestaload-beta-field="requests_ok">{$prestaload_beta_cache_report.summary.requests_ok|intval}</span></div>
+                <div><strong>Failed:</strong> <span data-prestaload-beta-field="requests_failed">{$prestaload_beta_cache_report.summary.requests_failed|intval}</span></div>
+                <div><strong>Average time:</strong> <span data-prestaload-beta-field="avg_time_ms">{$prestaload_beta_cache_report.summary.avg_time_ms|intval}</span> ms</div>
+              </div>
+            {else}
+              <div id="prestaload-beta-cache-summary" class="alert alert-info" style="margin-bottom: 0;">
+                No beta cache generation report has been generated yet.
+              </div>
+            {/if}
+          </div>
+        </div>
+
+        <style>
+          .prestaload-toast {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            z-index: 9999;
+            min-width: 280px;
+            max-width: 420px;
+            padding: 14px 16px;
+            border-radius: 6px;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(54, 58, 65, 0.18);
+            font-weight: 600;
+          }
+
+          .prestaload-toast--success {
+            background: #1f8b4c;
+          }
+
+          .prestaload-toast--error {
+            background: #b33030;
+          }
+        </style>
+
+        <script>
+          (function () {
+            var button = document.querySelector('.prestaload-beta-cache-run');
+            var pageButtons = document.querySelectorAll('.prestaload-beta-cache-page');
+            var toast = document.getElementById('prestaload-beta-cache-toast');
+            var summary = document.getElementById('prestaload-beta-cache-summary');
+            var ajaxUrl = {$prestaload_beta_cache_ajax_url|json_encode nofilter};
+            var pageAjaxUrl = {$prestaload_beta_cache_page_ajax_url|json_encode nofilter};
+            var toastTimer = null;
+
+            var showToast = function (message, type) {
+              if (!toast) {
+                return;
+              }
+
+              toast.className = 'prestaload-toast prestaload-toast--' + (type === 'error' ? 'error' : 'success');
+              toast.textContent = message;
+              toast.style.display = 'block';
+
+              if (toastTimer) {
+                window.clearTimeout(toastTimer);
+              }
+
+              toastTimer = window.setTimeout(function () {
+                toast.style.display = 'none';
+              }, 3200);
+            };
+
+            var postForm = function (url, params) {
+              return fetch(url, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                body: params.toString(),
+                credentials: 'same-origin'
+              }).then(function (response) {
+                return response.json();
+              });
+            };
+
+            var updateSummary = function (report) {
+              if (!summary || !report || !report.summary) {
+                return;
+              }
+
+              var setField = function (field, value) {
+                var node = summary.querySelector('[data-prestaload-beta-field="' + field + '"]');
+                if (node) {
+                  node.textContent = value;
+                }
+              };
+
+              if (summary.classList.contains('alert')) {
+                summary.className = '';
+                summary.style.marginBottom = '0';
+                summary.innerHTML = ''
+                  + '<div><strong>Started:</strong> <span data-prestaload-beta-field="started_at">-</span></div>'
+                  + '<div><strong>Finished:</strong> <span data-prestaload-beta-field="finished_at">-</span></div>'
+                  + '<div><strong>Pages:</strong> <span data-prestaload-beta-field="pages">0</span></div>'
+                  + '<div><strong>Variants per page:</strong> <span data-prestaload-beta-field="variants">0</span></div>'
+                  + '<div><strong>Total requests:</strong> <span data-prestaload-beta-field="requests_total">0</span></div>'
+                  + '<div><strong>Successful:</strong> <span data-prestaload-beta-field="requests_ok">0</span></div>'
+                  + '<div><strong>Failed:</strong> <span data-prestaload-beta-field="requests_failed">0</span></div>'
+                  + '<div><strong>Average time:</strong> <span data-prestaload-beta-field="avg_time_ms">0</span> ms</div>';
+              }
+
+              setField('started_at', report.started_at || '-');
+              setField('finished_at', report.finished_at || '-');
+              setField('pages', String(report.summary.pages || 0));
+              setField('variants', String(report.summary.variants || 0));
+              setField('requests_total', String(report.summary.requests_total || 0));
+              setField('requests_ok', String(report.summary.requests_ok || 0));
+              setField('requests_failed', String(report.summary.requests_failed || 0));
+              setField('avg_time_ms', String(report.summary.avg_time_ms || 0));
+            };
+
+            var runGenerator = function (triggerButton, params, successFallback) {
+              if (!triggerButton) {
+                return;
+              }
+
+              var label = triggerButton.querySelector('span');
+              var defaultLabel = triggerButton.getAttribute('data-default-label') || 'Run';
+              var loadingLabel = triggerButton.getAttribute('data-loading-label') || 'Running...';
+
+              triggerButton.disabled = true;
+              triggerButton.classList.add('is-loading');
+              if (label) {
+                label.textContent = loadingLabel;
+              }
+
+              postForm(params.get('action') === 'generateBetaCachePage' ? pageAjaxUrl : ajaxUrl, params).then(function (payload) {
+                if (!payload || !payload.success) {
+                  throw new Error(payload && payload.message ? payload.message : 'Beta cache generation failed.');
+                }
+
+                if (payload.report) {
+                  updateSummary(payload.report);
+                }
+
+                showToast(payload.message || successFallback, 'success');
+              }).catch(function (error) {
+                showToast(error.message || 'Beta cache generation failed.', 'error');
+              }).finally(function () {
+                triggerButton.disabled = false;
+                triggerButton.classList.remove('is-loading');
+                if (label) {
+                  label.textContent = defaultLabel;
+                }
+              });
+            };
+
+            if (!button || !ajaxUrl || !pageAjaxUrl) {
+              return;
+            }
+
+            button.addEventListener('click', function () {
+              var params = new URLSearchParams();
+              params.append('action', 'generateBetaCache');
+              runGenerator(button, params, 'Beta cache generation completed.');
+            });
+
+            Array.prototype.forEach.call(pageButtons, function (pageButton) {
+              pageButton.addEventListener('click', function () {
+                var params = new URLSearchParams();
+                params.append('action', 'generateBetaCachePage');
+                params.append('prestaload_page_key', pageButton.getAttribute('data-page-key') || '');
+                params.append('prestaload_language_id', pageButton.getAttribute('data-language-id') || '');
+                runGenerator(pageButton, params, 'Beta cache generation completed.');
+              });
+            });
+          }());
+        </script>
+      {/if}
+
       {if $prestaload_active_tab === 'critical_css'}
         <div class="panel" style="margin-top: 16px;">
           <h3>Beta critical CSS generator</h3>
