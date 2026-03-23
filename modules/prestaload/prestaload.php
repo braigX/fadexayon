@@ -4,8 +4,16 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class PrestaLoad extends Module
+class Prestaload extends Module
 {
+    private const DEFAULT_API_BASE_URL = 'https://api.prestaload.com';
+    private const CFG_API_BASE_URL = 'PRESTALOAD_API_BASE_URL';
+    private const CFG_STORE_KEY = 'PRESTALOAD_STORE_KEY';
+    private const CFG_SHARED_SECRET = 'PRESTALOAD_SHARED_SECRET';
+    private const CFG_STORE_ID = 'PRESTALOAD_STORE_ID';
+    private const CFG_CONNECTED_AT = 'PRESTALOAD_CONNECTED_AT';
+    private const CALLBACK_MAX_DRIFT_SECONDS = 300;
+
     public function __construct()
     {
         $this->name = 'prestaload';
@@ -17,8 +25,8 @@ class PrestaLoad extends Module
 
         parent::__construct();
 
-        $this->displayName = $this->trans('PrestaLoad', [], 'Modules.Prestaload.Admin');
-        $this->description = $this->trans('PrestaLoad SaaS connector module.', [], 'Modules.Prestaload.Admin');
+        $this->displayName = $this->l('PrestaLoad');
+        $this->description = $this->l('Secure connection between your PrestaShop store and PrestaLoad SaaS.');
         $this->ps_versions_compliancy = [
             'min' => '8.0.0',
             'max' => _PS_VERSION_,
@@ -27,20 +35,392 @@ class PrestaLoad extends Module
 
     public function install()
     {
-        return parent::install();
+        return parent::install() && $this->initializeDefaults();
     }
 
     public function uninstall()
     {
-        return parent::uninstall();
+        return $this->deleteConfig() && parent::uninstall();
     }
 
     public function getContent()
     {
+        $this->ensureCredentials();
+
+        $html = '';
+
+        $callbackNotice = $this->processConnectCallback();
+        if ($callbackNotice !== '') {
+            $html .= $callbackNotice;
+        }
+
+        if (Tools::isSubmit('submitPrestaLoadSaveSettings')) {
+            $html .= $this->saveSettings();
+        }
+
+        if (Tools::isSubmit('submitPrestaLoadConnect')) {
+            $connectNotice = $this->startOneClickConnect();
+            if ($connectNotice !== '') {
+                $html .= $connectNotice;
+            }
+        }
+
+        if (Tools::isSubmit('submitPrestaLoadPing')) {
+            $html .= $this->pingDashboard();
+        }
+
+        if (Tools::isSubmit('submitPrestaLoadDisconnect')) {
+            $html .= $this->disconnectStore();
+        }
+
+        $html .= $this->renderConfiguration();
+
+        return $html;
+    }
+
+    public function finalizeConnection($storeId)
+    {
+        Configuration::updateValue(self::CFG_STORE_ID, (string) $storeId);
+        Configuration::updateValue(self::CFG_CONNECTED_AT, date('c'));
+    }
+
+    private function initializeDefaults()
+    {
+        $this->ensureCredentials();
+        return true;
+    }
+
+    private function ensureCredentials()
+    {
+        if (!Configuration::get(self::CFG_API_BASE_URL)) {
+            Configuration::updateValue(self::CFG_API_BASE_URL, self::DEFAULT_API_BASE_URL);
+        }
+
+        if (!Configuration::get(self::CFG_STORE_KEY)) {
+            Configuration::updateValue(self::CFG_STORE_KEY, Tools::passwdGen(40));
+        }
+
+        if (!Configuration::get(self::CFG_SHARED_SECRET)) {
+            Configuration::updateValue(self::CFG_SHARED_SECRET, bin2hex(random_bytes(32)));
+        }
+    }
+
+    private function deleteConfig()
+    {
+        foreach ([
+            self::CFG_API_BASE_URL,
+            self::CFG_STORE_KEY,
+            self::CFG_SHARED_SECRET,
+            self::CFG_STORE_ID,
+            self::CFG_CONNECTED_AT,
+        ] as $key) {
+            Configuration::deleteByName($key);
+        }
+
+        return true;
+    }
+
+    private function saveSettings()
+    {
+        $apiBaseUrl = trim((string) Tools::getValue(self::CFG_API_BASE_URL, ''));
+        if ($apiBaseUrl === '' || !filter_var($apiBaseUrl, FILTER_VALIDATE_URL)) {
+            return $this->displayError($this->l('Please provide a valid API base URL.'));
+        }
+
+        Configuration::updateValue(self::CFG_API_BASE_URL, rtrim($apiBaseUrl, '/'));
+
+        return $this->displayConfirmation($this->l('Settings updated.'));
+    }
+
+    private function startOneClickConnect()
+    {
+        $this->ensureCredentials();
+
+        $payload = [
+            'store_key' => (string) Configuration::get(self::CFG_STORE_KEY),
+            'shop_name' => (string) Configuration::get('PS_SHOP_NAME'),
+            'shop_url' => rtrim((string) $this->context->shop->getBaseURL(true), '/'),
+            'shop_logo_url' => $this->getShopLogoUrl(),
+            'shop_email' => (string) Configuration::get('PS_SHOP_EMAIL'),
+            'platform_version' => _PS_VERSION_,
+            'module_version' => $this->version,
+            'shared_secret' => (string) Configuration::get(self::CFG_SHARED_SECRET),
+            'return_url' => $this->getConfigureUrl(),
+        ];
+
+        $response = $this->sendJsonRequest(
+            'POST',
+            $this->getApiBaseUrl() . '/api/prestaboost/handshake/init',
+            $payload
+        );
+
+        if (!empty($response['error'])) {
+            return $this->displayError($this->l('Could not contact dashboard: ') . $response['error']);
+        }
+
+        if ((int) $response['status'] !== 200 || empty($response['json']['authorize_url'])) {
+            $message = $this->extractApiErrorMessage(
+                $response,
+                $this->l('Dashboard returned an unexpected response.')
+            );
+
+            return $this->displayError($this->l('Connection start failed: ') . $message);
+        }
+
+        Tools::redirect((string) $response['json']['authorize_url']);
+
+        return '';
+    }
+
+    private function processConnectCallback()
+    {
+        $status = (string) Tools::getValue('pb_status', '');
+        if ($status === '') {
+            return '';
+        }
+
+        if ($status === 'expired') {
+            return $this->displayError($this->l('Connection request expired. Please try again.'));
+        }
+
+        $storeId = (string) Tools::getValue('pb_store_id', '');
+        $timestamp = (string) Tools::getValue('pb_ts', '');
+        $signature = (string) Tools::getValue('pb_sig', '');
+
+        if ($status !== 'connected' || $storeId === '' || $timestamp === '' || $signature === '') {
+            return $this->displayError($this->l('Invalid callback payload.'));
+        }
+
+        if (!ctype_digit($timestamp)) {
+            return $this->displayError($this->l('Invalid callback timestamp.'));
+        }
+
+        $ts = (int) $timestamp;
+        if (abs(time() - $ts) > self::CALLBACK_MAX_DRIFT_SECONDS) {
+            return '';
+        }
+
+        $payload = implode("\n", [$ts, $storeId, $status]);
+        $expected = hash_hmac('sha256', $payload, (string) Configuration::get(self::CFG_SHARED_SECRET));
+        if (!hash_equals($expected, $signature)) {
+            return $this->displayError($this->l('Invalid callback signature.'));
+        }
+
+        $this->finalizeConnection($storeId);
+
+        return $this->displayConfirmation($this->l('Store connected successfully.'));
+    }
+
+    private function pingDashboard()
+    {
+        $request = $this->sendSignedRequest('GET', '/api/prestaboost/ping', []);
+        if (!empty($request['error'])) {
+            return $this->displayError($this->l('Ping failed: ') . $request['error']);
+        }
+
+        if ((int) $request['status'] !== 200) {
+            $message = !empty($request['json']['message'])
+                ? $request['json']['message']
+                : $this->l('Unexpected dashboard response.');
+
+            return $this->displayError($this->l('Ping failed: ') . $message);
+        }
+
+        return $this->displayConfirmation($this->l('Connection is healthy.'));
+    }
+
+    private function disconnectStore()
+    {
+        $request = $this->sendSignedRequest('POST', '/api/prestaboost/disconnect', []);
+
+        if ((int) $request['status'] === 200) {
+            Configuration::updateValue(self::CFG_STORE_ID, '');
+            Configuration::updateValue(self::CFG_CONNECTED_AT, '');
+
+            return $this->displayConfirmation($this->l('Store disconnected.'));
+        }
+
+        $message = !empty($request['error'])
+            ? $request['error']
+            : (!empty($request['json']['message']) ? $request['json']['message'] : $this->l('Unexpected dashboard response.'));
+
+        return $this->displayError($this->l('Disconnect failed: ') . $message);
+    }
+
+    private function sendSignedRequest($method, $path, $payload)
+    {
+        $storeId = (string) Configuration::get(self::CFG_STORE_ID);
+        $secret = (string) Configuration::get(self::CFG_SHARED_SECRET);
+
+        if ($storeId === '' || $secret === '') {
+            return ['error' => $this->l('Missing store ID or shared secret.')];
+        }
+
+        $url = $this->getApiBaseUrl() . $path;
+        $body = $payload ? json_encode($payload) : '';
+        if ($body === false) {
+            $body = '';
+        }
+
+        $timestamp = time();
+        $signPayload = implode("\n", [
+            $timestamp,
+            strtoupper((string) $method),
+            $path,
+            hash('sha256', $body),
+        ]);
+        $signature = hash_hmac('sha256', $signPayload, $secret);
+
+        return $this->sendJsonRequest((string) $method, $url, $payload, [
+            'X-PrestaBoost-Store: ' . $storeId,
+            'X-PrestaBoost-Timestamp: ' . $timestamp,
+            'X-PrestaBoost-Signature: ' . $signature,
+        ]);
+    }
+
+    private function sendJsonRequest($method, $url, $payload, array $headers = [])
+    {
+        if (!function_exists('curl_init')) {
+            return ['error' => 'cURL extension is not available.'];
+        }
+
+        $ch = curl_init();
+        $body = '';
+        if ($payload !== [] && $payload !== null) {
+            $body = json_encode($payload);
+            if ($body === false) {
+                return ['error' => 'Failed to encode JSON payload.'];
+            }
+        }
+
+        $curlHeaders = array_merge([
+            'Accept: application/json',
+            'Content-Type: application/json',
+        ], $headers);
+
+        curl_setopt_array($ch, [
+            CURLOPT_URL => $url,
+            CURLOPT_CUSTOMREQUEST => strtoupper((string) $method),
+            CURLOPT_POSTFIELDS => $body,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CONNECTTIMEOUT => 10,
+            CURLOPT_TIMEOUT => 25,
+            CURLOPT_HTTPHEADER => $curlHeaders,
+            CURLOPT_SSL_VERIFYPEER => true,
+            CURLOPT_SSL_VERIFYHOST => 2,
+        ]);
+
+        $raw = curl_exec($ch);
+        $status = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        $error = curl_error($ch);
+        curl_close($ch);
+
+        $json = null;
+        if (is_string($raw) && $raw !== '') {
+            $decoded = json_decode($raw, true);
+            if (is_array($decoded)) {
+                $json = $decoded;
+            }
+        }
+
+        return [
+            'status' => $status,
+            'error' => $error,
+            'raw' => $raw,
+            'json' => $json,
+        ];
+    }
+
+    private function renderConfiguration()
+    {
         $this->context->smarty->assign([
-            'prestaload_module_version' => $this->version,
+            'pl_api_base_url' => $this->getApiBaseUrl(),
+            'pl_store_key' => (string) Configuration::get(self::CFG_STORE_KEY),
+            'pl_store_id' => (string) Configuration::get(self::CFG_STORE_ID),
+            'pl_connected' => $this->isConnectedStore(),
+            'pl_connected_at' => (string) Configuration::get(self::CFG_CONNECTED_AT),
+            'pl_module_version' => $this->version,
         ]);
 
         return $this->display(__FILE__, 'views/templates/admin/configure.tpl');
+    }
+
+    private function isConnectedStore()
+    {
+        return (string) Configuration::get(self::CFG_STORE_ID) !== ''
+            && (string) Configuration::get(self::CFG_SHARED_SECRET) !== '';
+    }
+
+    private function getApiBaseUrl()
+    {
+        return rtrim((string) Configuration::get(self::CFG_API_BASE_URL), '/');
+    }
+
+    private function getConfigureUrl()
+    {
+        $url = $this->context->link->getAdminLink('AdminModules', true, [], [
+            'configure' => $this->name,
+        ]);
+
+        if (is_string($url) && $url !== '') {
+            return $url;
+        }
+
+        if (!empty($_SERVER['REQUEST_SCHEME']) && !empty($_SERVER['HTTP_HOST']) && !empty($_SERVER['REQUEST_URI'])) {
+            return $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        }
+
+        if (Tools::usingSecureMode() && !empty($_SERVER['HTTP_HOST']) && !empty($_SERVER['REQUEST_URI'])) {
+            return 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        }
+
+        if (!empty($_SERVER['HTTP_HOST']) && !empty($_SERVER['REQUEST_URI'])) {
+            return 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        }
+
+        return rtrim((string) $this->context->shop->getBaseURL(true), '/');
+    }
+
+    private function getShopLogoUrl()
+    {
+        $logo = (string) Configuration::get('PS_LOGO');
+        if ($logo === '') {
+            return null;
+        }
+
+        $base = rtrim((string) $this->context->shop->getBaseURL(true), '/');
+
+        return $base . '/img/' . ltrim($logo, '/');
+    }
+
+    private function extractApiErrorMessage(array $response, $fallback)
+    {
+        $json = is_array($response['json'] ?? null) ? $response['json'] : [];
+        $message = trim((string) ($json['message'] ?? ''));
+        $errors = is_array($json['errors'] ?? null) ? $json['errors'] : [];
+
+        $errorParts = [];
+        foreach ($errors as $field => $fieldErrors) {
+            if (!is_array($fieldErrors)) {
+                continue;
+            }
+
+            foreach ($fieldErrors as $fieldError) {
+                $text = trim((string) $fieldError);
+                if ($text !== '') {
+                    $errorParts[] = $field . ': ' . $text;
+                }
+            }
+        }
+
+        if ($errorParts !== []) {
+            return implode(' | ', $errorParts);
+        }
+
+        if ($message !== '') {
+            return $message;
+        }
+
+        return $fallback;
     }
 }
