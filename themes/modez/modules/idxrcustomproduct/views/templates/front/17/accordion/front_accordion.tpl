@@ -120,7 +120,7 @@
                     <div class="idxr-login-warning-box">
                         <div class="idxr-login-warning-text">
                             <i class="material-icons">warning_amber</i>
-                            <span>{l s='Connectez-vous pour utiliser la sauvegarde, la restauration et vos simulations enregistrées.' mod='idxrcustomproduct'}</span>
+                            <span>{l s='Connectez-vous pour enregistrer, restaurer et retrouver vos simulations.' mod='idxrcustomproduct'}</span>
                         </div>
                         <a class="idxr-login-warning-btn" href="{$link->getPageLink('authentication', true)|escape:'htmlall':'UTF-8'}">
                             {l s='Se connecter' mod='idxrcustomproduct'}

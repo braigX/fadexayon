@@ -234,7 +234,7 @@ class IdxrCustomProduct extends Module
         $this->l('Name cannot be empty');
         $this->l('Delete this simulation?');
         $this->l('Action failed, please try again');
-        $this->l('Connectez-vous pour utiliser la sauvegarde, la restauration et vos simulations enregistrées.');
+        $this->l('Connectez-vous pour enregistrer, restaurer et retrouver vos simulations');
         $this->l('Se connecter');
         $this->l('Une erreur est survenue');
         $this->l('Une erreur a empêché l’ajout de votre personnalisation au panier. Veuillez réessayer.');

@@ -1,0 +1,428 @@
+/* PSBoost Admin CSS – PrestaShop 8 Back-Office */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+:root {
+  --psb-bg: #0f1117;
+  --psb-surface: #1a1d27;
+  --psb-surface-2: #22263a;
+  --psb-border: #2d3152;
+  --psb-text: #e8eaf6;
+  --psb-text-muted: #7b83b3;
+  --psb-accent: #6366f1;
+  --psb-accent-glow: rgba(99, 102, 241, 0.2);
+  --psb-green: #10b981;
+  --psb-green-glow: rgba(16, 185, 129, 0.15);
+  --psb-amber: #f59e0b;
+  --psb-blue: #3b82f6;
+  --psb-radius: 16px;
+  --psb-radius-sm: 10px;
+  --psb-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --psb-font: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --psb-mono: 'JetBrains Mono', monospace;
+  --psb-transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Wrap ----------------------------------------------------------------- */
+.psboost-wrap {
+  font-family: var(--psb-font);
+  color: var(--psb-text);
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 24px 0 80px;
+}
+
+.psboost-wrap * { box-sizing: border-box; }
+
+/* Header --------------------------------------------------------------- */
+.psb-header {
+  background: linear-gradient(135deg, #13162a 0%, #1a1d2e 60%, #131528 100%);
+  border: 1px solid var(--psb-border);
+  border-radius: var(--psb-radius);
+  padding: 36px 40px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.psb-header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.psb-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.psb-logo {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.psb-logo-icon {
+  font-size: 48px;
+  line-height: 1;
+  filter: drop-shadow(0 0 16px rgba(251,191,36,0.6));
+}
+
+.psb-title {
+  font-size: 32px;
+  font-weight: 800;
+  margin: 0 0 2px;
+  background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+
+.psb-subtitle {
+  font-size: 14px;
+  color: var(--psb-text-muted);
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.psb-header-desc {
+  margin: 20px 0 0;
+  color: var(--psb-text-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Score Ring ----------------------------------------------------------- */
+.psb-score-ring {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
+}
+
+.psb-ring-svg {
+  width: 100%; height: 100%;
+  transform: rotate(-90deg);
+}
+
+.psb-ring-bg {
+  fill: none;
+  stroke: var(--psb-border);
+  stroke-width: 8;
+}
+
+.psb-ring-fill {
+  fill: none;
+  stroke: url(#psb-grad);
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.psb-score-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.psb-score-num {
+  font-size: 30px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff 0%, #86efac 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.psb-score-label {
+  font-size: 11px;
+  color: var(--psb-text-muted);
+  font-weight: 600;
+}
+
+/* Groups --------------------------------------------------------------- */
+.psb-group {
+  background: var(--psb-surface);
+  border: 1px solid var(--psb-border);
+  border-radius: var(--psb-radius);
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: border-color var(--psb-transition);
+}
+
+.psb-group:hover {
+  border-color: rgba(99,102,241,0.4);
+}
+
+.psb-group-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--psb-border);
+  background: rgba(255,255,255,0.02);
+}
+
+.psb-group-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.psb-group-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.2px;
+}
+
+.psb-group-items {
+  padding: 8px 0;
+}
+
+/* Toggle Row ----------------------------------------------------------- */
+.psb-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 28px;
+  cursor: pointer;
+  transition: background var(--psb-transition);
+  border-bottom: 1px solid rgba(45,49,82,0.5);
+}
+
+.psb-toggle-row:last-child {
+  border-bottom: none;
+}
+
+.psb-toggle-row:hover {
+  background: rgba(99,102,241,0.06);
+}
+
+.psb-toggle-row.psb-enabled {
+  background: rgba(16,185,129,0.04);
+}
+
+.psb-toggle-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.psb-toggle-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--psb-text);
+  line-height: 1.3;
+}
+
+.psb-toggle-desc {
+  font-size: 12px;
+  color: var(--psb-text-muted);
+  line-height: 1.5;
+}
+
+/* Toggle Switch -------------------------------------------------------- */
+.psb-toggle-control {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.psb-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0; height: 0;
+  pointer-events: none;
+}
+
+.psb-toggle-switch {
+  display: block;
+  width: 52px;
+  height: 28px;
+  background: var(--psb-surface-2);
+  border: 1px solid var(--psb-border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background var(--psb-transition), border-color var(--psb-transition), box-shadow var(--psb-transition);
+  position: relative;
+}
+
+.psb-toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 20px; height: 20px;
+  background: var(--psb-text-muted);
+  border-radius: 50%;
+  transition: transform var(--psb-transition), background var(--psb-transition);
+}
+
+.psb-checkbox:checked + .psb-toggle-switch {
+  background: var(--psb-green);
+  border-color: var(--psb-green);
+  box-shadow: 0 0 16px var(--psb-green-glow);
+}
+
+.psb-checkbox:checked + .psb-toggle-switch::after {
+  transform: translateX(24px);
+  background: #fff;
+}
+
+.psb-toggle-switch:hover {
+  border-color: var(--psb-accent);
+}
+
+/* Action Bar ----------------------------------------------------------- */
+.psb-action-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 28px 0 0;
+  flex-wrap: wrap;
+}
+
+.psb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--psb-radius-sm);
+  font-family: var(--psb-font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--psb-transition);
+  border: 1px solid transparent;
+  letter-spacing: 0.1px;
+}
+
+.psb-btn-primary {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: #fff;
+  border-color: #6366f1;
+  box-shadow: 0 4px 16px rgba(99,102,241,0.35);
+  margin-left: auto;
+}
+
+.psb-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(99,102,241,0.5);
+}
+
+.psb-btn-secondary {
+  background: var(--psb-surface);
+  color: var(--psb-text);
+  border-color: var(--psb-border);
+}
+
+.psb-btn-secondary:hover {
+  background: var(--psb-surface-2);
+  border-color: var(--psb-accent);
+}
+
+/* Tips Panel ----------------------------------------------------------- */
+.psb-tips {
+  margin-top: 32px;
+  background: var(--psb-surface);
+  border: 1px solid var(--psb-border);
+  border-radius: var(--psb-radius);
+  padding: 28px;
+}
+
+.psb-tips-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 20px;
+  color: var(--psb-amber);
+}
+
+.psb-tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.psb-tip {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--psb-border);
+  border-radius: var(--psb-radius-sm);
+  padding: 16px;
+  transition: border-color var(--psb-transition);
+}
+
+.psb-tip:hover {
+  border-color: rgba(99,102,241,0.4);
+}
+
+.psb-tip-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.psb-tip strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--psb-text);
+  margin-bottom: 4px;
+}
+
+.psb-tip p {
+  font-size: 12px;
+  color: var(--psb-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.psb-tip code {
+  font-family: var(--psb-mono);
+  font-size: 11px;
+  background: rgba(99,102,241,0.15);
+  color: #a5b4fc;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+/* Success/Alert overrides to match dark theme */
+.psboost-wrap .alert-success,
+.psboost-wrap .conf {
+  background: rgba(16,185,129,0.1);
+  border: 1px solid var(--psb-green);
+  color: #6ee7b7;
+  border-radius: var(--psb-radius-sm);
+  padding: 14px 20px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+/* SVG gradient (inline, referenced by fill: url(#psb-grad)) */
+.psb-ring-svg defs { display: none; }
+
+/* Responsive */
+@media (max-width: 700px) {
+  .psb-header { padding: 24px 20px; }
+  .psb-toggle-row { padding: 14px 20px; }
+  .psb-group-header { padding: 16px 20px; }
+  .psb-tips { padding: 20px; }
+  .psb-btn-primary { margin-left: 0; width: 100%; justify-content: center; }
+  .psb-action-bar { flex-direction: column; }
+}
