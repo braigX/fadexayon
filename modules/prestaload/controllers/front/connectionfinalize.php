@@ -9,20 +9,41 @@ class PrestaloadConnectionfinalizeModuleFrontController extends ModuleFrontContr
 
     public function initContent()
     {
-        parent::initContent();
-
-        header('Content-Type: application/json; charset=utf-8');
-
-        $this->module->logMessage('connection.finalize_controller.received', [
+        $this->emergencyLog('connection.finalize_controller.bootstrap', [
             'request_uri' => isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '',
             'method' => isset($_SERVER['REQUEST_METHOD']) ? (string) $_SERVER['REQUEST_METHOD'] : '',
         ]);
 
         try {
+            parent::initContent();
+
+            header('Content-Type: application/json; charset=utf-8');
+
+            $this->emergencyLog('connection.finalize_controller.after_parent', [
+                'module_loaded' => is_object($this->module),
+                'module_class' => is_object($this->module) ? get_class($this->module) : '',
+            ]);
+
+            if (is_object($this->module) && method_exists($this->module, 'logMessage')) {
+                $this->module->logMessage('connection.finalize_controller.received', [
+                    'request_uri' => isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '',
+                    'method' => isset($_SERVER['REQUEST_METHOD']) ? (string) $_SERVER['REQUEST_METHOD'] : '',
+                ]);
+            }
+
             $payload = $this->assertSignedRequest();
+            $this->emergencyLog('connection.finalize_controller.asserted', [
+                'store_id' => isset($payload['store_id']) ? (string) $payload['store_id'] : '',
+            ]);
             $this->module->finalizeConnection((string) $payload['store_id']);
 
-            $this->module->logMessage('connection.finalize_controller.success', [
+            if (is_object($this->module) && method_exists($this->module, 'logMessage')) {
+                $this->module->logMessage('connection.finalize_controller.success', [
+                    'store_id' => (string) $payload['store_id'],
+                ]);
+            }
+
+            $this->emergencyLog('connection.finalize_controller.success', [
                 'store_id' => (string) $payload['store_id'],
             ]);
 
@@ -31,15 +52,41 @@ class PrestaloadConnectionfinalizeModuleFrontController extends ModuleFrontContr
                 'message' => 'Connection finalized.',
             ]));
         } catch (Exception $exception) {
-            $this->module->logMessage('connection.finalize_controller.failed', [
+            $this->emergencyLog('connection.finalize_controller.failed', [
                 'message' => $exception->getMessage(),
+                'trace' => $exception->getTraceAsString(),
             ]);
+
+            if (is_object($this->module) && method_exists($this->module, 'logMessage')) {
+                $this->module->logMessage('connection.finalize_controller.failed', [
+                    'message' => $exception->getMessage(),
+                ]);
+            }
+
             http_response_code(403);
 
             $this->ajaxRender(json_encode([
                 'success' => false,
                 'message' => $exception->getMessage(),
             ]));
+        } catch (Throwable $throwable) {
+            $this->emergencyLog('connection.finalize_controller.fatal', [
+                'message' => $throwable->getMessage(),
+                'trace' => $throwable->getTraceAsString(),
+            ]);
+
+            if (is_object($this->module) && method_exists($this->module, 'logMessage')) {
+                $this->module->logMessage('connection.finalize_controller.fatal', [
+                    'message' => $throwable->getMessage(),
+                ]);
+            }
+
+            http_response_code(500);
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode([
+                'success' => false,
+                'message' => $throwable->getMessage(),
+            ]);
         }
     }
 
@@ -98,5 +145,17 @@ class PrestaloadConnectionfinalizeModuleFrontController extends ModuleFrontContr
         $serverKey = 'HTTP_' . strtoupper(str_replace('-', '_', (string) $name));
 
         return $_SERVER[$serverKey] ?? '';
+    }
+
+    private function emergencyLog($event, array $context = [])
+    {
+        $logFile = dirname(__DIR__, 2) . '/connectionfinalize.log';
+        $payload = [
+            'logged_at' => date('c'),
+            'event' => (string) $event,
+            'context' => $context,
+        ];
+
+        @file_put_contents($logFile, json_encode($payload, JSON_UNESCAPED_SLASHES) . PHP_EOL, FILE_APPEND);
     }
 }
