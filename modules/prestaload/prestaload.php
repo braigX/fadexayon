@@ -84,6 +84,55 @@ class Prestaload extends Module
         Configuration::updateValue(self::CFG_CONNECTED_AT, date('c'));
     }
 
+    public function getCurrentShopId()
+    {
+        return (int) ($this->context->shop ? $this->context->shop->id : 0);
+    }
+
+    public function getDetectedShops()
+    {
+        if (!class_exists('Shop')) {
+            return [];
+        }
+
+        $shops = Shop::getShops(true, null, false);
+        $currentShopId = $this->getCurrentShopId();
+        $rows = [];
+
+        foreach ($shops as $shop) {
+            $shopId = isset($shop['id_shop']) ? (int) $shop['id_shop'] : 0;
+            if ($shopId <= 0) {
+                continue;
+            }
+
+            $domainSsl = trim((string) ($shop['domain_ssl'] ?? ''));
+            $domain = trim((string) ($shop['domain'] ?? ''));
+            $uri = '/' . ltrim((string) ($shop['uri'] ?? '/'), '/');
+            $uri = preg_replace('#/+#', '/', $uri);
+            if (!is_string($uri) || $uri === '') {
+                $uri = '/';
+            }
+
+            $scheme = $domainSsl !== '' ? 'https://' : 'http://';
+            $host = $domainSsl !== '' ? $domainSsl : $domain;
+            $url = $host !== '' ? rtrim($scheme . $host . $uri, '/') : '';
+
+            $rows[] = [
+                'shop_id' => $shopId,
+                'shop_group_id' => isset($shop['id_shop_group']) ? (int) $shop['id_shop_group'] : null,
+                'name' => (string) ($shop['name'] ?? ''),
+                'domain' => $domain,
+                'domain_ssl' => $domainSsl,
+                'uri' => $uri,
+                'url' => $url,
+                'active' => !empty($shop['active']),
+                'is_current' => $shopId === $currentShopId,
+            ];
+        }
+
+        return $rows;
+    }
+
     private function initializeDefaults()
     {
         $this->ensureCredentials();
