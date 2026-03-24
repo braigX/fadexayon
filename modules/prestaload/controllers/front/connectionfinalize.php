@@ -13,15 +13,27 @@ class PrestaloadConnectionfinalizeModuleFrontController extends ModuleFrontContr
 
         header('Content-Type: application/json; charset=utf-8');
 
+        $this->module->logMessage('connection.finalize_controller.received', [
+            'request_uri' => isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '',
+            'method' => isset($_SERVER['REQUEST_METHOD']) ? (string) $_SERVER['REQUEST_METHOD'] : '',
+        ]);
+
         try {
             $payload = $this->assertSignedRequest();
             $this->module->finalizeConnection((string) $payload['store_id']);
+
+            $this->module->logMessage('connection.finalize_controller.success', [
+                'store_id' => (string) $payload['store_id'],
+            ]);
 
             $this->ajaxRender(json_encode([
                 'success' => true,
                 'message' => 'Connection finalized.',
             ]));
         } catch (Exception $exception) {
+            $this->module->logMessage('connection.finalize_controller.failed', [
+                'message' => $exception->getMessage(),
+            ]);
             http_response_code(403);
 
             $this->ajaxRender(json_encode([
