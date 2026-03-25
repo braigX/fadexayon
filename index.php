@@ -28,7 +28,11 @@
 // so anonymous homepage hits can be served directly from disk.
 $prestaLoadStaticCacheScript = __DIR__ . '/prestaload-static-cache.php';
 if (file_exists($prestaLoadStaticCacheScript)) {
-    require_once $prestaLoadStaticCacheScript;
+    try {
+        require_once $prestaLoadStaticCacheScript;
+    } catch (Throwable $e) {
+        error_log("PrestaLoad - Cannot use the early static cache bootstrap: " . $e->getMessage());
+    }
 }
 
 

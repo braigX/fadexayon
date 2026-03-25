@@ -17,8 +17,15 @@ if (!defined('_PS_ROOT_DIR_')) {
     define('_PS_ROOT_DIR_', __DIR__);
 }
 
-require_once __DIR__ . '/modules/prestaload/classes/PrestaLoadFeatureLogger.php';
-require_once __DIR__ . '/modules/prestaload/classes/PrestaLoadInternalAuth.php';
+$prestaLoadFeatureLoggerPath = __DIR__ . '/modules/prestaload/classes/PrestaLoadFeatureLogger.php';
+$prestaLoadInternalAuthPath = __DIR__ . '/modules/prestaload/classes/PrestaLoadInternalAuth.php';
+
+if (!is_file($prestaLoadFeatureLoggerPath) || !is_file($prestaLoadInternalAuthPath)) {
+    return;
+}
+
+require_once $prestaLoadFeatureLoggerPath;
+require_once $prestaLoadInternalAuthPath;
 
 if (!function_exists('prestaload_log_early_boot')) {
     function prestaload_log_early_boot(array $payload)
@@ -49,8 +56,15 @@ if (!is_array($prestaLoadRuntime) || empty($prestaLoadRuntime['enabled'])) {
     return;
 }
 
-require_once __DIR__ . '/modules/prestaload/classes/PrestaLoadCacheStore.php';
-require_once __DIR__ . '/modules/prestaload/classes/PrestaLoadEarlyCacheKeyBuilder.php';
+$prestaLoadCacheStorePath = __DIR__ . '/modules/prestaload/classes/PrestaLoadCacheStore.php';
+$prestaLoadEarlyCacheKeyBuilderPath = __DIR__ . '/modules/prestaload/classes/PrestaLoadEarlyCacheKeyBuilder.php';
+
+if (!is_file($prestaLoadCacheStorePath) || !is_file($prestaLoadEarlyCacheKeyBuilderPath)) {
+    return;
+}
+
+require_once $prestaLoadCacheStorePath;
+require_once $prestaLoadEarlyCacheKeyBuilderPath;
 
 if (!function_exists('prestaload_should_serve_early_cache')) {
     function prestaload_get_early_cache_eligibility(array $runtime)

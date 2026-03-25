@@ -4,6 +4,25 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+if (!function_exists('prestaload_bootstrap_log')) {
+    function prestaload_bootstrap_log($event, array $context = [])
+    {
+        $payload = [
+            'logged_at' => date('c'),
+            'event' => (string) $event,
+            'context' => $context,
+        ];
+
+        @file_put_contents('/tmp/prestaload-bootstrap.log', json_encode($payload, JSON_UNESCAPED_SLASHES) . PHP_EOL, FILE_APPEND);
+    }
+}
+
+prestaload_bootstrap_log('module.file_loaded', [
+    'script' => __FILE__,
+    'request_uri' => isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '',
+    'method' => isset($_SERVER['REQUEST_METHOD']) ? (string) $_SERVER['REQUEST_METHOD'] : '',
+]);
+
 class Prestaload extends Module
 {
     private const DEFAULT_API_BASE_URL = 'http://localhost:8000/';
@@ -15,6 +34,10 @@ class Prestaload extends Module
 
     public function __construct()
     {
+        prestaload_bootstrap_log('module.construct.start', [
+            'request_uri' => isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '',
+        ]);
+
         $this->name = 'prestaload';
         $this->tab = 'administration';
         $this->version = '0.1.0';
@@ -30,6 +53,11 @@ class Prestaload extends Module
             'min' => '8.0.0',
             'max' => _PS_VERSION_,
         ];
+
+        prestaload_bootstrap_log('module.construct.done', [
+            'module_name' => $this->name,
+            'version' => $this->version,
+        ]);
     }
 
     public function install()

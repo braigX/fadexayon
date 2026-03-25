@@ -9,14 +9,16 @@ class PrestaloadDiscoveryModuleFrontController extends ModuleFrontController
 
     public function initContent()
     {
-        parent::initContent();
+    }
 
+    public function postProcess()
+    {
         header('Content-Type: application/json; charset=utf-8');
 
         try {
             $this->assertSignedRequest();
 
-            $this->ajaxRender(json_encode([
+            $this->ajaxDie(json_encode([
                 'success' => true,
                 'message' => 'Shop discovery payload ready.',
                 'current_shop_id' => (int) $this->module->getCurrentShopId(),
@@ -25,7 +27,7 @@ class PrestaloadDiscoveryModuleFrontController extends ModuleFrontController
         } catch (Exception $exception) {
             http_response_code(403);
 
-            $this->ajaxRender(json_encode([
+            $this->ajaxDie(json_encode([
                 'success' => false,
                 'message' => $exception->getMessage(),
             ]));

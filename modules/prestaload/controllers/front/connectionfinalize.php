@@ -9,14 +9,16 @@ class PrestaloadConnectionfinalizeModuleFrontController extends ModuleFrontContr
 
     public function initContent()
     {
+    }
+
+    public function postProcess()
+    {
         $this->emergencyLog('connection.finalize_controller.bootstrap', [
             'request_uri' => isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '',
             'method' => isset($_SERVER['REQUEST_METHOD']) ? (string) $_SERVER['REQUEST_METHOD'] : '',
         ]);
 
         try {
-            parent::initContent();
-
             header('Content-Type: application/json; charset=utf-8');
 
             $this->emergencyLog('connection.finalize_controller.after_parent', [
@@ -47,7 +49,7 @@ class PrestaloadConnectionfinalizeModuleFrontController extends ModuleFrontContr
                 'store_id' => (string) $payload['store_id'],
             ]);
 
-            $this->ajaxRender(json_encode([
+            $this->ajaxDie(json_encode([
                 'success' => true,
                 'message' => 'Connection finalized.',
             ]));
@@ -65,7 +67,7 @@ class PrestaloadConnectionfinalizeModuleFrontController extends ModuleFrontContr
 
             http_response_code(403);
 
-            $this->ajaxRender(json_encode([
+            $this->ajaxDie(json_encode([
                 'success' => false,
                 'message' => $exception->getMessage(),
             ]));
@@ -83,10 +85,10 @@ class PrestaloadConnectionfinalizeModuleFrontController extends ModuleFrontContr
 
             http_response_code(500);
             header('Content-Type: application/json; charset=utf-8');
-            echo json_encode([
+            $this->ajaxDie(json_encode([
                 'success' => false,
                 'message' => $throwable->getMessage(),
-            ]);
+            ]));
         }
     }
 
