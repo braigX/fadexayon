@@ -52,7 +52,7 @@ API_PID=$!
 # Laravel queue worker
 (
   cd "${ROOT_DIR}/api"
-  php artisan queue:work --queue=critical-css,page-scans,default --timeout=1200 --sleep=3
+  php artisan queue:work --queue=optimization-render,default --timeout=1200 --sleep=3
 ) &
 QUEUE_PID=$!
 
