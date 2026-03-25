@@ -4,6 +4,8 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+require_once __DIR__ . '/classes/PrestaLoadPageDiscoveryService.php';
+
 if (!function_exists('prestaload_bootstrap_log')) {
     function prestaload_bootstrap_log($event, array $context = [])
     {
@@ -31,6 +33,11 @@ class Prestaload extends Module
     private const CFG_STORE_ID = 'PRESTALOAD_STORE_ID';
     private const CFG_CONNECTED_AT = 'PRESTALOAD_CONNECTED_AT';
     private const CALLBACK_MAX_DRIFT_SECONDS = 300;
+
+    /**
+     * @var PrestaLoadPageDiscoveryService|null
+     */
+    private $pageDiscoveryService;
 
     public function __construct()
     {
@@ -103,17 +110,8 @@ class Prestaload extends Module
 
     public function finalizeConnection($storeId)
     {
-        $this->logMessage('connection.finalize.start', [
-            'store_id' => (string) $storeId,
-        ]);
-
         Configuration::updateValue(self::CFG_STORE_ID, (string) $storeId);
         Configuration::updateValue(self::CFG_CONNECTED_AT, date('c'));
-
-        $this->logMessage('connection.finalize.done', [
-            'store_id' => (string) Configuration::get(self::CFG_STORE_ID),
-            'connected_at' => (string) Configuration::get(self::CFG_CONNECTED_AT),
-        ]);
     }
 
     public function getCurrentShopId()
@@ -165,6 +163,29 @@ class Prestaload extends Module
         return $rows;
     }
 
+    public function getDiscoveredPageUrls($requestedShopId = null, $pageType = null, $page = 1, $perPage = 250)
+    {
+        $requestedShopId = $requestedShopId !== null ? (int) $requestedShopId : 0;
+        $page = max(1, (int) $page);
+        $perPage = max(1, min(1000, (int) $perPage));
+        $pageType = $this->getPageDiscoveryService()->normalizePageType($pageType);
+
+        foreach ($this->getDetectedShops() as $shopRow) {
+            $shopId = isset($shopRow['shop_id']) ? (int) $shopRow['shop_id'] : 0;
+            if ($shopId <= 0 || empty($shopRow['active'])) {
+                continue;
+            }
+
+            if ($requestedShopId > 0 && $shopId !== $requestedShopId) {
+                continue;
+            }
+
+            return $this->getPageDiscoveryService()->discoverForShop($shopId, $pageType, $page, $perPage);
+        }
+
+        return $this->getPageDiscoveryService()->discoverForShop(0, $pageType, $page, $perPage);
+    }
+
     private function initializeDefaults()
     {
         $this->ensureCredentials();
@@ -212,28 +233,11 @@ class Prestaload extends Module
             'return_url' => $this->getConfigureUrl(),
         ];
 
-        $this->logMessage('connection.start.request', [
-            'api_base_url' => $this->getApiBaseUrl(),
-            'shop_url' => (string) $payload['shop_url'],
-            'shop_email' => (string) $payload['shop_email'],
-            'store_key_prefix' => Tools::substr((string) $payload['store_key'], 0, 12),
-            'has_shared_secret' => (string) $payload['shared_secret'] !== '',
-            'return_url' => (string) $payload['return_url'],
-        ]);
-
         $response = $this->sendJsonRequest(
             'POST',
             $this->getApiBaseUrl() . '/api/prestaboost/handshake/init',
             $payload
         );
-
-        $this->logMessage('connection.start.response', [
-            'status' => (int) ($response['status'] ?? 0),
-            'error' => (string) ($response['error'] ?? ''),
-            'has_json' => is_array($response['json'] ?? null),
-            'message' => is_array($response['json'] ?? null) ? (string) ($response['json']['message'] ?? '') : '',
-            'authorize_url' => is_array($response['json'] ?? null) ? (string) ($response['json']['authorize_url'] ?? '') : '',
-        ]);
 
         if (!empty($response['error'])) {
             return $this->displayError($this->l('Could not contact dashboard: ') . $response['error']);
@@ -268,46 +272,22 @@ class Prestaload extends Module
         $timestamp = (string) Tools::getValue('pb_ts', '');
         $signature = (string) Tools::getValue('pb_sig', '');
 
-        $this->logMessage('connection.callback.received', [
-            'status' => $status,
-            'store_id' => $storeId,
-            'timestamp' => $timestamp,
-            'signature_prefix' => Tools::substr($signature, 0, 12),
-        ]);
-
         if ($status !== 'connected' || $storeId === '' || $timestamp === '' || $signature === '') {
-            $this->logMessage('connection.callback.invalid_payload', [
-                'status' => $status,
-                'store_id' => $storeId,
-                'timestamp' => $timestamp,
-            ]);
             return $this->displayError($this->l('Invalid callback payload.'));
         }
 
         if (!ctype_digit($timestamp)) {
-            $this->logMessage('connection.callback.invalid_timestamp', [
-                'timestamp' => $timestamp,
-            ]);
             return $this->displayError($this->l('Invalid callback timestamp.'));
         }
 
         $ts = (int) $timestamp;
         if (abs(time() - $ts) > self::CALLBACK_MAX_DRIFT_SECONDS) {
-            $this->logMessage('connection.callback.expired', [
-                'timestamp' => $timestamp,
-                'server_time' => time(),
-            ]);
             return '';
         }
 
         $payload = implode("\n", [$ts, $storeId, $status]);
         $expected = hash_hmac('sha256', $payload, (string) Configuration::get(self::CFG_SHARED_SECRET));
         if (!hash_equals($expected, $signature)) {
-            $this->logMessage('connection.callback.invalid_signature', [
-                'store_id' => $storeId,
-                'expected_prefix' => Tools::substr($expected, 0, 12),
-                'received_prefix' => Tools::substr($signature, 0, 12),
-            ]);
             return $this->displayError($this->l('Invalid callback signature.'));
         }
 
@@ -318,15 +298,8 @@ class Prestaload extends Module
 
     private function pingDashboard()
     {
-        $this->logMessage('connection.ping.start', [
-            'store_id' => (string) Configuration::get(self::CFG_STORE_ID),
-        ]);
-
         $request = $this->sendSignedRequest('GET', '/api/prestaboost/ping', []);
         if (!empty($request['error'])) {
-            $this->logMessage('connection.ping.error', [
-                'error' => (string) $request['error'],
-            ]);
             return $this->displayError($this->l('Ping failed: ') . $request['error']);
         }
 
@@ -335,36 +308,19 @@ class Prestaload extends Module
                 ? $request['json']['message']
                 : $this->l('Unexpected dashboard response.');
 
-            $this->logMessage('connection.ping.failed', [
-                'status' => (int) $request['status'],
-                'message' => (string) $message,
-            ]);
-
             return $this->displayError($this->l('Ping failed: ') . $message);
         }
-
-        $this->logMessage('connection.ping.done', [
-            'status' => (int) $request['status'],
-        ]);
 
         return $this->displayConfirmation($this->l('Connection is healthy.'));
     }
 
     private function disconnectStore()
     {
-        $this->logMessage('connection.disconnect.start', [
-            'store_id' => (string) Configuration::get(self::CFG_STORE_ID),
-        ]);
-
         $request = $this->sendSignedRequest('POST', '/api/prestaboost/disconnect', []);
 
         if ((int) $request['status'] === 200) {
             Configuration::updateValue(self::CFG_STORE_ID, '');
             Configuration::updateValue(self::CFG_CONNECTED_AT, '');
-
-            $this->logMessage('connection.disconnect.done', [
-                'status' => (int) $request['status'],
-            ]);
 
             return $this->displayConfirmation($this->l('Store disconnected.'));
         }
@@ -372,11 +328,6 @@ class Prestaload extends Module
         $message = !empty($request['error'])
             ? $request['error']
             : (!empty($request['json']['message']) ? $request['json']['message'] : $this->l('Unexpected dashboard response.'));
-
-        $this->logMessage('connection.disconnect.failed', [
-            'status' => (int) ($request['status'] ?? 0),
-            'message' => (string) $message,
-        ]);
 
         return $this->displayError($this->l('Disconnect failed: ') . $message);
     }
@@ -387,11 +338,6 @@ class Prestaload extends Module
         $secret = (string) Configuration::get(self::CFG_SHARED_SECRET);
 
         if ($storeId === '' || $secret === '') {
-            $this->logMessage('connection.signed_request.missing_credentials', [
-                'path' => (string) $path,
-                'has_store_id' => $storeId !== '',
-                'has_secret' => $secret !== '',
-            ]);
             return ['error' => $this->l('Missing store ID or shared secret.')];
         }
 
@@ -410,15 +356,6 @@ class Prestaload extends Module
         ]);
         $signature = hash_hmac('sha256', $signPayload, $secret);
 
-        $this->logMessage('connection.signed_request.start', [
-            'method' => strtoupper((string) $method),
-            'path' => (string) $path,
-            'store_id' => $storeId,
-            'body_hash' => hash('sha256', $body),
-            'timestamp' => $timestamp,
-            'signature_prefix' => Tools::substr($signature, 0, 12),
-        ]);
-
         return $this->sendJsonRequest((string) $method, $url, $payload, [
             'X-PrestaBoost-Store: ' . $storeId,
             'X-PrestaBoost-Timestamp: ' . $timestamp,
@@ -429,7 +366,6 @@ class Prestaload extends Module
     private function sendJsonRequest($method, $url, $payload, array $headers = [])
     {
         if (!function_exists('curl_init')) {
-            $this->logMessage('connection.http.curl_missing');
             return ['error' => 'cURL extension is not available.'];
         }
 
@@ -471,15 +407,6 @@ class Prestaload extends Module
                 $json = $decoded;
             }
         }
-
-        $this->logMessage('connection.http.response', [
-            'method' => strtoupper((string) $method),
-            'url' => (string) $url,
-            'status' => $status,
-            'error' => (string) $error,
-            'has_json' => $json !== null,
-            'body_preview' => is_string($raw) ? Tools::substr($raw, 0, 300) : '',
-        ]);
 
         return [
             'status' => $status,
@@ -606,6 +533,25 @@ class Prestaload extends Module
         ];
     }
 
+    private function deduplicateDiscoveredPages(array $pages)
+    {
+        $unique = [];
+
+        foreach ($pages as $page) {
+            $key = implode('|', [
+                (string) ($page['page_type'] ?? ''),
+                (string) ($page['entity_type'] ?? ''),
+                (string) ($page['entity_id'] ?? ''),
+                (string) ($page['language_iso'] ?? ''),
+                (string) ($page['url'] ?? ''),
+            ]);
+
+            $unique[$key] = $page;
+        }
+
+        return array_values($unique);
+    }
+
     public function logMessage($event, array $context = [])
     {
         $logFile = $this->local_path . 'prestaload.log';
@@ -625,5 +571,14 @@ class Prestaload extends Module
                 'PrestaLoad'
             );
         }
+    }
+
+    private function getPageDiscoveryService()
+    {
+        if ($this->pageDiscoveryService === null) {
+            $this->pageDiscoveryService = new PrestaLoadPageDiscoveryService($this);
+        }
+
+        return $this->pageDiscoveryService;
     }
 }

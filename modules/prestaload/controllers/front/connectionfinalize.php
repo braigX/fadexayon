@@ -1,11 +1,12 @@
 <?php
 
 class PrestaloadConnectionfinalizeModuleFrontController extends ModuleFrontController
-{
+{ 
     public $ssl = true;
     public $ajax = true;
     public $display_column_left = false;
     public $display_column_right = false;
+    private $rawBody;
 
     public function initContent()
     {
@@ -13,39 +14,18 @@ class PrestaloadConnectionfinalizeModuleFrontController extends ModuleFrontContr
 
     public function postProcess()
     {
-        $this->emergencyLog('connection.finalize_controller.bootstrap', [
-            'request_uri' => isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '',
-            'method' => isset($_SERVER['REQUEST_METHOD']) ? (string) $_SERVER['REQUEST_METHOD'] : '',
-        ]);
+        $this->logFrontRequest('front.connectionfinalize.request');
 
         try {
             header('Content-Type: application/json; charset=utf-8');
 
-            $this->emergencyLog('connection.finalize_controller.after_parent', [
-                'module_loaded' => is_object($this->module),
-                'module_class' => is_object($this->module) ? get_class($this->module) : '',
-            ]);
-
-            if (is_object($this->module) && method_exists($this->module, 'logMessage')) {
-                $this->module->logMessage('connection.finalize_controller.received', [
-                    'request_uri' => isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '',
-                    'method' => isset($_SERVER['REQUEST_METHOD']) ? (string) $_SERVER['REQUEST_METHOD'] : '',
-                ]);
-            }
-
             $payload = $this->assertSignedRequest();
-            $this->emergencyLog('connection.finalize_controller.asserted', [
+            $this->logModuleEvent('front.connectionfinalize.authorized', [
                 'store_id' => isset($payload['store_id']) ? (string) $payload['store_id'] : '',
             ]);
             $this->module->finalizeConnection((string) $payload['store_id']);
-
-            if (is_object($this->module) && method_exists($this->module, 'logMessage')) {
-                $this->module->logMessage('connection.finalize_controller.success', [
-                    'store_id' => (string) $payload['store_id'],
-                ]);
-            }
-
-            $this->emergencyLog('connection.finalize_controller.success', [
+            $this->logModuleEvent('front.connectionfinalize.response', [
+                'status' => 200,
                 'store_id' => (string) $payload['store_id'],
             ]);
 
@@ -54,16 +34,10 @@ class PrestaloadConnectionfinalizeModuleFrontController extends ModuleFrontContr
                 'message' => 'Connection finalized.',
             ]));
         } catch (Exception $exception) {
-            $this->emergencyLog('connection.finalize_controller.failed', [
-                'message' => $exception->getMessage(),
-                'trace' => $exception->getTraceAsString(),
+            $this->logModuleEvent('front.connectionfinalize.response', [
+                'status' => 403,
+                'error' => $exception->getMessage(),
             ]);
-
-            if (is_object($this->module) && method_exists($this->module, 'logMessage')) {
-                $this->module->logMessage('connection.finalize_controller.failed', [
-                    'message' => $exception->getMessage(),
-                ]);
-            }
 
             http_response_code(403);
 
@@ -72,16 +46,10 @@ class PrestaloadConnectionfinalizeModuleFrontController extends ModuleFrontContr
                 'message' => $exception->getMessage(),
             ]));
         } catch (Throwable $throwable) {
-            $this->emergencyLog('connection.finalize_controller.fatal', [
-                'message' => $throwable->getMessage(),
-                'trace' => $throwable->getTraceAsString(),
+            $this->logModuleEvent('front.connectionfinalize.response', [
+                'status' => 500,
+                'error' => $throwable->getMessage(),
             ]);
-
-            if (is_object($this->module) && method_exists($this->module, 'logMessage')) {
-                $this->module->logMessage('connection.finalize_controller.fatal', [
-                    'message' => $throwable->getMessage(),
-                ]);
-            }
 
             http_response_code(500);
             header('Content-Type: application/json; charset=utf-8');
@@ -99,7 +67,7 @@ class PrestaloadConnectionfinalizeModuleFrontController extends ModuleFrontContr
         $signature = trim((string) $this->getHeaderValue('X-PrestaBoost-Signature'));
         $configuredStoreKey = (string) Configuration::get('PRESTALOAD_STORE_KEY');
         $sharedSecret = (string) Configuration::get('PRESTALOAD_SHARED_SECRET');
-        $body = (string) file_get_contents('php://input');
+        $body = $this->getRawBody();
         $payload = json_decode($body, true);
 
         if ($storeKey === '' || $timestamp === '' || $signature === '') {
@@ -149,15 +117,53 @@ class PrestaloadConnectionfinalizeModuleFrontController extends ModuleFrontContr
         return $_SERVER[$serverKey] ?? '';
     }
 
-    private function emergencyLog($event, array $context = [])
+    private function logFrontRequest($event)
     {
-        $logFile = dirname(__DIR__, 2) . '/connectionfinalize.log';
-        $payload = [
-            'logged_at' => date('c'),
-            'event' => (string) $event,
-            'context' => $context,
-        ];
+        $body = $this->getRawBody();
 
-        @file_put_contents($logFile, json_encode($payload, JSON_UNESCAPED_SLASHES) . PHP_EOL, FILE_APPEND);
+        $this->logModuleEvent($event, [
+            'request_uri' => isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '',
+            'method' => isset($_SERVER['REQUEST_METHOD']) ? (string) $_SERVER['REQUEST_METHOD'] : '',
+            'query' => isset($_SERVER['QUERY_STRING']) ? (string) $_SERVER['QUERY_STRING'] : '',
+            'headers' => $this->getRequestHeadersForLog(),
+            'body_bytes' => strlen($body),
+            'body_preview' => $body !== '' ? Tools::substr($body, 0, 500) : '',
+        ]);
+    }
+
+    private function getRequestHeadersForLog()
+    {
+        $headers = function_exists('getallheaders') ? getallheaders() : [];
+        if (!is_array($headers)) {
+            return [];
+        }
+
+        $result = [];
+        foreach ($headers as $name => $value) {
+            $key = (string) $name;
+            if (strcasecmp($key, 'X-PrestaBoost-Signature') === 0) {
+                $result[$key] = Tools::substr((string) $value, 0, 16);
+                continue;
+            }
+            $result[$key] = (string) $value;
+        }
+
+        return $result;
+    }
+
+    private function getRawBody()
+    {
+        if ($this->rawBody === null) {
+            $this->rawBody = (string) file_get_contents('php://input');
+        }
+
+        return $this->rawBody;
+    }
+
+    private function logModuleEvent($event, array $context = [])
+    {
+        if (is_object($this->module) && method_exists($this->module, 'logMessage')) {
+            $this->module->logMessage($event, $context);
+        }
     }
 }
