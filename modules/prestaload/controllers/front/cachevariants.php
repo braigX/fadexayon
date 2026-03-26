@@ -45,7 +45,7 @@ class PrestaloadCachevariantsModuleFrontController extends ModuleFrontController
                 'status' => 200,
                 'shop_id' => isset($result['shop_id']) ? (int) $result['shop_id'] : 0,
                 'variants_count' => isset($result['variants_count']) ? (int) $result['variants_count'] : 0,
-                'dimensions' => isset($result['dimensions']) && is_array($result['dimensions']) ? $result['dimensions'] : [],
+                'cache_hit' => !empty($result['cache_hit']),
             ]);
 
             $this->ajaxDie(json_encode(array_merge([

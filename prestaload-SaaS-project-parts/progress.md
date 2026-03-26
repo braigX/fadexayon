@@ -1,43 +1,88 @@
 # Progress
 
-- Cleaned SaaS API base to workspace + integration core
-- Rebuilt thin `prestaload` module connection flow
-- Added multishop discovery and page URL discovery
-- Added shop-scoped URL listing in dashboard/API
-- Added browser worker container with Playwright
-- Added rendered HTML + optimized HTML generation
-- Rebuilt API optimization flow around:
+## Laravel API App
+
+- Rebuilt optimization flow around:
+  - `cachevariants`
   - `cacheprepare`
   - browser render
+  - validation
   - `cachepublish`
 - Added optimization tables:
   - targets
   - runs
   - steps
   - artifact versions
-- Added end-to-end optimization logging in API
-- Added signed module endpoints:
-  - `cacheprepare`
-  - `cachepublish`
-- Added module-side cache storage with metadata
-- Switched cache file layout to hash-based fanout
-- Added module runtime cache serving hook
-- Added rollback/failure handling for dispatch and queued job errors
-- Confirmed first cached HTML file is stored successfully
-- Added multi-variant optimization flow with live progress
-- Added module endpoints:
-  - `cachevariants`
-  - `cachepurge`
-- Added cache purge flow from API and overview table
-- Added optimized HTML marker meta for cached pages
-- Fixed duplicate store creation on reconnect
-- Replaced old scan placeholders with Google PageSpeed scan
-- Moved PageSpeed code to dedicated performance service
-- Added saved per-URL:
+- Added compact JSON step history in DB for optimization runs
+- Added multi-variant optimization workflow with progress
+- Added validation before publish
+- Added safe failure behavior:
+  - failed variants do not publish
+  - failed variants purge existing cached variant
+  - storefront falls back to normal PrestaShop render
+- Added Google PageSpeed scan service and endpoint
+- Saved per-URL:
   - mobile score
   - desktop score
   - last scanned at
-- Updated overview table to:
-  - scan on demand
-  - show colored score labels
-  - remove critical CSS columns for now
+- Fixed duplicate store creation on reconnect
+
+## PrestaShop Module
+
+- Rebuilt signed communication flow with:
+  - `cachevariants`
+  - `cacheprepare`
+  - `cachepublish`
+  - `cachepurge`
+- Added organized cache services and runtime serving
+- Added module-side HTML cache storage with metadata
+- Switched cache storage to hash-based fanout
+- Added runtime cache serving hook
+- Added cache purge flow
+- Added one-day cache for fetched variant lists
+- Cleaned module JSON logging and enriched it with store/shop context
+- Stopped runtime skip logging for admin and ajax requests
+
+## Browser Worker
+
+- Added Playwright browser worker container
+- Added full HTML render for cache variants
+- Added optimized HTML generation
+- Added:
+  - HTML minification
+  - inline CSS minification
+  - inline JS minification
+- Added realistic mobile rendering profile:
+  - mobile viewport
+  - mobile user agent
+  - touch emulation
+
+## React App
+
+- Added shop-scoped URL listing in overview
+- Added optimize, purge, and scan actions in table
+- Added live optimization alerts:
+  - yellow queued requests alert
+  - blue active optimization progress alert
+- Added better alert dismissal behavior
+- Added URL display inside optimization progress text
+- Added colored PageSpeed score labels
+- Added clearer action buttons with text and icons
+- Removed critical CSS columns from overview for now
+
+## Current Result
+
+- Connect
+- Discover
+- Optimize
+- Validate
+- Publish
+- Serve
+- Purge
+- Scan
+
+## Next Focus
+
+- Critical CSS
+- CSS delivery optimization
+- CSS validation before publish

@@ -17,15 +17,16 @@
 
 ## Safety Rules
 
-- [ ] Publish only validated optimized cache
+- [x] Publish only validated optimized cache
+- [x] On validation failure, leave PrestaShop render normally
 - [ ] Keep previous published cache as fallback
 - [ ] Add rollback to previous published version
-- [ ] Skip unsafe pages:
-  - [ ] logged-in
-  - [ ] cart
+- [x] Skip unsafe pages:
+  - [x] logged-in
+  - [x] cart
   - [ ] checkout
   - [ ] account
-- [ ] Skip unsafe JS patterns by default
+- [x] Skip unsafe JS patterns by default
 - [ ] Preserve original CSS/JS fallback references until validated
 
 ## V1
@@ -38,16 +39,16 @@
 - [ ] No aggressive JS delay yet
 - [x] Save raw and optimized artifacts clearly
 - [x] Add HTML optimization step logs
+- [x] Validation before publish
 
 ## V2
 
 - [ ] Critical CSS
 - [ ] CSS delivery optimization
 - [ ] Defer-safe JS handling
-- [ ] Validation step before publish
 - [ ] Visual compare between raw and optimized render
 - [ ] Console error comparison
-- [ ] Publish only when validation passes
+- [x] Publish only when validation passes
 
 ## V3
 
@@ -62,11 +63,11 @@
 - [x] `cache_prepare`
 - [x] `render_source`
 - [x] `build_html`
+- [x] `validate_artifact`
 - [x] `publish_cache`
 - [ ] `extract_assets`
 - [ ] `build_css`
 - [ ] `build_js`
-- [ ] `validate_artifact`
 
 ## API
 
@@ -74,10 +75,10 @@
 - [x] `BrowserRenderService`
 - [x] Optimization runs + progress
 - [x] PageSpeed score scan endpoint
-- [ ] `HtmlOptimizationService`
+- [x] `HtmlOptimizationService`
 - [ ] `CssOptimizationService`
 - [ ] `JsOptimizationService`
-- [ ] `ArtifactValidationService`
+- [x] `ArtifactValidationService`
 - [ ] Publish history / rollback service
 
 ## Module
@@ -87,6 +88,7 @@
 - [x] `cachepublish`
 - [x] `cachepurge`
 - [x] Runtime cache serving
+- [x] One-day cache for fetched variants
 - [ ] Runtime fallback to previous published version
 - [ ] Cache metadata for validation/publish history
 
@@ -95,6 +97,7 @@
 - [x] Optimize URL action
 - [x] Purge cache action
 - [x] Live optimization progress alert
+- [x] Queued requests alert
 - [x] PageSpeed score labels
 - [ ] Validation result labels
 - [ ] Published cache state label
@@ -106,3 +109,4 @@
 - [ ] Separate JS management page
 - [ ] Cache publish history page
 - [ ] Re-optimize changed variants automatically
+- [ ] Show per-variant optimization details from JSON step history

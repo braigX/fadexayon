@@ -646,7 +646,7 @@ class Prestaload extends Module
             $result = $this->getCacheContextService()->prepareCurrentRequest();
 
             if (empty($result['cacheable'])) {
-                if (!empty($result['reason'])) {
+                if (!empty($result['reason']) && $this->shouldLogRuntimeSkip()) {
                     $this->logMessage('runtime.cache.skip', [
                         'reason' => (string) $result['reason'],
                         'request_uri' => isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '',
@@ -690,6 +690,36 @@ class Prestaload extends Module
                 'error' => $throwable->getMessage(),
             ]);
         }
+    }
+
+    private function shouldLogRuntimeSkip()
+    {
+        if (PHP_SAPI === 'cli') {
+            return false;
+        }
+
+        $method = isset($_SERVER['REQUEST_METHOD']) ? strtoupper((string) $_SERVER['REQUEST_METHOD']) : 'GET';
+        if ($method !== 'GET') {
+            return false;
+        }
+
+        if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower((string) $_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+            return false;
+        }
+
+        $requestUri = isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '';
+        if ($requestUri === '') {
+            return false;
+        }
+
+        if (defined('_PS_ADMIN_DIR_')) {
+            $adminDir = basename((string) _PS_ADMIN_DIR_);
+            if ($adminDir !== '' && strpos($requestUri, '/' . $adminDir . '/') !== false) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private function getPageDiscoveryService()
