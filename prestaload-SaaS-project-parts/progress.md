@@ -1,0 +1,26 @@
+# Progress
+
+- Cleaned SaaS API base to workspace + integration core
+- Rebuilt thin `prestaload` module connection flow
+- Added multishop discovery and page URL discovery
+- Added shop-scoped URL listing in dashboard/API
+- Added browser worker container with Playwright
+- Added rendered HTML + optimized HTML generation
+- Rebuilt API optimization flow around:
+  - `cacheprepare`
+  - browser render
+  - `cachepublish`
+- Added optimization tables:
+  - targets
+  - runs
+  - steps
+  - artifact versions
+- Added end-to-end optimization logging in API
+- Added signed module endpoints:
+  - `cacheprepare`
+  - `cachepublish`
+- Added module-side cache storage with metadata
+- Switched cache file layout to hash-based fanout
+- Added module runtime cache serving hook
+- Added rollback/failure handling for dispatch and queued job errors
+- Confirmed first cached HTML file is stored successfully
