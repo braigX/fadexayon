@@ -5,25 +5,9 @@ if (!defined('_PS_VERSION_')) {
 }
 
 require_once __DIR__ . '/classes/PrestaLoadPageDiscoveryService.php';
-
-if (!function_exists('prestaload_bootstrap_log')) {
-    function prestaload_bootstrap_log($event, array $context = [])
-    {
-        $payload = [
-            'logged_at' => date('c'),
-            'event' => (string) $event,
-            'context' => $context,
-        ];
-
-        @file_put_contents('/tmp/prestaload-bootstrap.log', json_encode($payload, JSON_UNESCAPED_SLASHES) . PHP_EOL, FILE_APPEND);
-    }
-}
-
-prestaload_bootstrap_log('module.file_loaded', [
-    'script' => __FILE__,
-    'request_uri' => isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '',
-    'method' => isset($_SERVER['REQUEST_METHOD']) ? (string) $_SERVER['REQUEST_METHOD'] : '',
-]);
+require_once __DIR__ . '/classes/PrestaLoadSignedRequestService.php';
+require_once __DIR__ . '/classes/PrestaLoadCacheContextService.php';
+require_once __DIR__ . '/classes/PrestaLoadCacheStoreService.php';
 
 class Prestaload extends Module
 {
@@ -38,13 +22,21 @@ class Prestaload extends Module
      * @var PrestaLoadPageDiscoveryService|null
      */
     private $pageDiscoveryService;
+    /**
+     * @var PrestaLoadSignedRequestService|null
+     */
+    private $signedRequestService;
+    /**
+     * @var PrestaLoadCacheContextService|null
+     */
+    private $cacheContextService;
+    /**
+     * @var PrestaLoadCacheStoreService|null
+     */
+    private $cacheStoreService;
 
     public function __construct()
     {
-        prestaload_bootstrap_log('module.construct.start', [
-            'request_uri' => isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '',
-        ]);
-
         $this->name = 'prestaload';
         $this->tab = 'administration';
         $this->version = '0.1.0';
@@ -60,11 +52,6 @@ class Prestaload extends Module
             'min' => '8.0.0',
             'max' => _PS_VERSION_,
         ];
-
-        prestaload_bootstrap_log('module.construct.done', [
-            'module_name' => $this->name,
-            'version' => $this->version,
-        ]);
     }
 
     public function install()
@@ -571,6 +558,38 @@ class Prestaload extends Module
                 'PrestaLoad'
             );
         }
+    }
+
+    public function getModuleLocalPath()
+    {
+        return $this->local_path;
+    }
+
+    public function getSignedRequestService()
+    {
+        if ($this->signedRequestService === null) {
+            $this->signedRequestService = new PrestaLoadSignedRequestService($this);
+        }
+
+        return $this->signedRequestService;
+    }
+
+    public function getCacheContextService()
+    {
+        if ($this->cacheContextService === null) {
+            $this->cacheContextService = new PrestaLoadCacheContextService($this);
+        }
+
+        return $this->cacheContextService;
+    }
+
+    public function getCacheStoreService()
+    {
+        if ($this->cacheStoreService === null) {
+            $this->cacheStoreService = new PrestaLoadCacheStoreService($this);
+        }
+
+        return $this->cacheStoreService;
     }
 
     private function getPageDiscoveryService()
