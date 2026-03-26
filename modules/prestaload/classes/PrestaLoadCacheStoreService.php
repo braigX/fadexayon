@@ -112,6 +112,42 @@ class PrestaLoadCacheStoreService
         return is_string($html) && $html !== '' ? $html : null;
     }
 
+    /**
+     * @param array<string, mixed> $payload
+     *
+     * @return array<string, mixed>
+     */
+    public function purge(array $payload)
+    {
+        $variantKey = trim((string) (isset($payload['variant_key']) ? $payload['variant_key'] : ''));
+        if ($variantKey === '') {
+            throw new Exception('Missing variant key.');
+        }
+
+        $htmlPath = $this->getHtmlPath($variantKey);
+        $metaPath = $this->getMetaPath($variantKey);
+        $deletedHtml = false;
+        $deletedMeta = false;
+
+        if (is_file($htmlPath)) {
+            $deletedHtml = @unlink($htmlPath);
+        }
+
+        if (is_file($metaPath)) {
+            $deletedMeta = @unlink($metaPath);
+        }
+
+        $this->cleanupEmptyFanoutDirectories($variantKey);
+
+        return [
+            'purged' => $deletedHtml || $deletedMeta,
+            'deleted_html' => $deletedHtml,
+            'deleted_meta' => $deletedMeta,
+            'html_path' => $htmlPath,
+            'meta_path' => $metaPath,
+        ];
+    }
+
     public function getCacheDirectory()
     {
         return rtrim($this->module->getModuleLocalPath(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'html';
@@ -144,5 +180,26 @@ class PrestaLoadCacheStoreService
     public function getMetaPath($variantKey)
     {
         return $this->getVariantDirectory($variantKey) . DIRECTORY_SEPARATOR . $variantKey . '.json';
+    }
+
+    private function cleanupEmptyFanoutDirectories($variantKey)
+    {
+        $variantDir = $this->getVariantDirectory($variantKey);
+        if (is_dir($variantDir) && $this->isDirectoryEmpty($variantDir)) {
+            @rmdir($variantDir);
+        }
+
+        $parentDir = dirname($variantDir);
+        $cacheDir = $this->getCacheDirectory();
+        if ($parentDir !== $cacheDir && is_dir($parentDir) && $this->isDirectoryEmpty($parentDir)) {
+            @rmdir($parentDir);
+        }
+    }
+
+    private function isDirectoryEmpty($path)
+    {
+        $items = @scandir($path);
+
+        return is_array($items) && count($items) <= 2;
     }
 }
