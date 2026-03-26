@@ -7,6 +7,7 @@ if (!defined('_PS_VERSION_')) {
 require_once __DIR__ . '/classes/PrestaLoadPageDiscoveryService.php';
 require_once __DIR__ . '/classes/PrestaLoadSignedRequestService.php';
 require_once __DIR__ . '/classes/PrestaLoadCacheContextService.php';
+require_once __DIR__ . '/classes/PrestaLoadCacheVariantService.php';
 require_once __DIR__ . '/classes/PrestaLoadCacheStoreService.php';
 
 class Prestaload extends Module
@@ -30,6 +31,10 @@ class Prestaload extends Module
      * @var PrestaLoadCacheContextService|null
      */
     private $cacheContextService;
+    /**
+     * @var PrestaLoadCacheVariantService|null
+     */
+    private $cacheVariantService;
     /**
      * @var PrestaLoadCacheStoreService|null
      */
@@ -602,6 +607,15 @@ class Prestaload extends Module
         }
 
         return $this->cacheStoreService;
+    }
+
+    public function getCacheVariantService()
+    {
+        if ($this->cacheVariantService === null) {
+            $this->cacheVariantService = new PrestaLoadCacheVariantService($this);
+        }
+
+        return $this->cacheVariantService;
     }
 
     private function maybeServeCachedHtml()

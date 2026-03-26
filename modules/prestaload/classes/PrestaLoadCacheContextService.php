@@ -22,6 +22,8 @@ class PrestaLoadCacheContextService
         $url = trim((string) (isset($payload['url']) ? $payload['url'] : ''));
         $deviceClass = trim((string) (isset($payload['device_class']) ? $payload['device_class'] : 'desktop'));
         $languageIso = trim((string) (isset($payload['language_iso']) ? $payload['language_iso'] : ''));
+        $currencyIso = trim((string) (isset($payload['currency_iso']) ? $payload['currency_iso'] : ''));
+        $loginState = trim((string) (isset($payload['login_state']) ? $payload['login_state'] : 'guest'));
         $shopId = isset($payload['shop_id']) ? (int) $payload['shop_id'] : 0;
 
         if ($url === '') {
@@ -42,9 +44,9 @@ class PrestaLoadCacheContextService
         $variant = [
             'shop_id' => $shopId > 0 ? $shopId : (int) $this->module->getCurrentShopId(),
             'language_iso' => $languageIso !== '' ? strtoupper($languageIso) : $this->getDefaultLanguageIso($shopId),
-            'currency_iso' => $this->getDefaultCurrencyIso($shopId),
+            'currency_iso' => $currencyIso !== '' ? strtoupper($currencyIso) : $this->getDefaultCurrencyIso($shopId),
             'device_class' => $deviceClass !== '' ? strtolower($deviceClass) : 'desktop',
-            'login_state' => 'guest',
+            'login_state' => $loginState !== '' ? strtolower($loginState) : 'guest',
             'theme_hash' => $this->getThemeHash($shopId),
         ];
 

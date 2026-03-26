@@ -1,0 +1,90 @@
+<?php
+
+class PrestaloadCachevariantsModuleFrontController extends ModuleFrontController
+{
+    public $ssl = true;
+    public $ajax = true;
+    public $display_column_left = false;
+    public $display_column_right = false;
+
+    /**
+     * @var string|null
+     */
+    private $rawBody;
+
+    public function initContent()
+    {
+    }
+
+    public function postProcess()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        $body = $this->getRawBody();
+        $payload = $body !== '' ? json_decode($body, true) : [];
+
+        $this->module->logMessage('front.cachevariants.request', [
+            'request_uri' => isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '',
+            'method' => isset($_SERVER['REQUEST_METHOD']) ? (string) $_SERVER['REQUEST_METHOD'] : '',
+            'query' => isset($_SERVER['QUERY_STRING']) ? (string) $_SERVER['QUERY_STRING'] : '',
+            'headers' => $this->module->getSignedRequestService()->getRequestHeadersForLog(),
+            'body_bytes' => strlen($body),
+            'body_preview' => $body !== '' ? Tools::substr($body, 0, 500) : '',
+        ]);
+
+        try {
+            if (!is_array($payload)) {
+                throw new Exception('Invalid cache variants payload.');
+            }
+
+            $this->module->getSignedRequestService()->assertSignedJsonRequest(
+                'POST',
+                '/module/prestaload/cachevariants',
+                $body,
+                $payload
+            );
+
+            $result = $this->module->getCacheVariantService()->describe($payload);
+
+            $this->module->logMessage('front.cachevariants.response', [
+                'status' => 200,
+                'shop_id' => isset($result['shop_id']) ? (int) $result['shop_id'] : 0,
+                'variants_count' => isset($result['variants_count']) ? (int) $result['variants_count'] : 0,
+                'dimensions' => isset($result['dimensions']) && is_array($result['dimensions']) ? $result['dimensions'] : [],
+            ]);
+
+            $this->ajaxDie(json_encode(array_merge([
+                'success' => true,
+                'message' => 'Cache variants payload ready.',
+            ], $result)));
+        } catch (Exception $exception) {
+            $this->module->logMessage('front.cachevariants.response', [
+                'status' => 403,
+                'error' => $exception->getMessage(),
+            ]);
+            http_response_code(403);
+            $this->ajaxDie(json_encode([
+                'success' => false,
+                'message' => $exception->getMessage(),
+            ]));
+        } catch (Throwable $throwable) {
+            $this->module->logMessage('front.cachevariants.response', [
+                'status' => 500,
+                'error' => $throwable->getMessage(),
+            ]);
+            http_response_code(500);
+            $this->ajaxDie(json_encode([
+                'success' => false,
+                'message' => $throwable->getMessage(),
+            ]));
+        }
+    }
+
+    private function getRawBody()
+    {
+        if ($this->rawBody === null) {
+            $this->rawBody = (string) file_get_contents('php://input');
+        }
+
+        return $this->rawBody;
+    }
+}
