@@ -24,3 +24,20 @@
 - Added module runtime cache serving hook
 - Added rollback/failure handling for dispatch and queued job errors
 - Confirmed first cached HTML file is stored successfully
+- Added multi-variant optimization flow with live progress
+- Added module endpoints:
+  - `cachevariants`
+  - `cachepurge`
+- Added cache purge flow from API and overview table
+- Added optimized HTML marker meta for cached pages
+- Fixed duplicate store creation on reconnect
+- Replaced old scan placeholders with Google PageSpeed scan
+- Moved PageSpeed code to dedicated performance service
+- Added saved per-URL:
+  - mobile score
+  - desktop score
+  - last scanned at
+- Updated overview table to:
+  - scan on demand
+  - show colored score labels
+  - remove critical CSS columns for now
