@@ -64,6 +64,68 @@ class PrestaLoadCacheContextService
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
+    public function prepareCurrentRequest()
+    {
+        if (!$this->isFrontOfficeCacheableRequest()) {
+            return [
+                'cacheable' => false,
+                'reason' => 'Request is not eligible for cache serving.',
+            ];
+        }
+
+        $context = Context::getContext();
+        $url = $this->buildCurrentRequestUrl();
+        $shopId = isset($context->shop) ? (int) $context->shop->id : 0;
+        $languageIso = isset($context->language) && Validate::isLoadedObject($context->language)
+            ? strtoupper((string) $context->language->iso_code)
+            : $this->getDefaultLanguageIso($shopId);
+        $currencyIso = isset($context->currency) && Validate::isLoadedObject($context->currency)
+            ? strtoupper((string) $context->currency->iso_code)
+            : $this->getDefaultCurrencyIso($shopId);
+
+        if ($url === '') {
+            return [
+                'cacheable' => false,
+                'reason' => 'Failed to build current request URL.',
+            ];
+        }
+
+        $normalizedUrl = $this->normalizeUrl($url);
+        if ($normalizedUrl === '') {
+            return [
+                'cacheable' => false,
+                'reason' => 'Failed to normalize current request URL.',
+            ];
+        }
+
+        $variant = [
+            'shop_id' => $shopId,
+            'language_iso' => $languageIso,
+            'currency_iso' => $currencyIso,
+            'device_class' => $this->detectDeviceClass(),
+            'login_state' => 'guest',
+            'theme_hash' => $this->getThemeHash($shopId),
+        ];
+
+        ksort($variant);
+        $variantKey = hash('sha256', $normalizedUrl . json_encode($variant));
+        $cacheService = $this->module->getCacheStoreService();
+        $cacheMeta = $cacheService->getCacheMeta($variantKey);
+
+        return [
+            'cacheable' => true,
+            'reason' => null,
+            'normalized_url' => $normalizedUrl,
+            'variant' => $variant,
+            'variant_key' => $variantKey,
+            'cache_exists' => $cacheMeta !== null,
+            'cache_meta' => $cacheMeta,
+        ];
+    }
+
     private function normalizeUrl($url)
     {
         $parsed = parse_url($url);
@@ -98,6 +160,64 @@ class PrestaLoadCacheContextService
         }
 
         return $scheme . '://' . $host . $path . ($query !== '' ? '?' . $query : '');
+    }
+
+    private function isFrontOfficeCacheableRequest()
+    {
+        if (PHP_SAPI === 'cli') {
+            return false;
+        }
+
+        $method = isset($_SERVER['REQUEST_METHOD']) ? strtoupper((string) $_SERVER['REQUEST_METHOD']) : 'GET';
+        if ($method !== 'GET') {
+            return false;
+        }
+
+        if (defined('_PS_ADMIN_DIR_')) {
+            $adminDir = basename((string) _PS_ADMIN_DIR_);
+            $requestUri = isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '';
+            if ($adminDir !== '' && strpos($requestUri, '/' . $adminDir . '/') !== false) {
+                return false;
+            }
+        }
+
+        if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower((string) $_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+            return false;
+        }
+
+        $context = Context::getContext();
+        if (isset($context->customer) && Validate::isLoadedObject($context->customer) && !empty($context->customer->isLogged())) {
+            return false;
+        }
+
+        if (isset($context->cart) && Validate::isLoadedObject($context->cart) && (int) $context->cart->nbProducts() > 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function buildCurrentRequestUrl()
+    {
+        $scheme = Tools::usingSecureMode() ? 'https://' : 'http://';
+        $host = isset($_SERVER['HTTP_HOST']) ? (string) $_SERVER['HTTP_HOST'] : '';
+        $requestUri = isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '';
+
+        if ($host === '' || $requestUri === '') {
+            return '';
+        }
+
+        return $scheme . $host . $requestUri;
+    }
+
+    private function detectDeviceClass()
+    {
+        $userAgent = isset($_SERVER['HTTP_USER_AGENT']) ? strtolower((string) $_SERVER['HTTP_USER_AGENT']) : '';
+        if ($userAgent !== '' && preg_match('/android|iphone|ipad|ipod|mobile|blackberry|opera mini|iemobile/', $userAgent)) {
+            return 'mobile';
+        }
+
+        return 'desktop';
     }
 
     private function getDefaultLanguageIso($shopId = 0)

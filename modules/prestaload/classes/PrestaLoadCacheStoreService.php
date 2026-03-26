@@ -100,6 +100,18 @@ class PrestaLoadCacheStoreService
         return is_array($decoded) ? $decoded : null;
     }
 
+    public function getCachedHtml($variantKey)
+    {
+        $htmlPath = $this->getHtmlPath($variantKey);
+        if (!is_file($htmlPath)) {
+            return null;
+        }
+
+        $html = @file_get_contents($htmlPath);
+
+        return is_string($html) && $html !== '' ? $html : null;
+    }
+
     public function getCacheDirectory()
     {
         return rtrim($this->module->getModuleLocalPath(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'html';

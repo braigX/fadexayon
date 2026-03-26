@@ -56,7 +56,9 @@ class Prestaload extends Module
 
     public function install()
     {
-        return parent::install() && $this->initializeDefaults();
+        return parent::install()
+            && $this->registerHook('actionDispatcherBefore')
+            && $this->initializeDefaults();
     }
 
     public function uninstall()
@@ -99,6 +101,11 @@ class Prestaload extends Module
     {
         Configuration::updateValue(self::CFG_STORE_ID, (string) $storeId);
         Configuration::updateValue(self::CFG_CONNECTED_AT, date('c'));
+    }
+
+    public function hookActionDispatcherBefore()
+    {
+        $this->maybeServeCachedHtml();
     }
 
     public function getCurrentShopId()
@@ -176,6 +183,11 @@ class Prestaload extends Module
     private function initializeDefaults()
     {
         $this->ensureCredentials();
+
+        if (!$this->registerHook('actionDispatcherBefore')) {
+            return false;
+        }
+
         return true;
     }
 
@@ -590,6 +602,58 @@ class Prestaload extends Module
         }
 
         return $this->cacheStoreService;
+    }
+
+    private function maybeServeCachedHtml()
+    {
+        try {
+            $result = $this->getCacheContextService()->prepareCurrentRequest();
+
+            if (empty($result['cacheable'])) {
+                if (!empty($result['reason'])) {
+                    $this->logMessage('runtime.cache.skip', [
+                        'reason' => (string) $result['reason'],
+                        'request_uri' => isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '',
+                    ]);
+                }
+
+                return;
+            }
+
+            $variantKey = isset($result['variant_key']) ? (string) $result['variant_key'] : '';
+            if ($variantKey === '') {
+                return;
+            }
+
+            $html = $this->getCacheStoreService()->getCachedHtml($variantKey);
+            if ($html === null) {
+                $this->logMessage('runtime.cache.miss', [
+                    'variant_key' => $variantKey,
+                    'normalized_url' => isset($result['normalized_url']) ? (string) $result['normalized_url'] : '',
+                ]);
+
+                return;
+            }
+
+            $this->logMessage('runtime.cache.hit', [
+                'variant_key' => $variantKey,
+                'normalized_url' => isset($result['normalized_url']) ? (string) $result['normalized_url'] : '',
+                'bytes' => strlen($html),
+            ]);
+
+            header('Content-Type: text/html; charset=utf-8');
+            header('X-PrestaLoad-Cache: HIT');
+            echo $html;
+            exit;
+        } catch (Exception $exception) {
+            $this->logMessage('runtime.cache.error', [
+                'error' => $exception->getMessage(),
+            ]);
+        } catch (Throwable $throwable) {
+            $this->logMessage('runtime.cache.error', [
+                'error' => $throwable->getMessage(),
+            ]);
+        }
     }
 
     private function getPageDiscoveryService()
