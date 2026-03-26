@@ -23,12 +23,8 @@ class PrestaloadCachevariantsModuleFrontController extends ModuleFrontController
         $payload = $body !== '' ? json_decode($body, true) : [];
 
         $this->module->logMessage('front.cachevariants.request', [
-            'request_uri' => isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '',
-            'method' => isset($_SERVER['REQUEST_METHOD']) ? (string) $_SERVER['REQUEST_METHOD'] : '',
-            'query' => isset($_SERVER['QUERY_STRING']) ? (string) $_SERVER['QUERY_STRING'] : '',
-            'headers' => $this->module->getSignedRequestService()->getRequestHeadersForLog(),
             'body_bytes' => strlen($body),
-            'body_preview' => $body !== '' ? Tools::substr($body, 0, 500) : '',
+            'shop_id' => is_array($payload) && isset($payload['shop_id']) ? (int) $payload['shop_id'] : 0,
         ]);
 
         try {

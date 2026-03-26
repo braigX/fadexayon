@@ -23,12 +23,10 @@ class PrestaloadCachepublishModuleFrontController extends ModuleFrontController
         $payload = $body !== '' ? json_decode($body, true) : [];
 
         $this->module->logMessage('front.cachepublish.request', [
-            'request_uri' => isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '',
-            'method' => isset($_SERVER['REQUEST_METHOD']) ? (string) $_SERVER['REQUEST_METHOD'] : '',
-            'query' => isset($_SERVER['QUERY_STRING']) ? (string) $_SERVER['QUERY_STRING'] : '',
-            'headers' => $this->module->getSignedRequestService()->getRequestHeadersForLog(),
             'body_bytes' => strlen($body),
-            'body_preview' => $body !== '' ? Tools::substr($body, 0, 500) : '',
+            'variant_key' => is_array($payload) && isset($payload['variant_key']) ? (string) $payload['variant_key'] : '',
+            'shop_id' => is_array($payload) && isset($payload['variant']['shop_id']) ? (int) $payload['variant']['shop_id'] : 0,
+            'html_bytes' => is_array($payload) && isset($payload['html_bytes']) ? (int) $payload['html_bytes'] : 0,
         ]);
 
         try {
@@ -49,7 +47,7 @@ class PrestaloadCachepublishModuleFrontController extends ModuleFrontController
                 'status' => 200,
                 'variant_key' => isset($payload['variant_key']) ? (string) $payload['variant_key'] : '',
                 'bytes' => isset($result['bytes']) ? (int) $result['bytes'] : 0,
-                'path' => isset($result['path']) ? (string) $result['path'] : '',
+                'shop_id' => isset($payload['variant']['shop_id']) ? (int) $payload['variant']['shop_id'] : 0,
             ]);
 
             $this->ajaxDie(json_encode([

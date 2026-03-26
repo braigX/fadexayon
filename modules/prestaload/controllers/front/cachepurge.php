@@ -23,12 +23,8 @@ class PrestaloadCachepurgeModuleFrontController extends ModuleFrontController
         $payload = $body !== '' ? json_decode($body, true) : [];
 
         $this->module->logMessage('front.cachepurge.request', [
-            'request_uri' => isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '',
-            'method' => isset($_SERVER['REQUEST_METHOD']) ? (string) $_SERVER['REQUEST_METHOD'] : '',
-            'query' => isset($_SERVER['QUERY_STRING']) ? (string) $_SERVER['QUERY_STRING'] : '',
-            'headers' => $this->module->getSignedRequestService()->getRequestHeadersForLog(),
             'body_bytes' => strlen($body),
-            'body_preview' => $body !== '' ? Tools::substr($body, 0, 500) : '',
+            'variant_key' => is_array($payload) && isset($payload['variant_key']) ? (string) $payload['variant_key'] : '',
         ]);
 
         try {
@@ -49,8 +45,6 @@ class PrestaloadCachepurgeModuleFrontController extends ModuleFrontController
                 'status' => 200,
                 'variant_key' => isset($payload['variant_key']) ? (string) $payload['variant_key'] : '',
                 'purged' => (bool) (isset($result['purged']) ? $result['purged'] : false),
-                'html_path' => isset($result['html_path']) ? (string) $result['html_path'] : '',
-                'meta_path' => isset($result['meta_path']) ? (string) $result['meta_path'] : '',
             ]);
 
             $this->ajaxDie(json_encode([

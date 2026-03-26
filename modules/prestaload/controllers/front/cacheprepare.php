@@ -23,12 +23,10 @@ class PrestaloadCacheprepareModuleFrontController extends ModuleFrontController
         $payload = $body !== '' ? json_decode($body, true) : [];
 
         $this->module->logMessage('front.cacheprepare.request', [
-            'request_uri' => isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '',
-            'method' => isset($_SERVER['REQUEST_METHOD']) ? (string) $_SERVER['REQUEST_METHOD'] : '',
-            'query' => isset($_SERVER['QUERY_STRING']) ? (string) $_SERVER['QUERY_STRING'] : '',
-            'headers' => $this->module->getSignedRequestService()->getRequestHeadersForLog(),
             'body_bytes' => strlen($body),
-            'body_preview' => $body !== '' ? Tools::substr($body, 0, 500) : '',
+            'shop_id' => is_array($payload) && isset($payload['shop_id']) ? (int) $payload['shop_id'] : 0,
+            'shop_url_id' => is_array($payload) && isset($payload['shop_url_id']) ? (string) $payload['shop_url_id'] : '',
+            'device_class' => is_array($payload) && isset($payload['device_class']) ? (string) $payload['device_class'] : '',
         ]);
 
         try {
@@ -50,6 +48,7 @@ class PrestaloadCacheprepareModuleFrontController extends ModuleFrontController
                 'cacheable' => isset($result['cacheable']) ? (bool) $result['cacheable'] : null,
                 'variant_key' => isset($result['variant_key']) ? (string) $result['variant_key'] : '',
                 'cache_exists' => isset($result['cache_exists']) ? (bool) $result['cache_exists'] : null,
+                'shop_id' => isset($result['variant']['shop_id']) ? (int) $result['variant']['shop_id'] : 0,
             ]);
 
             $this->ajaxDie(json_encode(array_merge([

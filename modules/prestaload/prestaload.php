@@ -559,22 +559,44 @@ class Prestaload extends Module
     public function logMessage($event, array $context = [])
     {
         $logFile = $this->local_path . 'prestaload.log';
+        $payloadContext = $this->enrichLogContext($context);
         $payload = [
             'logged_at' => date('c'),
             'event' => (string) $event,
-            'context' => $context,
+            'context' => $payloadContext,
         ];
         $line = json_encode($payload, JSON_UNESCAPED_SLASHES) . PHP_EOL;
         $result = @file_put_contents($logFile, $line, FILE_APPEND);
 
         if ($result === false && class_exists('PrestaShopLogger')) {
             PrestaShopLogger::addLog(
-                '[PrestaLoad] ' . (string) $event . ' ' . json_encode($context, JSON_UNESCAPED_SLASHES),
+                '[PrestaLoad] ' . (string) $event . ' ' . json_encode($payloadContext, JSON_UNESCAPED_SLASHES),
                 1,
                 null,
                 'PrestaLoad'
             );
         }
+    }
+
+    private function enrichLogContext(array $context)
+    {
+        if (!array_key_exists('store_id', $context)) {
+            $storeId = (string) Configuration::get(self::CFG_STORE_ID);
+            if ($storeId !== '') {
+                $context['store_id'] = $storeId;
+            }
+        }
+
+        if (!array_key_exists('shop_id', $context)) {
+            $shopId = $this->getCurrentShopId();
+            if ($shopId > 0) {
+                $context['shop_id'] = $shopId;
+            }
+        }
+
+        ksort($context);
+
+        return $context;
     }
 
     public function getModuleLocalPath()
