@@ -56,9 +56,10 @@
 
 ## V3
 
-- [ ] Used CSS artifacts
+- [x] Used CSS artifacts
 - [ ] Selective JS delay
-- [ ] Per-group optimization strategies
+- [ ] Per-page-type optimization strategies
+- [ ] Strategy scope abstraction for future per-URL strategies
 - [ ] Grouped optimization as default
 - [ ] Per-page override setting
 
@@ -69,11 +70,11 @@
 - [x] `render_page`
 - [x] `analyze_css`
 - [x] `build_css`
+- [x] `build_used_css`
 - [x] `build_html`
 - [x] `validate_artifact`
 - [x] `publish_cache`
 - [ ] `extract_assets`
-- [ ] `build_used_css`
 - [ ] `build_js`
 
 ## API
@@ -114,13 +115,123 @@
 
 ## Used CSS Phases
 
-- [ ] Phase 1: Generate `used.css` artifact only
-- [ ] Phase 1: Store `used.css` path / bytes / checksum
-- [ ] Phase 1: Show `used.css` metrics in CSS page
-- [ ] Phase 2: Validate `used.css` before any delivery change
-- [ ] Phase 2: Block publish if `used.css` validation fails
-- [ ] Phase 3: Controlled `used.css` delivery with original CSS fallback
+- [x] Phase 1: Generate `used.css` artifact
+- [x] Phase 1: Store `used.css` path / bytes / checksum
+- [x] Phase 1: Show `used.css` metrics in CSS page
+- [x] Phase 2: Validate `used.css` before publish
+- [x] Phase 2: Block publish if `used.css` validation fails
+- [x] Phase 3: Controlled `used.css` delivery with original CSS fallback
 - [ ] Phase 3: Remove selected original CSS only after repeated validation success
+
+## Page-Type Profiles
+
+- [ ] Detect page type reliably per URL:
+  - [ ] `home`
+  - [ ] `category`
+  - [ ] `product`
+  - [ ] `cms`
+  - [ ] `search`
+- [ ] Create one optimization profile per `shop + page_type`
+- [ ] Aggregate coverage, CSS analysis, and `used.css` by page type instead of by single URL
+- [ ] Rebuild one page-type `used.css` per device:
+  - [ ] desktop
+  - [ ] mobile
+- [ ] Reuse page-type strategy for new URLs of the same type
+- [ ] Keep URL-level cache purge lightweight:
+  - [ ] `Purge` removes only cached page artifacts for that URL
+  - [ ] keeps page-type analysis and page-type `used.css`
+- [ ] Make `Purge all` a full shop reset:
+  - [ ] cached pages
+  - [ ] page-type coverage
+  - [ ] page-type CSS analysis
+  - [ ] page-type `used.css`
+  - [ ] page-type asset rules
+- [ ] Add `Purge per type` later
+- [ ] Keep room for future strategy scope selector:
+  - [ ] `page_type`
+  - [ ] `url`
+  - [ ] do not enable URL mode in this version
+
+## Strategy Scope Model
+
+- [ ] Introduce generic optimization strategy scope
+- [ ] Allow one strategy to target either:
+  - [ ] a `page_type`
+  - [ ] a single `url`
+- [ ] Keep current product behavior on `page_type` only
+- [ ] Add UI room for a future scope selector without enabling it yet
+- [ ] Make strategy resolution order explicit for future rollout:
+  - [ ] URL strategy override
+  - [ ] page-type strategy fallback
+  - [ ] default shop optimization fallback
+
+## Strategy Tables
+
+- [ ] `optimization_strategies`
+  - `id`
+  - `prestashop_store_id`
+  - `prestashop_shop_id`
+  - `scope_type`
+  - `scope_key`
+  - `page_type`
+  - `normalized_url`
+  - `name`
+  - `status`
+  - `last_aggregated_at`
+  - `published_version_id`
+- [ ] `optimization_strategy_sample_urls`
+  - `id`
+  - `strategy_id`
+  - `optimization_target_id`
+  - `url`
+  - `page_type`
+  - `sample_weight`
+  - `last_analyzed_at`
+- [ ] `optimization_strategy_assets`
+  - `id`
+  - `strategy_id`
+  - `asset_type`
+  - `asset_url`
+  - `asset_pattern`
+  - `recommended_action`
+  - `effective_action`
+  - `action_source`
+  - `confidence`
+  - `notes`
+- [ ] `optimization_strategy_asset_stats`
+  - `id`
+  - `strategy_asset_id`
+  - `device_class`
+  - `sample_count`
+  - `total_bytes`
+  - `avg_used_bytes`
+  - `avg_used_ratio`
+  - `last_seen_at`
+- [ ] `optimization_strategy_css_artifacts`
+  - `id`
+  - `strategy_id`
+  - `device_class`
+  - `css_type`
+  - `storage_path`
+  - `bytes`
+  - `sha256`
+  - `status`
+  - `generated_from_sample_count`
+  - `published_at`
+
+## Strategy Relationships
+
+- [ ] `prestashop_store` has many `optimization_strategies`
+- [ ] `optimization_strategy` has many sample URLs
+- [ ] `optimization_strategy` has many asset rules
+- [ ] `optimization_strategy_asset` has many aggregated stats by device
+- [ ] `optimization_strategy` has many CSS artifacts
+- [ ] `optimization_target` can be associated with one effective strategy
+- [ ] URL optimization runs feed strategy aggregation, but URL cache publish stays separate from strategy storage
+- [ ] current effective strategy generation is page-type based
+- [ ] future effective strategy can be URL-specific
+- [ ] page-type `used.css` becomes reusable optimization knowledge
+- [ ] URL cached HTML consumes the current published effective strategy with fallback to original CSS files
 
 ## Later
 
