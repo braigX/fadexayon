@@ -6,6 +6,8 @@
   - `cachevariants`
   - `cacheprepare`
   - browser render
+  - CSS analysis
+  - critical CSS generation
   - validation
   - `cachepublish`
 - Added optimization tables:
@@ -13,9 +15,15 @@
   - runs
   - steps
   - artifact versions
+- Added CSS report tables:
+  - optimization CSS reports
+  - optimization CSS report stylesheets
 - Added compact JSON step history in DB for optimization runs
 - Added multi-variant optimization workflow with progress
 - Added validation before publish
+- Added visual validation before publish:
+  - viewport screenshot comparison
+  - visual diff threshold check
 - Added safe failure behavior:
   - failed variants do not publish
   - failed variants purge existing cached variant
@@ -56,6 +64,24 @@
   - mobile viewport
   - mobile user agent
   - touch emulation
+- Added rendered HTML validation endpoint:
+  - render source URL
+  - render optimized HTML
+  - capture viewport screenshots
+  - compare screenshots visually
+
+## Optimizer Worker
+
+- Added dedicated optimizer worker container
+- Added CSS coverage analysis with Playwright + Chromium
+- Added CSS byte and used-byte collection
+- Added per-stylesheet coverage reporting
+- Added first-paint-aware rule usage tracking
+- Added critical CSS generation from parsed CSS structure
+- Fixed CSS accounting:
+  - include fully unused stylesheets
+  - merge overlapping used ranges
+  - tighten always-include selector rules
 
 ## React App
 
@@ -69,12 +95,20 @@
 - Added colored PageSpeed score labels
 - Added clearer action buttons with text and icons
 - Removed critical CSS columns from overview for now
+- Added `CSS Optimization` page in sidebar
+- Added CSS reports page with:
+  - averages
+  - per-URL CSS stats
+  - per-stylesheet details
+  - visual diff validation status
 
 ## Current Result
 
 - Connect
 - Discover
 - Optimize
+- Analyze CSS
+- Generate critical CSS
 - Validate
 - Publish
 - Serve
@@ -83,6 +117,8 @@
 
 ## Next Focus
 
-- Critical CSS
 - CSS delivery optimization
-- CSS validation before publish
+- Safe CSS preload / blocking strategy
+- Later:
+  - used.css artifacts
+  - broader JS defer strategy

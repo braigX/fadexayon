@@ -148,6 +148,84 @@ class PrestaLoadCacheStoreService
         ];
     }
 
+    /**
+     * @param array<string, mixed> $payload
+     *
+     * @return array<string, mixed>
+     */
+    public function purgeAllForShop(array $payload)
+    {
+        $shopId = (int) (isset($payload['shop_id']) ? $payload['shop_id'] : 0);
+        if ($shopId <= 0) {
+            throw new Exception('Missing shop id.');
+        }
+
+        $results = [
+            'shop_id' => $shopId,
+            'variants_count' => 0,
+            'purged_count' => 0,
+            'deleted_html_count' => 0,
+            'deleted_meta_count' => 0,
+            'deleted_variant_cache' => false,
+        ];
+
+        $cacheDir = $this->getCacheDirectory();
+        if (!is_dir($cacheDir)) {
+            return $results;
+        }
+
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($cacheDir, FilesystemIterator::SKIP_DOTS)
+        );
+
+        /** @var SplFileInfo $file */
+        foreach ($iterator as $file) {
+            if (!$file->isFile() || strtolower($file->getExtension()) !== 'json') {
+                continue;
+            }
+
+            $metaPath = $file->getPathname();
+            $json = @file_get_contents($metaPath);
+            $meta = is_string($json) ? json_decode($json, true) : null;
+
+            if (!is_array($meta)) {
+                continue;
+            }
+
+            $variantShopId = (int) ($meta['variant']['shop_id'] ?? 0);
+            if ($variantShopId !== $shopId) {
+                continue;
+            }
+
+            $variantKey = trim((string) ($meta['variant_key'] ?? ''));
+            if ($variantKey === '') {
+                continue;
+            }
+
+            $purgeResult = $this->purge([
+                'variant_key' => $variantKey,
+            ]);
+
+            $results['variants_count']++;
+            if (!empty($purgeResult['purged'])) {
+                $results['purged_count']++;
+            }
+            if (!empty($purgeResult['deleted_html'])) {
+                $results['deleted_html_count']++;
+            }
+            if (!empty($purgeResult['deleted_meta'])) {
+                $results['deleted_meta_count']++;
+            }
+        }
+
+        $variantCachePath = $this->getVariantCachePath($shopId);
+        if (is_file($variantCachePath)) {
+            $results['deleted_variant_cache'] = @unlink($variantCachePath);
+        }
+
+        return $results;
+    }
+
     public function getCacheDirectory()
     {
         return rtrim($this->module->getModuleLocalPath(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'html';
@@ -180,6 +258,14 @@ class PrestaLoadCacheStoreService
     public function getMetaPath($variantKey)
     {
         return $this->getVariantDirectory($variantKey) . DIRECTORY_SEPARATOR . $variantKey . '.json';
+    }
+
+    public function getVariantCachePath($shopId)
+    {
+        return rtrim($this->module->getModuleLocalPath(), DIRECTORY_SEPARATOR)
+            . DIRECTORY_SEPARATOR . 'cache'
+            . DIRECTORY_SEPARATOR . 'variants'
+            . DIRECTORY_SEPARATOR . 'shop-' . (int) $shopId . '.json';
     }
 
     private function cleanupEmptyFanoutDirectories($variantKey)
