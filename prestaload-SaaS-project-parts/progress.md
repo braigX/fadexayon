@@ -8,6 +8,7 @@
   - browser render
   - CSS analysis
   - critical CSS generation
+  - CSS delivery settings
   - validation
   - `cachepublish`
 - Added optimization tables:
@@ -24,6 +25,14 @@
 - Added visual validation before publish:
   - viewport screenshot comparison
   - visual diff threshold check
+- Added store optimization settings persistence
+- Added live settings wiring for:
+  - CSS optimization
+  - critical CSS
+  - stylesheet deferral
+  - HTML compression
+  - inline CSS minification
+  - inline JS minification
 - Added safe failure behavior:
   - failed variants do not publish
   - failed variants purge existing cached variant
@@ -57,9 +66,9 @@
 - Added full HTML render for cache variants
 - Added optimized HTML generation
 - Added:
-  - HTML minification
   - inline CSS minification
   - inline JS minification
+- Moved final HTML compression decision out of the worker path
 - Added realistic mobile rendering profile:
   - mobile viewport
   - mobile user agent
@@ -78,6 +87,13 @@
 - Added per-stylesheet coverage reporting
 - Added first-paint-aware rule usage tracking
 - Added critical CSS generation from parsed CSS structure
+- Added critical CSS controls:
+  - disabled mode
+  - capped / skipped modes
+- Added critical CSS trimming:
+  - exclude `@font-face`
+  - keep referenced keyframes only
+  - keep referenced custom properties only
 - Fixed CSS accounting:
   - include fully unused stylesheets
   - merge overlapping used ranges
@@ -101,6 +117,14 @@
   - per-URL CSS stats
   - per-stylesheet details
   - visual diff validation status
+- Added optimization settings page updates:
+  - centered tabs with icons
+  - page optimization tab
+  - CSS master switch
+  - critical CSS switch
+  - non-critical stylesheet deferral switch
+  - inline CSS / inline JS minification switches
+  - step details in the blue alert
 
 ## Current Result
 
@@ -109,6 +133,7 @@
 - Optimize
 - Analyze CSS
 - Generate critical CSS
+- Control CSS/HTML optimization from settings
 - Validate
 - Publish
 - Serve
@@ -117,8 +142,9 @@
 
 ## Next Focus
 
-- CSS delivery optimization
-- Safe CSS preload / blocking strategy
+- Generate `used.css` artifact only
+- Validate `used.css` safely before any delivery change
+- Show `used.css` size / reduction in CSS page
 - Later:
-  - used.css artifacts
+  - controlled `used.css` delivery
   - broader JS defer strategy

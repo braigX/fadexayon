@@ -14,6 +14,7 @@
 - [x] Purge cached HTML variants
 - [x] Track optimization runs and progress
 - [x] Scan mobile and desktop PageSpeed scores
+- [x] Store optimization settings per store
 
 ## Safety Rules
 
@@ -31,7 +32,7 @@
 
 ## V1
 
-- [x] Final HTML minification
+- [x] Conservative final HTML compression
 - [x] Inline CSS minification
 - [x] Inline JS minification
 - [x] Safe script attribute adjustments only where known-safe
@@ -40,15 +41,18 @@
 - [x] Save raw and optimized artifacts clearly
 - [x] Add HTML optimization step logs
 - [x] Validation before publish
+- [x] CSS / critical CSS / deferral settings wiring
+- [x] Skip CSS steps cleanly when CSS optimization is disabled
 
 ## V2
 
-- [ ] Critical CSS
-- [ ] CSS delivery optimization
+- [x] Critical CSS
+- [x] CSS delivery optimization
 - [ ] Defer-safe JS handling
-- [ ] Visual compare between raw and optimized render
+- [x] Visual compare between raw and optimized render
 - [ ] Console error comparison
 - [x] Publish only when validation passes
+- [x] CSS analysis reports and delivery classification
 
 ## V3
 
@@ -60,13 +64,16 @@
 
 ## Run Steps
 
+- [x] `validate_target`
 - [x] `cache_prepare`
-- [x] `render_source`
+- [x] `render_page`
+- [x] `analyze_css`
+- [x] `build_css`
 - [x] `build_html`
 - [x] `validate_artifact`
 - [x] `publish_cache`
 - [ ] `extract_assets`
-- [ ] `build_css`
+- [ ] `build_used_css`
 - [ ] `build_js`
 
 ## API
@@ -76,7 +83,7 @@
 - [x] Optimization runs + progress
 - [x] PageSpeed score scan endpoint
 - [x] `HtmlOptimizationService`
-- [ ] `CssOptimizationService`
+- [x] CSS analysis + delivery classification
 - [ ] `JsOptimizationService`
 - [x] `ArtifactValidationService`
 - [ ] Publish history / rollback service
@@ -99,13 +106,25 @@
 - [x] Live optimization progress alert
 - [x] Queued requests alert
 - [x] PageSpeed score labels
+- [x] Optimization step details in blue alert
+- [x] Optimization settings page
 - [ ] Validation result labels
 - [ ] Published cache state label
 - [ ] Rollback action
 
+## Used CSS Phases
+
+- [ ] Phase 1: Generate `used.css` artifact only
+- [ ] Phase 1: Store `used.css` path / bytes / checksum
+- [ ] Phase 1: Show `used.css` metrics in CSS page
+- [ ] Phase 2: Validate `used.css` before any delivery change
+- [ ] Phase 2: Block publish if `used.css` validation fails
+- [ ] Phase 3: Controlled `used.css` delivery with original CSS fallback
+- [ ] Phase 3: Remove selected original CSS only after repeated validation success
+
 ## Later
 
-- [ ] Separate CSS management page
+- [x] Separate CSS management page
 - [ ] Separate JS management page
 - [ ] Cache publish history page
 - [ ] Re-optimize changed variants automatically
