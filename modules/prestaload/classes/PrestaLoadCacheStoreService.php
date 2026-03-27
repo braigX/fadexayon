@@ -221,7 +221,6 @@ class PrestaLoadCacheStoreService
             'purged_count' => 0,
             'deleted_html_count' => 0,
             'deleted_meta_count' => 0,
-            'deleted_variant_cache' => false,
         ];
 
         $cacheDir = $this->getCacheDirectory();
@@ -272,12 +271,6 @@ class PrestaLoadCacheStoreService
                 $results['deleted_meta_count']++;
             }
         }
-
-        $variantCachePath = $this->getVariantCachePath($shopId);
-        if (is_file($variantCachePath)) {
-            $results['deleted_variant_cache'] = @unlink($variantCachePath);
-        }
-
         return $results;
     }
 
@@ -346,14 +339,6 @@ class PrestaLoadCacheStoreService
         }
 
         return $url;
-    }
-
-    public function getVariantCachePath($shopId)
-    {
-        return rtrim($this->module->getModuleLocalPath(), DIRECTORY_SEPARATOR)
-            . DIRECTORY_SEPARATOR . 'cache'
-            . DIRECTORY_SEPARATOR . 'variants'
-            . DIRECTORY_SEPARATOR . 'shop-' . (int) $shopId . '.json';
     }
 
     private function cleanupEmptyFanoutDirectories($variantKey)

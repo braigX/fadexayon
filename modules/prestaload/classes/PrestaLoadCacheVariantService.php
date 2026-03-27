@@ -2,8 +2,6 @@
 
 class PrestaLoadCacheVariantService
 {
-    private const CACHE_TTL_SECONDS = 86400;
-
     /**
      * @var Prestaload
      */
@@ -24,13 +22,6 @@ class PrestaLoadCacheVariantService
         $shopId = isset($payload['shop_id']) ? (int) $payload['shop_id'] : 0;
         if ($shopId <= 0) {
             $shopId = (int) $this->module->getCurrentShopId();
-        }
-
-        $cached = $this->getCachedDescription($shopId);
-        if ($cached !== null) {
-            $cached['cache_hit'] = true;
-
-            return $cached;
         }
 
         $languages = $this->getLanguages($shopId);
@@ -80,8 +71,6 @@ class PrestaLoadCacheVariantService
             'variants' => $variants,
             'cache_hit' => false,
         ];
-
-        $this->storeCachedDescription($shopId, $result);
 
         return $result;
     }
@@ -191,69 +180,5 @@ class PrestaLoadCacheVariantService
         }
 
         return sha1($themeName !== '' ? $themeName : 'default-theme');
-    }
-
-    /**
-     * @return array<string, mixed>|null
-     */
-    private function getCachedDescription($shopId)
-    {
-        $path = $this->getCachePath($shopId);
-        if (!is_file($path)) {
-            return null;
-        }
-
-        $mtime = @filemtime($path);
-        if (!is_int($mtime) || $mtime <= 0 || (time() - $mtime) > self::CACHE_TTL_SECONDS) {
-            return null;
-        }
-
-        $contents = @file_get_contents($path);
-        if (!is_string($contents) || $contents === '') {
-            return null;
-        }
-
-        $decoded = json_decode($contents, true);
-
-        return is_array($decoded) ? $decoded : null;
-    }
-
-    /**
-     * @param array<string, mixed> $result
-     */
-    private function storeCachedDescription($shopId, array $result)
-    {
-        $dir = $this->getCacheDirectory();
-        if (!is_dir($dir) && !@mkdir($dir, 0775, true) && !is_dir($dir)) {
-            return;
-        }
-
-        $path = $this->getCachePath($shopId);
-        $tmpPath = $path . '.tmp';
-        $payload = json_encode($result, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
-
-        if ($payload === false) {
-            return;
-        }
-
-        if (@file_put_contents($tmpPath, $payload, LOCK_EX) === false) {
-            return;
-        }
-
-        if (!@rename($tmpPath, $path)) {
-            @unlink($tmpPath);
-        }
-    }
-
-    private function getCacheDirectory()
-    {
-        return rtrim($this->module->getModuleLocalPath(), DIRECTORY_SEPARATOR)
-            . DIRECTORY_SEPARATOR . 'cache'
-            . DIRECTORY_SEPARATOR . 'variants';
-    }
-
-    private function getCachePath($shopId)
-    {
-        return $this->getCacheDirectory() . DIRECTORY_SEPARATOR . 'shop-' . (int) $shopId . '.json';
     }
 }
