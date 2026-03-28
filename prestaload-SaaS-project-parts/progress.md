@@ -8,6 +8,8 @@
   - browser render
   - CSS analysis
   - critical CSS generation
+  - page-type scan reuse
+  - page-type rule reuse
   - CSS delivery settings
   - validation
   - `cachepublish`
@@ -26,6 +28,11 @@
   - viewport screenshot comparison
   - visual diff threshold check
 - Added store optimization settings persistence
+- Added page-type profile model and shared page-type data reuse
+- Added page-type preparation orchestration:
+  - first integration
+  - `Purge all`
+  - first optimize of an unprepared page type
 - Added live settings wiring for:
   - CSS optimization
   - critical CSS
@@ -38,10 +45,20 @@
   - failed variants purge existing cached variant
   - storefront falls back to normal PrestaShop render
 - Added Google PageSpeed scan service and endpoint
+- Added local scanner provider for local/private URLs
+- Added automatic scan routing:
+  - local/private URL -> local scanner
+  - public URL -> Google PageSpeed
 - Saved per-URL:
   - mobile score
   - desktop score
   - last scanned at
+- Saved full normalized scan JSON in DB:
+  - per URL
+  - per page type
+- Added persisted page-type asset rules:
+  - CSS rules
+  - JS rules
 - Fixed duplicate store creation on reconnect
 
 ## PrestaShop Module
@@ -57,6 +74,7 @@
 - Added runtime cache serving hook
 - Added cache purge flow
 - Added one-day cache for fetched variant lists
+- Added `WITHOUTPRESTALOAD=true` bypass for clean scans
 - Cleaned module JSON logging and enriched it with store/shop context
 - Stopped runtime skip logging for admin and ajax requests
 
@@ -98,6 +116,12 @@
   - include fully unused stylesheets
   - merge overlapping used ranges
   - tighten always-include selector rules
+- Added generated `used.css`
+- Added per-file reduced CSS generation
+- Added per-file minified CSS generation
+- Added page-type CSS bundle generation:
+  - reduce bundle
+  - reduce + minify bundle
 
 ## React App
 
@@ -112,11 +136,19 @@
 - Added clearer action buttons with text and icons
 - Removed critical CSS columns from overview for now
 - Added `CSS Optimization` page in sidebar
+- Added `JS Optimization` page in sidebar
 - Added CSS reports page with:
   - averages
   - per-URL CSS stats
   - per-stylesheet details
   - visual diff validation status
+- Updated CSS page to use page-type representative reporting instead of every URL row
+- Updated CSS page summary to show commercial metrics:
+  - total pages
+  - original CSS per page
+  - optimized CSS per page
+  - improvement
+- Added JS reports page with page-type/device rows and action summaries
 - Added optimization settings page updates:
   - centered tabs with icons
   - page optimization tab
@@ -125,6 +157,8 @@
   - non-critical stylesheet deferral switch
   - inline CSS / inline JS minification switches
   - step details in the blue alert
+- Added separate blue alert for page-type preparation runs
+- Grouped shared page-type work into one step in the URL optimization alert
 
 ## Current Result
 
@@ -133,6 +167,10 @@
 - Optimize
 - Analyze CSS
 - Generate critical CSS
+- Generate and publish `used.css`
+- Build page-type CSS rules
+- Build page-type CSS bundles
+- Persist JS rules from scan reports
 - Control CSS/HTML optimization from settings
 - Validate
 - Publish
@@ -142,9 +180,13 @@
 
 ## Next Focus
 
-- Generate `used.css` artifact only
-- Validate `used.css` safely before any delivery change
-- Show `used.css` size / reduction in CSS page
-- Later:
-  - controlled `used.css` delivery
-  - broader JS defer strategy
+- Apply persisted JS rules fully in optimized HTML:
+  - `load_on_interaction`
+  - later `minify`
+  - later `reduce`
+- Add admin editing for CSS and JS asset rules
+- Add font optimization workflow:
+  - detect
+  - classify
+  - self-host / subset / preload
+  - expose editable font rules per page type

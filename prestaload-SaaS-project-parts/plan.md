@@ -58,9 +58,9 @@
 
 - [x] Used CSS artifacts
 - [ ] Selective JS delay
-- [ ] Per-page-type optimization strategies
+- [x] Per-page-type optimization strategies
 - [ ] Strategy scope abstraction for future per-URL strategies
-- [ ] Grouped optimization as default
+- [x] Grouped optimization as default
 - [ ] Per-page override setting
 
 ## Run Steps
@@ -71,6 +71,7 @@
 - [x] `analyze_css`
 - [x] `build_css`
 - [x] `build_used_css`
+- [x] `scan_performance`
 - [x] `build_html`
 - [x] `validate_artifact`
 - [x] `publish_cache`
@@ -83,6 +84,7 @@
 - [x] `BrowserRenderService`
 - [x] Optimization runs + progress
 - [x] PageSpeed score scan endpoint
+- [x] Local scanner endpoint wiring for local/private URLs
 - [x] `HtmlOptimizationService`
 - [x] CSS analysis + delivery classification
 - [ ] `JsOptimizationService`
@@ -108,6 +110,7 @@
 - [x] Queued requests alert
 - [x] PageSpeed score labels
 - [x] Optimization step details in blue alert
+- [x] Separate page-type preparation alert
 - [x] Optimization settings page
 - [ ] Validation result labels
 - [ ] Published cache state label
@@ -151,6 +154,79 @@
   - [ ] `page_type`
   - [ ] `url`
   - [ ] do not enable URL mode in this version
+
+## CSS Asset Rules
+
+- [x] Persist page-type CSS asset rules in DB
+- [x] Store:
+  - recommended action
+  - effective action
+  - action source
+  - reasons
+  - evidence
+- [x] Support CSS actions:
+  - `keep`
+  - `preload`
+  - `minify`
+  - `reduce`
+  - `reduce + minify`
+  - `remove`
+- [x] Generate reduced CSS assets per page type and device
+- [x] Generate minified CSS assets per page type and device
+- [x] Group reduced/minified CSS into page-type bundles
+- [x] Apply CSS rules into optimized HTML from persisted `effective_action`
+- [ ] Add admin editing for CSS asset rules
+- [ ] Add safe rollback from overridden CSS rules
+
+## JS Asset Rules
+
+- [x] Store raw JS audit evidence in scan reports
+- [x] Add separate JS Optimization page
+- [x] Persist page-type JS asset rules in DB using `asset_type = js`
+- [x] Support JS actions:
+  - `keep`
+  - `load_on_interaction`
+  - `minify`
+  - `reduce`
+  - `reduce + minify`
+- [x] Apply JS `load_on_interaction` from persisted rules in optimized HTML
+- [ ] Apply JS `minify` / `reduce` / `reduce + minify` with generated JS assets
+- [ ] Add admin editing for JS asset rules
+- [ ] Add explicit JS defer / delay rule families for same-origin scripts
+
+## Font Optimization
+
+- [ ] Add a dedicated font optimization track in the module
+- [ ] Detect loaded font files and font CSS per page type
+- [ ] Classify:
+  - text fonts
+  - icon fonts
+  - same-origin fonts
+  - third-party fonts
+  - used weights/styles
+- [ ] Add font actions:
+  - `keep`
+  - `preload`
+  - `self_host`
+  - `subset`
+  - `remove_unused_weights`
+  - later `replace_icon_font`
+- [ ] Self-host fonts when allowed and useful
+- [ ] Prefer `woff2` delivery by default
+- [ ] Add long immutable cache policy for published font assets
+- [ ] Generate per-language or per-page-type subsets where safe
+- [ ] Add `font-display` controls:
+  - `swap`
+  - `optional`
+- [ ] Preload only critical above-the-fold fonts
+- [ ] Deduplicate duplicated Google Fonts / external font requests
+- [ ] Add fallback metric tuning later:
+  - `size-adjust`
+  - `ascent-override`
+  - `descent-override`
+  - `line-gap-override`
+- [ ] Reduce icon-font dependence by moving toward SVG icons where practical
+- [ ] Expose font rules in UI with per-page-type editing
 
 ## Strategy Scope Model
 
@@ -236,7 +312,7 @@
 ## Later
 
 - [x] Separate CSS management page
-- [ ] Separate JS management page
+- [x] Separate JS management page
 - [ ] Cache publish history page
 - [ ] Re-optimize changed variants automatically
 - [ ] Show per-variant optimization details from JSON step history
