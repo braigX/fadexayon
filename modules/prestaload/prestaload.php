@@ -643,6 +643,17 @@ class Prestaload extends Module
     private function maybeServeCachedHtml()
     {
         try {
+            if ($this->shouldBypassCacheForCurrentRequest()) {
+                if ($this->shouldLogRuntimeSkip()) {
+                    $this->logMessage('runtime.cache.skip', [
+                        'reason' => 'without_prestaload_parameter',
+                        'request_uri' => isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '',
+                    ]);
+                }
+
+                return;
+            }
+
             $result = $this->getCacheContextService()->prepareCurrentRequest();
 
             if (empty($result['cacheable'])) {
@@ -690,6 +701,22 @@ class Prestaload extends Module
                 'error' => $throwable->getMessage(),
             ]);
         }
+    }
+
+    private function shouldBypassCacheForCurrentRequest()
+    {
+        $flag = Tools::getValue('WITHOUTPRESTALOAD', null);
+        if ($flag === null) {
+            return false;
+        }
+
+        if (is_bool($flag)) {
+            return $flag;
+        }
+
+        $value = strtolower(trim((string) $flag));
+
+        return in_array($value, ['1', 'true', 'yes', 'on'], true);
     }
 
     private function shouldLogRuntimeSkip()
