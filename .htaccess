@@ -2165,6 +2165,13 @@ RewriteRule ^c/([a-zA-Z_-]+)(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/c/$1$2.jpg
 RewriteCond %{HTTP_HOST} ^plexiglasszuschnitt.de$
 RewriteRule ^images_ie/?([^/]+)\.(jpe?g|png|gif)$ js/jquery/plugins/fancybox/images/$1.$2 [L]
 
+# Local scan image fallback
+RewriteCond %{REQUEST_URI} \.(?:avif|gif|jpe?g|png|svg|webp)$ [NC]
+RewriteCond %{REQUEST_URI} !^/general-img-square\.png$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-s [OR]
+RewriteCond %{REQUEST_FILENAME} !-r
+RewriteRule ^.*$ %{ENV:REWRITEBASE}general-img-square.png [NC,L]
+
 # Dispatcher
 RewriteCond %{REQUEST_FILENAME} -s [OR]
 RewriteCond %{REQUEST_FILENAME} -l [OR]
