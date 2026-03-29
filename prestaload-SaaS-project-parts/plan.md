@@ -1,318 +1,396 @@
-# PrestaLoad Plan
+# PrestaLoad Module Plan
 
-## Current Base
+## Direction
 
-- [x] Connect store and sync shops
-- [x] Discover page URLs per shop
-- [x] List URLs per selected shop in dashboard
-- [x] Browser worker renders full HTML
-- [x] Generate optimized HTML version
-- [x] Build cache variants from module
-- [x] Publish cached HTML to module
-- [x] Store cache files with hash-based fanout
-- [x] Serve cached HTML from module runtime
-- [x] Purge cached HTML variants
-- [x] Track optimization runs and progress
-- [x] Scan mobile and desktop PageSpeed scores
-- [x] Store optimization settings per store
+The app is being rebuilt around a small core plus feature modules.
 
-## Safety Rules
+Core stays responsible for:
+- auth
+- users
+- workspaces
+- permissions
+- integrations
+- stores
+- shops
+- discovered URLs
+- notifications
+- billing later
 
-- [x] Publish only validated optimized cache
-- [x] On validation failure, leave PrestaShop render normally
-- [ ] Keep previous published cache as fallback
-- [ ] Add rollback to previous published version
-- [x] Skip unsafe pages:
-  - [x] logged-in
-  - [x] cart
-  - [ ] checkout
-  - [ ] account
-- [x] Skip unsafe JS patterns by default
-- [ ] Preserve original CSS/JS fallback references until validated
+Feature logic moves into modules.
 
-## V1
+## Module Layers
 
-- [x] Conservative final HTML compression
-- [x] Inline CSS minification
-- [x] Inline JS minification
-- [x] Safe script attribute adjustments only where known-safe
-- [ ] No unused CSS removal yet
-- [ ] No aggressive JS delay yet
-- [x] Save raw and optimized artifacts clearly
-- [x] Add HTML optimization step logs
-- [x] Validation before publish
-- [x] CSS / critical CSS / deferral settings wiring
-- [x] Skip CSS steps cleanly when CSS optimization is disabled
+Each module should follow the same structure:
+- `Application`
+- `Domain`
+- `Infrastructure`
+- `Http`
+- `Database`
+- `Console`
+- `Providers`
 
-## V2
+Suggested root:
+- `api/app/Modules`
 
-- [x] Critical CSS
-- [x] CSS delivery optimization
-- [ ] Defer-safe JS handling
-- [x] Visual compare between raw and optimized render
-- [ ] Console error comparison
-- [x] Publish only when validation passes
-- [x] CSS analysis reports and delivery classification
+## Global Module
 
-## V3
+The `Global` module should be infrastructure only.
 
-- [x] Used CSS artifacts
-- [ ] Selective JS delay
-- [x] Per-page-type optimization strategies
-- [ ] Strategy scope abstraction for future per-URL strategies
-- [x] Grouped optimization as default
-- [ ] Per-page override setting
+It should contain:
+- module registry
+- module enable/disable state
+- shared settings framework
+- shared migrations loader
+- shared commands base classes
+- shared queue helpers
+- shared storage helpers
+- shared artifact publishing helpers
+- shared logging/diagnostics helpers
+- shared rule override support
 
-## Run Steps
+It should not own business features.
 
-- [x] `validate_target`
-- [x] `cache_prepare`
-- [x] `render_page`
-- [x] `analyze_css`
-- [x] `build_css`
-- [x] `build_used_css`
-- [x] `scan_performance`
-- [x] `build_html`
-- [x] `validate_artifact`
-- [x] `publish_cache`
-- [ ] `extract_assets`
-- [ ] `build_js`
+## Core App
 
-## API
+The active app outside modules should keep:
+- `Auth`
+- `Workspace`
+- `Integrations`
+- `Cloudflare`
+- `PrestaBoost`
+- `Store / Shop / URL discovery`
 
-- [x] `ModuleCacheService`
-- [x] `BrowserRenderService`
-- [x] Optimization runs + progress
-- [x] PageSpeed score scan endpoint
-- [x] Local scanner endpoint wiring for local/private URLs
-- [x] `HtmlOptimizationService`
-- [x] CSS analysis + delivery classification
-- [ ] `JsOptimizationService`
-- [x] `ArtifactValidationService`
-- [ ] Publish history / rollback service
+These remain the foundation for all later modules.
 
-## Module
+## Required Feature Modules
 
-- [x] `cachevariants`
-- [x] `cacheprepare`
-- [x] `cachepublish`
-- [x] `cachepurge`
-- [x] Runtime cache serving
-- [x] One-day cache for fetched variants
-- [ ] Runtime fallback to previous published version
-- [ ] Cache metadata for validation/publish history
+### 1. PageOptimization
 
-## Dashboard
+Purpose:
+- orchestrate one optimization run for one URL
+- coordinate enabled modules
+- manage run lifecycle
+- publish final cacheable output
 
-- [x] Optimize URL action
-- [x] Purge cache action
-- [x] Live optimization progress alert
-- [x] Queued requests alert
-- [x] PageSpeed score labels
-- [x] Optimization step details in blue alert
-- [x] Separate page-type preparation alert
-- [x] Optimization settings page
-- [ ] Validation result labels
-- [ ] Published cache state label
-- [ ] Rollback action
+Responsibilities:
+- run creation
+- step execution
+- queue jobs
+- progress tracking
+- final publish trigger
+- failure handling
 
-## Used CSS Phases
+### 2. HtmlOptimization
 
-- [x] Phase 1: Generate `used.css` artifact
-- [x] Phase 1: Store `used.css` path / bytes / checksum
-- [x] Phase 1: Show `used.css` metrics in CSS page
-- [x] Phase 2: Validate `used.css` before publish
-- [x] Phase 2: Block publish if `used.css` validation fails
-- [x] Phase 3: Controlled `used.css` delivery with original CSS fallback
-- [ ] Phase 3: Remove selected original CSS only after repeated validation success
+Purpose:
+- optimize final HTML output safely
 
-## Page-Type Profiles
+Responsibilities:
+- HTML minify/compress
+- DOM cleanup
+- preload/preconnect injection
+- lazy-loading attributes
+- link/script rewriting hooks
+- final cache-ready HTML generation
 
-- [ ] Detect page type reliably per URL:
-  - [ ] `home`
-  - [ ] `category`
-  - [ ] `product`
-  - [ ] `cms`
-  - [ ] `search`
-- [ ] Create one optimization profile per `shop + page_type`
-- [ ] Aggregate coverage, CSS analysis, and `used.css` by page type instead of by single URL
-- [ ] Rebuild one page-type `used.css` per device:
-  - [ ] desktop
-  - [ ] mobile
-- [ ] Reuse page-type strategy for new URLs of the same type
-- [ ] Keep URL-level cache purge lightweight:
-  - [ ] `Purge` removes only cached page artifacts for that URL
-  - [ ] keeps page-type analysis and page-type `used.css`
-- [ ] Make `Purge all` a full shop reset:
-  - [ ] cached pages
-  - [ ] page-type coverage
-  - [ ] page-type CSS analysis
-  - [ ] page-type `used.css`
-  - [ ] page-type asset rules
-- [ ] Add `Purge per type` later
-- [ ] Keep room for future strategy scope selector:
-  - [ ] `page_type`
-  - [ ] `url`
-  - [ ] do not enable URL mode in this version
+### 3. CssOptimization
 
-## CSS Asset Rules
+Purpose:
+- fix CSS delivery and render-blocking issues
 
-- [x] Persist page-type CSS asset rules in DB
-- [x] Store:
-  - recommended action
-  - effective action
-  - action source
-  - reasons
-  - evidence
-- [x] Support CSS actions:
-  - `keep`
-  - `preload`
-  - `minify`
-  - `reduce`
-  - `reduce + minify`
-  - `remove`
-- [x] Generate reduced CSS assets per page type and device
-- [x] Generate minified CSS assets per page type and device
-- [x] Group reduced/minified CSS into page-type bundles
-- [x] Apply CSS rules into optimized HTML from persisted `effective_action`
-- [ ] Add admin editing for CSS asset rules
-- [ ] Add safe rollback from overridden CSS rules
+Responsibilities:
+- CSS collection
+- coverage ingestion
+- critical CSS
+- used CSS
+- CSS rules
+- inline CSS rules
+- minify/reduce/preload/remove logic
+- bundle generation
+- generated CSS asset publishing
 
-## JS Asset Rules
+### 4. JavascriptOptimization
 
-- [x] Store raw JS audit evidence in scan reports
-- [x] Add separate JS Optimization page
-- [x] Persist page-type JS asset rules in DB using `asset_type = js`
-- [x] Support JS actions:
-  - `keep`
-  - `load_on_interaction`
-  - `minify`
-  - `reduce`
-  - `reduce + minify`
-- [x] Apply JS `load_on_interaction` from persisted rules in optimized HTML
-- [ ] Apply JS `minify` / `reduce` / `reduce + minify` with generated JS assets
-- [ ] Add admin editing for JS asset rules
-- [ ] Add explicit JS defer / delay rule families for same-origin scripts
+Purpose:
+- reduce JavaScript cost and delay non-critical execution
 
-## Font Optimization
+Responsibilities:
+- JS audit ingestion
+- JS rules
+- inline JS handling
+- minify/defer/delay/load-on-interaction/remove logic
+- third-party JS control
+- generated JS asset publishing
 
-- [ ] Add a dedicated font optimization track in the module
-- [ ] Detect loaded font files and font CSS per page type
-- [ ] Classify:
-  - text fonts
-  - icon fonts
-  - same-origin fonts
-  - third-party fonts
-  - used weights/styles
-- [ ] Add font actions:
-  - `keep`
-  - `preload`
-  - `self_host`
-  - `subset`
-  - `remove_unused_weights`
-  - later `replace_icon_font`
-- [ ] Self-host fonts when allowed and useful
-- [ ] Prefer `woff2` delivery by default
-- [ ] Add long immutable cache policy for published font assets
-- [ ] Generate per-language or per-page-type subsets where safe
-- [ ] Add `font-display` controls:
-  - `swap`
-  - `optional`
-- [ ] Preload only critical above-the-fold fonts
-- [ ] Deduplicate duplicated Google Fonts / external font requests
-- [ ] Add fallback metric tuning later:
-  - `size-adjust`
-  - `ascent-override`
-  - `descent-override`
-  - `line-gap-override`
-- [ ] Reduce icon-font dependence by moving toward SVG icons where practical
-- [ ] Expose font rules in UI with per-page-type editing
+### 5. FontOptimization
 
-## Strategy Scope Model
+Purpose:
+- solve common font-loading issues safely
 
-- [ ] Introduce generic optimization strategy scope
-- [ ] Allow one strategy to target either:
-  - [ ] a `page_type`
-  - [ ] a single `url`
-- [ ] Keep current product behavior on `page_type` only
-- [ ] Add UI room for a future scope selector without enabling it yet
-- [ ] Make strategy resolution order explicit for future rollout:
-  - [ ] URL strategy override
-  - [ ] page-type strategy fallback
-  - [ ] default shop optimization fallback
+Responsibilities:
+- font usage detection
+- Google Fonts dedupe
+- self-hosting
+- font-display fixes
+- critical font preload
+- duplicate icon font cleanup
+- rewritten font CSS publishing
 
-## Strategy Tables
+### 6. ImageOptimization
 
-- [ ] `optimization_strategies`
-  - `id`
-  - `prestashop_store_id`
-  - `prestashop_shop_id`
-  - `scope_type`
-  - `scope_key`
-  - `page_type`
-  - `normalized_url`
-  - `name`
-  - `status`
-  - `last_aggregated_at`
-  - `published_version_id`
-- [ ] `optimization_strategy_sample_urls`
-  - `id`
-  - `strategy_id`
-  - `optimization_target_id`
-  - `url`
-  - `page_type`
-  - `sample_weight`
-  - `last_analyzed_at`
-- [ ] `optimization_strategy_assets`
-  - `id`
-  - `strategy_id`
-  - `asset_type`
-  - `asset_url`
-  - `asset_pattern`
-  - `recommended_action`
-  - `effective_action`
-  - `action_source`
-  - `confidence`
-  - `notes`
-- [ ] `optimization_strategy_asset_stats`
-  - `id`
-  - `strategy_asset_id`
-  - `device_class`
-  - `sample_count`
-  - `total_bytes`
-  - `avg_used_bytes`
-  - `avg_used_ratio`
-  - `last_seen_at`
-- [ ] `optimization_strategy_css_artifacts`
-  - `id`
-  - `strategy_id`
-  - `device_class`
-  - `css_type`
-  - `storage_path`
-  - `bytes`
-  - `sha256`
-  - `status`
-  - `generated_from_sample_count`
-  - `published_at`
+Purpose:
+- solve image-related PageSpeed issues
 
-## Strategy Relationships
+Responsibilities:
+- image CDN / imgproxy integration
+- next-gen formats
+- responsive variants
+- width/height fixes
+- lazy-loading rules
+- above-the-fold prioritization
+- background-image handling
 
-- [ ] `prestashop_store` has many `optimization_strategies`
-- [ ] `optimization_strategy` has many sample URLs
-- [ ] `optimization_strategy` has many asset rules
-- [ ] `optimization_strategy_asset` has many aggregated stats by device
-- [ ] `optimization_strategy` has many CSS artifacts
-- [ ] `optimization_target` can be associated with one effective strategy
-- [ ] URL optimization runs feed strategy aggregation, but URL cache publish stays separate from strategy storage
-- [ ] current effective strategy generation is page-type based
-- [ ] future effective strategy can be URL-specific
-- [ ] page-type `used.css` becomes reusable optimization knowledge
-- [ ] URL cached HTML consumes the current published effective strategy with fallback to original CSS files
+### 7. CacheOptimization
 
-## Later
+Purpose:
+- manage cache strategy and invalidation
 
-- [x] Separate CSS management page
-- [x] Separate JS management page
-- [ ] Cache publish history page
-- [ ] Re-optimize changed variants automatically
-- [ ] Show per-variant optimization details from JSON step history
+Responsibilities:
+- cache TTL rules
+- purge by URL / shop / store
+- variation strategy
+- cache publish rules
+- stale-while-revalidate later
+
+### 8. PerformanceScanning
+
+Purpose:
+- collect evidence from scanners and external audits
+
+Responsibilities:
+- local scanner integration
+- PageSpeed integration
+- normalized audit output
+- per-page evidence
+- later per-page-type evidence
+
+### 9. Validation
+
+Purpose:
+- block broken publishes
+
+Responsibilities:
+- visual diff
+- HTML correctness checks
+- asset-load verification
+- broken-page detection
+- rollback or block publish on failure
+
+### 10. RulesEngine
+
+Purpose:
+- centralize decision logic
+
+Responsibilities:
+- evidence-to-action decisions
+- default rules
+- user override resolution
+- effective action resolution
+- shared decision framework for CSS / JS / fonts / images
+
+### 11. Artifacts
+
+Purpose:
+- manage generated files consistently
+
+Responsibilities:
+- generated asset storage
+- public publishing
+- asset URL generation
+- bundle manifests
+- cleanup
+- versioning
+
+### 12. Reporting
+
+Purpose:
+- expose optimization results clearly
+
+Responsibilities:
+- summary dashboards
+- before/after stats
+- issue summaries
+- module-specific report pages
+- recommendations
+
+## Recommended Build Order
+
+### Phase 1
+
+- `Global`
+- `PageOptimization`
+- `HtmlOptimization`
+
+Goal:
+- one clean optimization pipeline
+- one clean final HTML output
+- no asset-specific intelligence yet
+
+### Phase 2
+
+- `PerformanceScanning`
+- `Validation`
+- `Artifacts`
+
+Goal:
+- safe evidence collection
+- safe publish rules
+- clean generated file handling
+
+### Phase 3
+
+- `CssOptimization`
+- `JavascriptOptimization`
+- `FontOptimization`
+
+Goal:
+- fix most major PageSpeed asset issues
+
+### Phase 4
+
+- `ImageOptimization`
+- `CacheOptimization`
+- `Reporting`
+
+Goal:
+- cover the biggest remaining storefront performance issues
+- expose useful reporting in dashboard
+
+### Phase 5
+
+- `RulesEngine`
+
+Goal:
+- centralize all evidence-based decisions
+- support admin overrides cleanly
+
+## Database Ownership
+
+### Core Database
+
+Core should keep owning:
+- users
+- workspaces
+- workspace access
+- integrations
+- stores
+- shops
+- discovered URLs
+- notifications
+
+### Global Database
+
+Global should own only shared infrastructure tables, for example:
+- module registry
+- module settings
+- module enablement
+- shared artifact registry if needed globally
+
+### Feature Database
+
+Each feature module should own its own tables.
+
+Examples:
+
+`PageOptimization`
+- optimization runs
+- optimization run steps or `steps_json`
+- publish results
+
+`CssOptimization`
+- CSS evidence
+- CSS rules
+- CSS generated assets
+
+`JavascriptOptimization`
+- JS evidence
+- JS rules
+- JS generated assets
+
+`FontOptimization`
+- font evidence
+- font rules
+- rewritten font assets
+
+`ImageOptimization`
+- image rules
+- image versions
+- image delivery metadata
+
+`CacheOptimization`
+- cache publish versions
+- purge logs
+- TTL policies
+
+## Frontend Module Direction
+
+The frontend should also move to feature modules.
+
+Suggested root:
+- `web/src/modules`
+
+Each frontend module should own:
+- pages
+- views
+- components
+- hooks
+- api client
+- utils
+
+The app shell should keep only:
+- routing
+- nav
+- auth shell
+- layout shell
+- workspace/store selection context
+
+## Minimum Serious Product Scope
+
+To make the app general and solve most important PageSpeed issues, the minimum serious module set is:
+- `Global`
+- `PageOptimization`
+- `HtmlOptimization`
+- `CssOptimization`
+- `JavascriptOptimization`
+- `FontOptimization`
+- `ImageOptimization`
+- `PerformanceScanning`
+- `Validation`
+- `CacheOptimization`
+
+## Constraints
+
+- `Global` must stay small
+- feature modules must own their own logic
+- optimization should run through one orchestrator
+- each module must be independently enabled/disabled
+- shared core data should not be duplicated into modules unless necessary
+- scanner evidence should guide decisions, not replace validation
+
+## Next Step
+
+Build the first new module set in this order:
+1. `Global`
+2. `PageOptimization`
+3. `HtmlOptimization`
+
+After that:
+4. `PerformanceScanning`
+5. `Validation`
+6. `Artifacts`
+7. `CssOptimization`
+8. `JavascriptOptimization`
+9. `FontOptimization`
+10. `ImageOptimization`
+11. `CacheOptimization`
+12. `Reporting`
