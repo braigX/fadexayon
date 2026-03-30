@@ -121,6 +121,9 @@ Columns:
 - `sample_shop_url_id`: representative URL used to build reports for this page type.
 - `status`: current pipeline state for the page-type profile.
 - `pipeline_state_json`: internal pipeline metadata, counters, and progress state.
+- `failure_count`: number of consecutive preparation failures for this page type.
+- `last_failed_at`: timestamp of the most recent preparation failure.
+- `last_error_message`: latest short failure message for admin and queue diagnostics.
 - `current_scan_report_id`: current active performance scan report reference.
 - `current_css_report_id`: current active CSS report reference.
 - `current_js_report_id`: current active JavaScript report reference.
@@ -140,6 +143,15 @@ Statuses:
 - `preparing`
 - `ready`
 - `failed`
+- `blocked`
+
+Status meaning:
+- `new`: profile row exists but no preparation work has been scheduled yet.
+- `queued`: preparation job has been scheduled and is waiting in the queue.
+- `preparing`: the page-type scan/report/rule/artifact pipeline is currently running.
+- `ready`: reports, rules, and required artifacts are complete and can be reused by URL runs.
+- `failed`: the last preparation attempt failed and may be retried with backoff.
+- `blocked`: preparation stopped retrying automatically and now requires manual intervention.
 
 Relationships:
 - belongs to `prestashop_shop`
@@ -289,12 +301,25 @@ Trigger types:
 
 Statuses:
 - `queued`
+- `waiting_for_page_type`
 - `running`
 - `validating`
 - `publishing`
 - `completed`
 - `completed_with_errors`
 - `failed`
+- `blocked_by_page_type_failure`
+
+Status meaning:
+- `queued`: the URL optimization run was created and is waiting to start.
+- `waiting_for_page_type`: the URL run is paused until its `shop + page_type` profile becomes `ready`.
+- `running`: the URL fetch and module execution pipeline is in progress.
+- `validating`: final output validation is running before publish.
+- `publishing`: final cache writing or publish work is running.
+- `completed`: the run finished successfully and published the final cached page.
+- `completed_with_errors`: the run finished with a published result but recorded non-blocking issues.
+- `failed`: the run itself failed for a runtime reason not covered by page-type gating.
+- `blocked_by_page_type_failure`: the run cannot continue because the page-type profile exhausted retries or was manually blocked.
 
 Relationships:
 - belongs to `prestashop_shop_urls`
@@ -318,6 +343,22 @@ Relationships:
 
 This table is optional.
 If file logs are enough, it can be skipped.
+
+Typical messages:
+- `Page type profile not ready; run released back to queue`
+- `Page type preparation dispatched`
+- `Page type preparation failed; retry scheduled with backoff`
+- `URL optimization blocked by page-type failure`
+
+## Queue and Gating Notes
+
+The intended workflow is:
+- every discovered URL belongs to one `prestashop_shop_id + page_type`
+- page-type preparation is eager and happens before URL optimization can publish
+- a URL optimization run may be created before its page type is ready
+- in that case the run moves to `waiting_for_page_type` and is requeued with backoff
+- page-type failures must be bounded and tracked through `failure_count`, `last_failed_at`, and `last_error_message`
+- repeated failures should move the profile to `blocked` instead of looping forever
 
 ## Recommended Relationships
 

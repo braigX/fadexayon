@@ -61,7 +61,6 @@ class PrestaLoadCacheContextService
             'normalized_url' => $normalizedUrl,
             'variant' => $variant,
             'variant_key' => $variantKey,
-            'used_css_url' => $this->module->getCacheStoreService()->buildUsedCssUrl((int) $variant['shop_id'], $variantKey),
             'cache_exists' => $cacheMeta !== null,
             'cache_meta' => $cacheMeta,
         ];
