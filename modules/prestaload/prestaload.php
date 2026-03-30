@@ -12,12 +12,11 @@ require_once __DIR__ . '/classes/PrestaLoadCacheStoreService.php';
 
 class Prestaload extends Module
 {
-    private const DEFAULT_API_BASE_URL = 'http://localhost:8000/';
+    private const DEFAULT_API_BASE_URL = 'https://api.prestaload.com/';
     private const CFG_STORE_KEY = 'PRESTALOAD_STORE_KEY';
     private const CFG_SHARED_SECRET = 'PRESTALOAD_SHARED_SECRET';
     private const CFG_STORE_ID = 'PRESTALOAD_STORE_ID';
     private const CFG_CONNECTED_AT = 'PRESTALOAD_CONNECTED_AT';
-    private const CALLBACK_MAX_DRIFT_SECONDS = 300;
 
     /**
      * @var PrestaLoadPageDiscoveryService|null
@@ -77,11 +76,6 @@ class Prestaload extends Module
 
         $html = '';
 
-        $callbackNotice = $this->processConnectCallback();
-        if ($callbackNotice !== '') {
-            $html .= $callbackNotice;
-        }
-
         if (Tools::isSubmit('submitPrestaLoadConnect')) {
             $connectNotice = $this->startOneClickConnect();
             if ($connectNotice !== '') {
@@ -104,8 +98,36 @@ class Prestaload extends Module
 
     public function finalizeConnection($storeId)
     {
-        Configuration::updateValue(self::CFG_STORE_ID, (string) $storeId);
-        Configuration::updateValue(self::CFG_CONNECTED_AT, date('c'));
+        $storeId = (string) $storeId;
+
+        $this->logMessage('module.connection_finalize.start', [
+            'store_id' => $storeId,
+        ]);
+
+        try {
+            Configuration::updateValue(self::CFG_STORE_ID, $storeId);
+            Configuration::updateValue(self::CFG_CONNECTED_AT, date('c'));
+
+            $this->logMessage('module.connection_finalize.done', [
+                'store_id' => $storeId,
+            ]);
+        } catch (Exception $exception) {
+            $this->logMessage('module.connection_finalize.failed', [
+                'store_id' => $storeId,
+                'type' => 'exception',
+                'message' => $exception->getMessage(),
+            ]);
+
+            throw $exception;
+        } catch (Throwable $throwable) {
+            $this->logMessage('module.connection_finalize.failed', [
+                'store_id' => $storeId,
+                'type' => 'throwable',
+                'message' => $throwable->getMessage(),
+            ]);
+
+            throw $throwable;
+        }
     }
 
     public function hookActionDispatcherBefore()
@@ -259,45 +281,6 @@ class Prestaload extends Module
         Tools::redirect((string) $response['json']['authorize_url']);
 
         return '';
-    }
-
-    private function processConnectCallback()
-    {
-        $status = (string) Tools::getValue('pb_status', '');
-        if ($status === '') {
-            return '';
-        }
-
-        if ($status === 'expired') {
-            return $this->displayError($this->l('Connection request expired. Please try again.'));
-        }
-
-        $storeId = (string) Tools::getValue('pb_store_id', '');
-        $timestamp = (string) Tools::getValue('pb_ts', '');
-        $signature = (string) Tools::getValue('pb_sig', '');
-
-        if ($status !== 'connected' || $storeId === '' || $timestamp === '' || $signature === '') {
-            return $this->displayError($this->l('Invalid callback payload.'));
-        }
-
-        if (!ctype_digit($timestamp)) {
-            return $this->displayError($this->l('Invalid callback timestamp.'));
-        }
-
-        $ts = (int) $timestamp;
-        if (abs(time() - $ts) > self::CALLBACK_MAX_DRIFT_SECONDS) {
-            return '';
-        }
-
-        $payload = implode("\n", [$ts, $storeId, $status]);
-        $expected = hash_hmac('sha256', $payload, (string) Configuration::get(self::CFG_SHARED_SECRET));
-        if (!hash_equals($expected, $signature)) {
-            return $this->displayError($this->l('Invalid callback signature.'));
-        }
-
-        $this->finalizeConnection($storeId);
-
-        return $this->displayConfirmation($this->l('Store connected successfully.'));
     }
 
     private function pingDashboard()

@@ -48,7 +48,7 @@ class PrestaloadCachepurgeallModuleFrontController extends ModuleFrontController
                 'purged_count' => isset($result['purged_count']) ? (int) $result['purged_count'] : 0,
             ]);
 
-            $this->ajaxDie(json_encode([
+            $this->sendJsonResponse(json_encode([
                 'success' => true,
                 'message' => 'Shop cache purged.',
                 'data' => $result,
@@ -59,7 +59,7 @@ class PrestaloadCachepurgeallModuleFrontController extends ModuleFrontController
                 'error' => $exception->getMessage(),
             ]);
             http_response_code(403);
-            $this->ajaxDie(json_encode([
+            $this->sendJsonResponse(json_encode([
                 'success' => false,
                 'message' => $exception->getMessage(),
             ]));
@@ -69,7 +69,7 @@ class PrestaloadCachepurgeallModuleFrontController extends ModuleFrontController
                 'error' => $throwable->getMessage(),
             ]);
             http_response_code(500);
-            $this->ajaxDie(json_encode([
+            $this->sendJsonResponse(json_encode([
                 'success' => false,
                 'message' => $throwable->getMessage(),
             ]));
@@ -83,5 +83,11 @@ class PrestaloadCachepurgeallModuleFrontController extends ModuleFrontController
         }
 
         return $this->rawBody;
+    }
+
+    private function sendJsonResponse($json)
+    {
+        echo (string) $json;
+        exit;
     }
 }

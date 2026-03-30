@@ -29,7 +29,7 @@ class PrestaloadConnectionfinalizeModuleFrontController extends ModuleFrontContr
                 'store_id' => (string) $payload['store_id'],
             ]);
 
-            $this->ajaxDie(json_encode([
+            $this->sendJsonResponse(json_encode([
                 'success' => true,
                 'message' => 'Connection finalized.',
             ]));
@@ -41,7 +41,7 @@ class PrestaloadConnectionfinalizeModuleFrontController extends ModuleFrontContr
 
             http_response_code(403);
 
-            $this->ajaxDie(json_encode([
+            $this->sendJsonResponse(json_encode([
                 'success' => false,
                 'message' => $exception->getMessage(),
             ]));
@@ -53,7 +53,7 @@ class PrestaloadConnectionfinalizeModuleFrontController extends ModuleFrontContr
 
             http_response_code(500);
             header('Content-Type: application/json; charset=utf-8');
-            $this->ajaxDie(json_encode([
+            $this->sendJsonResponse(json_encode([
                 'success' => false,
                 'message' => $throwable->getMessage(),
             ]));
@@ -165,5 +165,11 @@ class PrestaloadConnectionfinalizeModuleFrontController extends ModuleFrontContr
         if (is_object($this->module) && method_exists($this->module, 'logMessage')) {
             $this->module->logMessage($event, $context);
         }
+    }
+
+    private function sendJsonResponse($json)
+    {
+        echo (string) $json;
+        exit;
     }
 }

@@ -44,7 +44,7 @@ class PrestaloadPagediscoveryModuleFrontController extends ModuleFrontController
                 'pages_count' => isset($result['items']) && is_array($result['items']) ? count($result['items']) : 0,
             ]);
 
-            $this->ajaxDie(json_encode([
+            $this->sendJsonResponse(json_encode([
                 'success' => true,
                 'message' => 'Page discovery payload ready.',
                 'shop_id' => $shopId,
@@ -62,7 +62,7 @@ class PrestaloadPagediscoveryModuleFrontController extends ModuleFrontController
             ]);
             http_response_code(403);
 
-            $this->ajaxDie(json_encode([
+            $this->sendJsonResponse(json_encode([
                 'success' => false,
                 'message' => $exception->getMessage(),
             ]));
@@ -160,5 +160,11 @@ class PrestaloadPagediscoveryModuleFrontController extends ModuleFrontController
         if (is_object($this->module) && method_exists($this->module, 'logMessage')) {
             $this->module->logMessage($event, $context);
         }
+    }
+
+    private function sendJsonResponse($json)
+    {
+        echo (string) $json;
+        exit;
     }
 }

@@ -51,7 +51,7 @@ class PrestaloadCacheprepareModuleFrontController extends ModuleFrontController
                 'shop_id' => isset($result['variant']['shop_id']) ? (int) $result['variant']['shop_id'] : 0,
             ]);
 
-            $this->ajaxDie(json_encode(array_merge([
+            $this->sendJsonResponse(json_encode(array_merge([
                 'success' => true,
                 'message' => 'Cache prepare payload ready.',
             ], $result)));
@@ -61,7 +61,7 @@ class PrestaloadCacheprepareModuleFrontController extends ModuleFrontController
                 'error' => $exception->getMessage(),
             ]);
             http_response_code(403);
-            $this->ajaxDie(json_encode([
+            $this->sendJsonResponse(json_encode([
                 'success' => false,
                 'message' => $exception->getMessage(),
             ]));
@@ -71,7 +71,7 @@ class PrestaloadCacheprepareModuleFrontController extends ModuleFrontController
                 'error' => $throwable->getMessage(),
             ]);
             http_response_code(500);
-            $this->ajaxDie(json_encode([
+            $this->sendJsonResponse(json_encode([
                 'success' => false,
                 'message' => $throwable->getMessage(),
             ]));
@@ -85,5 +85,11 @@ class PrestaloadCacheprepareModuleFrontController extends ModuleFrontController
         }
 
         return $this->rawBody;
+    }
+
+    private function sendJsonResponse($json)
+    {
+        echo (string) $json;
+        exit;
     }
 }

@@ -31,7 +31,7 @@ class PrestaloadDiscoveryModuleFrontController extends ModuleFrontController
                 'shops_count' => is_array($shops) ? count($shops) : 0,
             ]);
 
-            $this->ajaxDie(json_encode([
+            $this->sendJsonResponse(json_encode([
                 'success' => true,
                 'message' => 'Shop discovery payload ready.',
                 'current_shop_id' => (int) $this->module->getCurrentShopId(),
@@ -44,7 +44,7 @@ class PrestaloadDiscoveryModuleFrontController extends ModuleFrontController
             ]);
             http_response_code(403);
 
-            $this->ajaxDie(json_encode([
+            $this->sendJsonResponse(json_encode([
                 'success' => false,
                 'message' => $exception->getMessage(),
             ]));
@@ -125,5 +125,11 @@ class PrestaloadDiscoveryModuleFrontController extends ModuleFrontController
         if (is_object($this->module) && method_exists($this->module, 'logMessage')) {
             $this->module->logMessage($event, $context);
         }
+    }
+
+    private function sendJsonResponse($json)
+    {
+        echo (string) $json;
+        exit;
     }
 }
