@@ -2,6 +2,8 @@
 
 class PrestaLoadCacheVariantService
 {
+    private const CACHE_TTL_SECONDS = 86400;
+
     /**
      * @var Prestaload
      */
@@ -22,6 +24,13 @@ class PrestaLoadCacheVariantService
         $shopId = isset($payload['shop_id']) ? (int) $payload['shop_id'] : 0;
         if ($shopId <= 0) {
             $shopId = (int) $this->module->getCurrentShopId();
+        }
+
+        $cached = $this->loadCachedDescription($shopId);
+        if ($cached !== null) {
+            $cached['cache_hit'] = true;
+
+            return $cached;
         }
 
         $languages = $this->getLanguages($shopId);
@@ -70,9 +79,39 @@ class PrestaLoadCacheVariantService
             'variants_count' => count($variants),
             'variants' => $variants,
             'cache_hit' => false,
+            'generated_at' => date('c'),
+            'expires_at' => date('c', time() + self::CACHE_TTL_SECONDS),
         ];
 
+        $this->storeCachedDescription($shopId, $result);
+
         return $result;
+    }
+
+    /**
+     * @param array<string, mixed> $payload
+     *
+     * @return array<string, mixed>
+     */
+    public function purgeForShop(array $payload)
+    {
+        $shopId = isset($payload['shop_id']) ? (int) $payload['shop_id'] : 0;
+        if ($shopId <= 0) {
+            $shopId = (int) $this->module->getCurrentShopId();
+        }
+
+        $path = $this->variantCachePath($shopId);
+        $deleted = false;
+
+        if (is_file($path)) {
+            $deleted = @unlink($path);
+        }
+
+        return [
+            'shop_id' => $shopId,
+            'deleted' => $deleted,
+            'path' => $path,
+        ];
     }
 
     /**
@@ -180,5 +219,57 @@ class PrestaLoadCacheVariantService
         }
 
         return sha1($themeName !== '' ? $themeName : 'default-theme');
+    }
+
+    private function loadCachedDescription($shopId)
+    {
+        $path = $this->variantCachePath($shopId);
+        if (!is_file($path) || !is_readable($path)) {
+            return null;
+        }
+
+        $raw = @file_get_contents($path);
+        if (!is_string($raw) || $raw === '') {
+            return null;
+        }
+
+        $payload = json_decode($raw, true);
+        if (!is_array($payload)) {
+            return null;
+        }
+
+        $expiresAt = isset($payload['expires_at']) ? strtotime((string) $payload['expires_at']) : false;
+        if ($expiresAt === false || $expiresAt < time()) {
+            @unlink($path);
+
+            return null;
+        }
+
+        return $payload;
+    }
+
+    private function storeCachedDescription($shopId, array $payload)
+    {
+        $directory = $this->variantCacheDirectory();
+        if (!is_dir($directory)) {
+            @mkdir($directory, 0775, true);
+        }
+
+        $encoded = json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        if ($encoded === false) {
+            return;
+        }
+
+        @file_put_contents($this->variantCachePath($shopId), $encoded, LOCK_EX);
+    }
+
+    private function variantCacheDirectory()
+    {
+        return rtrim($this->module->getModuleLocalPath(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'variants';
+    }
+
+    private function variantCachePath($shopId)
+    {
+        return $this->variantCacheDirectory() . DIRECTORY_SEPARATOR . 'shop-' . (int) $shopId . '.json';
     }
 }

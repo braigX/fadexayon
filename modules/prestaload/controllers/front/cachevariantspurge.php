@@ -1,6 +1,6 @@
 <?php
 
-class PrestaloadCachepurgeallModuleFrontController extends ModuleFrontController
+class PrestaloadCachevariantspurgeModuleFrontController extends ModuleFrontController
 {
     public $ssl = true;
     public $ajax = true;
@@ -22,43 +22,38 @@ class PrestaloadCachepurgeallModuleFrontController extends ModuleFrontController
         $body = $this->getRawBody();
         $payload = $body !== '' ? json_decode($body, true) : [];
 
-        $this->module->logMessage('front.cachepurgeall.request', [
+        $this->module->logMessage('front.cachevariantspurge.request', [
             'body_bytes' => strlen($body),
             'shop_id' => is_array($payload) && isset($payload['shop_id']) ? (int) $payload['shop_id'] : 0,
         ]);
 
         try {
             if (!is_array($payload)) {
-                throw new Exception('Invalid cache purge-all payload.');
+                throw new Exception('Invalid cache variants purge payload.');
             }
 
             $this->module->getSignedRequestService()->assertSignedJsonRequest(
                 'POST',
-                '/module/prestaload/cachepurgeall',
+                '/module/prestaload/cachevariantspurge',
                 $body,
                 $payload
             );
 
-            $result = $this->module->getCacheStoreService()->purgeAllForShop($payload);
-            $variantResult = $this->module->getCacheVariantService()->purgeForShop($payload);
-            $result['variant_cache_deleted'] = !empty($variantResult['deleted']);
-            $result['variant_cache_path'] = isset($variantResult['path']) ? (string) $variantResult['path'] : '';
+            $result = $this->module->getCacheVariantService()->purgeForShop($payload);
 
-            $this->module->logMessage('front.cachepurgeall.response', [
+            $this->module->logMessage('front.cachevariantspurge.response', [
                 'status' => 200,
                 'shop_id' => isset($result['shop_id']) ? (int) $result['shop_id'] : 0,
-                'variants_count' => isset($result['variants_count']) ? (int) $result['variants_count'] : 0,
-                'purged_count' => isset($result['purged_count']) ? (int) $result['purged_count'] : 0,
-                'variant_cache_deleted' => !empty($result['variant_cache_deleted']),
+                'deleted' => !empty($result['deleted']),
             ]);
 
             $this->sendJsonResponse(json_encode([
                 'success' => true,
-                'message' => 'Shop cache purged.',
+                'message' => 'Variant cache purged.',
                 'data' => $result,
             ]));
         } catch (Exception $exception) {
-            $this->module->logMessage('front.cachepurgeall.response', [
+            $this->module->logMessage('front.cachevariantspurge.response', [
                 'status' => 403,
                 'error' => $exception->getMessage(),
             ]);
@@ -68,7 +63,7 @@ class PrestaloadCachepurgeallModuleFrontController extends ModuleFrontController
                 'message' => $exception->getMessage(),
             ]));
         } catch (Throwable $throwable) {
-            $this->module->logMessage('front.cachepurgeall.response', [
+            $this->module->logMessage('front.cachevariantspurge.response', [
                 'status' => 500,
                 'error' => $throwable->getMessage(),
             ]);
