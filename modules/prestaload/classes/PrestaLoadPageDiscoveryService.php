@@ -84,12 +84,13 @@ class PrestaLoadPageDiscoveryService
             $langId = (int) $language['id_lang'];
             $langIso = (string) $language['iso_code'];
             $homeUrl = $this->normalizeDiscoveredUrl($link->getPageLink('index', true, $langId, null, false, $shopId));
+            $pageTitle = $this->resolveHomePageTitle($shopId, $langId);
 
             if ($homeUrl === '') {
                 continue;
             }
 
-            $items[] = $this->buildDiscoveredPageRow('home', 'home', 0, $langIso, $homeUrl);
+            $items[] = $this->buildDiscoveredPageRow('home', 'home', 0, $langIso, $homeUrl, $pageTitle);
         }
 
         return $this->buildPageBatchResult($items, $total, $page, $perPage);
@@ -118,7 +119,14 @@ class PrestaLoadPageDiscoveryService
                     continue;
                 }
 
-                $items[] = $this->buildDiscoveredPageRow('category', 'category', $categoryId, $langIso, $categoryUrl);
+                $items[] = $this->buildDiscoveredPageRow(
+                    'category',
+                    'category',
+                    $categoryId,
+                    $langIso,
+                    $categoryUrl,
+                    isset($row['name']) ? (string) $row['name'] : ''
+                );
             }
 
             return $items;
@@ -150,7 +158,14 @@ class PrestaLoadPageDiscoveryService
                     continue;
                 }
 
-                $items[] = $this->buildDiscoveredPageRow('product', 'product', $productId, $langIso, $productUrl);
+                $items[] = $this->buildDiscoveredPageRow(
+                    'product',
+                    'product',
+                    $productId,
+                    $langIso,
+                    $productUrl,
+                    isset($row['name']) ? (string) $row['name'] : ''
+                );
             }
 
             return $items;
@@ -182,7 +197,14 @@ class PrestaLoadPageDiscoveryService
                     continue;
                 }
 
-                $items[] = $this->buildDiscoveredPageRow('cms', 'cms', $cmsId, $langIso, $cmsUrl);
+                $items[] = $this->buildDiscoveredPageRow(
+                    'cms',
+                    'cms',
+                    $cmsId,
+                    $langIso,
+                    $cmsUrl,
+                    isset($row['meta_title']) ? (string) $row['meta_title'] : ''
+                );
             }
 
             return $items;
@@ -267,7 +289,7 @@ class PrestaLoadPageDiscoveryService
     /**
      * @return array<string,mixed>
      */
-    private function buildDiscoveredPageRow($pageType, $entityType, $entityId, $languageIso, $url)
+    private function buildDiscoveredPageRow($pageType, $entityType, $entityId, $languageIso, $url, $pageTitle = '')
     {
         return [
             'page_type' => (string) $pageType,
@@ -276,7 +298,13 @@ class PrestaLoadPageDiscoveryService
             'language_iso' => (string) $languageIso,
             'url' => (string) $url,
             'canonical_url' => (string) $url,
+            'page_title' => trim((string) $pageTitle),
         ];
+    }
+
+    private function resolveHomePageTitle($shopId, $langId)
+    {
+        return (string) Configuration::get('PS_SHOP_NAME', null, null, (int) $shopId);
     }
 
     private function withShopContext($shopId, callable $callback)
@@ -333,7 +361,7 @@ class PrestaLoadPageDiscoveryService
     private function getCategoryRows($shopId, $langId, $offset, $limit)
     {
         $query = new DbQuery();
-        $query->select('c.id_category, cl.link_rewrite');
+        $query->select('c.id_category, cl.link_rewrite, cl.name');
         $query->from('category', 'c');
         $query->innerJoin('category_shop', 'cs', 'c.id_category = cs.id_category AND cs.id_shop = ' . (int) $shopId);
         $query->leftJoin('category_lang', 'cl', 'c.id_category = cl.id_category AND cl.id_lang = ' . (int) $langId . ' AND cl.id_shop = ' . (int) $shopId);
@@ -374,7 +402,7 @@ class PrestaLoadPageDiscoveryService
     private function getCmsRows($shopId, $langId, $offset, $limit)
     {
         $query = new DbQuery();
-        $query->select('c.id_cms, l.link_rewrite');
+        $query->select('c.id_cms, l.link_rewrite, l.meta_title');
         $query->from('cms', 'c');
         $query->innerJoin('cms_shop', 'cs', 'c.id_cms = cs.id_cms AND cs.id_shop = ' . (int) $shopId);
         $query->innerJoin('cms_lang', 'l', 'c.id_cms = l.id_cms AND l.id_lang = ' . (int) $langId . ' AND l.id_shop = ' . (int) $shopId);

@@ -12,7 +12,7 @@ require_once __DIR__ . '/classes/PrestaLoadCacheStoreService.php';
 
 class Prestaload extends Module
 {
-    private const DEFAULT_API_BASE_URL = 'https://api.prestaload.com/';
+    private const DEFAULT_API_BASE_URL = 'http://localhost:8000';
     private const CFG_STORE_KEY = 'PRESTALOAD_STORE_KEY';
     private const CFG_SHARED_SECRET = 'PRESTALOAD_SHARED_SECRET';
     private const CFG_STORE_ID = 'PRESTALOAD_STORE_ID';
