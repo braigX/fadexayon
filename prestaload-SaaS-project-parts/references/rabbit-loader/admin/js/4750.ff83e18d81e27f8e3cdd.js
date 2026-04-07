@@ -1,1 +1,0 @@
-"use strict";(this.webpackChunkRLAdmin=this.webpackChunkRLAdmin||[]).push([[4750],{24750(e,t,n){n.r(t),n.d(t,{default:()=>c});var i=n(14041),r=n(15189),a=n(65990);const c=function(){return i.createElement(r.A,{sx:{height:"100%",display:"flex",alignItems:"center",width:"50%"}},i.createElement(a.A,{variant:"h5",color:"textSecondary"},"Something went wrong."))}}}]);
