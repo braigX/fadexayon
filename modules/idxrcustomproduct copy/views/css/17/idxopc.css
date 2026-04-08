@@ -1,0 +1,37 @@
+/* 
+    Created on : 12-dic-2019, 11:09:32
+    Author     : innova
+*/
+
+.btn-config {
+  background: var(--second-color);
+  border: none;
+  border-radius: 5px;
+  color:  #fff;
+  font-size: 12px;
+  padding: 5px;
+  transition: all .3s ease-in-out;
+}
+.btn-config:hover{
+  background: var(--hover-color);
+  transition: all .3s ease-in-out;
+  color:#fff;
+  cursor:pointer;
+}
+
+
+.table-config {
+    border: 1px solid #7f7f7f;
+    width: :100%;
+}
+.table-config td:first-child {
+    font-size: 11px !important;
+    width: 40%;
+    line-height: 14px;
+}
+.table-config td {
+    font-size: 14px !important;
+    padding: 10px 9px;
+    border: 1px solid #7f7f7f;
+}
+

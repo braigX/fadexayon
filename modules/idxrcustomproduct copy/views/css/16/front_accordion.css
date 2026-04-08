@@ -1,0 +1,96 @@
+/*
+    Created on : 06-mar-2017, 17:33:03
+    Author     : innova
+*/
+.accordion_text{
+    height: 42px;
+}
+
+.option_collapse {
+    font-size: 16px !important;
+    height: 30px !important;
+    line-height: 14px !important;
+    margin-top: 10px !important;
+    padding-top: 5px;
+    border-top: 1px solid #f7f7f7;
+    border-bottom: 1px solid #f7f7f7;
+    display: block;
+}
+.image-container img{
+	position: relative;
+	margin:0 auto;
+	display:block;
+}
+
+.panel-heading .panel-title a{
+	color:#ffffff;
+	text-decoration: none;
+	display:block;
+}
+.step_content{
+	border-radius:5px !important;
+}
+
+.step_content a{
+    color:#ffffff !important;
+    text-decoration: none !important;
+}
+
+.component_step{
+	margin-bottom:2px;
+}
+
+.panel-heading .panel-title img{
+	width:30px;
+}
+.panel-footer a{
+	color:#ffffff !important;
+	border-radius:5px;
+}
+
+.panel-body .option_div span {
+    display: block;
+    font-size: 12px;
+    font-style: italic;
+    color: #bababa;
+}
+
+#component_step_last .panel-heading a{
+    color:#ffffff;
+    display: block;
+    text-decoration:none;
+}
+#component_step_last .panel{
+    border-radius: 5px;
+}
+
+.toggle_arrow{
+    background-image: url(../../img/arrow-white.png);
+    display: block;
+    width: 26px;
+    height: 18px;
+    float: right;
+    margin-top: 5px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.icp_rotate{
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+}
+
+
+#alignment{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.value_selected {
+    display: none;
+    background: #ffffff;
+    padding: 7px;
+    border-radius: 5px !important;
+}

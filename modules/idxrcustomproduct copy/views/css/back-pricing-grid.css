@@ -1,0 +1,62 @@
+.tab-pane#renderPricingDashboard .panel,
+.tab-pane#renderPricingDashboard .panel form,
+.tab-pane#renderPricingDashboard .panel .form-wrapper {
+    width: 100%;
+    max-width: none;
+}
+
+.tab-pane#renderPricingDashboard .idxr-thickness-rates-wrapper {
+    margin-top: 16px;
+}
+
+.tab-pane#renderPricingDashboard #idxr-thickness-rates-table {
+    margin-top: 14px;
+    margin-bottom: 16px;
+    border: 1px solid #d6d6d6;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+.tab-pane#renderPricingDashboard #idxr-thickness-rates-table > thead > tr > th,
+.tab-pane#renderPricingDashboard #idxr-thickness-rates-table > tbody > tr > td {
+    border: 1px solid #d6d6d6;
+    vertical-align: middle;
+    padding: 10px 12px;
+}
+
+.tab-pane#renderPricingDashboard #idxr-thickness-rates-table > thead > tr > th {
+    background: #f7f7f7;
+    font-weight: 600;
+}
+
+.tab-pane#renderPricingDashboard #idxr-thickness-rates-table > tbody > tr:nth-child(even) > td {
+    background: #fcfcfc;
+}
+
+.tab-pane#renderPricingDashboard #idxr-thickness-rates-table .btn {
+    margin-right: 6px;
+}
+
+.tab-pane#renderPricingDashboard #idxr-thickness-rate-form {
+    margin-top: 10px;
+    margin-bottom: 8px;
+}
+
+.tab-pane#renderPricingDashboard #idxr-thickness-rate-form .form-group {
+    margin-right: 12px;
+    margin-bottom: 12px;
+}
+
+.tab-pane#renderPricingDashboard #idxr-thickness-rate-form .form-group label {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.tab-pane#renderPricingDashboard #idxr-thickness-rate-form .checkbox {
+    margin-top: 26px;
+}
+
+.tab-pane#renderPricingDashboard #idxr-thickness-rate-form #idxr-rate-save,
+.tab-pane#renderPricingDashboard #idxr-thickness-rate-form #idxr-rate-cancel {
+    margin-top: 24px;
+}

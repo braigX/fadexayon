@@ -1,0 +1,60 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 08-mar-2017, 16:38:52
+    Author     : innova
+*/
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 08-mar-2017, 16:38:52
+    Author     : innova
+*/
+
+
+
+.step_content{
+	border-radius:5px;
+	overflow:hidden;
+}
+.component_step .panel{
+    border-radius:5px;
+    overflow:hidden;
+}
+
+.step_content .panel-heading{
+	color: #ffffff;
+}
+
+.step_content .panel-footer a{
+	border-radius:5px;
+	color: #ffffff;
+}
+/*
+.img-element {
+    height: 50px;
+    width: 50px;
+    padding: 2px;
+    border: 1px solid #e4e4e4;
+    border-radius: 2px;
+    margin-right: 5px;
+
+ }
+*/
+.panel-body .option_div span{
+    display:block;
+    font-size: 12px;
+    font-style: italic;
+    color: #bababa;
+}
+#component_step_last .panel-heading{
+    color: #ffffff;
+}
+
