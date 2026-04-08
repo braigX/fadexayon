@@ -442,7 +442,6 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
 
     public function ajaxProcessGetRuntimeCustomization()
     {
-        $context = Context::getContext();
         $idRuntime = (int) Tools::getValue('id_runtime_customisation');
         if ($idRuntime <= 0) {
             $this->jsonResponse(array(
@@ -451,29 +450,11 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
             ), 400);
         }
 
-        $idCustomer = (int) ($context->customer ? $context->customer->id : 0);
-        $idGuest = (int) ($context->cookie && !empty($context->cookie->id_guest) ? $context->cookie->id_guest : 0);
-        if ($idCustomer <= 0 && $idGuest <= 0) {
-            $this->jsonResponse(array(
-                'success' => false,
-                'message' => $this->module->l('Customization not found.', 'ajax'),
-            ), 404);
-        }
-
-        $whereOwner = array();
-        if ($idCustomer > 0) {
-            $whereOwner[] = 'id_customer=' . (int) $idCustomer;
-        }
-        if ($idGuest > 0) {
-            $whereOwner[] = 'id_guest=' . (int) $idGuest;
-        }
-
         $row = Db::getInstance()->getRow(
             'SELECT id_runtime_customisation, id_product, id_customized_product, id_product_attribute, customization, extra_info, snapshot_json, thumbnail_svg, date_add
              FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_runtime_customisations`
-             WHERE id_runtime_customisation=' . (int) $idRuntime . '
-               AND source = "cart"
-               AND (' . implode(' OR ', $whereOwner) . ')'
+             WHERE id_runtime_customisation = ' . (int) $idRuntime . '
+               AND source = "cart"'
         );
 
         if (!$row) {

@@ -385,13 +385,137 @@ function idxrWaitForConfiguratorReady(timeoutMs) {
 }
 
 function idxrParseSnapshotFromItem(item) {
-    if (!item || !item.snapshot_json) {
+    if (!item) {
         return null;
+    }
+
+    function idxrParseCustomizationToSteps(customizationRaw, extraRaw) {
+        var stepsMap = {};
+        var customization = (customizationRaw || '').toString().trim();
+        var extraInfo = (extraRaw || '').toString();
+
+        if (customization.length) {
+            $.each(customization.split(','), function (_, tokenRaw) {
+                var token = (tokenRaw || '').trim();
+                var underscorePos;
+                var stepId;
+                var payload;
+                if (!token.length) {
+                    return;
+                }
+                underscorePos = token.indexOf('_');
+                if (underscorePos <= 0) {
+                    return;
+                }
+                stepId = token.substring(0, underscorePos);
+                payload = token.substring(underscorePos + 1);
+                if (!stepId || !payload || payload === 'false') {
+                    return;
+                }
+                if (!stepsMap[stepId]) {
+                    stepsMap[stepId] = {
+                        step_id: String(stepId),
+                        options: []
+                    };
+                }
+                $.each(payload.split('&'), function (_, optRaw) {
+                    var optToken = (optRaw || '').trim().replace(/amp;/g, '');
+                    var optionId = optToken;
+                    var qty = '';
+                    var parts;
+                    if (!optToken.length || optToken === 'false') {
+                        return;
+                    }
+                    if (optToken.indexOf('x') > -1) {
+                        parts = optToken.split('x');
+                        optionId = parts[0];
+                        qty = parts[1] || '';
+                    }
+                    if (!optionId.length || optionId === 'false') {
+                        return;
+                    }
+                    stepsMap[stepId].options.push({
+                        option_id: String(optionId),
+                        qty: qty
+                    });
+                });
+            });
+        }
+
+        if (extraInfo.length) {
+            $.each(extraInfo.split('3x7r4'), function (_, entryRaw) {
+                var entry = (entryRaw || '').trim();
+                var sep;
+                var stepId;
+                var payload;
+                var parsed;
+                var stringValue;
+                if (!entry.length) {
+                    return;
+                }
+                sep = entry.indexOf('_');
+                if (sep <= 0) {
+                    return;
+                }
+                stepId = entry.substring(0, sep);
+                payload = entry.substring(sep + 1);
+                if (!stepId.length) {
+                    return;
+                }
+                parsed = payload;
+                try {
+                    parsed = JSON.parse(payload);
+                } catch (e) {}
+                stringValue = parsed === null || parsed === undefined ? '' : String(parsed);
+                if (!stepsMap[stepId]) {
+                    stepsMap[stepId] = {
+                        step_id: String(stepId)
+                    };
+                }
+                stepsMap[stepId].value = stringValue;
+            });
+        }
+
+        return $.map(stepsMap, function (step) {
+            return step;
+        });
+    }
+
+    if (!item.snapshot_json) {
+        if (!item.customization && !item.extra_info) {
+            return null;
+        }
+        return {
+            id: item.id || '',
+            name: item.name || '',
+            created_at: item.created_at || '',
+            product_id: parseInt(item.id_product, 10) || 0,
+            attribute_id: parseInt(item.id_product_attribute, 10) || 0,
+            customization: item.customization || '',
+            extra_info: item.extra_info || '',
+            preview_html: item.preview_html || '',
+            svg_thumbnail: item.thumbnail_svg || '',
+            steps: idxrParseCustomizationToSteps(item.customization, item.extra_info)
+        };
     }
     try {
         return JSON.parse(item.snapshot_json);
     } catch (e) {
-        return null;
+        if (!item.customization && !item.extra_info) {
+            return null;
+        }
+        return {
+            id: item.id || '',
+            name: item.name || '',
+            created_at: item.created_at || '',
+            product_id: parseInt(item.id_product, 10) || 0,
+            attribute_id: parseInt(item.id_product_attribute, 10) || 0,
+            customization: item.customization || '',
+            extra_info: item.extra_info || '',
+            preview_html: item.preview_html || '',
+            svg_thumbnail: item.thumbnail_svg || '',
+            steps: idxrParseCustomizationToSteps(item.customization, item.extra_info)
+        };
     }
 }
 
