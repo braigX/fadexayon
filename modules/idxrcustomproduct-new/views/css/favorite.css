@@ -1,0 +1,25 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 21-mar-2017, 16:07:31
+    Author     : innova
+*/
+
+.favoritos .panel-body p {
+    border-bottom: 1px solid #e4e4e4;
+    padding: 10px 0px 10px 0px;
+  }
+.favoritos .panel-body p:last-child{
+    border-bottom:none;
+    padding: 10px 0px 10px 0px;
+  }
+  .favoritos .panel-body p:before{
+    content: "\f0c8";
+  	font-family: "FontAwesome";
+  	color: #bababa;
+  	margin-right: 10px;
+  	font-size: 10px;
+  }

@@ -1,0 +1,14 @@
+/* 
+    Created on : 14-dic-2017, 11:11:54
+    Author     : innova
+*/
+
+.tabla-resumen {
+    font-size: 12px;
+    font-style: italic;
+}
+
+.tabla-resumen td{
+  padding:5px;
+  line-height: 14px;
+}

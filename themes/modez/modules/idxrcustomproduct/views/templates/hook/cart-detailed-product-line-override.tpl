@@ -157,6 +157,6 @@
       </div>
     </div>
   </div>
-<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">{$extra_info[$product.id_product] nofilter}</div>
+<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">{$extra_info[$product.id_product]|escape:'htmlall':'UTF-8'}</div>
   <div class="clearfix"></div>
 </div>

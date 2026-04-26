@@ -72,7 +72,7 @@
     line-height: 30px !important;
 }
 .check {
-    background-color: #0959B8 !important;
+    background-color: #0959B8;
     color: white;
 }
 .check * {

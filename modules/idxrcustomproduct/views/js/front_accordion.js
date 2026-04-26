@@ -2,10 +2,10 @@
 var CustomizationModuleStarted = false;
 const CustomizationModule = (() => {
 
-    const invirement = window.idxr_front_accordion_environment || 'production';
+    const invirement = 'production';
+    // const invirement = 'development';
 
     var svg, shapeGroup;
-    var suppressCutInternalDimensions = false;
     var cube = {
         on: false,
         scoleColor: '#000000',
@@ -437,11 +437,9 @@ const CustomizationModule = (() => {
         $('.accordion_text').on('change', function() {
             const inputId = $(this).attr('id');
             const limits = inputLimits[inputId];
-            const normalizedInput = (($(this).val() || '') + '').trim().replace(',', '.');
-            $(this).val(normalizedInput);
             
             if (limits) {
-                let value = parseFloat(normalizedInput);
+                let value = parseFloat($(this).val());
                 
                 // Check if value is within range; if not, set to minimum
                 if (isNaN(value) || value < limits.min) {
@@ -449,13 +447,6 @@ const CustomizationModule = (() => {
                 } else if (value > limits.max) {
                     $(this).val(limits.max);
                 }
-            }
-
-            // Always commit on change after clamping/range normalization.
-            const id_option = ($(this).attr('id') || '').replace('text_', '');
-            if (id_option) {
-                $(this).closest('.step_content').addClass("finished");
-                $('#js_icp_next_opt_' + id_option).click();
             }
         });            
 
@@ -466,46 +457,6 @@ const CustomizationModule = (() => {
             if (alertDiv.length && targetDiv.length) {
                 alertDiv.prependTo(targetDiv);
             }
-        }
-
-        function keepActiveAccordionStepInView() {
-            const container = $('#component_steps_container');
-
-            function scrollToStepCard($panel) {
-                if (!$panel || !$panel.length) {
-                    return;
-                }
-
-                const $stepCard = $panel.closest('.step_content');
-                if (!$stepCard.length) {
-                    return;
-                }
-
-                const cardTop = Math.max(0, ($stepCard.offset().top || 0) - 140);
-                const viewportTop = $(window).scrollTop();
-                const viewportBottom = viewportTop + $(window).height();
-                const cardBottom = cardTop + $stepCard.outerHeight();
-                const needsScroll = cardTop < viewportTop + 10 || cardBottom > viewportBottom - 40;
-
-                if (!needsScroll) {
-                    return;
-                }
-
-                $('html, body').stop(true).animate({
-                    scrollTop: cardTop
-                }, 220);
-            }
-
-            container
-                .off('shown.bs.collapse.idxrAccordionViewport', '[id^="step_title_"]')
-                .on('shown.bs.collapse.idxrAccordionViewport', '[id^="step_title_"]', function () {
-                    const $panel = $(this);
-                    window.requestAnimationFrame(function () {
-                        setTimeout(function () {
-                            scrollToStepCard($panel);
-                        }, 20);
-                    });
-                });
         }
 
         function controllers() {
@@ -536,86 +487,6 @@ const CustomizationModule = (() => {
                 svg.data('rotate', currentRotate - 90);
                 svg.css('transform', `rotate(${currentRotate - 90}deg)`);
             });
-
-            $(document)
-                .off('click.idxrDownloadSvg', '.download-svg')
-                .on('click.idxrDownloadSvg', '.download-svg', function() {
-                    var $svg = $('#actualSvg');
-                    var svgNode = $svg.get(0);
-                    if (!svgNode || !$svg.length) {
-                        return;
-                    }
-
-                    // Keep current visual state, export at scale 1, then restore previous state.
-                    var originalScale = $svg.data('scale');
-                    var originalRotate = $svg.data('rotate');
-                    var originalTransform = $svg.css('transform');
-
-                    var safeScale = (typeof originalScale === 'number' && !isNaN(originalScale)) ? originalScale : 1;
-                    var safeRotate = (typeof originalRotate === 'number' && !isNaN(originalRotate)) ? originalRotate : 0;
-
-                    try {
-                        $svg.data('scale', 1);
-                        if (safeRotate) {
-                            $svg.css('transform', 'rotate(' + safeRotate + 'deg) scale(1)');
-                        } else {
-                            $svg.css('transform', 'scale(1)');
-                        }
-
-                        var svgClone = svgNode.cloneNode(true);
-                        if (!svgClone.getAttribute('xmlns')) {
-                            svgClone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-                        }
-                        if (!svgClone.getAttribute('xmlns:xlink')) {
-                            svgClone.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
-                        }
-
-                        var viewBoxAttr = svgClone.getAttribute('viewBox') || '';
-                        var viewBoxParts = viewBoxAttr.trim().split(/\s+/).map(parseFloat);
-                        var exportScaleFactor = (typeof scaleFactor === 'number' && isFinite(scaleFactor) && scaleFactor > 0) ? scaleFactor : 1;
-                        if (viewBoxParts.length === 4 && viewBoxParts.every(function (num) { return isFinite(num); })) {
-                            var exportWidthMm = (viewBoxParts[2] / exportScaleFactor).toFixed(2);
-                            var exportHeightMm = (viewBoxParts[3] / exportScaleFactor).toFixed(2);
-                            svgClone.setAttribute('width', exportWidthMm + 'mm');
-                            svgClone.setAttribute('height', exportHeightMm + 'mm');
-                            svgClone.setAttribute('data-export-unit', 'mm');
-                        }
-                        svgClone.style.width = '';
-                        svgClone.style.height = '';
-
-                        var serializer = new XMLSerializer();
-                        var svgContent = serializer.serializeToString(svgClone);
-                        if (!svgContent.match(/^<svg[^>]+xmlns=/)) {
-                            svgContent = svgContent.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
-                        }
-                        var svgFile = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgContent;
-
-                        var blob = new Blob([svgFile], { type: 'image/svg+xml;charset=utf-8' });
-                        var url = URL.createObjectURL(blob);
-                        var link = document.createElement('a');
-                        var name = ($('#product-title-unique-12345').text() || 'customization').trim().replace(/[^a-z0-9\-_]+/gi, '_');
-                        link.href = url;
-                        link.download = (name || 'customization') + '.svg';
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                        URL.revokeObjectURL(url);
-                    } finally {
-                        if (typeof originalScale === 'number' && !isNaN(originalScale)) {
-                            $svg.data('scale', originalScale);
-                        } else {
-                            $svg.removeData('scale');
-                        }
-
-                        if (typeof originalRotate === 'number' && !isNaN(originalRotate)) {
-                            $svg.data('rotate', originalRotate);
-                        } else {
-                            $svg.removeData('rotate');
-                        }
-
-                        $svg.css('transform', originalTransform);
-                    }
-                });
 
         }
 
@@ -668,7 +539,6 @@ const CustomizationModule = (() => {
 
         // addToCart();
         controllers();
-        keepActiveAccordionStepInView();
         // updateExistingQuantity();
         moveAlert();
         // appendHtmlBasedOnScreenWidth();
@@ -1464,15 +1334,10 @@ const CustomizationModule = (() => {
 
             const svgElement = `
                 <svg id="actualSvg" width="400" height="400" style="width: 100%; height: 100%;">
-                    <defs id="svgDefs"></defs>
-                    <g id="holesContainer"></g>
-                    <g id="holeBorderContainer"></g>
-                    <g id="shapePreviewContainer"></g>
                     <g id="shapeContainer"></g>
+                    <g id="holesContainer"></g>
                     <g id="couOutMain">
-                        <g id="cutoutPreviewContainer"></g>
                         <g id="cutoutContainer"></g>
-                        <g id="cutoutBorderContainer"></g>
                         <g id="cutoutDems" class="activeDemensions"></g>
                     </g>
                     <g id="arrowsContainer" class="activeDemensions"></g>
@@ -1523,7 +1388,6 @@ const CustomizationModule = (() => {
                 <button class="svg-btn zoom-out"><img src="/modules/idxrcustomproduct/img/icon/m.png" alt="rg"></button>
                 <button class="svg-btn rotateright"><img src="/modules/idxrcustomproduct/img/icon/rr.png" alt="rg"></i></button>
                 <button class="svg-btn rotateleft"><img src="/modules/idxrcustomproduct/img/icon/rl.png" alt="rg"></button>
-                <button class="svg-btn download-svg" title="Download SVG"><img src="/modules/idxrcustomproduct/img/icon/down.png" alt="Download SVG"></button>
 
                 <div class="qwerty-switch-container">
                     <p id="switchStatus">Dimensions:</p>
@@ -1545,7 +1409,6 @@ const CustomizationModule = (() => {
                 <button class="svg-btn zoom-out"><img src="/modules/idxrcustomproduct/img/icon/m.png" alt="rg"></button>
                 <button class="svg-btn rotateright"><img src="/modules/idxrcustomproduct/img/icon/rr.png" alt="rg"></i></button>
                 <button class="svg-btn rotateleft"><img src="/modules/idxrcustomproduct/img/icon/rl.png" alt="rg"></button>
-                <button class="svg-btn download-svg" title="Download SVG"><img src="/modules/idxrcustomproduct/img/icon/down.png" alt="Download SVG"></button>
             </div>`;
             $('#svgContainer').prepend(controlsHtml);
 
@@ -1730,6 +1593,176 @@ const CustomizationModule = (() => {
               });
         }
 
+        function createCollapsibleTable() {
+            // Main container for the fixed table
+            const $fixedTable = $('<div></div>').css({
+                position: 'fixed',
+                bottom: '0',
+                left: '0',
+                backgroundColor: '#f9f9f9',
+                borderTop: '1px solid #ccc',
+                borderRight: '1px solid #ccc',
+                boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.2)',
+                fontFamily: 'Arial, sans-serif',
+                zIndex: '199'
+            }).attr('id', 'fixedTable');
+            
+            // Header for the title and subtitle
+            const $tableHeader = $('<div></div>').css({
+                padding: '10px',
+                backgroundColor: '#333',
+                color: '#fff',
+                cursor: 'pointer',
+                textAlign: 'center'
+            }).attr('id', 'tableHeader').appendTo($fixedTable);
+    
+            // Title
+            const tableTitle = $('<p></p>').text('Schéma de tarification (réduire) ').css({
+                margin: '0',
+                fontSize: '18px',
+                fontweight: 'bold',
+                color: 'white'
+            }).appendTo($tableHeader);
+            
+            $('<img src="https://icons.iconarchive.com/icons/paomedia/small-n-flat/256/sign-down-icon.png" width="30px" height="30px"/>').appendTo(tableTitle);
+
+            // Subtitle
+            $('<p></p>').text('Ce tableau n\'est affiché qu\'en développement, pas pour les clients.').css({
+                margin: '0',
+                fontSize: '14px',
+                color: 'white'
+            }).appendTo($tableHeader);
+    
+            // Table content (initially visible)
+            const $tableContent = $('<div></div>').css({
+                display: 'block',
+                padding: '10px'
+            }).attr('id', 'tableContent').appendTo($fixedTable);
+    
+            // Table element
+            const $table = $('<table></table>').css({
+                width: '100%',
+                borderCollapse: 'collapse'
+            }).appendTo($tableContent);
+            
+            const tableContent = [
+                ['<b>Element</b>', '<b>Price generale HT</b>', '<b>Prix HT</b>', 'Prix TTC'],
+
+                ['Surface de capot: <span id="s_d_capot"></span>', '<span id="price_map_1">0 €/m²</span>', '<span id="price_map_ht_1">0 €</span>', '<span id="price_map_ttc_1">0 €</span>'],
+                ['Prix de découpe de capot: <span id="p_d_d_map_1"></span>', '<span id="price_map_4">0 €/m²</span>', '<span id="price_map_ht_4">0 €</span>', '<span id="price_map_ttc_4">0 €</span>'],
+                ['Prix de collage de capot: <span id="p_d_c_map_1"></span>', '<span id="price_map_5">0 €/m²</span>', '<span id="price_map_ht_5">0 €</span>', '<span id="price_map_ttc_5">0 €</span>'],
+
+                ['Surface de socle: <span id="s_d_socle"></span>', '<span id="price_map_2">0 €/m²</span>', '<span id="price_map_ht_2">0 €</span>', '<span id="price_map_ttc_2">0 €</span>'],
+                ['Prix de découpe de socle: <span id="p_d_c_map_2"></span>', '<span id="price_map_6">0 €/m²</span>', '<span id="price_map_ht_6">0 €</span>', '<span id="price_map_ttc_6">0 €</span>'],
+                ['Prix de collage de socle: <span id="p_d_c_map_2"></span>', '<span id="price_map_7">0 €/m²</span>', '<span id="price_map_ht_7">0 €</span>', '<span id="price_map_ttc_7">0 €</span>'],
+
+                ['Avec épaulement', '<span id="price_map_3">0 €/m²</span>', '<span id="price_map_ht_3">0 €</span>', '<span id="price_map_ttc_3">0 €</span>'],
+                ['<b>Totale</b>', '<b>--</b>', '<b><span id="price_map_totale_ht">0 €/m²</span></b>', '<b><span id="price_map_totale_ttc">0 €/m²</span></b>'],
+            ];  
+            // 3x6 Table body creation 
+            for (let i = 0; i < 9; i++) {
+                const $row = $('<tr></tr>').appendTo($table);
+                for (let j = 0; j < 4; j++) {
+                    $('<td></td>').html(tableContent[i][j]).css({
+                        border: '1px solid #ddd',
+                        padding: '8px',
+                        textAlign: 'center'
+                    }).appendTo($row);
+                }
+            }
+    
+            // Toggle functionality
+            $tableHeader.on('click', function() {
+                $tableContent.toggle();
+            });
+    
+            // Append the table to the body
+            $('body').append($fixedTable);
+        }
+
+        function createCollapsibleTable2() {
+            // Main container for the fixed table
+            const $fixedTable = $('<div></div>').css({
+                position: 'fixed',
+                bottom: '0',
+                left: '0',
+                backgroundColor: '#f9f9f9',
+                borderTop: '1px solid #ccc',
+                borderRight: '1px solid #ccc',
+                boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.2)',
+                fontFamily: 'Arial, sans-serif',
+                zIndex: '199'
+            }).attr('id', 'fixedTable');
+            
+            // Header for the title and subtitle
+            const $tableHeader = $('<div></div>').css({
+                padding: '10px',
+                backgroundColor: '#333',
+                color: '#fff',
+                cursor: 'pointer',
+                textAlign: 'center'
+            }).attr('id', 'tableHeader').appendTo($fixedTable);
+    
+            // Title
+            const tableTitle = $('<p></p>').text('Schéma de tarification (réduire) ').css({
+                margin: '0',
+                fontSize: '18px',
+                fontweight: 'bold',
+                color: 'white'
+            }).appendTo($tableHeader);
+            
+            $('<img src="https://icons.iconarchive.com/icons/paomedia/small-n-flat/256/sign-down-icon.png" width="30px" height="30px"/>').appendTo(tableTitle);
+
+            // Subtitle
+            $('<p></p>').text('Ce tableau n\'est affiché qu\'en développement, pas pour les clients.').css({
+                margin: '0',
+                fontSize: '14px',
+                color: 'white'
+            }).appendTo($tableHeader);
+    
+            // Table content (initially visible)
+            const $tableContent = $('<div></div>').css({
+                display: 'block',
+                padding: '10px'
+            }).attr('id', 'tableContent').appendTo($fixedTable);
+    
+            // Table element
+            const $table = $('<table></table>').css({
+                width: '100%',
+                borderCollapse: 'collapse'
+            }).appendTo($tableContent);
+            
+            const tableContent = [
+                ['<b>Element</b>', '<b>Price generale HT</b>', '<b>Prix HT</b>', 'Prix TTC'],
+
+                ['Surface: <span id="s_d_capot"></span>', '<span id="price_map_1">0 €/m²</span>', '<span id="price_map_ht_1">0 €</span>', '<span id="price_map_ttc_1">0 €</span>'],
+                ['Prix des découpes: <span id="p_d_d_map_1"></span>', '<span id="price_map_4">0 €/m²</span>', '<span id="price_map_ht_4">0 €</span>', '<span id="price_map_ttc_4">0 €</span>'],
+                ['Prix de polissage: <span id="p_d_c_map_1"></span>', '<span id="price_map_5">0 €/m²</span>', '<span id="price_map_ht_5">0 €</span>', '<span id="price_map_ttc_5">0 €</span>'],
+                ['Plaques predecoupees:', '<span id="price_map_7">0 €/m²</span>', '<span id="price_map_ht_7">0 €</span>', '<span id="price_map_ttc_7">0 €</span>'],
+
+                ['<b>Totale</b>', '<b>--</b>', '<b><span id="price_map_totale_ht">0 €/m²</span></b>', '<b><span id="price_map_totale_ttc">0 €/m²</span></b>'],
+            ];  
+            // 3x6 Table body creation 
+            for (let i = 0; i < 5; i++) {
+                const $row = $('<tr></tr>').appendTo($table);
+                for (let j = 0; j < 4; j++) {
+                    $('<td></td>').html(tableContent[i][j]).css({
+                        border: '1px solid #ddd',
+                        padding: '8px',
+                        textAlign: 'center'
+                    }).appendTo($row);
+                }
+            }
+    
+            // Toggle functionality
+            $tableHeader.on('click', function() {
+                $tableContent.toggle();
+            });
+    
+            // Append the table to the body
+            $('body').append($fixedTable);
+        }
+
         function showPrices() {
             const newRow = `
                 <tr>
@@ -1755,12 +1788,14 @@ const CustomizationModule = (() => {
             topButtons();
             openFirst();
             textConfig();
+            if(invirement && invirement === 'development') createCollapsibleTable2();
         } else {
             showPrices();
             openFirstCube();
             appendUnitsCube();
             topButtonsCube();
             changeDivsToUrls();
+            if(invirement && invirement === 'development') createCollapsibleTable();
             $('.price-information').hide();
         
         }
@@ -2376,52 +2411,18 @@ const CustomizationModule = (() => {
 
     function drawShape() { 
         svg = Snap("#actualSvg");
-        const svgNode = svg.node;
         shapeGroup = svg.select('#shapeContainer');
-        const holeBorderGroup = svg.select('#holeBorderContainer');
-        const shapePreviewGroup = svg.select('#shapePreviewContainer');
         const arrowsGroup = svg.select('#arrowsContainer');
         const holesGroup = svg.select('#holesContainer');
-        const cutoutPreviewGroup = svg.select('#cutoutPreviewContainer');
         const cutoutGroup = svg.select('#cutoutContainer');
-        const cutoutBorderGroup = svg.select('#cutoutBorderContainer');
         const cutoutDems = svg.select('#cutoutDems');
-        if (shapeGroup && shapeGroup.node) {
-            shapeGroup.node.removeAttribute('mask');
-            shapeGroup.node.removeAttribute('opacity');
-        }
-        if (holesGroup && holesGroup.node) {
-            holesGroup.node.removeAttribute('mask');
-        }
-        if (holeBorderGroup && holeBorderGroup.node) {
-            holeBorderGroup.node.removeAttribute('mask');
-        }
-        if (cutoutGroup && cutoutGroup.node) {
-            cutoutGroup.node.removeAttribute('mask');
-            cutoutGroup.node.removeAttribute('opacity');
-        }
-        if (cutoutBorderGroup && cutoutBorderGroup.node) {
-            cutoutBorderGroup.node.removeAttribute('mask');
-        }
-        if (cutoutPreviewGroup && cutoutPreviewGroup.node) {
-            cutoutPreviewGroup.node.removeAttribute('mask');
-        }
-        if (shapePreviewGroup && shapePreviewGroup.node) {
-            shapePreviewGroup.node.removeAttribute('mask');
-        }
         shapeGroup.clear();
-        holeBorderGroup.clear();
-        shapePreviewGroup.clear();
         arrowsGroup.clear();
         holesGroup.clear();
-        cutoutPreviewGroup.clear();
         cutoutGroup.clear();
-        cutoutBorderGroup.clear();
         cutoutDems.clear();
-        let dimensionHoleTarget = null;
         var shaper = shapeGroup;
         var arrows = arrowsGroup;
-        let fitViewBoxTimer = null;
         function copySvgOnly() {
             // Clone the SVG element with id="actualSvg"
             let svgClone = $('#svgContainer #actualSvg').clone();
@@ -2429,333 +2430,11 @@ const CustomizationModule = (() => {
             // Clear the content of the target elements and append the cloned SVG
             $('#step_2_preview, #step_17_preview, #step_29_preview').empty().append(svgClone.clone());
         }
-
-        function fitViewBoxToContent() {
-            const groups = [shapeGroup, shapePreviewGroup, cutoutGroup, cutoutDems];
-            let minX = Infinity;
-            let minY = Infinity;
-            let maxX = -Infinity;
-            let maxY = -Infinity;
-
-            groups.forEach((group) => {
-                if (!group) return;
-                try {
-                    const b = group.getBBox();
-                    if (!b || !isFinite(b.x) || !isFinite(b.y) || !isFinite(b.x2) || !isFinite(b.y2)) return;
-                    if (b.w <= 0 && b.h <= 0) return;
-                    minX = Math.min(minX, b.x);
-                    minY = Math.min(minY, b.y);
-                    maxX = Math.max(maxX, b.x2);
-                    maxY = Math.max(maxY, b.y2);
-                } catch (e) {
-                    // Ignore transient bbox errors from empty/transforming groups.
-                }
-            });
-
-            if (!isFinite(minX) || !isFinite(minY) || !isFinite(maxX) || !isFinite(maxY)) {
-                return;
-            }
-
-            const margin = offset + extraSpace;
-            const width = Math.max(1, (maxX - minX) + 2 * margin);
-            const height = Math.max(1, (maxY - minY) + 2 * margin);
-            svg.attr({
-                viewBox: `${minX - margin} ${minY - margin} ${width} ${height}`
-            });
-        }
-
-        function scheduleFitViewBox() {
-            if (fitViewBoxTimer) {
-                clearTimeout(fitViewBoxTimer);
-            }
-            fitViewBoxTimer = setTimeout(() => {
-                fitViewBoxToContent();
-                copySvgOnly();
-            }, 0);
-        }
-
-        function clearGroupMask(group) {
-            if (group && group.node) {
-                group.node.removeAttribute('mask');
-            }
-        }
-
-        function setMaskPaint(node, color) {
-            if (!node || node.nodeType !== 1) {
-                return;
-            }
-            node.setAttribute('fill', color);
-            node.setAttribute('stroke', color);
-            node.setAttribute('fill-opacity', '1');
-            node.setAttribute('stroke-opacity', '1');
-            node.setAttribute('opacity', '1');
-            Array.prototype.forEach.call(node.children || [], function (child) {
-                setMaskPaint(child, color);
-            });
-        }
-
-        function ensureMask(maskId) {
-            const defsNode = svgNode.querySelector('#svgDefs');
-            if (!defsNode) {
-                return null;
-            }
-
-            let maskNode = defsNode.querySelector(`#${maskId}`);
-            if (!maskNode) {
-                maskNode = document.createElementNS('http://www.w3.org/2000/svg', 'mask');
-                maskNode.setAttribute('id', maskId);
-                defsNode.appendChild(maskNode);
-            }
-
-            while (maskNode.firstChild) {
-                maskNode.removeChild(maskNode.firstChild);
-            }
-
-            return maskNode;
-        }
-
-        function clearPreviewMasks() {
-            const defsNode = svgNode.querySelector('#svgDefs');
-            if (!defsNode) {
-                return;
-            }
-            ['idxr-shape-hole-mask', 'idxr-hole-outside-mask', 'idxr-hole-inside-mask', 'idxr-hole-border-mask', 'idxr-cutout-border-mask'].forEach(function (maskId) {
-                const maskNode = defsNode.querySelector(`#${maskId}`);
-                if (maskNode && maskNode.parentNode) {
-                    maskNode.parentNode.removeChild(maskNode);
-                }
-            });
-        }
-
-        function createMaskRect(color) {
-            const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            rect.setAttribute('x', '-5000');
-            rect.setAttribute('y', '-5000');
-            rect.setAttribute('width', '10000');
-            rect.setAttribute('height', '10000');
-            rect.setAttribute('fill', color);
-            return rect;
-        }
-
-        function resetHolePreviewStyle() {
-            clearGroupMask(shapeGroup);
-            clearGroupMask(shapePreviewGroup);
-            clearGroupMask(holesGroup);
-            clearGroupMask(holeBorderGroup);
-            clearGroupMask(cutoutPreviewGroup);
-            clearGroupMask(cutoutBorderGroup);
-            clearPreviewMasks();
-            if (shapeGroup && shapeGroup.node) {
-                shapeGroup.node.removeAttribute('opacity');
-            }
-            if (cutoutGroup && cutoutGroup.node) {
-                cutoutGroup.node.removeAttribute('opacity');
-            }
-            if (shapePreviewGroup) {
-                shapePreviewGroup.clear();
-            }
-            if (holesGroup) {
-                holesGroup.selectAll('.hole').forEach(function (hole) {
-                    hole.attr({
-                        fill: '#FFFFFF',
-                        stroke: '#065075'
-                    });
-                });
-            }
-            if (holeBorderGroup) {
-                holeBorderGroup.clear();
-            }
-            if (cutoutGroup) {
-                cutoutGroup.selectAll('*').forEach(function (cutoutNode) {
-                    cutoutNode.attr({
-                        fill: '#dff7cf',
-                        stroke: '#4fa4d6'
-                    });
-                });
-            }
-            if (cutoutPreviewGroup) {
-                cutoutPreviewGroup.clear();
-            }
-            if (cutoutBorderGroup) {
-                cutoutBorderGroup.clear();
-            }
-        }
-
-        function applyHoleCutMask() {
-            const holeNodes = holesGroup && typeof holesGroup.selectAll === 'function' ? holesGroup.selectAll('.hole') : [];
-            const cutoutNodes = cutoutGroup && cutoutGroup.node
-                ? Array.prototype.slice.call(cutoutGroup.node.childNodes || []).filter(function (node) { return node.nodeType === 1; })
-                : [];
-            const hasLiveHoleNode = !!(holesGroup && holesGroup.node && holesGroup.node.querySelector('.hole'));
-            const hasLiveCutoutNode = !!(cutoutGroup && cutoutGroup.node && cutoutGroup.node.children && cutoutGroup.node.children.length);
-            const hasMaskingSource = (holesSettings.type && holeNodes && holeNodes.length && hasLiveHoleNode) || (cutSettings.type && cutoutNodes.length && hasLiveCutoutNode);
-
-            if (!hasMaskingSource) {
-                resetHolePreviewStyle();
-                return;
-            }
-            if (!shapeGroup || !shapePreviewGroup || !holeBorderGroup || !cutoutPreviewGroup || !cutoutBorderGroup || !shapeGroup.node || !shapeGroup.node.childNodes.length) {
-                resetHolePreviewStyle();
-                return;
-            }
-
-            const shapeMask = ensureMask('idxr-shape-hole-mask');
-            const outsideHoleMask = ensureMask('idxr-hole-outside-mask');
-            const insideHoleMask = ensureMask('idxr-hole-inside-mask');
-            const holeBorderMask = ensureMask('idxr-hole-border-mask');
-            const cutoutBorderMask = ensureMask('idxr-cutout-border-mask');
-            if (!shapeMask || !outsideHoleMask || !insideHoleMask || !holeBorderMask || !cutoutBorderMask) {
-                return;
-            }
-
-            shapeMask.appendChild(createMaskRect('#ffffff'));
-            holeNodes.forEach(function (hole) {
-                const clone = hole.node.cloneNode(true);
-                clone.removeAttribute('class');
-                clone.removeAttribute('mask');
-                setMaskPaint(clone, '#000000');
-                shapeMask.appendChild(clone);
-            });
-            cutoutNodes.forEach(function (cutoutNode) {
-                const clone = cutoutNode.cloneNode(true);
-                clone.removeAttribute('class');
-                clone.removeAttribute('mask');
-                setMaskPaint(clone, '#000000');
-                shapeMask.appendChild(clone);
-            });
-
-            outsideHoleMask.appendChild(createMaskRect('#ffffff'));
-            const shapeClone = shapeGroup.node.cloneNode(true);
-            shapeClone.removeAttribute('mask');
-            setMaskPaint(shapeClone, '#000000');
-            outsideHoleMask.appendChild(shapeClone);
-
-            insideHoleMask.appendChild(createMaskRect('#000000'));
-            const insideShapeClone = shapeGroup.node.cloneNode(true);
-            insideShapeClone.removeAttribute('mask');
-            setMaskPaint(insideShapeClone, '#ffffff');
-            insideHoleMask.appendChild(insideShapeClone);
-
-            holeBorderMask.appendChild(createMaskRect('#000000'));
-            const holeInsideShapeClone = shapeGroup.node.cloneNode(true);
-            holeInsideShapeClone.removeAttribute('mask');
-            setMaskPaint(holeInsideShapeClone, '#ffffff');
-            holeBorderMask.appendChild(holeInsideShapeClone);
-            cutoutNodes.forEach(function (cutoutNode) {
-                const clone = cutoutNode.cloneNode(true);
-                clone.removeAttribute('class');
-                clone.removeAttribute('mask');
-                setMaskPaint(clone, '#000000');
-                holeBorderMask.appendChild(clone);
-            });
-
-            cutoutBorderMask.appendChild(createMaskRect('#000000'));
-            const cutoutInsideShapeClone = shapeGroup.node.cloneNode(true);
-            cutoutInsideShapeClone.removeAttribute('mask');
-            setMaskPaint(cutoutInsideShapeClone, '#ffffff');
-            cutoutBorderMask.appendChild(cutoutInsideShapeClone);
-            holeNodes.forEach(function (hole) {
-                const clone = hole.node.cloneNode(true);
-                clone.removeAttribute('class');
-                clone.removeAttribute('mask');
-                setMaskPaint(clone, '#000000');
-                cutoutBorderMask.appendChild(clone);
-            });
-
-            while (shapePreviewGroup.node.firstChild) {
-                shapePreviewGroup.node.removeChild(shapePreviewGroup.node.firstChild);
-            }
-            while (holeBorderGroup.node.firstChild) {
-                holeBorderGroup.node.removeChild(holeBorderGroup.node.firstChild);
-            }
-            while (cutoutPreviewGroup.node.firstChild) {
-                cutoutPreviewGroup.node.removeChild(cutoutPreviewGroup.node.firstChild);
-            }
-            while (cutoutBorderGroup.node.firstChild) {
-                cutoutBorderGroup.node.removeChild(cutoutBorderGroup.node.firstChild);
-            }
-            Array.prototype.forEach.call(shapeGroup.node.childNodes || [], function (child) {
-                shapePreviewGroup.node.appendChild(child.cloneNode(true));
-            });
-            holeNodes.forEach(function (hole) {
-                const borderClone = hole.node.cloneNode(true);
-                borderClone.removeAttribute('class');
-                borderClone.removeAttribute('mask');
-                holeBorderGroup.node.appendChild(borderClone);
-            });
-            cutoutNodes.forEach(function (cutoutNode) {
-                const previewClone = cutoutNode.cloneNode(true);
-                previewClone.removeAttribute('class');
-                previewClone.removeAttribute('mask');
-                cutoutPreviewGroup.node.appendChild(previewClone);
-
-                const borderClone = cutoutNode.cloneNode(true);
-                borderClone.removeAttribute('class');
-                borderClone.removeAttribute('mask');
-                cutoutBorderGroup.node.appendChild(borderClone);
-            });
-
-            shapePreviewGroup.node.setAttribute('mask', 'url(#idxr-shape-hole-mask)');
-            holesGroup.node.setAttribute('mask', 'url(#idxr-hole-outside-mask)');
-            holeBorderGroup.node.setAttribute('mask', 'url(#idxr-hole-border-mask)');
-            cutoutPreviewGroup.node.setAttribute('mask', 'url(#idxr-hole-outside-mask)');
-            cutoutBorderGroup.node.setAttribute('mask', 'url(#idxr-cutout-border-mask)');
-            shapeGroup.node.setAttribute('opacity', '0');
-            cutoutGroup.node.setAttribute('opacity', '0');
-            holeNodes.forEach(function (hole) {
-                hole.attr({
-                    fill: 'none',
-                    stroke: 'none'
-                });
-            });
-            cutoutPreviewGroup.selectAll('*').forEach(function (node) {
-                node.attr({
-                    fill: '#dff7cf',
-                    stroke: 'none'
-                });
-            });
-            if (dimensionHoleTarget) {
-                let targetHole = null;
-                let targetDistance = Infinity;
-                holeNodes.forEach(function (hole) {
-                    const cx = safeParseFloat(hole.attr('cx'));
-                    const cy = safeParseFloat(hole.attr('cy'));
-                    const dx = cx - dimensionHoleTarget.x;
-                    const dy = cy - dimensionHoleTarget.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < targetDistance) {
-                        targetDistance = distance;
-                        targetHole = hole;
-                    }
-                });
-                if (targetHole) {
-                    targetHole.attr({
-                        fill: '#dff7cf'
-                    });
-                }
-            }
-            holeBorderGroup.selectAll('*').forEach(function (node) {
-                node.attr({
-                    fill: 'none',
-                    stroke: '#70d1f5',
-                    strokeWidth: 1
-                });
-            });
-            cutoutBorderGroup.selectAll('*').forEach(function (node) {
-                node.attr({
-                    fill: 'none',
-                    stroke: '#70d1f5',
-                    strokeWidth: 1
-                });
-            });
-        }
         
         var extraInfo = drow(shapeSettings.type);
         holes(holesSettings.type, extraInfo);
         cut(cutSettings.type);
-        applyHoleCutMask();
-        drawReferenceAxes();
-        scheduleFitViewBox();
+        copySvgOnly();
 
         function calculateScaleFactor(dimension, target = 400) {
             const maxDimension = Math.max(...dimension);
@@ -2763,84 +2442,14 @@ const CustomizationModule = (() => {
             return maxDimension == 0 ? 1 : targetSize / maxDimension;
         }
 
-        function drawReferenceAxes() {
-            if (!shapeGroup) {
-                return;
-            }
-
-            let bbox;
-            try {
-                bbox = shapeGroup.getBBox();
-            } catch (e) {
-                return;
-            }
-
-            if (!bbox || !isFinite(bbox.x) || !isFinite(bbox.y) || !isFinite(bbox.x2) || !isFinite(bbox.y2)) {
-                return;
-            }
-
-            const axisExtension = Math.max(18, Math.min(34, Math.max(bbox.width, bbox.height) * 0.08)) + 12;
-            const labelOffset = 12;
-            const originX = bbox.x;
-            const originY = bbox.y;
-            let axisWidth = bbox.width;
-            let axisHeight = bbox.height;
-
-            if (shapeSettings.type === 1) {
-                axisWidth = scale(getValue('text_3', 200));
-                axisHeight = scale(getValue('text_4', 100));
-            }
-
-            const endX = originX + axisWidth + axisExtension;
-            const endY = originY + axisHeight + axisExtension;
-            const axisColor = '#6b7280';
-            const axisAttrs = {
-                stroke: axisColor,
-                strokeWidth: 1.2,
-            };
-            const labelAttrs = {
-                'font-size': 10,
-                'font-weight': 'bold',
-                fill: axisColor,
-                'text-anchor': 'middle'
-            };
-
-            function drawAxisArrow(x1, y1, x2, y2) {
-                const arrowLength = 5;
-                const angle = Math.atan2(y2 - y1, x2 - x1);
-                arrowsGroup.line(x1, y1, x2, y2).attr(axisAttrs);
-                arrowsGroup.line(
-                    x2,
-                    y2,
-                    x2 - arrowLength * Math.cos(angle - Math.PI / 6),
-                    y2 - arrowLength * Math.sin(angle - Math.PI / 6)
-                ).attr(axisAttrs);
-                arrowsGroup.line(
-                    x2,
-                    y2,
-                    x2 - arrowLength * Math.cos(angle + Math.PI / 6),
-                    y2 - arrowLength * Math.sin(angle + Math.PI / 6)
-                ).attr(axisAttrs);
-            }
-
-            arrowsGroup.circle(originX, originY, 2).attr({
-                fill: axisColor,
-                stroke: axisColor
-            });
-            drawAxisArrow(originX, originY, endX, originY);
-            drawAxisArrow(originX, originY, originX, endY);
-            arrowsGroup.text(endX, originY - labelOffset + 2, 'X').attr(labelAttrs);
-            arrowsGroup.text(originX - labelOffset, endY + 3, 'Y').attr(labelAttrs);
-        }
-
         function mainAttrs(type = 1) {
             if (type == 2) return {
                 fill: '#e2ffc1',
-                stroke: "#4fa4d6"
+                stroke: "#065075"
             };
             return {
                 fill: '#F0FAFF',
-                stroke: "#4fa4d6",
+                stroke: "#065075",
                 id: 'shapeHolder'
             };
         };
@@ -3058,10 +2667,6 @@ const CustomizationModule = (() => {
                 default:
                     console.error("Invalid hole type");
             }
-
-            // Expose active holes count to front.js pricing.
-            const holesNodeList = holesGroup && typeof holesGroup.selectAll === 'function' ? holesGroup.selectAll('.hole') : [];
-            window.idxr_holes_count = (holesNodeList && typeof holesNodeList.length !== 'undefined') ? parseInt(holesNodeList.length, 10) || 0 : 0;
 
             function drawGridHoles(rows, cols, padding, holeRadius, extra) {
 
@@ -3350,9 +2955,6 @@ const CustomizationModule = (() => {
         function cut(type = 12) {
             shaper = cutoutGroup;
             arrows = cutoutDems;
-            let outsideCutShapeDims = null;
-            suppressCutInternalDimensions = type > 0;
-            const genericOutsideCutTypes = [4, 7, 8, 9, 10];
             var extra = 0;
             if (shapeSettings.type == 12) {
                 extra = scale(getValue('text_56', 80));
@@ -3373,17 +2975,6 @@ const CustomizationModule = (() => {
                 var cutHeight = getValue('text_39', 500);
                 
                 rect_draw(cutWidth, cutHeight, drawRadius1, drawRadius2, drawRadius3, drawRadius4, 2, cutoutX, cutoutY);
-                const rectHalfW = scale(cutWidth) / 2;
-                const rectHalfH = scale(cutHeight) / 2;
-                outsideCutShapeDims = {
-                    shape: 'rect',
-                    left: cutoutX - rectHalfW,
-                    right: cutoutX + rectHalfW,
-                    top: cutoutY - rectHalfH,
-                    bottom: cutoutY + rectHalfH,
-                    widthMM: cutWidth,
-                    heightMM: cutHeight
-                };
                 
                 // var cutRadius = getValue('text_75', 0);
                 // rect(cutWidth, cutHeight, cutRadius, 2, cutoutX, cutoutY);
@@ -3393,27 +2984,11 @@ const CustomizationModule = (() => {
                 case 2:
                     var cutRadiusCircle = getValue('text_45', 30);
                     circle(cutRadiusCircle, 2, cutoutX, cutoutY);
-                    const circleRadius = scale(cutRadiusCircle / 2);
-                    outsideCutShapeDims = {
-                        shape: 'circle',
-                        centerX: cutoutX,
-                        centerY: cutoutY,
-                        radius: circleRadius,
-                        diameterMM: cutRadiusCircle
-                    };
                     perimeter2 = Math.PI * cutRadiusCircle;
                     break;
                 case 3:
                     var cutRadiusCircle = getValue('text_45', 50);
                     halfCircle(cutRadiusCircle, 2, cutoutX, cutoutY);
-                    const halfRadius = scale(cutRadiusCircle / 2);
-                    outsideCutShapeDims = {
-                        shape: 'halfcircle',
-                        centerX: cutoutX,
-                        centerY: cutoutY,
-                        radius: halfRadius,
-                        diameterMM: cutRadiusCircle
-                    };
                     perimeter2 = (Math.PI * cutRadiusCircle / 2) + cutRadiusCircle;
                     break;
                 case 4:
@@ -3431,23 +3006,6 @@ const CustomizationModule = (() => {
                     var cutWidth = getValue('text_39', 40);
 
                     trapezoidalRight(cutTopWidth, cutWidth, cutHeight, 2, cutoutX, cutoutY);
-                    const trBase = scale(cutTopWidth);
-                    const trTop = scale(cutHeight);
-                    const trHeight = scale(cutWidth);
-                    const trStartX = cutoutX - Math.max(trBase, trTop) / 2;
-                    const trStartY = cutoutY - trHeight / 2;
-                    outsideCutShapeDims = {
-                        shape: 'trapezoidRight',
-                        x1: trStartX,
-                        y1: trStartY + trHeight,
-                        x2: trStartX + trBase,
-                        y2: trStartY + trHeight,
-                        x3: trStartX + trTop,
-                        y3: trStartY,
-                        baseMM: cutTopWidth,
-                        topMM: cutHeight,
-                        heightMM: cutWidth
-                    };
 
                     perimeter2 = cutTopWidth + cutHeight + Math.sqrt(Math.pow(cutWidth, 2) + Math.pow((cutTopWidth - cutHeight) / 2, 2)) * 2;
                     break;
@@ -3457,25 +3015,6 @@ const CustomizationModule = (() => {
                     var cutWidth = getValue('text_39', 40);
 
                     trapezoidalIsosceles(cutTopWidth, cutWidth, cutHeight, 2, cutoutX, cutoutY);
-                    const tiBase = scale(cutTopWidth);
-                    const tiTop = scale(cutWidth);
-                    const tiHeight = scale(cutHeight);
-                    const tiOffsetX = (tiBase - tiTop) / 2;
-                    const tiStartX = cutoutX - tiBase / 2 + tiOffsetX;
-                    const tiStartY = cutoutY - tiHeight / 2;
-                    outsideCutShapeDims = {
-                        shape: 'trapezoidIso',
-                        x1: tiStartX,
-                        y1: tiStartY + tiHeight,
-                        x2: tiStartX + tiBase,
-                        y2: tiStartY + tiHeight,
-                        x3: tiStartX + tiOffsetX + tiTop,
-                        y3: tiStartY,
-                        x4: tiStartX + tiOffsetX,
-                        baseMM: cutTopWidth,
-                        topMM: cutWidth,
-                        heightMM: cutHeight
-                    };
 
                     perimeter2 = cutTopWidth + cutHeight + Math.sqrt(Math.pow(cutWidth, 2) + Math.pow((cutTopWidth - cutHeight) / 2, 2)) * 2;
                     break;
@@ -3500,20 +3039,6 @@ const CustomizationModule = (() => {
                 case 11:
                     var cutRadiusCircle = getValue('text_45', 30);
                     hexagon(cutRadiusCircle, 2, cutoutX, cutoutY);
-                    const hexSide = scale(cutRadiusCircle);
-                    const hexHeight = hexSide * Math.sqrt(3);
-                    const hexStartX = cutoutX - hexSide;
-                    const hexStartY = cutoutY - hexHeight / 2;
-                    outsideCutShapeDims = {
-                        shape: 'hexagon',
-                        startX: hexStartX,
-                        startY: hexStartY,
-                        side: hexSide,
-                        height: hexHeight,
-                        sideMM: cutRadiusCircle,
-                        widthMM: cutRadiusCircle * 2,
-                        heightMM: (cutRadiusCircle * Math.sqrt(3)).toFixed(2)
-                    };
                     perimeter2 = cutRadiusCircle * 6;
                     break;
                 case 12: // tailWidth, headWidth, tailHeight, headHeight
@@ -3522,23 +3047,6 @@ const CustomizationModule = (() => {
                     var th = getValue('text_68', 20);
                     var hh = getValue('text_69', 20);
                     arrow(tw, hw, th, hh, 2, cutoutX, cutoutY);
-                    const twS = scale(tw);
-                    const hwS = scale(hw);
-                    const thS = scale(th);
-                    const hhS = scale(hh);
-                    outsideCutShapeDims = {
-                        shape: 'arrow',
-                        xx: cutoutX,
-                        yy: cutoutY,
-                        twS,
-                        hwS,
-                        thS,
-                        hhS,
-                        twMM: tw,
-                        hwMM: hw,
-                        thMM: th,
-                        hhMM: hh
-                    };
                     let tailP = (tw + th) * 2;
                     let headP = hw + hh + Math.sqrt(hw * hw + hh * hh);
 
@@ -3549,28 +3057,15 @@ const CustomizationModule = (() => {
                     var outerRadius = getValue('text_64', 50);
                     var innerRadius = getValue('text_65', 20);
                     star(outerRadius, innerRadius, 5, 2, cutoutX, cutoutY);
-                    const outerR = scale(outerRadius);
-                    const innerR = scale(innerRadius);
-                    outsideCutShapeDims = {
-                        shape: 'star',
-                        centerX: cutoutX,
-                        centerY: cutoutY,
-                        outerR,
-                        innerR,
-                        outerMM: outerRadius,
-                        innerMM: innerRadius
-                    };
                     let angleRad = Math.PI / pointsStar;
                     let segmentLength = Math.sqrt(Math.pow(outerRadius, 2) + Math.pow(innerRadius, 2) - 2 * outerRadius * innerRadius * Math.cos(angleRad));
                     perimeter2 = segmentLength * 2 * pointsStar;
                     break;
                 default:
                     withArrows = false;
-                    outsideCutShapeDims = null;
                     perimeter2 = 0;
                     break;
             }
-            suppressCutInternalDimensions = false;
 
             var rotation = getValue('text_42', 0);
             var cutoutContainer = svg.select("#couOutMain");
@@ -3579,218 +3074,10 @@ const CustomizationModule = (() => {
             }
             
             if(withArrows){
-                arrows = cutoutDems;
-                const cutoutDimGroup = cutoutDems;
-                const outsideOffset = offset + extraSpace;
-                const topGuideY = -outsideOffset;
-                const leftGuideX = -outsideOffset;
-                const connectorAttrs = {
-                    stroke: "#000",
-                    strokeWidth: 1,
-                    strokeDasharray: "1, 1"
-                };
-
-                // Draw cutout position dimensions outside the main shape.
-                drawDimensionWithText(0, topGuideY, cutoutX, topGuideY, 'X: ', `${demX} mm`, '', 2);
-                drawDimensionWithText(leftGuideX, 0, leftGuideX, cutoutY, 'Y: ', `${demY} mm`, 'vertical', 2);
-
-                // Dotted connectors from old internal arrow points to new outside dimensions.
-                cutoutDimGroup.line(0, cutoutY, 0, topGuideY).attr(connectorAttrs);
-                cutoutDimGroup.line(cutoutX, cutoutY, cutoutX, topGuideY).attr(connectorAttrs);
-                cutoutDimGroup.line(cutoutX, 0, leftGuideX, 0).attr(connectorAttrs);
-                cutoutDimGroup.line(cutoutX, cutoutY, leftGuideX, cutoutY).attr(connectorAttrs);
-
-                const cutDimTopY = topGuideY - offset;
-                const cutDimTop2Y = cutDimTopY - offset;
-                const cutDimLeftX = leftGuideX - offset;
-
-                if (outsideCutShapeDims && outsideCutShapeDims.shape === 'rect') {
-                    drawDimensionWithText(
-                        outsideCutShapeDims.left, cutDimTopY,
-                        outsideCutShapeDims.right, cutDimTopY,
-                        `${idxr_tr_width}: `, `${outsideCutShapeDims.widthMM} mm`, '', 2
-                    );
-                    drawDimensionWithText(
-                        cutDimLeftX, outsideCutShapeDims.top,
-                        cutDimLeftX, outsideCutShapeDims.bottom,
-                        `${idxr_tr_height}: `, `${outsideCutShapeDims.heightMM} mm`, 'vertical', 2
-                    );
-
-                    cutoutDimGroup.line(outsideCutShapeDims.left, outsideCutShapeDims.top, outsideCutShapeDims.left, cutDimTopY).attr(connectorAttrs);
-                    cutoutDimGroup.line(outsideCutShapeDims.right, outsideCutShapeDims.top, outsideCutShapeDims.right, cutDimTopY).attr(connectorAttrs);
-                    cutoutDimGroup.line(outsideCutShapeDims.left, outsideCutShapeDims.top, cutDimLeftX, outsideCutShapeDims.top).attr(connectorAttrs);
-                    cutoutDimGroup.line(outsideCutShapeDims.left, outsideCutShapeDims.bottom, cutDimLeftX, outsideCutShapeDims.bottom).attr(connectorAttrs);
-                } else if (outsideCutShapeDims && outsideCutShapeDims.shape === 'circle') {
-                    const lx = outsideCutShapeDims.centerX - outsideCutShapeDims.radius;
-                    const rx = outsideCutShapeDims.centerX + outsideCutShapeDims.radius;
-                    drawDimensionWithText(
-                        lx, cutDimTopY,
-                        rx, cutDimTopY,
-                        `${idxr_tr_diameter}: `, `${outsideCutShapeDims.diameterMM} mm`, '', 2
-                    );
-                    cutoutDimGroup.line(lx, outsideCutShapeDims.centerY, lx, cutDimTopY).attr(connectorAttrs);
-                    cutoutDimGroup.line(rx, outsideCutShapeDims.centerY, rx, cutDimTopY).attr(connectorAttrs);
-                } else if (outsideCutShapeDims && outsideCutShapeDims.shape === 'halfcircle') {
-                    const lx = outsideCutShapeDims.centerX - outsideCutShapeDims.radius;
-                    const rx = outsideCutShapeDims.centerX + outsideCutShapeDims.radius;
-                    drawDimensionWithText(
-                        lx, cutDimTopY,
-                        rx, cutDimTopY,
-                        `${idxr_tr_diameter}: `, `${outsideCutShapeDims.diameterMM} mm`, '', 2
-                    );
-                    cutoutDimGroup.line(lx, outsideCutShapeDims.centerY, lx, cutDimTopY).attr(connectorAttrs);
-                    cutoutDimGroup.line(rx, outsideCutShapeDims.centerY, rx, cutDimTopY).attr(connectorAttrs);
-                } else if (outsideCutShapeDims && outsideCutShapeDims.shape === 'hexagon') {
-                    const x0 = outsideCutShapeDims.startX;
-                    const y0 = outsideCutShapeDims.startY;
-                    const s = outsideCutShapeDims.side;
-                    const h = outsideCutShapeDims.height;
-
-                    drawDimensionWithText(
-                        x0, cutDimTopY,
-                        x0 + 2 * s, cutDimTopY,
-                        `${idxr_tr_width}: `, `${outsideCutShapeDims.widthMM} mm`, '', 2
-                    );
-                    drawDimensionWithText(
-                        x0 + s / 2, cutDimTop2Y,
-                        x0 + 1.5 * s, cutDimTop2Y,
-                        `${idxr_tr_side}: `, `${outsideCutShapeDims.sideMM} mm`, '', 2
-                    );
-                    drawDimensionWithText(
-                        cutDimLeftX, y0,
-                        cutDimLeftX, y0 + h,
-                        `${idxr_tr_height}: `, `${outsideCutShapeDims.heightMM} mm`, 'vertical', 2
-                    );
-
-                    cutoutDimGroup.line(x0, y0, x0, cutDimTopY).attr(connectorAttrs);
-                    cutoutDimGroup.line(x0 + 2 * s, y0, x0 + 2 * s, cutDimTopY).attr(connectorAttrs);
-                    cutoutDimGroup.line(x0 + s / 2, y0, x0 + s / 2, cutDimTop2Y).attr(connectorAttrs);
-                    cutoutDimGroup.line(x0 + 1.5 * s, y0, x0 + 1.5 * s, cutDimTop2Y).attr(connectorAttrs);
-                    cutoutDimGroup.line(x0, y0, cutDimLeftX, y0).attr(connectorAttrs);
-                    cutoutDimGroup.line(x0, y0 + h, cutDimLeftX, y0 + h).attr(connectorAttrs);
-                } else if (outsideCutShapeDims && outsideCutShapeDims.shape === 'trapezoidRight') {
-                    drawDimensionWithText(
-                        outsideCutShapeDims.x1, cutDimTopY,
-                        outsideCutShapeDims.x2, cutDimTopY,
-                        `${idxr_tr_width}: `, `${outsideCutShapeDims.baseMM} mm`, '', 2
-                    );
-                    drawDimensionWithText(
-                        outsideCutShapeDims.x1, cutDimTop2Y,
-                        outsideCutShapeDims.x3, cutDimTop2Y,
-                        `Longueur: `, `${outsideCutShapeDims.topMM} mm`, '', 2
-                    );
-                    drawDimensionWithText(
-                        cutDimLeftX, outsideCutShapeDims.y3,
-                        cutDimLeftX, outsideCutShapeDims.y1,
-                        `${idxr_tr_height}: `, `${outsideCutShapeDims.heightMM} mm`, 'vertical', 2
-                    );
-
-                    cutoutDimGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y1, outsideCutShapeDims.x1, cutDimTopY).attr(connectorAttrs);
-                    cutoutDimGroup.line(outsideCutShapeDims.x2, outsideCutShapeDims.y2, outsideCutShapeDims.x2, cutDimTopY).attr(connectorAttrs);
-                    cutoutDimGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y3, outsideCutShapeDims.x1, cutDimTop2Y).attr(connectorAttrs);
-                    cutoutDimGroup.line(outsideCutShapeDims.x3, outsideCutShapeDims.y3, outsideCutShapeDims.x3, cutDimTop2Y).attr(connectorAttrs);
-                    cutoutDimGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y3, cutDimLeftX, outsideCutShapeDims.y3).attr(connectorAttrs);
-                    cutoutDimGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y1, cutDimLeftX, outsideCutShapeDims.y1).attr(connectorAttrs);
-                } else if (outsideCutShapeDims && outsideCutShapeDims.shape === 'trapezoidIso') {
-                    drawDimensionWithText(
-                        outsideCutShapeDims.x1, cutDimTopY,
-                        outsideCutShapeDims.x2, cutDimTopY,
-                        `${idxr_tr_width}: `, `${outsideCutShapeDims.baseMM} mm`, '', 2
-                    );
-                    drawDimensionWithText(
-                        outsideCutShapeDims.x4, cutDimTop2Y,
-                        outsideCutShapeDims.x3, cutDimTop2Y,
-                        `Longueur: `, `${outsideCutShapeDims.topMM} mm`, '', 2
-                    );
-                    drawDimensionWithText(
-                        cutDimLeftX, outsideCutShapeDims.y3,
-                        cutDimLeftX, outsideCutShapeDims.y1,
-                        `${idxr_tr_height}: `, `${outsideCutShapeDims.heightMM} mm`, 'vertical', 2
-                    );
-
-                    cutoutDimGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y1, outsideCutShapeDims.x1, cutDimTopY).attr(connectorAttrs);
-                    cutoutDimGroup.line(outsideCutShapeDims.x2, outsideCutShapeDims.y2, outsideCutShapeDims.x2, cutDimTopY).attr(connectorAttrs);
-                    cutoutDimGroup.line(outsideCutShapeDims.x4, outsideCutShapeDims.y3, outsideCutShapeDims.x4, cutDimTop2Y).attr(connectorAttrs);
-                    cutoutDimGroup.line(outsideCutShapeDims.x3, outsideCutShapeDims.y3, outsideCutShapeDims.x3, cutDimTop2Y).attr(connectorAttrs);
-                    cutoutDimGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y3, cutDimLeftX, outsideCutShapeDims.y3).attr(connectorAttrs);
-                    cutoutDimGroup.line(outsideCutShapeDims.x1, outsideCutShapeDims.y1, cutDimLeftX, outsideCutShapeDims.y1).attr(connectorAttrs);
-                } else if (outsideCutShapeDims && outsideCutShapeDims.shape === 'star') {
-                    const centerX = outsideCutShapeDims.centerX;
-                    const centerY = outsideCutShapeDims.centerY;
-                    const outerX = centerX + outsideCutShapeDims.outerR;
-                    const innerX = centerX + outsideCutShapeDims.innerR;
-
-                    drawDimensionWithText(
-                        centerX, cutDimTopY,
-                        outerX, cutDimTopY,
-                        `${idxr_tr_outer_radius}: `,
-                        `${outsideCutShapeDims.outerMM} mm`,
-                        '',
-                        2
-                    );
-                    drawDimensionWithText(
-                        centerX, cutDimTop2Y,
-                        innerX, cutDimTop2Y,
-                        `${idxr_tr_inner_radius}: `,
-                        `${outsideCutShapeDims.innerMM} mm`,
-                        '',
-                        2
-                    );
-
-                    cutoutDimGroup.line(centerX, centerY, centerX, cutDimTopY).attr(connectorAttrs);
-                    cutoutDimGroup.line(outerX, centerY, outerX, cutDimTopY).attr(connectorAttrs);
-                    cutoutDimGroup.line(centerX, centerY, centerX, cutDimTop2Y).attr(connectorAttrs);
-                    cutoutDimGroup.line(innerX, centerY, innerX, cutDimTop2Y).attr(connectorAttrs);
-                } else if (outsideCutShapeDims && outsideCutShapeDims.shape === 'arrow') {
-                    const xx = outsideCutShapeDims.xx;
-                    const yy = outsideCutShapeDims.yy;
-                    const tailEndX = xx + outsideCutShapeDims.twS;
-                    const headEndX = tailEndX + outsideCutShapeDims.hwS;
-                    const baseTopY = yy - outsideCutShapeDims.hhS - offset;
-                    const baseTop2Y = baseTopY - offset;
-                    const leftV1X = leftGuideX - offset * 2;
-                    const leftV2X = leftGuideX - offset * 3;
-
-                    drawDimensionWithText(xx, baseTopY, tailEndX, baseTopY, 'L.Q: ', `${outsideCutShapeDims.twMM} mm`, '', 2);
-                    drawDimensionWithText(tailEndX, baseTop2Y, headEndX, baseTop2Y, 'L.T: ', `${outsideCutShapeDims.hwMM} mm`, '', 2);
-                    drawDimensionWithText(leftV1X, yy, leftV1X, yy + outsideCutShapeDims.thS, 'H.Q: ', `${outsideCutShapeDims.thMM} mm`, 'vertical', 2);
-                    drawDimensionWithText(leftV2X, yy + outsideCutShapeDims.thS, leftV2X, yy + outsideCutShapeDims.thS + outsideCutShapeDims.hhS, 'H.T: ', `${outsideCutShapeDims.hhMM} mm`, 'vertical', 2);
-
-                    cutoutDimGroup.line(xx, yy, xx, baseTopY).attr(connectorAttrs);
-                    cutoutDimGroup.line(tailEndX, yy, tailEndX, baseTopY).attr(connectorAttrs);
-                    cutoutDimGroup.line(tailEndX, yy - outsideCutShapeDims.hhS, tailEndX, baseTop2Y).attr(connectorAttrs);
-                    cutoutDimGroup.line(headEndX, yy - outsideCutShapeDims.hhS, headEndX, baseTop2Y).attr(connectorAttrs);
-                    cutoutDimGroup.line(xx, yy, leftV1X, yy).attr(connectorAttrs);
-                    cutoutDimGroup.line(xx, yy + outsideCutShapeDims.thS, leftV1X, yy + outsideCutShapeDims.thS).attr(connectorAttrs);
-                    cutoutDimGroup.line(tailEndX, yy + outsideCutShapeDims.thS, leftV2X, yy + outsideCutShapeDims.thS).attr(connectorAttrs);
-                    cutoutDimGroup.line(tailEndX, yy + outsideCutShapeDims.thS + outsideCutShapeDims.hhS, leftV2X, yy + outsideCutShapeDims.thS + outsideCutShapeDims.hhS).attr(connectorAttrs);
-                } else if (genericOutsideCutTypes.includes(type)) {
-                    const cutBBox = cutoutGroup.getBBox();
-                    if (cutBBox) {
-                        drawDimensionWithText(
-                            cutBBox.x, cutDimTopY,
-                            cutBBox.x2, cutDimTopY,
-                            `${idxr_tr_width}: `,
-                            `${unScale(cutBBox.width)} mm`,
-                            '',
-                            2
-                        );
-                        drawDimensionWithText(
-                            cutDimLeftX, cutBBox.y,
-                            cutDimLeftX, cutBBox.y2,
-                            `${idxr_tr_height}: `,
-                            `${unScale(cutBBox.height)} mm`,
-                            'vertical',
-                            2
-                        );
-
-                        cutoutDimGroup.line(cutBBox.x, cutBBox.y, cutBBox.x, cutDimTopY).attr(connectorAttrs);
-                        cutoutDimGroup.line(cutBBox.x2, cutBBox.y, cutBBox.x2, cutDimTopY).attr(connectorAttrs);
-                        cutoutDimGroup.line(cutBBox.x, cutBBox.y, cutDimLeftX, cutBBox.y).attr(connectorAttrs);
-                        cutoutDimGroup.line(cutBBox.x, cutBBox.y2, cutDimLeftX, cutBBox.y2).attr(connectorAttrs);
-                    }
-                }
                 arrows = arrowsGroup;
+                // shaper.circle( cutoutX, cutoutY, scale(3) ).attr( {fill: 'green'} );
+                drawDimensionWithText( 0, cutoutY, cutoutX, cutoutY, 'X: ', `${demX.toFixed(2)} mm`, '', 2);
+                drawDimensionWithText( cutoutX, 0, cutoutX, cutoutY, 'Y: ', `${demY.toFixed(2)} mm`, 'vertical', 2);
             }
         }
 
@@ -3825,8 +3112,7 @@ const CustomizationModule = (() => {
                 `${idxr_tr_width}: `,
                 `${width} mm`,
                 '',
-                type,
-                'below'
+                type
             );
 
             drawDimensionWithText(
@@ -3922,8 +3208,7 @@ const CustomizationModule = (() => {
                 `${idxr_tr_width}: `,
                 `${width} mm`,
                 '',
-                type,
-                'below'
+                type
             );
         
             drawDimensionWithText(
@@ -3937,77 +3222,110 @@ const CustomizationModule = (() => {
                 type
             );
         
-            function drawOutsideRadiusDimension(radiusValue, scaledRadiusValue, centerX, centerY, align, side, cornerX) {
-                if (scaledRadiusValue <= 1) {
-                    return;
-                }
-
-                const connectorAttrs = {
-                    stroke: "#000",
-                    strokeWidth: 1,
-                    strokeDasharray: "1, 1"
-                };
-                const connectorOffset = offset * 2;
-                const dimensionY = side === 'top'
-                    ? adjustedY - connectorOffset
-                    : adjustedY + scaledHeight + connectorOffset;
-                const startX = align === 'left' ? cornerX : centerX;
-                const endX = align === 'left' ? centerX : cornerX;
-
+            // Add dashed lines and text for each radius if any radius is greater than 1
+            if (scaledTopLeftRadius > 1) {
+                // Top-left corner dashed lines
+                const cornerX1 = adjustedX + scaledTopLeftRadius;
+                const cornerY1 = adjustedY + scaledTopLeftRadius;
+        
+                shaper.line(cornerX1, cornerY1, cornerX1 - scaledTopLeftRadius - 10, cornerY1).attr({
+                    stroke: "green",
+                    "stroke-width": 1,
+                    "stroke-dasharray": "2, 2"
+                });
+                shaper.line(cornerX1, adjustedY, cornerX1, cornerY1).attr({
+                    stroke: "green",
+                    "stroke-width": 1,
+                    "stroke-dasharray": "2, 2"
+                });
+        
                 drawDimensionWithText(
-                    startX,
-                    dimensionY,
-                    endX,
-                    dimensionY,
+                    cornerX1 - scaledTopLeftRadius - 10, cornerY1,
+                    cornerX1, cornerY1,
                     `${idxr_tr_radius}: `,
-                    `${radiusValue} mm`,
-                    '',
-                    2,
-                    side === 'bottom' ? 'below' : 'auto'
+                    `${topLeftRadius} mm`,
+                    'horizontal',
+                    2
                 );
-                arrowsGroup.line(centerX, centerY, centerX, dimensionY).attr(connectorAttrs);
-                arrowsGroup.line(cornerX, centerY, centerX, centerY).attr(connectorAttrs);
             }
-
-            drawOutsideRadiusDimension(
-                topLeftRadius,
-                scaledTopLeftRadius,
-                adjustedX + scaledTopLeftRadius,
-                adjustedY + scaledTopLeftRadius,
-                'left',
-                'top',
-                adjustedX
-            );
-
-            drawOutsideRadiusDimension(
-                topRightRadius,
-                scaledTopRightRadius,
-                adjustedX + scaledWidth - scaledTopRightRadius,
-                adjustedY + scaledTopRightRadius,
-                'right',
-                'top',
-                adjustedX + scaledWidth
-            );
-
-            drawOutsideRadiusDimension(
-                bottomLeftRadius,
-                scaledBottomLeftRadius,
-                adjustedX + scaledBottomLeftRadius,
-                adjustedY + scaledHeight - scaledBottomLeftRadius,
-                'left',
-                'bottom',
-                adjustedX
-            );
-
-            drawOutsideRadiusDimension(
-                bottomRightRadius,
-                scaledBottomRightRadius,
-                adjustedX + scaledWidth - scaledBottomRightRadius,
-                adjustedY + scaledHeight - scaledBottomRightRadius,
-                'right',
-                'bottom',
-                adjustedX + scaledWidth
-            );
+        
+            if (scaledTopRightRadius > 1) {
+                // Top-right corner dashed lines
+                const cornerX2 = adjustedX + scaledWidth - scaledTopRightRadius;
+                const cornerY2 = adjustedY + scaledTopRightRadius;
+        
+                shaper.line(cornerX2, cornerY2, cornerX2 + scaledTopRightRadius + 10, cornerY2).attr({
+                    stroke: "red",
+                    "stroke-width": 1,
+                    "stroke-dasharray": "2, 2"
+                });
+                shaper.line(cornerX2, adjustedY, cornerX2, cornerY2).attr({
+                    stroke: "red",
+                    "stroke-width": 1,
+                    "stroke-dasharray": "2, 2"
+                });
+        
+                drawDimensionWithText(
+                    cornerX2 + scaledTopRightRadius + 10, cornerY2,
+                    cornerX2, cornerY2,
+                    `${idxr_tr_radius}: `,
+                    `${topRightRadius} mm`,
+                    'horizontal',
+                    2
+                );
+            }
+        
+            if (scaledBottomLeftRadius > 1) {
+                // Bottom-left corner dashed lines
+                const cornerX3 = adjustedX + scaledBottomLeftRadius;
+                const cornerY3 = adjustedY + scaledHeight - scaledBottomLeftRadius;
+        
+                shaper.line(cornerX3, cornerY3, cornerX3 - scaledBottomLeftRadius - 10, cornerY3).attr({
+                    stroke: "red",
+                    "stroke-width": 1,
+                    "stroke-dasharray": "2, 2"
+                });
+                shaper.line(cornerX3, adjustedY + scaledHeight, cornerX3, cornerY3).attr({
+                    stroke: "red",
+                    "stroke-width": 1,
+                    "stroke-dasharray": "2, 2"
+                });
+        
+                drawDimensionWithText(
+                    cornerX3 - scaledBottomLeftRadius - 10, cornerY3,
+                    cornerX3, cornerY3,
+                    `${idxr_tr_radius}: `,
+                    `${bottomLeftRadius} mm`,
+                    'horizontal',
+                    2
+                );
+            }
+        
+            if (scaledBottomRightRadius > 1) {
+                // Bottom-right corner dashed lines
+                const cornerX4 = adjustedX + scaledWidth - scaledBottomRightRadius;
+                const cornerY4 = adjustedY + scaledHeight - scaledBottomRightRadius;
+        
+                shaper.line(cornerX4, cornerY4, cornerX4 + scaledBottomRightRadius + 10, cornerY4).attr({
+                    stroke: "red",
+                    "stroke-width": 1,
+                    "stroke-dasharray": "2, 2"
+                });
+                shaper.line(cornerX4, adjustedY + scaledHeight, cornerX4, cornerY4).attr({
+                    stroke: "red",
+                    "stroke-width": 1,
+                    "stroke-dasharray": "2, 2"
+                });
+        
+                drawDimensionWithText(
+                    cornerX4 + scaledBottomRightRadius + 10, cornerY4,
+                    cornerX4, cornerY4,
+                    `${idxr_tr_radius}: `,
+                    `${bottomRightRadius} mm`,
+                    'horizontal',
+                    2
+                );
+            }
         }
         
         function circle(mainRadius, type = 1, xx = 0, yy = 0) {
@@ -4041,8 +3359,7 @@ const CustomizationModule = (() => {
                 `${idxr_tr_diameter}: `,
                 `${mainRadius} mm`,
                 '',
-                type,
-                'below'
+                type
             );
         }
 
@@ -4078,8 +3395,7 @@ const CustomizationModule = (() => {
                 `${idxr_tr_diameter}: `,
                 `${mainRadius} mm`,
                 '',
-                type,
-                'below'
+                type
             );
         }
 
@@ -4120,8 +3436,7 @@ const CustomizationModule = (() => {
                 `${idxr_tr_width}: `,
                 `${width} mm`,
                 '',
-                type,
-                'below'
+                type
             );
 
             drawDimensionWithText(
@@ -4176,7 +3491,7 @@ const CustomizationModule = (() => {
                 offSet -= 10;
             }
 
-            drawDimensionWithText(x1, y1 + offSet, x2, y1 + offSet, `${idxr_tr_width}: `, `${baseWidth} mm`, '', type, 'below');
+            drawDimensionWithText(x1, y1 + offSet, x2, y1 + offSet, `${idxr_tr_width}: `, `${baseWidth} mm`, '', type);
             drawDimensionWithText(x1, y3 - offSet, x3, y3 - offSet, 'Longueur: ', `${height} mm`, 'horizontal', type);
             drawDimensionWithText(x1 - offSet, y3, x1 - offSet, y1, `${idxr_tr_height}: `, `${topWidth} mm`, 'vertical', type);
         }
@@ -4224,8 +3539,8 @@ const CustomizationModule = (() => {
                 offSet -= 10;
             }
         
-            drawDimensionWithText(x1, y1 + offSet, x2, y1 + offSet, `${idxr_tr_width}: `, `${baseWidth} mm`, '', type, 'below');
-            drawDimensionWithText(x4, y3 - offSet, x3, y3 - offSet, `${idxr_tr_width}: `, `${topWidth} mm`, 'horizontal', type);
+            drawDimensionWithText(x1, y1 + offSet, x2, y1 + offSet, `${idxr_tr_width}: `, `${baseWidth} mm`, '', type);
+            drawDimensionWithText(x4, y3 - offSet, x3, y3 - offSet, 'Longueur: ', `${topWidth} mm`, 'horizontal', type);
             drawDimensionWithText(x1 - startX - offSet, y3, x1 - startX - offSet, y1, `${idxr_tr_height}: `, `${height} mm`, 'vertical', type);
         }
 
@@ -4285,8 +3600,7 @@ const CustomizationModule = (() => {
                 `${idxr_tr_width}: `,
                 `${width} mm`,
                 '',
-                type,
-                'below'
+                type
             );
             drawDimensionWithText(
                 startX - offSet,
@@ -4358,8 +3672,7 @@ const CustomizationModule = (() => {
                 `${idxr_tr_base}: `,
                 `${width} mm`,
                 '',
-                type,
-                'below'
+                type
             );
             drawDimensionWithText(
                 startX - offSet,
@@ -4413,8 +3726,7 @@ const CustomizationModule = (() => {
                 `${idxr_tr_side}: `,
                 `${sideLength} mm`,
                 '',
-                type,
-                'below'
+                type
             );
             drawDimensionWithText(
                 startX ,
@@ -4640,8 +3952,7 @@ const CustomizationModule = (() => {
                 `${idxr_tr_width}: `,
                 `${width} mm`,
                 '',
-                type,
-                'below'
+                type
             );
         
             drawDimensionWithText(
@@ -4767,19 +4078,19 @@ const CustomizationModule = (() => {
             $("#svgLoader").remove(); // Remove loader if it exists
         }
 
-        function drawDimensionWithText(x1, y1, x2, y2, text = '', boldText = '', orientation = 'horizontal', type = 1, labelPosition = 'auto') {
-            if (suppressCutInternalDimensions && type === 2 && arrows === cutoutDems) {
-                return;
-            }
+        function drawDimensionWithText(x1, y1, x2, y2, text = '', boldText = '', orientation = 'horizontal', type = 1) {
             drawArrow(x1, y1, x2, y2, type);
-            const fontt = 8;
+            var fontt = type == 1 ? 13 : type == 2 ? 10 : 8;
+            if (type == 2) {
+                fontt = 10;
+            }
             const midX = (x1 + x2) / 2;
             const midY = (y1 + y2) / 2;
             if (text || boldText) {
-                addText(text, boldText, midX, midY, () => ({
+                addText(text, boldText, midX, midY + 10, () => ({
                     'font-size': fontt,
                     'fill': '#065075'
-                }), orientation, midX, midY, type, labelPosition);
+                }), orientation, midX, midY, type);
             }
         }
 
@@ -4811,12 +4122,6 @@ const CustomizationModule = (() => {
         }
 
         function holeDems(cx, cy, diameter, extra, isRadial, space = 0, centerX = 0, centerY = 0) {
-            if (!dimensionHoleTarget) {
-                dimensionHoleTarget = {
-                    x: safeParseFloat(cx),
-                    y: safeParseFloat(cy)
-                };
-            }
             let attrs = {
                 stroke: "#000", 
                 strokeWidth: 1,
@@ -4835,9 +4140,6 @@ const CustomizationModule = (() => {
             arrowsGroup.line(p2.x, p2.y, p2.x, - extra - offset/2).attr(attrs);
             drawDimensionWithText(p1.x, - extra - offset/2, p2.x,  - extra - offset/2, 'Diam : ', `${unScale(diameter)} mm`, 'horizontal', 3);
             if(isRadial !== 0){
-                const firstHoleCenterX = centerX + isRadial;
-                const firstHoleCenterY = centerY - extra;
-                const radialDimY = scale(holesSettings.height) + textOffset + offset;
                 arrowsGroup.circle(centerX, centerY - extra, 2);
                 arrowsGroup.line(centerX, - extra, centerX, centerY - extra).attr(attrs);
                 drawDimensionWithText(- offset/3, centerY - extra, - offset/3, - extra, 'Y: ', `${unScale(centerY)} mm`, 'vertical', 3);
@@ -4845,9 +4147,9 @@ const CustomizationModule = (() => {
                 arrowsGroup.line(centerX, centerY- extra, 0, centerY- extra ).attr(attrs);
                 drawDimensionWithText(centerX, - offset/3 - extra, 0, - offset/3 - extra, 'X: ', `${unScale(centerX)} mm`, 'horizontal', 3);
                 
-                arrowsGroup.line(centerX, centerY - extra, centerX, radialDimY).attr(attrs);
-                arrowsGroup.line(firstHoleCenterX, firstHoleCenterY, firstHoleCenterX, radialDimY).attr(attrs);
-                drawDimensionWithText(centerX, radialDimY, firstHoleCenterX, radialDimY, 'D: ', `${unScale(isRadial)} mm`, '', 3, 'below');
+                arrowsGroup.line(centerX, centerY- extra, centerX, centerY- extra + isRadial ).attr(attrs);
+                arrowsGroup.line(centerX, centerY + isRadial - extra, 0, centerY + isRadial - extra).attr(attrs);
+                drawDimensionWithText(- offset/3, centerY - extra + isRadial, - offset/3, centerY + - extra , 'D: ', `${unScale(centerY)} mm`, 'vertical', 3);
             }else{
                 arrowsGroup.line(cx, cy, 0, cy).attr(attrs);
                 drawDimensionWithText(- offset/3, cy, - offset/3, - extra, 'Dist: ', `${unScale(space)} mm`, 'vertical', 3);
@@ -4855,22 +4157,18 @@ const CustomizationModule = (() => {
             }
         }
 
-        function addText(text, boldText, x, y, textAttrFunc, orientation = 'horizontal', originX = 0, originY = 0, type, labelPosition = 'auto') {
-            const labelGroup = arrows;
-            const padding = 2;
-            const fill = type === 3 ? 'rgba(255, 165, 0, 0.73)' : 'rgba(97, 241, 150, 0.73)';
-            const paddings = 9;
-            const moveUpBy = 0;
+        function addText(text, boldText, x, y, textAttrFunc, orientation = 'horizontal', originX = 0, originY = 0, type) {
+            const padding = type === 1 ? 2 : 1;
+            const fill = type === 1 ? 'rgba(97, 241, 150, 0.73)' : (type === 3 ? 'rgba(255, 165, 0, 0.73)' : 'rgba(83, 246, 181, 0.73)');
+            const paddings = type === 1 ? 9 : 6;
+            const moveUpBy = type === 3 ? -12 : 0;  // Shift up by 5px if type === 3
         
-            const textBlock = labelGroup.text(x, y - paddings, [text, boldText]).attr(textAttrFunc());
+            const textBlock = arrows.text(x, y - paddings, [text, boldText]).attr(textAttrFunc());
             textBlock.select('tspan:nth-child(2)').attr({
                 'font-weight': 'bold'
             });
         
             setTimeout(() => {
-                if (!textBlock || !textBlock.node || !textBlock.node.parentNode) {
-                    return;
-                }
                 const bbox = textBlock.getBBox();
                 const bboxWidth = bbox.width;
                 const bboxHeight = bbox.height;
@@ -4881,39 +4179,18 @@ const CustomizationModule = (() => {
                     x: textCenterX,
                     y: textCenterY + moveUpBy
                 });
-
-                let centeredBBox = textBlock.getBBox();
-                if (labelPosition === 'below') {
-                    // Guarantee the full label box is below the arrow line.
-                    const minTop = y + 4;
-                    if (centeredBBox.y < minTop) {
-                        const deltaY = minTop - centeredBBox.y;
-                        textBlock.attr({
-                            y: (textCenterY + moveUpBy + deltaY)
-                        });
-                        centeredBBox = textBlock.getBBox();
-                    }
-                }
-                const rectWidth = centeredBBox.width + 2 * padding;
-                const rectHeight = ((centeredBBox.height + 3 * padding) * 2) / 3;
-
-                const rect = labelGroup.rect(
-                    centeredBBox.cx - rectWidth / 2,
-                    centeredBBox.cy - rectHeight / 2,
-                    rectWidth,
-                    rectHeight,
+        
+                const rect = arrows.rect(
+                    bbox.x - bboxWidth / 2 - padding,
+                    bbox.y - padding + moveUpBy,
+                    bboxWidth + 2 * padding,
+                    bboxHeight + 3 * padding,
                     5
                 ).attr({
                     fill
                 });
         
-                if (rect && rect.node && rect.node.parentNode === textBlock.node.parentNode) {
-                    try {
-                        textBlock.before(rect);
-                    } catch (e) {
-                        // Ignore ordering race during rapid redraws.
-                    }
-                }
+                textBlock.before(rect);
          
                 // Handle rotations based on orientation
                 const transformAngle = orientation === 'vertical' ? -90 : (orientation === 'depth' ? -45 : 0);
@@ -4922,7 +4199,6 @@ const CustomizationModule = (() => {
                     textBlock.transform(transformString);
                     rect.transform(transformString);
                 }
-                scheduleFitViewBox();
                 copySvgOnly();
             }, 0);
         }
@@ -5026,13 +4302,7 @@ const CustomizationModule = (() => {
             fill: 'white'
         });
 
-        if (textBlock && textBlock.node && textBlock.node.parentNode && rect && rect.node && rect.node.parentNode === textBlock.node.parentNode) {
-            try {
-                textBlock.before(rect);
-            } catch (e) {
-                // Ignore ordering race during rapid redraws.
-            }
-        }
+        textBlock.before(rect);
 
         if (orientation === 'vertical') {
             textBlock.transform(`rotate(-90 ${originX} ${originY})`);
@@ -5049,6 +4319,7 @@ const CustomizationModule = (() => {
             // let diameter_de_decoupe = (parseFloat(perimeter) + parseFloat(perimeter2));
             $('#diameter_de_decoupe_price').val(parseFloat(perimeter).toFixed(2));
             $('#diameter_de_decoupe_price2').val(parseFloat(perimeter2).toFixed(2));
+            $('#p_d_d_map_1').text(`${perimeter.toFixed(2)} + ${perimeter2.toFixed(2)} mm`)
         }
 
         var thickness_mm = 0;
@@ -5145,3 +4416,4 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+

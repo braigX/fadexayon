@@ -1,0 +1,111 @@
+
+/*
+.option_div{
+    position: relative;
+    float: left;
+}
+
+#component_steps {
+    -webkit-perspective: 1000;
+    -moz-perspective: 1000px;
+    -ms-perspective: 1000;
+    perspective: 1000;
+    -webkit-perspective-origin: 50% 100px;
+    -moz-perspective-origin: 50% 100px;
+    -ms-perspective-origin: 50% 100px;
+    perspective-origin: 50% 100px;
+    margin: 40px auto 20px auto;
+    width: 100%;
+    height: 280px;
+}
+
+:root {
+  --component-width: 1146px;
+  --component-negwidth: -1146px;
+  --component-width-half: 570px;
+  --component-negwidth-half: -570px;
+}
+
+#component_steps_container {
+    position: relative;
+    margin: 0 auto;
+    height: 281px;
+    width: var(--component-width);
+    transform-style: preserve-3d;        
+}
+
+#component_steps_container > .front3d.rotate {
+    -webkit-transform: rotateY(-90deg) translateZ(var(--component-width-half)) translateX(var(--component-negwidth-half));
+    -moz-transform: rotateY(-90deg) translateZ(var(--component-width-half)) translateX(var(--component-negwidth-half));
+    -ms-transform: rotateY(-90deg) translateZ(var(--component-width-half)) translateX(var(--component-negwidth-half));
+    transform: rotateY(-90deg) translateZ(var(--component-width-half)) translateX(var(--component-negwidth-half));
+    transition: transform 2s linear;
+}
+
+#component_steps_container > .front3d.unrotate {
+    -webkit-transform: rotateY(90deg) translateZ(var(--component-width-half)) translateX(var(--component-width-half));
+    -moz-transform: rotateY(90deg) translateZ(var(--component-width-half)) translateX(var(--component-width-half));
+    -ms-transform: rotateY(90deg) translateZ(var(--component-width-half)) translateX(var(--component-width-half));
+    transform: rotateY(90deg) translateZ(var(--component-width-half)) translateX(var(--component-width-half));    
+    transition: transform 2s linear;
+}
+
+#component_steps_container > .right3d {
+    -webkit-transform: rotateY(90deg) translateZ(var(--component-width-half)) translateX(var(--component-width-half));
+    -moz-transform: rotateY(90deg) translateZ(var(--component-width-half)) translateX(var(--component-width-half));
+    -ms-transform: rotateY(90deg) translateZ(var(--component-width-half)) translateX(var(--component-width-half));
+    transform: rotateY(90deg) translateZ(var(--component-width-half)) translateX(var(--component-width-half));    
+}
+
+#component_steps_container > .right3d.rotate {
+    -webkit-transform: rotateY(0deg) translateZ(0px) translateX(0px);
+    -moz-transform: rotateY(0deg) translateZ(0px) translateX(0px);
+    -ms-transform: rotateY(0deg) translateZ(0px) translateX(0px);
+    transform: rotateY(0deg) translateZ(0px) translateX(0px);
+    transition: transform 2s linear;
+}
+
+#component_steps_container > .right3d.unrotate {
+    -webkit-transform: rotateY(180deg) translateZ(var(--component-width)) translateX(0px);
+    -moz-transform: rotateY(180deg) translateZ(var(--component-width)) translateX(0px);
+    -ms-transform: rotateY(180deg) translateZ(var(--component-width)) translateX(0px);
+    transform: rotateY(180deg) translateZ(var(--component-width)) translateX(0px);
+    transition: transform 2s linear;
+}
+
+#component_steps_container > .other3d {
+    visibility: hidden;
+}
+
+#component_steps_container > .left3d{
+    -webkit-transform: rotateY(-90deg) translateZ(var(--component-width-half)) translateX(var(--component-negwidth-half));
+    -moz-transform: rotateY(-90deg) translateZ(var(--component-width-half)) translateX(var(--component-negwidth-half));
+    -ms-transform: rotateY(-90deg) translateZ(var(--component-width-half)) translateX(var(--component-negwidth-half));
+    transform: rotateY(-90deg) translateZ(var(--component-width-half)) translateX(var(--component-negwidth-half));    
+}
+
+#component_steps_container > .left3d.rotate{
+    -webkit-transform: rotateY(-90deg) translateZ(var(--component-width)) translateX(0px);
+    -moz-transform: rotateY(-90deg) translateZ(var(--component-width)) translateX(0px);
+    -ms-transform: rotateY(-90deg) translateZ(var(--component-width)) translateX(0px);
+    transform: rotateY(-180deg) translateZ(var(--component-width)) translateX(0px);
+    transition: transform 2s linear;
+}
+
+#component_steps_container > .left3d.unrotate{
+    -webkit-transform: rotateY(0deg) translateZ(0px) translateX(0px);
+    -moz-transform: rotateY(0deg) translateZ(0px) translateX(0px);
+    -ms-transform: rotateY(0deg) translateZ(0px) translateX(0x);
+    transform: rotateY(0deg) translateZ(0px) translateX(0px);
+    transition: transform 2s linear;
+}
+
+.component_step{
+    position: absolute;
+    top: 0;
+    height: 250px;
+    overflow-y: scroll;
+    border: solid 1px grey;
+    background-color: white;
+}
+*/

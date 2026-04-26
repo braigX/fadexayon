@@ -1,1998 +1,700 @@
 <?php
-/**
- * PrestaLoad
- *
- * Anonymous full-page HTML cache for selected front-office controllers.
- */
 
-if (!defined('_PS_VERSION_')) {
+if (! defined('_PS_VERSION_')) {
     exit;
 }
 
-require_once __DIR__ . '/classes/PrestaLoadCacheSettings.php';
-require_once __DIR__ . '/classes/PrestaLoadCacheEligibility.php';
-require_once __DIR__ . '/classes/PrestaLoadCacheKeyBuilder.php';
-require_once __DIR__ . '/classes/PrestaLoadCacheLogger.php';
-require_once __DIR__ . '/classes/PrestaLoadFeatureLogger.php';
-require_once __DIR__ . '/classes/PrestaLoadInternalAuth.php';
-require_once __DIR__ . '/classes/PrestaLoadCacheStore.php';
-require_once __DIR__ . '/classes/PrestaLoadPageCache.php';
-require_once __DIR__ . '/classes/PrestaLoadCacheWarmer.php';
-require_once __DIR__ . '/classes/PrestaLoadBetaCacheGenerator.php';
-require_once __DIR__ . '/classes/PrestaLoadBrowserCacheManager.php';
-require_once __DIR__ . '/classes/PrestaLoadEarlyCacheKeyBuilder.php';
-require_once __DIR__ . '/classes/PrestaLoadRuntimeConfig.php';
-require_once __DIR__ . '/classes/PrestaLoadAssetPageRegistry.php';
-require_once __DIR__ . '/classes/PrestaLoadAssetScannerClient.php';
-require_once __DIR__ . '/classes/PrestaLoadAssetScanStore.php';
-require_once __DIR__ . '/classes/PrestaLoadAssetRuleStore.php';
-require_once __DIR__ . '/classes/PrestaLoadAssetMinifier.php';
-require_once __DIR__ . '/classes/PrestaLoadAssetRuleApplier.php';
-require_once __DIR__ . '/classes/PrestaLoadCriticalCssPageRegistry.php';
-require_once __DIR__ . '/classes/PrestaLoadCriticalCssScannerClient.php';
-require_once __DIR__ . '/classes/PrestaLoadCriticalCssStore.php';
-require_once __DIR__ . '/classes/PrestaLoadCriticalCssInjector.php';
-require_once __DIR__ . '/classes/PrestaLoadFontOptimizer.php';
-require_once __DIR__ . '/classes/PrestaLoadFontUsageScannerClient.php';
-require_once __DIR__ . '/classes/PrestaLoadFontUsageStore.php';
-require_once __DIR__ . '/classes/PrestaLoadFontRuleStore.php';
-require_once __DIR__ . '/classes/PrestaLoadFontRuleApplier.php';
-require_once __DIR__ . '/classes/PrestaLoadImgProxyUrlBuilder.php';
-require_once __DIR__ . '/classes/PrestaLoadImageDimensionOptimizer.php';
-require_once __DIR__ . '/classes/PrestaLoadImageLoadingOptimizer.php';
-require_once __DIR__ . '/classes/PrestaLoadImageOptimizer.php';
-require_once __DIR__ . '/classes/PrestaLoadHtmlCompressor.php';
-require_once __DIR__ . '/classes/PrestaLoadHtmlOptimizer.php';
-
-class PrestaLoad extends Module
+class Prestaload extends Module
 {
-    private const TAB_GENERAL = 'general';
-    private const TAB_ASSETS = 'assets';
-    private const TAB_CACHE_LIFETIMES = 'cache_lifetimes';
-    private const TAB_BETA_CACHE_GENERATING = 'beta_cache_generating';
-    private const TAB_FONTS = 'fonts';
-    private const TAB_IMAGES = 'images';
-    private const TAB_CRITICAL_CSS = 'critical_css';
-
-    /**
-     * Hooks that should invalidate the full-page cache because content changed.
-     */
-    private const INVALIDATION_HOOKS = [
-        'actionClearCache',
-        'actionClearCompileCache',
-        'actionCategoryAdd',
-        'actionCategoryUpdate',
-        'actionCategoryDelete',
-        'actionProductAdd',
-        'actionProductUpdate',
-        'actionProductDelete',
-        'actionProductSave',
-        'actionObjectProductAddAfter',
-        'actionObjectProductUpdateAfter',
-        'actionObjectProductDeleteAfter',
-        'actionObjectCategoryAddAfter',
-        'actionObjectCategoryUpdateAfter',
-        'actionObjectCategoryDeleteAfter',
-        'actionObjectCmsAddAfter',
-        'actionObjectCmsUpdateAfter',
-        'actionObjectCmsDeleteAfter',
-    ];
-
-    private $settings;
-    private $pageCache;
-    private $browserCacheManager;
-    private $runtimeConfig;
-    private $featureLogger;
-    private $cacheWarmer;
-    private $betaCacheGenerator;
-    private $assetPageRegistry;
-    private $assetScannerClient;
-    private $assetScanStore;
-    private $assetRuleStore;
-    private $assetMinifier;
-    private $criticalCssPageRegistry;
-    private $criticalCssScannerClient;
-    private $criticalCssStore;
-    private $fontUsageScannerClient;
-    private $fontUsageStore;
-    private $fontRuleStore;
+    const VERSION     = '1.0.0';
+    const API_URL     = 'http://127.0.0.1:8000/';
+    const CONFIG_KEY  = 'PRESTALOAD_SETTINGS';
+    const CACHE_DIR   = _PS_ROOT_DIR_ . '/var/prestaload-cache';
+    const VARIANT_MAP_KEY_PREFIX = 'PRESTALOAD_VARIANT_MAP_SHOP_';
 
     public function __construct()
     {
-        $this->name = 'prestaload';
-        $this->tab = 'administration';
-        $this->version = '1.0.0';
-        $this->author = 'Acrosoft';
+        $this->name         = 'prestaload';
+        $this->tab          = 'administration';
+        $this->version      = self::VERSION;
+        $this->author       = 'Prestaload';
         $this->need_instance = 0;
-        $this->bootstrap = true;
-        $this->ps_versions_compliancy = [
-            'min' => '1.7.0.0',
-            'max' => _PS_VERSION_,
-        ];
+        $this->ps_versions_compliancy = ['min' => '1.7.0', 'max' => _PS_VERSION_];
+        $this->bootstrap    = true;
 
         parent::__construct();
 
-        $this->displayName = 'PrestaLoad';
-        $this->description = 'Anonymous full-page cache for selected Prestashop pages.';
-
-        $this->settings = new PrestaLoadCacheSettings($this->name, __DIR__);
-        $this->browserCacheManager = new PrestaLoadBrowserCacheManager($this->settings);
-        $this->runtimeConfig = new PrestaLoadRuntimeConfig($this->settings, __DIR__);
-        $this->featureLogger = new PrestaLoadFeatureLogger(__DIR__ . '/cache/prestaload-features.json');
-        $this->assetPageRegistry = new PrestaLoadAssetPageRegistry($this->context, $this->settings);
-        $this->cacheWarmer = new PrestaLoadCacheWarmer($this->context, $this->settings, $this->assetPageRegistry, __DIR__);
-        $this->betaCacheGenerator = new PrestaLoadBetaCacheGenerator($this->context, $this->settings, $this->assetPageRegistry, __DIR__);
-        $this->assetScannerClient = new PrestaLoadAssetScannerClient($this->settings);
-        $this->assetScanStore = new PrestaLoadAssetScanStore(__DIR__);
-        $this->assetRuleStore = new PrestaLoadAssetRuleStore(__DIR__);
-        $this->assetMinifier = new PrestaLoadAssetMinifier($this->context, __DIR__);
-        $this->criticalCssPageRegistry = new PrestaLoadCriticalCssPageRegistry($this->context, $this->settings);
-        $this->criticalCssScannerClient = new PrestaLoadCriticalCssScannerClient($this->settings);
-        $this->criticalCssStore = new PrestaLoadCriticalCssStore(__DIR__);
-        $this->fontUsageScannerClient = new PrestaLoadFontUsageScannerClient($this->settings);
-        $this->fontUsageStore = new PrestaLoadFontUsageStore(__DIR__);
-        $this->fontRuleStore = new PrestaLoadFontRuleStore(__DIR__);
-        $this->pageCache = $this->buildPageCache();
+        $this->displayName = $this->l('Prestaload');
+        $this->description = $this->l('Connect your PrestaShop store to Prestaload for full-page caching and asset optimization.');
     }
 
-    /**
-     * Install default settings and register cache hooks.
-     */
-    public function install()
+    public function log(string $level, string $message, array $context = []): void
+    {
+        $line = date('Y-m-d H:i:s') . ' [' . strtoupper($level) . '] ' . $message;
+
+        if ($context) {
+            $line .= ' ' . json_encode($context, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        }
+
+        file_put_contents(__DIR__ . '/logs.txt', $line . PHP_EOL, FILE_APPEND | LOCK_EX);
+    }
+
+    public function install(): bool
     {
         return parent::install()
-            && $this->settings->installDefaults()
+            && $this->registerHook('actionCronJob')
             && $this->registerHook('actionDispatcher')
-            && $this->registerHook('actionFrontControllerInitAfter')
-            && $this->registerHook('actionOutputHTMLBefore')
-            && $this->registerHooks(self::INVALIDATION_HOOKS);
+            && $this->registerHook('actionObjectProductAddAfter')
+            && $this->registerHook('actionObjectProductUpdateAfter')
+            && $this->registerHook('actionObjectProductDeleteAfter')
+            && $this->registerHook('actionObjectCategoryAddAfter')
+            && $this->registerHook('actionObjectCategoryUpdateAfter')
+            && $this->registerHook('actionObjectCategoryDeleteAfter')
+            && $this->registerHook('actionObjectCMSAddAfter')
+            && $this->registerHook('actionObjectCMSUpdateAfter')
+            && $this->registerHook('actionObjectCMSDeleteAfter')
+            && $this->registerHook('actionObjectCmsAddAfter')
+            && $this->registerHook('actionObjectCmsUpdateAfter')
+            && $this->registerHook('actionObjectCmsDeleteAfter');
     }
 
-    /**
-     * Unregister hooks only. Generated files and saved settings are left intact.
-     */
-    public function uninstall()
+    public function uninstall(): bool
     {
-        return $this->unregisterHook('actionDispatcher')
-            && $this->unregisterHook('actionFrontControllerInitAfter')
-            && $this->unregisterHook('actionOutputHTMLBefore')
-            && $this->unregisterHooks(self::INVALIDATION_HOOKS)
-            && parent::uninstall();
+        Configuration::deleteByName(self::CONFIG_KEY);
+        return parent::uninstall();
     }
 
-    /**
-     * Configuration page:
-     * - enable or disable cache
-     * - set TTL
-     * - define allowed controllers
-     * - clear cached pages
-     */
-    public function getContent()
+    public function getContent(): string
     {
-        $this->handleAjaxRequest();
+        $settings   = json_decode(Configuration::get(self::CONFIG_KEY, '{}'), true) ?: [];
+        $connected  = ! empty($settings['connected']);
+        $error      = '';
+        $success    = '';
 
-        $output = '';
-        $activeTab = $this->getActiveTab();
-
-        if (Tools::isSubmit('submitPrestaLoadGeneralSettings')) {
-            $this->settings->updateSubsetFromRequest([
-                PrestaLoadCacheSettings::CONFIG_ENABLED,
-                PrestaLoadCacheSettings::CONFIG_EDGE_CACHE_ENABLED,
-                PrestaLoadCacheSettings::CONFIG_HTML_COMPRESSION_ENABLED,
-                PrestaLoadCacheSettings::CONFIG_TTL,
-                PrestaLoadCacheSettings::CONFIG_ALLOWED_CONTROLLERS,
-            ]);
-            $runtimeConfigWritten = $this->runtimeConfig->write();
-            $this->pageCache->clear();
-            $output .= $this->displayConfirmation($this->trans('Full page caching settings updated.', [], 'Admin.Notifications.Success'));
-            if (!$runtimeConfigWritten) {
-                $output .= $this->displayWarning($this->trans('Settings were saved, but the edge runtime config could not be written.', [], 'Admin.Notifications.Warning'));
-            }
+        if (Tools::isSubmit('prestaload_connect')) {
+            [$error, $success, $settings, $connected] = $this->processConnect($settings);
         }
 
-        if (Tools::isSubmit('submitPrestaLoadCriticalCssSettings')) {
-            $this->settings->updateSubsetFromRequest([
-                PrestaLoadCacheSettings::CONFIG_CRITICAL_CSS_ENABLED,
-                PrestaLoadCacheSettings::CONFIG_CRITICAL_CSS_MIN_BYTES,
-                PrestaLoadCacheSettings::CONFIG_CRITICAL_CSS_MAX_BYTES,
-            ]);
-            $this->pageCache->clear();
-            $output .= $this->displayConfirmation($this->trans('Critical CSS settings updated.', [], 'Admin.Notifications.Success'));
-        }
-
-        if (Tools::isSubmit('submitPrestaLoadBrowserCacheSettings')) {
-            $this->settings->updateSubsetFromRequest([
-                PrestaLoadCacheSettings::CONFIG_BROWSER_CACHE_ENABLED,
-                PrestaLoadCacheSettings::CONFIG_BROWSER_CACHE_ASSET_TTL,
-                PrestaLoadCacheSettings::CONFIG_BROWSER_CACHE_MEDIA_TTL,
-            ]);
-            $this->runtimeConfig->write();
-
-            $browserCacheSync = $this->browserCacheManager->sync();
-
-            if (!empty($browserCacheSync['success'])) {
-                $output .= $this->displayConfirmation($this->trans('Browser cache settings updated.', [], 'Admin.Notifications.Success'));
-            } else {
-                $output .= $this->displayWarning($this->trans('Browser cache settings were saved, but the .htaccess file needs a manual update.', [], 'Admin.Notifications.Warning'));
+        if (Tools::isSubmit('prestaload_disconnect')) {
+            if (! empty($settings['api_key'])) {
+                $this->callApi('/plugin/disconnect', [
+                    'api_key'  => $settings['api_key'],
+                    'platform' => 'prestashop',
+                ]);
             }
 
-            if (!empty($browserCacheSync['message'])) {
-                $output .= $this->displayInformation($browserCacheSync['message']);
-            }
+            Configuration::deleteByName(self::CONFIG_KEY);
+            $settings  = [];
+            $connected = false;
+            $success   = $this->l('Disconnected successfully.');
         }
 
-        if (Tools::isSubmit('submitPrestaLoadFontSettings')) {
-            $this->settings->updateSubsetFromRequest([
-                PrestaLoadCacheSettings::CONFIG_FONT_OPTIMIZATION_ENABLED,
-            ]);
-            $this->runtimeConfig->write();
-            $this->pageCache->clear();
-            $output .= $this->displayConfirmation($this->trans('Font settings updated.', [], 'Admin.Notifications.Success'));
+        return $this->renderPage($settings, $connected, $error, $success);
+    }
+
+    private function processConnect(array $settings): array
+    {
+        $apiKey = trim(Tools::getValue('api_key'));
+        $error = $success = '';
+
+        if (empty($apiKey)) {
+            return [$this->l('Please enter your API key.'), '', $settings, false];
         }
 
-        if (Tools::isSubmit('submitPrestaLoadImageSettings')) {
-            $this->settings->updateSubsetFromRequest([
-                PrestaLoadCacheSettings::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED,
-                PrestaLoadCacheSettings::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED,
-                PrestaLoadCacheSettings::CONFIG_IMAGE_DIMENSIONS_OPTIMIZATION_ENABLED,
-                PrestaLoadCacheSettings::CONFIG_IMAGE_OPTIMIZATION_ENABLED,
-                PrestaLoadCacheSettings::CONFIG_IMGPROXY_BASE_URL,
-                PrestaLoadCacheSettings::CONFIG_IMGPROXY_QUALITY,
-                PrestaLoadCacheSettings::CONFIG_IMGPROXY_KEY,
-                PrestaLoadCacheSettings::CONFIG_IMGPROXY_SALT,
-            ]);
-            $this->runtimeConfig->write();
-            $this->pageCache->clear();
-            $output .= $this->displayConfirmation($this->trans('Image settings updated.', [], 'Admin.Notifications.Success'));
-        }
-
-        if (Tools::isSubmit('submitPrestaLoadAssetSettings')) {
-            $this->settings->updateSubsetFromRequest([
-                PrestaLoadCacheSettings::CONFIG_ASSET_SCANNER_BASE_URL,
-                PrestaLoadCacheSettings::CONFIG_ASSET_SCAN_TARGET_BASE_URL,
-            ]);
-            $output .= $this->displayConfirmation($this->trans('Asset scanner settings updated.', [], 'Admin.Notifications.Success'));
-        }
-
-        if (Tools::isSubmit('submitPrestaLoadClearCache')) {
-            $this->pageCache->clear();
-            $output .= $this->displayConfirmation($this->trans('Full-page cache cleared.', [], 'Admin.Notifications.Success'));
-        }
-
-        $assetPages = $this->assetPageRegistry->getPages();
-        $selectedAssetPage = $this->getSelectedAssetPage();
-        $selectedAssetScan = !empty($selectedAssetPage) ? $this->assetScanStore->getLatestAssetSummary($selectedAssetPage['key']) : null;
-        $selectedAssetRules = !empty($selectedAssetPage) ? $this->assetRuleStore->getRulesForPage($selectedAssetPage['key']) : [];
-        $detectedShopBaseUrl = $this->getDetectedShopBaseUrl();
-        $effectiveScanBaseUrl = $this->settings->getAssetScanTargetBaseUrl() !== ''
-            ? $this->settings->getAssetScanTargetBaseUrl()
-            : $detectedShopBaseUrl;
-
-        $this->context->smarty->assign([
-            'prestaload_active_tab' => $activeTab,
-            'prestaload_tabs' => $this->getAdminTabs(),
-            'prestaload_stats' => $this->pageCache->getStats(),
-            'prestaload_settings_form' => $this->renderSettingsForm($activeTab),
-            'prestaload_browser_cache_status' => $this->browserCacheManager->getStatus(),
-            'prestaload_cache_warmer_report' => $this->cacheWarmer->getLastReport(),
-            'prestaload_cache_warmer_ajax_url' => $this->getAjaxConfigurationLink('warmCache'),
-            'prestaload_cache_warmer_page_ajax_url' => $this->getAjaxConfigurationLink('warmCachePage'),
-            'prestaload_cache_warmer_pages' => $this->cacheWarmer->getWarmablePages(),
-            'prestaload_beta_cache_report' => $this->betaCacheGenerator->getLastReport(),
-            'prestaload_beta_cache_ajax_url' => $this->getAjaxConfigurationLink('generateBetaCache'),
-            'prestaload_beta_cache_page_ajax_url' => $this->getAjaxConfigurationLink('generateBetaCachePage'),
-            'prestaload_beta_cache_pages' => $this->betaCacheGenerator->getPages(),
-            'prestaload_asset_pages' => $assetPages,
-            'prestaload_selected_asset_page' => $selectedAssetPage,
-            'prestaload_selected_asset_scan' => $this->decorateAssetScan($selectedAssetScan),
-            'prestaload_selected_asset_rules' => $this->indexRulesByUrl($selectedAssetRules),
-            'prestaload_asset_scan_ajax_url' => $this->getAjaxConfigurationLink('runAssetScan'),
-            'prestaload_asset_toggle_flag_ajax_url' => $this->getAjaxConfigurationLink('toggleAssetFlag'),
-            'prestaload_asset_bulk_rule_ajax_url' => $this->getAjaxConfigurationLink('saveBulkAssetRules'),
-            'prestaload_asset_minify_ajax_url' => $this->getAjaxConfigurationLink('minifyAsset'),
-            'prestaload_asset_bulk_minify_ajax_url' => $this->getAjaxConfigurationLink('bulkMinifyAssets'),
-            'prestaload_asset_bulk_clear_minified_ajax_url' => $this->getAjaxConfigurationLink('bulkClearMinifiedAssets'),
-            'prestaload_critical_css_pages' => $this->decorateCriticalCssPages($this->criticalCssPageRegistry->getPages()),
-            'prestaload_critical_css_generate_ajax_url' => $this->getAjaxConfigurationLink('generateCriticalCss'),
-            'prestaload_critical_css_remove_ajax_url' => $this->getAjaxConfigurationLink('removeCriticalCss'),
-            'prestaload_font_usage_pages' => $this->decorateFontUsagePages($this->criticalCssPageRegistry->getPages()),
-            'prestaload_font_usage_generate_ajax_url' => $this->getAjaxConfigurationLink('generateFontUsage'),
-            'prestaload_font_rule_toggle_ajax_url' => $this->getAjaxConfigurationLink('toggleFontRule'),
-            'prestaload_detected_shop_base_url' => $detectedShopBaseUrl,
-            'prestaload_effective_asset_scan_base_url' => $effectiveScanBaseUrl,
+        $response = $this->callApi('/plugin/handshake', [
+            'api_key'        => $apiKey,
+            'plugin_version' => self::VERSION,
+            'platform'       => 'prestashop',
+            'site_url'       => $this->context->shop->getBaseURL(true),
+            'sites'          => $this->discoverSitesPayload(),
         ]);
 
-        return $output . $this->display(__FILE__, 'views/templates/admin/configure.tpl');
-    }
-
-    /**
-     * Cache hit path. Runs before full controller execution.
-     */
-    public function hookActionDispatcher($params)
-    {
-        if (!headers_sent()) {
-            header('X-PrestaLoad-Boot: prestashop');
+        if ($response === null) {
+            return [$this->l('Could not reach Prestaload. Please check your internet connection.'), '', $settings, false];
         }
 
-        $this->ensureRuntimeConfigFresh();
-
-        $this->logConfigurationSnapshot('actionDispatcher');
-        if ($this->isAuthorizedBetaGenerateRequest()) {
-            if (!headers_sent()) {
-                header('X-PrestaLoad-Generate: BYPASS-READ');
-            }
-            $this->featureLogger->log([
-                'stage' => 'page_cache',
-                'step' => 'beta-generate-bypass',
-            ]);
-            return;
+        if (empty($response['connected'])) {
+            return [$this->l('Invalid API key. Please check the key from your Prestaload dashboard.'), '', $settings, false];
         }
-        $this->pageCache->maybeServe(is_array($params) ? $params : []);
+
+        $settings = [
+            'api_key'      => $apiKey,
+            'integration'  => $response['integration'] ?? '',
+            'connected'    => true,
+            'connected_at' => date('Y-m-d H:i:s'),
+        ];
+
+        Configuration::updateValue(self::CONFIG_KEY, json_encode($settings));
+        $success = $this->l('Successfully connected to Prestaload!');
+
+        return [$error, $success, $settings, true];
     }
 
-    public function hookActionFrontControllerInitAfter($params)
+    private function callApi(string $endpoint, array $body, int $timeout = 15): ?array
     {
-        $this->logConfigurationSnapshot('actionFrontControllerInitAfter');
-    }
-
-    private function logConfigurationSnapshot($hookName)
-    {
-        $this->featureLogger->log([
-            'stage' => 'configuration',
-            'step' => 'snapshot',
-            'hook' => $hookName,
-            'values' => $this->settings->getConfigurationSnapshot(),
+        $ch = curl_init($this->apiUrl($endpoint));
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST           => true,
+            CURLOPT_TIMEOUT        => $timeout,
+            CURLOPT_HTTPHEADER     => ['Content-Type: application/json', 'Accept: application/json'],
+            CURLOPT_POSTFIELDS     => json_encode($body),
         ]);
+
+        $raw  = curl_exec($ch);
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($raw === false || $code !== 200) {
+            return null;
+        }
+
+        return json_decode($raw, true) ?: null;
     }
 
-    private function ensureRuntimeConfigFresh()
+    private function apiUrl(string $endpoint): string
     {
-        if ($this->runtimeConfig->isValid()) {
+        return rtrim(self::API_URL, '/') . '/api/' . ltrim($endpoint, '/');
+    }
+
+    private function discoverSitesPayload(): array
+    {
+        $sites = [];
+
+        if (Shop::isFeatureActive()) {
+            foreach (Shop::getShops(true) as $shop) {
+                $shopObj = new Shop((int) $shop['id_shop']);
+                $url     = 'https://' . $shopObj->domain_ssl . $shopObj->getBaseURI();
+
+                $sites[] = [
+                    'platform_site_id' => (string) $shop['id_shop'],
+                    'url'              => rtrim($url, '/'),
+                    'name'             => $shop['name'],
+                    'metadata'         => [
+                        'multi_shop'    => true,
+                        'id_shop_group' => $shop['id_shop_group'],
+                        'theme_name'    => $shop['theme_name'] ?? null,
+                    ],
+                ];
+            }
+
+            return array_slice($sites, 0, 500);
+        }
+
+        return [[
+            'platform_site_id' => (string) $this->context->shop->id,
+            'url'              => rtrim($this->context->shop->getBaseURL(true), '/'),
+            'name'             => Configuration::get('PS_SHOP_NAME'),
+            'metadata'         => ['multi_shop' => false],
+        ]];
+    }
+
+    public function hookActionCronJob(): void
+    {
+        $settings = json_decode(Configuration::get(self::CONFIG_KEY, '{}'), true) ?: [];
+
+        if (empty($settings['connected']) || empty($settings['api_key'])) {
             return;
         }
 
-        $written = $this->runtimeConfig->write();
-        $this->featureLogger->log([
-            'stage' => 'configuration',
-            'step' => $written ? 'runtime_config_rebuilt' : 'runtime_config_rebuild_failed',
-            'path' => $this->runtimeConfig->getPath(),
+        $this->callApi('/plugin/heartbeat', [
+            'api_key'        => $settings['api_key'],
+            'plugin_version' => self::VERSION,
+            'platform'       => 'prestashop',
         ]);
     }
 
-    /**
-     * Cache storage path. Runs with the final HTML output.
-     */
-    public function hookActionOutputHTMLBefore($params)
+    public function hookActionObjectProductAddAfter(array $params): void
     {
-        $html = isset($params['html']) ? $params['html'] : '';
-        $html = $this->pageCache->optimizeHtml($html);
-
-        if (is_array($params) && array_key_exists('html', $params)) {
-            $params['html'] = $html;
-        }
-
-        $this->pageCache->maybeStore($html);
+        $this->reportObjectContentChange($params['object'] ?? null, 'published');
     }
 
-    /**
-     * All mutation hooks use the same invalidation behavior in V1.
-     */
-    public function __call($name, $arguments)
+    public function hookActionObjectProductUpdateAfter(array $params): void
     {
-        if (strpos(Tools::strtolower((string) $name), 'hookaction') === 0) {
-            $this->pageCache->clear();
-        }
+        $this->reportObjectContentChange($params['object'] ?? null, 'updated');
     }
 
-    private function buildPageCache()
+    public function hookActionObjectProductDeleteAfter(array $params): void
     {
-        $eligibility = new PrestaLoadCacheEligibility($this->context, $this->settings);
-        $keyBuilder = new PrestaLoadCacheKeyBuilder($this->context, $this->local_path);
-        $logger = new PrestaLoadCacheLogger($this->settings->getLogFile());
-        $store = new PrestaLoadCacheStore($this->settings->getCacheDirectory());
-        $fontRuleApplier = new PrestaLoadFontRuleApplier($this->context, $this->fontRuleStore);
-        $fontOptimizer = new PrestaLoadFontOptimizer($this->settings);
-        $imgProxyUrlBuilder = new PrestaLoadImgProxyUrlBuilder($this->settings);
-        $imageDimensionOptimizer = new PrestaLoadImageDimensionOptimizer($this->context, $this->settings);
-        $imageLoadingOptimizer = new PrestaLoadImageLoadingOptimizer($this->settings);
-        $imageOptimizer = new PrestaLoadImageOptimizer($this->context, $this->settings, $imgProxyUrlBuilder, $imageDimensionOptimizer, $imageLoadingOptimizer);
-        $assetRuleApplier = new PrestaLoadAssetRuleApplier($this->context, $this->assetRuleStore, $this->assetMinifier);
-        $criticalCssInjector = new PrestaLoadCriticalCssInjector($this->context, $this->criticalCssStore, $this->settings, __DIR__);
-        $htmlCompressor = new PrestaLoadHtmlCompressor($this->settings);
-        $htmlOptimizer = new PrestaLoadHtmlOptimizer($criticalCssInjector, $fontRuleApplier, $fontOptimizer, $imageOptimizer, $assetRuleApplier, $htmlCompressor, $this->featureLogger);
-
-        return new PrestaLoadPageCache($this->context, $this->settings, $eligibility, $keyBuilder, $store, $logger, $htmlOptimizer, $this->featureLogger);
+        $this->reportObjectContentChange($params['object'] ?? null, 'deleted');
     }
 
-    private function registerHooks(array $hooks)
+    public function hookActionObjectCategoryAddAfter(array $params): void
     {
-        foreach ($hooks as $hook) {
-            if (!$this->registerHook($hook)) {
-                return false;
-            }
-        }
-
-        return true;
+        $this->reportObjectContentChange($params['object'] ?? null, 'published');
     }
 
-    private function unregisterHooks(array $hooks)
+    public function hookActionObjectCategoryUpdateAfter(array $params): void
     {
-        foreach ($hooks as $hook) {
-            $this->unregisterHook($hook);
-        }
-
-        return true;
+        $this->reportObjectContentChange($params['object'] ?? null, 'updated');
     }
 
-    private function renderSettingsForm($activeTab)
+    public function hookActionObjectCategoryDeleteAfter(array $params): void
     {
-        $helper = new HelperForm();
-        $helper->show_toolbar = false;
-        $helper->table = $this->table;
-        $helper->module = $this;
-        $helper->token = Tools::getAdminTokenLite('AdminModules');
-        $helper->currentIndex = $this->getAdminConfigurationLink($activeTab);
-        $helper->default_form_language = (int) $this->context->language->id;
-        $helper->allow_employee_form_lang = 0;
-        $helper->tpl_vars = [
-            'fields_value' => $this->settings->getFormValues(),
-        ];
-
-        if ($activeTab === self::TAB_ASSETS) {
-            $fieldsValue = $helper->tpl_vars['fields_value'];
-            if (empty($fieldsValue[PrestaLoadCacheSettings::CONFIG_ASSET_SCAN_TARGET_BASE_URL])) {
-                $fieldsValue[PrestaLoadCacheSettings::CONFIG_ASSET_SCAN_TARGET_BASE_URL] = $this->getDetectedShopBaseUrl();
-            }
-            $helper->tpl_vars['fields_value'] = $fieldsValue;
-        }
-
-        $forms = [
-            self::TAB_GENERAL => [
-                'form' => [
-                    'legend' => [
-                        'title' => 'Full page caching',
-                        'icon' => 'icon-cogs',
-                    ],
-                    'input' => [
-                        [
-                            'type' => 'switch',
-                            'label' => 'Enable full-page cache',
-                            'name' => PrestaLoadCacheSettings::CONFIG_ENABLED,
-                            'is_bool' => true,
-                            'values' => [
-                                ['id' => 'prestaload_enabled_on', 'value' => 1, 'label' => $this->trans('Yes', [], 'Admin.Global')],
-                                ['id' => 'prestaload_enabled_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
-                            ],
-                            'desc' => 'Only anonymous GET requests can be cached.',
-                        ],
-                        [
-                            'type' => 'switch',
-                            'label' => 'Enable edge cache bootstrap',
-                            'name' => PrestaLoadCacheSettings::CONFIG_EDGE_CACHE_ENABLED,
-                            'is_bool' => true,
-                            'values' => [
-                                ['id' => 'prestaload_edge_cache_on', 'value' => 1, 'label' => $this->trans('Yes', [], 'Admin.Global')],
-                                ['id' => 'prestaload_edge_cache_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
-                            ],
-                            'desc' => 'Allows the root index.php bootstrap to serve cached homepage HTML before Prestashop starts.',
-                        ],
-                        [
-                            'type' => 'switch',
-                            'label' => 'Compress final HTML',
-                            'name' => PrestaLoadCacheSettings::CONFIG_HTML_COMPRESSION_ENABLED,
-                            'is_bool' => true,
-                            'values' => [
-                                ['id' => 'prestaload_html_compression_on', 'value' => 1, 'label' => $this->trans('Yes', [], 'Admin.Global')],
-                                ['id' => 'prestaload_html_compression_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
-                            ],
-                            'desc' => 'Removes safe whitespace and HTML comments from the final cached markup.',
-                        ],
-                        [
-                            'type' => 'text',
-                            'label' => 'TTL seconds',
-                            'name' => PrestaLoadCacheSettings::CONFIG_TTL,
-                            'class' => 'fixed-width-xl',
-                            'desc' => 'How long one cached page stays valid before it expires. Default: 15 days.',
-                        ],
-                        [
-                            'type' => 'text',
-                            'label' => 'Allowed controllers',
-                            'name' => PrestaLoadCacheSettings::CONFIG_ALLOWED_CONTROLLERS,
-                            'desc' => 'Comma-separated list. Example: index,category,product,cms',
-                        ],
-                    ],
-                    'submit' => [
-                        'title' => $this->trans('Save', [], 'Admin.Actions'),
-                        'name' => 'submitPrestaLoadGeneralSettings',
-                    ],
-                    'buttons' => [
-                        [
-                            'title' => 'Clear Cache',
-                            'name' => 'submitPrestaLoadClearCache',
-                            'type' => 'submit',
-                            'class' => 'btn btn-default pull-left',
-                            'icon' => 'process-icon-delete',
-                        ],
-                    ],
-                ],
-            ],
-            self::TAB_BETA_CACHE_GENERATING => null,
-            self::TAB_FONTS => [
-                'form' => [
-                    'legend' => [
-                        'title' => $this->trans('Fonts', [], 'Admin.Global'),
-                        'icon' => 'icon-font',
-                    ],
-                    'input' => [
-                        [
-                            'type' => 'switch',
-                            'label' => 'Optimize fonts',
-                            'name' => PrestaLoadCacheSettings::CONFIG_FONT_OPTIMIZATION_ENABLED,
-                            'is_bool' => true,
-                            'values' => [
-                                ['id' => 'prestaload_fonts_on', 'value' => 1, 'label' => $this->trans('Yes', [], 'Admin.Global')],
-                                ['id' => 'prestaload_fonts_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
-                            ],
-                            'desc' => 'Adds safe font-loading optimizations to cached public HTML.',
-                        ],
-                    ],
-                    'submit' => [
-                        'title' => $this->trans('Save', [], 'Admin.Actions'),
-                        'name' => 'submitPrestaLoadFontSettings',
-                    ],
-                ],
-            ],
-            self::TAB_CACHE_LIFETIMES => [
-                'form' => [
-                    'legend' => [
-                        'title' => $this->trans('Cache Lifetimes', [], 'Admin.Global'),
-                        'icon' => 'icon-time',
-                    ],
-                    'input' => [
-                        [
-                            'type' => 'switch',
-                            'label' => 'Enable browser cache lifetime rules',
-                            'name' => PrestaLoadCacheSettings::CONFIG_BROWSER_CACHE_ENABLED,
-                            'is_bool' => true,
-                            'values' => [
-                                ['id' => 'prestaload_browser_cache_on', 'value' => 1, 'label' => $this->trans('Yes', [], 'Admin.Global')],
-                                ['id' => 'prestaload_browser_cache_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
-                            ],
-                            'desc' => 'Adds or removes a managed .htaccess block for long-lived browser caching of static files.',
-                        ],
-                        [
-                            'type' => 'text',
-                            'label' => 'Static asset TTL seconds',
-                            'name' => PrestaLoadCacheSettings::CONFIG_BROWSER_CACHE_ASSET_TTL,
-                            'class' => 'fixed-width-xl',
-                            'desc' => 'Applies to CSS, JavaScript, fonts, and images. Default: 31536000 seconds.',
-                        ],
-                        [
-                            'type' => 'text',
-                            'label' => 'Media TTL seconds',
-                            'name' => PrestaLoadCacheSettings::CONFIG_BROWSER_CACHE_MEDIA_TTL,
-                            'class' => 'fixed-width-xl',
-                            'desc' => 'Applies to media files such as MP4, WebM, and MP3. Default: 2592000 seconds.',
-                        ],
-                    ],
-                    'submit' => [
-                        'title' => $this->trans('Save', [], 'Admin.Actions'),
-                        'name' => 'submitPrestaLoadBrowserCacheSettings',
-                    ],
-                ],
-            ],
-            self::TAB_ASSETS => [
-                'form' => [
-                    'legend' => [
-                        'title' => $this->trans('Assets', [], 'Admin.Global'),
-                        'icon' => 'icon-sitemap',
-                    ],
-                    'input' => [
-                        [
-                            'type' => 'text',
-                            'label' => 'Scanner base URL',
-                            'name' => PrestaLoadCacheSettings::CONFIG_ASSET_SCANNER_BASE_URL,
-                            'class' => 'fixed-width-xxl',
-                            'desc' => 'Remote scanner used for page-level CSS and JS analysis.',
-                        ],
-                        [
-                            'type' => 'text',
-                            'label' => 'Public scan base URL',
-                            'name' => PrestaLoadCacheSettings::CONFIG_ASSET_SCAN_TARGET_BASE_URL,
-                            'class' => 'fixed-width-xxl',
-                            'desc' => 'Optional. Use this when the back office runs on a local domain but scans must target a public shop URL, for example https://plexi-cindar.novprojet.com',
-                        ],
-                    ],
-                    'submit' => [
-                        'title' => $this->trans('Save', [], 'Admin.Actions'),
-                        'name' => 'submitPrestaLoadAssetSettings',
-                    ],
-                ],
-            ],
-            self::TAB_CRITICAL_CSS => [
-                'form' => [
-                    'legend' => [
-                        'title' => $this->trans('Critical CSS', [], 'Admin.Global'),
-                        'icon' => 'icon-flask',
-                    ],
-                    'input' => [
-                        [
-                            'type' => 'switch',
-                            'label' => 'Enable beta critical CSS injection',
-                            'name' => PrestaLoadCacheSettings::CONFIG_CRITICAL_CSS_ENABLED,
-                            'is_bool' => true,
-                            'values' => [
-                                ['id' => 'prestaload_critical_css_on', 'value' => 1, 'label' => $this->trans('Yes', [], 'Admin.Global')],
-                                ['id' => 'prestaload_critical_css_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
-                            ],
-                            'desc' => 'When enabled, stored critical CSS is injected locally by page type and device. Beta feature.',
-                        ],
-                        [
-                            'type' => 'text',
-                            'label' => 'Reject if smaller than',
-                            'name' => PrestaLoadCacheSettings::CONFIG_CRITICAL_CSS_MIN_BYTES,
-                            'class' => 'fixed-width-sm',
-                            'suffix' => 'bytes',
-                            'desc' => 'Rejects suspiciously tiny critical CSS outputs. Recommended default: 2048 bytes.',
-                        ],
-                        [
-                            'type' => 'text',
-                            'label' => 'Reject if larger than',
-                            'name' => PrestaLoadCacheSettings::CONFIG_CRITICAL_CSS_MAX_BYTES,
-                            'class' => 'fixed-width-sm',
-                            'suffix' => 'bytes',
-                            'desc' => 'Rejects oversized critical CSS outputs before saving. Recommended default: 24576 bytes.',
-                        ],
-                    ],
-                    'submit' => [
-                        'title' => $this->trans('Save', [], 'Admin.Actions'),
-                        'name' => 'submitPrestaLoadCriticalCssSettings',
-                    ],
-                ],
-            ],
-            self::TAB_IMAGES => [
-                'form' => [
-                    'legend' => [
-                        'title' => $this->trans('Images', [], 'Admin.Global'),
-                        'icon' => 'icon-picture',
-                    ],
-                    'input' => [
-                        [
-                            'type' => 'switch',
-                            'label' => 'Optimize image loading',
-                            'name' => PrestaLoadCacheSettings::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED,
-                            'is_bool' => true,
-                            'values' => [
-                                ['id' => 'prestaload_image_loading_on', 'value' => 1, 'label' => $this->trans('Yes', [], 'Admin.Global')],
-                                ['id' => 'prestaload_image_loading_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
-                            ],
-                            'desc' => 'Keeps likely above-the-fold images eager and lazy-loads the remaining images.',
-                        ],
-                        [
-                            'type' => 'switch',
-                            'label' => 'Lazy load background images',
-                            'name' => PrestaLoadCacheSettings::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED,
-                            'is_bool' => true,
-                            'values' => [
-                                ['id' => 'prestaload_background_images_on', 'value' => 1, 'label' => $this->trans('Yes', [], 'Admin.Global')],
-                                ['id' => 'prestaload_background_images_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
-                            ],
-                            'desc' => 'Conservatively delays inline HTML background images outside obvious hero or slider sections.',
-                        ],
-                        [
-                            'type' => 'switch',
-                            'label' => 'Add missing width and height',
-                            'name' => PrestaLoadCacheSettings::CONFIG_IMAGE_DIMENSIONS_OPTIMIZATION_ENABLED,
-                            'is_bool' => true,
-                            'values' => [
-                                ['id' => 'prestaload_image_dimensions_on', 'value' => 1, 'label' => $this->trans('Yes', [], 'Admin.Global')],
-                                ['id' => 'prestaload_image_dimensions_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
-                            ],
-                            'desc' => 'Adds width and height attributes to local image tags when the file dimensions can be resolved safely.',
-                        ],
-                        [
-                            'type' => 'switch',
-                            'label' => 'Optimize images with ImgProxy',
-                            'name' => PrestaLoadCacheSettings::CONFIG_IMAGE_OPTIMIZATION_ENABLED,
-                            'is_bool' => true,
-                            'values' => [
-                                ['id' => 'prestaload_images_on', 'value' => 1, 'label' => $this->trans('Yes', [], 'Admin.Global')],
-                                ['id' => 'prestaload_images_off', 'value' => 0, 'label' => $this->trans('No', [], 'Admin.Global')],
-                            ],
-                            'desc' => 'Disabled by default. Rewrites raster image URLs to the configured ImgProxy service.',
-                        ],
-                        [
-                            'type' => 'text',
-                            'label' => 'ImgProxy base URL',
-                            'name' => PrestaLoadCacheSettings::CONFIG_IMGPROXY_BASE_URL,
-                            'class' => 'fixed-width-xxl',
-                            'desc' => 'Example: https://imgcdn.prestaload.com/',
-                        ],
-                        [
-                            'type' => 'text',
-                            'label' => 'ImgProxy quality',
-                            'name' => PrestaLoadCacheSettings::CONFIG_IMGPROXY_QUALITY,
-                            'class' => 'fixed-width-sm',
-                            'desc' => 'WebP quality used in generated ImgProxy URLs.',
-                        ],
-                        [
-                            'type' => 'text',
-                            'label' => 'ImgProxy key',
-                            'name' => PrestaLoadCacheSettings::CONFIG_IMGPROXY_KEY,
-                            'class' => 'fixed-width-xxl',
-                            'desc' => 'Hex-encoded imgproxy signing key. Leave empty only if your ImgProxy server allows unsafe URLs.',
-                        ],
-                        [
-                            'type' => 'text',
-                            'label' => 'ImgProxy salt',
-                            'name' => PrestaLoadCacheSettings::CONFIG_IMGPROXY_SALT,
-                            'class' => 'fixed-width-xxl',
-                            'desc' => 'Hex-encoded imgproxy signing salt used together with the key.',
-                        ],
-                    ],
-                    'submit' => [
-                        'title' => $this->trans('Save', [], 'Admin.Actions'),
-                        'name' => 'submitPrestaLoadImageSettings',
-                    ],
-                ],
-            ],
-        ];
-
-        if (!isset($forms[$activeTab]) || empty($forms[$activeTab])) {
-            return '';
-        }
-
-        return $helper->generateForm([$forms[$activeTab]]);
+        $this->reportObjectContentChange($params['object'] ?? null, 'deleted');
     }
 
-    private function getActiveTab()
+    public function hookActionObjectCmsAddAfter(array $params): void
     {
-        $tab = Tools::getValue('prestaload_tab', self::TAB_GENERAL);
-        $allowedTabs = array_keys($this->getAdminTabs());
-
-        return in_array($tab, $allowedTabs, true) ? $tab : self::TAB_GENERAL;
+        $this->reportObjectContentChange($params['object'] ?? null, 'published');
     }
 
-    private function getAdminTabs()
+    public function hookActionObjectCmsUpdateAfter(array $params): void
     {
-        return [
-            self::TAB_GENERAL => [
-                'label' => 'Full page caching',
-                'icon' => 'icon-dashboard',
-                'link' => $this->getAdminConfigurationLink(self::TAB_GENERAL),
-            ],
-            self::TAB_FONTS => [
-                'label' => 'Fonts',
-                'icon' => 'icon-font',
-                'link' => $this->getAdminConfigurationLink(self::TAB_FONTS),
-            ],
-            self::TAB_BETA_CACHE_GENERATING => [
-                'label' => 'Beta cache generating',
-                'icon' => 'icon-magic',
-                'link' => $this->getAdminConfigurationLink(self::TAB_BETA_CACHE_GENERATING),
-            ],
-            self::TAB_ASSETS => [
-                'label' => 'Assets',
-                'icon' => 'icon-sitemap',
-                'link' => $this->getAdminConfigurationLink(self::TAB_ASSETS),
-            ],
-            self::TAB_CRITICAL_CSS => [
-                'label' => 'Critical CSS',
-                'icon' => 'icon-flask',
-                'link' => $this->getAdminConfigurationLink(self::TAB_CRITICAL_CSS),
-            ],
-            self::TAB_CACHE_LIFETIMES => [
-                'label' => 'Cache Lifetimes',
-                'icon' => 'icon-time',
-                'link' => $this->getAdminConfigurationLink(self::TAB_CACHE_LIFETIMES),
-            ],
-            self::TAB_IMAGES => [
-                'label' => 'Images',
-                'icon' => 'icon-picture',
-                'link' => $this->getAdminConfigurationLink(self::TAB_IMAGES),
-            ],
-        ];
+        $this->reportObjectContentChange($params['object'] ?? null, 'updated');
     }
 
-    private function getAdminConfigurationLink($tab)
+    public function hookActionObjectCmsDeleteAfter(array $params): void
     {
-        return $this->context->link->getAdminLink('AdminModules')
-            . '&configure=' . $this->name
-            . '&tab_module=' . $this->tab
-            . '&module_name=' . $this->name
-            . '&prestaload_tab=' . urlencode((string) $tab);
+        $this->reportObjectContentChange($params['object'] ?? null, 'deleted');
     }
 
-    private function getSelectedAssetPage()
+    private function reportObjectContentChange($object, string $changeType): void
     {
-        $selectedKey = (string) Tools::getValue('prestaload_asset_page', 'home');
+        $settings = json_decode(Configuration::get(self::CONFIG_KEY, '{}'), true) ?: [];
 
-        foreach ($this->assetPageRegistry->getPages() as $page) {
-            if ($page['key'] === $selectedKey) {
-                return $page;
-            }
-        }
-
-        return [];
-    }
-
-    /**
-     * The back-office context URL is a good default for scans until the admin
-     * overrides it with a public hostname.
-     */
-    private function getDetectedShopBaseUrl()
-    {
-        $ssl = $this->context->shop && method_exists($this->context->shop, 'getBaseURL')
-            ? $this->context->shop->getBaseURL(true)
-            : $this->context->link->getPageLink('index', true);
-
-        $parts = parse_url((string) $ssl);
-        if ($parts === false || empty($parts['scheme']) || empty($parts['host'])) {
-            return rtrim((string) $ssl, '/');
-        }
-
-        $baseUrl = $parts['scheme'] . '://' . $parts['host'];
-        if (!empty($parts['port'])) {
-            $baseUrl .= ':' . (int) $parts['port'];
-        }
-
-        return $baseUrl;
-    }
-
-    /**
-     * Adds UI metadata so the template can render score colors and grouped
-     * asset tabs without duplicating Lighthouse threshold logic in Smarty.
-     */
-    private function decorateAssetScan($scan)
-    {
-        if (!is_array($scan)) {
-            return $scan;
-        }
-
-        $metrics = isset($scan['metrics']) && is_array($scan['metrics']) ? $scan['metrics'] : [];
-        foreach ($metrics as $metricKey => $metric) {
-            $metrics[$metricKey]['label'] = $this->getMetricLabel($metricKey);
-            $metrics[$metricKey]['status'] = $this->getMetricStatus($metricKey, isset($metric['numeric_value']) ? $metric['numeric_value'] : null);
-        }
-
-        $scan['metrics'] = $metrics;
-        if (isset($scan['assets']) && is_array($scan['assets'])) {
-            foreach ($scan['assets'] as &$asset) {
-                $asset['normalized_url'] = $this->normalizeAssetUrlForUi(isset($asset['url']) ? $asset['url'] : '');
-            }
-            unset($asset);
-        }
-        $scan['score_cards'] = $this->buildScoreCards($scan);
-        $scan['asset_groups'] = $this->groupAssetsForDisplay(isset($scan['assets']) && is_array($scan['assets']) ? $scan['assets'] : []);
-
-        return $scan;
-    }
-
-    private function buildScoreCards(array $scan)
-    {
-        $cards = [];
-        $mobileScore = isset($scan['mobile_score']) ? $scan['mobile_score'] : null;
-        $cards[] = [
-            'key' => 'mobile_score',
-            'label' => 'Performance score',
-            'display_value' => $mobileScore === null ? '-' : (string) round(((float) $mobileScore) * 100),
-            'status' => $this->getScoreStatus($mobileScore),
-        ];
-
-        foreach (isset($scan['metrics']) && is_array($scan['metrics']) ? $scan['metrics'] : [] as $metricKey => $metric) {
-            $cards[] = [
-                'key' => $metricKey,
-                'label' => isset($metric['label']) ? $metric['label'] : $metricKey,
-                'display_value' => isset($metric['display_value']) && $metric['display_value'] !== null ? $metric['display_value'] : '-',
-                'status' => isset($metric['status']) ? $metric['status'] : 'neutral',
-            ];
-        }
-
-        return $cards;
-    }
-
-    private function getScoreStatus($score)
-    {
-        if ($score === null || $score === '') {
-            return 'neutral';
-        }
-
-        $normalizedScore = (float) $score;
-        if ($normalizedScore >= 0.9) {
-            return 'good';
-        }
-        if ($normalizedScore >= 0.5) {
-            return 'warning';
-        }
-
-        return 'bad';
-    }
-
-    private function getMetricLabel($metricKey)
-    {
-        $labels = [
-            'first-contentful-paint' => 'First Contentful Paint',
-            'largest-contentful-paint' => 'Largest Contentful Paint',
-            'speed-index' => 'Speed Index',
-            'interactive' => 'Time to Interactive',
-            'total-blocking-time' => 'Total Blocking Time',
-            'cumulative-layout-shift' => 'Cumulative Layout Shift',
-        ];
-
-        return isset($labels[$metricKey]) ? $labels[$metricKey] : $metricKey;
-    }
-
-    private function getMetricStatus($metricKey, $value)
-    {
-        if ($value === null || $value === '') {
-            return 'neutral';
-        }
-
-        $numericValue = (float) $value;
-        $thresholds = [
-            'first-contentful-paint' => [1800, 3000],
-            'largest-contentful-paint' => [2500, 4000],
-            'speed-index' => [3400, 5800],
-            'interactive' => [3800, 7300],
-            'total-blocking-time' => [200, 600],
-            'cumulative-layout-shift' => [0.1, 0.25],
-        ];
-
-        if (!isset($thresholds[$metricKey])) {
-            return 'neutral';
-        }
-
-        if ($numericValue <= $thresholds[$metricKey][0]) {
-            return 'good';
-        }
-        if ($numericValue <= $thresholds[$metricKey][1]) {
-            return 'warning';
-        }
-
-        return 'bad';
-    }
-
-    private function groupAssetsForDisplay(array $assets)
-    {
-        $groups = [
-            'css' => ['key' => 'css', 'label' => 'CSS', 'assets' => []],
-            'js' => ['key' => 'js', 'label' => 'JavaScript', 'assets' => []],
-            'media' => ['key' => 'media', 'label' => 'Media', 'assets' => []],
-            'other' => ['key' => 'other', 'label' => 'Other', 'assets' => []],
-        ];
-
-        foreach ($assets as $asset) {
-            $type = isset($asset['type']) ? (string) $asset['type'] : 'other';
-            if (!isset($groups[$type])) {
-                $type = 'other';
-            }
-            $groups[$type]['assets'][] = $asset;
-        }
-
-        return array_values(array_filter($groups, function ($group) {
-            return !empty($group['assets']);
-        }));
-    }
-
-    private function indexRulesByUrl(array $rules)
-    {
-        $indexedRules = [];
-
-        foreach ($rules as $rule) {
-            if (!isset($rule['asset_url'])) {
-                continue;
-            }
-
-            $flags = $this->extractRuleFlags($rule);
-            $rule['disable'] = $flags['disable'];
-            $rule['defer'] = $flags['defer'];
-            $rule['minify'] = $flags['minify'];
-            $rule['load_after_window_load'] = $flags['load_after_window_load'];
-            $rule['load_after_first_interaction'] = $flags['load_after_first_interaction'];
-            $normalizedUrl = $this->normalizeAssetUrlForUi($rule['asset_url']);
-            $indexedRules[$normalizedUrl] = $rule;
-        }
-
-        return $indexedRules;
-    }
-
-    private function normalizeAssetUrlForUi($url)
-    {
-        $url = trim((string) $url);
-        if ($url === '') {
-            return '';
-        }
-
-        if (strpos($url, '//') === 0) {
-            return 'https:' . $url;
-        }
-
-        if (preg_match('#^https?://#i', $url)) {
-            return $url;
-        }
-
-        $baseUrl = rtrim($this->getDetectedShopBaseUrl(), '/');
-        if (strpos($url, '/') === 0) {
-            return $baseUrl . $url;
-        }
-
-        return $baseUrl . '/' . ltrim($url, '/');
-    }
-
-    /**
-     * Handles lightweight AJAX actions for the admin UI.
-     */
-    private function handleAjaxRequest()
-    {
-        if (!Tools::getValue('ajax')) {
+        if (empty($settings['connected']) || empty($settings['api_key']) || ! is_object($object)) {
             return;
         }
 
+        $page = $this->publicPageForObject($object);
+
+        if (! $page) {
+            return;
+        }
+
+        $payload = [
+            'api_key' => $settings['api_key'],
+            'platform' => 'prestashop',
+            'site_url' => rtrim($this->context->shop->getBaseURL(true), '/'),
+            'change_type' => $changeType,
+            'entity_type' => $page['type'],
+            'entity_id' => (string) ($object->id ?? ''),
+            'changed_urls' => [$page],
+        ];
+
+        $this->callApi('/plugin/content-changed', $payload, 3);
+
+        $settings['last_content_change'] = [
+            'sent_at' => date('Y-m-d H:i:s'),
+            'urls' => [$page['url']],
+        ];
+
+        Configuration::updateValue(self::CONFIG_KEY, json_encode($settings));
+    }
+
+    private function publicPageForObject($object): ?array
+    {
         try {
-            $action = (string) Tools::getValue('action');
-            if ($action === 'runAssetScan') {
-                $page = $this->getSelectedAssetPage();
-                if (empty($page)) {
-                    throw new Exception('Selected page was not found.');
-                }
-
-                $paths = $this->assetScanStore->saveScan($page, $this->assetScannerClient->scanPage($page['url']));
-
-                $this->jsonResponse([
-                    'success' => true,
-                    'message' => 'Asset scan completed.',
-                    'reload_url' => $this->getAdminConfigurationLink(self::TAB_ASSETS) . '&prestaload_asset_page=' . urlencode((string) $page['key']),
-                    'paths' => $paths,
-                ]);
-            }
-
-            if ($action === 'warmCache') {
-                $result = $this->cacheWarmer->warmAll();
-
-                $this->jsonResponse([
-                    'success' => true,
-                    'message' => sprintf(
-                        'Cache warmer finished: %d requests, %d ok, %d failed.',
-                        (int) ($result['summary']['requests_total'] ?? 0),
-                        (int) ($result['summary']['requests_ok'] ?? 0),
-                        (int) ($result['summary']['requests_failed'] ?? 0)
-                    ),
-                    'report' => $result,
-                ]);
-            }
-
-            if ($action === 'warmCachePage') {
-                $pageKey = (string) Tools::getValue('prestaload_page_key');
-                $languageId = (int) Tools::getValue('prestaload_language_id');
-                $result = $this->cacheWarmer->warmPage($pageKey, $languageId);
-
-                $page = isset($result['pages'][0]) ? $result['pages'][0] : [];
-
-                $this->jsonResponse([
-                    'success' => true,
-                    'message' => sprintf(
-                        'Cache warmed for %s (%s): %d requests, %d ok, %d failed.',
-                        (string) ($page['page_label'] ?? 'page'),
-                        (string) ($page['language_iso'] ?? '-'),
-                        (int) ($result['summary']['requests_total'] ?? 0),
-                        (int) ($result['summary']['requests_ok'] ?? 0),
-                        (int) ($result['summary']['requests_failed'] ?? 0)
-                    ),
-                    'report' => $result,
-                ]);
-            }
-
-            if ($action === 'generateBetaCache') {
-                $result = $this->betaCacheGenerator->generateAll();
-
-                $this->jsonResponse([
-                    'success' => true,
-                    'message' => sprintf(
-                        'Beta cache generation finished: %d requests, %d ok, %d failed.',
-                        (int) ($result['summary']['requests_total'] ?? 0),
-                        (int) ($result['summary']['requests_ok'] ?? 0),
-                        (int) ($result['summary']['requests_failed'] ?? 0)
-                    ),
-                    'report' => $result,
-                ]);
-            }
-
-            if ($action === 'generateBetaCachePage') {
-                $pageKey = (string) Tools::getValue('prestaload_page_key');
-                $languageId = (int) Tools::getValue('prestaload_language_id');
-                $result = $this->betaCacheGenerator->generatePage($pageKey, $languageId);
-
-                $page = isset($result['pages'][0]) ? $result['pages'][0] : [];
-
-                $this->jsonResponse([
-                    'success' => true,
-                    'message' => sprintf(
-                        'Beta cache generated for %s (%s): %d requests, %d ok, %d failed.',
-                        (string) ($page['page_label'] ?? 'page'),
-                        (string) ($page['language_iso'] ?? '-'),
-                        (int) ($result['summary']['requests_total'] ?? 0),
-                        (int) ($result['summary']['requests_ok'] ?? 0),
-                        (int) ($result['summary']['requests_failed'] ?? 0)
-                    ),
-                    'report' => $result,
-                ]);
-            }
-
-            if ($action === 'generateCriticalCss') {
-                $result = $this->generateCriticalCssFromRequest();
-
-                $this->jsonResponse([
-                    'success' => true,
-                    'message' => 'Critical CSS generated successfully.',
-                    'entry' => $result,
-                ]);
-            }
-
-            if ($action === 'removeCriticalCss') {
-                $result = $this->removeCriticalCssFromRequest();
-
-                $this->jsonResponse([
-                    'success' => true,
-                    'message' => 'Critical CSS removed successfully.',
-                    'entry' => $result,
-                ]);
-            }
-
-            if ($action === 'generateFontUsage') {
-                $result = $this->generateFontUsageFromRequest();
-
-                $this->jsonResponse([
-                    'success' => true,
-                    'message' => 'Font usage generated successfully.',
-                    'entry' => $result,
-                ]);
-            }
-
-            if ($action === 'toggleFontRule') {
-                $result = $this->toggleFontRuleFromRequest();
-
-                $this->jsonResponse([
-                    'success' => true,
-                    'message' => 'Font rule updated.',
-                    'rule' => $result,
-                ]);
-            }
-
-            if ($action === 'saveAssetRule') {
-                $savedRule = $this->saveAssetRuleFromRequest();
-
-                $this->jsonResponse([
-                    'success' => true,
-                    'message' => 'Asset rule updated.',
-                    'rule' => $savedRule,
-                ]);
-            }
-
-            if ($action === 'toggleAssetFlag') {
-                $updatedRule = $this->toggleAssetFlagFromRequest();
-
-                $this->jsonResponse([
-                    'success' => true,
-                    'message' => 'Asset rule updated.',
-                    'rule' => $updatedRule,
-                ]);
-            }
-
-            if ($action === 'saveBulkAssetRules') {
-                $savedCount = $this->saveBulkAssetRulesFromRequest();
-
-                $this->jsonResponse([
-                    'success' => true,
-                    'message' => sprintf('Updated %d asset rules.', $savedCount),
-                    'saved_count' => $savedCount,
-                ]);
-            }
-
-            if ($action === 'minifyAsset') {
-                $result = $this->minifyAssetFromRequest();
-
-                $this->jsonResponse(array_merge([
-                    'success' => true,
-                ], $result));
-            }
-
-            if ($action === 'bulkMinifyAssets') {
-                $result = $this->bulkMinifyAssetsFromRequest();
-
-                $this->jsonResponse(array_merge([
-                    'success' => true,
-                ], $result));
-            }
-
-            if ($action === 'bulkClearMinifiedAssets') {
-                $result = $this->bulkClearMinifiedAssetsFromRequest();
-
-                $this->jsonResponse(array_merge([
-                    'success' => true,
-                ], $result));
-            }
-
-            $this->jsonResponse([
-                'success' => false,
-                'message' => 'Unknown AJAX action.',
-            ]);
-        } catch (Exception $exception) {
-            $this->jsonResponse([
-                'success' => false,
-                'message' => $exception->getMessage(),
-            ]);
-        }
-    }
-
-    private function saveAssetRuleFromRequest()
-    {
-        $page = $this->getSelectedAssetPage();
-        if (empty($page)) {
-            throw new Exception('Selected page was not found.');
-        }
-
-        $action = trim((string) Tools::getValue('prestaload_asset_action', 'keep'));
-        $assetUrl = trim((string) Tools::getValue('prestaload_asset_url', ''));
-        $assetType = trim((string) Tools::getValue('prestaload_asset_type', 'other'));
-
-        if ($assetUrl === '') {
-            throw new Exception('Asset URL is required.');
-        }
-
-        if (!in_array($action, ['keep', 'defer', 'disable', 'minify', 'load_after_window_load', 'load_after_first_interaction'], true)) {
-            throw new Exception('Invalid asset action.');
-        }
-
-        $rule = [
-            'page_key' => $page['key'],
-            'page_url' => $page['url'],
-            'asset_url' => $assetUrl,
-            'asset_type' => $assetType,
-            'action' => $action,
-        ];
-
-        if (!$this->assetRuleStore->saveRule($rule)) {
-            throw new Exception('Could not save the asset rule.');
-        }
-        $this->pageCache->clear();
-
-        return $rule;
-    }
-
-    private function generateCriticalCssFromRequest()
-    {
-        $pageKey = trim((string) Tools::getValue('prestaload_critical_css_page', 'home'));
-        $page = $this->criticalCssPageRegistry->getPageByKey($pageKey);
-        if (empty($page)) {
-            throw new Exception('Selected page type was not found.');
-        }
-
-        $result = $this->criticalCssScannerClient->generate($page['key'], $page['url']);
-        $this->assertCriticalCssWithinThresholds($result['variants']);
-        $entry = $this->criticalCssStore->saveVariants($page, $result['variants']);
-        $this->pageCache->clear();
-
-        return $entry;
-    }
-
-    private function assertCriticalCssWithinThresholds(array $variants)
-    {
-        $minBytes = $this->settings->getCriticalCssMinBytes();
-        $maxBytes = $this->settings->getCriticalCssMaxBytes();
-        $errors = [];
-
-        foreach ($variants as $device => $variant) {
-            $css = isset($variant['css']) ? (string) $variant['css'] : '';
-            $sizeBytes = isset($variant['css_size_bytes'])
-                ? (int) $variant['css_size_bytes']
-                : strlen($css);
-
-            if ($sizeBytes < $minBytes) {
-                $errors[] = sprintf('%s critical CSS was rejected because it is too small (%d bytes < %d bytes).', ucfirst((string) $device), $sizeBytes, $minBytes);
-                continue;
-            }
-
-            if ($sizeBytes > $maxBytes) {
-                $errors[] = sprintf('%s critical CSS was rejected because it is too large (%d bytes > %d bytes).', ucfirst((string) $device), $sizeBytes, $maxBytes);
-            }
-        }
-
-        if (!empty($errors)) {
-            throw new Exception(implode(' ', $errors));
-        }
-    }
-
-    private function removeCriticalCssFromRequest()
-    {
-        $pageKey = trim((string) Tools::getValue('prestaload_critical_css_page', 'home'));
-        $page = $this->criticalCssPageRegistry->getPageByKey($pageKey);
-        if (empty($page)) {
-            throw new Exception('Selected page type was not found.');
-        }
-
-        $removed = $this->criticalCssStore->remove($page['key']);
-        $this->pageCache->clear();
-
-        return [
-            'page_key' => $page['key'],
-            'removed' => $removed ? 1 : 0,
-        ];
-    }
-
-    private function generateFontUsageFromRequest()
-    {
-        $pageKey = trim((string) Tools::getValue('prestaload_font_usage_page', 'home'));
-        $page = $this->criticalCssPageRegistry->getPageByKey($pageKey);
-        if (empty($page)) {
-            throw new Exception('Selected page type was not found.');
-        }
-
-        $result = $this->fontUsageScannerClient->generate($page['key'], $page['url']);
-
-        return $this->fontUsageStore->saveVariants($page, $result['variants']);
-    }
-
-    private function toggleFontRuleFromRequest()
-    {
-        $pageKey = trim((string) Tools::getValue('prestaload_font_page', 'home'));
-        $page = $this->criticalCssPageRegistry->getPageByKey($pageKey);
-        if (empty($page)) {
-            throw new Exception('Selected page type was not found.');
-        }
-
-        $targetUrl = trim((string) Tools::getValue('prestaload_font_target_url', ''));
-        if ($targetUrl === '') {
-            throw new Exception('Font source URL is required.');
-        }
-
-        $label = trim((string) Tools::getValue('prestaload_font_label', ''));
-        $sourceType = trim((string) Tools::getValue('prestaload_font_source_type', 'stylesheet'));
-        $block = (bool) (int) Tools::getValue('prestaload_font_block', 0);
-
-        $rule = [
-            'page_key' => $page['key'],
-            'page_url' => $page['url'],
-            'target_url' => $targetUrl,
-            'label' => $label,
-            'source_type' => $sourceType,
-            'block' => $block ? 1 : 0,
-            'action' => $block ? 'block' : 'keep',
-        ];
-
-        if (!$this->fontRuleStore->saveRule($rule)) {
-            throw new Exception('Could not save the font rule.');
-        }
-
-        $this->pageCache->clear();
-
-        return $rule;
-    }
-
-    private function toggleAssetFlagFromRequest()
-    {
-        $page = $this->getSelectedAssetPage();
-        if (empty($page)) {
-            throw new Exception('Selected page was not found.');
-        }
-
-        $assetUrl = trim((string) Tools::getValue('prestaload_asset_url', ''));
-        $assetType = trim((string) Tools::getValue('prestaload_asset_type', 'other'));
-        $flag = trim((string) Tools::getValue('prestaload_asset_flag', ''));
-        $enabled = (bool) (int) Tools::getValue('prestaload_asset_enabled', 0);
-
-        if ($assetUrl === '') {
-            throw new Exception('Asset URL is required.');
-        }
-
-        if (!in_array($flag, ['disable', 'defer', 'minify', 'load_after_window_load', 'load_after_first_interaction'], true)) {
-            throw new Exception('Invalid asset flag.');
-        }
-
-        if (in_array($flag, ['load_after_window_load', 'load_after_first_interaction'], true) && $assetType !== 'js') {
-            throw new Exception('This flag is only available for JavaScript assets.');
-        }
-
-        $existingRule = $this->assetRuleStore->getRule($page['key'], $assetUrl);
-        $flags = $this->extractRuleFlags($existingRule);
-        $flags[$flag] = $enabled;
-
-        if ($flag === 'disable' && $enabled) {
-            $flags['defer'] = false;
-            $flags['minify'] = false;
-            $flags['load_after_window_load'] = false;
-            $flags['load_after_first_interaction'] = false;
-        }
-
-        if ($flag === 'defer' && $enabled) {
-            $flags['disable'] = false;
-            $flags['load_after_window_load'] = false;
-            $flags['load_after_first_interaction'] = false;
-        }
-
-        if ($flag === 'load_after_window_load' && $enabled) {
-            $flags['disable'] = false;
-            $flags['defer'] = false;
-            $flags['load_after_first_interaction'] = false;
-        }
-
-        if ($flag === 'load_after_first_interaction' && $enabled) {
-            $flags['disable'] = false;
-            $flags['defer'] = false;
-            $flags['load_after_window_load'] = false;
-        }
-
-        if ($flag === 'minify') {
-            if ($enabled) {
-                $minifiedUrl = $this->assetMinifier->getMinifiedAssetUrl($assetUrl, $assetType);
-                if ($minifiedUrl === '') {
-                    throw new Exception('Could not build the minified asset.');
-                }
-            } else {
-                $this->assetMinifier->clearMinifiedAsset($assetUrl, $assetType);
-            }
-        }
-
-        $rule = [
-            'page_key' => $page['key'],
-            'page_url' => $page['url'],
-            'asset_url' => $assetUrl,
-            'asset_type' => $assetType,
-            'disable' => (int) $flags['disable'],
-            'defer' => (int) $flags['defer'],
-            'minify' => (int) $flags['minify'],
-            'load_after_window_load' => (int) $flags['load_after_window_load'],
-            'load_after_first_interaction' => (int) $flags['load_after_first_interaction'],
-            'action' => $this->deriveRuleAction($flags),
-        ];
-
-        if (!$this->assetRuleStore->saveRule($rule)) {
-            throw new Exception('Could not save the asset rule.');
-        }
-        $this->pageCache->clear();
-
-        return $rule;
-    }
-
-    private function saveBulkAssetRulesFromRequest()
-    {
-        $page = $this->getSelectedAssetPage();
-        if (empty($page)) {
-            throw new Exception('Selected page was not found.');
-        }
-
-        $action = trim((string) Tools::getValue('prestaload_asset_action', 'defer'));
-        if (!in_array($action, ['keep', 'defer', 'disable', 'minify', 'load_after_window_load', 'load_after_first_interaction'], true)) {
-            throw new Exception('Invalid asset action.');
-        }
-
-        $assetUrls = Tools::getValue('prestaload_asset_urls', []);
-        $assetTypes = Tools::getValue('prestaload_asset_types', []);
-
-        if (!is_array($assetUrls) || empty($assetUrls)) {
-            throw new Exception('Select at least one asset.');
-        }
-
-        $savedCount = 0;
-        foreach ($assetUrls as $index => $assetUrl) {
-            $assetUrl = trim((string) $assetUrl);
-            if ($assetUrl === '') {
-                continue;
-            }
-
-            $assetType = isset($assetTypes[$index]) ? trim((string) $assetTypes[$index]) : 'other';
-            $existingRule = $this->assetRuleStore->getRule($page['key'], $assetUrl);
-            $flags = $this->extractRuleFlags($existingRule);
-
-            if ($action === 'keep') {
-                $flags = [
-                    'disable' => false,
-                    'defer' => false,
-                    'minify' => false,
-                    'load_after_window_load' => false,
-                    'load_after_first_interaction' => false,
+            if ($object instanceof Product) {
+                return [
+                    'url' => rtrim($this->context->link->getProductLink($object), '/'),
+                    'type' => 'product',
+                    'title' => $this->localizedObjectName($object),
                 ];
-            } elseif ($action === 'disable') {
-                $flags = [
-                    'disable' => true,
-                    'defer' => false,
-                    'minify' => false,
-                    'load_after_window_load' => false,
-                    'load_after_first_interaction' => false,
+            }
+
+            if ($object instanceof Category) {
+                return [
+                    'url' => rtrim($this->context->link->getCategoryLink($object), '/'),
+                    'type' => 'category',
+                    'title' => $this->localizedObjectName($object),
                 ];
-            } elseif ($action === 'defer') {
-                $flags['disable'] = false;
-                $flags['defer'] = true;
-                $flags['load_after_window_load'] = false;
-                $flags['load_after_first_interaction'] = false;
-            } elseif ($action === 'load_after_window_load' && $assetType === 'js') {
-                $flags['disable'] = false;
-                $flags['defer'] = false;
-                $flags['load_after_window_load'] = true;
-                $flags['load_after_first_interaction'] = false;
-            } elseif ($action === 'load_after_first_interaction' && $assetType === 'js') {
-                $flags['disable'] = false;
-                $flags['defer'] = false;
-                $flags['load_after_window_load'] = false;
-                $flags['load_after_first_interaction'] = true;
-            } elseif ($action === 'minify') {
-                $flags['minify'] = true;
             }
 
-            if (!$this->assetRuleStore->saveRule([
-                'page_key' => $page['key'],
-                'page_url' => $page['url'],
-                'asset_url' => $assetUrl,
-                'asset_type' => $assetType,
-                'disable' => (int) $flags['disable'],
-                'defer' => (int) $flags['defer'],
-                'minify' => (int) $flags['minify'],
-                'load_after_window_load' => (int) $flags['load_after_window_load'],
-                'load_after_first_interaction' => (int) $flags['load_after_first_interaction'],
-                'action' => $this->deriveRuleAction($flags),
-            ])) {
-                throw new Exception('Could not save one of the selected asset rules.');
+            if ($object instanceof CMS) {
+                return [
+                    'url' => rtrim($this->context->link->getCMSLink($object), '/'),
+                    'type' => 'cms',
+                    'title' => $this->localizedObjectName($object),
+                ];
             }
-            ++$savedCount;
-        }
-
-        if ($savedCount === 0) {
-            throw new Exception('Select at least one asset.');
-        }
-
-        $this->pageCache->clear();
-
-        return $savedCount;
-    }
-
-    private function minifyAssetFromRequest()
-    {
-        $page = $this->getSelectedAssetPage();
-        if (empty($page)) {
-            throw new Exception('Selected page was not found.');
-        }
-
-        $assetUrl = trim((string) Tools::getValue('prestaload_asset_url', ''));
-        $assetType = trim((string) Tools::getValue('prestaload_asset_type', ''));
-        if ($assetUrl === '') {
-            throw new Exception('Asset URL is required.');
-        }
-
-        if (!in_array($assetType, ['css', 'js'], true)) {
-            throw new Exception('Only CSS and JavaScript assets can be minified.');
-        }
-
-        $minifiedUrl = $this->assetMinifier->getMinifiedAssetUrl($assetUrl, $assetType);
-        if ($minifiedUrl === '') {
-            throw new Exception('Could not build the minified asset.');
-        }
-
-        $existingRule = $this->assetRuleStore->getRule($page['key'], $assetUrl);
-        $flags = $this->extractRuleFlags($existingRule);
-        $flags['minify'] = true;
-
-        $rule = [
-            'page_key' => $page['key'],
-            'page_url' => $page['url'],
-            'asset_url' => $assetUrl,
-            'asset_type' => $assetType,
-            'disable' => (int) $flags['disable'],
-            'defer' => (int) $flags['defer'],
-            'minify' => 1,
-            'load_after_window_load' => (int) $flags['load_after_window_load'],
-            'load_after_first_interaction' => (int) $flags['load_after_first_interaction'],
-            'action' => $this->deriveRuleAction($flags),
-        ];
-
-        if (!$this->assetRuleStore->saveRule($rule)) {
-            throw new Exception('Could not save the minify rule.');
-        }
-        $this->pageCache->clear();
-
-        return [
-            'message' => 'Asset minified successfully.',
-            'minified_url' => $minifiedUrl,
-            'rule' => $rule,
-        ];
-    }
-
-    private function bulkMinifyAssetsFromRequest()
-    {
-        $page = $this->getSelectedAssetPage();
-        if (empty($page)) {
-            throw new Exception('Selected page was not found.');
-        }
-
-        $assetUrls = Tools::getValue('prestaload_asset_urls', []);
-        $assetTypes = Tools::getValue('prestaload_asset_types', []);
-        if (!is_array($assetUrls) || empty($assetUrls)) {
-            throw new Exception('Select at least one asset.');
-        }
-
-        $processed = 0;
-        foreach ($assetUrls as $index => $assetUrl) {
-            $assetUrl = trim((string) $assetUrl);
-            $assetType = isset($assetTypes[$index]) ? trim((string) $assetTypes[$index]) : '';
-
-            if ($assetUrl === '' || !in_array($assetType, ['css', 'js'], true)) {
-                continue;
-            }
-
-            $minifiedUrl = $this->assetMinifier->getMinifiedAssetUrl($assetUrl, $assetType);
-            if ($minifiedUrl === '') {
-                continue;
-            }
-
-            $existingRule = $this->assetRuleStore->getRule($page['key'], $assetUrl);
-            $flags = $this->extractRuleFlags($existingRule);
-            $flags['minify'] = true;
-
-            if (!$this->assetRuleStore->saveRule([
-                'page_key' => $page['key'],
-                'page_url' => $page['url'],
-                'asset_url' => $assetUrl,
-                'asset_type' => $assetType,
-                'disable' => (int) $flags['disable'],
-                'defer' => (int) $flags['defer'],
-                'minify' => 1,
-                'load_after_window_load' => (int) $flags['load_after_window_load'],
-                'load_after_first_interaction' => (int) $flags['load_after_first_interaction'],
-                'action' => $this->deriveRuleAction($flags),
-            ])) {
-                throw new Exception('Could not save one of the selected minify rules.');
-            }
-            ++$processed;
-        }
-
-        if ($processed === 0) {
-            throw new Exception('Could not minify the selected assets.');
-        }
-
-        $this->pageCache->clear();
-
-        return [
-            'message' => sprintf('Minified %d assets.', $processed),
-            'processed_count' => $processed,
-        ];
-    }
-
-    private function bulkClearMinifiedAssetsFromRequest()
-    {
-        $page = $this->getSelectedAssetPage();
-        if (empty($page)) {
-            throw new Exception('Selected page was not found.');
-        }
-
-        $assetUrls = Tools::getValue('prestaload_asset_urls', []);
-        $assetTypes = Tools::getValue('prestaload_asset_types', []);
-        if (!is_array($assetUrls) || empty($assetUrls)) {
-            throw new Exception('Select at least one asset.');
-        }
-
-        $processed = 0;
-        foreach ($assetUrls as $index => $assetUrl) {
-            $assetUrl = trim((string) $assetUrl);
-            $assetType = isset($assetTypes[$index]) ? trim((string) $assetTypes[$index]) : '';
-
-            if ($assetUrl === '' || !in_array($assetType, ['css', 'js'], true)) {
-                continue;
-            }
-
-            $this->assetMinifier->clearMinifiedAsset($assetUrl, $assetType);
-            $existingRule = $this->assetRuleStore->getRule($page['key'], $assetUrl);
-            $flags = $this->extractRuleFlags($existingRule);
-            $flags['minify'] = false;
-            if (!$this->assetRuleStore->saveRule([
-                'page_key' => $page['key'],
-                'page_url' => $page['url'],
-                'asset_url' => $assetUrl,
-                'asset_type' => $assetType,
-                'disable' => (int) $flags['disable'],
-                'defer' => (int) $flags['defer'],
-                'minify' => 0,
-                'load_after_window_load' => (int) $flags['load_after_window_load'],
-                'load_after_first_interaction' => (int) $flags['load_after_first_interaction'],
-                'action' => $this->deriveRuleAction($flags),
-            ])) {
-                throw new Exception('Could not clear minified state for one of the selected assets.');
-            }
-            ++$processed;
-        }
-
-        if ($processed === 0) {
-            throw new Exception('Could not clear the selected minified assets.');
-        }
-
-        $this->pageCache->clear();
-
-        return [
-            'message' => sprintf('Cleared minified state for %d assets.', $processed),
-            'processed_count' => $processed,
-        ];
-    }
-
-    private function getAjaxConfigurationLink($action)
-    {
-        return $this->getAdminConfigurationLink($this->getActiveTab())
-            . '&ajax=1&action=' . urlencode((string) $action);
-    }
-
-    private function jsonResponse(array $payload)
-    {
-        if (!headers_sent()) {
-            header('Content-Type: application/json; charset=utf-8');
-        }
-
-        $encoded = json_encode($payload);
-        if ($encoded === false) {
-            $encoded = json_encode([
-                'success' => false,
-                'message' => 'JSON encoding failed.',
+        } catch (Exception $e) {
+            $this->log('warn', 'content change URL resolution failed', [
+                'class' => get_class($object),
+                'id' => $object->id ?? null,
+                'error' => $e->getMessage(),
             ]);
         }
 
-        exit($encoded);
+        return null;
     }
 
-    private function isAuthorizedBetaGenerateRequest()
+    private function localizedObjectName($object): ?string
     {
-        return PrestaLoadInternalAuth::isAuthorizedBetaGenerateRequest();
-    }
+        $name = $object->name ?? $object->meta_title ?? null;
 
-    private function extractRuleFlags(array $rule)
-    {
-        return [
-            'disable' => !empty($rule['disable']) || (isset($rule['action']) && $rule['action'] === 'disable'),
-            'defer' => !empty($rule['defer']) || (isset($rule['action']) && $rule['action'] === 'defer'),
-            'minify' => !empty($rule['minify']) || (isset($rule['action']) && $rule['action'] === 'minify'),
-            'load_after_window_load' => !empty($rule['load_after_window_load']) || (isset($rule['action']) && $rule['action'] === 'load_after_window_load'),
-            'load_after_first_interaction' => !empty($rule['load_after_first_interaction']) || (isset($rule['action']) && $rule['action'] === 'load_after_first_interaction'),
-        ];
-    }
-
-    private function decorateCriticalCssPages(array $pages)
-    {
-        $entries = $this->criticalCssStore->getEntries();
-
-        foreach ($pages as &$page) {
-            $entry = isset($entries[$page['key']]) ? $entries[$page['key']] : [];
-            $page['critical_css'] = [
-                'generated' => !empty($entry['devices']),
-                'mobile' => $this->decorateCriticalCssDevice(isset($entry['devices']['mobile']) && is_array($entry['devices']['mobile']) ? $entry['devices']['mobile'] : []),
-                'tablet' => $this->decorateCriticalCssDevice(isset($entry['devices']['tablet']) && is_array($entry['devices']['tablet']) ? $entry['devices']['tablet'] : []),
-                'desktop' => $this->decorateCriticalCssDevice(isset($entry['devices']['desktop']) && is_array($entry['devices']['desktop']) ? $entry['devices']['desktop'] : []),
-            ];
-        }
-        unset($page);
-
-        return $pages;
-    }
-
-    private function decorateCriticalCssDevice(array $deviceEntry)
-    {
-        $meta = isset($deviceEntry['meta']) && is_array($deviceEntry['meta']) ? $deviceEntry['meta'] : [];
-        $stats = isset($meta['stats']) && is_array($meta['stats']) ? $meta['stats'] : [];
-
-        return [
-            'generated' => !empty($deviceEntry),
-            'size_bytes' => isset($deviceEntry['size_bytes']) ? (int) $deviceEntry['size_bytes'] : 0,
-            'generated_at' => isset($deviceEntry['generated_at']) ? (string) $deviceEntry['generated_at'] : '',
-            'generator_version' => isset($meta['generator_version'])
-                ? (string) $meta['generator_version']
-                : (isset($deviceEntry['generator_version']) ? (string) $deviceEntry['generator_version'] : ''),
-            'viewport_element_count' => isset($meta['viewport_element_count']) ? (int) $meta['viewport_element_count'] : null,
-            'included_element_count' => isset($meta['included_element_count']) ? (int) $meta['included_element_count'] : null,
-            'style_sheet_count' => isset($meta['style_sheet_count']) ? (int) $meta['style_sheet_count'] : null,
-            'max_css_bytes' => isset($meta['max_css_bytes']) ? (int) $meta['max_css_bytes'] : null,
-            'budget_reached' => !empty($meta['budget_reached']),
-            'stats_summary' => $this->buildCriticalCssStatsSummary($stats),
-        ];
-    }
-
-    private function buildCriticalCssStatsSummary(array $stats)
-    {
-        $summary = [];
-
-        foreach ([
-            'kept_rules' => 'rules',
-            'kept_media_rules' => 'media',
-            'excluded_noisy_stylesheets' => 'noisy sheets',
-            'excluded_rule_type' => 'rule type',
-            'excluded_selector_miss' => 'selector miss',
-            'excluded_media_miss' => 'media miss',
-            'excluded_budget' => 'budget',
-        ] as $key => $label) {
-            if (!isset($stats[$key])) {
-                continue;
-            }
-
-            $summary[] = $label . ': ' . (int) $stats[$key];
+        if (is_array($name)) {
+            return (string) ($name[$this->context->language->id] ?? reset($name) ?: '');
         }
 
-        return implode(' | ', $summary);
+        return $name !== null ? (string) $name : null;
     }
 
-    private function decorateFontUsagePages(array $pages)
-    {
-        $entries = $this->fontUsageStore->getEntries();
-        $rulesByPage = [];
+    // -------------------------------------------------------------------------
+    // Full-page cache: warmup interception + cache serving
+    // -------------------------------------------------------------------------
 
-        foreach ($pages as $page) {
-            $rulesByPage[$page['key']] = $this->indexFontRulesByUrl($this->fontRuleStore->getRulesForPage($page['key']));
+    /**
+     * actionDispatcher fires before the controller is initialized — the earliest
+     * safe hook to intercept requests for cache serving and warmup bypass.
+     */
+    public function hookActionDispatcher(array $params): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+            return;
         }
 
-        foreach ($pages as &$page) {
-            $entry = isset($entries[$page['key']]) ? $entries[$page['key']] : [];
-            $page['font_usage'] = [
-                'generated' => !empty($entry['devices']),
-                'mobile' => $this->decorateFontUsageDevice(isset($entry['devices']['mobile']) && is_array($entry['devices']['mobile']) ? $entry['devices']['mobile'] : []),
-                'desktop' => $this->decorateFontUsageDevice(isset($entry['devices']['desktop']) && is_array($entry['devices']['desktop']) ? $entry['devices']['desktop'] : []),
-            ];
-            $page['font_usage']['sources'] = $this->buildFontUsageSources($page['font_usage'], isset($rulesByPage[$page['key']]) ? $rulesByPage[$page['key']] : []);
+        // Skip admin controllers.
+        $controllerType = $params['controller_type'] ?? '';
+        if ($controllerType === 'admin') {
+            return;
         }
-        unset($page);
 
-        return $pages;
-    }
+        // Skip module front controllers (dynamic endpoints, AJAX handlers, payment callbacks, etc.).
+        if ($controllerType === 'moduleFront') {
+            return;
+        }
 
-    private function decorateFontUsageDevice(array $deviceEntry)
-    {
-        $duplicateIconEntries = isset($deviceEntry['duplicate_icon_font_stylesheets']) && is_array($deviceEntry['duplicate_icon_font_stylesheets'])
-            ? $deviceEntry['duplicate_icon_font_stylesheets']
-            : [];
+        // Skip AJAX requests (XMLHttpRequest header or PS fc=module pattern).
+        if (! empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+            return;
+        }
 
-        return [
-            'generated' => !empty($deviceEntry),
-            'generated_at' => isset($deviceEntry['generated_at']) ? (string) $deviceEntry['generated_at'] : '',
-            'generator_version' => isset($deviceEntry['generator_version']) ? (string) $deviceEntry['generator_version'] : '',
-            'declared_count' => isset($deviceEntry['declared_count']) ? (int) $deviceEntry['declared_count'] : 0,
-            'used_count' => isset($deviceEntry['used_count']) ? (int) $deviceEntry['used_count'] : 0,
-            'unused_count' => isset($deviceEntry['unused_count']) ? (int) $deviceEntry['unused_count'] : 0,
-            'duplicate_icon_count' => isset($deviceEntry['duplicate_icon_count']) ? (int) $deviceEntry['duplicate_icon_count'] : 0,
-            'google_fonts_count' => isset($deviceEntry['google_fonts_count']) ? (int) $deviceEntry['google_fonts_count'] : 0,
-            'used_font_families' => isset($deviceEntry['used_font_families']) && is_array($deviceEntry['used_font_families']) ? $deviceEntry['used_font_families'] : [],
-            'used_above_the_fold' => isset($deviceEntry['used_above_the_fold']) && is_array($deviceEntry['used_above_the_fold']) ? $deviceEntry['used_above_the_fold'] : [],
-            'unused_declared_families' => isset($deviceEntry['unused_declared_families']) && is_array($deviceEntry['unused_declared_families']) ? $deviceEntry['unused_declared_families'] : [],
-            'duplicate_icon_font_stylesheets' => $duplicateIconEntries,
-            'google_fonts_stylesheets' => isset($deviceEntry['google_fonts_stylesheets']) && is_array($deviceEntry['google_fonts_stylesheets']) ? $deviceEntry['google_fonts_stylesheets'] : [],
-            'used_font_families_text' => $this->joinSummaryList(isset($deviceEntry['used_font_families']) && is_array($deviceEntry['used_font_families']) ? $deviceEntry['used_font_families'] : []),
-            'used_above_the_fold_text' => $this->joinSummaryList(isset($deviceEntry['used_above_the_fold']) && is_array($deviceEntry['used_above_the_fold']) ? $deviceEntry['used_above_the_fold'] : []),
-            'unused_declared_families_text' => $this->joinSummaryList(isset($deviceEntry['unused_declared_families']) && is_array($deviceEntry['unused_declared_families']) ? $deviceEntry['unused_declared_families'] : []),
-            'duplicate_icon_text' => $this->joinDuplicateIconSummary($duplicateIconEntries),
-        ];
-    }
-
-    private function buildFontUsageSources(array $fontUsage, array $rulesByUrl)
-    {
-        $sources = [];
-
-        foreach (['mobile', 'desktop'] as $device) {
-            $deviceUsage = isset($fontUsage[$device]) && is_array($fontUsage[$device]) ? $fontUsage[$device] : [];
-
-            foreach (isset($deviceUsage['google_fonts_stylesheets']) && is_array($deviceUsage['google_fonts_stylesheets']) ? $deviceUsage['google_fonts_stylesheets'] : [] as $href) {
-                $normalized = $this->normalizeAssetUrlForUi($href);
-                if (!isset($sources[$normalized])) {
-                    $sources[$normalized] = [
-                        'label' => 'Google Fonts stylesheet',
-                        'target_url' => $href,
-                        'source_type' => 'google_stylesheet',
-                        'devices' => [],
-                        'blocked' => !empty($rulesByUrl[$normalized]['block']),
-                    ];
-                }
-                $sources[$normalized]['devices'][$device] = true;
-            }
-
-            foreach (isset($deviceUsage['duplicate_icon_font_stylesheets']) && is_array($deviceUsage['duplicate_icon_font_stylesheets']) ? $deviceUsage['duplicate_icon_font_stylesheets'] : [] as $item) {
-                if (!is_array($item)) {
-                    continue;
-                }
-
-                $href = isset($item['href']) ? trim((string) $item['href']) : '';
-                if ($href === '') {
-                    continue;
-                }
-
-                $family = isset($item['family']) ? trim((string) $item['family']) : 'Icon font stylesheet';
-                $count = isset($item['count']) ? (int) $item['count'] : 0;
-                $label = $family !== '' ? $family : 'Icon font stylesheet';
-                if ($count > 0) {
-                    $label .= ' x' . $count;
-                }
-
-                $normalized = $this->normalizeAssetUrlForUi($href);
-                if (!isset($sources[$normalized])) {
-                    $sources[$normalized] = [
-                        'label' => $label,
-                        'target_url' => $href,
-                        'source_type' => 'duplicate_icon_stylesheet',
-                        'devices' => [],
-                        'blocked' => !empty($rulesByUrl[$normalized]['block']),
-                    ];
-                }
-                $sources[$normalized]['devices'][$device] = true;
+        // Skip transactional and account pages — content is always user-specific.
+        $uri = $_SERVER['REQUEST_URI'] ?? '';
+        foreach (['/checkout', '/cart', '/order', '/my-account', '/login', '/registration', '/password-recovery'] as $skip) {
+            if (strpos($uri, $skip) !== false) {
+                return;
             }
         }
 
-        foreach ($sources as &$source) {
-            $deviceLabels = [];
-            foreach (['mobile', 'desktop'] as $device) {
-                if (!empty($source['devices'][$device])) {
-                    $deviceLabels[] = $device;
-                }
-            }
-            $source['devices_text'] = implode(', ', $deviceLabels);
+        if (Tools::getValue('prestaload_warmup') === '1') {
+            $this->log('info', 'warmup request', ['url' => $this->currentUrl()]);
+            $this->handleWarmup();
+            return;
         }
-        unset($source);
 
-        return array_values($sources);
+        $this->log('info', 'cache serve check', ['url' => $this->currentUrl()]);
+        $this->serveFromCacheIfAvailable();
     }
 
-    private function indexFontRulesByUrl(array $rules)
+    private function handleWarmup(): void
     {
-        $indexed = [];
+        $token       = Tools::getValue('plwu_token', '');
+        $variantHash = Tools::getValue('plwu_vh', '');
+        $url         = $this->currentUrl();
 
-        foreach ($rules as $rule) {
-            if (!isset($rule['target_url'])) {
-                continue;
-            }
-
-            $indexed[$this->normalizeAssetUrlForUi($rule['target_url'])] = $rule;
+        if (! $token || ! $variantHash) {
+            $this->log('warn', 'warmup rejected: missing token or variant_hash', ['url' => $url]);
+            header('HTTP/1.1 403 Forbidden');
+            exit;
         }
 
-        return $indexed;
+        $parts = explode('.', $token, 2);
+        if (count($parts) !== 2) {
+            $this->log('warn', 'warmup rejected: malformed token', ['url' => $url]);
+            header('HTTP/1.1 403 Forbidden');
+            exit;
+        }
+
+        [$receivedSig, $expires] = $parts;
+        $expires = (int) $expires;
+
+        if ($expires <= time()) {
+            $this->log('warn', 'warmup rejected: token expired', ['url' => $url, 'expires' => $expires]);
+            header('HTTP/1.1 403 Forbidden');
+            exit;
+        }
+
+        $settings = json_decode(Configuration::get(self::CONFIG_KEY, '{}'), true) ?: [];
+        if (empty($settings['api_key'])) {
+            $this->log('warn', 'warmup rejected: module not connected', ['url' => $url]);
+            header('HTTP/1.1 403 Forbidden');
+            exit;
+        }
+
+        $normalizedUrl = $this->normalizeUrl($url);
+        $payload       = "warmup:{$normalizedUrl}:{$variantHash}:{$expires}";
+        $apiKeyHash    = hash('sha256', $settings['api_key']);
+        $expectedSig   = rtrim(strtr(base64_encode(hash_hmac('sha256', $payload, $apiKeyHash, true)), '+/', '-_'), '=');
+
+        if (! hash_equals($expectedSig, $receivedSig)) {
+            $this->log('warn', 'warmup rejected: invalid signature', [
+                'url'      => $url,
+                'expected' => $expectedSig,
+                'received' => $receivedSig,
+                'payload'  => $payload,
+            ]);
+            header('HTTP/1.1 403 Forbidden');
+            exit;
+        }
+
+        $this->log('info', 'warmup accepted', ['url' => $url, 'variant_hash' => $variantHash]);
+        define('PRESTALOAD_WARMUP', true);
     }
 
-    private function joinSummaryList(array $items)
+    private function serveFromCacheIfAvailable(): void
     {
-        $items = array_values(array_filter(array_map(function ($item) {
-            return is_scalar($item) ? trim((string) $item) : '';
-        }, $items), function ($item) {
-            return $item !== '';
-        }));
+        if (defined('PRESTALOAD_WARMUP')) {
+            return;
+        }
 
-        return implode(', ', $items);
+        $context = Context::getContext();
+
+        if ($context->customer && $context->customer->isLogged()) {
+            $this->log('info', 'cache MISS: logged-in user', ['url' => $this->currentUrl()]);
+            return;
+        }
+
+        $variantHash = $this->resolveVariantHash($context);
+        if (! $variantHash) {
+            $this->log('warn', 'cache MISS: could not resolve variant hash', ['url' => $this->currentUrl()]);
+            return;
+        }
+
+        $url  = $this->currentUrl();
+        $path = $this->cachePath($url, $variantHash);
+
+        if (! file_exists($path . '.meta') || ! file_exists($path . '.html')) {
+            $this->log('info', 'cache MISS: no cache file', ['url' => $url, 'variant_hash' => $variantHash]);
+            return;
+        }
+
+        $meta = json_decode((string) file_get_contents($path . '.meta'), true);
+        if (! $meta || (int) ($meta['expires_at'] ?? 0) <= time()) {
+            $this->log('info', 'cache MISS: expired', ['url' => $url, 'variant_hash' => $variantHash, 'expires_at' => $meta['expires_at'] ?? null]);
+            return;
+        }
+
+        $html = file_get_contents($path . '.html');
+        if ($html === false) {
+            $this->log('warn', 'cache MISS: could not read html file', ['url' => $url, 'path' => $path . '.html']);
+            return;
+        }
+
+        $this->log('info', 'cache HIT', ['url' => $url, 'variant_hash' => $variantHash, 'size' => strlen($html)]);
+
+        header('Content-Type: text/html; charset=UTF-8');
+        header('X-Prestaload-Cache: HIT');
+        header('X-Prestaload-Variant: ' . $variantHash);
+        echo $html;
+        exit;
     }
 
-    private function joinDuplicateIconSummary(array $items)
+    public function updateVariantMap(string $variantHash, array $dimensions, ?int $shopId = null): void
     {
-        $summary = [];
-
-        foreach ($items as $item) {
-            if (!is_array($item)) {
-                continue;
-            }
-
-            $family = isset($item['family']) ? trim((string) $item['family']) : '';
-            $href = isset($item['href']) ? trim((string) $item['href']) : '';
-            $count = isset($item['count']) ? (int) $item['count'] : 0;
-
-            if ($family === '' && $href === '') {
-                continue;
-            }
-
-            $label = $family !== '' ? $family : $href;
-            if ($count > 0) {
-                $label .= ' x' . $count;
-            }
-
-            $summary[] = $label;
-        }
-
-        return implode(', ', $summary);
+        $targetShopId = $shopId ?: $this->resolveVariantMapShopId($dimensions);
+        $map = $this->getVariantMap($targetShopId);
+        $map[$this->dimensionKey($dimensions)] = $variantHash;
+        $this->putVariantMap($targetShopId, $map);
     }
 
-    private function deriveRuleAction(array $flags)
+    private function resolveVariantHash(Context $context): ?string
     {
-        $enabledFlags = array_keys(array_filter($flags));
-        if (count($enabledFlags) > 1) {
-            return 'composed';
-        }
+        $shopId   = $context->shop ? (string) $context->shop->id : null;
+        $ua       = strtolower($_SERVER['HTTP_USER_AGENT'] ?? '');
+        $device   = (strpos($ua, 'mobile') !== false || strpos($ua, 'android') !== false || strpos($ua, 'iphone') !== false)
+            ? 'mobile'
+            : 'desktop';
 
-        if (empty($enabledFlags)) {
-            return 'keep';
-        }
+        $language = $this->resolveLanguageIsoCode($context);
+        $currency = $this->resolveCurrencyIsoCode($context);
+        $country  = $this->resolveCountryIsoCode($context);
 
-        return $enabledFlags[0];
+        $map = $this->getVariantMap($shopId !== null ? (int) $shopId : null);
+        $key = $this->dimensionKey([
+            'auth_state' => 'guest',
+            'country'    => $country,
+            'currency'   => $currency,
+            'device'     => $device,
+            'language'   => $language,
+            'market'     => null,
+            'shop'       => $shopId,
+        ]);
+
+        $hash = $map[$key] ?? null;
+
+        $this->log('debug', 'resolveVariantHash', [
+            'key'      => $key,
+            'found'    => $hash !== null,
+            'hash'     => $hash,
+            'map_keys' => array_keys($map),
+        ]);
+
+        return $hash;
     }
 
+    private function getVariantMap(?int $shopId): array
+    {
+        $targetShopId = $shopId ?: $this->resolveVariantMapShopId();
+        $configKey = $this->variantMapConfigKey($targetShopId);
+        $raw = Configuration::get($configKey, null, null, $targetShopId ?: null, '{}');
+
+        return json_decode((string) $raw, true) ?: [];
+    }
+
+    private function putVariantMap(?int $shopId, array $map): void
+    {
+        $targetShopId = $shopId ?: $this->resolveVariantMapShopId();
+        $configKey = $this->variantMapConfigKey($targetShopId);
+
+        Configuration::updateValue($configKey, json_encode($map), false, null, $targetShopId ?: null);
+    }
+
+    private function variantMapConfigKey(?int $shopId): string
+    {
+        return self::VARIANT_MAP_KEY_PREFIX . ($shopId ?: 0);
+    }
+
+    private function resolveVariantMapShopId(array $dimensions = []): ?int
+    {
+        if (isset($dimensions['shop']) && $dimensions['shop'] !== '' && $dimensions['shop'] !== null) {
+            return (int) $dimensions['shop'];
+        }
+
+        if ($this->context && $this->context->shop) {
+            return (int) $this->context->shop->id;
+        }
+
+        return null;
+    }
+
+    /**
+     * Resolves the visitor's active language ISO code.
+     *
+     * At actionDispatcher time, $context->language is set by PS before hooks fire,
+     * but falls back to cookie → shop default for safety.
+     */
+    private function resolveLanguageIsoCode(Context $context): ?string
+    {
+        if ($context->language && $context->language->iso_code) {
+            return $context->language->iso_code;
+        }
+
+        $idLang = (int) ($_COOKIE['id_lang'] ?? 0);
+        if ($idLang > 0) {
+            $lang = Language::getLanguage($idLang);
+            if (! empty($lang['iso_code'])) {
+                return (string) $lang['iso_code'];
+            }
+        }
+
+        $defaultId = (int) Configuration::get('PS_LANG_DEFAULT');
+        if ($defaultId > 0) {
+            $lang = Language::getLanguage($defaultId);
+            if (! empty($lang['iso_code'])) {
+                return (string) $lang['iso_code'];
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Resolves the visitor's active currency ISO code.
+     *
+     * $context->currency is null at actionDispatcher time. Read from PS session
+     * cookie (id_currency) — same source PS uses during context init — then fall
+     * back to the shop default.
+     */
+    private function resolveCurrencyIsoCode(Context $context): ?string
+    {
+        if ($context->currency && $context->currency->iso_code) {
+            return $context->currency->iso_code;
+        }
+
+        $idCurrency = (int) ($_COOKIE['id_currency'] ?? 0);
+        if ($idCurrency > 0) {
+            $currency = new Currency($idCurrency);
+            if ($currency->iso_code) {
+                return $currency->iso_code;
+            }
+        }
+
+        $defaultId = (int) Configuration::get('PS_CURRENCY_DEFAULT');
+        if ($defaultId > 0) {
+            $currency = new Currency($defaultId);
+            if ($currency->iso_code) {
+                return $currency->iso_code;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Resolves the shop's default country ISO code.
+     *
+     * The /variants endpoint returns the shop's default country (not visitor geolocation),
+     * so all cached variants are keyed against PS_COUNTRY_DEFAULT — not the visitor's IP.
+     * At actionDispatcher time, $context->country is null; resolve directly from config.
+     */
+    private function resolveCountryIsoCode(Context $context): ?string
+    {
+        if (isset($context->country->iso_code) && $context->country->iso_code !== '') {
+            return $context->country->iso_code;
+        }
+
+        $defaultId = (int) Configuration::get('PS_COUNTRY_DEFAULT');
+        if ($defaultId > 0) {
+            $iso = Country::getIsoById($defaultId);
+            return ($iso !== false && $iso !== '') ? (string) $iso : null;
+        }
+
+        return null;
+    }
+
+    private function dimensionKey(array $dimensions): string
+    {
+        return implode('|', [
+            (string) ($dimensions['auth_state'] ?? ''),
+            (string) ($dimensions['country']    ?? ''),
+            (string) ($dimensions['currency']   ?? ''),
+            (string) ($dimensions['device']     ?? ''),
+            (string) ($dimensions['language']   ?? ''),
+            (string) ($dimensions['market']     ?? ''),
+            (string) ($dimensions['shop']       ?? ''),
+        ]);
+    }
+
+    private function cachePath(string $url, string $variantHash): string
+    {
+        $urlHash = md5($this->normalizeUrl($url));
+        $shard   = substr($urlHash, 0, 2);
+
+        return self::CACHE_DIR . "/{$shard}/{$urlHash}/{$variantHash}";
+    }
+
+    private function currentUrl(): string
+    {
+        $scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        $host   = $_SERVER['HTTP_HOST'] ?? '';
+        $uri    = strtok($_SERVER['REQUEST_URI'] ?? '/', '?');
+
+        return rtrim("{$scheme}://{$host}{$uri}", '/');
+    }
+
+    private function normalizeUrl(string $url): string
+    {
+        $parsed = parse_url(strtolower(rtrim($url, '/')));
+        $host   = $parsed['host'] ?? '';
+        $path   = $parsed['path'] ?? '';
+
+        return $host . ($path !== '' && $path !== '/' ? rtrim($path, '/') : '');
+    }
+
+    private function renderPage(array $settings, bool $connected, string $error, string $success): string
+    {
+        $this->context->smarty->assign([
+            'prestaload_connected'   => $connected,
+            'prestaload_integration' => $settings['integration'] ?? '',
+            'prestaload_error'       => $error,
+            'prestaload_success'     => $success,
+            'prestaload_action_url'  => $this->context->link->getAdminLink('AdminModules') . '&configure=' . $this->name,
+            'prestaload_token'       => Tools::getAdminTokenLite('AdminModules'),
+        ]);
+
+        return $this->display(__FILE__, 'views/templates/admin/configure.tpl');
+    }
 }

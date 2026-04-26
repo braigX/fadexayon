@@ -25,11 +25,11 @@
                         <p id="product-size-unique-12345">.. x .. cm</p>
                         <div id="toggleTableLinkDiv" class="price-structure-link-unique-12345" style="cursor: pointer;">
                             <i class="braig_i i-left">
-                                <img src="/modules/idxrcustomproduct/img/icon/i_left.png" alt="ⓘ">    
+                                <img src="/modules/idxrcustomproduct/img/icon/i_left.png" alt=">">    
                             </i>
                             <span id="front_tr_show_struct">{l s='Afficher la structure de prix' mod='idxrcustomproduct'}</span>
                             <i class="braig_i i-right">
-                                <img src="/modules/idxrcustomproduct/img/icon/i_right.png" alt="➜">
+                                <img src="/modules/idxrcustomproduct/img/icon/i_right.png" alt=">">
                             </i>
                         </div>
                     </div>
@@ -66,7 +66,6 @@
                 </div>
             </div>
 
-            {assign var="idxr_customer_logged" value=(isset($customer) && isset($customer.is_logged) && $customer.is_logged)}
             <div class="braig_addtocart_section">
                 <div id="submit_idxrcustomproduct_unique_12345" class="cart-container-unique-12345">
                     <div class="quantity-controls-unique-12345">
@@ -81,52 +80,6 @@
                         <span id="front_tr_add_to_cart">{l s='Ajouter au panier' mod='idxrcustomproduct'}</span>
                     </button>
                 </div>
-                {if $idxr_customer_logged}
-                    <div class="cart-container-unique-12345" style="margin-top:10px; display:flex; gap:10px;">
-                        <button
-                            type="button"
-                            class="add-to-cart-button-unique-12345"
-                            id="save-customization-button-unique-12345"
-                            style="background-color:#2e48c4; flex:1;"
-                        >
-                            <i class="cart-icon-unique-12345" style="background-color:#1e0978;">
-                                <img src="/modules/idxrcustomproduct/img/icon/save.png" alt=">">
-                            </i>
-                            <span id="front_tr_save_customization">{l s='Save customization' mod='idxrcustomproduct'}</span>
-                        </button>
-                        <button
-                            type="button"
-                            class="add-to-cart-button-unique-12345"
-                            id="restore-customization-button-unique-12345"
-                            style="background-color:#3b5bd6; flex:1;"
-                        >
-                            <i class="cart-icon-unique-12345" style="background-color:#1e0978;">
-                                <img src="/modules/idxrcustomproduct/img/icon/restore.png" alt=">">
-                            </i>
-                            <span id="front_tr_restore_customization">{l s='Restore customization' mod='idxrcustomproduct'}</span>
-                        </button>
-                    </div>
-                    <div style="margin-top:8px; text-align:center;">
-                        <a
-                            href="{$link->getModuleLink('idxrcustomproduct','simulations')|escape:'htmlall':'UTF-8'}"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style="font-size:12px; color:#2e48c4; text-decoration:underline;"
-                        >
-                            {l s='View all customisations' mod='idxrcustomproduct'}
-                        </a>
-                    </div>
-                {else}
-                    <div class="idxr-login-warning-box">
-                        <div class="idxr-login-warning-text">
-                            <i class="material-icons">warning_amber</i>
-                            <span>{l s='Connectez-vous pour enregistrer, restaurer et retrouver vos simulations.' mod='idxrcustomproduct'}</span>
-                        </div>
-                        <a class="idxr-login-warning-btn" href="{$link->getPageLink('authentication', true)|escape:'htmlall':'UTF-8'}">
-                            {l s='Se connecter' mod='idxrcustomproduct'}
-                        </a>
-                    </div>
-                {/if}
             </div>
         </div>
     </div>
@@ -135,139 +88,11 @@
 	<div id="preloader-overlay-xyz123" class="preloader-overlay">
     	<div id="spinner-abc456" class="spinner"></div>
 	</div>
-    <div id="idxr-addtocart-error-modal" class="idxr-inline-modal" aria-hidden="true">
-        <div class="idxr-inline-modal__backdrop" data-idxr-close-error-modal="1"></div>
-        <div class="idxr-inline-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="idxr-addtocart-error-title">
-            <div class="idxr-inline-modal__icon">
-                <i class="material-icons">error_outline</i>
-            </div>
-            <h3 id="idxr-addtocart-error-title" class="idxr-inline-modal__title">{l s='Une erreur est survenue' mod='idxrcustomproduct'}</h3>
-            <p id="idxr-addtocart-error-message" class="idxr-inline-modal__message">{l s='Une erreur a empêché l’ajout de votre personnalisation au panier. Veuillez réessayer.' mod='idxrcustomproduct'}</p>
-            <div class="idxr-inline-modal__actions">
-                <button type="button" class="idxr-inline-modal__button" data-idxr-close-error-modal="1">{l s='Fermer' mod='idxrcustomproduct'}</button>
-            </div>
-        </div>
-    </div>
-    <style>
-            .idxr-c-item-name input {
-            height: .8em;
-        }
-        .idxr-inline-modal {
-            position: fixed;
-            inset: 0;
-            z-index: 12050;
-            display: none;
-        }
-        .idxr-inline-modal.is-open {
-            display: block;
-        }
-        .idxr-inline-modal__backdrop {
-            position: absolute;
-            inset: 0;
-            background: rgba(18, 26, 51, 0.58);
-        }
-        .idxr-inline-modal__dialog {
-            position: relative;
-            width: min(440px, calc(100vw - 32px));
-            margin: 10vh auto 0;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 18px 48px rgba(16, 22, 48, 0.24);
-            padding: 22px 22px 18px;
-            text-align: center;
-        }
-        .idxr-inline-modal__icon {
-            width: 52px;
-            height: 52px;
-            margin: 0 auto 12px;
-            border-radius: 50%;
-            background: #fff2ef;
-            color: #d9472f;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .idxr-inline-modal__icon .material-icons {
-            font-size: 30px;
-        }
-        .idxr-inline-modal__title {
-            margin: 0 0 10px;
-            font-size: 19px;
-            color: #1c2240;
-        }
-        .idxr-inline-modal__message {
-            margin: 0;
-            font-size: 14px;
-            line-height: 1.5;
-            color: #4f5879;
-        }
-        .idxr-inline-modal__actions {
-            margin-top: 18px;
-        }
-        .idxr-inline-modal__button {
-            min-width: 120px;
-            height: 40px;
-            border: 0;
-            border-radius: 8px;
-            background: #2e48c4;
-            color: #fff;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        #save-customization-button-unique-12345 span,
-        #restore-customization-button-unique-12345 span {
-            font-size: 14px !important;
-            margin-left: 34px;
-            display: inline-block;
-        }
-        .idxr-login-warning-box {
-            margin-top: 10px;
-            padding: 10px 12px;
-            border: 1px solid #f3cf77;
-            border-radius: 6px;
-            background: #fff7cf;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-        }
-        .idxr-login-warning-text {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #7a5a00;
-            font-size: 13px;
-            line-height: 1.3;
-        }
-        .idxr-login-warning-text .material-icons {
-            font-size: 18px;
-            color: #f0ad00;
-        }
-        .idxr-login-warning-btn {
-            background: #2e48c4;
-            color: #fff !important;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            padding: 7px 12px;
-            white-space: nowrap;
-        }
-        .idxr-login-warning-btn:hover,
-        .idxr-login-warning-btn:focus {
-            background: #1e0978;
-            color: #fff !important;
-            text-decoration: none;
-        }
-    </style>
 <script>
 
   function initContainer() {
     // i18n
     $('#front_tr_add_to_cart').text(window.idxr_tr_add_to_cart || $('#front_tr_add_to_cart').text());
-    $('#front_tr_save_customization').text(window.idxr_tr_save_customization || $('#front_tr_save_customization').text());
-    $('#front_tr_restore_customization').text(window.idxr_tr_restore_customization || $('#front_tr_restore_customization').text());
     $('#front_tr_eppaisseur').text(window.idxr_tr_epaisseur || $('#front_tr_eppaisseur').text());
     $('#front_tr_volume').text(window.idxr_tr_volume || $('#front_tr_volume').text());
     $('#front_tr_surface').text(window.idxr_tr_surface || $('#front_tr_surface').text());
@@ -322,12 +147,6 @@
         $('#collapsibleSection').toggle();
       });
 
-    $('[data-idxr-close-error-modal]')
-      .off('click.idxr')
-      .on('click.idxr', function () {
-        $('#idxr-addtocart-error-modal').removeClass('is-open').attr('aria-hidden', 'true');
-      });
-
     // optional: one-time log (won't spam because we rebind with .off/.on)
     // console.log('[idxr] handlers (re)attached');
   }
@@ -335,8 +154,10 @@
   // FIRST TIME: wait for full window load; if already loaded, run immediately
   function bootAfterLoad() { setTimeout(initContainer, 0); }
   if (document.readyState === 'complete') {
+    console.log('Second time');
     bootAfterLoad();
   } else {
+    console.log('First time');
     window.addEventListener('load', bootAfterLoad, { once: true });
   }
 

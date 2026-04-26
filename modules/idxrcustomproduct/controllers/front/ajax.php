@@ -15,57 +15,6 @@ use Symfony\Component\Serializer\Encoder\JsonEncode;
 
 class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
 {
-    private function logModuleMessage($message, $context = array())
-    {
-        if ($this->module && method_exists($this->module, 'logMessage')) {
-            $this->module->logMessage($message, $context);
-        }
-    }
-
-    private function ensureActiveCartId($stage = '')
-    {
-        $context = Context::getContext();
-        $currentCartId = (int) ($context->cart ? $context->cart->id : 0);
-        $cookieCartId = (int) (($context->cookie && !empty($context->cookie->id_cart)) ? $context->cookie->id_cart : 0);
-        $guestId = (int) (($context->cookie && !empty($context->cookie->id_guest)) ? $context->cookie->id_guest : 0);
-        $customerId = (int) ($context->customer ? $context->customer->id : 0);
-
-        if ($currentCartId > 0 && Validate::isLoadedObject($context->cart)) {
-            return $currentCartId;
-        }
-
-        if ($cookieCartId > 0) {
-            $cookieCart = new Cart($cookieCartId);
-            if (Validate::isLoadedObject($cookieCart)) {
-                $context->cart = $cookieCart;
-                return (int) $cookieCart->id;
-            }
-        }
-
-        $cart = new Cart();
-        $cart->id_lang = (int) $context->language->id;
-        $cart->id_currency = (int) $context->currency->id;
-        $cart->id_shop = (int) $context->shop->id;
-        $cart->id_shop_group = (int) $context->shop->id_shop_group;
-        $cart->id_customer = $customerId;
-        $cart->id_guest = $guestId;
-        if ($customerId > 0 && !empty($context->customer->secure_key)) {
-            $cart->secure_key = pSQL($context->customer->secure_key);
-        } elseif ($context->cookie && !empty($context->cookie->secure_key)) {
-            $cart->secure_key = pSQL($context->cookie->secure_key);
-        }
-
-        $created = $cart->add();
-        if ($created && Validate::isLoadedObject($cart)) {
-            $context->cart = $cart;
-            if ($context->cookie) {
-                $context->cookie->id_cart = (int) $cart->id;
-                $context->cookie->write();
-            }
-            return (int) $cart->id;
-        }
-        return 0;
-    }
 
     public function initContent()
     {
@@ -140,87 +89,6 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
         if (Tools::getValue('action') == 'getTaxChange') {
             $this->ajaxProcessGetTaxChange();
         }
-
-        if (Tools::getValue('action') == 'saveServerCustomization') {
-            $this->ajaxProcessSaveServerCustomization();
-        }
-
-        if (Tools::getValue('action') == 'listServerCustomizations') {
-            $this->ajaxProcessListServerCustomizations();
-        }
-
-        if (Tools::getValue('action') == 'getServerCustomization') {
-            $this->ajaxProcessGetServerCustomization();
-        }
-
-        if (Tools::getValue('action') == 'getRuntimeCustomization') {
-            $this->ajaxProcessGetRuntimeCustomization();
-        }
-
-        if (Tools::getValue('action') == 'renameServerCustomization') {
-            $this->ajaxProcessRenameServerCustomization();
-        }
-
-        if (Tools::getValue('action') == 'duplicateServerCustomization') {
-            $this->ajaxProcessDuplicateServerCustomization();
-        }
-
-        if (Tools::getValue('action') == 'deleteServerCustomization') {
-            $this->ajaxProcessDeleteServerCustomization();
-        }
-    }
-
-    private function jsonResponse($data, $httpCode = 200)
-    {
-        if (!headers_sent()) {
-            http_response_code((int) $httpCode);
-            header('Content-Type: application/json; charset=utf-8');
-        }
-        die(json_encode($data));
-    }
-
-    private function saveRuntimeCustomizationSnapshot($idSnap = 0)
-    {
-        $context = Context::getContext();
-        $idCart = (int) $this->ensureActiveCartId('saveRuntimeCustomizationSnapshot');
-        $idProduct = (int) Tools::getValue('product');
-        if ($idProduct <= 0) {
-            return 0;
-        }
-
-        $snapshotJson = (string) Tools::getValue('snapshot_json');
-        $thumbnailSvg = (string) Tools::getValue('svg_thumbnail');
-        if (Tools::strlen($snapshotJson) > 5000000) {
-            $snapshotJson = Tools::substr($snapshotJson, 0, 5000000);
-        }
-        if (Tools::strlen($thumbnailSvg) > 700000) {
-            $thumbnailSvg = Tools::substr($thumbnailSvg, 0, 700000);
-        }
-
-        $now = date('Y-m-d H:i:s');
-        $data = array(
-            'id_customer' => (int) ($context->customer ? $context->customer->id : 0),
-            'id_guest' => (int) ($context->cookie && !empty($context->cookie->id_guest) ? $context->cookie->id_guest : 0),
-            'id_cart' => $idCart,
-            'id_product' => $idProduct,
-            'id_customized_product' => 0,
-            'id_product_attribute' => (int) Tools::getValue('attribute'),
-            'customization' => pSQL((string) Tools::getValue('custom'), true),
-            'extra_info' => pSQL((string) Tools::getValue('extra'), true),
-            'snapshot_json' => pSQL($snapshotJson, true),
-            'thumbnail_svg' => pSQL($thumbnailSvg, true),
-            'id_snap' => (int) $idSnap,
-            'source' => pSQL((string) (Tools::getValue('source') ?: 'cart')),
-            'date_add' => pSQL($now),
-            'date_upd' => pSQL($now),
-        );
-
-        $saved = Db::getInstance()->insert('idxrcustomproduct_runtime_customisations', $data);
-        if (!$saved) {
-            return 0;
-        }
-
-        return (int) Db::getInstance()->Insert_ID();
     }
 
     public function ajaxProcessSavefav()
@@ -243,357 +111,6 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
     {
         $fav_id = Tools::getValue('favid');
         die($this->module->delFavorite($fav_id));
-    }
-
-    public function ajaxProcessSaveServerCustomization()
-    {
-        $context = Context::getContext();
-        $idCustomer = (int) $context->customer->id;
-        if ($idCustomer <= 0) {
-            $this->jsonResponse(array(
-                'success' => false,
-                'message' => $this->module->l('You need to be logged in to save a customization.', 'ajax'),
-            ), 403);
-        }
-
-        $idProduct = (int) Tools::getValue('product');
-        $idProductAttribute = (int) Tools::getValue('attribute');
-        $name = trim((string) Tools::getValue('name'));
-        $customization = (string) Tools::getValue('custom');
-        $extraInfo = (string) Tools::getValue('extra');
-        $snapshotJson = (string) Tools::getValue('snapshot_json');
-        $previewHtml = (string) Tools::getValue('preview_html');
-        $thumbnailSvg = (string) Tools::getValue('svg_thumbnail');
-
-        if ($idProduct <= 0) {
-            $this->jsonResponse(array(
-                'success' => false,
-                'message' => $this->module->l('Invalid product.', 'ajax'),
-            ), 400);
-        }
-
-        if ($name === '') {
-            $this->jsonResponse(array(
-                'success' => false,
-                'message' => $this->module->l('Customization name is required.', 'ajax'),
-            ), 400);
-        }
-
-        if (Tools::strlen($name) > 100) {
-            $name = Tools::substr($name, 0, 100);
-        }
-
-        if (Tools::strlen($snapshotJson) > 5000000) {
-            $this->jsonResponse(array(
-                'success' => false,
-                'message' => $this->module->l('Customization data is too large.', 'ajax'),
-            ), 400);
-        }
-
-        if (Tools::strlen($previewHtml) > 500000) {
-            $previewHtml = Tools::substr($previewHtml, 0, 500000);
-        }
-        if (Tools::strlen($thumbnailSvg) > 700000) {
-            $thumbnailSvg = Tools::substr($thumbnailSvg, 0, 700000);
-        }
-
-        $now = date('Y-m-d H:i:s');
-        $data = array(
-            'id_customer' => $idCustomer,
-            'id_product' => $idProduct,
-            'id_product_attribute' => $idProductAttribute,
-            'customisation_name' => pSQL($name),
-            'customization' => pSQL($customization, true),
-            'extra_info' => pSQL($extraInfo, true),
-            'snapshot_json' => pSQL($snapshotJson, true),
-            'preview_html' => pSQL($previewHtml, true),
-            'thumbnail_svg' => pSQL($thumbnailSvg, true),
-            'date_add' => pSQL($now),
-            'date_upd' => pSQL($now),
-        );
-
-        $saved = Db::getInstance()->insert('idxrcustomproduct_saved_customisations', $data);
-        if (!$saved) {
-            $this->jsonResponse(array(
-                'success' => false,
-                'message' => Db::getInstance()->getMsgError() ?: $this->module->l('Unable to save customization.', 'ajax'),
-            ), 500);
-        }
-
-        // Keep a bounded history per customer/product to avoid unbounded growth.
-        Db::getInstance()->execute(
-            'DELETE s1 FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_saved_customisations` s1
-             INNER JOIN (
-                SELECT id_saved_customisation FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_saved_customisations`
-                WHERE id_customer=' . (int) $idCustomer . ' AND id_product=' . (int) $idProduct . '
-                ORDER BY date_add DESC
-                LIMIT 50, 500000
-             ) s2 ON s1.id_saved_customisation = s2.id_saved_customisation'
-        );
-
-        $this->jsonResponse(array(
-            'success' => true,
-            'id_saved_customisation' => (int) Db::getInstance()->Insert_ID(),
-            'message' => $this->module->l('Customization saved.', 'ajax'),
-        ));
-    }
-
-    public function ajaxProcessListServerCustomizations()
-    {
-        $context = Context::getContext();
-        $idCustomer = (int) $context->customer->id;
-        if ($idCustomer <= 0) {
-            $this->jsonResponse(array(
-                'success' => false,
-                'message' => $this->module->l('You need to be logged in.', 'ajax'),
-                'items' => array(),
-            ), 403);
-        }
-
-        $idProduct = (int) Tools::getValue('product');
-        $idProductAttribute = (int) Tools::getValue('attribute');
-        $whereAttribute = '';
-        if ($idProductAttribute > 0) {
-            $whereAttribute = ' AND (id_product_attribute = 0 OR id_product_attribute = ' . (int) $idProductAttribute . ')';
-        }
-
-        $rows = Db::getInstance()->executeS(
-            'SELECT id_saved_customisation, customisation_name, preview_html, thumbnail_svg, date_add
-             FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_saved_customisations`
-             WHERE id_customer=' . (int) $idCustomer . '
-                AND id_product=' . (int) $idProduct . $whereAttribute . '
-             ORDER BY date_add DESC
-             LIMIT 100'
-        );
-
-        $items = array();
-        if (is_array($rows)) {
-            foreach ($rows as $row) {
-                $items[] = array(
-                    'id' => (int) $row['id_saved_customisation'],
-                    'name' => (string) $row['customisation_name'],
-                    'preview_html' => (string) $row['preview_html'],
-                    'thumbnail_svg' => (string) $row['thumbnail_svg'],
-                    'created_at' => (string) $row['date_add'],
-                );
-            }
-        }
-
-        $this->jsonResponse(array(
-            'success' => true,
-            'items' => $items,
-        ));
-    }
-
-    public function ajaxProcessGetServerCustomization()
-    {
-        $context = Context::getContext();
-        $idCustomer = (int) $context->customer->id;
-        if ($idCustomer <= 0) {
-            $this->jsonResponse(array(
-                'success' => false,
-                'message' => $this->module->l('You need to be logged in.', 'ajax'),
-            ), 403);
-        }
-
-        $idSaved = (int) Tools::getValue('id_saved_customisation');
-        if ($idSaved <= 0) {
-            $this->jsonResponse(array(
-                'success' => false,
-                'message' => $this->module->l('Invalid customization id.', 'ajax'),
-            ), 400);
-        }
-
-        $row = Db::getInstance()->getRow(
-            'SELECT id_saved_customisation, id_product, id_product_attribute, customisation_name, customization, extra_info, snapshot_json, preview_html, date_add
-             FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_saved_customisations`
-             WHERE id_saved_customisation=' . (int) $idSaved . '
-               AND id_customer=' . (int) $idCustomer
-        );
-
-        if (!$row) {
-            $this->jsonResponse(array(
-                'success' => false,
-                'message' => $this->module->l('Customization not found.', 'ajax'),
-            ), 404);
-        }
-
-        Db::getInstance()->update(
-            'idxrcustomproduct_saved_customisations',
-            array('date_upd' => pSQL(date('Y-m-d H:i:s'))),
-            'id_saved_customisation=' . (int) $idSaved
-        );
-
-        $this->jsonResponse(array(
-            'success' => true,
-            'item' => array(
-                'id' => (int) $row['id_saved_customisation'],
-                'id_product' => (int) $row['id_product'],
-                'id_product_attribute' => (int) $row['id_product_attribute'],
-                'name' => (string) $row['customisation_name'],
-                'customization' => (string) $row['customization'],
-                'extra_info' => (string) $row['extra_info'],
-                'snapshot_json' => (string) $row['snapshot_json'],
-                'preview_html' => (string) $row['preview_html'],
-                'created_at' => (string) $row['date_add'],
-            ),
-        ));
-    }
-
-    public function ajaxProcessGetRuntimeCustomization()
-    {
-        $idRuntime = (int) Tools::getValue('id_runtime_customisation');
-        if ($idRuntime <= 0) {
-            $this->jsonResponse(array(
-                'success' => false,
-                'message' => $this->module->l('Invalid customization id.', 'ajax'),
-            ), 400);
-        }
-
-        $row = Db::getInstance()->getRow(
-            'SELECT id_runtime_customisation, id_product, id_customized_product, id_product_attribute, customization, extra_info, snapshot_json, thumbnail_svg, date_add
-             FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_runtime_customisations`
-             WHERE id_runtime_customisation = ' . (int) $idRuntime . '
-               AND source = "cart"'
-        );
-
-        if (!$row) {
-            $this->jsonResponse(array(
-                'success' => false,
-                'message' => $this->module->l('Customization not found.', 'ajax'),
-            ), 404);
-        }
-
-        Db::getInstance()->update(
-            'idxrcustomproduct_runtime_customisations',
-            array('date_upd' => pSQL(date('Y-m-d H:i:s'))),
-            'id_runtime_customisation=' . (int) $idRuntime
-        );
-
-        $displayName = sprintf($this->module->l('Configuration panier #%d', 'ajax'), (int) $row['id_runtime_customisation']);
-
-        $this->jsonResponse(array(
-            'success' => true,
-            'item' => array(
-                'id' => (int) $row['id_runtime_customisation'],
-                'id_product' => (int) $row['id_product'],
-                'id_customized_product' => (int) $row['id_customized_product'],
-                'id_product_attribute' => (int) $row['id_product_attribute'],
-                'name' => $displayName,
-                'customization' => (string) $row['customization'],
-                'extra_info' => (string) $row['extra_info'],
-                'snapshot_json' => (string) $row['snapshot_json'],
-                'preview_html' => (string) $row['thumbnail_svg'],
-                'thumbnail_svg' => (string) $row['thumbnail_svg'],
-                'created_at' => (string) $row['date_add'],
-            ),
-        ));
-    }
-
-    public function ajaxProcessRenameServerCustomization()
-    {
-        $idCustomer = (int) Context::getContext()->customer->id;
-        if ($idCustomer <= 0) {
-            $this->jsonResponse(array('success' => false, 'message' => $this->module->l('You need to be logged in.', 'ajax')), 403);
-        }
-
-        $idSaved = (int) Tools::getValue('id_saved_customisation');
-        $name = trim((string) Tools::getValue('name'));
-        if ($idSaved <= 0 || $name === '') {
-            $this->jsonResponse(array('success' => false, 'message' => $this->module->l('Invalid request.', 'ajax')), 400);
-        }
-        if (Tools::strlen($name) > 100) {
-            $name = Tools::substr($name, 0, 100);
-        }
-
-        $updated = Db::getInstance()->update(
-            'idxrcustomproduct_saved_customisations',
-            array(
-                'customisation_name' => pSQL($name),
-                'date_upd' => pSQL(date('Y-m-d H:i:s')),
-            ),
-            'id_saved_customisation=' . (int) $idSaved . ' AND id_customer=' . (int) $idCustomer
-        );
-
-        if (!$updated) {
-            $this->jsonResponse(array('success' => false, 'message' => $this->module->l('Unable to rename simulation.', 'ajax')), 500);
-        }
-
-        $this->jsonResponse(array('success' => true, 'message' => $this->module->l('Simulation renamed.', 'ajax')));
-    }
-
-    public function ajaxProcessDuplicateServerCustomization()
-    {
-        $idCustomer = (int) Context::getContext()->customer->id;
-        if ($idCustomer <= 0) {
-            $this->jsonResponse(array('success' => false, 'message' => $this->module->l('You need to be logged in.', 'ajax')), 403);
-        }
-
-        $idSaved = (int) Tools::getValue('id_saved_customisation');
-        if ($idSaved <= 0) {
-            $this->jsonResponse(array('success' => false, 'message' => $this->module->l('Invalid request.', 'ajax')), 400);
-        }
-
-        $row = Db::getInstance()->getRow(
-            'SELECT * FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_saved_customisations`
-             WHERE id_saved_customisation=' . (int) $idSaved . ' AND id_customer=' . (int) $idCustomer
-        );
-        if (!$row) {
-            $this->jsonResponse(array('success' => false, 'message' => $this->module->l('Simulation not found.', 'ajax')), 404);
-        }
-
-        $now = date('Y-m-d H:i:s');
-        $copyName = trim((string) $row['customisation_name']) . ' (copy)';
-        if (Tools::strlen($copyName) > 100) {
-            $copyName = Tools::substr($copyName, 0, 100);
-        }
-        $insert = Db::getInstance()->insert('idxrcustomproduct_saved_customisations', array(
-            'id_customer' => (int) $row['id_customer'],
-            'id_product' => (int) $row['id_product'],
-            'id_product_attribute' => (int) $row['id_product_attribute'],
-            'customisation_name' => pSQL($copyName),
-            'customization' => pSQL((string) $row['customization'], true),
-            'extra_info' => pSQL((string) $row['extra_info'], true),
-            'snapshot_json' => pSQL((string) $row['snapshot_json'], true),
-            'preview_html' => pSQL((string) $row['preview_html'], true),
-            'thumbnail_svg' => pSQL((string) $row['thumbnail_svg'], true),
-            'date_add' => pSQL($now),
-            'date_upd' => pSQL($now),
-        ));
-
-        if (!$insert) {
-            $this->jsonResponse(array('success' => false, 'message' => $this->module->l('Unable to duplicate simulation.', 'ajax')), 500);
-        }
-
-        $this->jsonResponse(array(
-            'success' => true,
-            'id_saved_customisation' => (int) Db::getInstance()->Insert_ID(),
-            'message' => $this->module->l('Simulation duplicated.', 'ajax'),
-        ));
-    }
-
-    public function ajaxProcessDeleteServerCustomization()
-    {
-        $idCustomer = (int) Context::getContext()->customer->id;
-        if ($idCustomer <= 0) {
-            $this->jsonResponse(array('success' => false, 'message' => $this->module->l('You need to be logged in.', 'ajax')), 403);
-        }
-
-        $idSaved = (int) Tools::getValue('id_saved_customisation');
-        if ($idSaved <= 0) {
-            $this->jsonResponse(array('success' => false, 'message' => $this->module->l('Invalid request.', 'ajax')), 400);
-        }
-
-        $deleted = Db::getInstance()->delete(
-            'idxrcustomproduct_saved_customisations',
-            'id_saved_customisation=' . (int) $idSaved . ' AND id_customer=' . (int) $idCustomer
-        );
-
-        if (!$deleted) {
-            $this->jsonResponse(array('success' => false, 'message' => $this->module->l('Unable to delete simulation.', 'ajax')), 500);
-        }
-
-        $this->jsonResponse(array('success' => true, 'message' => $this->module->l('Simulation deleted.', 'ajax')));
     }
 
     public function ajaxProcessCustomfile()
@@ -637,6 +154,8 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
         $md5filename = md5('idxrcustomproduct_' . $id_product . '_' . $id_component . '_' . (int)Context::getContext()->cart->id . '_' . $fileName) . '.' . $fileType;
         $fileTarget = $uploadDir . DIRECTORY_SEPARATOR . $md5filename;
 
+        file_put_contents(__DIR__ . '/logfiles.txt', "path 1 : ".$fileTarget."\n", FILE_APPEND);
+
         if (move_uploaded_file($_FILES["file"]["tmp_name"], $fileTarget)) {
             $exist_q = 'SELECT id_file FROM ' . _DB_PREFIX_ . 'idxrcustomproduct_files WHERE target_name = "' . pSQL($md5filename) . '"';
             $exist = Db::getInstance()->getRow($exist_q);
@@ -652,6 +171,8 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
             }
             die('ok');
         } else {
+            $errorMessage = 'Error uploading file from ' . $_FILES["file"]["tmp_name"] . ' to ' . $fileTarget;
+            file_put_contents(__DIR__ . '/logfiles.txt', $errorMessage . "\n", FILE_APPEND);
             die($this->module->l('Error uploading file.', 'ajax'));
         }
     }
@@ -659,20 +180,63 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
     public function ajaxHandleSnaps()
     {
         $responses = [];
-        $id_product = (int) Tools::getValue('product');
-        $idCart = (int) $this->ensureActiveCartId('ajaxHandleSnaps');
+        $uploadedFiles = [];
+    
+        // File types expected
+        $requiredFiles = ['file1' => 'png'];
+        $index = 1;
+        foreach ($requiredFiles as $inputName => $expectedType) {
+            if (!isset($_FILES[$inputName])) {
+                $responses[$inputName] = $this->module->l('No file uploaded.', 'ajax');
+                continue;
+            }
+    
+            $fileName = $_FILES[$inputName]['name'];
+            $actualFileType = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+            $fileSizeMB = ($_FILES[$inputName]['size'] / 1024) / 1024; // Convert bytes to MB
+            $id_product = Tools::getValue('product');
 
-        // Upload directory setup for SVG files
-        $path0 = DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'idxrcustomproduct' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m');
-        $uploadDir = _PS_ROOT_DIR_ . $path0;
-        if (!is_dir($uploadDir) && !@mkdir($uploadDir, 0777, true) && !is_dir($uploadDir)) {
-            $responses['dir'] = $this->module->l('Upload directory is not writable.', 'ajax');
-            die(json_encode($responses));
+            // Validate file size
+            if ($fileSizeMB > 11) { // 11 MB max size
+                $responses[$inputName] = $this->module->l('File too big.', 'ajax');
+                continue;
+            }
+    
+            // Validate file extension
+            if ($actualFileType !== $expectedType) {
+                $responses[$inputName] = $this->module->l('Invalid format. Expected ' . $expectedType, 'ajax');
+                continue;
+            }
+    
+            // Upload directory setup
+            $path0 = DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'idxrcustomproduct' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m');
+            $uploadDir = _PS_ROOT_DIR_ . $path0;
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+    
+            // File saving process
+            $timestamp = microtime(true); // Current time in microseconds
+            $randomNumber = rand(10000, 99999); // A random 4-digit number
+            
+            $md5filename = md5('idxrcustomproduct_' . $id_product . '_' . $timestamp . '_' . $randomNumber) . '.' . $actualFileType;
+
+            // $md5filename = md5('idxrcustomproduct_' . $id_product . '_' . (int)Context::getContext()->cart->id . '_' . $fileName) . '.' . $actualFileType;
+            $fileTarget = $uploadDir . DIRECTORY_SEPARATOR . $md5filename;
+            $fileURL = $this->context->link->getBaseLink() . trim($path0, '/') . '/' . $md5filename;
+    
+            if (move_uploaded_file($_FILES[$inputName]["tmp_name"], $fileTarget)) {
+                $uploadedFiles[$index] = $fileTarget;
+                $index++;
+                $responses[$inputName] = 'ok';
+            } else {
+                $responses[$inputName] = $this->module->l('Error uploading file.', 'ajax');
+            }
         }
+    
 
         // Handle SVG markup
         $svgMarkup = Tools::getValue('svgMarkup');
-        $svgFileURL = '';
         if ($svgMarkup) {
             $timestamp = microtime(true); // Current time in microseconds
             $randomNumber = rand(1000, 9999); // A random 4-digit number
@@ -680,8 +244,9 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
 
             // $svgFileName = 'design_' . md5('idxrcustomproduct_' . $id_product . '_' . (int)Context::getContext()->cart->id) . '.svg';
             $svgFilePath = $uploadDir . DIRECTORY_SEPARATOR . $svgFileName;
-            $svgFileURL = $this->context->link->getBaseLink() . trim($path0, '/') . '/' . $svgFileName;
+            $svgFileURL = $this->context->link->getBaseLink() . trim($path0, '/') . '/' . $svgFileName; // Construct the URL
             if (file_put_contents($svgFilePath, $svgMarkup) !== false) {
+                $uploadedFiles['svg'] = $svgFileURL;
                 $responses['svg'] = 'ok';
             } else {
                 $responses['svg'] = 'Error saving SVG file';
@@ -690,13 +255,13 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
             $responses['svg'] = 'No SVG markup provided';
         }
 
-        if ($svgFileURL !== '') {
+        // Debugging output
+        if (isset($uploadedFiles[1])) {
             $data = [
-                'id_cart' => $idCart,
+                'id_cart' => (int)Context::getContext()->cart->id,
                 'id_product' => (int)$id_product,
-                'svg_file' => '',
-                'png_file' => '',
-                'svg_code' => pSQL($svgFileURL),
+                'svg_file' => pSQL($uploadedFiles[1]),
+                'svg_code' => pSQL($uploadedFiles['svg']),
                 'console' => pSQL(Tools::getValue('console')),
             ];
 
@@ -706,10 +271,7 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
             // Check if the insert was successful
             if ($insertResult) {
                 $insertedId = Db::getInstance()->Insert_ID();  // Retrieves the last inserted ID
-                $runtimeCustomizationId = $this->saveRuntimeCustomizationSnapshot((int) $insertedId);
                 $responses['id'] = $insertedId;
-                $responses['snap_id'] = $insertedId;
-                $responses['runtime_customisation_id'] = $runtimeCustomizationId;
                 $responses['db'] = 'Insert successful';
             } else {
                 $responses['db'] = 'Insert failed';
@@ -729,7 +291,6 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
 
     public function ajaxProcessCreateproduct()
     {
-        $idCart = (int) $this->ensureActiveCartId('ajaxProcessCreateproduct');
         $product_id = Tools::getValue('product');
         $attribute_id = Tools::getValue('attribute');
         // === PrestaShop Context for customer info ===
@@ -761,6 +322,36 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
 
         $quantity = Tools::getValue('quantity')?:1;
 
+        // log backup:
+        // === Timestamp ===
+        $timestamp = date('Y-m-d H:i:s');
+
+        // === Prepare log entry ===
+        $logData = [
+            'timestamp' => $timestamp,
+            'customer_id' => $customerId,
+            'customer_email' => $customerEmail,
+            'product_id' => $product_id,
+            'attribute_id' => $attribute_id,
+            'weight' => $productWeight,
+            'volume' => $productVolume,
+            'width' => $productWidth,
+            'height' => $productHeight,
+            'depth' => $productDeptht,
+            'prix_de_decouper' => $prix_de_decouper,
+            'price_from_cube' => $price_from_cube,
+            'snaps' => $snaps,
+            'quantity' => $quantity,
+            'customization' => $customization,
+            'extra' => $extra,
+            'ip_address' => $_SERVER['REMOTE_ADDR'] ?? 'unknown',
+            'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'unknown',
+        ];
+
+        // === Write to log file ===
+        $logFile = __DIR__ . '/backups/backup-products-' . date('Y-m') . '.log';
+        file_put_contents($logFile, json_encode($logData, JSON_PRETTY_PRINT).PHP_EOL, FILE_APPEND);
+
         foreach ($customization as &$option) {
             $option = explode('_', $option);
             if (substr_count($option[0],'x')) {
@@ -784,12 +375,8 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
         try {
             $this->module->createProduct($product_id, $snaps, $attribute_id, $customization, $extra, $quantity, $productWeight, $productVolume, $productWidth, $productHeight, $productDeptht, $prix_de_decouper, $price_from_cube);
         } catch (\Throwable $th) {
-            $this->logModuleMessage('ajaxProcessCreateproduct:error', array(
-                'id_cart' => $idCart,
-                'product_id' => (int) $product_id,
-                'snaps' => (int) $snaps,
-                'message' => $th->getMessage(),
-            ));
+
+            file_put_contents(__DIR__ . '/logfiles.txt', "error : ".$th."\n", FILE_APPEND);
         }
         /*End */
         die();

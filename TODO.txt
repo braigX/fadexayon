@@ -128,6 +128,12 @@ ADD COLUMN holes_fixed_price DECIMAL(20,6) NOT NULL DEFAULT 0;
 ALTER TABLE `ps_idxrcustomproduct_saved_customisations`
 ADD COLUMN `thumbnail_svg` LONGTEXT NULL AFTER `preview_html`;
 
+ALTER TABLE `ps_idxrcustomproduct_notes`
+ADD COLUMN `ordered_steps_json` LONGTEXT NULL AFTER `public_note`;
+ 
+ALTER TABLE `ps_idxrcustomproduct_notes`
+ADD COLUMN `id_shop` INT(11) NULL AFTER `id_order_detail`,
+ADD COLUMN `id_lang` INT(11) NULL AFTER `id_shop`;
 
 
 /module/idxrcustomproduct/simulations
