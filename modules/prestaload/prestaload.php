@@ -7,7 +7,7 @@ if (! defined('_PS_VERSION_')) {
 class Prestaload extends Module
 {
     const VERSION     = '1.0.0';
-    const API_URL     = 'http://127.0.0.1:8000/';
+    const API_URL     = 'http://localhost:8080/';
     const CONFIG_KEY  = 'PRESTALOAD_SETTINGS';
     const CACHE_DIR   = _PS_ROOT_DIR_ . '/var/prestaload-cache';
     const VARIANT_MAP_KEY_PREFIX = 'PRESTALOAD_VARIANT_MAP_SHOP_';
@@ -44,6 +44,7 @@ class Prestaload extends Module
         return parent::install()
             && $this->registerHook('actionCronJob')
             && $this->registerHook('actionDispatcher')
+            && $this->registerHook('displayAdminAfterHeader')
             && $this->registerHook('actionObjectProductAddAfter')
             && $this->registerHook('actionObjectProductUpdateAfter')
             && $this->registerHook('actionObjectProductDeleteAfter')
@@ -204,6 +205,27 @@ class Prestaload extends Module
         ]);
     }
 
+    public function hookDisplayAdminAfterHeader(array $params): string
+    {
+        $settings = json_decode(Configuration::get(self::CONFIG_KEY, '{}'), true) ?: [];
+
+        if (! empty($settings['connected']) && ! empty($settings['api_key'])) {
+            return '';
+        }
+
+        $configureUrl = $this->context->link->getAdminLink('AdminModules') . '&configure=' . $this->name;
+
+        return sprintf(
+            '<div class="alert alert-info prestaload-admin-activation-alert" style="margin: 12px 15px;">'
+            . '<strong>%s</strong> %s <a class="alert-link" href="%s">%s</a>'
+            . '</div>',
+            htmlspecialchars($this->l('Prestaload is installed but not activated.'), ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($this->l('Connect your store to enable caching and optimization.'), ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($configureUrl, ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($this->l('Activate Prestaload'), ENT_QUOTES, 'UTF-8'),
+        );
+    }
+
     public function hookActionObjectProductAddAfter(array $params): void
     {
         $this->reportObjectContentChange($params['object'] ?? null, 'published');
@@ -254,12 +276,25 @@ class Prestaload extends Module
         $settings = json_decode(Configuration::get(self::CONFIG_KEY, '{}'), true) ?: [];
 
         if (empty($settings['connected']) || empty($settings['api_key']) || ! is_object($object)) {
+            $this->log('info', 'content change hook skipped', [
+                'connected' => ! empty($settings['connected']),
+                'has_api_key' => ! empty($settings['api_key']),
+                'has_object' => is_object($object),
+                'change_type' => $changeType,
+            ]);
+
             return;
         }
 
         $page = $this->publicPageForObject($object);
 
         if (! $page) {
+            $this->log('warn', 'content change hook skipped: public URL not resolved', [
+                'class' => get_class($object),
+                'id' => $object->id ?? null,
+                'change_type' => $changeType,
+            ]);
+
             return;
         }
 
@@ -272,6 +307,13 @@ class Prestaload extends Module
             'entity_id' => (string) ($object->id ?? ''),
             'changed_urls' => [$page],
         ];
+
+        $this->log('info', 'content change hook received', [
+            'change_type' => $changeType,
+            'entity_type' => $page['type'],
+            'entity_id' => $object->id ?? null,
+            'url' => $page['url'],
+        ]);
 
         $this->callApi('/plugin/content-changed', $payload, 3);
 
@@ -437,6 +479,12 @@ class Prestaload extends Module
     private function serveFromCacheIfAvailable(): void
     {
         if (defined('PRESTALOAD_WARMUP')) {
+            return;
+        }
+
+        $settings = json_decode(Configuration::get(self::CONFIG_KEY, '{}'), true) ?: [];
+        if (empty($settings['connected']) || empty($settings['api_key'])) {
+            $this->log('info', 'cache MISS: integration not activated', ['url' => $this->currentUrl()]);
             return;
         }
 

@@ -93,6 +93,9 @@ class PrestaloadPagesModuleFrontController extends ModuleFrontController
 
     private function countAllUrls(): int
     {
+        // Counts are DB-level and may be slightly higher than what isValidFrontUrl
+        // accepts. Invalid URLs are filtered at generation time, so the last page
+        // may return fewer items than per_page. The caller handles this correctly.
         return 1 + $this->countProducts() + $this->countCategories() + $this->countCmsPages();
     }
 
@@ -155,18 +158,30 @@ class PrestaloadPagesModuleFrontController extends ModuleFrontController
              LIMIT ' . (int) $offset . ', ' . (int) $limit
         );
 
+        $seen = [];
+
         foreach ((array) $products as $row) {
             $productUrl = $link->getProductLink(
                 (int) $row['id_product'],
                 null, null, null, $idLang, $context->shop->id
             );
-            if ($productUrl) {
-                $urls[] = [
-                    'url'   => rtrim($productUrl, '/'),
-                    'type'  => 'product',
-                    'title' => $row['name'],
-                ];
+
+            if (! $productUrl || ! $this->isValidFrontUrl($productUrl, 'product')) {
+                continue;
             }
+
+            $normalized = rtrim($productUrl, '/');
+
+            if (isset($seen[$normalized])) {
+                continue;
+            }
+
+            $seen[$normalized] = true;
+            $urls[] = [
+                'url'   => $normalized,
+                'type'  => 'product',
+                'title' => $row['name'],
+            ];
         }
 
         return $urls;
@@ -199,15 +214,27 @@ class PrestaloadPagesModuleFrontController extends ModuleFrontController
              LIMIT ' . (int) $offset . ', ' . (int) $limit
         );
 
+        $seen = [];
+
         foreach ((array) $categories as $row) {
             $catUrl = $link->getCategoryLink((int) $row['id_category'], null, $idLang);
-            if ($catUrl) {
-                $urls[] = [
-                    'url'   => rtrim($catUrl, '/'),
-                    'type'  => 'category',
-                    'title' => $row['name'],
-                ];
+
+            if (! $catUrl || ! $this->isValidFrontUrl($catUrl, 'category')) {
+                continue;
             }
+
+            $normalized = rtrim($catUrl, '/');
+
+            if (isset($seen[$normalized])) {
+                continue;
+            }
+
+            $seen[$normalized] = true;
+            $urls[] = [
+                'url'   => $normalized,
+                'type'  => 'category',
+                'title' => $row['name'],
+            ];
         }
 
         return $urls;
@@ -238,15 +265,27 @@ class PrestaloadPagesModuleFrontController extends ModuleFrontController
              LIMIT ' . (int) $offset . ', ' . (int) $limit
         );
 
+        $seen = [];
+
         foreach ((array) $cmsPages as $row) {
             $cmsUrl = $link->getCMSLink((int) $row['id_cms'], null, null, $idLang);
-            if ($cmsUrl) {
-                $urls[] = [
-                    'url'   => rtrim($cmsUrl, '/'),
-                    'type'  => 'cms',
-                    'title' => $row['meta_title'],
-                ];
+
+            if (! $cmsUrl || ! $this->isValidFrontUrl($cmsUrl, 'cms')) {
+                continue;
             }
+
+            $normalized = rtrim($cmsUrl, '/');
+
+            if (isset($seen[$normalized])) {
+                continue;
+            }
+
+            $seen[$normalized] = true;
+            $urls[] = [
+                'url'   => $normalized,
+                'type'  => 'cms',
+                'title' => $row['meta_title'],
+            ];
         }
 
         return $urls;
@@ -308,6 +347,89 @@ class PrestaloadPagesModuleFrontController extends ModuleFrontController
                AND cs.id_shop = ' . (int) $context->shop->id . '
              WHERE c.active = 1'
         );
+    }
+
+    /**
+     * Return true when a URL is a valid cacheable front page of the expected type.
+     *
+     * Rejects:
+     *   - index.php URLs where the controller is not the canonical one for this type
+     *     (catches third-party module controllers like "product_rule", "product_pack", etc.)
+     *   - URLs with dangling empty route parameters (e.g. ean13=) from unresolved
+     *     product combination rewrites
+     *   - URLs generated for another shop/domain
+     *   - URLs missing a path or pointing at non-HTTP schemes
+     */
+    private function isValidFrontUrl(string $url, string $expectedType): bool
+    {
+        $parsed = parse_url($url);
+
+        if (empty($parsed['host'])) {
+            return false;
+        }
+
+        // Must be http or https
+        $scheme = strtolower($parsed['scheme'] ?? 'https');
+        if (! in_array($scheme, ['http', 'https'], true)) {
+            return false;
+        }
+
+        if (! $this->isCurrentShopHost($parsed['host'])) {
+            return false;
+        }
+
+        $hasQuery = isset($parsed['query']) && $parsed['query'] !== '';
+
+        if (! $hasQuery) {
+            // Friendly URL on the current shop host: no further checks needed.
+            return true;
+        }
+
+        parse_str($parsed['query'], $params);
+
+        // Reject if controller exists but does not match the expected PS controller.
+        $controllerMap = [
+            'product'  => 'product',
+            'category' => 'category',
+            'cms'      => 'cms',
+        ];
+
+        if (isset($params['controller'])) {
+            $expected = $controllerMap[$expectedType] ?? $expectedType;
+
+            if ($params['controller'] !== $expected) {
+                return false;
+            }
+        }
+
+        // Reject unresolved route parameters while allowing harmless optional
+        // metadata fields, such as an empty meta_keywords parameter on CMS links.
+        foreach (['controller', 'id', 'id_product', 'id_category', 'id_cms', 'rewrite', 'ean13'] as $routeParam) {
+            if (array_key_exists($routeParam, $params) && $this->isEmptyRouteParam($params[$routeParam])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function isEmptyRouteParam($value): bool
+    {
+        if (is_array($value)) {
+            return true;
+        }
+
+        return trim((string) $value) === '';
+    }
+
+    private function isCurrentShopHost(string $host): bool
+    {
+        $shop = Context::getContext()->shop;
+        $host = strtolower($host);
+        $domain = strtolower((string) $shop->domain);
+        $sslDomain = strtolower((string) $shop->domain_ssl);
+
+        return $host === $domain || $host === $sslDomain;
     }
 
     private function applyShopContext(string $siteUrl): bool
