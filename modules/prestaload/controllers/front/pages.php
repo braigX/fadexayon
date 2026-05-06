@@ -24,36 +24,49 @@ class PrestaloadPagesModuleFrontController extends ModuleFrontController
     {
         header('Content-Type: application/json');
 
-        if (! $this->verifyServerRequest()) {
-            http_response_code(401);
-            echo json_encode(['error' => 'Unauthorized.']);
+            $this->module->log('error', 'pages: exception', [
+                'message' => 'Stack trace for debugging:'
+            ]);
+        try {
+            if (! $this->verifyServerRequest()) {
+                http_response_code(401);
+                echo json_encode(['error' => 'Unauthorized.']);
+                exit;
+            }
+
+            $page    = max(1, (int) Tools::getValue('page', 1));
+            $perPage = min(100, max(1, (int) Tools::getValue('per_page', 50)));
+
+            if (! $this->applyShopContext((string) Tools::getValue('site', ''))) {
+                http_response_code(404);
+                echo json_encode(['error' => 'Requested shop site was not found.']);
+                exit;
+            }
+
+            $total    = $this->countAllUrls();
+            $lastPage = max(1, (int) ceil($total / $perPage));
+            $page     = min($page, $lastPage);
+            $offset   = ($page - 1) * $perPage;
+
+            echo json_encode([
+                'data' => $this->collectPaginatedUrls($offset, $perPage),
+                'meta' => [
+                    'current_page' => $page,
+                    'last_page'    => $lastPage,
+                    'total'        => $total,
+                    'per_page'     => $perPage,
+                ],
+            ]);
+            exit;
+        } catch (\Throwable $e) {
+            $this->module->log('error', 'pages: exception', [
+                'message' => $e->getMessage(),
+                'file'    => $e->getFile() . ':' . $e->getLine(),
+            ]);
+            http_response_code(500);
+            echo json_encode(['error' => $e->getMessage()]);
             exit;
         }
-
-        $page    = max(1, (int) Tools::getValue('page', 1));
-        $perPage = min(100, max(1, (int) Tools::getValue('per_page', 50)));
-
-        if (! $this->applyShopContext((string) Tools::getValue('site', ''))) {
-            http_response_code(404);
-            echo json_encode(['error' => 'Requested shop site was not found.']);
-            exit;
-        }
-
-        $total    = $this->countAllUrls();
-        $lastPage = max(1, (int) ceil($total / $perPage));
-        $page     = min($page, $lastPage);
-        $offset   = ($page - 1) * $perPage;
-
-        echo json_encode([
-            'data' => $this->collectPaginatedUrls($offset, $perPage),
-            'meta' => [
-                'current_page' => $page,
-                'last_page'    => $lastPage,
-                'total'        => $total,
-                'per_page'     => $perPage,
-            ],
-        ]);
-        exit;
     }
 
     /**
