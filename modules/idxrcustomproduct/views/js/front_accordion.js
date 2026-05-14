@@ -1123,6 +1123,7 @@ const CustomizationModule = (() => {
         elementsToDraw.forEach(element => {
             $(element.selector).on('click', function () {
                 shapeTypeChange(element.value);
+                updateHoleBordersAvailability();
                 
                 // Change text only when #card_5_8 is clicked
                 if (element.selector === '#card_5_8') {
@@ -1288,6 +1289,17 @@ const CustomizationModule = (() => {
         });
     }
 
+    function updateHoleBordersAvailability() {
+        const $bordersCard = $('#card_17_1');
+        if (!$bordersCard.length) {
+            return;
+        }
+
+        const hiddenForShape = [2, 3, 4].indexOf(shapeSettings.type) !== -1;
+        $bordersCard.toggleClass('idxr-shape-option-hidden', hiddenForShape);
+        $bordersCard.attr('aria-hidden', hiddenForShape ? 'true' : 'false');
+    }
+
     function UImanipulation() {
 
         function Extrac() {
@@ -1448,6 +1460,7 @@ const CustomizationModule = (() => {
             }
 
             addPerviews();
+            updateHoleBordersAvailability();
             handleComponentStep('component_step_2', step2ComponentIds, 'fieldsHolderStepOne', ['component_step_5']);
             handleComponentStep('component_step_17', step17ComponentIds, 'fieldsHolderStepHoles');
             handleComponentStep('component_step_29', step29ComponentIds, 'fieldsHolderStepCut', ['component_step_31']);
