@@ -3106,12 +3106,48 @@ function buildFlatPricingDebugPayload(context) {
         rows.push(buildDebugRow('Prix fixe trous', `${context.holesCount} x ${formatDebugMoney(context.holesUnitPrice)}`, formatDebugMoney(context.holesUnitPrice), formatDebugMoney(getWithoutTax(context.holesExtraTotal)), formatDebugMoney(context.holesExtraTotal)));
     }
 
+    rows.push(buildDebugRow(
+        'Angles arrondis forme principale',
+        `${context.mainShapeRadiusCount || 0} angle(s)`,
+        formatDebugMoney(context.mainShapeRadiusUnitPrice),
+        formatDebugMoney(getWithoutTax(context.mainShapeRadiusExtraTotal)),
+        formatDebugMoney(context.mainShapeRadiusExtraTotal)
+    ));
+
+    rows.push(buildDebugRow(
+        'Angles arrondis découpe rectangle',
+        `${context.cutoutShapeRadiusCount || 0} angle(s)`,
+        formatDebugMoney(context.cutoutShapeRadiusUnitPrice),
+        formatDebugMoney(getWithoutTax(context.cutoutShapeRadiusExtraTotal)),
+        formatDebugMoney(context.cutoutShapeRadiusExtraTotal)
+    ));
+
     return {
         thickness: context.thickness,
         rows: rows,
         totalHt: formatDebugMoney(getWithoutTax(context.totalTtc)),
         totalTtc: formatDebugMoney(context.totalTtc)
     };
+}
+
+function idxrCountPositiveRadiusValues(inputIds) {
+    var count = 0;
+
+    for (var i = 0; i < inputIds.length; i += 1) {
+        if (safeParseFloat($('#' + inputIds[i]).val()) > 0) {
+            count += 1;
+        }
+    }
+
+    return count;
+}
+
+function idxrIsMainRoundedRectangleSelected() {
+    return $('#option_31_0').is(':checked');
+}
+
+function idxrIsCutRoundedRectangleSelected() {
+    return $('#idxr_is_rectangle').val() === 'true';
 }
 
 function updateTotal(){
@@ -3137,6 +3173,14 @@ function updateTotal(){
     const idxrHolesCount = parseInt(window.idxr_holes_count, 10) || 0;
     const idxrHolesUnitPrice = safeParseFloat(typeof idxr_holes_fixed_price !== 'undefined' ? idxr_holes_fixed_price : 0);
     const idxrHolesExtraTotal = (idxrHolesCount > 0 && idxrHolesUnitPrice > 0) ? (idxrHolesCount * idxrHolesUnitPrice) : 0;
+    const idxrMainShapeRadiusUnitPrice = safeParseFloat(typeof idxr_main_shape_radius_fixed_price !== 'undefined' ? idxr_main_shape_radius_fixed_price : 0);
+    const idxrCutoutShapeRadiusUnitPrice = safeParseFloat(typeof idxr_cutout_shape_radius_fixed_price !== 'undefined' ? idxr_cutout_shape_radius_fixed_price : 0);
+    const idxrMainShapeRadiusCount = idxrIsMainRoundedRectangleSelected() ? idxrCountPositiveRadiusValues(['text_109', 'text_110', 'text_111', 'text_112']) : 0;
+    const idxrMainShapeRadiusExtraTotal = (idxrMainShapeRadiusCount > 0 && idxrMainShapeRadiusUnitPrice > 0)
+        ? getWithTax(idxrMainShapeRadiusUnitPrice * idxrMainShapeRadiusCount)
+        : 0;
+    let idxrCutoutShapeRadiusCount = 0;
+    let idxrCutoutShapeRadiusExtraTotal = 0;
 
     // total = total + parseFloat($('.js_base_price').val().replace(',',''));
     var basePricePerSquareMeter = safeParseFloat($('.js_base_price').val());
@@ -3283,6 +3327,10 @@ function updateTotal(){
             const is_rectangle = $('#idxr_is_rectangle').val();
             const is_rectangle_polissage = $('#idxr_is_rectangle_polissage').val();
             const skipRectangleCuttingPrice = !!window.idxr_skip_rectangle_cutting_price;
+            idxrCutoutShapeRadiusCount = idxrIsCutRoundedRectangleSelected() ? idxrCountPositiveRadiusValues(['text_113', 'text_114', 'text_115', 'text_116']) : 0;
+            idxrCutoutShapeRadiusExtraTotal = (idxrCutoutShapeRadiusCount > 0 && idxrCutoutShapeRadiusUnitPrice > 0)
+                ? getWithTax(idxrCutoutShapeRadiusUnitPrice * idxrCutoutShapeRadiusCount)
+                : 0;
             // if (is_rectangle === 'true') idxcp_prix_de_decoupe = safeParseFloat(idxr_prix_de_decoupe_cube);
 
             let prixDecoupeM = 0;
@@ -3347,7 +3395,13 @@ function updateTotal(){
                 holesCount: idxrHolesCount,
                 holesUnitPrice: idxrHolesUnitPrice,
                 holesExtraTotal: idxrHolesExtraTotal,
-                totalTtc: total + idxrHolesExtraTotal
+                mainShapeRadiusCount: idxrMainShapeRadiusCount,
+                mainShapeRadiusUnitPrice: idxrMainShapeRadiusUnitPrice,
+                mainShapeRadiusExtraTotal: idxrMainShapeRadiusExtraTotal,
+                cutoutShapeRadiusCount: idxrCutoutShapeRadiusCount,
+                cutoutShapeRadiusUnitPrice: idxrCutoutShapeRadiusUnitPrice,
+                cutoutShapeRadiusExtraTotal: idxrCutoutShapeRadiusExtraTotal,
+                totalTtc: total + idxrHolesExtraTotal + idxrMainShapeRadiusExtraTotal + idxrCutoutShapeRadiusExtraTotal
             });
                     
         }else{
@@ -3373,10 +3427,18 @@ function updateTotal(){
                 holesCount: idxrHolesCount,
                 holesUnitPrice: idxrHolesUnitPrice,
                 holesExtraTotal: idxrHolesExtraTotal,
-                totalTtc: total + idxrHolesExtraTotal
+                mainShapeRadiusCount: idxrMainShapeRadiusCount,
+                mainShapeRadiusUnitPrice: idxrMainShapeRadiusUnitPrice,
+                mainShapeRadiusExtraTotal: idxrMainShapeRadiusExtraTotal,
+                cutoutShapeRadiusCount: 0,
+                cutoutShapeRadiusUnitPrice: 0,
+                cutoutShapeRadiusExtraTotal: 0,
+                totalTtc: total + idxrHolesExtraTotal + idxrMainShapeRadiusExtraTotal
             });
         }
 
+        total += idxrMainShapeRadiusExtraTotal;
+        total += idxrCutoutShapeRadiusExtraTotal;
         total += idxrHolesExtraTotal;
 
         // check if total is under minimun amount:
