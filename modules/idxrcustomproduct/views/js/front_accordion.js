@@ -3947,7 +3947,7 @@ const CustomizationModule = (() => {
                     strokeWidth: 1,
                     strokeDasharray: "1, 1"
                 };
-                const connectorOffset = offset * 2;
+                const connectorOffset = type === 2 ? offset : offset * 2;
                 const dimensionY = side === 'top'
                     ? adjustedY - connectorOffset
                     : adjustedY + scaledHeight + connectorOffset;
