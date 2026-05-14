@@ -14,6 +14,10 @@ if (!defined('_PS_VERSION_')) {
     return false;
 }
 
+if (!defined('FIXING_OLD_ORDERS')) {
+    define('FIXING_OLD_ORDERS', false);
+}
+
 if (!class_exists('InnovaTools_2_0_0')) {
     require_once(_PS_ROOT_DIR_ . '/modules/idxrcustomproduct/libraries/innovatools_2_0_0.php');
 }
@@ -24,6 +28,30 @@ require_once(_PS_ROOT_DIR_ . '/modules/idxrcustomproduct/classes/IdxCustomizedPr
 
 class IdxrCustomProduct extends Module
 {
+    public function logMessage($message, $context = array())
+    {
+        $logFile = rtrim($this->getLocalPath(), '/') . '/message.log';
+        $line = '[' . date('Y-m-d H:i:s') . '] ' . (string) $message;
+        if (!empty($context)) {
+            $json = json_encode($context, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            if ($json !== false) {
+                $line .= ' ' . $json;
+            }
+        }
+        @file_put_contents($logFile, $line . PHP_EOL, FILE_APPEND);
+    }
+
+    protected function hasExtraConfigColumn($columnName)
+    {
+        $table = _DB_PREFIX_ . 'idxrcustomproduct_extra_config';
+        $sql = 'SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS
+                WHERE TABLE_SCHEMA = "' . pSQL(_DB_NAME_) . '"
+                  AND TABLE_NAME = "' . pSQL($table) . '"
+                  AND COLUMN_NAME = "' . pSQL($columnName) . '"';
+
+        return (int) Db::getInstance()->getValue($sql) > 0;
+    }
+
     /*Add with team wassim novatis*/
     public function getProductWeight($product_id)
     {
@@ -58,12 +86,14 @@ class IdxrCustomProduct extends Module
     }
 
     public function fetchLatestExtraConfig() {
+        $hasHolesFixedPrice = $this->hasExtraConfigColumn('holes_fixed_price');
+        $holesFixedPriceSelect = $hasHolesFixedPrice ? ', `holes_fixed_price`' : '';
         // Fetch all rows ordered by `id` in descending order
         $sql = 'SELECT `prix_de_decoupe`, `demensions`, `prix_de_collage`, `prix_fixe`, `prix_fixe_vitrine`, 
                        `cut_price_4mm`, `cut_price_5mm`, `cut_price_6mm`, `cut_price_8mm`, `cut_price_10mm`, 
                        `glue_price_4mm`, `glue_price_5mm`, `glue_price_6mm`, `glue_price_8mm`, `glue_price_10mm`,
-                       `polish_price_4mm`, `polish_price_5mm`, `polish_price_6mm`, `polish_price_8mm`, `polish_price_10mm`
-                FROM `ps_idxrcustomproduct_extra_config` 
+                       `polish_price_4mm`, `polish_price_5mm`, `polish_price_6mm`, `polish_price_8mm`, `polish_price_10mm`' . $holesFixedPriceSelect . '
+                FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_extra_config` 
                 ORDER BY `id` DESC';
     
         $config = Db::getInstance()->executeS($sql);
@@ -77,6 +107,7 @@ class IdxrCustomProduct extends Module
                 'prix_de_collage' => 0.0,
                 'prix_fixe' => 5,
                 'prix_fixe_vitrine' => 90,
+                'holes_fixed_price' => 0.0,
                 'cut_prices' => [
                     '4mm' => 0.004,
                     '5mm' => 0.004,
@@ -133,6 +164,7 @@ class IdxrCustomProduct extends Module
             'prix_de_collage' => $config[0]['prix_de_collage'],
             'prix_fixe' => $config[0]['prix_fixe'],
             'prix_fixe_vitrine' => $config[0]['prix_fixe_vitrine'],
+            'holes_fixed_price' => isset($config[0]['holes_fixed_price']) ? (float) $config[0]['holes_fixed_price'] : 0.0,
             'cut_prices' => $cut_prices,
             'glue_prices' => $glue_prices,
             'polish_prices' => $polish_prices
@@ -173,6 +205,44 @@ class IdxrCustomProduct extends Module
         $this->l('Paramètres de Socle');
         $this->l('Les Dimensions Extérieures');
         $this->l('Vitrine sur mesure');
+        $this->l('Save customization');
+        $this->l('Restore customization');
+        $this->l('Login to save customisations');
+        $this->l('Login to restore customisations');
+        $this->l('View all customisations');
+        $this->l('Loading...');
+        $this->l('Saving...');
+        $this->l('Restoring...');
+        $this->l('Preview of current selection');
+        $this->l('Please enter a name.');
+        $this->l('Please select one customization.');
+        $this->l('Cancel');
+        $this->l('Save');
+        $this->l('Restore');
+        $this->l('No saved customizations for this product.');
+        $this->l('Unnamed customization');
+        $this->l('No preview');
+        $this->l('No preview available.');
+        $this->l('My customization');
+        $this->l('Unable to load saved customizations.');
+        $this->l('Unable to save customization.');
+        $this->l('Unable to restore customization.');
+        $this->l('Unable to apply saved customization.');
+        $this->l('Saved customization payload is invalid.');
+        $this->l('Request failed.');
+        $this->l('My simulations');
+        $this->l('Open product');
+        $this->l('Apply');
+        $this->l('No saved simulations yet.');
+        $this->l('Enter a new name for this simulation');
+        $this->l('Name cannot be empty');
+        $this->l('Delete this simulation?');
+        $this->l('Action failed, please try again');
+        $this->l('Connectez-vous pour enregistrer, restaurer et retrouver vos simulations');
+        $this->l('Se connecter');
+        $this->l('Une erreur est survenue');
+        $this->l('Une erreur a empêché l’ajout de votre personnalisation au panier. Veuillez réessayer.');
+        $this->l('Fermer');
     }
     
     // /*End*/
@@ -181,7 +251,7 @@ class IdxrCustomProduct extends Module
     {
         $this->name = 'idxrcustomproduct';
         $this->tab = 'checkout';
-        $this->version = '1.7.5';
+        $this->version = '1.7.7';
         $this->author_address = '0x899FC2b81CbbB0326d695248838e80102D2B4c53';
         $this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_);
         $this->author = 'Innovadeluxe';
@@ -244,6 +314,10 @@ class IdxrCustomProduct extends Module
         }
 
         Configuration::updateValue(Tools::strtoupper($this->name) . '_SHOWFAV', true);
+        Configuration::updateValue(Tools::strtoupper($this->name) . '_SHOWFAV_FAVORITE', true);
+        Configuration::updateValue(Tools::strtoupper($this->name) . '_SHOWFAV_SIMULATIONS', true);
+        Configuration::updateValue(Tools::strtoupper($this->name) . '_FRONT_ACCORDION_DEV', false);
+        Configuration::updateValue(Tools::strtoupper($this->name) . '_SKIP_RECTANGLE_CUTTING_PRICE', false);
         Configuration::updateValue(Tools::strtoupper($this->name) . '_PRICEIMPACTTAX', true);
 
         if ($this->es17) {
@@ -295,7 +369,11 @@ class IdxrCustomProduct extends Module
         Configuration::deleteByName(Tools::strtoupper($this->name) . '_MIMGTYPE');
         Configuration::deleteByName(Tools::strtoupper($this->name) . '_TIMGTYPE');
         Configuration::deleteByName(Tools::strtoupper($this->name) . '_COVERID');
-        Configuration::deleteByName(Tools::strtoupper($this->name) - '_SHOWFAV');
+        Configuration::deleteByName(Tools::strtoupper($this->name) . '_SHOWFAV');
+        Configuration::deleteByName(Tools::strtoupper($this->name) . '_SHOWFAV_FAVORITE');
+        Configuration::deleteByName(Tools::strtoupper($this->name) . '_SHOWFAV_SIMULATIONS');
+        Configuration::deleteByName(Tools::strtoupper($this->name) . '_SKIP_RECTANGLE_CUTTING_PRICE');
+        Configuration::deleteByName(Tools::strtoupper($this->name) . '_FRONT_ACCORDION_DEV');
         return parent::uninstall();
     }
 
@@ -319,6 +397,9 @@ class IdxrCustomProduct extends Module
     {
         if ($error = $this->checkTables()){
             return $this->displayError($error);
+        }
+        if ((string) Tools::getValue('idxr_ajax') === '1') {
+            $this->handleAdminPricingAjax();
         }
         $default_cat = (Configuration::get(Tools::strtoupper($this->name . '_CATEGORY')) || Tools::getValue('customizable_category'));
         $locked = true;
@@ -368,48 +449,44 @@ class IdxrCustomProduct extends Module
             $this->_path . 'views/js/back.js',
             false
         );
-        if (Tools::isSubmit('submitModConfiguration')) {
-            // save IDs:
-            $rawInput = Tools::getValue('idxr_skipped_product_ids');
-            $cleanIds = [];
-            if (preg_match_all('/\b\d+\b/', $rawInput, $matches)) {
-                $cleanIds = array_unique(array_map('intval', $matches[0]));
-            }
-            $cleanString = implode(',', $cleanIds);
-            Configuration::updateValue('idxr_skipped_product_ids', json_encode($cleanIds));
-            // Retrieve the values from the form and replace ',' with '.' for numeric fields
+        if (Tools::isSubmit('submitIdxrPricingConfiguration')) {
+            // Retrieve the values from the pricing dashboard form and replace ',' with '.' for numeric fields
+            $currentExtraConfig = $this->fetchLatestExtraConfig();
             $prixdepecoupe = str_replace(',', '.', Tools::getValue('idxr_prix_de_decoupe_cube'));
             $prixdecollage = str_replace(',', '.', Tools::getValue('prixdecollage'));
             $prix_fixe = str_replace(',', '.', Tools::getValue('prix_fixe'));
             $prix_fixe_vitrine = str_replace(',', '.', Tools::getValue('prix_fixe_vitrine'));
-            $maximumdememnsions = Tools::getValue('maximumdememnsions');
-        
+            $holes_fixed_price = str_replace(',', '.', Tools::getValue('holes_fixed_price'));
+            $maximumdememnsions = Tools::getValue('maximumdememnsions', '800x800x800');
+            $hasHolesFixedPrice = $this->hasExtraConfigColumn('holes_fixed_price');
+
             // Retrieve cut, glue, and polish prices for each thickness level
-            $cut_price_4mm = str_replace(',', '.', Tools::getValue('cut_price_4mm'));
-            $cut_price_5mm = str_replace(',', '.', Tools::getValue('cut_price_5mm'));
-            $cut_price_6mm = str_replace(',', '.', Tools::getValue('cut_price_6mm'));
-            $cut_price_8mm = str_replace(',', '.', Tools::getValue('cut_price_8mm'));
-            $cut_price_10mm = str_replace(',', '.', Tools::getValue('cut_price_10mm'));
-        
-            $glue_price_4mm = str_replace(',', '.', Tools::getValue('glue_price_4mm'));
-            $glue_price_5mm = str_replace(',', '.', Tools::getValue('glue_price_5mm'));
-            $glue_price_6mm = str_replace(',', '.', Tools::getValue('glue_price_6mm'));
-            $glue_price_8mm = str_replace(',', '.', Tools::getValue('glue_price_8mm'));
-            $glue_price_10mm = str_replace(',', '.', Tools::getValue('glue_price_10mm'));
-        
-            $polish_price_4mm = str_replace(',', '.', Tools::getValue('polish_price_4mm'));
-            $polish_price_5mm = str_replace(',', '.', Tools::getValue('polish_price_5mm'));
-            $polish_price_6mm = str_replace(',', '.', Tools::getValue('polish_price_6mm'));
-            $polish_price_8mm = str_replace(',', '.', Tools::getValue('polish_price_8mm'));
-            $polish_price_10mm = str_replace(',', '.', Tools::getValue('polish_price_10mm'));
-        
+            $cut_price_4mm = str_replace(',', '.', Tools::getValue('cut_price_4mm', isset($currentExtraConfig['cut_prices']['4mm']) ? $currentExtraConfig['cut_prices']['4mm'] : 0));
+            $cut_price_5mm = str_replace(',', '.', Tools::getValue('cut_price_5mm', isset($currentExtraConfig['cut_prices']['5mm']) ? $currentExtraConfig['cut_prices']['5mm'] : 0));
+            $cut_price_6mm = str_replace(',', '.', Tools::getValue('cut_price_6mm', isset($currentExtraConfig['cut_prices']['6mm']) ? $currentExtraConfig['cut_prices']['6mm'] : 0));
+            $cut_price_8mm = str_replace(',', '.', Tools::getValue('cut_price_8mm', isset($currentExtraConfig['cut_prices']['8mm']) ? $currentExtraConfig['cut_prices']['8mm'] : 0));
+            $cut_price_10mm = str_replace(',', '.', Tools::getValue('cut_price_10mm', isset($currentExtraConfig['cut_prices']['10mm']) ? $currentExtraConfig['cut_prices']['10mm'] : 0));
+
+            $glue_price_4mm = str_replace(',', '.', Tools::getValue('glue_price_4mm', isset($currentExtraConfig['glue_prices']['4mm']) ? $currentExtraConfig['glue_prices']['4mm'] : 0));
+            $glue_price_5mm = str_replace(',', '.', Tools::getValue('glue_price_5mm', isset($currentExtraConfig['glue_prices']['5mm']) ? $currentExtraConfig['glue_prices']['5mm'] : 0));
+            $glue_price_6mm = str_replace(',', '.', Tools::getValue('glue_price_6mm', isset($currentExtraConfig['glue_prices']['6mm']) ? $currentExtraConfig['glue_prices']['6mm'] : 0));
+            $glue_price_8mm = str_replace(',', '.', Tools::getValue('glue_price_8mm', isset($currentExtraConfig['glue_prices']['8mm']) ? $currentExtraConfig['glue_prices']['8mm'] : 0));
+            $glue_price_10mm = str_replace(',', '.', Tools::getValue('glue_price_10mm', isset($currentExtraConfig['glue_prices']['10mm']) ? $currentExtraConfig['glue_prices']['10mm'] : 0));
+
+            $polish_price_4mm = str_replace(',', '.', Tools::getValue('polish_price_4mm', isset($currentExtraConfig['polish_prices']['4mm']) ? $currentExtraConfig['polish_prices']['4mm'] : 0));
+            $polish_price_5mm = str_replace(',', '.', Tools::getValue('polish_price_5mm', isset($currentExtraConfig['polish_prices']['5mm']) ? $currentExtraConfig['polish_prices']['5mm'] : 0));
+            $polish_price_6mm = str_replace(',', '.', Tools::getValue('polish_price_6mm', isset($currentExtraConfig['polish_prices']['6mm']) ? $currentExtraConfig['polish_prices']['6mm'] : 0));
+            $polish_price_8mm = str_replace(',', '.', Tools::getValue('polish_price_8mm', isset($currentExtraConfig['polish_prices']['8mm']) ? $currentExtraConfig['polish_prices']['8mm'] : 0));
+            $polish_price_10mm = str_replace(',', '.', Tools::getValue('polish_price_10mm', isset($currentExtraConfig['polish_prices']['10mm']) ? $currentExtraConfig['polish_prices']['10mm'] : 0));
+
             // Check if the record already exists
-            $sqlCheck = 'SELECT COUNT(*) as count FROM `ps_idxrcustomproduct_extra_config`';
+            $sqlCheck = 'SELECT COUNT(*) as count FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_extra_config`';
             $exists = (int) Db::getInstance()->getValue($sqlCheck);
-        
+
             if ($exists > 0) {
                 // Update existing record
-                $sqlUpdate = 'UPDATE `ps_idxrcustomproduct_extra_config`
+                $holesFixedPriceUpdateSql = $hasHolesFixedPrice ? ', `holes_fixed_price` = ' . (float) $holes_fixed_price : '';
+                $sqlUpdate = 'UPDATE `' . _DB_PREFIX_ . 'idxrcustomproduct_extra_config`
                     SET `prix_de_decoupe` = ' . (float) $prixdepecoupe . ',
                         `prix_de_collage` = ' . (float) $prixdecollage . ',
                         `demensions` = "' . pSQL($maximumdememnsions) . '",
@@ -429,19 +506,21 @@ class IdxrCustomProduct extends Module
                         `polish_price_5mm` = ' . (float) $polish_price_5mm . ',
                         `polish_price_6mm` = ' . (float) $polish_price_6mm . ',
                         `polish_price_8mm` = ' . (float) $polish_price_8mm . ',
-                        `polish_price_10mm` = ' . (float) $polish_price_10mm . '
+                        `polish_price_10mm` = ' . (float) $polish_price_10mm . $holesFixedPriceUpdateSql . '
                     WHERE `id` = 1';
-        
+
                 if (!Db::getInstance()->execute($sqlUpdate)) {
-                    $this->context->controller->errors[] = $this->l('Failed to update the configuration values');
+                    $this->context->controller->errors[] = $this->l('Failed to update the pricing values');
                 }
             } else {
                 // Insert a new record
-                $sqlInsert = 'INSERT INTO `ps_idxrcustomproduct_extra_config`
+                $holesFixedPriceInsertColumns = $hasHolesFixedPrice ? ', `holes_fixed_price`' : '';
+                $holesFixedPriceInsertValues = $hasHolesFixedPrice ? ', ' . (float) $holes_fixed_price : '';
+                $sqlInsert = 'INSERT INTO `' . _DB_PREFIX_ . 'idxrcustomproduct_extra_config`
                               (`id`, `prix_de_decoupe`, `prix_de_collage`, `demensions`, `prix_fixe`, `prix_fixe_vitrine`, 
                                `cut_price_4mm`, `cut_price_5mm`, `cut_price_6mm`, `cut_price_8mm`, `cut_price_10mm`,
                                `glue_price_4mm`, `glue_price_5mm`, `glue_price_6mm`, `glue_price_8mm`, `glue_price_10mm`,
-                               `polish_price_4mm`, `polish_price_5mm`, `polish_price_6mm`, `polish_price_8mm`, `polish_price_10mm`)
+                               `polish_price_4mm`, `polish_price_5mm`, `polish_price_6mm`, `polish_price_8mm`, `polish_price_10mm`' . $holesFixedPriceInsertColumns . ')
                               VALUES (1, ' . (float) $prixdepecoupe . ', ' . (float) $prixdecollage . ', 
                                       "' . pSQL($maximumdememnsions) . '", ' . (float) $prix_fixe . ', ' . (float) $prix_fixe_vitrine . ',
                                       ' . (float) $cut_price_4mm . ', ' . (float) $cut_price_5mm . ', 
@@ -449,14 +528,24 @@ class IdxrCustomProduct extends Module
                                       ' . (float) $glue_price_4mm . ', ' . (float) $glue_price_5mm . ', 
                                       ' . (float) $glue_price_6mm . ', ' . (float) $glue_price_8mm . ', ' . (float) $glue_price_10mm . ',
                                       ' . (float) $polish_price_4mm . ', ' . (float) $polish_price_5mm . ', 
-                                      ' . (float) $polish_price_6mm . ', ' . (float) $polish_price_8mm . ', ' . (float) $polish_price_10mm . ')';
-        
+                                      ' . (float) $polish_price_6mm . ', ' . (float) $polish_price_8mm . ', ' . (float) $polish_price_10mm . $holesFixedPriceInsertValues . ')';
+
                 if (!Db::getInstance()->execute($sqlInsert)) {
-                    $this->context->controller->errors[] = $this->l('Failed to insert the configuration values');
+                    $this->context->controller->errors[] = $this->l('Failed to insert the pricing values');
                 }
             }
-            
-        
+
+            return $this->displayConfirmation($this->l('Configuration de tarification enregistrée'));
+        }
+        if (Tools::isSubmit('submitModConfiguration')) {
+            // save IDs:
+            $rawInput = Tools::getValue('idxr_skipped_product_ids');
+            $cleanIds = [];
+            if (preg_match_all('/\b\d+\b/', $rawInput, $matches)) {
+                $cleanIds = array_unique(array_map('intval', $matches[0]));
+            }
+            $cleanString = implode(',', $cleanIds);
+            Configuration::updateValue('idxr_skipped_product_ids', json_encode($cleanIds));
             $id_category = Tools::getValue('customizable_category');
             Configuration::updateValue(Tools::strtoupper($this->name) . '_CATEGORY', (int) $id_category);
             $this->updateRobotsFile();
@@ -472,6 +561,12 @@ class IdxrCustomProduct extends Module
             Configuration::updateValue(Tools::strtoupper($this->name) . '_COVERID', $coverimageid);
             $showfav = Tools::getValue('show_fav');
             Configuration::updateValue(Tools::strtoupper($this->name) . '_SHOWFAV', $showfav);
+            Configuration::updateValue(Tools::strtoupper($this->name) . '_SHOWFAV_FAVORITE', $showfav);
+            Configuration::updateValue(Tools::strtoupper($this->name) . '_SHOWFAV_SIMULATIONS', $showfav);
+            $frontAccordionDev = (int) Tools::getValue('front_accordion_dev');
+            Configuration::updateValue(Tools::strtoupper($this->name) . '_FRONT_ACCORDION_DEV', $frontAccordionDev);
+            $skipRectangleCuttingPrice = (int) Tools::getValue('skip_rectangle_cutting_price');
+            Configuration::updateValue(Tools::strtoupper($this->name) . '_SKIP_RECTANGLE_CUTTING_PRICE', $skipRectangleCuttingPrice);
             $price_impact_taxinclude = Tools::getValue('price_impact_taxinclude');
             Configuration::updateValue(Tools::strtoupper($this->name) . '_PRICEIMPACTTAX', $price_impact_taxinclude);
             $discount_line = Tools::getValue('discount_line');
@@ -488,6 +583,15 @@ class IdxrCustomProduct extends Module
             Configuration::updateValue(Tools::strtoupper($this->name) . '_ADMINPRODUCTINFOBLOCK', $adminproductinfoblock);
             
             return $this->displayConfirmation($this->l('Configuration saved'));
+        }
+        if (Tools::isSubmit('submitIdxrAccountCardConfiguration')) {
+            $showFavSimulationsAllShops = (int) Tools::getValue('show_fav_simulations_all_shops');
+            $showFavFavoriteAllShops = $this->getBooleanConfigAllShopsValue(Tools::strtoupper($this->name . '_SHOWFAV_FAVORITE'));
+
+            $this->updateBooleanConfigForAllShops(Tools::strtoupper($this->name . '_SHOWFAV_SIMULATIONS'), $showFavSimulationsAllShops);
+            $this->updateBooleanConfigForAllShops(Tools::strtoupper($this->name . '_SHOWFAV'), ($showFavFavoriteAllShops || $showFavSimulationsAllShops) ? 1 : 0);
+
+            return $this->displayConfirmation($this->l('Configuration des cartes Mon compte enregistrée'));
         }
         if (Tools::isSubmit('submitConfiguration') || Tools::isSubmit('submitConfigurationStay')) {
             $name = Tools::getValue('addconftitle');
@@ -607,7 +711,170 @@ class IdxrCustomProduct extends Module
             Db::getInstance()->execute('ALTER TABLE ' . _DB_PREFIX_ . 'idxrcustomproduct_components_opt_impact ADD price_impact_type varchar(255) DEFAULT "fixed";');
             Db::getInstance()->execute('ALTER TABLE ' . _DB_PREFIX_ . 'idxrcustomproduct_components_opt_impact ADD price_impact_calc varchar(255);');
         }
+        Db::getInstance()->execute(
+            'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'idxrcustomproduct_thickness_rates` (
+                `id_rate` INT(11) NOT NULL AUTO_INCREMENT,
+                `id_shop` INT(11) NOT NULL,
+                `thickness_mm` DECIMAL(10,3) NOT NULL,
+                `cut_rate` DECIMAL(20,6) NOT NULL DEFAULT 0,
+                `glue_rate` DECIMAL(20,6) NOT NULL DEFAULT 0,
+                `polish_rate` DECIMAL(20,6) NOT NULL DEFAULT 0,
+                `active` TINYINT(1) NOT NULL DEFAULT 1,
+                `position` INT(11) NOT NULL DEFAULT 0,
+                `date_add` DATETIME NULL,
+                `date_upd` DATETIME NULL,
+                PRIMARY KEY (`id_rate`),
+                UNIQUE KEY `uniq_shop_thickness` (`id_shop`, `thickness_mm`),
+                KEY `idx_shop_active` (`id_shop`, `active`)
+            ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;'
+        );
         return IdxOption::fixOptionProducts();
+    }
+
+    protected function getThicknessRatesTableName()
+    {
+        return _DB_PREFIX_ . 'idxrcustomproduct_thickness_rates';
+    }
+
+    protected function getGlobalPricingShopId()
+    {
+        return 1;
+    }
+
+    protected function getActiveThicknessRatesByShop($idShop)
+    {
+        $idShop = (int) $this->getGlobalPricingShopId();
+        $table = $this->getThicknessRatesTableName();
+        $rows = Db::getInstance()->executeS(
+            'SELECT thickness_mm, cut_rate, glue_rate, polish_rate
+             FROM `' . bqSQL($table) . '`
+             WHERE id_shop = ' . (int) $idShop . ' AND active = 1
+             ORDER BY thickness_mm ASC'
+        );
+        return is_array($rows) ? $rows : array();
+    }
+
+    protected function jsonAdminResponse($payload, $statusCode = 200)
+    {
+        if (!headers_sent()) {
+            header('Content-Type: application/json; charset=utf-8', true, (int) $statusCode);
+        }
+        echo json_encode($payload);
+        exit;
+    }
+
+    protected function handleAdminPricingAjax()
+    {
+        $expectedToken = Tools::getAdminTokenLite('AdminModules');
+        $token = (string) Tools::getValue('token');
+        if (!$expectedToken || !$token || !hash_equals($expectedToken, $token)) {
+            $this->jsonAdminResponse(array('success' => false, 'message' => $this->l('Invalid admin token.')), 403);
+        }
+
+        $action = (string) Tools::getValue('idxr_action');
+        $idShop = (int) $this->getGlobalPricingShopId();
+        $table = $this->getThicknessRatesTableName();
+
+        if ($action === 'list_thickness_rates') {
+            $rows = Db::getInstance()->executeS(
+                'SELECT id_rate, thickness_mm, cut_rate, glue_rate, polish_rate, active, position
+                 FROM `' . bqSQL($table) . '`
+                 WHERE id_shop = ' . (int) $idShop . '
+                 ORDER BY thickness_mm ASC, position ASC, id_rate ASC'
+            );
+            $this->jsonAdminResponse(array('success' => true, 'rows' => $rows ? $rows : array()));
+        }
+
+        if ($action === 'save_thickness_rate') {
+            $idRate = (int) Tools::getValue('id_rate');
+            $thickness = (float) str_replace(',', '.', (string) Tools::getValue('thickness_mm'));
+            $cut = (float) str_replace(',', '.', (string) Tools::getValue('cut_rate'));
+            $glue = (float) str_replace(',', '.', (string) Tools::getValue('glue_rate'));
+            $polish = (float) str_replace(',', '.', (string) Tools::getValue('polish_rate'));
+            $active = (int) Tools::getValue('active', 1) ? 1 : 0;
+
+            if ($thickness <= 0) {
+                $this->jsonAdminResponse(array('success' => false, 'message' => $this->l('Thickness must be greater than 0.')), 400);
+            }
+
+            $duplicateSql = 'SELECT id_rate FROM `' . bqSQL($table) . '`
+                             WHERE id_shop=' . (int) $idShop . '
+                               AND ABS(thickness_mm - ' . (float) $thickness . ') < 0.000001';
+            if ($idRate > 0) {
+                $duplicateSql .= ' AND id_rate != ' . (int) $idRate;
+            }
+            $duplicate = Db::getInstance()->getValue($duplicateSql);
+            if ($duplicate) {
+                $this->jsonAdminResponse(array('success' => false, 'message' => $this->l('This thickness already exists.')), 409);
+            }
+
+            if ($idRate > 0) {
+                $updated = Db::getInstance()->update(
+                    bqSQL($table),
+                    array(
+                        'thickness_mm' => (float) $thickness,
+                        'cut_rate' => (float) $cut,
+                        'glue_rate' => (float) $glue,
+                        'polish_rate' => (float) $polish,
+                        'active' => (int) $active,
+                        'date_upd' => date('Y-m-d H:i:s'),
+                    ),
+                    'id_rate=' . (int) $idRate . ' AND id_shop=' . (int) $idShop,
+                    0,
+                    false,
+                    true,
+                    false
+                );
+                if (!$updated) {
+                    $this->jsonAdminResponse(array('success' => false, 'message' => $this->l('Unable to update thickness rate.')), 500);
+                }
+            } else {
+                $nextPosition = (int) Db::getInstance()->getValue('SELECT COALESCE(MAX(position),0)+1 FROM `' . bqSQL($table) . '` WHERE id_shop=' . (int) $idShop);
+                $inserted = Db::getInstance()->insert(
+                    bqSQL($table),
+                    array(
+                        'id_shop' => (int) $idShop,
+                        'thickness_mm' => (float) $thickness,
+                        'cut_rate' => (float) $cut,
+                        'glue_rate' => (float) $glue,
+                        'polish_rate' => (float) $polish,
+                        'active' => (int) $active,
+                        'position' => (int) $nextPosition,
+                        'date_add' => date('Y-m-d H:i:s'),
+                        'date_upd' => date('Y-m-d H:i:s'),
+                    ),
+                    false,
+                    true,
+                    Db::INSERT,
+                    false
+                );
+                if (!$inserted) {
+                    $this->jsonAdminResponse(array('success' => false, 'message' => $this->l('Unable to create thickness rate.')), 500);
+                }
+            }
+
+            $this->jsonAdminResponse(array('success' => true));
+        }
+
+        if ($action === 'delete_thickness_rate') {
+            $idRate = (int) Tools::getValue('id_rate');
+            if ($idRate <= 0) {
+                $this->jsonAdminResponse(array('success' => false, 'message' => $this->l('Invalid rate ID.')), 400);
+            }
+            $deleted = Db::getInstance()->delete(
+                bqSQL($table),
+                'id_rate=' . (int) $idRate . ' AND id_shop=' . (int) $idShop,
+                0,
+                true,
+                false
+            );
+            if (!$deleted) {
+                $this->jsonAdminResponse(array('success' => false, 'message' => $this->l('Unable to delete thickness rate.')), 500);
+            }
+            $this->jsonAdminResponse(array('success' => true));
+        }
+
+        $this->jsonAdminResponse(array('success' => false, 'message' => $this->l('Unknown action.')), 400);
     }
 
     public function hookDisplayRightColumnProduct($params)
@@ -677,6 +944,33 @@ class IdxrCustomProduct extends Module
             'idxr_tr_base_settings' => $this->l('Paramètres de Socle'),
             'idxr_tr_outer_dimensions' => $this->l('Les Dimensions Extérieures'),
             'idxr_tr_custom_display' => $this->l('Vitrine sur mesure'),
+            'idxr_tr_loading' => $this->l('Loading...'),
+            'idxr_tr_saving' => $this->l('Saving...'),
+            'idxr_tr_restoring' => $this->l('Restoring...'),
+            'idxr_tr_save_customization' => $this->l('Save customization'),
+            'idxr_tr_restore_customization' => $this->l('Restore customization'),
+            'idxr_tr_login_to_save_customisations' => $this->l('Login to save customisations'),
+            'idxr_tr_login_to_restore_customisations' => $this->l('Login to restore customisations'),
+            'idxr_tr_preview_current_selection' => $this->l('Preview of current selection'),
+            'idxr_tr_please_enter_name' => $this->l('Please enter a name.'),
+            'idxr_tr_please_select_one_customization' => $this->l('Please select one customization.'),
+            'idxr_tr_cancel' => $this->l('Cancel'),
+            'idxr_tr_save' => $this->l('Save'),
+            'idxr_tr_restore' => $this->l('Restore'),
+            'idxr_tr_no_saved_customizations_for_product' => $this->l('No saved customizations for this product.'),
+            'idxr_tr_unnamed_customization' => $this->l('Unnamed customization'),
+            'idxr_tr_no_preview' => $this->l('No preview'),
+            'idxr_tr_no_preview_available' => $this->l('No preview available.'),
+            'idxr_tr_my_customization' => $this->l('My customization'),
+            'idxr_tr_unable_load_saved_customizations' => $this->l('Unable to load saved customizations.'),
+            'idxr_tr_unable_save_customization' => $this->l('Unable to save customization.'),
+            'idxr_tr_unable_restore_customization' => $this->l('Unable to restore customization.'),
+            'idxr_tr_unable_apply_saved_customization' => $this->l('Unable to apply saved customization.'),
+            'idxr_tr_saved_payload_invalid' => $this->l('Saved customization payload is invalid.'),
+            'idxr_tr_request_failed' => $this->l('Request failed.'),
+            'idxr_tr_add_to_cart_error_title' => $this->l('Une erreur est survenue'),
+            'idxr_tr_add_to_cart_error_message' => $this->l('Une erreur a empêché l’ajout de votre personnalisation au panier. Veuillez réessayer.'),
+            'idxr_tr_close' => $this->l('Fermer'),
         ];
 
         Media::addJsDef($translations);
@@ -687,12 +981,15 @@ class IdxrCustomProduct extends Module
         if (Tools::getValue('ajax')) {
             return '';
         }
-        Media::addJsDef(
-            array(
-                'custom_products' => IdxConfiguration::getCustomProducts(),
-                'configure_text' => $this->l('Configure')
-            )
-        );
+        $controller = isset($this->context->controller->php_self) ? (string) $this->context->controller->php_self : '';
+        if (!in_array($controller, array('index'), true)) {
+            Media::addJsDef(
+                array(
+                    'custom_products' => IdxConfiguration::getCustomProducts(),
+                    'configure_text' => $this->l('Configure')
+                )
+            );
+        }
         if ($this->es17) {
             // $controller = $this->context->controller->php_self;
 
@@ -743,9 +1040,13 @@ class IdxrCustomProduct extends Module
                     $idxr_prix_de_decoupe_cube = $extraConfig['prix_de_decoupe'];
                     $idxr_prix_fixe = $extraConfig['prix_fixe'];
                     $idxr_prix_fixe_vitrine = $extraConfig['prix_fixe_vitrine'];
+                    $idxr_holes_fixed_price = isset($extraConfig['holes_fixed_price']) ? (float) $extraConfig['holes_fixed_price'] : 0.0;
                     $cutPrices = $extraConfig['cut_prices'];
                     $gluePrices = $extraConfig['glue_prices'];
                     $polishPrices = $extraConfig['polish_prices'];
+                    $activeThicknessRates = $this->getActiveThicknessRatesByShop((int) $this->context->shop->id);
+                    $frontAccordionEnvironment = Configuration::get(Tools::strtoupper($this->name . '_FRONT_ACCORDION_DEV')) ? 'development' : 'production';
+                    $skipRectangleCuttingPrice = (bool) Configuration::get(Tools::strtoupper($this->name . '_SKIP_RECTANGLE_CUTTING_PRICE'));
                     
                     $this->passTranslationsToJs();
 
@@ -754,6 +1055,7 @@ class IdxrCustomProduct extends Module
                             'idxcp_originaltax' => $current_tax,
                             'idxr_prix_fixe' => $idxr_prix_fixe,
                             'idxr_prix_fixe_vitrine' => $idxr_prix_fixe_vitrine,
+                            'idxr_holes_fixed_price' => $idxr_holes_fixed_price,
                             'idxr_skipped_product_ids' => $skippedIds,
                             'idxr_prix_de_decoupe_cube' => $idxr_prix_de_decoupe_cube,
                             'idxcp_console_state' => 0,
@@ -762,6 +1064,9 @@ class IdxrCustomProduct extends Module
                             'idxcp_id_configuration' => $id_configuration,
                             'idxcp_id_product' => $id_product,
                             'idxcp_polish_prices' => $polishPrices,
+                            'idxr_active_thickness_rates' => $activeThicknessRates,
+                            'idxr_front_accordion_environment' => $frontAccordionEnvironment,
+                            'idxr_skip_rectangle_cutting_price' => $skipRectangleCuttingPrice,
                             'url_ajax' => $this->context->link->getModuleLink($this->name, 'ajax', array('token' => $front_token, 'ajax' => true)),
                             'send_text' => $this->l('Send to cart'),
                             'favbutton' => $this->l('Save in my wishlist'),
@@ -798,7 +1103,17 @@ class IdxrCustomProduct extends Module
                     $this->context->controller->registerStylesheet('modules-idxcpfrontcss', 'modules/' . $this->name . '/views/css/17/front.css', ['media' => 'all', 'priority' => 150]);
                     $this->context->controller->registerJavascript('modules-idxcpfrontjs', 'modules/' . $this->name . '/views/js/front.js', ['position' => 'bottom', 'priority' => 150]);
                     $this->context->controller->registerStylesheet('modules-idxcpfront' . $steps['visualization'] . 'css', 'modules/' . $this->name . '/views/css/17/front_' . $steps['visualization'] . '.css', array('media' => 'all', 'priority' => 150));
-                    $this->context->controller->registerJavascript('modules-idxcpfront' . $steps['visualization'] . 'js', 'modules/' . $this->name . '/views/js/front_' . $steps['visualization'] . '.js', array('position' => 'bottom', 'priority' => 100));
+                    $visualizationJsUri = 'modules/' . $this->name . '/views/js/front_' . $steps['visualization'] . '.js';
+                    $visualizationJsPath = _PS_MODULE_DIR_ . $this->name . '/views/js/front_' . $steps['visualization'] . '.js';
+                    $isJsThemeCacheEnabled = (bool) Configuration::get('PS_JS_THEME_CACHE');
+                    if (_PS_MODE_DEV_ && !$isJsThemeCacheEnabled && file_exists($visualizationJsPath)) {
+                        $visualizationJsUri .= '?v=' . (int) filemtime($visualizationJsPath);
+                    }
+                    $this->context->controller->registerJavascript(
+                        'modules-idxcpfront' . $steps['visualization'] . 'js',
+                        $visualizationJsUri,
+                        array('position' => 'bottom', 'priority' => 100)
+                    );
 
                     if ($steps['visualization'] == 'minified') {
                         $this->context->controller->registerStylesheet('modules-idxcpfront-bootstrap-select.min.css', 'modules/' . $this->name . '/views/css/bootstrap-select.min.css', array('media' => 'all', 'priority' => 150));
@@ -824,20 +1139,22 @@ class IdxrCustomProduct extends Module
                 $this->context->controller->registerStylesheet('modules-idxcpfront-cart.css', 'modules/' . $this->name . '/views/css/17/front_cart.css', array('media' => 'all', 'priority' => 150));
                 $this->context->controller->registerJavascript('modules-idxcpcartjs', 'modules/' . $this->name . '/views/js/icp_order17.js', array('position' => 'bottom', 'priority' => 150));
             }
-            $this->context->controller->addCSS($this->_path . 'views/css/16/front_header.css', 'all');
-            $front_token = Configuration::get(Tools::strtoupper($this->name .'_TOKEN'));
-            Media::addJsDef(
-                array(
-                    'url_ajax' => $this->context->link->getModuleLink($this->name, 'ajax', array('token' => $front_token, 'ajax' => true)),
-                    'add_text' => $this->l('Customize'),
-                    'show_conf_text' => $this->l('Show customization'),
-                    'min_price_text' => $this->l('Price from'),
-                    'idxcp_show_price_list' => Configuration::get(Tools::strtoupper($this->name . '_PRICEPRODUCTLIST')),
-                    'idxcp_show_breakdowninfo' => Configuration::get(Tools::strtoupper($this->name . '_BREAKDOWNBLOCK')),
-                )
-            );
-            $this->context->controller->registerStylesheet('modules-idxcpfront-idxopc.css', 'modules/' . $this->name . '/views/css/17/idxopc.css', array('media' => 'all', 'priority' => 150));
-            $this->context->controller->registerJavascript('modules-idxcpajaxcartjs', 'modules/' . $this->name . '/views/js/icp_cart17.js', array('position' => 'bottom', 'priority' => 150));
+            if ($controller !== 'index') {
+                $this->context->controller->addCSS($this->_path . 'views/css/16/front_header.css', 'all');
+                $front_token = Configuration::get(Tools::strtoupper($this->name .'_TOKEN'));
+                Media::addJsDef(
+                    array(
+                        'url_ajax' => $this->context->link->getModuleLink($this->name, 'ajax', array('token' => $front_token, 'ajax' => true)),
+                        'add_text' => $this->l('Customize'),
+                        'show_conf_text' => $this->l('Show customization'),
+                        'min_price_text' => $this->l('Price from'),
+                        'idxcp_show_price_list' => Configuration::get(Tools::strtoupper($this->name . '_PRICEPRODUCTLIST')),
+                        'idxcp_show_breakdowninfo' => Configuration::get(Tools::strtoupper($this->name . '_BREAKDOWNBLOCK')),
+                    )
+                );
+                $this->context->controller->registerStylesheet('modules-idxcpfront-idxopc.css', 'modules/' . $this->name . '/views/css/17/idxopc.css', array('media' => 'all', 'priority' => 150));
+                $this->context->controller->registerJavascript('modules-idxcpajaxcartjs', 'modules/' . $this->name . '/views/js/icp_cart17.js', array('position' => 'bottom', 'priority' => 150));
+            }
         } else {
             $this->context->controller->addJS($this->_path . 'views/js/icp_cart16.js', false);
             if ($this->context->controller->php_self == 'order-opc' && isset($this->context->controller->name_module) && $this->context->controller->name_module == 'onepagecheckoutps') {
@@ -916,10 +1233,14 @@ class IdxrCustomProduct extends Module
                 $idxr_skipped_product_ids = json_decode(Configuration::get('idxr_skipped_product_ids'), true);
                 $idxr_prix_fixe = $extraConfig['prix_fixe'];
                 $idxr_prix_fixe_vitrine = $extraConfig['prix_fixe_vitrine'];
+                $idxr_holes_fixed_price = isset($extraConfig['holes_fixed_price']) ? (float) $extraConfig['holes_fixed_price'] : 0.0;
                 $idxr_prix_de_decoupe_cube = $extraConfig['prix_de_decoupe'];
                 $cutPrices = $extraConfig['cut_prices'];
                 $gluePrices = $extraConfig['glue_prices'];
                 $polishPrices = $extraConfig['polish_prices'];
+                $activeThicknessRates = $this->getActiveThicknessRatesByShop((int) $this->context->shop->id);
+                $frontAccordionEnvironment = Configuration::get(Tools::strtoupper($this->name . '_FRONT_ACCORDION_DEV')) ? 'development' : 'production';
+                $skipRectangleCuttingPrice = (bool) Configuration::get(Tools::strtoupper($this->name . '_SKIP_RECTANGLE_CUTTING_PRICE'));
                 
                 Media::addJsDef(
                     array(
@@ -928,8 +1249,12 @@ class IdxrCustomProduct extends Module
                         'idxcp_cut_prices' => $cutPrices,
                         'idxcp_glue_prices' => $gluePrices,
                         'idxcp_polish_prices' => $polishPrices,
+                        'idxr_active_thickness_rates' => $activeThicknessRates,
+                        'idxr_front_accordion_environment' => $frontAccordionEnvironment,
+                        'idxr_skip_rectangle_cutting_price' => $skipRectangleCuttingPrice,
                         'idxr_skipped_product_ids' => $idxr_skipped_product_ids,
                         'idxr_prix_de_decoupe_cube' => $idxr_prix_de_decoupe_cube,
+                        'idxr_holes_fixed_price' => $idxr_holes_fixed_price,
                         'url_ajax' => $this->context->link->getModuleLink($this->name, 'ajax', array('token' => $front_token,'ajax' => true)),
                         'send_text' => $this->l('Send to cart'),
                         'favbutton' => $this->l('Save in my wishlist'),
@@ -972,7 +1297,13 @@ class IdxrCustomProduct extends Module
                     $this->context->controller->addJS($this->_path . 'libraries/slick/slick.min.js', false);
                 }
                 $this->context->controller->addJS($this->_path . 'views/js/front.js', false);
-                $this->context->controller->addJS($this->_path . 'views/js/front_' . $steps['visualization'] . '.js', false);
+                $visualizationJsLegacyUri = $this->_path . 'views/js/front_' . $steps['visualization'] . '.js';
+                $visualizationJsLegacyPath = _PS_MODULE_DIR_ . $this->name . '/views/js/front_' . $steps['visualization'] . '.js';
+                $isJsThemeCacheEnabledLegacy = (bool) Configuration::get('PS_JS_THEME_CACHE');
+                if (_PS_MODE_DEV_ && !$isJsThemeCacheEnabledLegacy && file_exists($visualizationJsLegacyPath)) {
+                    $visualizationJsLegacyUri .= '?v=' . (int) filemtime($visualizationJsLegacyPath);
+                }
+                $this->context->controller->addJS($visualizationJsLegacyUri, false);
                 $this->context->controller->addCSS($this->_path . 'views/css/idxrcustomproduct.css', 'all');
                 $this->context->controller->addCSS($this->_path . 'views/css/16/front.css', 'all');
                 $this->context->controller->addCSS($this->_path . 'views/css/16/front_' . $steps['visualization'] . '.css', 'all');
@@ -980,11 +1311,6 @@ class IdxrCustomProduct extends Module
 
             // Pricing
             if ($steps['add_base']) {
-                file_put_contents(__DIR__ . '/file_log.txt', "[" . date('Y-m-d H:i:s') . "]in add_base \n", FILE_APPEND);
-                file_put_contents(__DIR__ . '/file_log.txt', "[" . date('Y-m-d H:i:s') . "]id_product: " . $id_product . "\n", FILE_APPEND);
-                file_put_contents(__DIR__ . '/file_log.txt', "[" . date('Y-m-d H:i:s') . "]id_product_attribute: " . $id_product_attribute . "\n", FILE_APPEND);
-                if($use_attribute_price) file_put_contents(__DIR__ . '/file_log.txt', "[" . date('Y-m-d H:i:s') . "]use_attribute_price: \n", FILE_APPEND);
-
                 if ($use_attribute_price && $id_product_attribute) {
                     // ✅ Use variant price (without specific price or reduction)
                     $base_price = Product::getPriceStatic($id_product, true, $id_product_attribute, 6, null, false, false);
@@ -1177,11 +1503,24 @@ class IdxrCustomProduct extends Module
 
     public function hookDisplayCustomerAccount($params)
     {
-        if (!Configuration::get(Tools::strtoupper($this->name . '_SHOWFAV'))) {
+        $showFavoriteCard = (bool) Configuration::get(Tools::strtoupper($this->name . '_SHOWFAV_FAVORITE'));
+        $showSimulationsCard = (bool) Configuration::get(Tools::strtoupper($this->name . '_SHOWFAV_SIMULATIONS'));
+
+        if (!$showFavoriteCard && !$showSimulationsCard) {
+            $legacyShowFav = (bool) Configuration::get(Tools::strtoupper($this->name . '_SHOWFAV'));
+            $showFavoriteCard = $legacyShowFav;
+            $showSimulationsCard = $legacyShowFav;
+        }
+
+        if (!$showFavoriteCard && !$showSimulationsCard) {
             return;
         }
         $id_customer = $this->context->customer->id;
         if ($id_customer) {
+            $this->context->smarty->assign(array(
+                'idxr_show_favorite_card' => $showFavoriteCard ? 1 : 0,
+                'idxr_show_simulations_card' => $showSimulationsCard ? 1 : 0,
+            ));
             if ($this->es17) {
                 return $this->display(__FILE__, 'views/templates/front/account_blockcustomproduct_17.tpl', $this->getCacheId());
             } else {
@@ -1209,6 +1548,8 @@ class IdxrCustomProduct extends Module
                 $data = array();
                 $data['id_cart'] = $params['cart']->id;
                 $data['id_product'] = $product['id_product'];
+                $data['id_shop'] = (int) $params['cart']->id_shop;
+                $data['id_lang'] = (int) $params['cart']->id_lang;
                 $data['public'] = $product['description_short'];
                 $sql = 'Select description from ' . _DB_PREFIX_ . 'product_lang where id_product = ' . (int) $product['id_product'];
                 $data['private'] = Db::getInstance()->getValue($sql);
@@ -1238,7 +1579,18 @@ class IdxrCustomProduct extends Module
                     }
                 }
 
-                $svgUrlQuery = "SELECT svg_file, svg_code, console FROM " . _DB_PREFIX_ . "idxrcustomproduct_snaps WHERE id_product = " . (int)$product['id_product'];
+                if (FIXING_OLD_ORDERS) {
+                    $idOriginal = (int) $this->getProductoOriginal((int) $product['id_product']);
+                    if ($idOriginal > 0) {
+                        $data['ordered_steps_json'] = $this->getRuntimeCustomizationStepsJson(
+                            (int) $params['cart']->id,
+                            $idOriginal,
+                            (int) $product['id_product']
+                        );
+                    }
+                }
+
+                $svgUrlQuery = "SELECT svg_code, console FROM " . _DB_PREFIX_ . "idxrcustomproduct_snaps WHERE id_product = " . (int)$product['id_product'];
 
                 $svgUrls = Db::getInstance()->executeS($svgUrlQuery);
                 if (!$svgUrls) {
@@ -1259,15 +1611,6 @@ class IdxrCustomProduct extends Module
                         $data['private'] .= $svgImgTag;
                         $data['public'] .= $svgImgTag;
                     }
-
-                    //svg file
-                    $svgUrl = $svgUrls[0]['svg_file'];
-                    if($svgUrl){
-                        $svgImgTag = '<p>Aperçu: <img class="perviewImageSketch" src="' . $svgUrl . '" width="400px" height="400px"></p>';
-                        $data['private'] .= $svgImgTag;
-                        $data['public'] .= $svgImgTag;
-                    }
-                    
                 }
 
                 $extra_info[] = $data;
@@ -1368,9 +1711,551 @@ class IdxrCustomProduct extends Module
 
     public function hookActionValidateOrder($params)
     {
-        $sql_update = 'Update ' . _DB_PREFIX_ . 'idxrcustomproduct_notes set id_order = ' . (int) $params['order']->id . ' where id_cart = ' . (int) $params['cart']->id . ';';
+        if (empty($params['order']) || empty($params['cart'])) {
+            return '';
+        }
+
+        /** @var Order $order */
+        $order = $params['order'];
+        /** @var Cart $cart */
+        $cart = $params['cart'];
+
+        // Rebuild notes at order validation time to avoid stale/missing dimensions in PDFs.
+        $orderNotes = $this->buildOrderNotesFromCart($cart, $order);
+        if (!empty($orderNotes)) {
+            $this->updateNotes($orderNotes);
+        }
+
+        $sql_update = 'Update ' . _DB_PREFIX_ . 'idxrcustomproduct_notes set id_order = ' . (int) $order->id . ' where id_cart = ' . (int) $cart->id . ';';
         Db::getInstance()->execute($sql_update);
         return '';
+    }
+
+    private function getRuntimeCustomizationRestoreLink($idCart, $idBaseProduct, $idCustomizedProduct = 0, $idLang = null, $idShop = null)
+    {
+        $row = $this->getRuntimeCustomizationRow($idCart, $idBaseProduct, $idCustomizedProduct);
+        if (empty($row['id_runtime_customisation'])) {
+            return '';
+        }
+
+        $productLink = $this->context->link->getProductLink(
+            (int) $idBaseProduct,
+            null,
+            null,
+            null,
+            $idLang ? (int) $idLang : null,
+            $idShop ? (int) $idShop : null,
+            (int) $row['id_product_attribute']
+        );
+
+        return $productLink
+            . (strpos($productLink, '?') === false ? '?' : '&')
+            . 'idxr_restore_runtime_sim=' . (int) $row['id_runtime_customisation'];
+    }
+
+    private function getRuntimeCustomizationRow($idCart, $idBaseProduct, $idCustomizedProduct = 0)
+    {
+        $idCart = (int) $idCart;
+        $idBaseProduct = (int) $idBaseProduct;
+        $idCustomizedProduct = (int) $idCustomizedProduct;
+        if ($idCart <= 0 || $idBaseProduct <= 0) {
+            return array();
+        }
+
+        $row = false;
+        if ($idCustomizedProduct > 0) {
+            $row = Db::getInstance()->getRow(
+                'SELECT rc.id_runtime_customisation, rc.id_product_attribute, rc.snapshot_json, rc.id_snap
+                 FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_runtime_customisations` rc
+                 WHERE rc.id_cart = ' . $idCart . '
+                   AND rc.id_product = ' . $idBaseProduct . '
+                   AND rc.source = "cart"
+                   AND rc.id_customized_product = ' . $idCustomizedProduct . '
+                 ORDER BY rc.date_add DESC, rc.id_runtime_customisation DESC'
+            );
+        }
+
+        if (empty($row['id_runtime_customisation'])) {
+            if ($idCustomizedProduct > 0) {
+                $row = Db::getInstance()->getRow(
+                    'SELECT rc.id_runtime_customisation, rc.id_product_attribute, rc.snapshot_json, rc.id_snap
+                     FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_runtime_customisations` rc
+                     INNER JOIN `' . _DB_PREFIX_ . 'idxrcustomproduct_snaps` s ON (s.id_snap = rc.id_snap)
+                     WHERE rc.id_cart = ' . $idCart . '
+                       AND rc.id_product = ' . $idBaseProduct . '
+                       AND rc.source = "cart"
+                       AND s.id_product = ' . $idCustomizedProduct . '
+                     ORDER BY rc.date_add DESC, rc.id_runtime_customisation DESC'
+                );
+            }
+        }
+
+        if (empty($row['id_runtime_customisation'])) {
+            $row = Db::getInstance()->getRow(
+                'SELECT id_runtime_customisation, id_product_attribute, snapshot_json, id_snap
+                 FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_runtime_customisations`
+                 WHERE id_cart = ' . $idCart . '
+                   AND id_product = ' . $idBaseProduct . '
+                   AND source = "cart"
+                 ORDER BY date_add DESC, id_runtime_customisation DESC'
+            );
+        }
+
+        return is_array($row) ? $row : array();
+    }
+
+    private function getRuntimeCustomizationStepsJson($idCart, $idBaseProduct, $idCustomizedProduct = 0)
+    {
+        $row = $this->getRuntimeCustomizationRow($idCart, $idBaseProduct, $idCustomizedProduct);
+        if (empty($row['snapshot_json'])) {
+            return '';
+        }
+
+        $snapshot = json_decode((string) $row['snapshot_json'], true);
+        if (!is_array($snapshot) || empty($snapshot['steps']) || !is_array($snapshot['steps'])) {
+            return '';
+        }
+
+        $encoded = json_encode($snapshot['steps'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        return $encoded !== false ? $encoded : '';
+    }
+
+    private function getSvgPreviewUrl($idCart, $idBaseProduct, $idCustomizedProduct = 0)
+    {
+        $row = $this->getRuntimeCustomizationRow($idCart, $idBaseProduct, $idCustomizedProduct);
+        if (!empty($row['id_snap'])) {
+            $svgUrl = Db::getInstance()->getValue(
+                'SELECT svg_code
+                 FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_snaps`
+                 WHERE id_snap = ' . (int) $row['id_snap']
+            );
+            if (!empty($svgUrl)) {
+                return (string) $svgUrl;
+            }
+        }
+
+        if ((int) $idCustomizedProduct > 0) {
+            $svgUrl = Db::getInstance()->getValue(
+                'SELECT svg_code
+                 FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_snaps`
+                 WHERE id_product = ' . (int) $idCustomizedProduct . '
+                 ORDER BY id_snap DESC'
+            );
+            if (!empty($svgUrl)) {
+                return (string) $svgUrl;
+            }
+        }
+
+        return '';
+    }
+
+    private function getOrderDisplayMediaItems($idCart, $idBaseProduct, $idCustomizedProduct, $idLang = null, $idShop = null)
+    {
+        $svgUrl = $this->getSvgPreviewUrl($idCart, $idBaseProduct, $idCustomizedProduct);
+        $runtimeRestoreLink = $this->getRuntimeCustomizationRestoreLink($idCart, $idBaseProduct, $idCustomizedProduct, $idLang, $idShop);
+        $items = array();
+
+        if ($svgUrl !== '') {
+            $items[] = array(
+                'link_title' => $this->l('Aperçu en SVG'),
+                'link_href' => $svgUrl,
+                'link_text' => $this->l('Voir le SVG'),
+            );
+        }
+
+        if ($runtimeRestoreLink !== '') {
+            $items[] = array(
+                'link_title' => $this->l('Simulation du configurateur'),
+                'link_href' => $runtimeRestoreLink,
+                'link_text' => $this->l('Ouvrir la personnalisation'),
+            );
+        }
+
+        if ($svgUrl !== '') {
+            $items[] = array(
+                'image_title' => $this->l('Aperçu'),
+                'image_url' => $svgUrl,
+            );
+        }
+
+        return $items;
+    }
+
+    private function getOrderMetricLines($productId)
+    {
+        $productId = (int) $productId;
+        if ($productId <= 0) {
+            return array();
+        }
+
+        $lines = array();
+        $volume = (float) $this->getProductVolume($productId);
+        $weight = (float) $this->getProductWeight($productId);
+
+        $lines[] = $this->l('Volume') . ': ' . number_format($volume, 6, '.', '') . ' m³';
+        $lines[] = $this->l('Poids') . ': ' . number_format($weight, 4, '.', '') . ' kg';
+
+        return $lines;
+    }
+
+    private function getOrderedStepInputIds()
+    {
+        return array(
+            '3', '23', '4', '9', '10', '11',
+            '57', '58', '53', '54', '55', '56',
+            '18', '25', '26', '27',
+            '38', '64', '63', '39', '65', '40', '41', '42',
+            '75', '45', '66', '67', '68', '69', '118'
+        );
+    }
+
+    private function decodeOrderedStepsJson($orderedStepsJson)
+    {
+        if (!is_string($orderedStepsJson) || trim($orderedStepsJson) === '') {
+            return array();
+        }
+
+        $steps = json_decode($orderedStepsJson, true);
+        return is_array($steps) ? $steps : array();
+    }
+
+    private function resolveOrderedStepOptionLabel($stepId, $optionId)
+    {
+        $stepId = (int) $stepId;
+        $optionId = (string) $optionId;
+        if ($stepId <= 0 || $optionId === '') {
+            return '';
+        }
+
+        $componentOptions = $this->getComponentOptions($stepId);
+        if (
+            !is_array($componentOptions)
+            || empty($componentOptions['lang'][(int) $this->context->language->id]->options)
+            || !is_iterable($componentOptions['lang'][(int) $this->context->language->id]->options)
+        ) {
+            return $optionId;
+        }
+
+        foreach ($componentOptions['lang'][(int) $this->context->language->id]->options as $option) {
+            if ((string) $option->id === $optionId) {
+                return trim(strip_tags((string) $option->name));
+            }
+        }
+
+        return $optionId;
+    }
+
+    private function buildLinesFromOrderedStepsJson($orderedStepsJson, $preferInternalName = false)
+    {
+        $steps = $this->decodeOrderedStepsJson($orderedStepsJson);
+        if (!$steps) {
+            return array();
+        }
+
+        $inputIds = $this->getOrderedStepInputIds();
+        $lines = array();
+
+        foreach ($steps as $step) {
+            if (!is_array($step)) {
+                continue;
+            }
+
+            $stepId = isset($step['step_id']) ? (string) $step['step_id'] : '';
+            $internalName = isset($step['name']) ? trim(strip_tags((string) $step['name'])) : '';
+            $title = isset($step['title']) ? trim(strip_tags((string) $step['title'])) : '';
+            $type = isset($step['type']) ? (string) $step['type'] : '';
+            $optional = !empty($step['optional']);
+            $extraValue = isset($step['extra']['value']) ? (string) $step['extra']['value'] : (isset($step['value']) ? (string) $step['value'] : '');
+            $options = array();
+
+            if (isset($step['selected']['options']) && is_array($step['selected']['options'])) {
+                $options = $step['selected']['options'];
+            } elseif (isset($step['options']) && is_array($step['options'])) {
+                $options = $step['options'];
+            }
+
+            if ($preferInternalName && $internalName === '' && $stepId !== '') {
+                $internalName = trim((string) $this->getComponentName((int) $stepId, false));
+            }
+
+            $displayTitle = $preferInternalName && $internalName !== '' ? $internalName : $title;
+            if ($displayTitle === '') {
+                $displayTitle = $title !== '' ? $title : 'Component ' . $stepId;
+            }
+
+            if (in_array($type, array('text', 'textarea', 'file'))) {
+                if ($extraValue === '' && $extraValue !== '0') {
+                    continue;
+                }
+
+                $suffix = in_array($stepId, $inputIds) ? ' mm' : '';
+                $lines[] = $displayTitle . ': ' . $extraValue . $suffix;
+                continue;
+            }
+
+            if (!$options) {
+                if (!$optional && !empty($step['selected']['raw']) && (string) $step['selected']['raw'] !== 'false') {
+                    $lines[] = $displayTitle . ': ' . (string) $step['selected']['raw'];
+                }
+                continue;
+            }
+
+            $selectedLabels = array();
+            foreach ($options as $option) {
+                if (!is_array($option) || !isset($option['option_id'])) {
+                    continue;
+                }
+
+                $optionLabel = $this->resolveOrderedStepOptionLabel($stepId, (string) $option['option_id']);
+                if ($optionLabel === '') {
+                    continue;
+                }
+
+                $qtyPrefix = '';
+                if (isset($option['qty']) && $option['qty'] !== '' && $option['qty'] !== null) {
+                    $qtyPrefix = (string) $option['qty'] . 'x ';
+                }
+
+                $selectedLabels[] = $qtyPrefix . $optionLabel;
+            }
+
+            if ($selectedLabels) {
+                $lines[] = $displayTitle . ': ' . implode(', ', $selectedLabels);
+            }
+        }
+
+        return $lines;
+    }
+
+    private function buildCustomizationRowsFromOrderedStepsJson($orderedStepsJson)
+    {
+        $lines = $this->buildLinesFromOrderedStepsJson($orderedStepsJson);
+        if (!$lines) {
+            return array(
+                'rows_html' => '',
+                'has_details' => false,
+            );
+        }
+        $rowsHtml = '';
+
+        foreach ($lines as $line) {
+            $colonPos = strpos($line, ':');
+            if ($colonPos === false) {
+                continue;
+            }
+
+            $title = trim(substr($line, 0, $colonPos));
+            $value = trim(substr($line, $colonPos + 1));
+            if ($title === '' || $value === '') {
+                continue;
+            }
+
+            $rowsHtml .= '<tr><td>' . Tools::safeOutput($title) . ':</td><td>' . Tools::safeOutput($value) . '</td></tr>';
+        }
+
+        return array(
+            'rows_html' => $rowsHtml,
+            'has_details' => $rowsHtml !== '',
+        );
+    }
+
+    private function hasStrongOrderedStepsForCart($orderedStepsJson)
+    {
+        $steps = $this->decodeOrderedStepsJson($orderedStepsJson);
+        if (!$steps) {
+            return false;
+        }
+
+        foreach ($steps as $step) {
+            if (!is_array($step)) {
+                return false;
+            }
+
+            $title = isset($step['title']) ? trim(strip_tags((string) $step['title'])) : '';
+            if ($title === '' || preg_match('/^Component\s+\d+$/i', $title)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function buildLegacyFrontNoteLines($publicNote)
+    {
+        $notesInParagraphs = urldecode((string) $publicNote);
+        $notesArray = explode('</p>', str_replace('<p>', '', $notesInParagraphs));
+
+        foreach ($notesArray as $key => &$line) {
+            $line = trim((string) $line);
+            if ($line === '') {
+                unset($notesArray[$key]);
+                continue;
+            }
+
+            if (stripos($line, 'Aperçu:') === 0 && strpos($line, '<img') !== false) {
+                if (preg_match('/<img[^>]+src="([^"]+)"/i', $line, $matches)) {
+                    $line = array(
+                        'image_title' => $this->l('Aperçu'),
+                        'image_url' => $matches[1],
+                    );
+                }
+                continue;
+            }
+
+            if ((stripos($line, 'Aperçu en SVG:') === 0 || stripos($line, 'Simulation du configurateur:') === 0) && strpos($line, '<a') !== false) {
+                if (preg_match('/^(.*?):\s*<a[^>]+href="([^"]+)"[^>]*>([^<]+)<\/a>$/i', $line, $matches)) {
+                    $line = array(
+                        'link_title' => trim(strip_tags($matches[1])),
+                        'link_href' => $matches[2],
+                        'link_text' => trim(strip_tags($matches[3])),
+                    );
+                }
+                continue;
+            }
+
+            if (is_string($line) && strpos($line, '<a') !== false) {
+                $line = $this->formatFileLink($line);
+            }
+            if (is_string($line) && strpos($line, '<hr') !== false) {
+                $line = $this->formatMultiText($line);
+            }
+            if (!$line) {
+                unset($notesArray[$key]);
+                continue;
+            }
+            if (is_string($line) && stripos($line, 'Console') !== false) {
+                $line = '';
+            }
+        }
+
+        return $notesArray;
+    }
+
+    private function buildLegacyAdminNoteLines($publicNote)
+    {
+        $notesInParagraphs = urldecode((string) $publicNote);
+        $notesArray = explode('</p>', str_replace('<p>', '', $notesInParagraphs));
+
+        foreach ($notesArray as $lineKey => &$line) {
+            $line = trim($line);
+            if (empty($line)) {
+                unset($notesArray[$lineKey]);
+                continue;
+            }
+
+            if (strpos($line, '<img') !== false) {
+                $baseURL = 'https://www.plexi-cindar.com';
+                $localPath = '/var/www/vhosts/plexi-cindar.com/httpdocs';
+                $pattern = '/(src=")' . preg_quote($localPath, '/') . '\/(img\/idxrcustomproduct\/uploads\/\d{4}\/\d{2}\/[^"]+)"/i';
+                $replacement = '$1' . $baseURL . '/$2"';
+                $line = preg_replace($pattern, $replacement, $line);
+            }
+
+            $colonPos = strpos($line, ':');
+            if ($colonPos !== false) {
+                $line = '<strong>' . substr($line, 0, $colonPos) . '</strong>' . substr($line, $colonPos);
+            }
+        }
+
+        return implode('</p><p>', $notesArray) . '</p>';
+    }
+
+    private function buildOrderNotesFromCart(Cart $cart, Order $order)
+    {
+        $notes = array();
+        $front_token = Configuration::get(Tools::strtoupper($this->name . '_TOKEN'));
+        $file_controller = $this->context->link->getModuleLink(
+            $this->name,
+            'file',
+            array('token' => $front_token, 'ajax' => true)
+        ) . '&key=';
+
+        $inputIds = array(
+            '3', '23', '4', '9', '10', '11',
+            '57', '58', '53', '54', '55', '56',
+            '18', '25', '26', '27',
+            '38', '64', '63', '39', '65', '40', '41', '42',
+            '75', '45', '66', '67', '68', '69', '118'
+        );
+
+        foreach ($order->getProducts() as $orderedProduct) {
+            $id_product = (int) $orderedProduct['product_id'];
+            $id_original = (int) $this->getProductoOriginal($id_product);
+            if (!$id_original) {
+                continue;
+            }
+
+            $product = new Product($id_product, false, (int) $cart->id_lang);
+            $publicDesc = is_array($product->description_short)
+                ? (isset($product->description_short[(int) $cart->id_lang]) ? $product->description_short[(int) $cart->id_lang] : reset($product->description_short))
+                : (string) $product->description_short;
+            $privateDesc = is_array($product->description)
+                ? (isset($product->description[(int) $cart->id_lang]) ? $product->description[(int) $cart->id_lang] : reset($product->description))
+                : (string) $product->description;
+
+            $data = array(
+                'id_cart' => (int) $cart->id,
+                'id_product' => $id_product,
+                'id_shop' => (int) $cart->id_shop,
+                'id_lang' => (int) $cart->id_lang,
+                'public' => (string) $publicDesc,
+                'private' => (string) $privateDesc,
+                'ordered_steps_json' => $this->getRuntimeCustomizationStepsJson((int) $cart->id, $id_original, $id_product),
+            );
+
+            $text_customization = $this->getExtraByCart((int) $cart->id, $id_product);
+            foreach ((array) $text_customization as $text) {
+                if (!empty($text['target_name'])) {
+                    $line = '<p>' . $text['title'] . ': <a target="_blank" href="' . $file_controller . $text['target_name'] . '">' . $text['original_name'] . '</a></p>';
+                } else {
+                    $suffix = in_array((string) $text['id_component'], $inputIds) ? ' mm' : '';
+                    $line = '<p>' . $text['title'] . ': ' . $text['extra'] . $suffix . '</p>';
+                }
+                $data['private'] .= $line;
+                $data['public'] .= $line;
+            }
+
+            $svgUrlQuery = 'SELECT svg_code, console FROM ' . _DB_PREFIX_ . 'idxrcustomproduct_snaps WHERE id_product = ' . $id_product;
+            $svgUrls = Db::getInstance()->executeS($svgUrlQuery);
+            if (!empty($svgUrls)) {
+                $console = $svgUrls[0]['console'];
+                if ($console === '0') {
+                    $console = 'Non';
+                } elseif ($console === '1') {
+                    $console = 'Oui';
+                }
+                $consoleLine = '<p>Console ouverte ?: ' . $console . '</p>';
+                $data['private'] .= $consoleLine;
+                $data['public'] .= $consoleLine;
+
+                if (!empty($svgUrls[0]['svg_code'])) {
+                    $svgLine = '<p>Aperçu en SVG: <a target="_blank" href="' . $svgUrls[0]['svg_code'] . '">Cliquez ici pour voir le SVG</a></p>';
+                    $data['private'] .= $svgLine;
+                    $data['public'] .= $svgLine;
+                }
+
+                $runtimeRestoreLink = $this->getRuntimeCustomizationRestoreLink((int) $cart->id, $id_original, $id_product);
+                if ($runtimeRestoreLink) {
+                    $simulationLine = '<p>'
+                        . $this->l('Simulation du configurateur')
+                        . ': <a target="_blank" href="' . $runtimeRestoreLink . '">'
+                        . $this->l('Ouvrir cette personnalisation dans le configurateur')
+                        . '</a></p>';
+                    $data['private'] .= $simulationLine;
+                    $data['public'] .= $simulationLine;
+                }
+
+                if (!empty($svgUrls[0]['svg_code'])) {
+                    $imgLine = '<p>Aperçu: <img class="perviewImageSketch" src="' . $svgUrls[0]['svg_code'] . '" width="400px" height="400px"></p>';
+                    $data['private'] .= $imgLine;
+                    $data['public'] .= $imgLine;
+                }
+            }
+
+            $notes[] = $data;
+        }
+
+        return $notes;
     }
 
     public function hookActionOrderReturn($params)
@@ -1729,120 +2614,49 @@ class IdxrCustomProduct extends Module
                     'icon' => 'icon-cogs'
                 ),
                 'input' => array(
-                    
+                    array(
+                        'type' => 'switch',
+                        'label' => $this->l('Activer le mode développement du SVG'),
+                        'name' => 'front_accordion_dev',
+                        'is_bool' => true,
+                        'values' => array(
+                            array(
+                                'id' => 'front_accordion_dev_on',
+                                'value' => 1,
+                                'label' => $this->l('Yes')
+                            ),
+                            array(
+                                'id' => 'front_accordion_dev_off',
+                                'value' => 0,
+                                'label' => $this->l('No')
+                            )
+                        ),
+                        'desc' => $this->l('Choisissez Oui pour utiliser le mode développement dans `front_accordion.js`. Choisissez Non pour rester en production.')
+                    ),
+                    array(
+                        'type' => 'switch',
+                        'label' => $this->l('Ignorer le prix de découpe pour le rectangle'),
+                        'name' => 'skip_rectangle_cutting_price',
+                        'is_bool' => true,
+                        'values' => array(
+                            array(
+                                'id' => 'skip_rectangle_cutting_price_on',
+                                'value' => 1,
+                                'label' => $this->l('Oui')
+                            ),
+                            array(
+                                'id' => 'skip_rectangle_cutting_price_off',
+                                'value' => 0,
+                                'label' => $this->l('Non')
+                            )
+                        ),
+                        'desc' => $this->l('Choisissez Oui pour ignorer le prix de découpe du contour principal pour les rectangles.')
+                    ),
                     array(
                         'type' => 'text',
                         'label' => $this->l('Afficher les déclinaisons des produits :'),
                         'name' => 'idxr_skipped_product_ids',
                         'desc' => $this->l('Ajoutez les identifiants des produits séparés des virgules, ex: 19224, 78264, 98236.'),
-                    ),
-                    array(
-                        'type' => 'text', 
-                        'label' => $this->l('Prix de decoupe pour le rectangle sur mesure.'),
-                        'name' => 'idxr_prix_de_decoupe_cube',
-                        'desc' => $this->l('Ce montant est le même pour tout les produits sur mesure.'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de découpe pour 4mm'),
-                        'name' => 'cut_price_4mm',
-                        'desc' => $this->l('Ajouter prix de découpe pour 4mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de découpe pour 5mm'),
-                        'name' => 'cut_price_5mm',
-                        'desc' => $this->l('Ajouter prix de découpe pour 5mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de découpe pour 6mm'),
-                        'name' => 'cut_price_6mm',
-                        'desc' => $this->l('Ajouter prix de découpe pour 6mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de découpe pour 8mm'),
-                        'name' => 'cut_price_8mm',
-                        'desc' => $this->l('Ajouter prix de découpe pour 8mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de découpe pour 10mm et plus'),
-                        'name' => 'cut_price_10mm',
-                        'desc' => $this->l('Ajouter prix de découpe pour 10mm et plus'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de collage pour 4mm'),
-                        'name' => 'glue_price_4mm',
-                        'desc' => $this->l('Ajouter prix de collage pour 4mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de collage pour 5mm'),
-                        'name' => 'glue_price_5mm',
-                        'desc' => $this->l('Ajouter prix de collage pour 5mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de collage pour 6mm'),
-                        'name' => 'glue_price_6mm',
-                        'desc' => $this->l('Ajouter prix de collage pour 6mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de collage pour 8mm'),
-                        'name' => 'glue_price_8mm',
-                        'desc' => $this->l('Ajouter prix de collage pour 8mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de collage pour 10mm et plus'),
-                        'name' => 'glue_price_10mm',
-                        'desc' => $this->l('Ajouter prix de collage pour 10mm et plus'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de polissage pour 4mm'),
-                        'name' => 'polish_price_4mm',
-                        'desc' => $this->l('Ajouter prix de polissage pour 4mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de polissage pour 5mm'),
-                        'name' => 'polish_price_5mm',
-                        'desc' => $this->l('Ajouter prix de polissage pour 5mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de polissage pour 6mm'),
-                        'name' => 'polish_price_6mm',
-                        'desc' => $this->l('Ajouter prix de polissage pour 6mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de polissage pour 8mm'),
-                        'name' => 'polish_price_8mm',
-                        'desc' => $this->l('Ajouter prix de polissage pour 8mm'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix de polissage pour 10mm et plus'),
-                        'name' => 'polish_price_10mm',
-                        'desc' => $this->l('Ajouter prix de polissage pour 10mm et plus'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix minimum pour les produits sur mesure.'),
-                        'name' => 'prix_fixe',
-                        'desc' => $this->l('Ce montant est le même pour tout les plaques sur mesure.'),
-                    ),
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Prix minimum pour les vitrines sur mesure.'),
-                        'name' => 'prix_fixe_vitrine',
-                        'desc' => $this->l('Ce montant est le même pour tout les vitrines sur mesure.'),
                     ),
                     array(
                         'type' => 'select',
@@ -2080,6 +2894,212 @@ class IdxrCustomProduct extends Module
         );
 
         return $this->display(__FILE__, 'views/templates/admin/module-info.tpl') . $helper->generateForm(array($fields_form));
+    }
+
+    public function renderPricingDashboard()
+    {
+        $this->context->controller->addCSS($this->_path . 'views/css/back-pricing-grid.css', 'all');
+        $this->context->controller->addJS($this->_path . 'views/js/back-pricing-grid.js', false);
+        $ajaxUrl = $this->context->link->getAdminLink('AdminModules', false)
+            . '&configure=' . $this->name
+            . '&tab_module=' . $this->tab
+            . '&module_name=' . $this->name
+            . '&token=' . Tools::getAdminTokenLite('AdminModules')
+            . '&idxr_ajax=1';
+        Media::addJsDef(array(
+            'idxr_pricing_rates_ajax_url' => $ajaxUrl,
+            'idxr_pricing_rates_labels' => array(
+                'title' => $this->l('Grille dynamique par épaisseur'),
+                'add' => $this->l('Ajouter une épaisseur'),
+                'edit' => $this->l('Modifier'),
+                'delete' => $this->l('Supprimer'),
+                'save' => $this->l('Enregistrer'),
+                'cancel' => $this->l('Annuler'),
+                'thickness' => $this->l('Épaisseur (mm)'),
+                'cutting' => $this->l('Découpe (HT €/m)'),
+                'gluing' => $this->l('Collage pour vitrine (HT €/m)'),
+                'polishing' => $this->l('Polissage (HT €/m)'),
+                'active' => $this->l('Actif'),
+                'actions' => $this->l('Actions'),
+                'loading' => $this->l('Chargement...'),
+                'empty' => $this->l('Aucune épaisseur enregistrée.'),
+                'confirmDelete' => $this->l('Supprimer cette épaisseur ?'),
+                'error' => $this->l('Une erreur est survenue.')
+            ),
+        ));
+
+        $fields_form = array(
+            'form' => array(
+                'legend' => array(
+                    'title' => $this->l('Fixed prices'),
+                    'icon' => 'icon-eur'
+                ),
+                'input' => array(
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix de découpe pour le rectangle sur mesure (HT €/m).'),
+                        'name' => 'idxr_prix_de_decoupe_cube',
+                        'class' => 'idxr-pricing-field idxr-pricing-fixed',
+                        'desc' => $this->l('Ce montant est le même pour tout les produits sur mesure.'),
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix de collage pour vitrine global (legacy) (HT €/m)'),
+                        'name' => 'prixdecollage',
+                        'class' => 'idxr-pricing-field idxr-pricing-fixed',
+                        'desc' => $this->l('Ce montant est conservé pour compatibilité avec les anciens calculs.'),
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix minimum pour les produits sur mesure.'),
+                        'name' => 'prix_fixe',
+                        'class' => 'idxr-pricing-field idxr-pricing-fixed',
+                        'desc' => $this->l('Ce montant est le même pour tout les plaques sur mesure.'),
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix minimum pour les vitrines sur mesure.'),
+                        'name' => 'prix_fixe_vitrine',
+                        'class' => 'idxr-pricing-field idxr-pricing-fixed',
+                        'desc' => $this->l('Ce montant est le même pour tout les vitrines sur mesure.'),
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Prix fixe des trous (HT €/trou)'),
+                        'name' => 'holes_fixed_price',
+                        'class' => 'idxr-pricing-field idxr-pricing-fixed',
+                        'desc' => $this->l('Montant fixe ajouté lorsque des perçages sont sélectionnés.'),
+                    ),
+                ),
+                'submit' => array(
+                    'title' => $this->l('Save'),
+                    'name' => 'submitIdxrPricingConfiguration',
+                )
+            ),
+        );
+
+        $helper = new HelperForm();
+        $helper->show_toolbar = false;
+        $lang = new Language((int) Configuration::get('PS_LANG_DEFAULT'));
+        $helper->default_form_language = $lang->id;
+        $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') ? Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') : 0;
+        $helper->identifier = $this->identifier;
+        $helper->submit_action = 'submitIdxrPricingConfiguration';
+        $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false) . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
+        $helper->token = Tools::getAdminTokenLite('AdminModules');
+        $helper->tpl_vars = array(
+            'fields_value' => $this->getConfigFieldsValues(),
+            'languages' => $this->context->controller->getLanguages(),
+            'id_language' => $this->context->language->id
+        );
+
+        return $helper->generateForm(array($fields_form)) . $this->renderThicknessRatesGrid();
+    }
+
+    protected function renderThicknessRatesGrid()
+    {
+        return '
+        <div class="panel">
+            <h3><i class="icon icon-th-list"></i> ' . $this->l('Grille dynamique par épaisseur') . '</h3>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered" id="idxr-thickness-rates-table">
+                    <thead>
+                        <tr>
+                            <th style="width:140px;">' . $this->l('Épaisseur (mm)') . '</th>
+                            <th style="width:140px;">' . $this->l('Découpe (HT €/m)') . '</th>
+                            <th style="width:140px;">' . $this->l('Collage pour vitrine (HT €/m)') . '</th>
+                            <th style="width:140px;">' . $this->l('Polissage (HT €/m)') . '</th>
+                            <th style="width:90px;">' . $this->l('Actif') . '</th>
+                            <th style="width:180px;">' . $this->l('Actions') . '</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="6">' . $this->l('Chargement...') . '</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="well">
+                <form id="idxr-thickness-rate-form" class="form-inline" onsubmit="return false;">
+                    <input type="hidden" id="idxr-rate-id" value="">
+                    <div class="form-group" style="margin-right:8px;">
+                        <label for="idxr-rate-thickness">' . $this->l('Épaisseur (mm)') . '</label>
+                        <input type="text" class="form-control" id="idxr-rate-thickness" style="width:110px;">
+                    </div>
+                    <div class="form-group" style="margin-right:8px;">
+                        <label for="idxr-rate-cut">' . $this->l('Découpe (HT €/m)') . '</label>
+                        <input type="text" class="form-control" id="idxr-rate-cut" style="width:110px;">
+                    </div>
+                    <div class="form-group" style="margin-right:8px;">
+                        <label for="idxr-rate-glue">' . $this->l('Collage pour vitrine (HT €/m)') . '</label>
+                        <input type="text" class="form-control" id="idxr-rate-glue" style="width:110px;">
+                    </div>
+                    <div class="form-group" style="margin-right:8px;">
+                        <label for="idxr-rate-polish">' . $this->l('Polissage (HT €/m)') . '</label>
+                        <input type="text" class="form-control" id="idxr-rate-polish" style="width:110px;">
+                    </div>
+                    <div class="checkbox" style="margin-right:12px;">
+                        <label><input type="checkbox" id="idxr-rate-active" checked> ' . $this->l('Actif') . '</label>
+                    </div>
+                    <button type="button" class="btn btn-primary" id="idxr-rate-save">' . $this->l('Enregistrer') . '</button>
+                    <button type="button" class="btn btn-default" id="idxr-rate-cancel" style="display:none;">' . $this->l('Annuler') . '</button>
+                </form>
+            </div>
+        </div>';
+    }
+
+    public function renderAccountCardDashboard()
+    {
+        $fields_form = array(
+            'form' => array(
+                'legend' => array(
+                    'title' => $this->l('Cartes Mon compte'),
+                    'icon' => 'icon-user'
+                ),
+                'input' => array(
+                    array(
+                        'type' => 'switch',
+                        'label' => $this->l('Afficher les personnalisations sauvegardées (Oui/Non) sur la page "Mon compte"'),
+                        'name' => 'show_fav_simulations_all_shops',
+                        'is_bool' => true,
+                        'values' => array(
+                            array(
+                                'id' => 'show_fav_simulations_all_shops_on',
+                                'value' => 1,
+                                'label' => $this->l('Yes')
+                            ),
+                            array(
+                                'id' => 'show_fav_simulations_all_shops_off',
+                                'value' => 0,
+                                'label' => $this->l('No')
+                            )
+                        ),
+                        'desc' => $this->l('Choisissez Oui pour afficher la carte "Mes simulations" dans "Mon compte" sur toutes les boutiques. Choisissez Non pour la masquer.')
+                            . '<br><img src="' . $this->_path . 'img/help-14.png" alt="Help" style="max-width:100%;height:auto;margin-top:8px;border:1px solid #ddd;">'
+                    ),
+                ),
+                'submit' => array(
+                    'title' => $this->l('Save'),
+                    'name' => 'submitIdxrAccountCardConfiguration',
+                )
+            ),
+        );
+
+        $helper = new HelperForm();
+        $helper->show_toolbar = false;
+        $lang = new Language((int) Configuration::get('PS_LANG_DEFAULT'));
+        $helper->default_form_language = $lang->id;
+        $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') ? Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') : 0;
+        $helper->identifier = $this->identifier;
+        $helper->submit_action = 'submitIdxrAccountCardConfiguration';
+        $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false) . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
+        $helper->token = Tools::getAdminTokenLite('AdminModules');
+        $helper->tpl_vars = array(
+            'fields_value' => $this->getConfigFieldsValues(),
+            'languages' => $this->context->controller->getLanguages(),
+            'id_language' => $this->context->language->id
+        );
+
+        return $helper->generateForm(array($fields_form));
     }
 
     public function renderFormAddConfiguration()
@@ -2788,7 +3808,9 @@ class IdxrCustomProduct extends Module
 
         $idxr_prix_fixe = $extraConfig['prix_fixe'] ?? '0.0000';
         $idxr_prix_fixe_vitrine = $extraConfig['prix_fixe_vitrine'] ?? '0.0000';
+        $idxr_holes_fixed_price = $extraConfig['holes_fixed_price'] ?? '0.0000';
         $idxr_prix_de_decoupe_cube = $extraConfig['prix_de_decoupe'] ?? '0.0000';
+        $idxr_prix_de_collage = $extraConfig['prix_de_collage'] ?? '0.0000';
         
         // Set fields for each thickness level for cutting and gluing
         $cutPrices = $extraConfig['cut_prices'];
@@ -2831,14 +3853,20 @@ class IdxrCustomProduct extends Module
         $fields['tablet_image_type'] = Configuration::get(Tools::strtoupper($this->name . '_TIMGTYPE'));
         $fields['coverimageid'] = Configuration::get(Tools::strtoupper($this->name . '_COVERID'));
         $fields['show_fav'] = Configuration::get(Tools::strtoupper($this->name . '_SHOWFAV'));
+        $fields['show_fav_favorite_all_shops'] = $this->getBooleanConfigAllShopsValue(Tools::strtoupper($this->name . '_SHOWFAV_FAVORITE'));
+        $fields['show_fav_simulations_all_shops'] = $this->getBooleanConfigAllShopsValue(Tools::strtoupper($this->name . '_SHOWFAV_SIMULATIONS'));
+        $fields['front_accordion_dev'] = Configuration::get(Tools::strtoupper($this->name . '_FRONT_ACCORDION_DEV'));
+        $fields['skip_rectangle_cutting_price'] = Configuration::get(Tools::strtoupper($this->name . '_SKIP_RECTANGLE_CUTTING_PRICE'));
         $fields['price_impact_taxinclude'] = Configuration::get(Tools::strtoupper($this->name . '_PRICEIMPACTTAX'));
         $fields['discount_line'] = Configuration::get(Tools::strtoupper($this->name . '_DISCOUNTLINE'));
         $fields['maxheightdescription'] = Configuration::get(Tools::strtoupper($this->name . '_MAXHEIGHTDESCRIPTION'));
         // Basic fields
         $fields['prix_fixe'] = $idxr_prix_fixe;
         $fields['prix_fixe_vitrine'] = $idxr_prix_fixe_vitrine;
+        $fields['holes_fixed_price'] = $idxr_holes_fixed_price;
         $fields['idxr_skipped_product_ids'] = $idxr_skipped_product_ids;
         $fields['idxr_prix_de_decoupe_cube'] = $idxr_prix_de_decoupe_cube;
+        $fields['prixdecollage'] = $idxr_prix_de_collage;
         
         // Fields for each thickness level of cutting prices
         $fields['cut_price_4mm'] = $cutPrices['4mm'];
@@ -2934,6 +3962,50 @@ class IdxrCustomProduct extends Module
         }
 
         return $fields;
+    }
+
+    protected function getBooleanConfigAllShopsValue($key)
+    {
+        $shops = Shop::getShops(false, null, false);
+        if (!is_array($shops) || !count($shops)) {
+            return (int) Configuration::get($key);
+        }
+
+        foreach ($shops as $shop) {
+            $idShop = isset($shop['id_shop']) ? (int) $shop['id_shop'] : 0;
+            $idShopGroup = isset($shop['id_shop_group']) ? (int) $shop['id_shop_group'] : 0;
+            if (!$idShop) {
+                continue;
+            }
+            $shopValue = (int) Configuration::get($key, null, $idShopGroup, $idShop);
+            if ($shopValue !== 1) {
+                return 0;
+            }
+        }
+
+        return 1;
+    }
+
+    protected function updateBooleanConfigForAllShops($key, $enabled)
+    {
+        $enabled = (int) ((bool) $enabled);
+
+        Configuration::updateGlobalValue($key, $enabled);
+
+        $shops = Shop::getShops(false, null, false);
+        if (!is_array($shops) || !count($shops)) {
+            Configuration::updateValue($key, $enabled);
+            return;
+        }
+
+        foreach ($shops as $shop) {
+            $idShop = isset($shop['id_shop']) ? (int) $shop['id_shop'] : 0;
+            $idShopGroup = isset($shop['id_shop_group']) ? (int) $shop['id_shop_group'] : 0;
+            if (!$idShop) {
+                continue;
+            }
+            Configuration::updateValue($key, $enabled, false, $idShopGroup, $idShop);
+        }
     }
 
     public function addConfiguration($name, $id_configuration = null)
@@ -4154,7 +5226,19 @@ class IdxrCustomProduct extends Module
     public function createProduct($product_id, $snaps, $attribute_id, $customization, $extra = false, $quantity = false, $product_weight = 0, $product_volume = 0, $product_width = 0, $product_height = 0, $product_depth = 0, $prix_de_decouper = 0, $price_from_cube = 0 )
     {
         $customproduct = new IdxCustomizedProduct();
-        return $customproduct->createInPs($product_id, $snaps, $attribute_id, $customization, $extra, $quantity, $product_weight, $product_volume, $product_width, $product_height, $product_depth, $prix_de_decouper, $price_from_cube );
+        $newProductId = (int) $customproduct->createInPs($product_id, $snaps, $attribute_id, $customization, $extra, $quantity, $product_weight, $product_volume, $product_width, $product_height, $product_depth, $prix_de_decouper, $price_from_cube);
+        if ((int) $snaps > 0 && $newProductId > 0) {
+            Db::getInstance()->update(
+                'idxrcustomproduct_runtime_customisations',
+                array(
+                    'id_customized_product' => (int) $newProductId,
+                    'date_upd' => pSQL(date('Y-m-d H:i:s')),
+                ),
+                'id_snap = ' . (int) $snaps
+            );
+        }
+
+        return $newProductId;
     }
     /*End*/
     
@@ -4304,8 +5388,11 @@ class IdxrCustomProduct extends Module
                 $id_note = Db::getInstance()->getValue($sql_exist);
                 if ($id_note) {
                     $update_data = array(
+                        'id_shop' => isset($note['id_shop']) ? (int) $note['id_shop'] : null,
+                        'id_lang' => isset($note['id_lang']) ? (int) $note['id_lang'] : null,
                         'private_note' => pSQL(urlencode($note['private'])),
-                        'public_note' => pSQL(urlencode($note['public']))
+                        'public_note' => pSQL(urlencode($note['public'])),
+                        'ordered_steps_json' => isset($note['ordered_steps_json']) ? pSQL($note['ordered_steps_json'], true) : null,
                     );
                     $where = 'id_note = ' . (int) $id_note;
                     Db::getInstance()->update('idxrcustomproduct_notes', $update_data, $where);
@@ -4313,8 +5400,11 @@ class IdxrCustomProduct extends Module
                     $insert_data = array(
                         'id_cart' => (int) $note['id_cart'],
                         'id_cart_product' => (int) $note['id_product'],
+                        'id_shop' => isset($note['id_shop']) ? (int) $note['id_shop'] : null,
+                        'id_lang' => isset($note['id_lang']) ? (int) $note['id_lang'] : null,
                         'private_note' => pSQL(urlencode($note['private'])),
-                        'public_note' => pSQL(urlencode($note['public']))
+                        'public_note' => pSQL(urlencode($note['public'])),
+                        'ordered_steps_json' => isset($note['ordered_steps_json']) ? pSQL($note['ordered_steps_json'], true) : null,
                     );
                     Db::getInstance()->insert('idxrcustomproduct_notes', $insert_data, true);
                 }
@@ -4378,23 +5468,27 @@ class IdxrCustomProduct extends Module
         if ($notes) {
             if ($front) {
                 foreach ($notes as &$note) {
-                    $notes_in_p = urldecode($note['public_note']);
-                    $notes_array = explode('</p>', str_replace('<p>', '', $notes_in_p));
-                    foreach ($notes_array as $key => &$line) {                        
-                        if (strpos($line, '<a')) {
-                            $line = $this->formatFileLink($line);
-                        }
-                        if (strpos($line, '<hr')) {
-                            $line = $this->formatMultiText($line);
-                        }
-                        if (!$line) {
-                            unset($notes_array[$key]);
-                        }
-                        if ((stripos($line, 'Console') !== false) || (stripos($line, '') !== false)) {
-                            $line = '';
-                        }
+                    $canUseOrderedSteps = $this->hasStrongOrderedStepsForCart(isset($note['ordered_steps_json']) ? $note['ordered_steps_json'] : '');
+                    $metricLines = $this->getOrderMetricLines((int) $note['id_cart_product']);
+                    $orderedLines = $canUseOrderedSteps
+                        ? $this->buildLinesFromOrderedStepsJson(isset($note['ordered_steps_json']) ? $note['ordered_steps_json'] : '')
+                        : array();
+                    if ($orderedLines) {
+                        $idOriginal = (int) $this->getProductoOriginal((int) $note['id_cart_product']);
+                        $note['notes_a'] = array_merge(
+                            $orderedLines,
+                            $metricLines,
+                            $this->getOrderDisplayMediaItems(
+                                (int) $note['id_cart'],
+                                $idOriginal,
+                                (int) $note['id_cart_product'],
+                                isset($note['id_lang']) ? (int) $note['id_lang'] : null,
+                                isset($note['id_shop']) ? (int) $note['id_shop'] : null
+                            )
+                        );
+                    } else {
+                        $note['notes_a'] = $this->buildLegacyFrontNoteLines($note['public_note']);
                     }
-                    $note['notes_a'] = $notes_array;
                     /*Edit with team wassim novatis*/
                      $product_id = $note['id_cart_product'];
                      $note['product_volume'] = $this->getProductVolume($product_id);
@@ -4414,7 +5508,6 @@ class IdxrCustomProduct extends Module
                 return $this->display(__FILE__, 'views/templates/front/order-notes.tpl');
             } else {
                 foreach ($notes as $key => $note) {
-                    $notes_in_p = urldecode($note['public_note']);
                     $product_id = $note['id_cart_product'];
                     $note['product_volume'] = $this->getProductVolume($product_id);
                     $note['product_depth'] = $this->getProductDepth($product_id);
@@ -4423,39 +5516,43 @@ class IdxrCustomProduct extends Module
 
                     // Retrieve the product name for the current note
                     $note['product_name'] = Product::getProductName($product_id);
-                
-                    // Process and format HTML content
-                    $notes_array = explode('</p>', str_replace('<p>', '', $notes_in_p));
-                
-                    foreach ($notes_array as $line_key => &$line) {
-                        // Remove any extra white space and unwanted characters
-                        $line = trim($line);
-                        if (empty($line)) {
-                            unset($notes_array[$line_key]);
-                            continue;
+
+                    $orderedLines = $this->hasStrongOrderedStepsForCart(isset($note['ordered_steps_json']) ? $note['ordered_steps_json'] : '')
+                        ? $this->buildLinesFromOrderedStepsJson(isset($note['ordered_steps_json']) ? $note['ordered_steps_json'] : '', true)
+                        : array();
+                    if ($orderedLines) {
+                        $formattedLines = array();
+                        foreach ($orderedLines as $line) {
+                            $colonPos = strpos($line, ':');
+                            if ($colonPos !== false) {
+                                $formattedLines[] = '<strong>' . substr($line, 0, $colonPos) . '</strong>' . substr($line, $colonPos);
+                            } else {
+                                $formattedLines[] = $line;
+                            }
                         }
-                
-                        // Check for images and replace local path with URL
-                        if (strpos($line, '<img') !== false) {
-                            // Define the base URL and local path
-                            $baseURL = 'https://www.plexi-cindar.com';
-                            $localPath = '/var/www/vhosts/plexi-cindar.com/httpdocs';
-                
-                            // Regular expression to replace src attribute
-                            $pattern = '/(src=")' . preg_quote($localPath, '/') . '\/(img\/idxrcustomproduct\/uploads\/\d{4}\/\d{2}\/[^"]+)"/i';
-                            $replacement = '$1' . $baseURL . '/$2"';
-                            $line = preg_replace($pattern, $replacement, $line);
+                        $idOriginal = (int) $this->getProductoOriginal((int) $note['id_cart_product']);
+                        $mediaItems = $this->getOrderDisplayMediaItems(
+                            (int) $note['id_cart'],
+                            $idOriginal,
+                            (int) $note['id_cart_product'],
+                            isset($note['id_lang']) ? (int) $note['id_lang'] : null,
+                            isset($note['id_shop']) ? (int) $note['id_shop'] : null
+                        );
+                        foreach ($mediaItems as $mediaItem) {
+                            if (!empty($mediaItem['link_href'])) {
+                                $formattedLines[] = '<strong>' . Tools::safeOutput($mediaItem['link_title']) . '</strong>: '
+                                    . '<a target="_blank" href="' . Tools::safeOutput($mediaItem['link_href']) . '">'
+                                    . Tools::safeOutput($mediaItem['link_text'])
+                                    . '</a>';
+                            } elseif (!empty($mediaItem['image_url'])) {
+                                $formattedLines[] = '<strong>' . Tools::safeOutput($mediaItem['image_title']) . '</strong>: '
+                                    . '<img class="perviewImageSketch" src="' . Tools::safeOutput($mediaItem['image_url']) . '" width="400px" height="400px">';
+                            }
                         }
-                
-                        // Enhance visibility of certain parts
-                        $colonPos = strpos($line, ':');
-                        if ($colonPos !== false) {
-                            $line = '<strong>' . substr($line, 0, $colonPos) . '</strong>' . substr($line, $colonPos);
-                        }
+                        $note['notes_a'] = $formattedLines;
+                    } else {
+                        $note['notes_a'] = $this->buildLegacyAdminNoteLines($note['public_note']);
                     }
-                
-                    // Reassemble the note after processing
-                    $note['notes_a'] = implode('</p><p>', $notes_array) . '</p>';
                 
                     // Update the original notes array with the modified note
                     $notes[$key] = $note;
@@ -4480,58 +5577,104 @@ class IdxrCustomProduct extends Module
             foreach ($notes as &$note) {
                 $note['product_name'] = Product::getProductName($note['id_cart_product']);
                 $thickness = number_format((float) $this->getProductDepth($note['id_cart_product']), 2, '.', '');
-                
-                $notes_in_p = urldecode($note['public_note']);
-                $notes_array = explode('</p>', str_replace('<p>', '', $notes_in_p));
+                $metricLines = $this->getOrderMetricLines((int) $note['id_cart_product']);
                 $notes_array_out = array();
-                $thickness_inserted = false;
-    
-                // Initialize the preview image variable
                 $preview_img = '';
-    
-                // Process each line of the notes
-                foreach ($notes_array as &$line) {
-                    if (!$thickness_inserted && $thickness !== null && $thickness !== '' && stripos($line, 'Aperçu en SVG') !== false) {
-                        $notes_array_out[] = '<strong>Epaisseur: </strong> ' . $thickness;
-                        $thickness_inserted = true;
+                $orderedLines = $this->hasStrongOrderedStepsForCart(isset($note['ordered_steps_json']) ? $note['ordered_steps_json'] : '')
+                    ? $this->buildLinesFromOrderedStepsJson(isset($note['ordered_steps_json']) ? $note['ordered_steps_json'] : '')
+                    : array();
+
+                if ($orderedLines) {
+                    foreach ($orderedLines as $line) {
+                        $colonPos = strpos($line, ':');
+                        if ($colonPos !== false) {
+                            $notes_array_out[] = '<strong>' . substr($line, 0, $colonPos) . '</strong>' . substr($line, $colonPos);
+                        } else {
+                            $notes_array_out[] = $line;
+                        }
                     }
-                    if (stripos($line, 'Console') !== false) {
-                        $line = '';
-                    } else {
-                            // $preview_img = $line1;
-                            // $line = '';
-                            // $line1 = str_replace('Aperçu:', '', $line);
-                            // $line1 = str_replace('300px', '500px', $line1);
+                    if ($thickness !== null && $thickness !== '') {
+                        $notes_array_out[] = '<strong>Epaisseur: </strong> ' . $thickness;
+                    }
+                    foreach ($metricLines as $metricLine) {
+                        $colonPos = strpos($metricLine, ':');
+                        if ($colonPos !== false) {
+                            $notes_array_out[] = '<strong>' . substr($metricLine, 0, $colonPos) . '</strong>' . substr($metricLine, $colonPos);
+                        } else {
+                            $notes_array_out[] = $metricLine;
+                        }
+                    }
+                } else {
+                    $notes_in_p = urldecode($note['public_note']);
+                    $notes_array = explode('</p>', str_replace('<p>', '', $notes_in_p));
+                    $thickness_inserted = false;
+
+                    foreach ($notes_array as &$line) {
+                        if (!$thickness_inserted && $thickness !== null && $thickness !== '' && stripos($line, 'Aperçu en SVG') !== false) {
+                            $notes_array_out[] = '<strong>Epaisseur: </strong> ' . $thickness;
+                            $thickness_inserted = true;
+                        }
+                        if (stripos($line, 'Console') !== false) {
+                            $line = '';
+                        } else {
                             if (stripos($line, 'Aperçu en SVG') !== false) {
-                                // Modify the link by pointing to a `download.php` script
                                 $line = preg_replace_callback('/<a\s+([^>]+)href="([^"]+)">([^<]+)<\/a>/', function ($matches) {
-                                    // Extract the original href (URL of the SVG)
                                     $href = $matches[2];
-                            
-                                    // Construct the new href which points to the download.php with the file parameter
                                     $new_href = 'https://www.plexi-cindar.com/modules/idxrcustomproduct/controllers/front/download.php?file=' . urlencode($href);
-                            
-                                    // Return the modified <a> tag with the new href and the download attribute
                                     return '<a ' . $matches[1] . 'href="' . $new_href . '" download>' . $matches[3] . '</a>';
                                 }, $line);
                             } else if ((stripos($line, 'Aperçu') !== false) || (stripos($line, 'L\'épaisseur') !== false) || (stripos($line, 'La couleur') !== false)) {
-                                $line='';
-                            }else{
-                            $colonPos = strpos($line, ':');
-                            if ($colonPos !== false) {
-                                $firstPart = substr($line, 0, $colonPos);
-                                $firstPart = '<strong>' . $firstPart . '</strong>';
-                                $line = $firstPart . substr($line, $colonPos);
+                                $line = '';
+                            } else {
+                                $colonPos = strpos($line, ':');
+                                if ($colonPos !== false) {
+                                    $firstPart = substr($line, 0, $colonPos);
+                                    $firstPart = '<strong>' . $firstPart . '</strong>';
+                                    $line = $firstPart . substr($line, $colonPos);
+                                }
                             }
                         }
+                        if ($line !== '') {
+                            $notes_array_out[] = $line;
+                        }
                     }
-                    if ($line !== '') {
-                        $notes_array_out[] = $line;
+
+                    if (!$thickness_inserted && $thickness !== null && $thickness !== '') {
+                        $notes_array_out[] = '<strong>Epaisseur: </strong> ' . $thickness;
+                    }
+                    foreach ($metricLines as $metricLine) {
+                        $colonPos = strpos($metricLine, ':');
+                        if ($colonPos !== false) {
+                            $notes_array_out[] = '<strong>' . substr($metricLine, 0, $colonPos) . '</strong>' . substr($metricLine, $colonPos);
+                        } else {
+                            $notes_array_out[] = $metricLine;
+                        }
                     }
                 }
 
-                if (!$thickness_inserted && $thickness !== null && $thickness !== '') {
-                    $notes_array_out[] = '<strong>Epaisseur: </strong> ' . $thickness;
+                if ($orderedLines) {
+                    $idOriginal = (int) $this->getProductoOriginal((int) $note['id_cart_product']);
+                    $mediaItems = $this->getOrderDisplayMediaItems(
+                        (int) $note['id_cart'],
+                        $idOriginal,
+                        (int) $note['id_cart_product'],
+                        isset($note['id_lang']) ? (int) $note['id_lang'] : null,
+                        isset($note['id_shop']) ? (int) $note['id_shop'] : null
+                    );
+                    foreach ($mediaItems as $mediaItem) {
+                        if (empty($mediaItem['link_href'])) {
+                            continue;
+                        }
+
+                        $linkText = $mediaItem['link_title'] === $this->l('Aperçu en SVG')
+                            ? $this->l('Voir le fichier')
+                            : $this->l('Ouvrir la simulation');
+
+                        $notes_array_out[] = '<strong>' . Tools::safeOutput($mediaItem['link_title']) . '</strong>: '
+                            . '<a target="_blank" href="' . Tools::safeOutput($mediaItem['link_href']) . '">'
+                            . Tools::safeOutput($linkText)
+                            . '</a>';
+                    }
                 }
 
                 $note['notes_a'] = $notes_array_out;
@@ -4642,59 +5785,71 @@ class IdxrCustomProduct extends Module
                 $parent_product = new Product($data['original_product']);
                 $data['original_url'] = $this->context->link->getProductLink($parent_product);
                 if ($clean) {
-                    $data['customization'] = '<table class=\"table-config\">';
+                    $data['customization'] = '<table class="table-config">';
                 } else {
-                    $data['customization'] = '<table class=\"tabla-resumen table table-bordered\">';
+                    $data['customization'] = '<table class="tabla-resumen table table-bordered">';
                 }
-                $data['customization'] .= str_replace(array('<p>', ':', '</p>'), array('<tr><td>', ':</td><td>', '</td></tr>'), $product['description_short']);
-                $data['extra_info'] = false;
-                file_put_contents(__DIR__ . '/extra_titles.log', "[" . date('Y-m-d H:i:s') . "] customization: " . $data['customization'] . "\n", FILE_APPEND);
-                // Remove rows with "La couleur" or "L'épaisseur" titles (case-sensitive match)
-                $data['customization'] = preg_replace(
-                    '#<tr><td>La couleur:</td><td>.*?</td></tr>#',
-                    '',
-                    $data['customization']
-                );
 
-                $data['customization'] = preg_replace(
-                    "#<tr><td>L'épaisseur:</td><td>.*?</td></tr>#",
-                    '',
-                    $data['customization']
-                );
+                $orderedStepsJson = $this->getRuntimeCustomizationStepsJson((int) $id_cart, (int) $data['original_product'], (int) $product['id_product']);
+                $orderedRows = $this->hasStrongOrderedStepsForCart($orderedStepsJson)
+                    ? $this->buildCustomizationRowsFromOrderedStepsJson($orderedStepsJson)
+                    : array('rows_html' => '', 'has_details' => false);
+                $data['customization'] .= $orderedRows['rows_html'];
+                $data['extra_info'] = $orderedRows['has_details'];
 
-                $inputIds = [
-                    '3', '23', '4', '9', '10', '11',
-                    '57', '58', '53', '54', '55', '56',
-                    '18', '25', '26', '27',
-                    '38', '64', '63', '39', '65', '40', '41', '42',
-                    '75', '45', '66', '67', '68', '69', '118'
-                ];
-
-                foreach ($extra_options as $extra) {
-                    if ($extra['id_product'] == $product['id_product']) {
-                        // Skip displaying color and thickness if title is exactly those values
-
-                        if ($extra['title'] === "L'épaisseur" || $extra['title'] === 'La couleur') {
-                            continue;
-                        }
-                
-                        $data['extra_info'] = true;
-                
-                        if ($extra['original_name']) {
-                            $data['customization'] .= '<tr><td>' . $extra['title'] . ':</td><td>' .
-                                (isset($extra['qty']) ? $extra['qty'] . ' ' : '') .
-                                '<a href="' . $file_controller . $extra['target_name'] . '" target="_blank">' .
-                                $extra['original_name'] . '</a></td></tr>';
-                        } else {
-                            if (strpos($extra['extra'], ',')) {
-                                $extra_multiple = array_map('trim', explode(',', $extra['extra']));
-                                $extra['extra'] = '<span class="idxcp_extratext">' . implode('</span><br/><span class="idxcp_extratext">', $extra_multiple) . "</span>";
+                if (!$orderedRows['has_details']) {
+                    $data['customization'] .= str_replace(array('<p>', ':', '</p>'), array('<tr><td>', ':</td><td>', '</td></tr>'), $product['description_short']);
+                    $data['extra_info'] = false;
+                    $data['customization'] = preg_replace_callback(
+                        '#<tr><td>Component\s+(\d+):</td><td>#i',
+                        function ($matches) {
+                            $componentTitle = $this->getComponentName((int) $matches[1], true, (int) $this->context->language->id);
+                            if (!$componentTitle) {
+                                $componentTitle = 'Component ' . (int) $matches[1];
                             }
-                
-                            if (in_array($extra['id_component'], $inputIds)) {
-                                $data['customization'] .= '<tr><td>' . $extra['title'] . ':</td><td>' . $extra['extra'] . ' mm</td></tr>';
+                            return '<tr><td>' . Tools::safeOutput($componentTitle) . ':</td><td>';
+                        },
+                        $data['customization']
+                    );
+                    // Remove rows with "La couleur" or "L'épaisseur" titles (case-sensitive match)
+                    $data['customization'] = preg_replace(
+                        '#<tr><td>La couleur:</td><td>.*?</td></tr>#',
+                        '',
+                        $data['customization']
+                    );
+
+                    $data['customization'] = preg_replace(
+                        "#<tr><td>L'épaisseur:</td><td>.*?</td></tr>#",
+                        '',
+                        $data['customization']
+                    );
+
+                    $inputIds = $this->getOrderedStepInputIds();
+
+                    foreach ($extra_options as $extra) {
+                        if ($extra['id_product'] == $product['id_product']) {
+                            if ($extra['title'] === "L'épaisseur" || $extra['title'] === 'La couleur') {
+                                continue;
+                            }
+
+                            $data['extra_info'] = true;
+
+                            if ($extra['original_name']) {
+                                $data['customization'] .= '<tr><td>' . $extra['title'] . ':</td><td>' .
+                                    (isset($extra['qty']) ? $extra['qty'] . ' ' : '') .
+                                    '<a href="' . $file_controller . $extra['target_name'] . '" target="_blank">' .
+                                    $extra['original_name'] . '</a></td></tr>';
                             } else {
-                                $data['customization'] .= '<tr><td>' . $extra['title'] . ':</td><td>' . $extra['extra'] . '</td></tr>';
+                                if (strpos($extra['extra'], ',')) {
+                                    $extra_multiple = array_map('trim', explode(',', $extra['extra']));
+                                    $extra['extra'] = '<span class="idxcp_extratext">' . implode('</span><br/><span class="idxcp_extratext">', $extra_multiple) . "</span>";
+                                }
+
+                                if (in_array($extra['id_component'], $inputIds)) {
+                                    $data['customization'] .= '<tr><td>' . $extra['title'] . ':</td><td>' . $extra['extra'] . ' mm</td></tr>';
+                                } else {
+                                    $data['customization'] .= '<tr><td>' . $extra['title'] . ':</td><td>' . $extra['extra'] . '</td></tr>';
+                                }
                             }
                         }
                     }
@@ -4756,10 +5911,10 @@ class IdxrCustomProduct extends Module
 
     public function getExtraByCart($id_cart, $id_product = false)
     {
-        $query = 'Select ext.*, comp.title, files.original_name, files.target_name from ' . _DB_PREFIX_ . 'idxrcustomproduct_customer_extra ext '
-                . 'inner join ' . _DB_PREFIX_ . 'idxrcustomproduct_components_lang comp on ext.id_component = comp.id_component '
+        $query = 'Select ext.*, COALESCE(comp.title, CONCAT("Component ", ext.id_component)) as title, files.original_name, files.target_name from ' . _DB_PREFIX_ . 'idxrcustomproduct_customer_extra ext '
+                . 'left join ' . _DB_PREFIX_ . 'idxrcustomproduct_components_lang comp on ext.id_component = comp.id_component and comp.id_lang = ' . (int) $this->context->language->id . ' '
                 . 'left join ' . _DB_PREFIX_ . 'idxrcustomproduct_files files on files.id_component = ext.id_component and files.id_cart = ext.id_cart and ext.extra  like concat("%",files.original_name,"%") '
-                . 'where ext.id_cart = ' . (int) $id_cart . ' and comp.id_lang = ' . (int) $this->context->language->id;
+                . 'where ext.id_cart = ' . (int) $id_cart;
         if ($id_product) {
             $query .= ' and ext.id_product = ' . (int) $id_product;
         }
@@ -5147,6 +6302,12 @@ class IdxrCustomProduct extends Module
         if (Tools::isSubmit('updateconfiguration') || Tools::isSubmit('submitConfigurationStay') || Tools::isSubmit('updateidxrcustomproduct_configurations')) {
             $current_cat = 'renderFormAddConfiguration';
         }
+        if (Tools::isSubmit('submitIdxrPricingConfiguration')) {
+            $current_cat = 'renderPricingDashboard';
+        }
+        if (Tools::isSubmit('submitIdxrAccountCardConfiguration')) {
+            $current_cat = 'renderAccountCardDashboard';
+        }
 
         $this->innovatabs = array();
 
@@ -5156,7 +6317,25 @@ class IdxrCustomProduct extends Module
             "link" => "helpGenerateForm",
             "type" => "tab",
             "show" => "both",
-            "active" => $locked
+            "active" => $locked ? true : ($current_cat == 'helpGenerateForm')
+        );
+
+        $this->innovatabs [] = array(
+            "title" => $this->l('Pricing'),
+            "icon" => "eur",
+            "link" => "renderPricingDashboard",
+            "type" => "tab",
+            "show" => "both",
+            "active" => ($current_cat == 'renderPricingDashboard') ? true : false
+        );
+
+        $this->innovatabs [] = array(
+            "title" => $this->l('My Account cards'),
+            "icon" => "user",
+            "link" => "renderAccountCardDashboard",
+            "type" => "tab",
+            "show" => "both",
+            "active" => ($current_cat == 'renderAccountCardDashboard') ? true : false
         );
 
         if (!$locked) {
@@ -5235,13 +6414,6 @@ class IdxrCustomProduct extends Module
             }
         }
 
-        $this->innovatabs[] = array(
-            "title" => $this->l('Our Modules'),
-            "icon" => "cubes",
-            "link" => $isoLinks["ourmodules"],
-            "type" => "url",
-            "show" => "both",
-        );
     }
 
     public function innovaTitle()

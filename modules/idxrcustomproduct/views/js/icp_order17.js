@@ -31,7 +31,7 @@ function loadInfo()
         var grid = $(this);
         var product_id = $(this).find('.js-cart-line-product-quantity').data('product-id');
         extraInfo.forEach(function(product){
-            if(product.id_product == product_id){
+            if(product.id_product == product_id) {
                 if (product.extra_info) {
                     grid.find('.input-group-btn-vertical').hide();
                     grid.find('.js-cart-line-product-quantity').prop('disabled', true);
@@ -41,6 +41,9 @@ function loadInfo()
                 grid.find('.product-line-info').first().after(product.customization.replace('\\', ''));
                 if (product.original_url) {
                     grid.find(".product-line-info a").attr("href", product.original_url)
+                    grid.find('.js-cart-line-product-quantity').prop('disabled', true);//Add with wassim
+                    grid.find('.js-cart-line-product-quantity').prop('title', icp_qtyblock_text);//Add with wassim
+                    
                 } else {
                     grid.find(".product-line-info a").replaceWith(function(){
                         return $("<span>" + $(this).html() + "</span>");

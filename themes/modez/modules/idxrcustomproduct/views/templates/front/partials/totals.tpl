@@ -10,7 +10,9 @@
 
 <tr id="resume_total_price_braigue">                                
 <span class='hidden' id='js_tax_ratio'>{$steps.tax_ratio|escape:'htmlall':'UTF-8'}</span>
-<td colspan="2"><b>{l s='Product with this customization' mod='idxrcustomproduct'}</b></td>
+<td colspan="2" style="text-align: left;">
+<b>{l s='Product with this customization' mod='idxrcustomproduct'}</b>
+<p class="p-0 m-0">{l s='Options HT' mod='idxrcustomproduct'}</p></td>
 <td>
     <div class="pull-right pull-right-h4" style="
     text-align: center;">

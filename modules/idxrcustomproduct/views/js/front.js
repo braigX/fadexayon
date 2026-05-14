@@ -7,10 +7,7 @@
 * @copyright 2017 Innova Deluxe SL
 * @license   INNOVADELUXE
 */
-
-
-
-
+console.log('innn');
 var actual_cover = '';
 var es17 = false;
 if (typeof(prestashop) != "undefined" && prestashop !== null){
@@ -19,11 +16,1342 @@ if (typeof(prestashop) != "undefined" && prestashop !== null){
 var block_animation = false;
 var debug = false;
 var idxcp_newtax = idxcp_originaltax
+var isAddingToCart = false;
+var idxrPendingUrlRestoreItem = null;
+var idxrUrlRestorePromptShown = false;
+var idxrI18n = {
+    loading: window.idxr_tr_loading || 'Loading...',
+    saving: window.idxr_tr_saving || 'Saving...',
+    restoring: window.idxr_tr_restoring || 'Restoring...',
+    saveCustomization: window.idxr_tr_save_customization || 'Save customization',
+    restoreCustomization: window.idxr_tr_restore_customization || 'Restore customization',
+    loginToSave: window.idxr_tr_login_to_save_customisations || 'Login to save customisations',
+    previewCurrentSelection: window.idxr_tr_preview_current_selection || 'Preview of current selection',
+    pleaseEnterName: window.idxr_tr_please_enter_name || 'Please enter a name.',
+    pleaseSelectOne: window.idxr_tr_please_select_one_customization || 'Please select one customization.',
+    cancel: window.idxr_tr_cancel || 'Cancel',
+    save: window.idxr_tr_save || 'Save',
+    restore: window.idxr_tr_restore || 'Restore',
+    noSavedCustomizationsForProduct: window.idxr_tr_no_saved_customizations_for_product || 'No saved customizations for this product.',
+    unnamedCustomization: window.idxr_tr_unnamed_customization || 'Unnamed customization',
+    noPreview: window.idxr_tr_no_preview || 'No preview',
+    noPreviewAvailable: window.idxr_tr_no_preview_available || 'No preview available.',
+    myCustomization: window.idxr_tr_my_customization || 'My customization',
+    unableLoadSavedCustomizations: window.idxr_tr_unable_load_saved_customizations || 'Unable to load saved customizations.',
+    unableSaveCustomization: window.idxr_tr_unable_save_customization || 'Unable to save customization.',
+    unableRestoreCustomization: window.idxr_tr_unable_restore_customization || 'Unable to restore customization.',
+    unableApplySavedCustomization: window.idxr_tr_unable_apply_saved_customization || 'Unable to apply saved customization.',
+    savedPayloadInvalid: window.idxr_tr_saved_payload_invalid || 'Saved customization payload is invalid.',
+    requestFailed: window.idxr_tr_request_failed || 'Request failed.'
+};
+
+function normalizeExtraPayloadValue(value) {
+    if (value === null || typeof value === 'undefined') {
+        return 'false';
+    }
+    var normalized = ('' + value).trim();
+    if (!normalized.length) {
+        return 'false';
+    }
+    return normalized.replace('3x7r4', 'extra');
+}
+
+function buildExtraInfoPayload() {
+    var extraByComponent = {};
+    var order = [];
+
+    $('.sel_opt_extra').each(function () {
+        var componentId = parseInt($(this).attr('id').split("_")[3], 10);
+        if (isNaN(componentId)) {
+            return;
+        }
+        if (!Object.prototype.hasOwnProperty.call(extraByComponent, componentId)) {
+            order.push(componentId);
+        }
+        extraByComponent[componentId] = normalizeExtraPayloadValue($(this).html());
+    });
+
+    var processedStep = {};
+    $('.js_icp_next_option').each(function () {
+        var stepId = ($(this).attr('id') || '').replace('js_icp_next_opt_', '');
+        if (!stepId || processedStep[stepId]) {
+            return;
+        }
+        processedStep[stepId] = true;
+
+        var componentId = parseInt(stepId, 10);
+        if (isNaN(componentId)) {
+            return;
+        }
+
+        var stepContainer = $('#component_step_' + stepId);
+        if (stepContainer.length && stepContainer.hasClass('hidden')) {
+            return;
+        }
+
+        var selectedMarker = $('#js_opt_' + stepId + '_value').html();
+        var extraMarker = $('#js_opt_extra_' + stepId + '_value').html();
+        if (selectedMarker === 'false' && extraMarker === 'false') {
+            return;
+        }
+
+        var stepType = $(this).attr('data-type');
+        var liveValue;
+        if (stepType === 'text') {
+            liveValue = $('#text_' + stepId).val();
+        } else if (stepType === 'textarea') {
+            liveValue = $('#textarea_' + stepId).val();
+        } else if (stepType === 'file') {
+            liveValue = ($('#file_' + stepId).val() || '').replace(/C:\\fakepath\\/i, '');
+        } else {
+            return;
+        }
+
+        if (!Object.prototype.hasOwnProperty.call(extraByComponent, componentId)) {
+            order.push(componentId);
+        }
+        extraByComponent[componentId] = normalizeExtraPayloadValue(liveValue);
+    });
+
+    var payload = '';
+    var separator = '';
+    $.each(order, function (_, componentId) {
+        payload += separator + componentId + '_' + JSON.stringify(extraByComponent[componentId]);
+        separator = '3x7r4';
+    });
+
+    return payload;
+}
+
+function syncInputExtraToHidden(stepId) {
+    var stepType = $('#js_icp_next_opt_' + stepId).attr('data-type');
+    var value = 'false';
+    if (stepType === 'text') {
+        value = $('#text_' + stepId).val();
+    } else if (stepType === 'textarea') {
+        value = $('#textarea_' + stepId).val();
+    } else if (stepType === 'file') {
+        value = ($('#file_' + stepId).val() || '').replace(/C:\\fakepath\\/i, '');
+    }
+    $('#js_opt_extra_' + stepId + '_value').html(normalizeExtraPayloadValue(value));
+}
+
+function idxrServerRequest(action, payload) {
+    var data = payload || {};
+    data.action = action;
+    return $.post(url_ajax, data).then(function (response) {
+        if (typeof response === 'string') {
+            try {
+                response = JSON.parse(response);
+            } catch (e) {
+                return $.Deferred().reject('invalid_json').promise();
+            }
+        }
+        if (!response || response.success !== true) {
+            return $.Deferred().reject(response && response.message ? response.message : 'request_failed').promise();
+        }
+        return response;
+    });
+}
+
+function idxrErrorMessage(err, fallbackMessage) {
+    if (typeof err === 'string' && err.length) {
+        return err;
+    }
+    if (err && err.responseText) {
+        try {
+            var parsed = JSON.parse(err.responseText);
+            if (parsed && parsed.message) {
+                return parsed.message;
+            }
+        } catch (e) {
+            // ignore parse errors and fallback below
+        }
+    }
+    return fallbackMessage || idxrI18n.requestFailed;
+}
+
+function idxrSetRestoreButtonLoading(isLoading) {
+    var $btn = $('#restore-customization-button-unique-12345');
+    if (!$btn.length) {
+        return;
+    }
+
+    if (isLoading) {
+        if (!$btn.data('idxr-original-html')) {
+            $btn.data('idxr-original-html', $btn.html());
+        }
+        if ($btn.data('idxr-original-disabled') === undefined) {
+            $btn.data('idxr-original-disabled', $btn.prop('disabled'));
+        }
+        $btn.prop('disabled', true).addClass('disabled');
+        $btn.html('<i class="cart-icon-unique-12345" style="background-color:#1e0978;"><img src="/modules/idxrcustomproduct/img/icon/loading.png" alt="" style="animation:idxrSpin 1s linear infinite;"></i><span>' + idxrEsc(idxrI18n.loading) + '</span>');
+        if (!$('#idxr-restore-loading-style').length) {
+            $('head').append('<style id="idxr-restore-loading-style">@keyframes idxrSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}</style>');
+        }
+        return;
+    }
+
+    var originalHtml = $btn.data('idxr-original-html');
+    if (originalHtml) {
+        $btn.html(originalHtml);
+    }
+    var originallyDisabled = !!$btn.data('idxr-original-disabled');
+    $btn.prop('disabled', originallyDisabled);
+    $btn.toggleClass('disabled', originallyDisabled);
+}
+
+function idxrSetModalActionLoading(selector, isLoading, loadingText) {
+    var $btn = $(selector);
+    if (!$btn.length) {
+        return;
+    }
+
+    if (isLoading) {
+        if (!$btn.data('idxr-original-html')) {
+            $btn.data('idxr-original-html', $btn.html());
+        }
+        if ($btn.data('idxr-original-disabled') === undefined) {
+            $btn.data('idxr-original-disabled', $btn.prop('disabled'));
+        }
+        $btn.prop('disabled', true);
+        $btn.html('<span style="display:inline-flex;align-items:center;gap:8px;"><img src="/modules/idxrcustomproduct/img/icon/loading.png" alt="" style="width:16px;height:16px;animation:idxrSpin 1s linear infinite;">' + idxrEsc(loadingText || idxrI18n.loading) + '</span>');
+        return;
+    }
+
+    var originalHtml = $btn.data('idxr-original-html');
+    if (originalHtml) {
+        $btn.html(originalHtml);
+    }
+    var originallyDisabled = !!$btn.data('idxr-original-disabled');
+    $btn.prop('disabled', originallyDisabled);
+}
+
+function idxrSetGlobalPreloader(isVisible) {
+    idxrEnsureGlobalPreloaderElements();
+    var $overlay = $('#preloader-overlay-xyz123');
+    var $spinner = $('#spinner-abc456');
+    if (!$overlay.length && !$spinner.length) {
+        return;
+    }
+    if (isVisible) {
+        $overlay.show();
+        $spinner.show();
+    } else {
+        $overlay.hide();
+        $spinner.hide();
+    }
+}
+
+function idxrEnsureGlobalPreloaderElements() {
+    var $section = $('#idxr_customisation_section');
+    if (!$section.length) {
+        return;
+    }
+    if ($section.css('position') === 'static') {
+        $section.css('position', 'relative');
+    }
+
+    if (!$('#preloader-overlay-xyz123').length) {
+        $section.append('<div id="preloader-overlay-xyz123" class="preloader-overlay"><div id="spinner-abc456" class="spinner"></div></div>');
+    } else if (!$('#spinner-abc456').length) {
+        $('#preloader-overlay-xyz123').append('<div id="spinner-abc456" class="spinner"></div>');
+    }
+
+    if (!$('#idxr-inline-preloader-style').length) {
+        $('head').append(
+            '<style id="idxr-inline-preloader-style">' +
+            '.preloader-overlay{position:absolute;inset:0;background:rgba(255,255,255,.72);display:none;z-index:10030;}' +
+            '.spinner{position:absolute;top:50%;left:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border:4px solid #d7ddf2;border-top-color:#2e48c4;border-radius:50%;animation:idxrPreloaderSpin 1s linear infinite;display:none;z-index:10031;}' +
+            '@keyframes idxrPreloaderSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}' +
+            '</style>'
+        );
+    }
+}
+
+function idxrResetAllBeforeRestore() {
+    // Trigger module-specific "none" options first when present.
+    if ($('#card_17_0').length) {
+        $('#card_17_0').trigger('click');
+    }
+    if ($('#card_29_0').length) {
+        $('#card_29_0').trigger('click');
+    }
+
+    $('.component_step').each(function () {
+        var stepId = (($(this).attr('id') || '').replace('component_step_', ''));
+        if (!stepId || stepId === 'last') {
+            return;
+        }
+
+        $('input[name=option_' + stepId + ']').prop('checked', false);
+        $('[id^="option_' + stepId + '_"][id$="_qty"]').val('');
+
+        $('#text_' + stepId).val('');
+        $('#textarea_' + stepId).val('');
+        $('#file_' + stepId).val('');
+
+        $('#js_opt_' + stepId + '_value').html('false');
+        $('#js_opt_extra_' + stepId + '_value').html('false');
+        $('#js_opt_' + stepId + '_value_wqty').html('false');
+
+        $('#step_content_' + stepId).removeClass('finished');
+        $('#step_title_' + stepId + ' .check').removeClass('check');
+    });
+
+    if (typeof checkFinish === 'function') {
+        checkFinish();
+    }
+}
+
+function idxrGetUrlParam(paramName) {
+    var fullUrl = '';
+    try {
+        fullUrl = String(window.location.href || '');
+    } catch (e) {
+        fullUrl = '';
+    }
+    if (fullUrl.length) {
+        var fullMatch = fullUrl.match(new RegExp('[?&#]' + paramName + '=([^&#]+)'));
+        if (fullMatch && fullMatch[1]) {
+            return decodeURIComponent(fullMatch[1]);
+        }
+    }
+
+    if (typeof URLSearchParams !== 'undefined') {
+        var params = new URLSearchParams(window.location.search || '');
+        var fromSearch = params.get(paramName);
+        if (fromSearch !== null) {
+            return fromSearch;
+        }
+        var hash = window.location.hash || '';
+        var qPos = hash.indexOf('?');
+        if (qPos >= 0) {
+            var hashParams = new URLSearchParams(hash.substring(qPos + 1));
+            var fromHash = hashParams.get(paramName);
+            if (fromHash !== null) {
+                return fromHash;
+            }
+        }
+    }
+    var match = (window.location.search || '').match(new RegExp('[?&]' + paramName + '=([^&]+)'));
+    if (match) {
+        return decodeURIComponent(match[1]);
+    }
+    var hashMatch = (window.location.hash || '').match(new RegExp('[?&]' + paramName + '=([^&]+)'));
+    return hashMatch ? decodeURIComponent(hashMatch[1]) : null;
+}
+
+function idxrRemoveUrlParam(paramName) {
+    if (!window.history || !window.history.replaceState) {
+        return;
+    }
+    var url = new URL(window.location.href);
+    url.searchParams.delete(paramName);
+    if (url.hash && url.hash.indexOf('?') >= 0) {
+        var hashRaw = url.hash.substring(1);
+        var hashParts = hashRaw.split('?');
+        var hashPath = hashParts[0];
+        var hashQuery = hashParts.slice(1).join('?');
+        var hashParams = new URLSearchParams(hashQuery);
+        hashParams.delete(paramName);
+        var hashQueryString = hashParams.toString();
+        url.hash = hashPath + (hashQueryString ? '?' + hashQueryString : '');
+    }
+    window.history.replaceState({}, document.title, url.toString());
+}
+
+function idxrWaitForConfiguratorReady(timeoutMs) {
+    var maxMs = parseInt(timeoutMs, 10) || 12000;
+    var startedAt = Date.now();
+    return new Promise(function (resolve) {
+        function checkReady() {
+            var hasContainer = $('#component_steps_container').length > 0;
+            var hasSteps = $('#component_steps_container .component_step').length > 0;
+            var hasNextButtons = $('#component_steps_container .js_icp_next_option').length > 0;
+            var hasApi = (typeof set_option_value === 'function' && typeof checkFinish === 'function');
+            if (hasContainer && hasSteps && hasNextButtons && hasApi) {
+                resolve(true);
+                return;
+            }
+            if (Date.now() - startedAt >= maxMs) {
+                resolve(false);
+                return;
+            }
+            setTimeout(checkReady, 250);
+        }
+        checkReady();
+    });
+}
+
+function idxrParseSnapshotFromItem(item) {
+    if (!item) {
+        return null;
+    }
+
+    function idxrParseCustomizationToSteps(customizationRaw, extraRaw) {
+        var stepsMap = {};
+        var customization = (customizationRaw || '').toString().trim();
+        var extraInfo = (extraRaw || '').toString();
+
+        if (customization.length) {
+            $.each(customization.split(','), function (_, tokenRaw) {
+                var token = (tokenRaw || '').trim();
+                var underscorePos;
+                var stepId;
+                var payload;
+                if (!token.length) {
+                    return;
+                }
+                underscorePos = token.indexOf('_');
+                if (underscorePos <= 0) {
+                    return;
+                }
+                stepId = token.substring(0, underscorePos);
+                payload = token.substring(underscorePos + 1);
+                if (!stepId || !payload || payload === 'false') {
+                    return;
+                }
+                if (!stepsMap[stepId]) {
+                    stepsMap[stepId] = {
+                        step_id: String(stepId),
+                        options: []
+                    };
+                }
+                $.each(payload.split('&'), function (_, optRaw) {
+                    var optToken = (optRaw || '').trim().replace(/amp;/g, '');
+                    var optionId = optToken;
+                    var qty = '';
+                    var parts;
+                    if (!optToken.length || optToken === 'false') {
+                        return;
+                    }
+                    if (optToken.indexOf('x') > -1) {
+                        parts = optToken.split('x');
+                        optionId = parts[0];
+                        qty = parts[1] || '';
+                    }
+                    if (!optionId.length || optionId === 'false') {
+                        return;
+                    }
+                    stepsMap[stepId].options.push({
+                        option_id: String(optionId),
+                        qty: qty
+                    });
+                });
+            });
+        }
+
+        if (extraInfo.length) {
+            $.each(extraInfo.split('3x7r4'), function (_, entryRaw) {
+                var entry = (entryRaw || '').trim();
+                var sep;
+                var stepId;
+                var payload;
+                var parsed;
+                var stringValue;
+                if (!entry.length) {
+                    return;
+                }
+                sep = entry.indexOf('_');
+                if (sep <= 0) {
+                    return;
+                }
+                stepId = entry.substring(0, sep);
+                payload = entry.substring(sep + 1);
+                if (!stepId.length) {
+                    return;
+                }
+                parsed = payload;
+                try {
+                    parsed = JSON.parse(payload);
+                } catch (e) {}
+                stringValue = parsed === null || parsed === undefined ? '' : String(parsed);
+                if (!stepsMap[stepId]) {
+                    stepsMap[stepId] = {
+                        step_id: String(stepId)
+                    };
+                }
+                stepsMap[stepId].value = stringValue;
+            });
+        }
+
+        return $.map(stepsMap, function (step) {
+            return step;
+        });
+    }
+
+    if (!item.snapshot_json) {
+        if (!item.customization && !item.extra_info) {
+            return null;
+        }
+        return {
+            id: item.id || '',
+            name: item.name || '',
+            created_at: item.created_at || '',
+            product_id: parseInt(item.id_product, 10) || 0,
+            attribute_id: parseInt(item.id_product_attribute, 10) || 0,
+            customization: item.customization || '',
+            extra_info: item.extra_info || '',
+            preview_html: item.preview_html || '',
+            svg_thumbnail: item.thumbnail_svg || '',
+            steps: idxrParseCustomizationToSteps(item.customization, item.extra_info)
+        };
+    }
+    try {
+        return JSON.parse(item.snapshot_json);
+    } catch (e) {
+        if (!item.customization && !item.extra_info) {
+            return null;
+        }
+        return {
+            id: item.id || '',
+            name: item.name || '',
+            created_at: item.created_at || '',
+            product_id: parseInt(item.id_product, 10) || 0,
+            attribute_id: parseInt(item.id_product_attribute, 10) || 0,
+            customization: item.customization || '',
+            extra_info: item.extra_info || '',
+            preview_html: item.preview_html || '',
+            svg_thumbnail: item.thumbnail_svg || '',
+            steps: idxrParseCustomizationToSteps(item.customization, item.extra_info)
+        };
+    }
+}
+
+function idxrApplyRestoreItem(item) {
+    var snapshot = idxrParseSnapshotFromItem(item);
+    if (!snapshot) {
+        return Promise.reject('invalid_snapshot');
+    }
+    idxrSetGlobalPreloader(true);
+    idxrResetAllBeforeRestore();
+    return idxrApplySnapshot(snapshot).then(function () {
+        idxrSetGlobalPreloader(false);
+        idxrRemoveUrlParam('idxr_restore_sim');
+        idxrRemoveUrlParam('idxr_restore_runtime_sim');
+        return true;
+    }).catch(function (e) {
+        idxrSetGlobalPreloader(false);
+        throw e;
+    });
+}
+
+function idxrRenderUrlRestorePrompt(item) {
+    var name = (item && item.name) ? item.name : idxrI18n.unnamedCustomization;
+    var createdAt = item && item.created_at ? new Date(item.created_at) : null;
+    var dateText = createdAt && !isNaN(createdAt.getTime()) ? createdAt.toLocaleString() : '';
+    var previewHtml = (item && item.preview_html) ? item.preview_html : '<span class="idxr-c-empty">' + idxrEsc(idxrI18n.noPreview) + '</span>';
+
+    $('#idxr-url-restore-name').text(name);
+    $('#idxr-url-restore-date').text(dateText);
+    $('#idxr-url-restore-preview').html(previewHtml);
+}
+
+function idxrAutoRestoreFromUrlIfNeeded() {
+    var savedId = parseInt(idxrGetUrlParam('idxr_restore_sim'), 10);
+    var runtimeId = parseInt(idxrGetUrlParam('idxr_restore_runtime_sim'), 10);
+    var restoreAction = savedId ? 'getServerCustomization' : (runtimeId ? 'getRuntimeCustomization' : '');
+    var requestData = savedId ? { id_saved_customisation: savedId } : (runtimeId ? { id_runtime_customisation: runtimeId } : null);
+
+    if (!restoreAction || idxrUrlRestorePromptShown) {
+        return;
+    }
+
+    idxrWaitForConfiguratorReady(14000).then(function () {
+        idxrSetGlobalPreloader(true);
+        return idxrServerRequest(restoreAction, requestData);
+    }).then(function (response) {
+        idxrSetGlobalPreloader(false);
+        if (!response || !response.item) {
+            return;
+        }
+        idxrPendingUrlRestoreItem = response.item;
+        idxrRenderUrlRestorePrompt(response.item);
+        idxrOpenModal('idxr-url-restore-modal');
+        idxrUrlRestorePromptShown = true;
+    }).catch(function () {
+        idxrSetGlobalPreloader(false);
+    });
+}
+
+function idxrEsc(text) {
+    return $('<div/>').text(text === undefined || text === null ? '' : String(text)).html();
+}
+
+function idxrGetSummaryPreviewHtml() {
+    var $table = $('#collapsibleSection .table-unique-12345').first();
+    if (!$table.length) {
+        return '<p class="idxr-empty-preview">' + idxrEsc(idxrI18n.noPreviewAvailable) + '</p>';
+    }
+    var $clone = $table.clone();
+    $clone.find('script,style,.hidden,[data-option="template"]').remove();
+    return $('<div/>').append($clone).html();
+}
+
+function idxrGetSvgThumbnailMarkup() {
+    var svgEl = document.getElementById('actualSvg');
+    if (!svgEl) {
+        return '';
+    }
+    try {
+        return (svgEl.outerHTML || '').replace(/\s{2,}/g, ' ').trim();
+    } catch (e) {
+        return '';
+    }
+}
+
+function idxrParseSelectedOptionsFromMarker(markerRaw) {
+    var options = [];
+    var raw = (markerRaw || '').toString().trim();
+
+    if (!raw.length || raw === 'false') {
+        return options;
+    }
+
+    $.each(raw.split('&'), function (_, optionRaw) {
+        var token = (optionRaw || '').trim().replace(/amp;/g, '');
+        var optionId = token;
+        var qty = '';
+        var parts;
+
+        if (!token.length || token === 'false') {
+            return;
+        }
+
+        if (token.indexOf('x') > -1) {
+            parts = token.split('x');
+            optionId = parts[0] || '';
+            qty = parts[1] || '';
+        }
+
+        if (!optionId.length || optionId === 'false') {
+            return;
+        }
+
+        options.push({
+            option_id: String(optionId),
+            qty: qty
+        });
+    });
+
+    return options;
+}
+
+function idxrGetOrderedStepState() {
+    var steps = [];
+
+    $('.component_step').each(function () {
+        var $step = $(this);
+        var stepId = (($step.attr('id') || '').replace('component_step_', '')).trim();
+        var stepType = ($('#js_icp_next_opt_' + stepId).attr('data-type') || '').trim();
+        var $resumeRow = $('#resume_tr_' + stepId);
+        var selectedRaw = (($('#js_opt_' + stepId + '_value').html() || '') + '').trim();
+        var selectedRawWqty = (($('#js_opt_' + stepId + '_value_wqty').html() || '') + '').trim();
+        var extraRaw = (($('#js_opt_extra_' + stepId + '_value').html() || '') + '').trim();
+        var options;
+        var stepData;
+        var stepTitle;
+        var stepName;
+        var isVisible;
+
+        if (!stepId || stepId === 'last' || !stepType) {
+            return;
+        }
+
+        isVisible = !$step.hasClass('hidden');
+        if (typeof mustBeVisible === 'function') {
+            isVisible = isVisible && !!mustBeVisible(stepId);
+        }
+        if (!isVisible) {
+            return;
+        }
+
+        stepTitle = '';
+        if ($resumeRow.length) {
+            stepTitle = $.trim($resumeRow.children('td').first().text());
+        }
+        stepName = $.trim(($step.attr('data-name') || '').toString());
+
+        options = idxrParseSelectedOptionsFromMarker(selectedRawWqty !== 'false' ? selectedRawWqty : selectedRaw);
+        stepData = {
+            step_id: String(stepId),
+            name: stepName,
+            title: stepTitle,
+            type: stepType,
+            optional: String($step.attr('data-optional')) === '1',
+            multivalue: ($step.attr('data-multivalue') || '').toString(),
+            visible: true,
+            default_applied: (($step.attr('data-default') || '').toString() !== '-1'),
+            selected: {
+                raw: selectedRaw,
+                raw_wqty: selectedRawWqty,
+                options: options
+            },
+            extra: null
+        };
+
+        if (extraRaw && extraRaw !== 'false') {
+            stepData.extra = {
+                raw: extraRaw,
+                value: extraRaw
+            };
+        }
+
+        // Keep backward-compatible fields so restore logic keeps working while
+        // we transition the rest of the module to the unified ordered payload.
+        if (stepType === 'text' || stepType === 'textarea' || stepType === 'file') {
+            stepData.value = stepData.extra ? stepData.extra.value : '';
+        } else {
+            stepData.options = options;
+        }
+
+        if (
+            ((!selectedRaw || selectedRaw === 'false') && (!selectedRawWqty || selectedRawWqty === 'false'))
+            && !stepData.extra
+            && !stepData.optional
+            && stepData.default_applied === false
+        ) {
+            return;
+        }
+
+        steps.push(stepData);
+    });
+
+    return steps;
+}
+
+function idxrCollectCurrentSnapshot(customName) {
+    var snapshot = {
+        id: 'idxr_' + Date.now() + '_' + Math.floor(Math.random() * 100000),
+        name: customName,
+        created_at: (new Date()).toISOString(),
+        product_id: parseInt(idxcp_id_product, 10) || 0,
+        attribute_id: parseInt($('#id_attribute_for_idxr').val(), 10) || 0,
+        customization: '',
+        extra_info: buildExtraInfoPayload(),
+        steps: idxrGetOrderedStepState(),
+        preview_html: idxrGetSummaryPreviewHtml(),
+        svg_thumbnail: idxrGetSvgThumbnailMarkup()
+    };
+
+    var comma = '';
+    $('.sel_opt_wqty').each(function () {
+        var stepId = parseInt($(this).attr('id').split('_')[2], 10);
+        var markerValue = ($(this).html() || '').trim();
+        if (isNaN(stepId)) {
+            return;
+        }
+        if (!markerValue.length || markerValue === 'false') {
+            return;
+        }
+        snapshot.customization += comma + stepId + '_' + $(this).html();
+        comma = ',';
+    });
+
+    if (typeof console !== 'undefined' && typeof console.log === 'function') {
+        console.log('[idxrcustomproduct] snapshot_json.steps', snapshot.steps);
+    }
+
+    return snapshot;
+}
+
+function idxrApplySnapshot(snapshot) {
+    if (!snapshot || !$.isArray(snapshot.steps)) {
+        return Promise.resolve(false);
+    }
+
+    function idxrRestoreLog() {}
+
+    function idxrPause(ms) {
+        return new Promise(function (resolve) {
+            setTimeout(resolve, ms);
+        });
+    }
+
+    function idxrParseCustomizationString(customizationRaw) {
+        var byStep = {};
+        var raw = (customizationRaw || '').toString().trim();
+        if (!raw.length) {
+            return byStep;
+        }
+        $.each(raw.split(','), function (_, tokenRaw) {
+            var token = (tokenRaw || '').trim();
+            if (!token.length) {
+                return;
+            }
+            var underscorePos = token.indexOf('_');
+            if (underscorePos <= 0) {
+                return;
+            }
+            var stepId = token.substring(0, underscorePos);
+            var payload = token.substring(underscorePos + 1);
+            if (!stepId || !payload) {
+                return;
+            }
+            if (payload === 'false') {
+                return;
+            }
+            if (!byStep[stepId]) {
+                byStep[stepId] = [];
+            }
+            $.each(payload.split('&'), function (_, optRaw) {
+                var optToken = (optRaw || '').trim().replace(/amp;/g, '');
+                if (!optToken.length) {
+                    return;
+                }
+                if (optToken === 'false') {
+                    return;
+                }
+                var optionId = optToken;
+                var qty = '';
+                if (optToken.indexOf('x') > -1) {
+                    var parts = optToken.split('x');
+                    optionId = parts[0];
+                    qty = parts[1] || '';
+                }
+                if (!optionId.length || optionId === 'false') {
+                    return;
+                }
+                byStep[stepId].push({
+                    option_id: String(optionId),
+                    qty: qty
+                });
+            });
+        });
+        return byStep;
+    }
+
+    function idxrParseExtraInfoString(extraRaw) {
+        var byStep = {};
+        var raw = (extraRaw || '').toString();
+        if (!raw.trim().length) {
+            return byStep;
+        }
+        $.each(raw.split('3x7r4'), function (_, entryRaw) {
+            var entry = (entryRaw || '').trim();
+            if (!entry.length) {
+                return;
+            }
+            var sep = entry.indexOf('_');
+            if (sep <= 0) {
+                return;
+            }
+            var stepId = entry.substring(0, sep);
+            var payload = entry.substring(sep + 1);
+            if (!stepId.length) {
+                return;
+            }
+            var parsed = payload;
+            try {
+                parsed = JSON.parse(payload);
+            } catch (e) {
+                parsed = payload;
+            }
+            byStep[String(stepId)] = parsed;
+        });
+        return byStep;
+    }
+
+    function idxrIsStepSatisfied(stepId, stepType, optional) {
+        if (String(optional) === '1') {
+            return true;
+        }
+
+        if (stepType === 'text' || stepType === 'textarea' || stepType === 'file') {
+            var markerValue = $('#js_opt_' + stepId + '_value').html();
+            var extraValue = $('#js_opt_extra_' + stepId + '_value').html();
+            return (markerValue && markerValue !== 'false') || (extraValue && extraValue !== 'false');
+        }
+
+        var selectedMarker = $('#js_opt_' + stepId + '_value').html();
+        if (selectedMarker && selectedMarker !== 'false') {
+            return true;
+        }
+
+        return $('input[name=option_' + stepId + ']:checked:enabled').length > 0;
+    }
+
+    function idxrCommitRestoredStep(stepId, stepType, optional, triggerNextButton) {
+        var nextBtnSelector = '#js_icp_next_opt_' + stepId;
+        var attempts = 0;
+
+        function runAttempt() {
+            attempts += 1;
+            idxrRestoreLog('commit step', stepId, 'type=', stepType, 'attempt=', attempts);
+
+            if (triggerNextButton && $(nextBtnSelector).length) {
+                $(nextBtnSelector).trigger('click');
+            }
+
+            var setterPromise = Promise.resolve(true);
+            if (typeof set_option_value === 'function') {
+                try {
+                    setterPromise = Promise.resolve(set_option_value(stepType, stepId, optional, false));
+                } catch (e) {
+                    setterPromise = Promise.resolve(false);
+                }
+            }
+
+            return setterPromise
+                .catch(function () {
+                    return false;
+                })
+                .then(function () {
+                    return idxrPause(140);
+                })
+                .then(function () {
+                    var satisfied = idxrIsStepSatisfied(stepId, stepType, optional);
+                    idxrRestoreLog('step status', stepId, 'satisfied=', satisfied, 'marker=', $('#js_opt_' + stepId + '_value').html(), 'extra=', $('#js_opt_extra_' + stepId + '_value').html(), 'checked=', $('input[name=option_' + stepId + ']:checked').length);
+                    if (satisfied) {
+                        return true;
+                    }
+                    if (attempts < 3) {
+                        return idxrPause(200).then(runAttempt);
+                    }
+                    return false;
+                });
+        }
+
+        return runAttempt();
+    }
+
+    function idxrSimulateOptionClick(stepId, optionId) {
+        var cardSelector = '#card_' + stepId + '_' + optionId;
+        if ($(cardSelector).length) {
+            idxrRestoreLog('trigger card click', cardSelector);
+            $(cardSelector).trigger('click');
+            return true;
+        }
+        var inputSelector = '#option_' + stepId + '_' + optionId;
+        if ($(inputSelector).length) {
+            idxrRestoreLog('trigger input click', inputSelector);
+            $(inputSelector).prop('checked', true).trigger('change').trigger('click');
+            return true;
+        }
+        idxrRestoreLog('option not found', 'step=', stepId, 'option=', optionId);
+        return false;
+    }
+
+    var optionsByStepFromString = idxrParseCustomizationString(snapshot.customization);
+    var extraByStepFromString = idxrParseExtraInfoString(snapshot.extra_info);
+
+    idxrRestoreLog('apply snapshot start', 'steps=', snapshot.steps.length, 'snapshot_id=', snapshot.id || 'n/a');
+    idxrRestoreLog('parsed customization map', optionsByStepFromString);
+    idxrRestoreLog('parsed extra map', extraByStepFromString);
+    var chain = Promise.resolve(true);
+    $.each(snapshot.steps, function (_, stepData) {
+        chain = chain.then(function () {
+            var stepId = String(stepData && stepData.step_id ? stepData.step_id : '');
+            if (!stepId.length || !$('#component_step_' + stepId).length) {
+                idxrRestoreLog('skip missing step', stepId);
+                return true;
+            }
+            if ($('#component_step_' + stepId).hasClass('hidden')) {
+                idxrRestoreLog('skip hidden step', stepId);
+                return true;
+            }
+            if (typeof mustBeVisible === 'function' && !mustBeVisible(stepId)) {
+                idxrRestoreLog('skip not visible by constraint', stepId);
+                return true;
+            }
+
+            var stepType = $('#js_icp_next_opt_' + stepId).attr('data-type') || stepData.type;
+            var optional = $('#component_step_' + stepId).attr('data-optional');
+            idxrRestoreLog('rehydrating step', stepId, 'type=', stepType, 'optional=', optional);
+
+            // Replay UI events like a user instead of forcing hidden markers.
+            if (stepType === 'text') {
+                var textValue = (stepData.value !== undefined && stepData.value !== null && String(stepData.value).length)
+                    ? stepData.value
+                    : (extraByStepFromString[stepId] !== undefined ? extraByStepFromString[stepId] : '');
+                if ($('#text_' + stepId).length) {
+                    $('#text_' + stepId)
+                        .val(textValue || '')
+                        .trigger('input')
+                        .trigger('change');
+                    idxrRestoreLog('text value set', stepId, $('#text_' + stepId).val());
+                }
+                return idxrCommitRestoredStep(stepId, stepType, optional, true).then(function () {
+                    return idxrPause(260);
+                });
+            }
+
+            if (stepType === 'textarea') {
+                var textareaValue = (stepData.value !== undefined && stepData.value !== null && String(stepData.value).length)
+                    ? stepData.value
+                    : (extraByStepFromString[stepId] !== undefined ? extraByStepFromString[stepId] : '');
+                if ($('#textarea_' + stepId).length) {
+                    $('#textarea_' + stepId)
+                        .val(textareaValue || '')
+                        .trigger('input')
+                        .trigger('change');
+                    idxrRestoreLog('textarea value set', stepId, $('#textarea_' + stepId).val());
+                }
+                return idxrCommitRestoredStep(stepId, stepType, optional, true).then(function () {
+                    return idxrPause(260);
+                });
+            }
+
+            if (stepType === 'file') {
+                idxrRestoreLog('file step skipped (browser security)', stepId);
+                return true;
+            }
+
+            var optionsToRestore = [];
+            if ($.isArray(stepData.options) && stepData.options.length) {
+                optionsToRestore = stepData.options;
+            } else if (optionsByStepFromString[stepId] && optionsByStepFromString[stepId].length) {
+                optionsToRestore = optionsByStepFromString[stepId];
+                idxrRestoreLog('using customization-string fallback options', stepId, optionsToRestore);
+            }
+
+            if ($.isArray(optionsToRestore) && optionsToRestore.length) {
+                idxrRestoreLog('options to restore', stepId, optionsToRestore);
+                $('input[name=option_' + stepId + ']').prop('checked', false);
+                $.each(optionsToRestore, function (_, opt) {
+                    var optionId = String(opt && opt.option_id ? opt.option_id : '');
+                    if (!optionId.length) {
+                        return;
+                    }
+                    var qtySelector = '#option_' + stepId + '_' + optionId + '_qty';
+                    if ($(qtySelector).length && opt.qty !== undefined && opt.qty !== null && opt.qty !== '') {
+                        $(qtySelector).val(opt.qty).trigger('input').trigger('change');
+                        idxrRestoreLog('qty set', qtySelector, '=>', $(qtySelector).val());
+                    }
+
+                    idxrSimulateOptionClick(stepId, optionId);
+
+                    var inputSelector = '#option_' + stepId + '_' + optionId;
+                    if ($(inputSelector).length && !$(inputSelector).prop('checked')) {
+                        idxrRestoreLog('force-check fallback', inputSelector);
+                        $(inputSelector).prop('checked', true).trigger('change');
+                    }
+                });
+                if (typeof updatechecks === 'function') {
+                    updatechecks(stepId);
+                }
+                idxrRestoreLog('checked after replay', stepId, $('input[name=option_' + stepId + ']:checked').map(function () { return $(this).attr('data-value'); }).get());
+                return idxrPause(280).then(function () {
+                    return idxrCommitRestoredStep(stepId, stepType, optional, true);
+                }).then(function () {
+                    return idxrPause(320);
+                });
+            }
+
+            idxrRestoreLog('no options payload for step', stepId, 'snapshot.options=', stepData.options, 'fallback=', optionsByStepFromString[stepId] || []);
+            return true;
+        });
+    });
+
+    return chain.then(function () {
+        var nextId = next_panel_id();
+        if (nextId) {
+            open_next_panel(nextId);
+        }
+        return idxrPause(260);
+    }).then(function () {
+        updateTotal();
+        checkFinish();
+        idxrRestoreLog('apply snapshot done');
+        return true;
+    });
+}
+
+function idxrEnsureCustomizationModals() {
+    if ($('#idxr-save-customization-modal').length) {
+        return;
+    }
+
+    var saveTitle = idxrI18n.saveCustomization;
+    var restoreTitle = idxrI18n.restoreCustomization;
+    var loginText = idxrI18n.loginToSave;
+
+    var style = ''
+        + '<style id="idxr-customization-modals-style">'
+        + '.idxr-c-modal{position:fixed;inset:0;background:rgba(25,25,40,.45);display:none;align-items:center;justify-content:center;z-index:10020;padding:16px;}'
+        + '.idxr-c-modal.is-open{display:flex;}'
+        + '.idxr-c-dialog{width:min(760px,96vw);max-height:86vh;overflow:auto;background:#fff;border-radius:12px;box-shadow:0 12px 40px rgba(15,20,60,.25);padding:18px;}'
+        + '.idxr-c-title{font-size:18px;font-weight:700;margin:0 0 12px 0;color:#1c1e2c;}'
+        + '.idxr-c-row{display:flex;gap:10px;align-items:center;margin-bottom:10px;}'
+        + '.idxr-c-input{flex:1;height:42px;border:1px solid #cdd4ea;border-radius:8px;padding:0 12px;font-size:14px;}'
+        + '.idxr-c-help{font-size:12px;color:#6a6f86;margin:0 0 10px 0;}'
+        + '.idxr-c-preview{border:1px solid #e4e8f5;border-radius:10px;padding:10px;max-height:260px;overflow:auto;background:#fbfcff;}'
+        + '.idxr-c-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:14px;}'
+        + '.idxr-c-btn{height:40px;border-radius:8px;padding:0 14px;border:1px solid transparent;cursor:pointer;font-weight:600;}'
+        + '.idxr-c-btn-secondary{background:#fff;border-color:#cad2ef;color:#334;}'
+        + '.idxr-c-btn-primary{background:#2e48c4;color:#fff;}'
+        + '.idxr-c-list{display:flex;flex-direction:column;gap:10px;max-height:360px;overflow:auto;}'
+        + '.idxr-c-item{border:1px solid #dbe1f5;border-radius:10px;padding:10px;background:#fff;}'
+        + '.idxr-c-item-head{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:6px;}'
+        + '.idxr-c-item-name{font-size:14px;font-weight:700;color:#1d2340;}'
+        + '.idxr-c-item-date{font-size:12px;color:#6c7395;}'
+        + '.idxr-c-empty{font-size:13px;color:#697198;padding:12px;border:1px dashed #cfd6ee;border-radius:10px;background:#fbfcff;}'
+        + '.idxr-c-error{font-size:12px;color:#b01933;display:none;margin:6px 0 0 0;}'
+        + '.idxr-c-warning{font-size:13px;color:#985f00;padding:8px 10px;background:#fff8e6;border:1px solid #ffe0a6;border-radius:8px;margin-bottom:10px;display:none;}'
+        + '</style>';
+
+    var saveModal = ''
+        + '<div id="idxr-save-customization-modal" class="idxr-c-modal" role="dialog" aria-hidden="true">'
+        + '  <div class="idxr-c-dialog">'
+        + '    <h3 class="idxr-c-title">' + idxrEsc(saveTitle) + '</h3>'
+        + '    <div class="idxr-c-warning" id="idxr-save-auth-warning">' + idxrEsc(loginText) + '</div>'
+        + '    <div class="idxr-c-row">'
+        + '      <input id="idxr-customization-name-input" class="idxr-c-input" type="text" maxlength="100" placeholder="' + idxrEsc(saveTitle) + '" />'
+        + '    </div>'
+        + '    <p class="idxr-c-help">' + idxrEsc(idxrI18n.previewCurrentSelection) + '</p>'
+        + '    <div id="idxr-save-preview" class="idxr-c-preview"></div>'
+        + '    <p id="idxr-save-error" class="idxr-c-error">' + idxrEsc(idxrI18n.pleaseEnterName) + '</p>'
+        + '    <div class="idxr-c-actions">'
+        + '      <button type="button" class="idxr-c-btn idxr-c-btn-secondary" data-idxr-close="save">' + idxrEsc(idxrI18n.cancel) + '</button>'
+        + '      <button type="button" class="idxr-c-btn idxr-c-btn-primary" id="idxr-save-customization-confirm">' + idxrEsc(idxrI18n.save) + '</button>'
+        + '    </div>'
+        + '  </div>'
+        + '</div>';
+
+    var restoreModal = ''
+        + '<div id="idxr-restore-customization-modal" class="idxr-c-modal" role="dialog" aria-hidden="true">'
+        + '  <div class="idxr-c-dialog">'
+        + '    <h3 class="idxr-c-title">' + idxrEsc(restoreTitle) + '</h3>'
+        + '    <div class="idxr-c-warning" id="idxr-restore-auth-warning">' + idxrEsc(loginText) + '</div>'
+        + '    <div id="idxr-restore-customization-list" class="idxr-c-list"></div>'
+        + '    <p id="idxr-restore-error" class="idxr-c-error">' + idxrEsc(idxrI18n.pleaseSelectOne) + '</p>'
+        + '    <div class="idxr-c-actions">'
+        + '      <button type="button" class="idxr-c-btn idxr-c-btn-secondary" data-idxr-close="restore">' + idxrEsc(idxrI18n.cancel) + '</button>'
+        + '      <button type="button" class="idxr-c-btn idxr-c-btn-primary" id="idxr-restore-customization-confirm">' + idxrEsc(idxrI18n.restore) + '</button>'
+        + '    </div>'
+        + '  </div>'
+        + '</div>';
+
+    var urlRestoreModal = ''
+        + '<div id="idxr-url-restore-modal" class="idxr-c-modal" role="dialog" aria-hidden="true">'
+        + '  <div class="idxr-c-dialog">'
+        + '    <h3 class="idxr-c-title">' + idxrEsc(idxrI18n.restoreCustomization) + '</h3>'
+        + '    <p class="idxr-c-help">' + idxrEsc(window.idxr_tr_restore_customization_prompt || 'A saved customization was found in the link. Restore it now?') + '</p>'
+        + '    <div class="idxr-c-item" style="margin-bottom:8px;">'
+        + '      <div class="idxr-c-item-head">'
+        + '        <div class="idxr-c-item-name" id="idxr-url-restore-name"></div>'
+        + '        <div class="idxr-c-item-date" id="idxr-url-restore-date"></div>'
+        + '      </div>'
+        + '      <div class="idxr-c-preview" id="idxr-url-restore-preview"></div>'
+        + '    </div>'
+        + '    <p id="idxr-url-restore-error" class="idxr-c-error"></p>'
+        + '    <div class="idxr-c-actions">'
+        + '      <button type="button" class="idxr-c-btn idxr-c-btn-secondary" id="idxr-url-restore-later">' + idxrEsc(idxrI18n.cancel) + '</button>'
+        + '      <button type="button" class="idxr-c-btn idxr-c-btn-primary" id="idxr-url-restore-confirm">' + idxrEsc(idxrI18n.restore) + '</button>'
+        + '    </div>'
+        + '  </div>'
+        + '</div>';
+
+    $('head').append(style);
+    $('body').append(saveModal + restoreModal + urlRestoreModal);
+}
+
+function idxrOpenModal(modalId) {
+    $('#' + modalId).addClass('is-open').attr('aria-hidden', 'false');
+}
+
+function idxrCloseModal(modalId) {
+    $('#' + modalId).removeClass('is-open').attr('aria-hidden', 'true');
+}
+
+function idxrRenderRestoreList(list) {
+    var $container = $('#idxr-restore-customization-list');
+    $container.empty();
+
+    if (!$.isArray(list) || !list.length) {
+        $container.html('<div class="idxr-c-empty">' + idxrEsc(idxrI18n.noSavedCustomizationsForProduct) + '</div>');
+        return;
+    }
+
+    $.each(list, function (_, item) {
+        var createdAt = item.created_at ? new Date(item.created_at) : null;
+        var dateText = createdAt && !isNaN(createdAt.getTime()) ? createdAt.toLocaleString() : '';
+        var row = ''
+            + '<label class="idxr-c-item">'
+            + '  <div class="idxr-c-item-head">'
+            + '    <div class="idxr-c-item-name">'
+            + '      <input type="radio" name="idxr_restore_pick" value="' + idxrEsc(item.id) + '"> '
+            + idxrEsc(item.name || idxrI18n.unnamedCustomization)
+            + '    </div>'
+            + '    <div class="idxr-c-item-date">' + idxrEsc(dateText) + '</div>'
+            + '  </div>'
+            + '  <div class="idxr-c-preview">' + (item.preview_html || '<span class="idxr-c-empty">' + idxrEsc(idxrI18n.noPreview) + '</span>') + '</div>'
+            + '</label>';
+        $container.append(row);
+    });
+}
 
 $(document).ready(function() {
 
-    
     var parentdiv = $("body");
+    idxrEnsureCustomizationModals();
+    idxrEnsureGlobalPreloaderElements();
+
+    parentdiv.on('click', '[data-idxr-close="save"]', function () {
+        idxrCloseModal('idxr-save-customization-modal');
+    });
+
+    parentdiv.on('click', '[data-idxr-close="restore"]', function () {
+        idxrCloseModal('idxr-restore-customization-modal');
+    });
+
+    parentdiv.on('click', '#idxr-save-customization-modal', function (e) {
+        if (e.target.id === 'idxr-save-customization-modal') {
+            idxrCloseModal('idxr-save-customization-modal');
+        }
+    });
+
+    parentdiv.on('click', '#idxr-restore-customization-modal', function (e) {
+        if (e.target.id === 'idxr-restore-customization-modal') {
+            idxrCloseModal('idxr-restore-customization-modal');
+        }
+    });
+
+    parentdiv.on('click', '[data-idxr-close-save-success-modal="1"]', function () {
+        $('#idxr-save-success-modal').removeClass('is-open').attr('aria-hidden', 'true');
+    });
+
+    parentdiv.on('click', '#idxr-save-success-modal', function (e) {
+        if (e.target.id === 'idxr-save-success-modal') {
+            $('#idxr-save-success-modal').removeClass('is-open').attr('aria-hidden', 'true');
+        }
+    });
+
+    parentdiv.on('click', '#idxr-url-restore-modal', function (e) {
+        if (e.target.id === 'idxr-url-restore-modal') {
+            idxrCloseModal('idxr-url-restore-modal');
+        }
+    });
+
+    parentdiv.on('click', '#idxr-url-restore-later', function () {
+        idxrCloseModal('idxr-url-restore-modal');
+    });
+
+    parentdiv.on('click', '#idxr-url-restore-confirm', function () {
+        if (!idxrPendingUrlRestoreItem) {
+            return;
+        }
+        $('#idxr-url-restore-error').hide().text('');
+        idxrSetModalActionLoading('#idxr-url-restore-confirm', true, idxrI18n.restoring);
+        idxrSetGlobalPreloader(true);
+        idxrCloseModal('idxr-url-restore-modal');
+        idxrApplyRestoreItem(idxrPendingUrlRestoreItem).then(function () {
+            idxrSetModalActionLoading('#idxr-url-restore-confirm', false);
+        }).catch(function () {
+            idxrSetModalActionLoading('#idxr-url-restore-confirm', false);
+            $('#idxr-url-restore-error').text(idxrI18n.unableApplySavedCustomization).show();
+            idxrOpenModal('idxr-url-restore-modal');
+        });
+    });
+
+    parentdiv.on('click', '#save-customization-button-unique-12345', function (e) {
+        if ($(this).prop('disabled')) {
+            return;
+        }
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        $('#idxr-save-error').hide();
+        $('#idxr-save-preview').html(idxrGetSummaryPreviewHtml());
+        var defaultName = $.trim($('#product-title-unique-12345').text()) || idxrI18n.myCustomization;
+        $('#idxr-customization-name-input').val(defaultName).focus().select();
+        idxrOpenModal('idxr-save-customization-modal');
+    });
+
+    parentdiv.on('click', '#restore-customization-button-unique-12345', function (e) {
+        if ($(this).prop('disabled')) {
+            return;
+        }
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        $('#idxr-restore-error').hide();
+        idxrSetRestoreButtonLoading(true);
+        var productId = parseInt(idxcp_id_product, 10) || 0;
+        var attributeId = parseInt($('#id_attribute_for_idxr').val(), 10) || 0;
+        idxrServerRequest('listServerCustomizations', {
+            product: productId,
+            attribute: attributeId
+        }).done(function (response) {
+            idxrRenderRestoreList(response.items || []);
+            idxrOpenModal('idxr-restore-customization-modal');
+            idxrSetRestoreButtonLoading(false);
+        }).fail(function (msg) {
+            $('#idxr-restore-customization-list').html('<div class="idxr-c-empty">' + idxrEsc(idxrI18n.unableLoadSavedCustomizations) + '</div>');
+            $('#idxr-restore-error').text(idxrErrorMessage(msg, idxrI18n.unableLoadSavedCustomizations)).show();
+            idxrOpenModal('idxr-restore-customization-modal');
+            idxrSetRestoreButtonLoading(false);
+        });
+    });
+
+    parentdiv.on('click', '#idxr-save-customization-confirm', function () {
+        var customName = $.trim($('#idxr-customization-name-input').val());
+        if (!customName.length) {
+            $('#idxr-save-error').show();
+            return;
+        }
+        idxrSetModalActionLoading('#idxr-save-customization-confirm', true, idxrI18n.saving);
+        var snapshot = idxrCollectCurrentSnapshot(customName);
+        idxrServerRequest('saveServerCustomization', {
+            product: snapshot.product_id,
+            attribute: snapshot.attribute_id,
+            name: snapshot.name,
+            custom: snapshot.customization,
+            extra: snapshot.extra_info,
+            snapshot_json: JSON.stringify(snapshot),
+            preview_html: snapshot.preview_html,
+            svg_thumbnail: snapshot.svg_thumbnail || ''
+        }).done(function () {
+            idxrCloseModal('idxr-save-customization-modal');
+            idxrSetModalActionLoading('#idxr-save-customization-confirm', false);
+            showSaveCustomizationSuccessModal();
+        }).fail(function (msg) {
+            $('#idxr-save-error').text(idxrErrorMessage(msg, idxrI18n.unableSaveCustomization)).show();
+            idxrSetModalActionLoading('#idxr-save-customization-confirm', false);
+        });
+    });
+
+    parentdiv.on('click', '#idxr-restore-customization-confirm', function () {
+        var selectedId = $('input[name="idxr_restore_pick"]:checked').val();
+        if (!selectedId) {
+            $('#idxr-restore-error').show();
+            return;
+        }
+        idxrSetModalActionLoading('#idxr-restore-customization-confirm', true, idxrI18n.restoring);
+        idxrSetGlobalPreloader(true);
+        idxrServerRequest('getServerCustomization', {
+            id_saved_customisation: selectedId
+        }).done(function (response) {
+            var snapshot = null;
+            if (response.item && response.item.snapshot_json) {
+                try {
+                    snapshot = JSON.parse(response.item.snapshot_json);
+                } catch (e) {
+                    snapshot = null;
+                }
+            }
+            if (!snapshot) {
+                $('#idxr-restore-error').text(idxrI18n.savedPayloadInvalid).show();
+                idxrSetModalActionLoading('#idxr-restore-customization-confirm', false);
+                idxrSetGlobalPreloader(false);
+                return;
+            }
+            idxrResetAllBeforeRestore();
+            idxrCloseModal('idxr-restore-customization-modal');
+            idxrApplySnapshot(snapshot).then(function () {
+                idxrSetGlobalPreloader(false);
+                idxrSetModalActionLoading('#idxr-restore-customization-confirm', false);
+            }).catch(function () {
+                idxrSetGlobalPreloader(false);
+                idxrSetModalActionLoading('#idxr-restore-customization-confirm', false);
+                $('#idxr-restore-error').text(idxrI18n.unableApplySavedCustomization).show();
+            });
+        }).fail(function (msg) {
+            $('#idxr-restore-error').text(idxrErrorMessage(msg, idxrI18n.unableRestoreCustomization)).show();
+            idxrSetModalActionLoading('#idxr-restore-customization-confirm', false);
+            idxrSetGlobalPreloader(false);
+        });
+    });
+
     view_type = $('#component_steps_container').attr('data-type');
     actual_cover = $(cover_image_id).attr('src');
     if(jQuery.isFunction('tooltip')) {
@@ -31,19 +1359,124 @@ $(document).ready(function() {
     }
 
     $.post( url_ajax, { action: "setCart" });
+    setTimeout(idxrAutoRestoreFromUrlIfNeeded, 1200);
 
     // Remove price and attributes from product page
+	
+	//   const allowedProductIds = [16648];// json encode $idxr_skipped_product_ids
+    //   if (typeof idxr_skipped_product_ids !== 'undefined') {
+    //     const allowedProductIds = idxr_skipped_product_ids;
+      
+    //     if (allowedProductIds.includes(16648)) {
+    //       console.log('Product is skipped');
+    //     }
+    //   }
+
+    if (typeof prestashop !== 'undefined') {
+        prestashop.on('updateCart', function (event) {
+            $('#preloader-wrapper').remove();
+            // minimumcartfees
+            if (typeof refreshFeeLine !== 'undefined') {
+                setTimeout(refreshFeeLine, 1000);
+            }
+        });
+    }
+	  const currentProductId = +$('#product_page_product_id').val();
+      
+	  if ((typeof idxr_skipped_product_ids !== 'undefined') && (!idxr_skipped_product_ids.includes(currentProductId))) {
+		$('.product-variants').remove();
+	  }else{
+        $('.product-actions').each(function() {
+            this.style.setProperty('display', 'block', 'important');
+          });
+        }
+        function initSomeEvents() {
+            let selectedThickness = document.querySelector('input[name="group[6]"]:checked');
+            if (selectedThickness) {
+                const labelSpan = selectedThickness.closest('label').querySelector('.radio-label');
+                const mm = labelSpan ? labelSpan.textContent.trim() : '';
+                $('#product_thickness').val(mm);
+            }
+
+            var $productDetails = $('#product-details');
+            if ($productDetails.length) {
+                var dataProduct = $productDetails.attr('data-product');
+            
+                try {
+                    var productData = JSON.parse(dataProduct);
+                    var idProductAttribute = productData.id_product_attribute;
+            
+                    // Set the value to your hidden input
+                    $('#id_attribute_for_idxr').val(idProductAttribute);
+                } catch (e) {
+                }
+            }
+        }
+        initSomeEvents();
+        if (typeof prestashop !== 'undefined') {
+            prestashop.on('updatedProduct', function (event) {
+                const basePriceInput = document.querySelector('.js_base_price');
+                if (!basePriceInput) return;
+
+                // Get TTC price from input
+                const ttcValue = parseFloat(basePriceInput.value.replace(',', '.'));
+                if (isNaN(ttcValue)) return;
+        
+                // Tax rate (e.g. 20%)
+                const taxRate = 0.2;
+        
+                // Compute HT
+                const htValue = ttcValue / (1 + taxRate);
+        
+                // Format prices
+                const ttcFormatted = ttcValue.toFixed(2).replace('.', ',') + ' € / m² TTC';
+                const htFormatted = htValue.toFixed(2).replace('.', ',') + ' € / m² HT';
+        
+                // Update TTC display
+                const ttcSpan = document.querySelector('.current-price span[content]');
+                if (ttcSpan) {
+                    ttcSpan.setAttribute('content', ttcValue.toFixed(2));
+                    ttcSpan.innerHTML = ttcFormatted.split(' ')[0] + '&nbsp;€'; // just the number part
+                }
+        
+                // Update HT display
+                const htBlock = document.querySelector('.product-without-taxes');
+                if (htBlock) {
+                    htBlock.textContent = htFormatted;
+                }
+
+                // Get selected attribute value from group[6]
+                
+                let selectedThickness = document.querySelector('input[name="group[6]"]:checked');
+                if (selectedThickness) {
+                    const labelSpan = selectedThickness.closest('label').querySelector('.radio-label');
+                    const mm = labelSpan ? labelSpan.textContent.trim() : '';
+                    $('#product_thickness').val(mm);
+                }
+                initSomeEvents();
+            });
+        }
+        
+	  	// console.log('product-variants:', currentProductId);
+        
+	
     if(es17){
         $('.product-prices').remove();
-        $('.product-variants').remove();
+        //Add with team wassim novatis
+        // $('.product-variants').remove();
+        //$('.product-variants').addClass('custum-variants');
+        //End
         $('.product-add-to-cart').remove();
         if(show_topprice == '1') {
             $('.product-information').before($.parseJSON(toppriceblock));
         }
-    }else{
+    } else {
         $('.pb-center-column').removeClass('col-sm-4').addClass('col-sm-7');
         $('.product_attributes').remove();
-        $('.product-variants').remove();
+        //Add with team wassim novatis
+        // $('.product-variants').remove();
+       // $('.product-variants').addClass('custum-variants');
+        //End
         $('.box-cart-bottom').remove();
         $('.box-info-product').remove();
         if(show_topprice  == '1') {
@@ -56,16 +1489,18 @@ $(document).ready(function() {
     }
 
     // Init configurator    
-    loadimages($('#step_title_2'));
-    $('#step_title_2').collapse('show');
-    
-    if(step_active){
-        if (step_active == 'resume') {
-            $('#component_step_resume').collapse('show');
-        } else {
-            $('#step_title_'+step_active).collapse('show');
-        }
-    }
+    // if(view_type !== "minified" && first_open == '1' && !step_active){
+    //     loadimages($('#component_steps_container').find('.panel-collapse').first());
+    //     $('#component_steps_container').find('.panel-collapse').first().collapse('show');
+    // }
+
+    // if(step_active){
+    //     if (step_active == 'resume') {
+    //         $('#component_step_resume').collapse('show');
+    //     } else {
+    //         $('#step_title_'+step_active).collapse('show');
+    //     }
+    // }
 
     if(view_type != "minified") {
         //set default and customization
@@ -88,6 +1523,8 @@ $(document).ready(function() {
 
     if (typeof prestashop !== 'undefined') {
         prestashop.on('updateProduct', function (params) {
+            $('#add-to-cart-button-unique-12345').prop('disabled', true);
+            $('#add-to-cart-button-unique-12345').addClass('disabled');
             setTimeout(
             function() 
             {
@@ -119,21 +1556,21 @@ $(document).ready(function() {
             loadimages($(this));
     });
 
-    parentdiv.on('shown.bs.collapse', '#component_steps_container',function (e) {
-        $('#component_steps_container').find('.panel-collapse').each(function () {
-            if($(this).attr('id') !== e.target.id) {
-                if($(this).is('.in, .show')){
-                    $(this).collapse('hide');
-                }
-            }
-        });
-    });
+    // parentdiv.on('shown.bs.collapse', '#component_steps_container',function (e) {
+    //     $('#component_steps_container').find('.panel-collapse').each(function () {
+    //         if($(this).attr('id') !== e.target.id) {
+    //             if($(this).is('.in, .show')){
+    //                 $(this).collapse('hide');
+    //             }
+    //         }
+    //     });
+    // });
 
     parentdiv.on('click', '.js-card-option', function(e){
         if($(this).hasClass('js_out_of_stock')){
             return false;
         }
-        if (!$(e.target).attr('class').includes("zoom-imagen") 
+        if ((!$(e.target).attr('class') || !$(e.target).attr('class').includes("zoom-imagen"))
                 && !$(e.target).attr('class').includes("icp-readmore-btn")
                 && !$(e.target).attr('class').includes('idxcp_option_qty')) {
             var multiple = $(this).closest('.component_step').attr('data-multivalue');
@@ -161,20 +1598,32 @@ $(document).ready(function() {
         }
     });
 
+    // Ensure accordion text fields are committed even if the user doesn't click a "next" link.
     parentdiv.on('input', '.accordion_text', function(){
         var id_option = $(this).attr('id').replace('text_','');
+        syncInputExtraToHidden(id_option);
         $('#js_icp_next_opt_'+id_option).click();
+    });
+
+    parentdiv.on('click', '.js-text-next-btn', function(){
+        var id_option = ($(this).attr('id') || '').replace('js-text-next-btn-','');
+        if (id_option) {
+            syncInputExtraToHidden(id_option);
+            $('#js_icp_next_opt_'+id_option).click();
+        }
+        var nextId = next_panel_id();
+        go_next_panel(nextId);
     });
 
     parentdiv.on('click', '.js_icp_next_option',function(){
         step_id = $(this).attr('id');
-        step_id = step_id.replace('js_icp_next_opt_', '');
-        step_type = $(this).attr('data-type');
-        optional = $(this).closest('.component_step').attr('data-optional');
-        multiple = $(this).closest('.component_step').attr('data-multivalue');
+        step_id = step_id.replace('js_icp_next_opt_', ''); // 61
+        step_type = $(this).attr('data-type'); // text
+        optional = $(this).closest('.component_step').attr('data-optional'); // 0
+        multiple = $(this).closest('.component_step').attr('data-multivalue'); // unique
         price_with_discount = false;
         if ($('#show_discount_line').length > 0 && $('#show_discount_line').val() === "0" && $('#idxcp_discount_type').val() != "amount" ) {
-            price_with_discount = true;
+            price_with_discount = true; // true
             discount_percentage = parseFloat($("#idxcp_discount_amount").val());
         }
         
@@ -209,21 +1658,19 @@ $(document).ready(function() {
         });
     });
 
-    parentdiv.on('click', '.js-text-next-btn', function(){
-        var id = next_panel_id();
-        go_next_panel(id);
-    });
-
+    
+     
     parentdiv.on('click', '#idxrcustomproduct_topblock_send', function(){
        $('#idxrcustomproduct_send').click();
     });
 
     parentdiv.on('click', '#idxrcustomproduct_send', function(event){
-        
-        
+        createPreloader();
+        $('#add-to-cart-button-unique-12345').prop('disabled', true);
+        $('#add-to-cart-button-unique-12345').addClass('disabled');
         event.preventDefault();
         data = new Array();
-
+    
         $('.js_icp_next_option').each(function(){
             if($(this).attr('data-type') === 'file' ){
                 var id = $(this).attr('id').replace('js_icp_next_opt_','');
@@ -236,10 +1683,21 @@ $(document).ready(function() {
             }
         });
 
+        var poidsProduit = $('#product_weight').val();
+        var widthsProduit = $('#product_width').val();
+        var heightsProduit = $('#product_height').val();
+        var volumesProduit = $('#product_volume').val();
+        var depthsProduit = $('#product_depth').val();
+        data['product_volume'] = volumesProduit;
+        data['product_width'] = widthsProduit;
+        data['product_height'] = heightsProduit;
+        data['product_weight'] = poidsProduit;
+        data['product_depth'] = depthsProduit;
         data['product_id'] = idxcp_id_product;
-        data['attribute_id'] = $('#idCombination').val();
+        data['attribute_id'] = $('#id_attribute_for_idxr').val();
         data['customization'] = '';
         data['extra_info'] = '';
+        
         comma = '';
         $('.sel_opt').each(function(){
             var sel_opt = $(this);
@@ -248,13 +1706,13 @@ $(document).ready(function() {
                 var options_selected = [];
                 if ($(this).html().indexOf("&") > 0) {
                     options = option_text.split('&');
-                    $.each(options, function( index, value ) {                        
+                    $.each(options, function(index, value) {                        
                         options_selected.push(parseInt(value.replace('amp;','')));
                     });
                 } else {
                     options_selected.push(parseInt(option_text));
                 }
-                $.each(options_selected, function( index, value ) {
+                $.each(options_selected, function(index, value) {
                     qty = '';
                     step_id = sel_opt.attr('id').split("_")[2];
                     if ($('#option_'+step_id+'_'+value+'_qty').length && $('#option_'+step_id+'_'+value+'_qty').val() > 1) {
@@ -266,74 +1724,51 @@ $(document).ready(function() {
                 });
             }
         });
-        comma = '';
-        $('.sel_opt_extra').each(function(){
-            data['extra_info'] += comma+parseInt($(this).attr('id').split("_")[3])+'_'+JSON.stringify($(this).html().replace('3x7r4','extra'));
-            comma = '3x7r4';
-        });
+        
+        data['extra_info'] = buildExtraInfoPayload();
+        
         var quantity = 1;
         if ($('#quantity_wanted').length) {
-             quantity = $('#quantity_wanted').val();
+            quantity = $('#quantity_wanted').val();
         }
         if ($('#idxrcustomprouct_quantity_wanted').length) {
             quantity = $('#idxrcustomprouct_quantity_wanted').val();
         }
-        
-        $.post( url_ajax, { action: "createproduct", product: data['product_id'], attribute: data['attribute_id'], custom: data['customization'], extra: data['extra_info'], quantity: quantity} )
-            .done(function( data ) {
-                
 
-                if (icp_editing) {
-                    removeFromCart(icp_editing);
-                }
-                var enviado = false;
-                if (typeof ajaxCart !== 'undefined') {
-                    ajaxCart.add(data, null, true, $(this),$('#quantity_wanted').val());
-                    enviado = true;
-                }
-                if (typeof prestashop !== 'undefined') {
-                    id_product = data;
-                    id_product_attribute = 0;
-
-                    $['ajax']({
-                        type: 'POST',
-                        headers: { "cache-control": "no-cache" },
-                        cache: false,
-                        url: prestashop['urls']['pages']['cart'] + '?rand=' + new Date()['getTime'](),
-                        async: true,
-                        cache: false,
-                        dataType: 'json',
-                        data: 'action=update&add=1&ajax=true&qty=' + ((quantity && quantity != null) ? quantity : '1') + '&id_product=' + data + '&token=' + prestashop['static_token'] + '&ipa=0',
-                        success: function(response) {
-                            enviado = true;
-                            prestashop['emit']('updateCart', {
-                                reason: {
-                                    idProduct: id_product,
-                                    idProductAttribute: id_product_attribute,
-                                    linkAction: 'add-to-cart'
-                                },
-                                resp: response
-                            });
-                        }
-                    });
-                }
-                if (!enviado && typeof cart_link !== "undefined") {
-                    $.post( cart_link, {token: cart_token, id_product: data, add: 1, id_product_attribute: 0});
-                    location.reload();
-                }
-                if (typeof refreshFeeLine !== 'undefined') {
-                    refreshFeeLine();
-                }
-
-            });
+        try {
+            sendSnaps(data['product_id'], data['attribute_id'], data['customization'], data['extra_info'], quantity, data['product_weight'], data['product_volume'], data['product_width'], data['product_height'], data['product_depth']);
+        } catch (error) {
+            $('#idxrcustomproduct_send').prop('disabled', false);
+            reseto();
+            showAddToCartErrorModal();
+        }
+        $('.side_close').addClass('relaod-custum');
+        reloadPageProduit();
     });
+    
+    //Add with team wassim novatis
+    function reloadPageProduit() {
+        var closeButtons = document.querySelectorAll('.relaod-custum');     
+        if (closeButtons) {
+          closeButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+              var productElement = document.getElementById('product');
+              var blockCustum = document.querySelectorAll('.component_step');
+              
+              if (productElement && blockCustum.length > 0) {
+                  location.reload();
+              }
+            });
+          });
+        } 
+    }
+    // End
 
     parentdiv.on('click','#idxrcustomproduct_save', function(){
-        
         data = new Array();
 
         data['product_id'] = idxcp_id_product;
-        data['attribute_id'] = $('#idCombination').val();
+        data['attribute_id'] = $('#id_attribute_for_idxr').val();
         data['customization'] = '';
         data['extra_info'] = '';
         comma = '';
@@ -343,11 +1778,7 @@ $(document).ready(function() {
             comma = ',';
         });
 
-        comma = '';
-        $('.sel_opt_extra').each(function(){
-            data['extra_info'] += comma+parseInt($(this).attr('id').split("_")[3])+'_'+JSON.stringify($(this).html().replace('3x7r4','extra'));
-            comma = '3x7r4';
-        });
+        data['extra_info'] = buildExtraInfoPayload();
 
         $.post( url_ajax, { action: "savefav", product: data['product_id'], attribute: data['attribute_id'], custom: data['customization'], extra: data['extra_info']} )
             .done(function(data){
@@ -391,30 +1822,46 @@ $(document).ready(function() {
         $('#Mymodal').modal('show');
     });
 
-    parentdiv.on('change','.idxrcustomproduct-fileoption',function(e){
+    parentdiv.on('change', '.idxrcustomproduct-fileoption', function(e) {
         var input = $(this);
-        var files = e.originalEvent.target.files;
-        var allowed_extension = input.parent().find('span').find('b').map(function(){
+    
+        // Fallback to using e.target.files if e.originalEvent is undefined
+        var files = (e.originalEvent && e.originalEvent.target && e.originalEvent.target.files) || e.target.files;
+    
+        // If files is undefined, log an error and exit
+        if (!files) {
+            console.error("Unable to retrieve files. Make sure the event is triggered by a file input.");
+            return;
+        }
+    
+        var allowed_extension = input.parent().find('span').find('b').map(function() {
             return this.innerHTML;
         }).get();
         var max_size = input.attr("data-maxsize");
+    
         if (!max_size) {
             max_size = input.parent().find('span').find('b').last().html();
         }
-        max_size = max_size.replace("MB", "")*1000000;
-        input.parent().find('.idxrcustomproduct-fileoption-error').empty();
-        input.parent().find('.idxrcustomproduct-fileoption-error').hide();
-        for (var i=0, len=files.length; i<len; i++){
-            if ($.inArray('.'+files[i].name.split('.').pop().toLowerCase(), allowed_extension) == -1) {
-                input.parent().find('.idxrcustomproduct-fileoption-error').append('<p>'+file_ext_error+'</p>');
-                input.parent().find('.idxrcustomproduct-fileoption-error').show();
-            }
-            if (files[i].size > max_size) {
-                input.parent().find('.idxrcustomproduct-fileoption-error').append('<p>'+file_syze_error+'</p>');
-                input.parent().find('.idxrcustomproduct-fileoption-error').show();
+        
+        if (max_size) {
+            max_size = max_size.replace("MB", "") * 1000000;
+            input.parent().find('.idxrcustomproduct-fileoption-error').empty();
+            input.parent().find('.idxrcustomproduct-fileoption-error').hide();
+            
+            for (var i = 0, len = files.length; i < len; i++) {
+                // Check file extension
+                if ($.inArray('.' + files[i].name.split('.').pop().toLowerCase(), allowed_extension) == -1) {
+                    input.parent().find('.idxrcustomproduct-fileoption-error').append('<p>' + file_ext_error + '</p>');
+                    input.parent().find('.idxrcustomproduct-fileoption-error').show();
+                }
+                // Check file size
+                if (files[i].size > max_size) {
+                    input.parent().find('.idxrcustomproduct-fileoption-error').append('<p>' + file_syze_error + '</p>');
+                    input.parent().find('.idxrcustomproduct-fileoption-error').show();
+                }
             }
         }
-    });
+    });    
     
     parentdiv.on('change', '#idxrcustomprouct_quantity_wanted', function(e){
         updateTotal();
@@ -434,9 +1881,167 @@ $(document).ready(function() {
     });
     
     
-    var step_content_2 = document.getElementById('step_content_2').querySelector('a'); 
-    if(step_content_2) step_content_2.click();
 });
+// Function to create and show the preloader
+function createPreloader() {
+    if ($('#preloader-wrapper').length) {
+        return;
+    }
+
+    // Create the preloader structure using jQuery
+    const preloaderWrapper = $('<div>', { id: 'preloader-wrapper' }).css({
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    width: '100%',
+    height: '100%',
+    opacity: '.80',
+    backgroundColor: '#ffffff', // Background color of the preloader
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: '9999' // Make sure it's on top of everything
+    });
+
+    // Create the loader (spinner)
+    const loader = $('<div>', { id: 'loader' }).css({
+    width: '60px',
+    height: '60px',
+    border: '8px solid #f3f3f3', // Light gray border
+    borderTop: '8px solid #3498db', // Blue top border
+    borderRadius: '50%',
+    animation: 'spin 1s linear infinite' // Spinner animation
+    });
+
+    const preloaderPanel = $('<div>', { id: 'idxr-preloader-panel' }).css({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '14px',
+    minWidth: '320px'
+    });
+
+    const preloaderTitle = $('<div>', { id: 'idxr-preloader-title', text: 'Preparation de votre personnalisation...' }).css({
+    color: '#1c2240',
+    fontSize: '15px',
+    fontWeight: '600',
+    textAlign: 'center'
+    });
+
+    const preloaderPercent = $('<div>', { id: 'idxr-preloader-percent', text: '30%' }).css({
+    color: '#2e48c4',
+    fontSize: '26px',
+    fontWeight: '700',
+    lineHeight: '1'
+    });
+
+    const preloaderBar = $('<div>', { id: 'idxr-preloader-bar' }).css({
+    width: '100%',
+    maxWidth: '320px',
+    height: '8px',
+    backgroundColor: '#e8edf7',
+    borderRadius: '999px',
+    overflow: 'hidden'
+    });
+
+    const preloaderBarFill = $('<div>', { id: 'idxr-preloader-bar-fill' }).css({
+    width: '30%',
+    height: '100%',
+    background: 'linear-gradient(90deg, #2e48c4 0%, #4fa4d6 100%)',
+    borderRadius: '999px',
+    transition: 'width 420ms ease'
+    });
+
+    preloaderBar.append(preloaderBarFill);
+
+    // Append loader to the wrapper
+    preloaderPanel.append(loader);
+    preloaderPanel.append(preloaderPercent);
+    preloaderPanel.append(preloaderTitle);
+    preloaderPanel.append(preloaderBar);
+    preloaderWrapper.append(preloaderPanel);
+
+    // Add the preloader wrapper to the body
+    $('body').append(preloaderWrapper);
+
+    // Inject keyframes for the spinner animation
+    const keyframes = `
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    `;
+    $('<style>').text(keyframes).appendTo('head');
+    updatePreloaderProgress(5);
+}
+
+// Function to remove the preloader
+function removePreloader() {
+    $('#preloader-wrapper').fadeOut(500, function () {
+    $(this).remove(); // Remove from DOM after fade-out
+    });
+    $('#preloader-wrapper').remove();
+}
+
+function showAddToCartErrorModal(message) {
+    removePreloader();
+    $('#add-to-cart-button-unique-12345').prop('disabled', false);
+    $('#add-to-cart-button-unique-12345').removeClass('disabled');
+    $('#idxrcustomproduct_send').prop('disabled', false);
+    isAddingToCart = false;
+
+    var defaultTitle = window.idxr_tr_add_to_cart_error_title || 'Une erreur est survenue';
+    var defaultMessage = window.idxr_tr_add_to_cart_error_message || 'Une erreur a empêché l’ajout de votre personnalisation au panier. Veuillez réessayer.';
+
+    $('#idxr-addtocart-error-title').text(defaultTitle);
+    $('#idxr-addtocart-error-message').text(message || defaultMessage);
+    $('#idxr-addtocart-error-modal').addClass('is-open').attr('aria-hidden', 'false');
+}
+
+function showSaveCustomizationSuccessModal() {
+    $('#idxr-save-success-modal').addClass('is-open').attr('aria-hidden', 'false');
+}
+
+function updatePreloaderProgress(percent) {
+    var safePercent = Math.max(0, Math.min(100, parseInt(percent, 10) || 0));
+    if ($('#idxr-preloader-percent').length) {
+        $('#idxr-preloader-percent').text(safePercent + '%');
+    }
+    if ($('#idxr-preloader-bar-fill').length) {
+        $('#idxr-preloader-bar-fill').css('width', safePercent + '%');
+    }
+}
+
+function createAddToCartTimer() {
+    var start = performance.now();
+    var last = start;
+    var stageMap = {
+        start: { percent: 30 },
+        'snap-saved': { percent: 48 },
+        'product-created': { percent: 74 },
+        'cart-updated': { percent: 96 },
+        completed: { percent: 100 },
+        redirecting: { percent: 100 }
+    };
+
+    return {
+        logStep: function(label) {
+            var now = performance.now();
+            if (stageMap[label]) {
+                updatePreloaderProgress(stageMap[label].percent);
+            }
+            console.info('[idxr-add-to-cart]', label, '| step:', Math.round(now - last) + 'ms', '| total:', Math.round(now - start) + 'ms');
+            last = now;
+        },
+        logEnd: function(label) {
+            var now = performance.now();
+            if (stageMap[label]) {
+                updatePreloaderProgress(stageMap[label].percent);
+            }
+            console.info('[idxr-add-to-cart]', label, '| total:', Math.round(now - start) + 'ms');
+        }
+    };
+}
 
 function get_status_string()
 {
@@ -553,7 +2158,7 @@ function set_option_value(step_type,step_id,optional = false, update_final_price
                 option_id.push($(this).attr('data-value'));
             });
             refreshImpact(step_id,option_id);
-            if(option_id === false || typeof option_id === 'undefined'){
+            if ((!$.isArray(option_id) && (option_id === false || typeof option_id === 'undefined')) || ($.isArray(option_id) && option_id.length === 0)){
                 if (optional !== "1") {
                     $('#next_alert_'+step_id).show('slow');
                     reject(false);
@@ -754,14 +2359,14 @@ function next_panel_id(){
             var assigned = $('#js_opt_'+thisid+'_value').html();            
             var contraints_hidden = $(this).hasClass('hidden');
             var optional = $(this).attr('data-optional');
-            if (assigned === 'false' && !contraints_hidden && optional === "1") { //if only is optional show and go next
+            if (assigned === 'false' && !contraints_hidden && optional === "1") {
                 $('#component_step_'+thisid).show('slow');
                 loadimages($('#component_step_'+thisid));
             }
             if((assigned === 'false' && !contraints_hidden && optional !== "1") || thisid === 'last'){
                 next = thisid;
             } else {
-                if (assigned !== 'false' && !contraints_hidden && optional !== "1") { //if have default value show and continue
+                if (assigned !== 'false' && !contraints_hidden && optional !== "1") {
                     $('#component_step_'+thisid).show('slow');
                     loadimages($('#component_step_'+thisid));
                 }
@@ -786,29 +2391,29 @@ function next_panel_id(){
 }
 
 function go_next_panel(id){
-    if(id === 'last'){
-        $('#component_step_resume').collapse('show');
-        if (!block_animation && $(window).width() < 992) {
-            setTimeout(
-            function()
-            {
-                $([document.documentElement, document.body]).animate({
-                    scrollTop: ($('#component_step_resume').offset().top - 100)
-                }, 1000);
-            }, 500);
-        }
-    }else{
-        $('#step_title_'+id).collapse('show');
-        if (!block_animation && $(window).width() < 992) {
-            setTimeout(
-            function()
-            {
-                $([document.documentElement, document.body]).animate({
-                    scrollTop: ($('#step_title_'+ id).offset().top - 100) //antes 200
-                }, 1000);
-            }, 500);
-        }
-    }
+    // if(id === 'last'){
+    //     $('#component_step_resume').collapse('show');
+    //     if (!block_animation && $(window).width() < 992) {
+    //         setTimeout(
+    //         function()
+    //         {
+    //             $([document.documentElement, document.body]).animate({
+    //                 scrollTop: ($('#component_step_resume').offset().top - 100)
+    //             }, 1000);
+    //         }, 500);
+    //     }
+    // }else{
+    //     $('#step_title_'+id).collapse('show');
+    //     if (!block_animation && $(window).width() < 992) {
+    //         setTimeout(
+    //         function()
+    //         {
+    //             $([document.documentElement, document.body]).animate({
+    //                 scrollTop: ($('#step_title_'+ id).offset().top - 100) //antes 200
+    //             }, 1000);
+    //         }, 500);
+    //     }
+    // }
     return false;
 }
 
@@ -936,6 +2541,7 @@ function loadimages(step) {
 
 function checkconstraint(option_id){
     $('.component_step').each(function() {
+        var selected=true;
         var constraint_string = $(this).attr('data-constraints');
         if(constraint_string){
             constraints = constraint_string.split(',');
@@ -947,13 +2553,15 @@ function checkconstraint(option_id){
                 constraint_rules.forEach(function(rule){
                     rule_parts = rule.split('_');
                     option_parts = option_id.split('_');
-                    var selected = option_parts[1];
+                    selected = option_parts[1];
                     if(rule_parts[0] != option_parts[0]){
-                        var selected = $('#js_opt_'+rule_parts[0]+'_value').html();
+                        selected = $('#js_opt_'+rule_parts[0]+'_value').html();
                     }
-                    selected = selected.split(',');
-                    if(rule !== option_id && jQuery.inArray(rule_parts[1],selected) == -1){
-                        valid = false;
+                    if(selected) {
+                        selected = selected.split(',');
+                        if(rule !== option_id && jQuery.inArray(rule_parts[1],selected) == -1){
+                            valid = false;
+                        }
                     }
                 });
                 if(valid){
@@ -1058,7 +2666,7 @@ function ajaxFileUpload(id_component){
     xhr.onload = function() {
         if (this.readyState == 4 && this.status == 200) {
             if(this.responseText!="ok"){
-                alert(this.responseText);
+                showAddToCartErrorModal(this.responseText);
                 resultado = false;
             }
         } else {
@@ -1070,11 +2678,445 @@ function ajaxFileUpload(id_component){
     return resultado;
 }
 
-function updateTotal(){
-    
-    console.log('updating totale');
+function reseto(){
+    removePreloader();
+    $('#add-to-cart-button-unique-12345').prop('disabled', false);
+    $('#add-to-cart-button-unique-12345').removeClass('disabled');
+    isAddingToCart = false;
+}
 
+function sendSnaps(product, attribute, custom, extra, quantity, product_weight, product_volume, product_width, product_height, product_depth) {
+    
+    if (isAddingToCart) return;
+    isAddingToCart = true;
+    var addToCartTimer = createAddToCartTimer();
+    addToCartTimer.logStep('start');
+
+    var prix_de_decouper = 0;
+    var prix_de_decoupe = 0;
+    var price_from_cube = 0;
+    var price_from_cube_input = $('#resume_price_from_cube');
+    var decoupe_prices = $('#resume_prix_de_decoupe_price');
+    
+    // Check if decoupe_prices exists and has a value
+    if (decoupe_prices.length && decoupe_prices.val()) {
+        prix_de_decoupe =+ parseFloat(decoupe_prices.val().replace(',', '.'));
+    }
+    if (price_from_cube_input.length && price_from_cube_input.val()) {
+        price_from_cube =+ parseFloat(price_from_cube_input.val().replace(',', '.'));
+    }
+
+    // Check if prix_de_decoupe is a valid number and greater than 0
+    if (!isNaN(prix_de_decoupe) && prix_de_decoupe > 0) {
+        prix_de_decouper = prix_de_decoupe;
+    }// Reset button functionality
+    var svg = $('#actualSvg');
+    svg.data('scale', 1);
+    svg.data('rotate', 0);
+    svg.css('transform', 'none');
+    $('.activeDemensions').show();
+    var svgElement = document.getElementById('actualSvg');
+    var runtimeSnapshot = idxrCollectCurrentSnapshot('cart_' + Date.now());
+    if (typeof console !== 'undefined' && typeof console.info === 'function') {
+        console.info('[idxr-add-to-cart]', {
+            customization: custom || '',
+            extra_info: extra || '',
+            snapshot_json: {
+                steps: runtimeSnapshot && $.isArray(runtimeSnapshot.steps) ? runtimeSnapshot.steps : []
+            }
+        });
+    }
+    // var divElement = document.getElementById('component_step_last');
+    var svgMarkup = new XMLSerializer().serializeToString(svgElement);
+
+    Promise.resolve().then(function() {
+        var id_product = product;
+
+        var data = new FormData();
+        data.append('svgMarkup', svgMarkup);
+        data.append("console", idxcp_console_state);
+        data.append("action", "handlesnaps");
+        data.append("product", id_product);
+        data.append("attribute", attribute || 0);
+        data.append("custom", custom || '');
+        data.append("extra", extra || '');
+        data.append("snapshot_json", JSON.stringify(runtimeSnapshot || {}));
+        data.append("svg_thumbnail", (runtimeSnapshot && runtimeSnapshot.svg_thumbnail) ? runtimeSnapshot.svg_thumbnail : '');
+        data.append("source", "cart");
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url_ajax, true);
+        xhr.onload = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                addToCartTimer.logStep('snap-saved');
+                var response = JSON.parse(xhr.responseText);
+                if (response.id) {
+                    $.post(url_ajax, { 
+                        action: "createproduct", 
+                        snaps: response.id, 
+                        product: product, 
+                        attribute: attribute, 
+                        custom: custom, 
+                        extra: extra, 
+                        quantity: quantity, 
+                        product_weight: product_weight, 
+                        product_volume: product_volume, 
+                        product_width: product_width, 
+                        product_height: product_height, 
+                        product_depth: product_depth, 
+                        prix_de_decoupe: prix_de_decouper,
+                        price_from_cube: price_from_cube,
+                    }).done(function(data) {
+                        addToCartTimer.logStep('product-created');
+                        if (icp_editing) {
+                            removeFromCart(icp_editing);
+                        }
+                        var enviado = false;
+                        if (typeof ajaxCart !== 'undefined') {
+                            ajaxCart.add(data, null, true, $(this), $('#quantity_wanted').val());
+                            enviado = true;
+                        }
+                        if (typeof prestashop !== 'undefined') {
+                            id_product = data;
+                            id_product_attribute = 0;
+
+                            $.ajax({
+                                type: 'POST',
+                                headers: { "cache-control": "no-cache" },
+                                cache: false,
+                                url: prestashop.urls.pages.cart + '?rand=' + new Date().getTime(),
+                                async: true,
+                                dataType: 'json',
+                                data: 'action=update&add=1&ajax=true&qty=' + (quantity ? quantity : '1') + '&id_product=' + data + '&token=' + prestashop.static_token + '&ipa=0',
+                                success: function(response) {
+                                    addToCartTimer.logStep('cart-updated');
+                                    $('#add-to-cart-button-unique-12345').prop('disabled', false);
+                                    enviado = true;
+                                    prestashop.emit('updateCart', {
+                                        reason: {
+                                            idProduct: id_product,
+                                            idProductAttribute: id_product_attribute,
+                                            linkAction: 'add-to-cart'
+                                        },
+                                        resp: response
+                                    });
+
+                                        // minimumcartfees
+                                        if (typeof refreshFeeLine !== 'undefined') {
+                                            setTimeout(refreshFeeLine, 1000);
+                                        }
+
+                                    addToCartTimer.logEnd('completed');
+                                    reseto();
+                                }
+                            }).fail(function() {
+                                showAddToCartErrorModal();
+                            });
+
+                        }
+                        if (!enviado && typeof cart_link !== "undefined") {
+                            addToCartTimer.logStep('legacy-cart-post');
+                            $.post(cart_link, { token: cart_token, id_product: data, add: 1, id_product_attribute: 0 });
+                            addToCartTimer.logEnd('redirecting');
+                            location.reload();
+                        }
+                        
+                    }).fail(function(xhr) {
+                        var message = xhr && xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : null;
+                        showAddToCartErrorModal(message);
+                    });
+                } else {
+                    showAddToCartErrorModal(response && response.message ? response.message : null);
+                }
+            } else {
+                console.error('An error occurred during the AJAX request');
+                showAddToCartErrorModal();
+            }
+        };
+        xhr.onerror = function() {
+            showAddToCartErrorModal();
+        };
+        xhr.send(data);
+    })
+    .catch(function(error) {
+        console.error('Error during SVG conversion:', error.message);
+        showAddToCartErrorModal();
+    });
+
+}
+
+/**
+ * safely parses a value into a float.
+ */
+function safeParseFloat(value, defaultValue = 0) {
+    const parsed = parseFloat(value?.toString().replace(',', '.'));
+    return isNaN(parsed) ? defaultValue : parsed;
+}
+
+/*
+ * Get prices based on product thickness.
+ */
+function getPricesByThickness(thicknessValue) {
+    const requestedThickness = safeParseFloat(thicknessValue);
+    const fallbackPrices = {
+        decoupe: 4.0000,
+        collage: 70.0000,
+        polissage: 5.0000,
+    };
+
+    const rawRates = Array.isArray(window.idxr_active_thickness_rates) ? window.idxr_active_thickness_rates : [];
+    const rates = rawRates
+        .map(function (row) {
+            return {
+                thickness: safeParseFloat(row && row.thickness_mm),
+                decoupe: safeParseFloat(row && row.cut_rate, fallbackPrices.decoupe),
+                collage: safeParseFloat(row && row.glue_rate, fallbackPrices.collage),
+                polissage: safeParseFloat(row && row.polish_rate, fallbackPrices.polissage),
+            };
+        })
+        .filter(function (row) {
+            return row.thickness > 0;
+        })
+        .sort(function (a, b) {
+            return a.thickness - b.thickness;
+        });
+
+    if (!rates.length) {
+        return fallbackPrices;
+    }
+
+    const exact = rates.find(function (row) {
+        return Math.abs(row.thickness - requestedThickness) < 0.0001;
+    }) || null;
+    const nextBiggest = rates.find(function (row) {
+        return row.thickness > requestedThickness;
+    }) || null;
+    const nextSmallest = (function () {
+        const lower = rates.filter(function (row) {
+            return row.thickness < requestedThickness;
+        });
+        return lower.length ? lower[lower.length - 1] : null;
+    })();
+
+    const selected = exact || nextBiggest || nextSmallest;
+    if (!selected) {
+        return fallbackPrices;
+    }
+
+    const result = {
+        decoupe: safeParseFloat(selected.decoupe, fallbackPrices.decoupe),
+        collage: safeParseFloat(selected.collage, fallbackPrices.collage),
+        polissage: safeParseFloat(selected.polissage, fallbackPrices.polissage),
+    };
+    return result;
+}
+
+function isPricingDebugEnabled() {
+    return window.idxr_front_accordion_environment === 'development';
+}
+
+function formatDebugMoney(value) {
+    return `${safeParseFloat(value).toFixed(2)} €`;
+}
+
+function formatDebugUnitPrice(value, unit) {
+    return `${safeParseFloat(value).toFixed(4)} ${unit}`;
+}
+
+function formatDebugQuantity(value, unit, decimals) {
+    const precision = typeof decimals === 'number' ? decimals : 2;
+    return `${safeParseFloat(value).toFixed(precision)} ${unit}`;
+}
+
+function getPricingDebugTableElements() {
+    let $fixedTable = $('#fixedTable');
+    if ($fixedTable.length) {
+        return {
+            container: $fixedTable,
+            subtitle: $fixedTable.find('[data-role="pricing-debug-subtitle"]'),
+            tbody: $fixedTable.find('tbody')
+        };
+    }
+
+    $fixedTable = $('<div id="fixedTable"></div>').css({
+        position: 'fixed',
+        bottom: '0',
+        left: '0',
+        backgroundColor: '#f9f9f9',
+        borderTop: '1px solid #ccc',
+        borderRight: '1px solid #ccc',
+        boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.2)',
+        fontFamily: 'Arial, sans-serif',
+        zIndex: '199',
+        minWidth: '540px',
+        maxWidth: '760px'
+    });
+
+    const $tableHeader = $('<div></div>').css({
+        padding: '10px',
+        backgroundColor: '#333',
+        color: '#fff',
+        cursor: 'pointer',
+        textAlign: 'center'
+    }).appendTo($fixedTable);
+
+    const $tableTitle = $('<p></p>').text('Schéma de tarification (réduire)').css({
+        margin: '0',
+        fontSize: '18px',
+        fontWeight: 'bold',
+        color: 'white'
+    }).appendTo($tableHeader);
+
+    $('<img src="https://icons.iconarchive.com/icons/paomedia/small-n-flat/256/sign-down-icon.png" width="30" height="30" alt="toggle"/>').appendTo($tableTitle);
+
+    const $subtitle = $('<p data-role="pricing-debug-subtitle"></p>').css({
+        margin: '0',
+        fontSize: '14px',
+        color: 'white'
+    }).appendTo($tableHeader);
+
+    const $tableContent = $('<div></div>').css({
+        display: 'block',
+        padding: '10px'
+    }).attr('id', 'tableContent').appendTo($fixedTable);
+
+    const $table = $('<table></table>').css({
+        width: '100%',
+        borderCollapse: 'collapse'
+    }).appendTo($tableContent);
+
+    const headers = ['Element', 'Tarif HT', 'Prix HT', 'Prix TTC'];
+    const $theadRow = $('<tr></tr>').appendTo($('<thead></thead>').appendTo($table));
+    headers.forEach(function (header) {
+        $('<th></th>').text(header).css({
+            border: '1px solid #ddd',
+            padding: '8px',
+            textAlign: 'center',
+            backgroundColor: '#efefef'
+        }).appendTo($theadRow);
+    });
+
+    const $tbody = $('<tbody></tbody>').appendTo($table);
+
+    $tableHeader.on('click', function () {
+        $tableContent.toggle();
+    });
+
+    $('body').append($fixedTable);
+
+    return {
+        container: $fixedTable,
+        subtitle: $subtitle,
+        tbody: $tbody
+    };
+}
+
+function renderPricingDebugTable(payload) {
+    if (!isPricingDebugEnabled()) {
+        $('#fixedTable').remove();
+        return;
+    }
+
+    const elements = getPricingDebugTableElements();
+    const thicknessLabel = safeParseFloat(payload && payload.thickness, 0);
+    elements.subtitle.html(`Tableau de test pour <strong>épaisseur : ${thicknessLabel} mm</strong>`);
+    elements.tbody.empty();
+
+    (payload.rows || []).forEach(function (row) {
+        const $row = $('<tr></tr>');
+        const detail = row.detail ? `: ${row.detail}` : '';
+        [
+            `${row.label}${detail}`,
+            row.unitPrice || '--',
+            row.ht || '0.00 €',
+            row.ttc || '0.00 €'
+        ].forEach(function (cell) {
+            $('<td></td>').html(cell).css({
+                border: '1px solid #ddd',
+                padding: '8px',
+                textAlign: 'center'
+            }).appendTo($row);
+        });
+        elements.tbody.append($row);
+    });
+
+    const totalRow = $('<tr></tr>');
+    [
+        '<strong>Total</strong>',
+        '<strong>--</strong>',
+        `<strong>${payload.totalHt || '0.00 €'}</strong>`,
+        `<strong>${payload.totalTtc || '0.00 €'}</strong>`
+    ].forEach(function (cell) {
+        $('<td></td>').html(cell).css({
+            border: '1px solid #ddd',
+            padding: '8px',
+            textAlign: 'center',
+            backgroundColor: '#fafafa'
+        }).appendTo(totalRow);
+    });
+    elements.tbody.append(totalRow);
+}
+
+function buildDebugRow(label, detail, unitPrice, ht, ttc) {
+    return {
+        label: label,
+        detail: detail,
+        unitPrice: unitPrice,
+        ht: ht,
+        ttc: ttc
+    };
+}
+
+function buildCubePricingDebugPayload(context) {
+    const rows = [
+        buildDebugRow('Surface de capot', formatDebugQuantity(context.surface, 'm²'), formatDebugUnitPrice(getWithoutTax(context.basePricePerSquareMeter), '€/m²'), formatDebugMoney(getWithoutTax(context.capotSurfaceTtc)), formatDebugMoney(context.capotSurfaceTtc)),
+        buildDebugRow('Prix de découpe de capot', formatDebugQuantity(context.capotDiameter, 'm', 3), formatDebugUnitPrice(context.capotCutRate, '€/m HT'), formatDebugMoney(context.capotCutHt), formatDebugMoney(context.capotCutTtc)),
+        buildDebugRow('Prix de collage de capot', formatDebugQuantity(context.capotDiameter, 'm', 3), formatDebugUnitPrice(context.capotGlueRate, '€/m HT'), formatDebugMoney(context.capotGlueHt), formatDebugMoney(context.capotGlueTtc)),
+        buildDebugRow('Surface de socle', formatDebugQuantity(context.secondSurface, 'm²'), formatDebugUnitPrice(context.materielPrice, '€/m²'), formatDebugMoney(context.socleSurfaceHt), formatDebugMoney(context.socleSurfaceTtc)),
+        buildDebugRow('Prix de découpe de socle', formatDebugQuantity(context.socleDiameter, 'm', 3), formatDebugUnitPrice(context.socleCutRate, '€/m HT'), formatDebugMoney(context.socleCutHt), formatDebugMoney(context.socleCutTtc)),
+        buildDebugRow('Prix de collage de socle', formatDebugQuantity(context.socleDiameter, 'm', 3), formatDebugUnitPrice(context.socleGlueRate, '€/m HT'), formatDebugMoney(context.socleGlueHt), formatDebugMoney(context.socleGlueTtc)),
+        buildDebugRow('Avec épaulement', context.epaulmentEnabled ? 'Oui' : 'Non', formatDebugMoney(context.epaulmentHt), formatDebugMoney(context.epaulmentHt), formatDebugMoney(context.epaulmentTtc))
+    ];
+
+    if (context.holesExtraTotal > 0) {
+        rows.push(buildDebugRow('Prix fixe trous', `${context.holesCount} x ${formatDebugMoney(context.holesUnitPrice)}`, formatDebugMoney(context.holesUnitPrice), formatDebugMoney(getWithoutTax(context.holesExtraTotal)), formatDebugMoney(context.holesExtraTotal)));
+    }
+
+    return {
+        thickness: context.thickness,
+        rows: rows,
+        totalHt: formatDebugMoney(getWithoutTax(context.totalTtc)),
+        totalTtc: formatDebugMoney(context.totalTtc)
+    };
+}
+
+function buildFlatPricingDebugPayload(context) {
+    const rows = [
+        buildDebugRow('Surface', formatDebugQuantity(context.surface, 'm²'), formatDebugUnitPrice(getWithoutTax(context.basePricePerSquareMeter), '€/m²'), formatDebugMoney(getWithoutTax(context.surfaceTtc)), formatDebugMoney(context.surfaceTtc))
+    ];
+
+    if (context.isPredecoupe) {
+        rows.push(buildDebugRow('Plaques predecoupees', '', formatDebugUnitPrice(context.totalTtc, '€/m² HT'), formatDebugMoney(getWithoutTax(context.totalTtc)), formatDebugMoney(context.totalTtc)));
+    } else {
+        rows.push(buildDebugRow('Prix des découpes', formatDebugQuantity(context.cutLengthMeters, 'm', 4), formatDebugUnitPrice(context.cutRate, '€/m HT'), formatDebugMoney(context.cutHt), formatDebugMoney(context.cutTtc)));
+        rows.push(buildDebugRow('Prix de polissage', formatDebugQuantity(context.polishLengthMeters, 'm', 4), formatDebugUnitPrice(context.polishRate, '€/m HT'), formatDebugMoney(context.polishHt), formatDebugMoney(context.polishTtc)));
+    }
+
+    if (context.holesExtraTotal > 0) {
+        rows.push(buildDebugRow('Prix fixe trous', `${context.holesCount} x ${formatDebugMoney(context.holesUnitPrice)}`, formatDebugMoney(context.holesUnitPrice), formatDebugMoney(getWithoutTax(context.holesExtraTotal)), formatDebugMoney(context.holesExtraTotal)));
+    }
+
+    return {
+        thickness: context.thickness,
+        rows: rows,
+        totalHt: formatDebugMoney(getWithoutTax(context.totalTtc)),
+        totalTtc: formatDebugMoney(context.totalTtc)
+    };
+}
+
+function updateTotal(){
     total = 0;
+    
     $('.js_resume_price').each(function(){
         var parent = $(this).closest('tr');
         if (!parent.hasClass('hidden')) {
@@ -1085,42 +3127,344 @@ function updateTotal(){
             }
         }
     });
+    const productThicknessElement = $('#product_thickness').val();
+    const prices = getPricesByThickness(productThicknessElement);
+
+    var idxcp_prix_de_decoupe = prices.decoupe;
+    var idxcp_prix_de_collage = prices.collage;
+    var idxcp_prix_de_polissage = prices.polissage;
+    let pricingDebugPayload = null;
+    const idxrHolesCount = parseInt(window.idxr_holes_count, 10) || 0;
+    const idxrHolesUnitPrice = safeParseFloat(typeof idxr_holes_fixed_price !== 'undefined' ? idxr_holes_fixed_price : 0);
+    const idxrHolesExtraTotal = (idxrHolesCount > 0 && idxrHolesUnitPrice > 0) ? (idxrHolesCount * idxrHolesUnitPrice) : 0;
+
+    // total = total + parseFloat($('.js_base_price').val().replace(',',''));
+    var basePricePerSquareMeter = safeParseFloat($('.js_base_price').val());
+    var surface = safeParseFloat($('#product_surface').val());
     
-    var pholder = $('#resume_prix_de_decoupe_price');
-    if(pholder){
-        var prixDecoupe = parseFloat(pholder.val());
-        console.log(prixDecoupe);
-        if (!isNaN(prixDecoupe)) {
-            total += prixDecoupe;
+    
+    // verify if Vitrine and add its pricing. 
+    if((typeof DefineCubeShapeToDraw === 'number') && (DefineCubeShapeToDraw === 1)){
+        var totaleWithTax = 0;
+        var totaleWithoutTax = 0;
+        // Socle is modeled as 10mm in the configurator: use the same new €/m lookup path.
+        var soclePrices = getPricesByThickness(10);
+        var prixDecoupeSocle = safeParseFloat(soclePrices.decoupe, idxcp_prix_de_decoupe);
+        var prixCollageSocle = safeParseFloat(soclePrices.collage, idxcp_prix_de_collage);
+
+        if (!isNaN(surface) && surface > 0) {
+            var surfaceCost = (basePricePerSquareMeter * surface).toFixed(2);
+            total = total + parseFloat(surfaceCost.replace(',', '.'));
+            // Afficher le coût basé sur la surface dans le span avec " €"
+            // $("#js_resume_price_surface").html(surfaceCost + " €");
+        } else {
+            var surfaceCost = (basePricePerSquareMeter * 0);
+            total = total + parseFloat(surfaceCost);
+            $("#js_resume_price_surface").html(''); // Effacer le contenu s'il n'y a pas de coût basé sur la surface
         }
-    }else{
-        console.log('else updating totale');
+
+        const price_87345 = parseFloat(basePricePerSquareMeter)*parseFloat(surface) || 0;
+        
+        var materiel_price = parseFloat($('#cube_materiaux_price').val().replace(',', '.'));
+        const second_surface = safeParseFloat($('#cube_second_surface').val());
+        totaleWithTax += getWithTax(parseFloat(materiel_price)*parseFloat(second_surface));
+        totaleWithoutTax += parseFloat(materiel_price)*parseFloat(second_surface);
+
+
+        var prixEpaulment = 0;
+        const epaulment = $('#cube_modele_de_socle').val();
+        if (epaulment === 'true') prixEpaulment = 15;
+        totaleWithTax += getWithTax(prixEpaulment);
+        const price_09832423 = getWithTax(prixEpaulment);
+        totaleWithoutTax += prixEpaulment;
+
+        var diameter_capot = parseFloat($('#cube_diameter_capot').val().replace(',', '.'));
+        const unifiedDiameter = parseFloat(diameter_capot);
+        const capotCutHt = parseFloat(idxcp_prix_de_decoupe) * unifiedDiameter;
+        const price_8023234 = getWithTax(parseFloat(idxcp_prix_de_decoupe) * unifiedDiameter) || 0;
+        const capotGlueHt = parseFloat(idxcp_prix_de_collage) * unifiedDiameter;
+        const price_80232334 = getWithTax(parseFloat(idxcp_prix_de_collage) * unifiedDiameter) || 0;
+
+        totaleWithTax += price_8023234;
+        totaleWithoutTax += capotCutHt;
+        
+        totaleWithTax += price_80232334;
+        totaleWithoutTax += capotGlueHt;
+
+        const total_price_capot = price_87345+ price_8023234 + price_80232334;
+        $('#tr_resume_prix_de_capot').text(`${total_price_capot.toFixed(2)} €`);
+
+        var diameter_socle = parseFloat($('#cube_diameter_socle').val().replace(',', '.'));
+        const unifiedDiameterSocle = parseFloat(diameter_socle);
+        const socleCutHt = parseFloat(prixDecoupeSocle) * unifiedDiameterSocle;
+        const price_0923525 = getWithTax(parseFloat(prixDecoupeSocle) * unifiedDiameterSocle) || 0;
+        const socleGlueHt = parseFloat(prixCollageSocle) * unifiedDiameterSocle;
+        const price_923525 = getWithTax(parseFloat(prixCollageSocle) * unifiedDiameterSocle) || 0;
+
+        totaleWithTax += price_0923525;
+        totaleWithoutTax += socleCutHt;
+        
+        totaleWithTax += price_923525;
+        totaleWithoutTax += socleGlueHt;
+
+        const total_price_socel = price_0923525+ price_923525 + price_09832423;
+        $('#tr_resume_prix_de_socle').text(`${total_price_socel.toFixed(2)} €`);
+
+        total = total + parseFloat(totaleWithTax);
+        total += idxrHolesExtraTotal;
+        try{
+            if (typeof updateInlinePrices === 'function') {
+                var basePricePerSquareMeter = parseFloat($('.js_base_price').val().replace(',', '.'));
+                const totalPricing = getWithTax(materiel_price)+basePricePerSquareMeter;
+                updateInlinePrices(totalPricing.toFixed(2), (getWithoutTax(totalPricing)));
+            }
+        }catch(error){
+        }
+        
+        discount = getDiscount(total);
+        if (discount) {
+            total = total - discount;
+        }        
+
+        // check if total is under minimun amount:
+        if (typeof idxr_prix_fixe_vitrine !== 'undefined' && idxr_prix_fixe_vitrine && !isNaN(idxr_prix_fixe_vitrine)) {
+            if (!isNaN(total) && parseFloat(total) < parseFloat(idxr_prix_fixe_vitrine)) {
+                total = parseFloat(idxr_prix_fixe_vitrine);
+            }
+        }
+
+        pricingDebugPayload = buildCubePricingDebugPayload({
+            thickness: productThicknessElement,
+            basePricePerSquareMeter: basePricePerSquareMeter,
+            surface: surface,
+            capotSurfaceTtc: price_87345,
+            materielPrice: materiel_price,
+            secondSurface: second_surface,
+            socleSurfaceHt: parseFloat(materiel_price) * parseFloat(second_surface),
+            socleSurfaceTtc: getWithTax(parseFloat(materiel_price) * parseFloat(second_surface)),
+            epaulmentEnabled: epaulment === 'true',
+            epaulmentHt: prixEpaulment,
+            epaulmentTtc: getWithTax(prixEpaulment),
+            capotDiameter: diameter_capot,
+            capotCutRate: idxcp_prix_de_decoupe,
+            capotCutHt: capotCutHt,
+            capotCutTtc: price_8023234,
+            capotGlueRate: idxcp_prix_de_collage,
+            capotGlueHt: capotGlueHt,
+            capotGlueTtc: price_80232334,
+            socleDiameter: diameter_socle,
+            socleCutRate: prixDecoupeSocle,
+            socleCutHt: socleCutHt,
+            socleCutTtc: price_0923525,
+            socleGlueRate: prixCollageSocle,
+            socleGlueHt: socleGlueHt,
+            socleGlueTtc: price_923525,
+            holesCount: idxrHolesCount,
+            holesUnitPrice: idxrHolesUnitPrice,
+            holesExtraTotal: idxrHolesExtraTotal,
+            totalTtc: total
+        });
+    }else {
+        const is_predcoper = $('#idxr_is_predecoupe').val() === "true";
+        if(!is_predcoper){
+            if (!isNaN(surface) && surface > 0) {
+                var surfaceCost = (basePricePerSquareMeter * surface).toFixed(2);
+                total = parseFloat(surfaceCost.replace(',', '.'));
+                // Afficher le coût basé sur la surface dans le span avec " €"
+                // $("#js_resume_price_surface").html(surfaceCost + " €");
+            } else {
+                var surfaceCost = (basePricePerSquareMeter * 0);
+                total = parseFloat(surfaceCost);
+                $("#js_resume_price_surface").html(''); // Effacer le contenu s'il n'y a pas de coût basé sur la surface
+            }
+
+            const pholder1 = $('#diameter_de_decoupe_price');
+            const pholder2 = $('#diameter_de_decoupe_price2');
+            const is_rectangle = $('#idxr_is_rectangle').val();
+            const is_rectangle_polissage = $('#idxr_is_rectangle_polissage').val();
+            const skipRectangleCuttingPrice = !!window.idxr_skip_rectangle_cutting_price;
+            // if (is_rectangle === 'true') idxcp_prix_de_decoupe = safeParseFloat(idxr_prix_de_decoupe_cube);
+
+            let prixDecoupeM = 0;
+            let polishLengthMeters = 0;
+            let decoupePriceWithTax = 0;
+            let polishPriceWithTax = 0;
+        
+            if ((pholder1.length > 0) && (pholder2.length > 0)) {
+                const prixDecoupe1 = safeParseFloat(pholder1.val());
+                const prixDecoupe2 = safeParseFloat(pholder2.val());
+
+                const pholder = prixDecoupe1 + prixDecoupe2;
+                // Parse and validate the price input
+                // const prixDecoupeRaw = pholder.val().replace(',', '.');
+                const prixDecoupe = parseFloat(pholder);
+                prixDecoupeM = prixDecoupe / 1000;
+                const prixDecoupe2M = prixDecoupe2 / 1000;
+                polishLengthMeters = prixDecoupeM;
+
+                if (!isNaN(prixDecoupe)) {
+                    // Calculate the price with tax
+                    decoupePriceWithTax = 0;
+
+                    if (is_rectangle === 'true' && skipRectangleCuttingPrice) decoupePriceWithTax = getWithTax(prixDecoupe2M * parseFloat(idxcp_prix_de_decoupe));
+                    else decoupePriceWithTax = getWithTax(prixDecoupeM * parseFloat(idxcp_prix_de_decoupe));
+        
+                    if (!isNaN(decoupePriceWithTax)) {
+                        total += decoupePriceWithTax;
+                    }
+        
+                    if (is_rectangle_polissage === 'true') {
+                        polishPriceWithTax = getWithTax(prixDecoupeM * parseFloat(idxcp_prix_de_polissage));
+        
+                        if (!isNaN(polishPriceWithTax)) {
+                            total += polishPriceWithTax;
+                        }
+                    }
+        
+                    $('#resume_prix_de_decoupe_price').val(decoupePriceWithTax.toFixed(2));
+                }
+            }
+
+            // discount = getDiscount(total);
+            // if (discount) {
+            //     total = total - discount;
+            // }  
+
+            pricingDebugPayload = buildFlatPricingDebugPayload({
+                thickness: productThicknessElement,
+                basePricePerSquareMeter: basePricePerSquareMeter,
+                surface: surface,
+                surfaceTtc: safeParseFloat(surfaceCost),
+                isPredecoupe: false,
+                cutLengthMeters: prixDecoupeM,
+                cutRate: idxcp_prix_de_decoupe,
+                cutHt: getWithoutTax(decoupePriceWithTax),
+                cutTtc: decoupePriceWithTax,
+                polishLengthMeters: is_rectangle_polissage === 'true' ? polishLengthMeters : 0,
+                polishRate: idxcp_prix_de_polissage,
+                polishHt: getWithoutTax(polishPriceWithTax),
+                polishTtc: polishPriceWithTax,
+                holesCount: idxrHolesCount,
+                holesUnitPrice: idxrHolesUnitPrice,
+                holesExtraTotal: idxrHolesExtraTotal,
+                totalTtc: total + idxrHolesExtraTotal
+            });
+                    
+        }else{
+            if (!isNaN(surface) && surface > 0) {
+                var surfaceCost = (basePricePerSquareMeter * surface).toFixed(2);
+                total = parseFloat(surfaceCost.replace(',', '.'));
+                // Afficher le coût basé sur la surface dans le span avec " €"
+                // $("#js_resume_price_surface").html(surfaceCost + " €");
+            } else {
+                var surfaceCost = (basePricePerSquareMeter * 0);
+                total = parseFloat(surfaceCost);
+                $("#js_resume_price_surface").html(''); // Effacer le contenu s'il n'y a pas de coût basé sur la surface
+            }
+            
+            // const prix_predecouppe = safeParseFloat($('#idxr_prix_de_predecoupe').val());
+            // total = prix_predecouppe;
+            pricingDebugPayload = buildFlatPricingDebugPayload({
+                thickness: productThicknessElement,
+                basePricePerSquareMeter: basePricePerSquareMeter,
+                surface: surface,
+                surfaceTtc: safeParseFloat(surfaceCost),
+                isPredecoupe: true,
+                holesCount: idxrHolesCount,
+                holesUnitPrice: idxrHolesUnitPrice,
+                holesExtraTotal: idxrHolesExtraTotal,
+                totalTtc: total + idxrHolesExtraTotal
+            });
+        }
+
+        total += idxrHolesExtraTotal;
+
+        // check if total is under minimun amount:
+        if (typeof idxr_prix_fixe !== 'undefined' && idxr_prix_fixe && !isNaN(idxr_prix_fixe)) {
+            if (!isNaN(total) && parseFloat(total) < parseFloat(idxr_prix_fixe)) {
+                total = parseFloat(idxr_prix_fixe);
+            }
+        }
     }
 
-    total = total + parseFloat($('.js_base_price').val().replace(',',''));
-    discount = getDiscount(total);
-    if (discount) {
-        total = total - discount;
+    if (pricingDebugPayload) {
+        pricingDebugPayload.totalHt = formatDebugMoney(getWithoutTax(total));
+        pricingDebugPayload.totalTtc = formatDebugMoney(total);
     }
-    $("#js_resume_total_price").val(total);
-    var formatter = formatPrice(total);
-    formatter.done(function(data){
-        total_formated = jQuery.parseJSON(data);
-        $("#resume_total_price").html(total_formated);
-        $('#js_topblock_total_price').html(total_formated);
+    renderPricingDebugTable(pricingDebugPayload || {
+        thickness: productThicknessElement,
+        rows: [],
+        totalHt: formatDebugMoney(getWithoutTax(total)),
+        totalTtc: formatDebugMoney(total)
     });
+
+    $('#resume_price_from_cube').val(getWithoutTax(total));
+
+    $("#js_resume_total_price").val(total);
+    // Format total price to two decimal places
+    const totalFormatted = total.toFixed(2).replace(".", ",");
+
+    // Display the formatted total price
+    $("#js_resume_total_price").val(totalFormatted + " €");
+    $("#resume_total_price").html(totalFormatted + " € TTC");
+    $("#braig_ttc_price_set").html(totalFormatted + " €");
+    $('#js_topblock_total_price').html(totalFormatted + " €");
+
+    // Calculate and format the HT price
+    const newTotal = total / (1 + (idxcp_originaltax / 100));
+    const newTotalFormatted = newTotal.toFixed(2).replace(".", ",");
+
+    // Display the HT price with the appropriate formatting
+    $("#resume_total_price_ht").html("(" + newTotalFormatted + " € HT)");
+    $("#braig_ht_price_set").html(newTotalFormatted + " €");
+
+
+    // var formatter = formatPrice(total);
+    // formatter.done(function(data){
+    //     total_formated = jQuery.parseJSON(data);
+    //     // $("#resume_total_price").html(total_formated);
+    //     var total_cleaned = total_formated.replace(/[^\d,]/g, '');
+    //     // Remplacer la virgule par un point pour le format décimal
+    //     var total_replaced = total_cleaned.replace(",", ".");
+    //     var total_float = parseFloat(total_replaced);
+    //     // Calculer le montant hors taxes
+    //     var newTotal = total_float / (1 + (idxcp_originaltax / 100));
+    //     // Formater le montant hors taxes avec deux chiffres après la virgule
+    //     var newTotalFormatted = newTotal.toFixed(2);
+    //     // Afficher le montant total TTC
+    //     $("#resume_total_price").html(total_formated + " TTC");
+    //     $("#braig_ttc_price_set").html(total_formated);
+    //     $("#js_resume_total_price").val(total_formated + " €");
+    //     // Afficher le montant hors taxes
+    //     $("#resume_total_price_ht").html("("+ newTotalFormatted + " € HT)");
+    //     $("#braig_ht_price_set").html(newTotalFormatted + " €");
+       
+    //     $('#js_topblock_total_price').html(total_formated);
+    // });
     if ($('#idxrcustomprouct_quantity_wanted').length && $('#idxrcustomprouct_quantity_wanted').val() > 1) {        
         var quantity = $('#idxrcustomprouct_quantity_wanted').val();
         var total_qty = total*quantity;
         var formattet_qty = formatPrice(total_qty);
         formattet_qty.done(function(data){
             total_formated = jQuery.parseJSON(data);
-            $("#qty_total_price").html(total_formated);
+            $("#qty_total_price").html(total_formated + " TTC");
+            
         });
         $('#qty_total_price_tr').show();
    } else {
        $('#qty_total_price_tr').hide();
    }
+   
+   $('#add-to-cart-button-unique-12345').prop('disabled', false);
+   $('#add-to-cart-button-unique-12345').removeClass('disabled');
+}
+
+function getWithTax(price){
+    return parseFloat(price) * (1 + (idxcp_originaltax / 100));
+}
+
+function getWithoutTax(price){
+    return parseFloat(price) / (1 + (idxcp_originaltax / 100)).toFixed(2);
 }
 
 function getDiscount(total){
@@ -1162,7 +3506,7 @@ function getDiscount(total){
 
     if (discount) {
         $('#idxcp_discount_value').html(Number(discount).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        $('#idxcp_discount_value').closest('tr').show();
+        $('#idxcp_discount_value').closest('tr').hide();
         return discount;
     } else {
         $('#idxcp_discount_value').closest('tr').hide();
@@ -1185,6 +3529,32 @@ function getPercentDiscount(price)
     }
     return discount;
 }
+ 
+function toggleCheck(id, state) {
+    var stepIdParts = id.split('_');
+    if (stepIdParts.length < 3) {
+        return;
+    }
+    
+    var stepId = "#step_content_" + stepIdParts[2];
+    var $div = $(stepId);
+    
+    if ($div.length === 0) {
+        return;
+    }
+    
+    var $img = $div.find(".step-img");
+
+    if ($img.length > 0) {
+        if (state === false) {
+            $img.attr("src", "/modules/idxrcustomproduct/img/icon/error.png");
+            var $img = $div.find(".check").removeClass('check');
+        } else {
+            $img.attr("src", "/modules/idxrcustomproduct/img/icon/86.png");
+        }
+    }
+}
+
 
 function checkFinish(){
     if(!parseInt(show_fav)){
@@ -1198,12 +3568,11 @@ function checkFinish(){
     finish = true;
     $('.sel_opt').each(function() {
         if($(this).html() === 'false' && $(this).attr('data-required') === 'true' && $(this).attr('data-optional') ==='false'){
-            console.log('html: '+$(this).html());
-            console.log('req: '+$(this).attr('data-required'));
-            console.log('opt: '+$(this).attr('data-optional'));
-            console.log('id: '+$(this).attr('id'));
-            console.log('-------------------------------------------');
             finish = false;
+            // console.log('remaining false '+$(this).attr('id'));
+            toggleCheck($(this).attr('id'), false);
+        }else{
+            toggleCheck($(this).attr('id'), true);
         }
     });
     if(finish){        
@@ -1233,15 +3602,15 @@ function checkFinish(){
         $('#idxrcustomproduct_send').prop("disabled",false);
         $('#idxrcustomproduct_topblock_send').removeClass('disabled');
         $('#idxrcustomproduct_topblock_send_message').remove();
+        $('#add-to-cart-button-unique-12345').removeClass('disabled');
     }else{
         $('#submit_idxrcustomproduct_alert').show();
         $('#idxrcustomproduct_topblock_send').addClass('disabled');
         $('#idxrcustomproduct_save').prop("disabled",true);
         $('#idxrcustomproduct_send').prop("disabled",true);
-        $('#add-to-cart-button-unique-12345').removeClass('disabled');
+        $('#add-to-cart-button-unique-12345').addClass('disabled');
     }
 }
-
 
 function refreshProductImage(status) {
     $.post( url_ajax, { action: "getimgstatus", id_configuration: idxcp_id_configuration, status: status})
@@ -1250,12 +3619,27 @@ function refreshProductImage(status) {
         if (data && data != "ko") {
             image = data;
             changeImgCover(image);
+              // Appeler la fonction ajouterAvecDelai
+            restaurerContenu();
         }
     });
 }
-
+/**New add with wassim*/
 function changeImgCover(image) {
     $(cover_image_id).attr('src',image);
+    //Add with team wassim Novatis
+        // Ajoute les balises <span> avec les identifiants "width" et "length"
+    var $productCover = $(cover_image_id).parent('.product-cover');
+    if ($productCover.find('span#width').length === 0) {
+        $productCover.append('<div class="width"><span class="arrow-db"></span><span id="width">Longueur</span></div><div class="length"><span id="length">Largeur</span><span class="arrow-db"></span></div><div class="width-c hidden"><span id="width-c">C</span><span class="arrow-db"></div> <div class="length-d hidden"><span class="arrow-db"></span><span id="length-d">D</span></div>');
+        $productCover.append('<img class="option-form img-fluid" src=""  loading="lazy" style="width: 100%; display:none">');
+        $productCover.append('<img class="option-forms trou1 img-fluid" src=""  loading="lazy" style="width: 100%; display:none">');
+        $productCover.append('<img class="option-forms trou2 img-fluid" src=""  loading="lazy" style="width: 100%; display:none">');
+        $productCover.append('<img class="option-forms trou3 img-fluid" src=""  loading="lazy" style="width: 100%; display:none">');
+        $productCover.append('<img class="option-forms trou4 img-fluid" src=""  loading="lazy" style="width: 100%; display:none">');
+        $productCover.append('<img class="option-forms trou5 img-fluid" src=""  loading="lazy" style="width: 100%; display:none">');
+        $productCover.append('<img class="option-forms trou6 img-fluid" src=""  loading="lazy" style="width: 100%; display:none">');
+    }
     if ($('.fancybox.shown').length != 0) {
         $('.fancybox.shown').attr("href",image);
     }
@@ -1268,6 +3652,216 @@ function changeImgCover(image) {
     }
 }
 
+function restaurerContenu() {
+    var length_img = document.querySelector("#length"); 
+    var width_img = document.querySelector("#width");   
+    var length_d_img = document.querySelector("#length-d"); 
+    /***B D C*/
+    var length = document.querySelector(".length"); 
+    var length_d = document.querySelector(".length-d"); 
+    var width_c = document.querySelector(".width-c");  
+    
+    // Sauvegarder le contenu initial
+    var length_img_contenu_initial = "Longueur"; // Remplacez "A" par le contenu initial
+    var width_img_contenu_initial = "Largeur"; // Remplacez "B" par le contenu initial
+
+    var Tr = document.querySelector("#resume_price_block_1_8 .option_title");
+    var Tr_s1 = document.querySelector("#resume_price_block_76_2 .option_title");
+    var Poly = document.querySelector("#resume_price_block_1_3 .option_title");
+    var Poly_s1 = document.querySelector("#resume_price_block_49_0 .option_title");
+    var Poly_s2 = document.querySelector("#resume_price_block_49_1 .option_title");
+    var Poly_s3 = document.querySelector("#resume_price_block_49_2 .option_title");
+    var Poly_s4 = document.querySelector("#resume_price_block_49_4 .option_title");
+    var Poly_s5 = document.querySelector("#resume_price_block_49_5 .option_title");
+    var Poly_s6 = document.querySelector("#resume_price_block_49_8 .option_title");
+    var Poly_s7 = document.querySelector("#resume_price_block_49_9 .option_title");
+    var Poly_s8 = document.querySelector("#resume_price_block_49_10 .option_title");
+    var Poly_s9 = document.querySelector("#resume_price_block_49_11 .option_title");
+    if (Tr)  {
+        if (Tr_s1) {
+            width_img.innerHTML =  "A"; 
+            length_d_img.innerHTML = "B";
+            length_d.classList.remove("hidden");
+            length.classList.add("hidden");
+            width_c.classList.add("hidden");
+        } else {
+            width_img.innerHTML =  "A";
+            length_img.innerHTML = "B";
+            length.classList.remove("hidden");
+            length_d.classList.add("hidden");
+            width_c.classList.add("hidden");
+        }
+
+    } else if (Poly) {
+      if (Poly_s1) {
+        length_img.innerHTML = "B";
+        width_img.innerHTML =  "A";
+        length_d.classList.add("hidden");
+        width_c.classList.add("center");
+        width_c.classList.remove("left");
+        width_c.classList.remove("hidden");
+        length.classList.remove("hidden");
+      } else if (Poly_s2) {
+        length_img.innerHTML = "C";
+        width_img.innerHTML =  "A";
+        length_d_img.innerHTML =  "B";
+        length_d.classList.remove("hidden");
+        width_c.classList.add("hidden");
+        length.classList.remove("hidden");
+      } else if (Poly_s3) {
+        length_img.innerHTML = "B";
+        width_img.innerHTML =  "A";
+        length_d_img.innerHTML =  "C";
+        length_d.classList.remove("hidden");
+        width_c.classList.add("hidden");
+        length.classList.remove("hidden");
+      } else if (Poly_s4) {
+        length_img.innerHTML = "B";
+        width_img.innerHTML =  "A";
+        width_c.classList.remove("hidden");
+        width_c.classList.remove("center","left");
+        length_d.classList.add("hidden");
+        length.classList.remove("hidden");
+      } else if (Poly_s5) {
+        width_img.innerHTML =  "A";
+        length_d_img.innerHTML =  "B";
+        width_c.classList.remove("hidden","center");
+        width_c.classList.add("left");
+        length.classList.add("hidden");
+        length_d.classList.remove("hidden");
+      } else if (Poly_s6) {
+        length_img.innerHTML = "B";
+        width_img.innerHTML =  "A";
+        length_d_img.innerHTML =  "D";
+        width_c.classList.remove("hidden","center","left");
+        length_d.classList.remove("hidden");
+        length.classList.remove("hidden");
+      } else if (Poly_s7) {
+        length_img.innerHTML = "D";
+        width_img.innerHTML =  "A";
+        length_d_img.innerHTML =  "B";
+        width_c.classList.remove("hidden","center");
+        width_c.classList.add("left");
+        length_d.classList.remove("hidden");
+      } else if (Poly_s8) {
+        width_img.innerHTML =  "A";
+        length_d_img.innerHTML =  "B";
+        length.classList.add("hidden");
+        width_c.classList.remove("hidden","center","left");
+        length_d.classList.remove("hidden");
+      }  else if (Poly_s9) {
+        width_img.innerHTML =  "A";
+        length_d_img.innerHTML =  "B";
+        length.classList.add("hidden");
+        width_c.classList.remove("hidden","center","left");
+        width_c.classList.add("left");
+        length_d.classList.remove("hidden");
+       } 
+    }
+    else {
+      width_c.classList.add("hidden"); 
+      length_d.classList.add("hidden");
+      length.classList.remove("hidden");
+      length_img.innerHTML = length_img_contenu_initial;
+      width_img.innerHTML = width_img_contenu_initial;
+    }
+}
+
+// Associer chaque ID d'élément à un chemin d'image
+var elementImageMap = {
+    "card_1_0": "/img/idxrcustomproduct/configurations/forms/48.png",
+    "card_1_1": "/img/idxrcustomproduct/configurations/forms/34.png",
+    "card_1_8": "/img/idxrcustomproduct/configurations/forms/35.png",
+    "card_1_2": "/img/idxrcustomproduct/configurations/forms/36.png",
+    "card_1_3": "/img/idxrcustomproduct/configurations/forms/37.png",
+    "card_1_4": "/img/idxrcustomproduct/configurations/forms/38.png",
+  
+    "card_74_0": "/img/idxrcustomproduct/configurations/forms/48.png",
+    "card_74_1": "/img/idxrcustomproduct/configurations/forms/33.png",
+  
+    "card_75_0": "/img/idxrcustomproduct/configurations/forms/41.png",
+    "card_75_1": "/img/idxrcustomproduct/configurations/forms/34.png",
+  
+    "card_76_0": "/img/idxrcustomproduct/configurations/forms/35.png",
+    "card_76_1": "/img/idxrcustomproduct/configurations/forms/42.png",
+    "card_76_2": "/img/idxrcustomproduct/configurations/forms/43.png",
+  
+    "card_10_1": "/img/idxrcustomproduct/configurations/forms/36.png",
+    "card_10_2": "/img/idxrcustomproduct/configurations/forms/45.png",
+    "card_10_3": "/img/idxrcustomproduct/configurations/forms/44.png",
+  
+    "card_49_0": "/img/idxrcustomproduct/configurations/forms/57.png",
+    "card_49_1": "/img/idxrcustomproduct/configurations/forms/59.png",
+    "card_49_2": "/img/idxrcustomproduct/configurations/forms/60.png",
+    "card_49_4": "/img/idxrcustomproduct/configurations/forms/55.png",
+    "card_49_5": "/img/idxrcustomproduct/configurations/forms/61.png",
+    "card_49_8": "/img/idxrcustomproduct/configurations/forms/62.png",
+    "card_49_9": "/img/idxrcustomproduct/configurations/forms/63.png",
+    "card_49_10": "/img/idxrcustomproduct/configurations/forms/64.png",
+    "card_49_11": "/img/idxrcustomproduct/configurations/forms/65.png",
+  
+    "card_53_0": "/img/idxrcustomproduct/configurations/forms/52.png",
+    "card_53_1": "/img/idxrcustomproduct/configurations/forms/75.png",
+  
+    "card_54_0": "/img/idxrcustomproduct/configurations/forms/50.png",
+    "card_54_1": "/img/idxrcustomproduct/configurations/forms/52.png",
+    "card_54_2": "/img/idxrcustomproduct/configurations/forms/51.png",
+    "card_54_5": "/img/idxrcustomproduct/configurations/forms/74.png",
+    "card_54_3": "/img/idxrcustomproduct/configurations/forms/53.png",
+    "card_54_4": "/img/idxrcustomproduct/configurations/forms/54.png",
+  
+    "card_55_0": "/img/idxrcustomproduct/configurations/forms/68.png",
+    "card_55_1": "/img/idxrcustomproduct/configurations/forms/73.png",
+    "card_55_2": "/img/idxrcustomproduct/configurations/forms/69.png",
+    "card_55_3": "/img/idxrcustomproduct/configurations/forms/75.png",
+    "card_55_4": "/img/idxrcustomproduct/configurations/forms/72.png",
+    "card_55_5": "/img/idxrcustomproduct/configurations/forms/67.png",
+    // Ajoutez d'autres éléments et chemins d'image selon vos besoins
+  };
+  
+  // Fonction réutilisable pour gérer le clic sur un élément
+  function handleClick(elementId) {
+    return function() {
+      setTimeout(function() {
+          const image = elementImageMap[elementId];
+          changeImgCover(image);
+          hideImages();
+        restaurerContenu();
+        updateTotal();
+      }, 1000); // Délai de 3 secondes (3000 millisecondes)
+    };
+  }
+  // Boucle pour ajouter des gestionnaires d'événements de clic
+  for (var elementId in elementImageMap) {
+    var cardElement = document.getElementById(elementId);
+    if (cardElement) {
+      cardElement.addEventListener("click", handleClick(elementId));
+    }
+  }
+  // Fonction pour masquer les images dans le tableau donné
+  function hideImages() {
+    var trou1 = document.querySelector('.trou1');
+    if (trou1) {
+        trou1.style.display = 'none';
+    }
+    var trou2 = document.querySelector('.trou2');
+    if (trou2) {
+        trou2.style.display = 'none';
+    }
+    var trou3 = document.querySelector('.trou3');
+    if (trou3) {
+        trou3.style.display = 'none';
+    }
+    var trou4 = document.querySelector('.trou4');
+    if (trou4) {
+        trou4.style.display = 'none';
+    }
+    var trou5 = document.querySelector('.trou5');
+    if (trou5) {
+        trou5.style.display = 'none';
+    }
+}
+/**New add with wassim*/
 function formatPrice(price) {
     return $.post( url_ajax, { action: "formatprice", price: price, idxcp_originaltax: idxcp_originaltax, idxcp_newtax: idxcp_newtax});
 }
@@ -1323,7 +3917,6 @@ function refreshImpactUnit(component, option) {
         });       
     });
 }
-
 function verifyAmountDiscount() {
     if (!specific_price_ranges) {
         return false;
@@ -1345,7 +3938,6 @@ function verifyAmountDiscount() {
 function verifyAvailableQty(qty) {
     
 }
-
 function removeFromCart(id_product) {
     if (typeof ajaxCart !== 'undefined') {
         ajaxCart.remove(id_product, null, null, null);
@@ -1376,13 +3968,16 @@ function updatechecks(component) {
 }
 
 function togglecheck(component, option, check) {
-    
+    /**Edit with team wassim novatis */
     if (check) {
         $('#selected_'+component+'_'+option).show();
+        $('#step_content_'+component).addClass("finished");
+        $('#card_'+component+'_'+option).addClass("check");
     } else {
         $('#selected_'+component+'_'+option).hide();
+        $('#card_'+component+'_'+option).removeClass("check");
     }
-    
+    /*End*/
     if ($.inArray( $('#component_step_'+component).attr('data-multivalue'), ["multi_qty", ""] ) >= 0) {
         if (check) {
             $('#card_'+component+'_'+option+' .option_qty_block').show();

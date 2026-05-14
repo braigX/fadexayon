@@ -51,6 +51,9 @@ class IdxComponent
         $q = 'Select * from ' . _DB_PREFIX_ . 'idxrcustomproduct_components '
                 . 'where id_component = ' . (int) $this->id_component;
         $db_row = Db::getInstance()->getRow($q);
+        if (!is_array($db_row) || empty($db_row)) {
+            return false;
+        }
         $this->id_component = $db_row['id_component'];
         $this->name = $db_row['name'];
         $this->type = $db_row['type'];

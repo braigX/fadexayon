@@ -166,7 +166,15 @@ class IdxCustomizedProduct
             $icp_code .= $icp_sep . (isset($option['qty']) ? $option['qty'] . 'x' : '') . $option['id_component'] . '-' . $option['id_option'];
             $icp_sep = ',';
             $options = $module->getComponentOptions($option['id_component']);
-            if ($options['type'] != 'textarea' && $options['type'] != 'text' && $options['type'] != 'file') {
+            if (
+                is_array($options)
+                && isset($options['type'], $options['lang'][$this->context->language->id])
+                && $options['type'] != 'textarea'
+                && $options['type'] != 'text'
+                && $options['type'] != 'file'
+                && isset($options['lang'][$this->context->language->id]->options)
+                && is_iterable($options['lang'][$this->context->language->id]->options)
+            ) {
                 foreach ($options['lang'][$this->context->language->id]->options as $item) {
                     if ($item->id == $option['id_option']) {
                         if (isset($item->tax_change) && $item->tax_change) {
@@ -211,7 +219,11 @@ class IdxCustomizedProduct
         $prix_de_decoupe = $prix_de_decouper/$tax;
         $base_price = 0;
         if ($configuration->add_base) {
-            $base_price = $product_source->price;
+            if ((int) $attribute_id > 0) {
+                $base_price = (float) Product::getPriceStatic($id_product_old, false, (int) $attribute_id, 6, null, false, false);
+            } else {
+                $base_price = (float) Product::getPriceStatic($id_product_old, false, 0, 6, null, false, false);
+            }
         }
         /*Add with team wassim novatis*/
         // Calculer la surface en utilisant la volume et Epaisseur
@@ -287,6 +299,8 @@ foreach ((array)$extra as $opt_extra) {
 
     $data = [
         'id_component' => (int)$compId,
+        'id_option'    => 0,
+        'id_product'   => (int)$exist,
         'extra'        => pSQL((string)$val),
         'id_cart'      => (int)$this->context->cart->id,
     ];
@@ -311,7 +325,8 @@ foreach ((array)$extra as $opt_extra) {
         Db::getInstance()->update('idxrcustomproduct_customer_extra', $data, 'id_extra = ' . (int)$id_extra);
     } else {
         Db::getInstance()->insert('idxrcustomproduct_customer_extra', $data);
-        $extra_ids[] = (int)Db::getInstance()->Insert_ID();
+        $insertedExtraId = (int) Db::getInstance()->Insert_ID();
+        $extra_ids[] = $insertedExtraId;
     }
 }
 
@@ -567,12 +582,22 @@ private function updateSnapsWithProductId($snapsId, $productId) {
 
         unset($source_attr['id_product_attribute']);
         $source_attr['id_product'] = (int) $toProductId;
-        /* Added by Sabri */
-        $source_attr['price'] = 0;
-        $source_attr['weight'] = 0;
-        $source_attr['unit_price_impact'] = 0;
-       /* End of addition */
         $source_attr['default_on'] = 1;
+        if (array_key_exists('price', $source_attr)) {
+            $source_attr['price'] = 0;
+        }
+        if (array_key_exists('unit_price_impact', $source_attr)) {
+            $source_attr['unit_price_impact'] = 0;
+        }
+        if (array_key_exists('weight', $source_attr)) {
+            $source_attr['weight'] = 0;
+        }
+        if (array_key_exists('ecotax', $source_attr)) {
+            $source_attr['ecotax'] = 0;
+        }
+        if (array_key_exists('wholesale_price', $source_attr)) {
+            $source_attr['wholesale_price'] = 0;
+        }
         Db::getInstance()->insert('product_attribute', $source_attr);
         $new_attr_id = (int) Db::getInstance()->Insert_ID();
         if (!$new_attr_id) {
@@ -587,12 +612,22 @@ private function updateSnapsWithProductId($snapsId, $productId) {
             unset($row['id_product_attribute']);
             $row['id_product_attribute'] = (int) $new_attr_id;
             $row['id_product'] = (int) $toProductId;
-            /* Added by Sabri */
-            $row['price'] = 0;
-            $row['weight'] = 0;
-            $row['unit_price_impact'] = 0;
-           /* End of addition */
             $row['default_on'] = 1;
+            if (array_key_exists('price', $row)) {
+                $row['price'] = 0;
+            }
+            if (array_key_exists('unit_price_impact', $row)) {
+                $row['unit_price_impact'] = 0;
+            }
+            if (array_key_exists('weight', $row)) {
+                $row['weight'] = 0;
+            }
+            if (array_key_exists('ecotax', $row)) {
+                $row['ecotax'] = 0;
+            }
+            if (array_key_exists('wholesale_price', $row)) {
+                $row['wholesale_price'] = 0;
+            }
             Db::getInstance()->insert('product_attribute_shop', $row);
         }
 
@@ -604,7 +639,7 @@ private function updateSnapsWithProductId($snapsId, $productId) {
             $row['id_product_attribute'] = (int) $new_attr_id;
             Db::getInstance()->insert('product_attribute_combination', $row);
         }
-   /*Before modification commented by Sabri
+
         $image_map = $this->getImageIdMapByPosition($fromProductId, $toProductId);
         if ($image_map) {
             $img_rows = Db::getInstance()->executeS(
@@ -619,34 +654,7 @@ private function updateSnapsWithProductId($snapsId, $productId) {
                 $row['id_image'] = (int) $image_map[$row['id_image']];
                 Db::getInstance()->insert('product_attribute_image', $row);
             }
-        }  */
-            /*Begin modification by Sabri*/
-             $image_map = $this->getImageIdMapByPosition($fromProductId, $toProductId);
-        if ($image_map) {
-            $img_rows = Db::getInstance()->executeS(
-                'SELECT * FROM ' . _DB_PREFIX_ . 'product_attribute_image
-                 WHERE id_product_attribute = ' . (int) $fromAttributeId
-            );
-            $first_image_id = 0;
-            foreach ($img_rows as $row) {
-                if (!isset($image_map[$row['id_image']])) {
-                    continue;
-                }
-                if (!$first_image_id) {
-                    $first_image_id = (int) $image_map[$row['id_image']];
-                }
-                $row['id_product_attribute'] = (int) $new_attr_id;
-                $row['id_image'] = (int) $image_map[$row['id_image']];
-                Db::getInstance()->insert('product_attribute_image', $row);
-            }
-
-            if ($first_image_id) {
-                Image::deleteCover((int) $toProductId);
-                Db::getInstance()->update('image', array('cover' => 1), 'id_image = ' . (int) $first_image_id);
-                Db::getInstance()->update('image_shop', array('cover' => 1), 'id_image = ' . (int) $first_image_id . ' AND id_shop = ' . (int) Context::getContext()->shop->id);
-            }
         }
-            /*End modification*/
 
         $stock_rows = Db::getInstance()->executeS(
             'SELECT * FROM ' . _DB_PREFIX_ . 'stock_available
@@ -661,7 +669,13 @@ private function updateSnapsWithProductId($snapsId, $productId) {
         }
 
         if (method_exists('Product', 'setDefaultAttribute')) {
-            Product::setDefaultAttribute((int) $toProductId, (int) $new_attr_id);
+            $targetProduct = new Product((int) $toProductId);
+            if (Validate::isLoadedObject($targetProduct)) {
+                $targetProduct->setDefaultAttribute((int) $new_attr_id);
+            } else {
+                Db::getInstance()->update('product', array('cache_default_attribute' => (int) $new_attr_id), 'id_product = ' . (int) $toProductId);
+                Db::getInstance()->update('product_shop', array('cache_default_attribute' => (int) $new_attr_id), 'id_product = ' . (int) $toProductId);
+            }
         } else {
             Db::getInstance()->update('product', array('cache_default_attribute' => (int) $new_attr_id), 'id_product = ' . (int) $toProductId);
             Db::getInstance()->update('product_shop', array('cache_default_attribute' => (int) $new_attr_id), 'id_product = ' . (int) $toProductId);

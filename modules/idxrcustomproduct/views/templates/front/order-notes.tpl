@@ -32,6 +32,10 @@
                                                 <p>
                                                 {if !is_array($line)}
                                                     {$line|escape:'htmlall':'UTF-8'}
+                                                {elseif isset($line.link_href)}
+                                                    <strong>{$line.link_title|escape:'htmlall':'UTF-8'}</strong>: <a href="{$line.link_href|escape:'htmlall':'UTF-8'}" target="_blank">{$line.link_text|escape:'htmlall':'UTF-8'}</a>
+                                                {elseif isset($line.image_url)}
+                                                    <strong>{$line.image_title|escape:'htmlall':'UTF-8'}</strong>: <img class="perviewImageSketch" src="{$line.image_url|escape:'htmlall':'UTF-8'}" width="400px" height="400px">
                                                 {elseif isset($line.file_key)}
                                                     {$line.title|escape:'htmlall':'UTF-8'}<a href="{$file_controller}{$line.file_key}" target="_blank">{$line.file_name|escape:'htmlall':'UTF-8'}</a>
                                                 {elseif isset($line.texts)}
