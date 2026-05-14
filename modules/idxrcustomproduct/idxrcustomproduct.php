@@ -1855,17 +1855,32 @@ class IdxrCustomProduct extends Module
         }
 
         if (empty($row['id_runtime_customisation'])) {
-            $row = Db::getInstance()->getRow(
-                'SELECT id_runtime_customisation, id_product_attribute, snapshot_json, id_snap
-                 FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_runtime_customisations`
-                 WHERE id_cart = ' . $idCart . '
-                   AND id_product = ' . $idBaseProduct . '
-                   AND source = "cart"
-                 ORDER BY date_add DESC, id_runtime_customisation DESC'
+            $row = $this->getRuntimeCustomizationRowByWhere(
+                'id_cart = ' . $idCart . '
+                 AND id_product = ' . $idBaseProduct . '
+                 AND source = "cart"'
+            );
+        }
+
+        if (empty($row['id_runtime_customisation']) && $idCustomizedProduct > 0) {
+            $row = $this->getRuntimeCustomizationRowByWhere(
+                'id_product = ' . $idBaseProduct . '
+                 AND id_customized_product = ' . $idCustomizedProduct . '
+                 AND source = "cart"'
             );
         }
 
         return is_array($row) ? $row : array();
+    }
+
+    private function getRuntimeCustomizationRowByWhere($whereSql)
+    {
+        return Db::getInstance()->getRow(
+            'SELECT id_runtime_customisation, id_product_attribute, snapshot_json, id_snap
+             FROM `' . _DB_PREFIX_ . 'idxrcustomproduct_runtime_customisations`
+             WHERE ' . $whereSql . '
+             ORDER BY date_add DESC, id_runtime_customisation DESC'
+        );
     }
 
     private function getRuntimeCustomizationStepsJson($idCart, $idBaseProduct, $idCustomizedProduct = 0)
@@ -5411,6 +5426,15 @@ class IdxrCustomProduct extends Module
                 unset($file['id_file']);
                 $file['id_cart'] = (int) $id_to;
                 Db::getInstance()->insert('idxrcustomproduct_files', $file);
+            }
+        }
+
+        $runtimeCustomizations = Db::getInstance()->executeS('Select * from '._DB_PREFIX_.'idxrcustomproduct_runtime_customisations where id_cart = '.(int)$id_from);
+        if ($runtimeCustomizations) {
+            foreach ($runtimeCustomizations as $runtimeCustomization) {
+                unset($runtimeCustomization['id_runtime_customisation']);
+                $runtimeCustomization['id_cart'] = (int) $id_to;
+                Db::getInstance()->insert('idxrcustomproduct_runtime_customisations', $runtimeCustomization);
             }
         }
     }

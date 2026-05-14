@@ -942,7 +942,7 @@ const CustomizationModule = (() => {
         $('#card_52_1').on('click', function() {
             $('#idxr_is_rectangle_polissage').val('true').change();
         });
-        $(' #card_2_1, #card_2_2, #card_2_3').on('click', function() {
+        $('#card_2_2, #card_2_3').on('click', function() {
             $('#idxr_is_rectangle').val('false').change();
         });
         $('#card_2_0').on('click', function() {
@@ -1003,6 +1003,7 @@ const CustomizationModule = (() => {
         });
         $('#card_2_1').click(function() {
             unsetElement(5);
+            $('#idxr_is_rectangle').val('false').change();
         });
         $('.card-header a').on('click', function() {
             removeClassess();
@@ -1386,6 +1387,11 @@ const CustomizationModule = (() => {
             }
 
             function createAndAppendContainer(parentElement, containerId) {
+                let existingContainer = document.getElementById(containerId);
+                if (existingContainer) {
+                    return existingContainer;
+                }
+
                 let containerDiv = document.createElement('div');
                 containerDiv.id = containerId;
                 containerDiv.className = "movedDivsHolder";
