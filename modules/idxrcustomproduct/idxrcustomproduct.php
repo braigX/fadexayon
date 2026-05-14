@@ -625,7 +625,9 @@ class IdxrCustomProduct extends Module
             $showfav = Tools::getValue('show_fav');
             Configuration::updateValue(Tools::strtoupper($this->name) . '_SHOWFAV', $showfav);
             Configuration::updateValue(Tools::strtoupper($this->name) . '_SHOWFAV_FAVORITE', $showfav);
-            Configuration::updateValue(Tools::strtoupper($this->name) . '_SHOWFAV_SIMULATIONS', $showfav);
+            $showFavSimulationsAllShops = (int) Tools::getValue('show_fav_simulations_all_shops');
+            $this->updateBooleanConfigForAllShops(Tools::strtoupper($this->name . '_SHOWFAV_SIMULATIONS'), $showFavSimulationsAllShops);
+            $this->updateBooleanConfigForAllShops(Tools::strtoupper($this->name . '_SHOWFAV'), ($showfav || $showFavSimulationsAllShops) ? 1 : 0);
             $frontAccordionDev = (int) Tools::getValue('front_accordion_dev');
             Configuration::updateValue(Tools::strtoupper($this->name) . '_FRONT_ACCORDION_DEV', $frontAccordionDev);
             $skipRectangleCuttingPrice = (int) Tools::getValue('skip_rectangle_cutting_price');
@@ -646,15 +648,6 @@ class IdxrCustomProduct extends Module
             Configuration::updateValue(Tools::strtoupper($this->name) . '_ADMINPRODUCTINFOBLOCK', $adminproductinfoblock);
             
             return $this->displayConfirmation($this->l('Configuration saved'));
-        }
-        if (Tools::isSubmit('submitIdxrAccountCardConfiguration')) {
-            $showFavSimulationsAllShops = (int) Tools::getValue('show_fav_simulations_all_shops');
-            $showFavFavoriteAllShops = $this->getBooleanConfigAllShopsValue(Tools::strtoupper($this->name . '_SHOWFAV_FAVORITE'));
-
-            $this->updateBooleanConfigForAllShops(Tools::strtoupper($this->name . '_SHOWFAV_SIMULATIONS'), $showFavSimulationsAllShops);
-            $this->updateBooleanConfigForAllShops(Tools::strtoupper($this->name . '_SHOWFAV'), ($showFavFavoriteAllShops || $showFavSimulationsAllShops) ? 1 : 0);
-
-            return $this->displayConfirmation($this->l('Configuration des cartes Mon compte enregistrée'));
         }
         if (Tools::isSubmit('submitConfiguration') || Tools::isSubmit('submitConfigurationStay')) {
             $name = Tools::getValue('addconftitle');
@@ -2820,6 +2813,26 @@ class IdxrCustomProduct extends Module
                     ),
                     array(
                         'type' => 'switch',
+                        'label' => $this->l('Afficher les personnalisations sauvegardées (Oui/Non) sur la page "Mon compte"'),
+                        'name' => 'show_fav_simulations_all_shops',
+                        'is_bool' => true,
+                        'values' => array(
+                            array(
+                                'id' => 'show_fav_simulations_all_shops_on',
+                                'value' => 1,
+                                'label' => $this->l('Yes')
+                            ),
+                            array(
+                                'id' => 'show_fav_simulations_all_shops_off',
+                                'value' => 0,
+                                'label' => $this->l('No')
+                            )
+                        ),
+                        'desc' => $this->l('Choisissez Oui pour afficher la carte "Mes simulations" dans "Mon compte" sur toutes les boutiques. Choisissez Non pour la masquer.')
+                            . '<br><img src="' . $this->_path . 'img/help-14.png" alt="Help" style="max-width:100%;height:auto;margin-top:8px;border:1px solid #ddd;">'
+                    ),
+                    array(
+                        'type' => 'switch',
                         'label' => $this->l('Impact prices with tax'),
                         'name' => 'price_impact_taxinclude',
                         'is_bool' => true,
@@ -3130,61 +3143,6 @@ class IdxrCustomProduct extends Module
                 </form>
             </div>
         </div>';
-    }
-
-    public function renderAccountCardDashboard()
-    {
-        $fields_form = array(
-            'form' => array(
-                'legend' => array(
-                    'title' => $this->l('Cartes Mon compte'),
-                    'icon' => 'icon-user'
-                ),
-                'input' => array(
-                    array(
-                        'type' => 'switch',
-                        'label' => $this->l('Afficher les personnalisations sauvegardées (Oui/Non) sur la page "Mon compte"'),
-                        'name' => 'show_fav_simulations_all_shops',
-                        'is_bool' => true,
-                        'values' => array(
-                            array(
-                                'id' => 'show_fav_simulations_all_shops_on',
-                                'value' => 1,
-                                'label' => $this->l('Yes')
-                            ),
-                            array(
-                                'id' => 'show_fav_simulations_all_shops_off',
-                                'value' => 0,
-                                'label' => $this->l('No')
-                            )
-                        ),
-                        'desc' => $this->l('Choisissez Oui pour afficher la carte "Mes simulations" dans "Mon compte" sur toutes les boutiques. Choisissez Non pour la masquer.')
-                            . '<br><img src="' . $this->_path . 'img/help-14.png" alt="Help" style="max-width:100%;height:auto;margin-top:8px;border:1px solid #ddd;">'
-                    ),
-                ),
-                'submit' => array(
-                    'title' => $this->l('Save'),
-                    'name' => 'submitIdxrAccountCardConfiguration',
-                )
-            ),
-        );
-
-        $helper = new HelperForm();
-        $helper->show_toolbar = false;
-        $lang = new Language((int) Configuration::get('PS_LANG_DEFAULT'));
-        $helper->default_form_language = $lang->id;
-        $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') ? Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') : 0;
-        $helper->identifier = $this->identifier;
-        $helper->submit_action = 'submitIdxrAccountCardConfiguration';
-        $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false) . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
-        $helper->token = Tools::getAdminTokenLite('AdminModules');
-        $helper->tpl_vars = array(
-            'fields_value' => $this->getConfigFieldsValues(),
-            'languages' => $this->context->controller->getLanguages(),
-            'id_language' => $this->context->language->id
-        );
-
-        return $helper->generateForm(array($fields_form));
     }
 
     public function renderFormAddConfiguration()
@@ -6394,10 +6352,6 @@ class IdxrCustomProduct extends Module
         if (Tools::isSubmit('submitIdxrPricingConfiguration')) {
             $current_cat = 'renderPricingDashboard';
         }
-        if (Tools::isSubmit('submitIdxrAccountCardConfiguration')) {
-            $current_cat = 'renderAccountCardDashboard';
-        }
-
         $this->innovatabs = array();
 
         $this->innovatabs [] = array(
@@ -6416,15 +6370,6 @@ class IdxrCustomProduct extends Module
             "type" => "tab",
             "show" => "both",
             "active" => ($current_cat == 'renderPricingDashboard') ? true : false
-        );
-
-        $this->innovatabs [] = array(
-            "title" => $this->l('My Account cards'),
-            "icon" => "user",
-            "link" => "renderAccountCardDashboard",
-            "type" => "tab",
-            "show" => "both",
-            "active" => ($current_cat == 'renderAccountCardDashboard') ? true : false
         );
 
         if (!$locked) {
