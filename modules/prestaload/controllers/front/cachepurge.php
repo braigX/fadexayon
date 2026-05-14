@@ -41,7 +41,7 @@ class PrestaloadCachepurgeModuleFrontController extends ModuleFrontController
         if ($purgeEverything || $scope === 'site_all') {
             $summary = $manager->purgeAll();
 
-            $this->module->log('info', 'cachepurge: completed full purge', [
+            PrestaloadLogger::write('info', 'cachepurge: completed full purge', [
                 'deleted_html' => $summary['deleted_html'] ?? 0,
                 'deleted_meta' => $summary['deleted_meta'] ?? 0,
                 'deleted_dirs' => $summary['deleted_dirs'] ?? 0,
@@ -59,7 +59,7 @@ class PrestaloadCachepurgeModuleFrontController extends ModuleFrontController
 
         $summary = $manager->purgeUrls($urls);
 
-        $this->module->log('info', 'cachepurge: completed', [
+        PrestaloadLogger::write('info', 'cachepurge: completed', [
             'urls' => count($urls),
             'deleted_html' => $summary['deleted_html'] ?? 0,
             'deleted_meta' => $summary['deleted_meta'] ?? 0,

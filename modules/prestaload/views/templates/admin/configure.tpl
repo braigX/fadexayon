@@ -26,6 +26,17 @@
 .prestaload-btn:hover { opacity: .88; }
 .prestaload-btn--primary { background: #A7F54A; color: #32412a; }
 .prestaload-btn--danger { background: #fff1f2; color: #be123c; border: 1px solid #fecdd3; }
+.prestaload-meta { margin: 0 0 14px; font-size: 13px; color: #6b7280; line-height: 1.6; }
+.prestaload-endpoint-list { display: grid; gap: 12px; }
+.prestaload-endpoint { border: 1px solid #e5e7eb; border-radius: 10px; padding: 14px; background: #fcfcfd; }
+.prestaload-endpoint-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.prestaload-endpoint-title { margin: 0; font-size: 14px; font-weight: 700; color: #111827; }
+.prestaload-pill { display: inline-flex; align-items: center; border-radius: 999px; padding: 3px 10px; font-size: 11px; font-weight: 700; }
+.prestaload-pill--ok { background: #ecfdf3; color: #15803d; border: 1px solid #bbf7d0; }
+.prestaload-pill--bad { background: #fff1f2; color: #be123c; border: 1px solid #fecdd3; }
+.prestaload-endpoint-code { display: block; margin: 0 0 8px; font-size: 12px; color: #1f2937; word-break: break-all; }
+.prestaload-endpoint-grid { display: grid; grid-template-columns: 120px 1fr; gap: 6px 12px; font-size: 12px; color: #4b5563; }
+.prestaload-endpoint-label { font-weight: 700; color: #374151; }
 </style>
 
 <div class="prestaload-wrap">
@@ -76,6 +87,56 @@
                     <strong>{$prestaload_integration|escape:'html'}</strong>
                     {l s='integration. Your optimization rules are being applied automatically.' mod='prestaload'}
                 </p>
+            </div>
+        </div>
+
+        <div class="prestaload-card">
+            <h3 class="prestaload-section-title">{l s='Endpoint diagnostics' mod='prestaload'}</h3>
+            <p class="prestaload-meta">
+                {l s='Current shop URL:' mod='prestaload'}
+                <strong>{$prestaload_current_shop_url|escape:'html'}</strong>
+            </p>
+            <div class="prestaload-endpoint-list">
+                {foreach from=$prestaload_endpoint_diagnostics item=endpoint}
+                    <div class="prestaload-endpoint">
+                        <div class="prestaload-endpoint-head">
+                            <h4 class="prestaload-endpoint-title">{$endpoint.label|escape:'html'}</h4>
+                            {if $endpoint.probe.ok}
+                                <span class="prestaload-pill prestaload-pill--ok">
+                                    {l s='HTTP' mod='prestaload'} {$endpoint.probe.status|escape:'html'}
+                                </span>
+                            {else}
+                                <span class="prestaload-pill prestaload-pill--bad">
+                                    {if $endpoint.probe.status}
+                                        {l s='HTTP' mod='prestaload'} {$endpoint.probe.status|escape:'html'}
+                                    {elseif $endpoint.probe.error}
+                                        {$endpoint.probe.error|escape:'html'}
+                                    {else}
+                                        {l s='No response' mod='prestaload'}
+                                    {/if}
+                                </span>
+                            {/if}
+                        </div>
+                        <code class="prestaload-endpoint-code">{$endpoint.url|escape:'html'}</code>
+                        <div class="prestaload-endpoint-grid">
+                            <div class="prestaload-endpoint-label">{l s='File' mod='prestaload'}</div>
+                            <div>
+                                {$endpoint.file|escape:'html'}
+                                {if $endpoint.file_exists}
+                                    <span style="color:#15803d;">({l s='exists' mod='prestaload'})</span>
+                                {else}
+                                    <span style="color:#be123c;">({l s='missing' mod='prestaload'})</span>
+                                {/if}
+                            </div>
+                            <div class="prestaload-endpoint-label">{l s='Content-Type' mod='prestaload'}</div>
+                            <div>{$endpoint.probe.content_type|default:'-'|escape:'html'}</div>
+                            <div class="prestaload-endpoint-label">{l s='Redirect' mod='prestaload'}</div>
+                            <div>{$endpoint.probe.location|default:'-'|escape:'html'}</div>
+                            <div class="prestaload-endpoint-label">{l s='Preview' mod='prestaload'}</div>
+                            <div>{$endpoint.probe.body_preview|default:'-'|escape:'html'}</div>
+                        </div>
+                    </div>
+                {/foreach}
             </div>
         </div>
 

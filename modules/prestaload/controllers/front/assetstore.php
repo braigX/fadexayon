@@ -19,7 +19,7 @@ class PrestaloadAssetstoreModuleFrontController extends ModuleFrontController
         }
 
         if (! $this->verifyServerRequest()) {
-            $this->module->log('warn', 'assetstore: unauthorized');
+            PrestaloadLogger::write('warn', 'assetstore: unauthorized');
             http_response_code(401);
             echo json_encode(['error' => 'Unauthorized.']);
             exit;
@@ -62,10 +62,10 @@ class PrestaloadAssetstoreModuleFrontController extends ModuleFrontController
         try {
             $manager = new PrestaloadAssetManager();
             $result  = $manager->store($siteUrl, $relativePath, $contents, $mimeType);
-            $this->module->log('info', 'assetstore: stored', ['path' => $relativePath, 'mime' => $mimeType, 'size' => strlen($contents)]);
+            PrestaloadLogger::write('info', 'assetstore: stored', ['path' => $relativePath, 'mime' => $mimeType, 'size' => strlen($contents)]);
             echo json_encode($result);
         } catch (Throwable $e) {
-            $this->module->log('error', 'assetstore: failed', ['path' => $relativePath, 'error' => $e->getMessage()]);
+            PrestaloadLogger::write('error', 'assetstore: failed', ['path' => $relativePath, 'error' => $e->getMessage()]);
             http_response_code(500);
             echo json_encode(['error' => $e->getMessage()]);
         }

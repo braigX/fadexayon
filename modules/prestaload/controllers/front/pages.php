@@ -22,13 +22,26 @@ class PrestaloadPagesModuleFrontController extends ModuleFrontController
 {
     public function initContent(): void
     {
+        ob_start();
         header('Content-Type: application/json');
 
-            $this->module->log('error', 'pages: exception', [
-                'message' => 'Stack trace for debugging:'
-            ]);
+        PrestaloadLogger::info('pages: [Version-404-error] controller reached', [
+            'module_version' => defined('Prestaload::VERSION') ? Prestaload::VERSION : 'unknown',
+            'request_uri' => $_SERVER['REQUEST_URI'] ?? null,
+            'method' => $_SERVER['REQUEST_METHOD'] ?? null,
+        ]);
+
+        PrestaloadLogger::info('pages: request', [
+            'site'     => Tools::getValue('site', ''),
+            'page'     => Tools::getValue('page', 1),
+            'per_page' => Tools::getValue('per_page', 50),
+            'all_params' => $this->requestParamsForLog(),
+        ]);
+
         try {
             if (! $this->verifyServerRequest()) {
+                ob_end_clean();
+                PrestaloadLogger::warn('pages: unauthorized');
                 http_response_code(401);
                 echo json_encode(['error' => 'Unauthorized.']);
                 exit;
@@ -38,6 +51,8 @@ class PrestaloadPagesModuleFrontController extends ModuleFrontController
             $perPage = min(100, max(1, (int) Tools::getValue('per_page', 50)));
 
             if (! $this->applyShopContext((string) Tools::getValue('site', ''))) {
+                ob_end_clean();
+                PrestaloadLogger::warn('pages: shop not found', ['site' => Tools::getValue('site', '')]);
                 http_response_code(404);
                 echo json_encode(['error' => 'Requested shop site was not found.']);
                 exit;
@@ -48,6 +63,15 @@ class PrestaloadPagesModuleFrontController extends ModuleFrontController
             $page     = min($page, $lastPage);
             $offset   = ($page - 1) * $perPage;
 
+            PrestaloadLogger::info('pages: returning urls', [
+                'total'    => $total,
+                'page'     => $page,
+                'last_page'=> $lastPage,
+                'offset'   => $offset,
+                'limit'    => $perPage,
+            ]);
+
+            ob_end_clean();
             echo json_encode([
                 'data' => $this->collectPaginatedUrls($offset, $perPage),
                 'meta' => [
@@ -59,9 +83,11 @@ class PrestaloadPagesModuleFrontController extends ModuleFrontController
             ]);
             exit;
         } catch (\Throwable $e) {
-            $this->module->log('error', 'pages: exception', [
-                'message' => $e->getMessage(),
-                'file'    => $e->getFile() . ':' . $e->getLine(),
+            $buffered = ob_get_clean() ?: '';
+            PrestaloadLogger::error('pages: exception', [
+                'message'  => $e->getMessage(),
+                'file'     => $e->getFile() . ':' . $e->getLine(),
+                'buffered' => substr($buffered, 0, 500),
             ]);
             http_response_code(500);
             echo json_encode(['error' => $e->getMessage()]);
@@ -117,13 +143,13 @@ class PrestaloadPagesModuleFrontController extends ModuleFrontController
      */
     private function fetchSegmentUrls(string $segment, int $offset, int $limit): array
     {
-        return match ($segment) {
-            'home'     => $this->fetchHomeUrl($offset, $limit),
-            'product'  => $this->fetchProductUrls($offset, $limit),
-            'category' => $this->fetchCategoryUrls($offset, $limit),
-            'cms'      => $this->fetchCmsUrls($offset, $limit),
-            default    => [],
-        };
+        switch ($segment) {
+            case 'home':     return $this->fetchHomeUrl($offset, $limit);
+            case 'product':  return $this->fetchProductUrls($offset, $limit);
+            case 'category': return $this->fetchCategoryUrls($offset, $limit);
+            case 'cms':      return $this->fetchCmsUrls($offset, $limit);
+            default:         return [];
+        }
     }
 
     /**
@@ -449,12 +475,30 @@ class PrestaloadPagesModuleFrontController extends ModuleFrontController
     {
         $normalizedUrl = $this->normalizeUrl($siteUrl);
 
+        PrestaloadLogger::info('pages: applyShopContext start', [
+            'requested_site' => $siteUrl,
+            'requested_site_normalized' => $normalizedUrl,
+            'available_sites' => $this->availableSitesForLog(),
+        ]);
+
         if ($normalizedUrl === '') {
+            PrestaloadLogger::warn('pages: applyShopContext empty normalized url', [
+                'requested_site' => $siteUrl,
+            ]);
             return false;
         }
 
         if (! Shop::isFeatureActive()) {
-            return $normalizedUrl === $this->normalizeUrl(Context::getContext()->shop->getBaseURL(true));
+            $currentShopUrl = Context::getContext()->shop->getBaseURL(true);
+            $matched = $normalizedUrl === $this->normalizeUrl($currentShopUrl);
+
+            PrestaloadLogger::info('pages: applyShopContext single-shop check', [
+                'requested_site' => $siteUrl,
+                'current_shop_url' => $currentShopUrl,
+                'matched' => $matched,
+            ]);
+
+            return $matched;
         }
 
         foreach (Shop::getShops(true) as $shop) {
@@ -465,9 +509,21 @@ class PrestaloadPagesModuleFrontController extends ModuleFrontController
                 Shop::setContext(Shop::CONTEXT_SHOP, (int) $shop['id_shop']);
                 Context::getContext()->shop = $shopObj;
 
+                PrestaloadLogger::info('pages: applyShopContext matched shop', [
+                    'requested_site' => $siteUrl,
+                    'matched_shop_id' => (int) $shop['id_shop'],
+                    'matched_shop_url' => $shopUrl,
+                ]);
+
                 return true;
             }
         }
+
+        PrestaloadLogger::warn('pages: applyShopContext no matching shop', [
+            'requested_site' => $siteUrl,
+            'requested_site_normalized' => $normalizedUrl,
+            'available_sites' => $this->availableSitesForLog(),
+        ]);
 
         return false;
     }
@@ -494,5 +550,59 @@ class PrestaloadPagesModuleFrontController extends ModuleFrontController
         }
 
         return hash_equals(hash('sha256', $settings['api_key']), $receivedHash);
+    }
+
+    private function requestParamsForLog(): array
+    {
+        $params = [];
+
+        foreach ($_GET as $key => $value) {
+            $params[$key] = is_array($value)
+                ? json_encode($value)
+                : (string) $value;
+        }
+
+        return $params;
+    }
+
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    private function availableSitesForLog(): array
+    {
+        if (! Shop::isFeatureActive()) {
+            $currentShop = Context::getContext()->shop;
+            $shopUrl = $currentShop ? $currentShop->getBaseURL(true) : '';
+
+            return [[
+                'id_shop' => $currentShop ? (int) $currentShop->id : null,
+                'domain' => $currentShop ? (string) $currentShop->domain : null,
+                'domain_ssl' => $currentShop ? (string) $currentShop->domain_ssl : null,
+                'base_uri' => $currentShop ? (string) $currentShop->getBaseURI() : null,
+                'shop_url' => $shopUrl,
+                'normalized_url' => $this->normalizeUrl($shopUrl),
+                'context' => 'single_shop',
+            ]];
+        }
+
+        $sites = [];
+
+        foreach (Shop::getShops(true) as $shop) {
+            $shopObj = new Shop((int) $shop['id_shop']);
+            $shopUrl = 'https://' . $shopObj->domain_ssl . $shopObj->getBaseURI();
+
+            $sites[] = [
+                'id_shop' => (int) $shop['id_shop'],
+                'id_shop_group' => isset($shop['id_shop_group']) ? (int) $shop['id_shop_group'] : null,
+                'name' => $shop['name'] ?? null,
+                'domain' => (string) $shopObj->domain,
+                'domain_ssl' => (string) $shopObj->domain_ssl,
+                'base_uri' => (string) $shopObj->getBaseURI(),
+                'shop_url' => $shopUrl,
+                'normalized_url' => $this->normalizeUrl($shopUrl),
+            ];
+        }
+
+        return $sites;
     }
 }

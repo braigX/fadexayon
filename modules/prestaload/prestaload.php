@@ -4,10 +4,12 @@ if (! defined('_PS_VERSION_')) {
     exit;
 }
 
+require_once __DIR__ . '/src/Logger.php';
+
 class Prestaload extends Module
 {
     const VERSION     = '1.0.0';
-    const API_URL     = 'http://localhost:8080/';
+    const API_URL     = 'https://promptly-informed-mayfly.ngrok-free.app/';
     const CONFIG_KEY  = 'PRESTALOAD_SETTINGS';
     const CACHE_DIR   = _PS_ROOT_DIR_ . '/var/prestaload-cache';
     const VARIANT_MAP_KEY_PREFIX = 'PRESTALOAD_VARIANT_MAP_SHOP_';
@@ -30,13 +32,7 @@ class Prestaload extends Module
 
     public function log(string $level, string $message, array $context = []): void
     {
-        $line = date('Y-m-d H:i:s') . ' [' . strtoupper($level) . '] ' . $message;
-
-        if ($context) {
-            $line .= ' ' . json_encode($context, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-        }
-
-        file_put_contents(__DIR__ . '/logs.txt', $line . PHP_EOL, FILE_APPEND | LOCK_EX);
+        PrestaloadLogger::write($level, $message, $context);
     }
 
     public function install(): bool
@@ -732,6 +728,170 @@ class Prestaload extends Module
         return $host . ($path !== '' && $path !== '/' ? rtrim($path, '/') : '');
     }
 
+    private function endpointDiagnostics(array $settings, bool $connected): array
+    {
+        $shopUrl = rtrim($this->context->shop->getBaseURL(true), '/');
+        $siteQuery = [
+            'site' => $shopUrl,
+            'page' => 1,
+            'per_page' => 1,
+        ];
+        $apiKeyHash = ! empty($settings['api_key']) ? hash('sha256', $settings['api_key']) : null;
+        $baseUrl = $shopUrl;
+
+        $definitions = [
+            [
+                'label' => 'Sites front controller',
+                'path' => '/index.php',
+                'query' => [
+                    'fc' => 'module',
+                    'module' => $this->name,
+                    'controller' => 'sites',
+                ],
+                'file' => 'controllers/front/sites.php',
+            ],
+            [
+                'label' => 'Prestaloadpage front controller',
+                'path' => '/index.php',
+                'query' => array_merge([
+                    'fc' => 'module',
+                    'module' => $this->name,
+                    'controller' => 'prestaloadpage',
+                ], $siteQuery),
+                'file' => 'controllers/front/prestaloadpage.php',
+            ],
+            [
+                'label' => 'Prestaloadpage rewrite route',
+                'path' => '/module/prestaload/prestaloadpage',
+                'query' => $siteQuery,
+                'file' => 'controllers/front/prestaloadpage.php',
+            ],
+            [
+                'label' => 'Legacy pages front controller',
+                'path' => '/index.php',
+                'query' => array_merge([
+                    'fc' => 'module',
+                    'module' => $this->name,
+                    'controller' => 'pages',
+                ], $siteQuery),
+                'file' => 'controllers/front/pages.php',
+            ],
+            [
+                'label' => 'Legacy pages rewrite route',
+                'path' => '/module/prestaload/pages',
+                'query' => $siteQuery,
+                'file' => 'controllers/front/pages.php',
+            ],
+            [
+                'label' => 'Variants front controller',
+                'path' => '/index.php',
+                'query' => [
+                    'fc' => 'module',
+                    'module' => $this->name,
+                    'controller' => 'variants',
+                    'site' => $shopUrl,
+                ],
+                'file' => 'controllers/front/variants.php',
+            ],
+            [
+                'label' => 'Variants rewrite route',
+                'path' => '/module/prestaload/variants',
+                'query' => ['site' => $shopUrl],
+                'file' => 'controllers/front/variants.php',
+            ],
+        ];
+
+        $diagnostics = [];
+
+        foreach ($definitions as $definition) {
+            $url = $baseUrl . $definition['path'];
+            if (! empty($definition['query'])) {
+                $url .= '?' . http_build_query($definition['query']);
+            }
+
+            $diagnostics[] = [
+                'label' => $definition['label'],
+                'url' => $url,
+                'file' => $definition['file'],
+                'file_exists' => file_exists(__DIR__ . '/' . $definition['file']),
+                'probe' => $this->probeEndpoint($url, $connected ? $apiKeyHash : null),
+            ];
+        }
+
+        return $diagnostics;
+    }
+
+    private function probeEndpoint(string $url, ?string $apiKeyHash): array
+    {
+        if (! function_exists('curl_init')) {
+            return [
+                'status' => null,
+                'ok' => false,
+                'content_type' => null,
+                'location' => null,
+                'body_preview' => 'cURL extension is not available.',
+                'error' => 'curl_missing',
+            ];
+        }
+
+        $headers = ['Accept: application/json'];
+        if ($apiKeyHash) {
+            $headers[] = 'X-Prestaload-Key: ' . $apiKeyHash;
+        }
+
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HEADER => true,
+            CURLOPT_NOBODY => false,
+            CURLOPT_TIMEOUT => 8,
+            CURLOPT_CONNECTTIMEOUT => 4,
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_USERAGENT => 'Prestaload Module Diagnostics/1.0',
+            CURLOPT_FOLLOWLOCATION => false,
+        ]);
+
+        $raw = curl_exec($ch);
+        $error = curl_error($ch);
+        $status = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE) ?: null;
+        $headerSize = (int) curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+        curl_close($ch);
+
+        if ($raw === false) {
+            return [
+                'status' => $status ?: null,
+                'ok' => false,
+                'content_type' => $contentType,
+                'location' => null,
+                'body_preview' => '',
+                'error' => $error ?: 'curl_failed',
+            ];
+        }
+
+        $headerBlock = substr($raw, 0, $headerSize);
+        $body = substr($raw, $headerSize);
+        $location = null;
+
+        foreach (preg_split('/\r\n|\r|\n/', (string) $headerBlock) as $headerLine) {
+            if (stripos($headerLine, 'Location:') === 0) {
+                $location = trim(substr($headerLine, 9));
+                break;
+            }
+        }
+
+        $bodyPreview = trim((string) preg_replace('/\s+/', ' ', substr($body, 0, 220)));
+
+        return [
+            'status' => $status ?: null,
+            'ok' => $status >= 200 && $status < 300,
+            'content_type' => $contentType,
+            'location' => $location,
+            'body_preview' => $bodyPreview,
+            'error' => null,
+        ];
+    }
+
     private function renderPage(array $settings, bool $connected, string $error, string $success): string
     {
         $this->context->smarty->assign([
@@ -741,6 +901,8 @@ class Prestaload extends Module
             'prestaload_success'     => $success,
             'prestaload_action_url'  => $this->context->link->getAdminLink('AdminModules') . '&configure=' . $this->name,
             'prestaload_token'       => Tools::getAdminTokenLite('AdminModules'),
+            'prestaload_current_shop_url' => rtrim($this->context->shop->getBaseURL(true), '/'),
+            'prestaload_endpoint_diagnostics' => $this->endpointDiagnostics($settings, $connected),
         ]);
 
         return $this->display(__FILE__, 'views/templates/admin/configure.tpl');

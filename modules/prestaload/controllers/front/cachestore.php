@@ -22,20 +22,20 @@ class PrestaloadCachestoreModuleFrontController extends ModuleFrontController
     {
         header('Content-Type: application/json');
 
-        $this->module->log('info', 'cachestore: request received', [
+        PrestaloadLogger::write('info', 'cachestore: request received', [
             'method' => $_SERVER['REQUEST_METHOD'],
             'auth'   => isset($_SERVER['HTTP_X_PRESTALOAD_KEY']) ? 'present' : 'missing',
         ]);
 
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            $this->module->log('warn', 'cachestore: method not allowed', ['method' => $_SERVER['REQUEST_METHOD']]);
+            PrestaloadLogger::write('warn', 'cachestore: method not allowed', ['method' => $_SERVER['REQUEST_METHOD']]);
             http_response_code(405);
             echo json_encode(['error' => 'Method Not Allowed.']);
             exit;
         }
 
         if (! $this->verifyServerRequest()) {
-            $this->module->log('warn', 'cachestore: unauthorized');
+            PrestaloadLogger::write('warn', 'cachestore: unauthorized');
             http_response_code(401);
             echo json_encode(['error' => 'Unauthorized.']);
             exit;
@@ -44,7 +44,7 @@ class PrestaloadCachestoreModuleFrontController extends ModuleFrontController
         $body = json_decode(file_get_contents('php://input'), true);
 
         if (! $body) {
-            $this->module->log('warn', 'cachestore: invalid JSON body');
+            PrestaloadLogger::write('warn', 'cachestore: invalid JSON body');
             http_response_code(422);
             echo json_encode(['error' => 'Invalid JSON body.']);
             exit;
@@ -61,7 +61,7 @@ class PrestaloadCachestoreModuleFrontController extends ModuleFrontController
         $checksum          = $body['sha256_checksum'] ?? '';
         $ttl               = max(60, (int) ($body['ttl_seconds'] ?? 86400));
 
-        $this->module->log('info', 'cachestore: payload parsed', [
+        PrestaloadLogger::write('info', 'cachestore: payload parsed', [
             'url'          => $url,
             'variant_hash' => $variantHash,
             'rules_version'=> $rulesVersion,
@@ -71,7 +71,7 @@ class PrestaloadCachestoreModuleFrontController extends ModuleFrontController
         ]);
 
         if (! $url || ! $variantHash || ! $htmlB64) {
-            $this->module->log('warn', 'cachestore: missing required fields', ['url' => $url, 'variant_hash' => $variantHash]);
+            PrestaloadLogger::write('warn', 'cachestore: missing required fields', ['url' => $url, 'variant_hash' => $variantHash]);
             http_response_code(422);
             echo json_encode(['error' => 'Missing required fields.']);
             exit;
@@ -79,14 +79,14 @@ class PrestaloadCachestoreModuleFrontController extends ModuleFrontController
 
         $html = base64_decode($htmlB64, true);
         if ($html === false) {
-            $this->module->log('warn', 'cachestore: invalid base64 HTML', ['url' => $url]);
+            PrestaloadLogger::write('warn', 'cachestore: invalid base64 HTML', ['url' => $url]);
             http_response_code(422);
             echo json_encode(['error' => 'Invalid base64 HTML.']);
             exit;
         }
 
         if ($checksum && ! hash_equals($checksum, hash('sha256', $html))) {
-            $this->module->log('warn', 'cachestore: checksum mismatch', [
+            PrestaloadLogger::write('warn', 'cachestore: checksum mismatch', [
                 'url'      => $url,
                 'expected' => $checksum,
                 'actual'   => hash('sha256', $html),
@@ -100,7 +100,7 @@ class PrestaloadCachestoreModuleFrontController extends ModuleFrontController
         $dir  = dirname($path);
 
         if (! is_dir($dir) && ! mkdir($dir, 0755, true)) {
-            $this->module->log('error', 'cachestore: cache directory not writable', ['dir' => $dir]);
+            PrestaloadLogger::write('error', 'cachestore: cache directory not writable', ['dir' => $dir]);
             http_response_code(500);
             echo json_encode(['error' => 'Cache directory not writable.']);
             exit;
@@ -120,7 +120,7 @@ class PrestaloadCachestoreModuleFrontController extends ModuleFrontController
             $this->module->updateVariantMap($variantHash, $variantDimensions, $targetShopId);
         }
 
-        $this->module->log('info', 'cachestore: stored', [
+        PrestaloadLogger::write('info', 'cachestore: stored', [
             'url'          => $url,
             'variant_hash' => $variantHash,
             'html_size'    => strlen($html),
