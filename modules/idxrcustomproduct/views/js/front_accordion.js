@@ -3963,7 +3963,8 @@ const CustomizationModule = (() => {
                     `${radiusValue} mm`,
                     '',
                     2,
-                    side === 'bottom' ? 'below' : 'auto'
+                    side === 'bottom' ? 'below' : 'auto',
+                    true
                 );
                 arrowsGroup.line(centerX, centerY, centerX, dimensionY).attr(connectorAttrs);
                 arrowsGroup.line(cornerX, centerY, centerX, centerY).attr(connectorAttrs);
@@ -4767,8 +4768,8 @@ const CustomizationModule = (() => {
             $("#svgLoader").remove(); // Remove loader if it exists
         }
 
-        function drawDimensionWithText(x1, y1, x2, y2, text = '', boldText = '', orientation = 'horizontal', type = 1, labelPosition = 'auto') {
-            if (suppressCutInternalDimensions && type === 2 && arrows === cutoutDems) {
+        function drawDimensionWithText(x1, y1, x2, y2, text = '', boldText = '', orientation = 'horizontal', type = 1, labelPosition = 'auto', forceRender = false) {
+            if (!forceRender && suppressCutInternalDimensions && type === 2 && arrows === cutoutDems) {
                 return;
             }
             drawArrow(x1, y1, x2, y2, type);
