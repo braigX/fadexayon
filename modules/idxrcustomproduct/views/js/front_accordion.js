@@ -943,6 +943,9 @@ const CustomizationModule = (() => {
             $('#idxr_is_rectangle_polissage').val('true').change();
         });
         $('#card_2_2, #card_2_3').on('click', function() {
+            if (shapeSettings.start === 1) {
+                shapeTypeChange(1);
+            }
             $('#idxr_is_rectangle').val('false').change();
         });
         $('#card_2_0').on('click', function() {
@@ -1002,6 +1005,9 @@ const CustomizationModule = (() => {
             setDefaultCut();
         });
         $('#card_2_1').click(function() {
+            if (shapeSettings.start === 1) {
+                shapeTypeChange(1);
+            }
             unsetElement(5);
             $('#idxr_is_rectangle').val('false').change();
         });
