@@ -1551,7 +1551,7 @@ public function hookDisplayFooterProduct($params)
                 'module-wksamplecart',
                 'modules/' . $this->name . '/views/js/wksamplecart.js'
             );
-        } else {
+        } elseif ($this->context->controller->php_self != 'index') {
             $this->context->controller->registerStylesheet(
                 'module-wksampleproduct-css',
                 'modules/' . $this->name . '/views/css/wkspsample.css'

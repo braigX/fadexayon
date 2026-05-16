@@ -369,6 +369,10 @@ class Ps_Socialfollow extends Module implements WidgetInterface
 
     public function hookActionFrontControllerSetMedia()
     {
+        if ($this->context->controller->php_self === 'index') {
+            return;
+        }
+
         $this->context->controller->registerStylesheet(
             'ps_socialfollow_icons',
             '/modules/' . $this->name . '/views/css/ps_socialfollow.css'

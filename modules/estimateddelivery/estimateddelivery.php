@@ -5363,7 +5363,7 @@ class EstimatedDelivery extends Module
             $orders = ['orderopc', 'order-opc', 'order', 'order-step', 'supercheckout', 'cart', 'checkout', 'default'];
 
             // Added searchresults to add compatibility with Advanced Search 4 module
-            $product_lists = ['product', 'index', 'search', 'searchresults', 'category', 'manufacturer', 'price-drop', 'prices-drop', 'pricesdrop', 'new-products', 'newproducts', 'best-sales', 'bestsales', 'jolisearch'];
+            $product_lists = ['product', 'search', 'searchresults', 'category', 'manufacturer', 'price-drop', 'prices-drop', 'pricesdrop', 'new-products', 'newproducts', 'best-sales', 'bestsales', 'jolisearch'];
 
             $all_available = array_merge($product_lists, $orders, ['order-confirmation', 'orderconfirmation', 'orderdetail', 'order-history', 'history']);
 

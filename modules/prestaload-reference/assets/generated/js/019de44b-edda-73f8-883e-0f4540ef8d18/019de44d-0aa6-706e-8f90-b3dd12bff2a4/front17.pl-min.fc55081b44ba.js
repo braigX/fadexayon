@@ -1,0 +1,1 @@
+prestashop.on("updateCart",function(n){void 0!==window.topBanner&&void 0!==window.topBanner.front_controller&&$.ajax({type:"POST",url:window.topBanner.front_controller,data:{action:"UpdateBanner",ajax:!0},success:function(n){$("#ps_banner_ajax").html('<div id="ps_banner_ajax">'+n+"</div>"),window.initializeClock("clockdiv",window.deadline)}})});

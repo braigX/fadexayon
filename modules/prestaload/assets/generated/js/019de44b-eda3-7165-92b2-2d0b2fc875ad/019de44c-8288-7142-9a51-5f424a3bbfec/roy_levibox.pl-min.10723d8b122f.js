@@ -1,1 +1,0 @@
-$(function(){$(function(o){o(".box-arrow");o(window).scroll(function(){o(this).scrollTop()>220?$(".roy_levibox").addClass("arrow-show"):$(".roy_levibox").removeClass("arrow-show")})}),setTimeout(function(){$(window).scroll()},1e3),$(".box-arrow").on("click",function(){return $("html, body").animate({scrollTop:0},{duration:500}),!1}),$base_dir=2});

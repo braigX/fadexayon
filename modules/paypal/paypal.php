@@ -1116,7 +1116,9 @@ class PayPal extends \PaymentModule implements WidgetInterface
     public function hookHeader()
     {
         $returnContent = '';
-        $this->context->controller->registerStylesheet($this->name . '-fo', 'modules/' . $this->name . '/views/css/paypal_fo.css');
+        if ($this->context->controller->php_self !== 'index') {
+            $this->context->controller->registerStylesheet($this->name . '-fo', 'modules/' . $this->name . '/views/css/paypal_fo.css');
+        }
         $resources = [];
         $method = AbstractMethodPaypal::load($this->paypal_method);
 
