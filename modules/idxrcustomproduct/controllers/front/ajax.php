@@ -112,6 +112,10 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
         if (Tools::getValue('action') == 'isCustomized') {
             $this->ajaxProcessIsCustomized();
         }
+
+        if (Tools::getValue('action') == 'getListingCustomProducts') {
+            $this->ajaxProcessGetListingCustomProducts();
+        }
         
         if (Tools::getValue('action') == 'getParentLink') {
             $this->ajaxProcessGetParentLink();
@@ -819,6 +823,30 @@ class IdxrcustomproductAjaxModuleFrontController extends ModuleFrontController
             die($link->getProductLink($product_id));
         }
         die(false);
+    }
+
+    public function ajaxProcessGetListingCustomProducts()
+    {
+        $productIds = Tools::getValue('product_ids');
+        if (!is_array($productIds)) {
+            $productIds = explode(',', (string) $productIds);
+        }
+
+        $productIds = array_values(array_unique(array_filter(array_map('intval', $productIds))));
+        $products = array();
+
+        foreach ($productIds as $productId) {
+            if (!$productId || !$this->module->getConfigurationByProduct($productId)) {
+                continue;
+            }
+
+            $products[$productId] = array(
+                'product_id' => $productId,
+                'min_price' => $this->module->formatPrice(IdxCustomizedProduct::getMinPrice($productId)),
+            );
+        }
+
+        die(json_encode($products));
     }
     
     public function ajaxProcessGetParentLink()

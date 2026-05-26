@@ -8,13 +8,18 @@
  * @license   INNOVADELUXE
  */
 
+var idxrCustomProductsById = {};
+var idxrCustomProductsRequestKey = null;
+
 $(document).ready(function () {
   if (prestashop.page.page_name == "order-confirmation") {
     idxropc_resume();
   }
+
   $(document).on("idxropc_resumeload", function () {
     idxropc_resume();
   });
+
   $(document).on("show.bs.modal", ".quickview", function () {
     var id = $(this).attr("id").replace("quickview-modal-", "");
     $.post(url_ajax, {
@@ -37,19 +42,23 @@ $(document).ready(function () {
     });
   });
 
-  //Change add to cart button for configure
   prestashop.on("updateProductList", function () {
     irxrcustomproduct_updateproductlist();
   });
+
   irxrcustomproduct_updateproductlist();
 
-  //Change link in cart modal
-  $("#blockcart-content .row").each(function (i, obj) {
-    var id_product = $(this).find(".remove-from-cart").attr("data-id-product");
+  $("#blockcart-content .row").each(function () {
+    var idProduct = $(this).find(".remove-from-cart").attr("data-id-product");
     var link = $(this).find(".pb-1 a");
+
+    if (!idProduct) {
+      return;
+    }
+
     $.post(url_ajax, {
       action: "getParentLink",
-      product_id: id_product.split("-")[0],
+      product_id: idProduct.split("-")[0],
     }).done(function (data) {
       if (data) {
         link.attr("href", data);
@@ -57,50 +66,94 @@ $(document).ready(function () {
     });
   });
 
-  //Change link in order page
-  $("#cart-summary-product-list .media").each(function (i, obj) {
-    //        var id_product = $(this).find('.remove-from-cart').attr('data-id-product');
-    //        var link = $(this).find('.pb-1 a');
-    //        $.post(url_ajax, {action: "getParentLink", product_id: id_product.split('-')[0]})
-    //        .done(function (data) {
-    //            if (data) {
-    //                link.attr("href",data);
-    //            }
-    //        });
+  $("#cart-summary-product-list .media").each(function () {
+    // Legacy placeholder kept to avoid changing historical behavior.
   });
 });
 
-function irxrcustomproduct_updateproductlist() {
-  $(".js-product-miniature").each(function (i, obj) {
-    var id_product = $(this).attr("data-id-product");
+function idxrCollectListingProductIds() {
+  var productIds = [];
+
+  $(".js-product-miniature, .elementor-product-miniature").each(function () {
+    var productId = parseInt($(this).attr("data-id-product"), 10);
+
+    if (productId && $.inArray(productId, productIds) === -1) {
+      productIds.push(productId);
+    }
+  });
+
+  return productIds;
+}
+
+function idxrApplyCustomProductListingState() {
+  $(".js-product-miniature").each(function () {
+    var idProduct = parseInt($(this).attr("data-id-product"), 10);
     var button = $(this).find(".add-to-cart-or-refresh");
     var price = $(this).find(".product-price-and-shipping .price");
 
-    $.each(custom_products, function (index, value) {
-      var products = value["products"].split(",");
-      if (jQuery.inArray(id_product, products) !== -1) {
-        button.remove();
+    if (!idxrCustomProductsById[idProduct]) {
+      return;
+    }
 
-        // Vérifier si le prix ne contient pas déjà "/m²" pour éviter les doublons
-        if (!price.text().includes("/m²")) {
-          price.html(price.text().trim() + " /m²");
-        }
-      }
-    });
+    button.remove();
+
+    if (price.length && !price.text().includes("/m²")) {
+      price.html(price.text().trim() + " /m²");
+    }
   });
 
-  //theme Zonetheme compatibility
-  $(".elementor-product-miniature").each(function (i, obj) {
-    var id_product = $(this).attr("data-id-product");
+  $(".elementor-product-miniature").each(function () {
+    var idProduct = parseInt($(this).attr("data-id-product"), 10);
     var price = $(this).find(".elementor-price");
-    $.each(custom_products, function (index, value) {
-      var products = value["products"].split(",");
-      if (jQuery.inArray(id_product, products) !== -1) {
-        if (value["min_price"]) {
-          price.html(min_price_text + " " + value["min_price"]);
-        }
+    var customProduct = idxrCustomProductsById[idProduct];
+
+    if (!customProduct) {
+      return;
+    }
+
+    if (customProduct.min_price) {
+      price.html(min_price_text + " " + customProduct.min_price);
+    }
+  });
+}
+
+function irxrcustomproduct_updateproductlist() {
+  var productIds = idxrCollectListingProductIds();
+  var requestKey = productIds.slice().sort(function (a, b) {
+    return a - b;
+  }).join(",");
+
+  if (!productIds.length) {
+    return;
+  }
+
+  if (requestKey === idxrCustomProductsRequestKey) {
+    idxrApplyCustomProductListingState();
+    return;
+  }
+
+  idxrCustomProductsRequestKey = requestKey;
+
+  $.post(url_ajax, {
+    action: "getListingCustomProducts",
+    product_ids: productIds,
+  }).done(function (data) {
+    if (!data) {
+      idxrCustomProductsById = {};
+      return;
+    }
+
+    if (typeof data === "string") {
+      try {
+        idxrCustomProductsById = $.parseJSON(data);
+      } catch (e) {
+        idxrCustomProductsById = {};
       }
-    });
+    } else {
+      idxrCustomProductsById = data;
+    }
+
+    idxrApplyCustomProductListingState();
   });
 }
 
@@ -147,7 +200,6 @@ function idxropc_resume() {
           }
         });
       });
-      //Order confirmation page
       $("#order-items .order-line").each(function () {
         var image_url = $(this).find(".image img").attr("src");
         var title = $(this).find(".details");
@@ -158,7 +210,6 @@ function idxropc_resume() {
           }
         });
       });
-      //If there are no customized products (breakdown) but must show the info by conf
       if (
         products_edited == 0 &&
         idxcp_show_breakdowninfo &&

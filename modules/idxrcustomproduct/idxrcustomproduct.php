@@ -1038,7 +1038,7 @@ class IdxrCustomProduct extends Module
             return '';
         }
         $controller = isset($this->context->controller->php_self) ? (string) $this->context->controller->php_self : '';
-        if (!in_array($controller, array('index'), true)) {
+        if (!$this->es17 && !in_array($controller, array('index'), true)) {
             Media::addJsDef(
                 array(
                     'custom_products' => IdxConfiguration::getCustomProducts(),
