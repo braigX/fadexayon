@@ -1,0 +1,360 @@
+<?php
+/**
+ * Reads and writes module configuration used by the page-cache services.
+ */
+
+class PrestaLoadCacheSettings
+{
+    /**
+     * Fifteen days is a reasonable default for anonymous full-page cache entries.
+     */
+    private const DEFAULT_TTL = 1296000;
+ 
+    public const CONFIG_ENABLED = 'PRESTALOAD_CACHE_ENABLED';
+    public const CONFIG_EDGE_CACHE_ENABLED = 'PRESTALOAD_EDGE_CACHE_ENABLED';
+    public const CONFIG_HTML_COMPRESSION_ENABLED = 'PRESTALOAD_HTML_COMPRESSION_ENABLED';
+    public const CONFIG_CRITICAL_CSS_ENABLED = 'PRESTALOAD_CRITICAL_CSS_ENABLED';
+    public const CONFIG_CRITICAL_CSS_MIN_BYTES = 'PRESTALOAD_CRITICAL_CSS_MIN_BYTES';
+    public const CONFIG_CRITICAL_CSS_MAX_BYTES = 'PRESTALOAD_CRITICAL_CSS_MAX_BYTES';
+    public const CONFIG_FONT_OPTIMIZATION_ENABLED = 'PRESTALOAD_FONT_OPTIMIZATION_ENABLED';
+    public const CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED = 'PRESTALOAD_IMAGE_LOADING_OPTIMIZATION_ENABLED';
+    public const CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED = 'PRESTALOAD_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED';
+    public const CONFIG_IMAGE_DIMENSIONS_OPTIMIZATION_ENABLED = 'PRESTALOAD_IMAGE_DIMENSIONS_OPTIMIZATION_ENABLED';
+    public const CONFIG_IMAGE_OPTIMIZATION_ENABLED = 'PRESTALOAD_IMAGE_OPTIMIZATION_ENABLED';
+    public const CONFIG_ASSET_SCANNER_BASE_URL = 'PRESTALOAD_ASSET_SCANNER_BASE_URL';
+    public const CONFIG_ASSET_SCAN_TARGET_BASE_URL = 'PRESTALOAD_ASSET_SCAN_TARGET_BASE_URL';
+    public const CONFIG_BROWSER_CACHE_ENABLED = 'PRESTALOAD_BROWSER_CACHE_ENABLED';
+    public const CONFIG_BROWSER_CACHE_ASSET_TTL = 'PRESTALOAD_BROWSER_CACHE_ASSET_TTL';
+    public const CONFIG_BROWSER_CACHE_MEDIA_TTL = 'PRESTALOAD_BROWSER_CACHE_MEDIA_TTL';
+    public const CONFIG_IMGPROXY_BASE_URL = 'PRESTALOAD_IMGPROXY_BASE_URL';
+    public const CONFIG_IMGPROXY_QUALITY = 'PRESTALOAD_IMGPROXY_QUALITY';
+    public const CONFIG_IMGPROXY_KEY = 'PRESTALOAD_IMGPROXY_KEY';
+    public const CONFIG_IMGPROXY_SALT = 'PRESTALOAD_IMGPROXY_SALT';
+    public const CONFIG_TTL = 'PRESTALOAD_CACHE_TTL';
+    public const CONFIG_ALLOWED_CONTROLLERS = 'PRESTALOAD_CACHE_ALLOWED_CONTROLLERS';
+
+    private const CONFIG_DEFAULTS = [
+        self::CONFIG_ENABLED => 1,
+        self::CONFIG_EDGE_CACHE_ENABLED => 0,
+        self::CONFIG_HTML_COMPRESSION_ENABLED => 0,
+        self::CONFIG_CRITICAL_CSS_ENABLED => 0,
+        self::CONFIG_CRITICAL_CSS_MIN_BYTES => 2048,
+        self::CONFIG_CRITICAL_CSS_MAX_BYTES => 24576,
+        self::CONFIG_FONT_OPTIMIZATION_ENABLED => 1,
+        self::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED => 0,
+        self::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED => 0,
+        self::CONFIG_IMAGE_DIMENSIONS_OPTIMIZATION_ENABLED => 0,
+        self::CONFIG_IMAGE_OPTIMIZATION_ENABLED => 0,
+        self::CONFIG_ASSET_SCANNER_BASE_URL => 'https://scanner.prestaload.com',
+        self::CONFIG_ASSET_SCAN_TARGET_BASE_URL => '',
+        self::CONFIG_BROWSER_CACHE_ENABLED => 0,
+        self::CONFIG_BROWSER_CACHE_ASSET_TTL => 31536000,
+        self::CONFIG_BROWSER_CACHE_MEDIA_TTL => 2592000,
+        self::CONFIG_IMGPROXY_BASE_URL => 'https://imgcdn.prestaload.com/',
+        self::CONFIG_IMGPROXY_QUALITY => 82,
+        self::CONFIG_IMGPROXY_KEY => '',
+        self::CONFIG_IMGPROXY_SALT => '',
+        self::CONFIG_TTL => self::DEFAULT_TTL,
+        self::CONFIG_ALLOWED_CONTROLLERS => 'index,category,product,cms',
+    ];
+
+    private $moduleName;
+    private $modulePath;
+
+    public function __construct($moduleName, $modulePath)
+    {
+        $this->moduleName = (string) $moduleName;
+        $this->modulePath = rtrim((string) $modulePath, '/');
+    }
+
+    /**
+     * Default values are intentionally conservative for a first full-page cache.
+     */
+    public function installDefaults()
+    {
+        return Configuration::updateValue(self::CONFIG_ENABLED, 1)
+            && Configuration::updateValue(self::CONFIG_EDGE_CACHE_ENABLED, 0)
+            && Configuration::updateValue(self::CONFIG_HTML_COMPRESSION_ENABLED, 0)
+            && Configuration::updateValue(self::CONFIG_CRITICAL_CSS_ENABLED, 0)
+            && Configuration::updateValue(self::CONFIG_CRITICAL_CSS_MIN_BYTES, 2048)
+            && Configuration::updateValue(self::CONFIG_CRITICAL_CSS_MAX_BYTES, 24576)
+            && Configuration::updateValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1)
+            && Configuration::updateValue(self::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED, 0)
+            && Configuration::updateValue(self::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED, 0)
+            && Configuration::updateValue(self::CONFIG_IMAGE_DIMENSIONS_OPTIMIZATION_ENABLED, 0)
+            && Configuration::updateValue(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED, 0)
+            && Configuration::updateValue(self::CONFIG_ASSET_SCANNER_BASE_URL, 'https://scanner.prestaload.com')
+            && Configuration::updateValue(self::CONFIG_ASSET_SCAN_TARGET_BASE_URL, '')
+            && Configuration::updateValue(self::CONFIG_BROWSER_CACHE_ENABLED, 0)
+            && Configuration::updateValue(self::CONFIG_BROWSER_CACHE_ASSET_TTL, 31536000)
+            && Configuration::updateValue(self::CONFIG_BROWSER_CACHE_MEDIA_TTL, 2592000)
+            && Configuration::updateValue(self::CONFIG_IMGPROXY_BASE_URL, 'https://imgcdn.prestaload.com/')
+            && Configuration::updateValue(self::CONFIG_IMGPROXY_QUALITY, 82)
+            && Configuration::updateValue(self::CONFIG_IMGPROXY_KEY, '')
+            && Configuration::updateValue(self::CONFIG_IMGPROXY_SALT, '')
+            && Configuration::updateValue(self::CONFIG_TTL, self::DEFAULT_TTL)
+            && Configuration::updateValue(self::CONFIG_ALLOWED_CONTROLLERS, 'index,category,product,cms');
+    }
+
+    public function uninstallDefaults()
+    {
+        return Configuration::deleteByName(self::CONFIG_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_EDGE_CACHE_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_HTML_COMPRESSION_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_CRITICAL_CSS_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_CRITICAL_CSS_MIN_BYTES)
+            && Configuration::deleteByName(self::CONFIG_CRITICAL_CSS_MAX_BYTES)
+            && Configuration::deleteByName(self::CONFIG_FONT_OPTIMIZATION_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_IMAGE_DIMENSIONS_OPTIMIZATION_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_ASSET_SCANNER_BASE_URL)
+            && Configuration::deleteByName(self::CONFIG_ASSET_SCAN_TARGET_BASE_URL)
+            && Configuration::deleteByName(self::CONFIG_BROWSER_CACHE_ENABLED)
+            && Configuration::deleteByName(self::CONFIG_BROWSER_CACHE_ASSET_TTL)
+            && Configuration::deleteByName(self::CONFIG_BROWSER_CACHE_MEDIA_TTL)
+            && Configuration::deleteByName(self::CONFIG_IMGPROXY_BASE_URL)
+            && Configuration::deleteByName(self::CONFIG_IMGPROXY_QUALITY)
+            && Configuration::deleteByName(self::CONFIG_IMGPROXY_KEY)
+            && Configuration::deleteByName(self::CONFIG_IMGPROXY_SALT)
+            && Configuration::deleteByName(self::CONFIG_TTL)
+            && Configuration::deleteByName(self::CONFIG_ALLOWED_CONTROLLERS);
+    }
+
+    public function isEnabled()
+    {
+        return (bool) $this->getStoredValue(self::CONFIG_ENABLED, 1);
+    }
+
+    public function getTtl()
+    {
+        return max(60, (int) $this->getStoredValue(self::CONFIG_TTL, self::DEFAULT_TTL));
+    }
+
+    public function isEdgeCacheEnabled()
+    {
+        return (bool) $this->getStoredValue(self::CONFIG_EDGE_CACHE_ENABLED, 0);
+    }
+
+    public function isFontOptimizationEnabled()
+    {
+        return (bool) $this->getStoredValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1);
+    }
+
+    public function isCriticalCssEnabled()
+    {
+        return (bool) $this->getStoredValue(self::CONFIG_CRITICAL_CSS_ENABLED, 0);
+    }
+
+    public function getCriticalCssMinBytes()
+    {
+        return max(256, (int) $this->getStoredValue(self::CONFIG_CRITICAL_CSS_MIN_BYTES, 2048));
+    }
+
+    public function getCriticalCssMaxBytes()
+    {
+        return max($this->getCriticalCssMinBytes(), (int) $this->getStoredValue(self::CONFIG_CRITICAL_CSS_MAX_BYTES, 24576));
+    }
+
+    public function isHtmlCompressionEnabled()
+    {
+        return (bool) $this->getStoredValue(self::CONFIG_HTML_COMPRESSION_ENABLED, 0);
+    }
+
+    public function isImageOptimizationEnabled()
+    {
+        return (bool) $this->getStoredValue(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED, 0);
+    }
+
+    public function isImageLoadingOptimizationEnabled()
+    {
+        return (bool) $this->getStoredValue(self::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED, 0);
+    }
+
+    public function isBackgroundImageLazyLoadingEnabled()
+    {
+        return (bool) $this->getStoredValue(self::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED, 0);
+    }
+
+    public function isImageDimensionsOptimizationEnabled()
+    {
+        return (bool) $this->getStoredValue(self::CONFIG_IMAGE_DIMENSIONS_OPTIMIZATION_ENABLED, 0);
+    }
+
+    public function getAssetScannerBaseUrl()
+    {
+        return rtrim((string) $this->getStoredValue(self::CONFIG_ASSET_SCANNER_BASE_URL, 'https://scanner.prestaload.com'), '/');
+    }
+
+    public function getAssetScanTargetBaseUrl()
+    {
+        return rtrim(trim((string) $this->getStoredValue(self::CONFIG_ASSET_SCAN_TARGET_BASE_URL, '')), '/');
+    }
+
+    public function isBrowserCacheEnabled()
+    {
+        return (bool) $this->getStoredValue(self::CONFIG_BROWSER_CACHE_ENABLED, 0);
+    }
+
+    public function getBrowserCacheAssetTtl()
+    {
+        return max(3600, (int) $this->getStoredValue(self::CONFIG_BROWSER_CACHE_ASSET_TTL, 31536000));
+    }
+
+    public function getBrowserCacheMediaTtl()
+    {
+        return max(3600, (int) $this->getStoredValue(self::CONFIG_BROWSER_CACHE_MEDIA_TTL, 2592000));
+    }
+
+    public function getImgProxyBaseUrl()
+    {
+        return trim((string) $this->getStoredValue(self::CONFIG_IMGPROXY_BASE_URL, 'https://imgcdn.prestaload.com/'));
+    }
+
+    public function getImgProxyQuality()
+    {
+        return max(30, min(95, (int) $this->getStoredValue(self::CONFIG_IMGPROXY_QUALITY, 82)));
+    }
+
+    public function getImgProxyKey()
+    {
+        return trim((string) $this->getStoredValue(self::CONFIG_IMGPROXY_KEY, ''));
+    }
+
+    public function getImgProxySalt()
+    {
+        return trim((string) $this->getStoredValue(self::CONFIG_IMGPROXY_SALT, ''));
+    }
+
+    public function getAllowedControllers()
+    {
+        $raw = (string) $this->getStoredValue(self::CONFIG_ALLOWED_CONTROLLERS, 'index,category,product,cms');
+        $parts = preg_split('/[\s,]+/', Tools::strtolower($raw), -1, PREG_SPLIT_NO_EMPTY);
+
+        return array_values(array_unique(is_array($parts) ? $parts : []));
+    }
+
+    public function getCacheDirectory()
+    {
+        return $this->modulePath . '/cache/pages';
+    }
+
+    public function getLogFile()
+    {
+        return $this->modulePath . '/cache/prestaload-requests.log';
+    }
+
+    public function updateFromRequest()
+    {
+        return $this->updateSubsetFromRequest(array_keys(self::CONFIG_DEFAULTS));
+    }
+
+    /**
+     * Updates only the requested configuration keys. This is used by the admin
+     * tabs so each feature can be saved independently.
+     */
+    public function updateSubsetFromRequest(array $keys)
+    {
+        foreach ($keys as $key) {
+            $normalizedValue = $this->normalizeRequestValue($key);
+
+            if (!Configuration::updateValue($key, $normalizedValue)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function getFormValues()
+    {
+        return [
+            self::CONFIG_ENABLED => (int) $this->getStoredValue(self::CONFIG_ENABLED, 1),
+            self::CONFIG_EDGE_CACHE_ENABLED => (int) $this->getStoredValue(self::CONFIG_EDGE_CACHE_ENABLED, 0),
+            self::CONFIG_HTML_COMPRESSION_ENABLED => (int) $this->getStoredValue(self::CONFIG_HTML_COMPRESSION_ENABLED, 0),
+            self::CONFIG_CRITICAL_CSS_ENABLED => (int) $this->getStoredValue(self::CONFIG_CRITICAL_CSS_ENABLED, 0),
+            self::CONFIG_CRITICAL_CSS_MIN_BYTES => (int) $this->getStoredValue(self::CONFIG_CRITICAL_CSS_MIN_BYTES, 2048),
+            self::CONFIG_CRITICAL_CSS_MAX_BYTES => (int) $this->getStoredValue(self::CONFIG_CRITICAL_CSS_MAX_BYTES, 24576),
+            self::CONFIG_FONT_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_FONT_OPTIMIZATION_ENABLED, 1),
+            self::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED, 0),
+            self::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED => (int) $this->getStoredValue(self::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED, 0),
+            self::CONFIG_IMAGE_DIMENSIONS_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_IMAGE_DIMENSIONS_OPTIMIZATION_ENABLED, 0),
+            self::CONFIG_IMAGE_OPTIMIZATION_ENABLED => (int) $this->getStoredValue(self::CONFIG_IMAGE_OPTIMIZATION_ENABLED, 0),
+            self::CONFIG_ASSET_SCANNER_BASE_URL => (string) $this->getStoredValue(self::CONFIG_ASSET_SCANNER_BASE_URL, 'https://scanner.prestaload.com'),
+            self::CONFIG_ASSET_SCAN_TARGET_BASE_URL => (string) $this->getStoredValue(self::CONFIG_ASSET_SCAN_TARGET_BASE_URL, ''),
+            self::CONFIG_BROWSER_CACHE_ENABLED => (int) $this->getStoredValue(self::CONFIG_BROWSER_CACHE_ENABLED, 0),
+            self::CONFIG_BROWSER_CACHE_ASSET_TTL => (int) $this->getStoredValue(self::CONFIG_BROWSER_CACHE_ASSET_TTL, 31536000),
+            self::CONFIG_BROWSER_CACHE_MEDIA_TTL => (int) $this->getStoredValue(self::CONFIG_BROWSER_CACHE_MEDIA_TTL, 2592000),
+            self::CONFIG_IMGPROXY_BASE_URL => (string) $this->getStoredValue(self::CONFIG_IMGPROXY_BASE_URL, 'https://imgcdn.prestaload.com/'),
+            self::CONFIG_IMGPROXY_QUALITY => (int) $this->getStoredValue(self::CONFIG_IMGPROXY_QUALITY, 82),
+            self::CONFIG_IMGPROXY_KEY => (string) $this->getStoredValue(self::CONFIG_IMGPROXY_KEY, ''),
+            self::CONFIG_IMGPROXY_SALT => (string) $this->getStoredValue(self::CONFIG_IMGPROXY_SALT, ''),
+            self::CONFIG_TTL => (int) $this->getStoredValue(self::CONFIG_TTL, self::DEFAULT_TTL),
+            self::CONFIG_ALLOWED_CONTROLLERS => (string) $this->getStoredValue(self::CONFIG_ALLOWED_CONTROLLERS, 'index,category,product,cms'),
+        ];
+    }
+
+    public function getConfigurationSnapshot()
+    {
+        return $this->getFormValues();
+    }
+
+    /**
+     * Prestashop's Configuration::get does not take the default value as the
+     * second argument, so this helper provides an explicit fallback.
+     */
+    private function getStoredValue($key, $default)
+    {
+        $value = Configuration::get($key);
+
+        return $value === false ? $default : $value;
+    }
+
+    /**
+     * Normalizes each configuration field according to its expected type.
+     */
+    private function normalizeRequestValue($key)
+    {
+        switch ($key) {
+            case self::CONFIG_ENABLED:
+            case self::CONFIG_EDGE_CACHE_ENABLED:
+            case self::CONFIG_HTML_COMPRESSION_ENABLED:
+            case self::CONFIG_CRITICAL_CSS_ENABLED:
+            case self::CONFIG_FONT_OPTIMIZATION_ENABLED:
+            case self::CONFIG_IMAGE_LOADING_OPTIMIZATION_ENABLED:
+            case self::CONFIG_BACKGROUND_IMAGE_LAZY_LOADING_ENABLED:
+            case self::CONFIG_IMAGE_DIMENSIONS_OPTIMIZATION_ENABLED:
+            case self::CONFIG_IMAGE_OPTIMIZATION_ENABLED:
+            case self::CONFIG_BROWSER_CACHE_ENABLED:
+                return (int) Tools::getValue($key, (int) self::CONFIG_DEFAULTS[$key]);
+
+            case self::CONFIG_IMGPROXY_QUALITY:
+                return max(30, min(95, (int) Tools::getValue($key, (int) self::CONFIG_DEFAULTS[$key])));
+
+            case self::CONFIG_TTL:
+            case self::CONFIG_BROWSER_CACHE_ASSET_TTL:
+            case self::CONFIG_BROWSER_CACHE_MEDIA_TTL:
+                return max(60, (int) Tools::getValue($key, (int) self::CONFIG_DEFAULTS[$key]));
+
+            case self::CONFIG_CRITICAL_CSS_MIN_BYTES:
+                return max(256, (int) Tools::getValue($key, (int) self::CONFIG_DEFAULTS[$key]));
+
+            case self::CONFIG_CRITICAL_CSS_MAX_BYTES:
+                return max(256, (int) Tools::getValue($key, (int) self::CONFIG_DEFAULTS[$key]));
+
+            case self::CONFIG_ALLOWED_CONTROLLERS:
+                return trim((string) Tools::getValue($key, (string) self::CONFIG_DEFAULTS[$key]));
+
+            case self::CONFIG_ASSET_SCANNER_BASE_URL:
+            case self::CONFIG_ASSET_SCAN_TARGET_BASE_URL:
+            case self::CONFIG_IMGPROXY_BASE_URL:
+            case self::CONFIG_IMGPROXY_KEY:
+            case self::CONFIG_IMGPROXY_SALT:
+                return trim((string) Tools::getValue($key, (string) self::CONFIG_DEFAULTS[$key]));
+
+            default:
+                return Tools::getValue($key, isset(self::CONFIG_DEFAULTS[$key]) ? self::CONFIG_DEFAULTS[$key] : '');
+        }
+    }
+}
